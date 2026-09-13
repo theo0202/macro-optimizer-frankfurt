@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="FRA Macros">
+<meta name="theme-color" content="#c8102e">
+<title>Macro Optimizer Frankfurt</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj48cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjQwIiBmaWxsPSIjYzgxMDJlIi8+PHRleHQgeD0iOTAiIHk9IjExMSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI1OCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSxBcmlhbCxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiPkZSQTwvdGV4dD48L3N2Zz4=">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj48cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjQwIiBmaWxsPSIjYzgxMDJlIi8+PHRleHQgeD0iOTAiIHk9IjExMSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI1OCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSxBcmlhbCxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiPkZSQTwvdGV4dD48L3N2Zz4=">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { background: #0d0d0d; overflow-x: hidden; padding-top: env(safe-area-inset-top); }
+  input[type=number]::-webkit-inner-spin-button { opacity: 1; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<!-- Tesseract.js (OCR) für den Screenshot-Import; defer = blockiert den App-Start nicht, ist beim Klick bereit -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js" defer></script>
+<script>
+const { useState, useMemo, useEffect, createElement: h } = React;
+
+// ═══ Speicher (localStorage) ═══
+// London- und Frankfurt-Tool laufen auf DERSELBEN Origin (theo0202.github.io) → gleichnamige Keys würden sich gegenseitig
+// überschreiben. Deshalb läuft JEDER Zugriff über lsGet/lsSet, die das Präfix "fra_" voranstellen (tests.js prüft das statisch).
+const LS_PREFIX = "fra_";
+const LS = { ownOrder: "own_order" }; // → "fra_own_order"
+function lsGet(key, fallback) {
+  try { const raw = localStorage.getItem(LS_PREFIX + key); return raw == null ? fallback : JSON.parse(raw); }
+  catch (e) { return fallback; }
+}
+function lsSet(key, value) {
+  try { localStorage.setItem(LS_PREFIX + key, JSON.stringify(value)); } catch (e) {}
+}
+
+// ═══ Restaurant-Daten (generierte Blöcke — NIE von Hand editieren, immer über <key>-update.js) ═══
+// __DEMO_DATA_START__ (generiert via: node demo-update.js aus data/demo-raw.json — nicht von Hand editieren)
+// FIKTIV: Demo Bistro (Wolt) · 9 Items · nur zum Testen — vor dem ersten echten Restaurant löschen
+const DEMO = {
+  cats: [
+    { id:"bowls",name:"Bowls",on:true },
+    { id:"sides",name:"Sides",on:true },
+    { id:"drinks",name:"Drinks",on:true,drink:true },
+  ],
+  items: [
+    { id:"haehnchen_bowl",name:"Hähnchen Bowl",cat:"bowls",kcal:542,fat:14,sat:3.2,carbs:62,sugars:7.5,fibre:6,protein:42,salt:2.1 },
+    { id:"falafel_bowl",name:"Falafel Bowl",cat:"bowls",kcal:550,fat:22,sat:3,carbs:70,sugars:9,fibre:11,protein:18,salt:2.4 },
+    { id:"lachs_bowl",name:"Lachs Bowl",cat:"bowls",kcal:572,fat:24,sat:4.8,carbs:55,sugars:6,fibre:5,protein:34,salt:2.6 },
+    { id:"garnelen_bowl",name:"Garnelen Bowl",cat:"bowls",kcal:460,fat:12,sat:1.8,carbs:58,sugars:7,fibre:5.5,protein:30,salt:2.9 },
+    { id:"suesskartoffel_pommes",name:"Süßkartoffel-Pommes",cat:"sides",kcal:263,fat:11,sat:1.2,carbs:38,sugars:8,fibre:4.5,protein:3,salt:0.9 },
+    { id:"edamame",name:"Edamame",cat:"sides",kcal:138,fat:6,sat:0.8,carbs:9,sugars:2,fibre:5,protein:12,salt:1.1 },
+    { id:"haehnchen_spiess",name:"Hähnchen-Spieß",cat:"sides",kcal:140,fat:4,sat:1.1,carbs:2,sugars:1.2,fibre:0.3,protein:24,salt:1.3 },
+    { id:"joghurt_dip",name:"Joghurt-Dip",cat:"sides",kcal:109,fat:9,sat:5.5,carbs:4,sugars:3.8,fibre:0,protein:3,salt:0.4,sauce:true },
+    { id:"apfelschorle_0_5_l",name:"Apfelschorle 0,5 l",cat:"drinks",kcal:100,fat:0,sat:0,carbs:25,sugars:25,fibre:0,protein:0,salt:0 },
+  ],
+};
+// __DEMO_DATA_END__
+
+// ═══ Kern-Helper (inhaltlich identisch zum London-Tool) ═══
+const KEYS = ["kcal","fat","sat","carbs","sugars","fibre","protein","salt"];
+
+// Summe der 8 Makros, 1 Dezimale. items zählen ×mult, singleItems immer ×1 (Reserve für spätere Größen-Logik bei BYO).
+function sumN(items, mult, singleItems) {
+  const b = {}; KEYS.forEach(k => b[k] = 0);
+  items.forEach(it => { if(it) KEYS.forEach(k => b[k] += (it[k]||0)*mult); });
+  (singleItems||[]).forEach(it => { if(it) KEYS.forEach(k => b[k] += (it[k]||0)); });
+  KEYS.forEach(k => b[k] = Math.round(b[k]*10)/10);
+  return b;
+}
+
+// Abweichung vom Ziel (kleiner = besser). Makro-Modus: Protein ×3, Carbs ×2, Fett ×2 (relativ zum Ziel).
+// Kalorien-Modus: kcal ×4 + Präferenz-Boni/-Strafen über die Energieanteile. Fibre/Salt-Grenzen als Zusatzstrafen.
+function score(a, t, mode, p) {
+  let s = 0;
+  if(mode==="macros") {
+    if(t.protein>0) s += Math.abs(a.protein-t.protein)/Math.max(t.protein,1)*3;
+    if(t.carbs>0) s += Math.abs(a.carbs-t.carbs)/Math.max(t.carbs,1)*2;
+    if(t.fat>0) s += Math.abs(a.fat-t.fat)/Math.max(t.fat,1)*2;
+  } else {
+    if(t.kcal>0) s += Math.abs(a.kcal-t.kcal)/Math.max(t.kcal,1)*4;
+    const pr=a.protein*4/Math.max(a.kcal,1), cr=a.carbs*4/Math.max(a.kcal,1), fr=a.fat*9/Math.max(a.kcal,1);
+    if(p.hp) s-=pr*2; if(p.lp) s+=pr*1.5;
+    if(p.hc) s-=cr*1.5; if(p.lc) s+=cr*2;
+    if(p.hf) s-=fr*1.5; if(p.lf) s+=fr*2;
+  }
+  if(t.fibMin!=null&&a.fibre<t.fibMin) s+=(t.fibMin-a.fibre)*0.5;
+  if(t.fibMax!=null&&a.fibre>t.fibMax) s+=(a.fibre-t.fibMax)*0.5;
+  if(t.sMin!=null&&a.salt<t.sMin) s+=(t.sMin-a.salt)*0.3;
+  if(t.sMax!=null&&a.salt>t.sMax) s+=(a.salt-t.sMax)*0.3;
+  return s;
+}
+
+// "Sort by": sortiert die Top-20-Kandidaten nach Accuracy EINER Dimension
+// (|Ist − Ziel|, Tie-Breaker: Gesamt-Score). sortBy="score" = unverändert (Optimizer-Reihenfolge).
+function sortResults(arr, sortBy, tgts) {
+  if(sortBy==="score")return arr;
+  const tgt=tgts[sortBy]||0;
+  return [...arr].sort((a,b)=>
+    Math.abs(a.nutrition[sortBy]-tgt)-Math.abs(b.nutrition[sortBy]-tgt)||a.score-b.score);
+}
+
+// ── Screenshot-Import (OCR) — 1:1 aus dem London-Tool ──
+// Liest die "Übersicht" eines Makro-Trackers (z.B. YAZIO) aus einem hochgeladenen Screenshot und füllt die
+// VERBLEIBENDEN Makros (Total − Gegessen) + die "Übrig"-Kalorien automatisch ein. Alles UNTER der Übersicht
+// (Frühstück/Mittagessen … in kcal) wird ignoriert: die Makro-Balken enden auf "g", die Meal-Rows auf "kcal".
+// parseMacroScreenshot ist rein (Text → {carbs,protein,fat,kcal}|null) und in tests.js abgesichert.
+function parseMacroScreenshot(ocrText) {
+  if (ocrText == null || typeof ocrText !== "string") return null;
+  const norm = s => String(s).toLowerCase().replace(/ü/g,"u").replace(/ö/g,"o").replace(/ä/g,"a").replace(/ß/g,"ss");
+  const stripTh = n => String(n).replace(/[.,](?=\d{3}\b)/g, "");       // 2.267 -> 2267, echte Dezimale (12,4) bleiben
+  const toInt = n => { const c = stripTh(n).replace(/[^\d]/g,""); return c==="" ? null : parseInt(c,10); };
+  const lines = ocrText.split(/\r?\n/);
+
+  // 1) Makro-Paare. Pass A: "N <sep> M <unit>" — Trenner tolerant (/ | I l ) ], \s matcht \n), Unit klassifiziert.
+  //    Erste 3 Paare, deren Unit NICHT kcal/kj/kg ist (Meal-Rows + Gewicht raus) = Carbs, Protein, Fat.
+  //    Robust gegen fehlendes/verlesenes "g": die Übersicht-Makros stehen immer oben, kcal-Meal-Rows darunter.
+  const ENERGY = u => u === "kcal" || u === "kj" || u === "kg";
+  const macros = []; let m;
+  const reA = /(\d[\d.,]*)\s*[\/|Il)\]]\s*(\d[\d.,]*)\s*([a-z]{0,4})/gi;
+  while ((m = reA.exec(ocrText)) !== null) {
+    if (ENERGY((m[3] || "").toLowerCase())) continue;
+    const eaten = toInt(m[1]), total = toInt(m[2]);
+    if (eaten == null || total == null || total <= 0) continue;
+    macros.push({ eaten, total });
+    if (macros.length >= 3) break;
+  }
+  // Pass B (Fallback, falls der Slash ganz verschluckt wurde): "N <leerraum> M g" — durch das "g" verankert.
+  if (macros.length < 3) {
+    macros.length = 0;
+    const reB = /(\d[\d.,]*)\s+(\d[\d.,]*)\s*g(?![a-z])/gi;
+    while ((m = reB.exec(ocrText)) !== null) {
+      const eaten = toInt(m[1]), total = toInt(m[2]);
+      if (eaten == null || total == null || total <= 0) continue;
+      macros.push({ eaten, total });
+      if (macros.length >= 3) break;
+    }
+  }
+  if (macros.length < 3) return null;
+  let carbs   = Math.max(0, macros[0].total - macros[0].eaten);
+  let protein = Math.max(0, macros[1].total - macros[1].eaten);
+  let fat     = Math.max(0, macros[2].total - macros[2].eaten);
+  let computedKcal = carbs*4 + protein*4 + fat*9;
+
+  // 2) "Übrig"-Kalorien — angezeigten Wert bevorzugen (Reihenfolge der Top-Zahlen: Gegessen, Übrig, Verbrannt).
+  const isMacroBar = ln => { const mm = /(\d[\d.,]*)\s*[\/|Il)\]]\s*(\d[\d.,]*)\s*([a-z]{0,4})/i.exec(ln); return !!mm && !ENERGY((mm[3] || "").toLowerCase()); };
+  const isKcal = ln => /kcal/i.test(ln);
+  const numsIn = ln => { const out=[], re=/\d[\d.,]*/g; let mm; while((mm=re.exec(ln))!==null){const v=toInt(mm[0]); if(v!=null)out.push(v);} return out; };
+  const hasUbrig = ln => /(ubrig|obrig|\bbrig\b)/.test(norm(ln));
+
+  let posKcal = null;
+  for (let i=0;i<lines.length && posKcal==null;i++){                 // Label + Zahl in DERSELBEN Zeile
+    if (!hasUbrig(lines[i]) || isMacroBar(lines[i])) continue;
+    const nb = numsIn(lines[i]); if (!nb.length) continue;
+    // NICHT Math.max: steht der ganze Ring auf EINER Zeile ("1.688 Gegessen 1.112 Übrig 0 Verbrannt"),
+    // würde max die GEGESSEN-Zahl (1688) statt Übrig (1112) greifen. Stattdessen die Zahl der Zeile nehmen,
+    // die dem Makro-Rest am nächsten liegt (= der Übrig-Wert). Nur bei kaputtem Rest (g->9-Fall, >6000) -> Math.max.
+    posKcal = (computedKcal>0 && computedKcal<=6000)
+      ? nb.reduce((a,b)=>Math.abs(b-computedKcal)<Math.abs(a-computedKcal)?b:a)
+      : Math.max.apply(null, nb);
+  }
+  if (posKcal==null) for (let j=0;j<lines.length && posKcal==null;j++){  // Zahlen in Nachbarzeile ±1..2 → Index 1 = Übrig
+    if (!hasUbrig(lines[j])) continue;
+    const cand=[]; for(let d=1;d<=2;d++){ if(j+d<lines.length)cand.push(j+d); if(j-d>=0)cand.push(j-d); }
+    for (const ci of cand){ if(posKcal!=null)break; const ln=lines[ci]; if(isMacroBar(ln)||isKcal(ln))continue;
+      const ns=numsIn(ln); if(!ns.length)continue; posKcal = ns.length>=2 ? ns[1] : ns[0]; }
+  }
+
+  // Sicherheitsnetz: zerfällt der Ring (533 / 2.267 / 0) bei der OCR in getrennte Zeilen, erwischt die
+  // Positionslogik evtl. die "0". Dann aus den Top-Zahlen (keine Makro/kcal-Zeile, 100..9999) die nehmen,
+  // die dem berechneten Rest (computedKcal) am nächsten ist — der angezeigte "Übrig"-Wert liegt da immer nah dran.
+  const cands = [];
+  for (const ln of lines){ if(isMacroBar(ln)||isKcal(ln))continue; for(const v of numsIn(ln)) if(v>=100&&v<=9999) cands.push(v); }
+  let best = null;
+  for (const v of cands) if (best==null || Math.abs(v-computedKcal) < Math.abs(best-computedKcal)) best = v;
+
+  let kcal, kcalComputed = false;
+  if (posKcal == null) { if (best != null) kcal = best; else { kcal = computedKcal; kcalComputed = true; } }
+  else if (posKcal < 0.6*computedKcal && best != null && Math.abs(best-computedKcal) < Math.abs(posKcal-computedKcal)) kcal = best;
+  else kcal = posKcal;
+
+  // 3) "g→9"-Korrektur: liest die OCR das Einheiten-"g" als "9" und hängt es an die Total-Zahl ("341 g" → "3419"),
+  //    explodiert das Total → unrealistische Restmakros. Wenn ein angezeigter Übrig-Wert vorliegt UND die Rest-kcal
+  //    absurd hoch sind, jedes Total mit/ohne Trailing-9 durchprobieren und die Kombi nehmen, deren Rest-kcal dem Übrig
+  //    am nächsten liegt. Greift NUR bei aufgeblähten Werten (>6000 kcal) — saubere/Ring-Split-Fälle bleiben unberührt.
+  if (!kcalComputed && computedKcal > 6000 && kcal > 0) {
+    const eat = macros.map(p => p.eaten);
+    const opt = macros.map(p => (p.total % 10 === 9 && p.total >= 20) ? [p.total, (p.total - 9) / 10] : [p.total]);
+    let bestC = null;
+    for (const a of opt[0]) for (const b of opt[1]) for (const c of opt[2]) {
+      const rr = [Math.max(0,a-eat[0]), Math.max(0,b-eat[1]), Math.max(0,c-eat[2])];
+      const d = Math.abs((rr[0]*4 + rr[1]*4 + rr[2]*9) - kcal);
+      if (bestC == null || d < bestC.d) bestC = { d, rr };
+    }
+    carbs = bestC.rr[0]; protein = bestC.rr[1]; fat = bestC.rr[2];
+    computedKcal = carbs*4 + protein*4 + fat*9;
+  }
+  // Plausibilitäts-Stopp: wenn die Rest-Makros trotzdem absurd zum angezeigten Übrig passen, lieber abbrechen
+  // als Müll eintragen (onImport zeigt dann den OCR-Text zur Diagnose).
+  if (!kcalComputed && kcal > 0 && computedKcal > kcal * 3 + 1500) return null;
+
+  // 4) Fett an die angezeigten Rest-Kalorien angleichen: ergeben die Rest-Makros zusammen MEHR kcal als "Übrig"
+  //    (Rundung / Ballaststoff-Kalorien / App-Inkonsistenz), Fett so weit senken (≥0), dass 4·C + 4·P + 9·F = Übrig aufgeht.
+  if (!kcalComputed && kcal > 0 && (4*carbs + 4*protein + 9*fat) > kcal) {
+    fat = Math.max(0, Math.round((kcal - 4*carbs - 4*protein) / 9 * 10) / 10);
+  }
+
+  const r = { carbs, protein, fat, kcal };
+  if (kcalComputed) r.kcalComputed = true;
+  return r;
+}
+
+// Bild für die OCR aufbereiten: zu große Screenshots verkleinern (iOS-Speicher), KLEINE hochskalieren
+// (Makro-Balken-Schrift ist winzig → größere Glyphen = deutlich bessere Erkennung, weniger "g→9"-Fehler).
+// maxSide = Downscale-Obergrenze; kleiner als ~1700px → hoch auf ~2400px (Ziel). Gibt Blob oder Original zurück.
+function downscaleImage(file, maxSide) {
+  return new Promise(resolve => {
+    try {
+      const url = URL.createObjectURL(file), im = new Image();
+      im.onload = () => {
+        URL.revokeObjectURL(url);
+        const mx = Math.max(im.width, im.height);
+        let scale = 1;
+        if (mx > maxSide) scale = maxSide / mx;            // zu groß → runter
+        else if (mx < 1700) scale = Math.min(2.5, 2400 / mx); // klein → hoch (bessere OCR)
+        if (Math.abs(scale - 1) < 0.01) { resolve(file); return; }
+        const cv = document.createElement("canvas");
+        cv.width = Math.round(im.width*scale); cv.height = Math.round(im.height*scale);
+        const ctx = cv.getContext("2d");
+        ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(im, 0, 0, cv.width, cv.height);
+        cv.toBlob(b => resolve(b || file), "image/png");
+      };
+      im.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
+      im.src = url;
+    } catch (e) { resolve(file); }
+  });
+}
+// OCR eines Screenshots → geparste Makros (oder null). Tesseract.js kommt per CDN-Script-Tag als globales Tesseract.
+async function ocrMacroScreenshot(file, onProgress) {
+  if (typeof Tesseract === "undefined") throw new Error("OCR library not loaded yet");
+  const img = await downscaleImage(file, 2600);
+  const { data } = await Tesseract.recognize(img, "deu", {
+    logger: msg => { if (msg.status === "recognizing text" && onProgress) onProgress(msg.progress); }
+  });
+  return { text: data.text, parsed: parseMacroScreenshot(data.text) };
+}
+
+// ═══ Schalentier-Allergie — PERMANENT ausgeschlossen, in ALLEN Restaurants (kein Schalter, User 13.09.2026) ═══
+// Krebstiere + Weichtiere. Fisch bleibt erlaubt. Ausgeschlossen wird nur, was TATSÄCHLICH enthalten ist: der Name verrät es
+// (SHELLFISH_RE) ODER die Allergenliste sagt „enthält" (SHELLFISH_NAMES bzw. Item-Flag shellfish:true aus dem Update-Skript).
+// „Kann Spuren enthalten" zählt NICHT. Genutzt im Pool von alaCarteCombos, in BYO-Optimizern und im SEARCH_INDEX.
+const SHELLFISH_RE = /garnele|shrimp|scampi|gambas|prawn(?!less)|krabbe|crab|krebs|hummer|lobster|langust|langoust|crayfish|muschel|mussel|clam|auster|oyster|scallop|tintenfisch|calamar|squid|sepia|oktopus|octopus|pulpo|meeresfr|frutti di mare|seafood|california|\bebi\b/i;
+// Exakte, kleingeschriebene Namen, deren Allergenliste Schalentier ENTHÄLT, obwohl der Name es nicht verrät
+const SHELLFISH_NAMES = new Set([]);
+// Fehltreffer des Regex: diese Wortteile werden VOR dem Regex-Test aus dem Namen entfernt (Austernpilze sind Pilze,
+// Muschelnudeln sind Pasta). Echte Schalentier-Wörter daneben greifen weiter („Muschelnudeln mit Garnelen" → raus).
+const SHELLFISH_SAFE = ["austernpilz", "austern-pilz", "austernseitling", "oyster mushroom", "muschelnudel", "muschelpasta"];
+function isShellfish(x) {
+  if (!x) return false;
+  if (x.shellfish === true) return true;                       // Flag aus der Allergenliste („enthält")
+  const n = String(x.name || "").normalize("NFC").toLowerCase().trim();
+  const base = n.replace(/\s*\([^)]*\)\s*$/, "").trim();       // Name ohne angehängtes " (…)"
+  if (SHELLFISH_NAMES.has(n) || SHELLFISH_NAMES.has(base)) return true;
+  let s = n;
+  for (const safe of SHELLFISH_SAFE) s = s.split(safe).join(" ");
+  return SHELLFISH_RE.test(s);
+}
+
+// Kurzname einer Bestellung: "2× Hähnchen Bowl + Edamame" (Duplikate zusammengefasst, Reihenfolge des ersten Auftretens)
+function comboLabel(items) {
+  const key = x => x.id + "|" + x.name;
+  const counts = {}; items.forEach(x => counts[key(x)] = (counts[key(x)] || 0) + 1);
+  const seen = new Set();
+  return items.filter(x => { const k = key(x); if (seen.has(k)) return false; seen.add(k); return true; })
+    .map(x => (counts[key(x)] > 1 ? counts[key(x)] + "× " : "") + x.name).join(" + ");
+}
+// Order-Guide-Schritte einer à-la-carte-Bestellung: [{l:"2×", v:"Hähnchen Bowl"}, …]
+function acOrderSteps(items) {
+  const key = x => x.id + "|" + x.name;
+  const counts = {}, uniq = [];
+  for (const x of items) { const k = key(x); if (!counts[k]) { counts[k] = 0; uniq.push(x); } counts[k]++; }
+  return uniq.map(x => ({ l: counts[key(x)] + "×", v: x.name }));
+}
+// Stabiler Ergebnis-Key (sortierte Item-IDs) → markiert die gewählte Karte auch nach Neuberechnung und Tab-Wechsel.
+// BYO-Ergebnisse dürfen einen eigenen .key mitliefern.
+function resultKey(r) {
+  if (!r) return null;
+  if (r.key) return r.key;
+  return (r.items || []).map(x => x.id).sort().join("|");
+}
+
+// À-la-carte-Kern (identisch zum London-Tool, nur Options-Objekt statt Positionsparametern):
+// Singles + Paare voll (Duplikate erlaubt), Triples per Beam (beste 80 Paare). maxN=Infinity (∞-Chip): Stufe 4+ erweitert
+// die besten Kombos so lange um je 1 Item, wie sich der Score verbessert (harte Obergrenze 12 Items). Top 20.
+// opts: distinctBy(x) = keine zwei Items mit gleichem Key · dedupKey(items) = gleichwertige Ergebnisse zusammenfassen ·
+//       resultFilter(items) = „muss X enthalten" · baseItems = feste Basis in JEDER Kombo (maxN zählt nur die Zusätze)
+function alaCarteCombos(t, mode, p, pool, maxN, opts) {
+  const o = opts || {};
+  pool = pool.filter(x => !isShellfish(x)); // Schalentier permanent raus (Allergie)
+  const dk = o.distinctBy || null;
+  const distinctOk = dk ? (items, x) => { const k = dk(x); return !items.some(y => dk(y) === k); } : null;
+  const B = (o.baseItems && o.baseItems.length) ? o.baseItems : null;
+  const R = [];
+  const byScore = (a, b) => a.score - b.score;
+  if (B) { const n0 = sumN(B, 1); R.push({ items: B.slice(), nutrition: n0, score: score(n0, t, mode, p) }); } // nur die Basis
+  for (const x of pool) { const items = B ? [...B, x] : [x]; const n = sumN(items, 1); R.push({ items, nutrition: n, score: score(n, t, mode, p) }); }
+  if (maxN >= 2) {
+    const pairs = [];
+    for (let i = 0; i < pool.length; i++) for (let j = i; j < pool.length; j++) {
+      if (dk && dk(pool[i]) === dk(pool[j])) continue; // distinct: gleicher Key (inkl. i==j) raus
+      const items = B ? [...B, pool[i], pool[j]] : [pool[i], pool[j]], n = sumN(items, 1);
+      const r = { items, nutrition: n, score: score(n, t, mode, p) };
+      R.push(r); pairs.push(r);
+    }
+    if (maxN >= 3) {
+      pairs.sort(byScore);
+      const seen = new Set();
+      let frontier = [];
+      for (const pr of pairs.slice(0, 80)) for (const x of pool) {
+        if (distinctOk && !distinctOk(pr.items, x)) continue;
+        const items = [...pr.items, x];
+        const key = items.map(y => y.id).sort().join("|");
+        if (seen.has(key)) continue; seen.add(key);
+        const n = sumN(items, 1);
+        const r = { items, nutrition: n, score: score(n, t, mode, p) };
+        R.push(r); frontier.push(r);
+      }
+      let depth = 3;
+      while (depth < maxN && depth < 12 && frontier.length) { // harte Obergrenze 12 Items als Sicherheitsnetz
+        frontier.sort(byScore); frontier = frontier.slice(0, 80);
+        const next = [];
+        for (const pr of frontier) for (const x of pool) {
+          if (distinctOk && !distinctOk(pr.items, x)) continue;
+          const items = [...pr.items, x];
+          const key = items.map(y => y.id).sort().join("|");
+          if (seen.has(key)) continue; seen.add(key);
+          const n = sumN(items, 1);
+          const s = score(n, t, mode, p);
+          if (s < pr.score) { const r = { items, nutrition: n, score: s }; R.push(r); next.push(r); }
+        }
+        frontier = next; depth++;
+      }
+    }
+  }
+  R.sort(byScore);
+  const RF = o.resultFilter ? R.filter(r => o.resultFilter(r.items)) : R;
+  if (o.dedupKey) {
+    const seenK = new Set(), out = [];
+    for (const r of RF) { const k = o.dedupKey(r.items); if (seenK.has(k)) continue; seenK.add(k); out.push(r); if (out.length >= 20) break; }
+    return out;
+  }
+  return RF.slice(0, 20);
+}
+
+// ═══ Registry-Hilfsfunktionen (generisch für alle Einträge) ═══
+const RESERVED_TABS = ["search", "all", "accurate"];
+
+// Default-State eines Restaurants: Kategorien = on-Werte, Schalter = def, Max-Items = maxN (Default 5)
+function defaultRestoState(r) {
+  const cats = {};
+  if (r.kind === "ac") r.data.cats.forEach(c => cats[c.id] = !!c.on);
+  const sw = {};
+  (r.switches || []).forEach(s => sw[s.id] = !!s.def);
+  return { cats, maxN: r.maxN || 5, sw, sel: null, extra: r.initState ? r.initState() : null };
+}
+function initRestoStates(restos) {
+  const o = {}; for (const r of restos) o[r.key] = defaultRestoState(r); return o;
+}
+// State für All/Accurate: Default-Kategorien, Schalter auf inAll (Default: def), Max-Items vom All-Chip
+function allState(r, maxN) {
+  const st = defaultRestoState(r);
+  (r.switches || []).forEach(s => st.sw[s.id] = s.inAll !== undefined ? !!s.inAll : !!s.def);
+  st.maxN = maxN || 5;
+  return st;
+}
+// Schalter setzen; group = UI-exklusiv (einer an → alle anderen derselben Gruppe aus)
+function toggleSwitch(r, sw, id, on) {
+  const next = { ...sw, [id]: !!on };
+  const s = (r.switches || []).find(x => x.id === id);
+  if (on && s && s.group) for (const o of r.switches) if (o.id !== id && o.group === s.group) next[o.id] = false;
+  return next;
+}
+
+// À la carte: Pool = Items der aktiven Kategorien (drink:true NIE; ein aktiver overridesCats-Schalter ignoriert die Chips),
+// danach alle aktiven filter-Schalter; require-Schalter werden zum resultFilter → alaCarteCombos.
+function optimizeAC(r, t, mode, p, st) {
+  const D = r.data, sw = (st && st.sw) || {}, cats = (st && st.cats) || {};
+  const drinkCats = new Set(D.cats.filter(c => c.drink).map(c => c.id));
+  const active = (r.switches || []).filter(s => sw[s.id]);
+  const override = active.some(s => s.overridesCats);
+  let pool = D.items.filter(x => !drinkCats.has(x.cat) && (override || cats[x.cat]));
+  for (const s of active) if (s.filter) pool = pool.filter(s.filter);
+  const reqs = active.filter(s => s.require);
+  return alaCarteCombos(t, mode, p, pool, (st && st.maxN) || r.maxN || 5, {
+    distinctBy: r.distinctBy, dedupKey: r.dedupKey,
+    resultFilter: reqs.length ? items => reqs.every(s => s.require(items)) : undefined,
+  });
+}
+
+// Dispatch ac ↔ byo (BYO-Einträge bringen die Methoden selbst mit, siehe Registry-Kommentar)
+function runOptimize(r, t, mode, p, st) { return r.kind === "byo" ? r.optimize(t, mode, p, st) : optimizeAC(r, t, mode, p, st); }
+function orderStepsFor(r, sel) { return r.kind === "byo" ? r.orderSteps(sel) : acOrderSteps(sel.items); }
+function searchEntriesFor(r) { return r.kind === "byo" ? r.searchEntries() : r.data.items; }
+function summarizeResult(r, res) { return (r.kind === "byo" && r.summary) ? r.summary(res) : comboLabel(res.items || []); }
+
+// ═══ RESTAURANT-REGISTRY ═══
+// Neues Restaurant = Datenblock (via <key>-update.js) + EIN Eintrag hier. Tab, Config-UI, Karten, Detail-Panel, Order Guide,
+// All/Accurate und Such-Index entstehen daraus automatisch. KEINE Restaurant-Sonderlogik per Tab-Vergleich im App-Code.
+//   key       eindeutig, [a-z][a-z0-9]* (nicht search/all/accurate)    name      Tab- + Badge-Name
+//   kind      "ac" (à la carte) | "byo" (Build-Your-Own)                 data      {cats:[{id,name,on,drink?}], items:[…]} (nur ac)
+//   gradient  [von, bis] Header-Verlauf                                  label     Mono-Label im Header (GROSSBUCHSTABEN)
+//   platform  Lieferando / Wolt / Uber Eats                              accurate  true = verifizierte offizielle Daten
+//   maxN      Default „Max. items per order" (5)                         note / footer  optionale Texte (Config-Karte / Fußzeile)
+//   switches  [{ id, label, def, filter?(item), require?(items), overridesCats?, group?, inAll?, hint? }]
+//     filter = wirkt auf den Pool · require = wirkt aufs Ergebnis („must include X") · overridesCats = „only X"-Modus,
+//     ignoriert die Chips · group = UI-exklusiv · inAll = Wert in All/Accurate (Default: def) · hint = Erklärtext
+// kind:"byo" — Pflicht-Methoden am Eintrag:
+//   optimize(t, mode, p, st) → sortierte Ergebnisse [{items? | key?, nutrition, score, …}], max 20 (isShellfish im eigenen Pool!)
+//   renderConfig(ctx) · renderCard(res, ctx) · renderPanel(sel, ctx) · orderSteps(sel) → [{l, v}] · searchEntries() → Items
+//   optional: summary(res), panelSubtitle(sel), inputHint(st), initState() → st.extra
+const RESTAURANTS = [
+  // DEMO — FIKTIV, nur zum Testen des Gerüsts. Beim ersten echten Restaurant löschen: dieser Eintrag, der DEMO-Datenblock,
+  // data/demo-raw.json, demo-update.js und der Demo-Abschnitt in tests.js.
+  { key:"demo", name:"Demo Bistro", kind:"ac", demo:true, data:DEMO,
+    gradient:["#0d9488","#134e4a"], label:"DEMO BISTRO · FICTIONAL DATA", platform:"Wolt", accurate:false, maxN:5,
+    note:"Fictional demo restaurant for testing the app — all values are made up. The Garnelen Bowl is always hidden (shellfish).",
+    footer:"Data: fictional demo values · not a real restaurant",
+    switches:[
+      { id:"noSauce", label:"No sauce", def:true, filter:x=>!x.sauce },
+      { id:"onlyBowls", label:"Only bowls", def:false, overridesCats:true, filter:x=>x.cat==="bowls", group:"demoMode" },
+      { id:"mustSide", label:"Must include a side", def:false, require:items=>items.some(x=>x.cat==="sides"), group:"demoMode" },
+    ] },
+];
+const RESTO_BY_KEY = Object.fromEntries(RESTAURANTS.map(r => [r.key, r]));
+
+// Registry-Prüfung (rein; tests.js erwartet [] für RESTAURANTS). Liefert lesbare Probleme.
+function validateRegistry(restos) {
+  const P = [], keys = new Set();
+  const isNum = v => typeof v === "number" && isFinite(v) && v >= 0;
+  for (const r of restos) {
+    const k = r && r.key, tag = "[" + (k || "?") + "] ";
+    if (typeof k !== "string" || !/^[a-z][a-z0-9]*$/.test(k)) P.push(tag + "key ungültig");
+    else if (RESERVED_TABS.includes(k)) P.push(tag + "key ist ein reservierter Spezial-Tab");
+    if (keys.has(k)) P.push(tag + "key doppelt");
+    keys.add(k);
+    for (const f of ["name", "label", "platform"]) if (typeof r[f] !== "string" || !r[f].trim()) P.push(tag + f + " fehlt");
+    if (r.kind !== "ac" && r.kind !== "byo") P.push(tag + "kind muss ac oder byo sein");
+    if (!Array.isArray(r.gradient) || r.gradient.length !== 2) P.push(tag + "gradient braucht [von, bis]");
+    if (typeof r.accurate !== "boolean") P.push(tag + "accurate muss boolean sein");
+    if (!(r.maxN > 0)) P.push(tag + "maxN fehlt");
+    const swIds = new Set(), groups = {};
+    for (const s of (r.switches || [])) {
+      if (!s.id || swIds.has(s.id)) P.push(tag + "Schalter-id fehlt/doppelt: " + s.id);
+      swIds.add(s.id);
+      if (typeof s.label !== "string" || !s.label) P.push(tag + "Schalter ohne label: " + s.id);
+      if (typeof s.def !== "boolean") P.push(tag + "Schalter def muss boolean sein: " + s.id);
+      if (s.filter && typeof s.filter !== "function") P.push(tag + "filter ist keine Funktion: " + s.id);
+      if (s.require && typeof s.require !== "function") P.push(tag + "require ist keine Funktion: " + s.id);
+      if (!s.filter && !s.require && !s.overridesCats) P.push(tag + "Schalter ohne Wirkung: " + s.id);
+      if (s.group) {
+        const g = groups[s.group] || (groups[s.group] = { def: 0, all: 0 });
+        if (s.def) g.def++;
+        if (s.inAll !== undefined ? s.inAll : s.def) g.all++;
+      }
+    }
+    for (const g in groups) if (groups[g].def > 1 || groups[g].all > 1) P.push(tag + "Gruppe " + g + ": mehr als ein Schalter gleichzeitig an");
+    if (r.kind === "ac") {
+      const D = r.data;
+      if (!D || !Array.isArray(D.cats) || !Array.isArray(D.items)) { P.push(tag + "data.cats/data.items fehlen"); continue; }
+      const catIds = new Set();
+      for (const c of D.cats) {
+        if (!c.id || catIds.has(c.id)) P.push(tag + "Kategorie-id fehlt/doppelt: " + c.id);
+        catIds.add(c.id);
+        if (typeof c.name !== "string" || typeof c.on !== "boolean") P.push(tag + "Kategorie unvollständig: " + c.id);
+      }
+      const ids = new Set();
+      for (const it of D.items) {
+        if (!it.id || ids.has(it.id)) P.push(tag + "Item-id fehlt/doppelt: " + it.id);
+        ids.add(it.id);
+        if (typeof it.name !== "string" || !it.name.trim()) P.push(tag + "Item ohne Namen: " + it.id);
+        if (!catIds.has(it.cat)) P.push(tag + "Item mit unbekannter Kategorie: " + it.id + " → " + it.cat);
+        for (const m of KEYS) if (!isNum(it[m])) P.push(tag + "Item " + it.id + ": " + m + " ist keine Zahl ≥ 0");
+      }
+    } else if (r.kind === "byo") {
+      for (const f of ["optimize", "renderConfig", "renderCard", "renderPanel", "orderSteps", "searchEntries"])
+        if (typeof r[f] !== "function") P.push(tag + "BYO-Methode fehlt: " + f);
+    }
+  }
+  return P;
+}
+
+// „All restaurants" / „Accurate restaurants": jedes (erlaubte) Restaurant mit Default-Kategorien + inAll-Schaltern,
+// max. 1 Treffer pro Restaurant (dessen beste Bestellung), nach Score sortiert, Top 20. restos optional (für Tests).
+function optimizeAll(t, mode, p, maxN, onlyAccurate, restos) {
+  const list = (restos || RESTAURANTS).filter(r => !onlyAccurate || r.accurate);
+  const picks = [];
+  for (const r of list) {
+    const res = runOptimize(r, t, mode, p, allState(r, maxN));
+    if (!res || !res.length) continue;
+    let best = res[0];
+    for (const x of res) if (x.score < best.score) best = x;
+    picks.push(Object.assign({}, best, { _resto: r.key }));
+  }
+  picks.sort((a, b) => a.score - b.score);
+  return picks.slice(0, 20);
+}
+
+// ═══ „Add own order" — restaurantsübergreifender Such-Index (automatisch aus der Registry) ═══
+function buildSearchIndex(restos) {
+  const out = [], seen = new Set();
+  for (const r of restos) {
+    for (const it of (searchEntriesFor(r) || [])) {
+      if (!it || typeof it.kcal !== "number" || !it.name || isShellfish(it)) continue; // Schalentier permanent raus
+      const e = { resto: r.name, name: it.name };
+      for (const k of KEYS) e[k] = it[k] || 0;
+      const dk = e.resto + "|" + e.name + "|" + e.kcal;
+      if (seen.has(dk)) continue;
+      seen.add(dk); out.push(e);
+    }
+  }
+  return out;
+}
+const SEARCH_INDEX = buildSearchIndex(RESTAURANTS);
+// Umlaut-tolerant: Text in zwei Varianten falten (ä→ae und ä→a, ß→ss, Akzente weg) → „haehnchen", „hähnchen" und
+// „hahnchen" finden dasselbe.
+function foldVariants(s) {
+  const base = String(s || "").normalize("NFC").toLowerCase();
+  const strip = v => v.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  return [
+    strip(base.replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss")),
+    strip(base.replace(/ä/g, "a").replace(/ö/g, "o").replace(/ü/g, "u").replace(/ß/g, "ss")),
+  ];
+}
+// Alle Suchbegriffe müssen in Name + Restaurant vorkommen; kürzester Name zuerst (= bester Treffer)
+function searchItems(query, limit, index) {
+  const q = (query || "").trim(); if (!q) return [];
+  const terms = q.split(/\s+/).map(foldVariants);
+  return (index || SEARCH_INDEX).filter(x => {
+    const hay = foldVariants(x.name + " " + x.resto);
+    return terms.every(tv => tv.some(v => hay.some(hs => hs.includes(v))));
+  }).sort((a, b) => a.name.length - b.name.length).slice(0, limit || 60);
+}
+// Summe einer eigenen Bestellung ([{item, qty}]) — wie sumN, 1 Dezimale
+function orderTotal(entries) {
+  const t = {}; KEYS.forEach(k => t[k] = 0);
+  (entries || []).forEach(e => { const it = e.item || {}, q = e.qty || 0; KEYS.forEach(k => t[k] += (it[k] || 0) * q); });
+  KEYS.forEach(k => t[k] = Math.round(t[k] * 10) / 10);
+  return t;
+}
+
+// ═══ UI ═══
+const S = {
+  font: "'DM Sans',sans-serif",
+  mono: "'DM Mono',monospace",
+  green: "#009743",
+  bg: "#0d0d0d",
+};
+const LBL = { fontSize:10, color:"#555", fontFamily:S.mono, textTransform:"uppercase", letterSpacing:1, marginBottom:8 };
+const CARD = { background:"#151515", borderRadius:12, padding:12, marginBottom:12, border:"1px solid #222" };
+const MACRO_COLORS = { kcal:"#4ade80", carbs:"#fbbf24", protein:"#60a5fa", fat:"#f87171", fibre:"#a78bfa", salt:"#94a3b8" };
+// Spezial-Tabs (KEINE Registry-Einträge) — Reihenfolge in der Tab-Zeile
+const SPECIAL_TABS = [
+  { key:"search",   label:"➕ Add own order",      gradient:["#475569","#1e293b"], header:"ADD OWN ORDER · TRACK" },
+  { key:"accurate", label:"Accurate restaurants", gradient:["#0284c7","#0c4a6e"], header:"ACCURATE RESTAURANTS · FRANKFURT" },
+  { key:"all",      label:"All restaurants",      gradient:["#7c3aed","#4c1d95"], header:"ALL RESTAURANTS · FRANKFURT" },
+];
+// Start-Tab: erstes Registry-Restaurant (ohne Restaurants: All restaurants)
+const DEFAULT_TAB = RESTAURANTS.length ? RESTAURANTS[0].key : "all";
+
+function Chip({label,active,onClick,small}) {
+  return h("button",{onClick,style:{
+    padding:small?"4px 9px":"6px 13px",borderRadius:6,
+    border:`1px solid ${active?S.green:"#3a3a3a"}`,
+    background:active?"rgba(0,151,67,0.15)":"transparent",
+    color:active?"#4ade80":"#999",fontSize:small?11:12,
+    cursor:"pointer",fontFamily:S.mono,transition:"all .15s",
+  }},label);
+}
+
+function NumIn({label,value,onChange,placeholder,unit,min=0}) {
+  return h("div",{style:{flex:1,minWidth:80}},
+    h("label",{style:{display:"block",fontSize:10,color:"#777",marginBottom:3,fontFamily:S.mono,textTransform:"uppercase",letterSpacing:1}},label),
+    h("div",{style:{position:"relative"}},
+      h("input",{type:"number",value,onChange:e=>onChange(e.target.value===""?"":Number(e.target.value)),
+        placeholder,min,style:{width:"100%",padding:"9px 10px",paddingRight:unit?30:10,
+        background:"#1a1a1a",border:"1px solid #333",borderRadius:6,color:"#fff",fontSize:14,
+        fontFamily:S.mono,outline:"none",boxSizing:"border-box"}}),
+      unit&&h("span",{style:{position:"absolute",right:8,top:"50%",transform:"translateY(-50%)",fontSize:10,color:"#555"}},unit)
+    )
+  );
+}
+
+function MacroBar({label,value,target,color,unit="g"}) {
+  const pct=target>0?Math.min((value/target)*100,150):0;
+  const diff=target>0?value-target:0;
+  return h("div",{style:{marginBottom:6}},
+    h("div",{style:{display:"flex",justifyContent:"space-between",fontSize:11,fontFamily:S.mono,color:"#b0b0b0",marginBottom:2}},
+      h("span",null,label),
+      h("span",null,
+        h("span",{style:{color:"#fff",fontWeight:600}},value,unit),
+        target>0&&h("span",{style:{color:diff>0?"#ff6b6b":"#51cf66",marginLeft:4}},"(",diff>0?"+":"",Math.round(diff),unit,")")
+      )
+    ),
+    target>0&&h("div",{style:{height:4,background:"#2a2a2a",borderRadius:2,overflow:"hidden"}},
+      h("div",{style:{height:"100%",width:`${Math.min(pct,100)}%`,background:color,borderRadius:2,transition:"width .4s"}})
+    )
+  );
+}
+
+// Die 6 Makro-Balken mit Delta zum Ziel (Detail-Panel + Order total). tg = {kcal, carbs, protein, fat, fibre, salt}
+function MacroBars({ n, tg, mb }) {
+  return h("div", { style:{ marginBottom: mb == null ? 16 : mb } },
+    h(MacroBar, { label:"Calories", value:n.kcal, target:tg.kcal, color:MACRO_COLORS.kcal, unit:" kcal" }),
+    h(MacroBar, { label:"Carbs", value:n.carbs, target:tg.carbs, color:MACRO_COLORS.carbs }),
+    h(MacroBar, { label:"Protein", value:n.protein, target:tg.protein, color:MACRO_COLORS.protein }),
+    h(MacroBar, { label:"Fat", value:n.fat, target:tg.fat, color:MACRO_COLORS.fat }),
+    h(MacroBar, { label:"Fibre", value:n.fibre, target:tg.fibre, color:MACRO_COLORS.fibre }),
+    h(MacroBar, { label:"Salt", value:n.salt, target:tg.salt, color:MACRO_COLORS.salt })
+  );
+}
+
+// Ergebnis-Karte (Look wie London). badge = Restaurant-Badge (All/Accurate); hint ersetzt Fibre/Salt in der Makro-Zeile
+function ResultCard({ title, sub, n, selected, onClick, badge, hint }) {
+  const titleEl = h("span", { style:{ fontSize:13, fontWeight:600, color:"#fff" } }, title);
+  return h("button", { onClick, style:{
+      background: selected ? "rgba(0,151,67,0.08)" : "#151515",
+      border: selected ? "1px solid "+S.green : "1px solid #222",
+      borderRadius:10, padding:"12px 14px", cursor:"pointer", textAlign:"left", transition:"all .15s" } },
+    h("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:6, gap:8 } },
+      h("div", null,
+        badge
+          ? h("div", { style:{ display:"flex", alignItems:"center", gap:7, marginBottom:3, flexWrap:"wrap" } },
+              h("span", { style:{ fontSize:9, fontWeight:700, color:"#c4b5fd", background:"rgba(124,58,237,0.18)", border:"1px solid rgba(124,58,237,0.4)", borderRadius:5, padding:"2px 6px", fontFamily:S.mono, textTransform:"uppercase", letterSpacing:0.5, whiteSpace:"nowrap" } }, badge),
+              titleEl)
+          : h("div", { style:{ marginBottom:2 } }, titleEl),
+        sub && h("div", { style:{ fontSize:10, color:"#777", fontFamily:S.mono } }, sub)
+      ),
+      h("div", { style:{ fontSize:16, fontWeight:700, color:"#4ade80", fontFamily:S.mono, whiteSpace:"nowrap" } },
+        n.kcal, h("span", { style:{ fontSize:9, color:"#666", fontWeight:400 } }, " kcal"))
+    ),
+    h("div", { style:{ display:"flex", gap:12, fontSize:10, fontFamily:S.mono, flexWrap:"wrap" } },
+      h("span", { style:{ color:"#fbbf24" } }, "C "+n.carbs+"g"),
+      h("span", { style:{ color:"#60a5fa" } }, "P "+n.protein+"g"),
+      h("span", { style:{ color:"#f87171" } }, "F "+n.fat+"g"),
+      ...(hint
+        ? [h("span", { key:"hint", style:{ color:"#777", marginLeft:"auto", fontSize:9 } }, hint)]
+        : [h("span", { key:"fib", style:{ color:"#a78bfa" } }, "Fib "+n.fibre+"g"), h("span", { key:"salt", style:{ color:"#999" } }, "Salt "+n.salt+"g")])
+    )
+  );
+}
+
+// Nummerierte Bestellschritte mit Mengen: steps = [{l, v}]
+function OrderGuide({ platform, steps }) {
+  return h("div", { style:{ background:"#0d0d0d", borderRadius:8, padding:14, border:"1px solid #2a2a2a" } },
+    h("div", { style:{ fontSize:10, color:S.green, fontFamily:S.mono, textTransform:"uppercase", letterSpacing:2, marginBottom:10, display:"flex", alignItems:"center", gap:6 } },
+      h("span", { style:{ fontSize:13 } }, "📋"), " Order guide ("+platform+")"),
+    ...steps.map((stp, i) => h("div", { key:i, style:{ display:"flex", gap:8, alignItems:"baseline", padding:"5px 0", borderBottom:i<steps.length-1?"1px solid #1a1a1a":"none" } },
+      h("span", { style:{ fontSize:9, color:"#555", fontFamily:S.mono, minWidth:16, textAlign:"right" } }, (i+1)+"."),
+      h("span", { style:{ fontSize:10, color:"#777", fontFamily:S.mono, minWidth:72 } }, stp.l),
+      h("span", { style:{ fontSize:12, color:"#e0e0e0", fontWeight:500, fontFamily:S.font } }, stp.v)
+    ))
+  );
+}
+
+function App() {
+  const [tab, setTab] = useState(DEFAULT_TAB);
+  const [mode, setMode] = useState("macros");
+  const [sortBy, setSortBy] = useState("score");
+  const [tP, setTP] = useState(65);
+  const [tC, setTC] = useState(85);
+  const [tF, setTF] = useState(20);
+  const [tK, setTK] = useState(450);
+  const [prefs, setPr] = useState({ hp:true, lp:false, hc:false, lc:false, hf:false, lf:true });
+  const [showAdv, setAdv] = useState(false);
+  const [fibMin, setFibMin] = useState("");
+  const [fibMax, setFibMax] = useState("");
+  const [sMin, setSMin] = useState("");
+  const [sMax, setSMax] = useState("");
+  const [imp, setImp] = useState({ busy:false, msg:"", err:false });
+  // State pro Restaurant: rs[key] = {cats, maxN, sw, sel, extra} — bleibt beim Tab-Wechsel erhalten. Ziele sind global.
+  const [rs, setRs] = useState(() => initRestoStates(RESTAURANTS));
+  const [maxAll, setMaxAll] = useState(5); // All/Accurate: max items pro à-la-carte-Bestellung
+
+  // „Add own order": Suche + eigener Warenkorb (localStorage fra_own_order)
+  const [searchQ, setSearchQ] = useState("");
+  const [myOrder, setMyOrder] = useState(() => { const v = lsGet(LS.ownOrder, []); return Array.isArray(v) ? v : []; });
+  useEffect(() => { lsSet(LS.ownOrder, myOrder); }, [myOrder]);
+  const moKey = it => it.resto+"|"+it.name+"|"+it.kcal;
+  const addToOrder = it => setMyOrder(o => { const idx = o.findIndex(e => moKey(e.item) === moKey(it));
+    if (idx >= 0) { const n = o.slice(); n[idx] = { ...n[idx], qty:n[idx].qty+1 }; return n; } return [...o, { item:it, qty:1 }]; });
+  const changeQty = (i, d) => setMyOrder(o => o.map((e, j) => j === i ? { ...e, qty:Math.max(1, e.qty+d) } : e));
+  const removeFromOrder = i => setMyOrder(o => o.filter((_, j) => j !== i));
+  const clearOrder = () => setMyOrder([]);
+  const moTotal = useMemo(() => orderTotal(myOrder), [myOrder]);
+  const moResults = useMemo(() => tab === "search" ? searchItems(searchQ, 60) : [], [tab, searchQ]);
+  const r1 = x => Math.round(x*10)/10;
+
+  const R = RESTO_BY_KEY[tab] || null; // aktives Registry-Restaurant (null bei Spezial-Tabs) — Restaurant-Blöcke nur mit R rendern
+  const st = R ? rs[R.key] : null;
+  const updRS = (key, fn) => setRs(prev => prev[key] ? { ...prev, [key]: { ...prev[key], ...fn(prev[key]) } } : prev);
+  const isCross = tab === "all" || tab === "accurate";
+  const accList = RESTAURANTS.filter(r => r.accurate);
+  const crossEmpty = tab === "accurate" ? accList.length === 0 : tab === "all" ? RESTAURANTS.length === 0 : false;
+
+  const toggleP = k => {
+    const opp = { hp:"lp", lp:"hp", hc:"lc", lc:"hc", hf:"lf", lf:"hf" };
+    setPr(p => ({ ...p, [k]:!p[k], ...(p[k] ? {} : { [opp[k]]:false }) }));
+  };
+
+  // Screenshot-Import: OCR der "Übersicht" → verbleibende Makros (Total−Gegessen) + "Übrig"-kcal automatisch eintragen
+  const onImport = async e => {
+    const file = e.target.files && e.target.files[0]; e.target.value = "";
+    if (!file) return;
+    setImp({ busy:true, msg:"Reading screenshot…", err:false });
+    try {
+      const { text, parsed:r } = await ocrMacroScreenshot(file, p => setImp({ busy:true, msg:"Reading… "+Math.round(p*100)+"%", err:false }));
+      try { console.log("[OCR text]\n"+text); } catch (e2) {}
+      if (!r) { const snip = (text||"").replace(/\s+/g," ").trim().slice(0,180); setImp({ busy:false, msg:"Couldn't read the macro bars. The scanner saw: \""+snip+"\" — try a clearer/cropped screenshot of the overview, or enter manually.", err:true }); return; }
+      setTC(r.carbs); setTP(r.protein); setTF(r.fat); setTK(r.kcal);
+      setImp({ busy:false, msg:"Imported  C "+r.carbs+" · P "+r.protein+" · F "+r.fat+" · "+r.kcal+" kcal"+(r.kcalComputed?" (kcal estimated)":""), err:false });
+    } catch (err) {
+      setImp({ busy:false, msg:"OCR failed — needs internet on first use (downloads the recogniser). Try again or enter manually.", err:true });
+    }
+  };
+
+  const targets = useMemo(() => {
+    const t = { protein:0, carbs:0, fat:0, kcal:0, fibMin:null, fibMax:null, sMin:null, sMax:null };
+    if (mode === "macros") { t.protein = tP||0; t.carbs = tC||0; t.fat = tF||0; t.kcal = t.protein*4 + t.carbs*4 + t.fat*9; }
+    else { t.kcal = tK||0; }
+    if (fibMin !== "") t.fibMin = Number(fibMin); if (fibMax !== "") t.fibMax = Number(fibMax);
+    if (sMin !== "") t.sMin = Number(sMin); if (sMax !== "") t.sMax = Number(sMax);
+    return t;
+  }, [mode, tP, tC, tF, tK, fibMin, fibMax, sMin, sMax]);
+
+  // Nur das aktive Restaurant rechnen; sel ist bewusst KEINE Abhängigkeit (Auswahl ändert die Ergebnisse nicht)
+  const results = useMemo(() => (R && st) ? runOptimize(R, targets, mode, prefs, st) : [],
+    [R, targets, mode, prefs, st && st.cats, st && st.maxN, st && st.sw, st && st.extra]);
+  const resultsCross = useMemo(() => isCross ? optimizeAll(targets, mode, prefs, maxAll, tab === "accurate") : [],
+    [tab, targets, mode, prefs, maxAll]);
+  const activeResults = isCross ? resultsCross : results;
+
+  const sel = st ? st.sel : null;
+  const selKey = resultKey(sel); // Karte wird über den stabilen Key markiert, nicht über Objekt-Identität
+  const toggleSel = r => updRS(R.key, s => ({ sel: s.sel && resultKey(s.sel) === resultKey(r) ? null : r }));
+  // All/Accurate: Klick → in den Restaurant-Tab wechseln und das Ergebnis dort öffnen
+  const selectAcross = r => { setTab(r._resto); updRS(r._resto, () => ({ sel:r })); };
+
+  const autoK = mode === "macros" ? (tP||0)*4 + (tC||0)*4 + (tF||0)*9 : tK;
+  const tg = { kcal: mode==="macros" ? autoK : tK, carbs: mode==="macros" ? tC : 0, protein: mode==="macros" ? tP : 0, fat: mode==="macros" ? tF : 0,
+    fibre: fibMin !== "" ? Number(fibMin) : 0, salt: sMax !== "" ? Number(sMax) : 0 };
+  // Sort by: im Kalorien-Modus gibt es keine Makro-Ziele → Protein/Carbs/Fat fallen auf Score zurück
+  const effSort = (mode==="macros"||sortBy==="score"||sortBy==="kcal") ? sortBy : "score";
+  const sortTgts = { kcal: mode==="macros" ? autoK : (tK||0), protein:tP||0, carbs:tC||0, fat:tF||0 };
+
+  const btn = (v,l,cur,fn) => h("button",{onClick:()=>fn(v),style:{
+    flex:1,padding:"11px 0",borderRadius:8,
+    border:cur===v?"1px solid "+S.green:"1px solid #2a2a2a",
+    background:cur===v?"rgba(0,151,67,0.1)":"#151515",
+    color:cur===v?"#4ade80":"#888",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:S.font,
+  }},l);
+
+  const spec = SPECIAL_TABS.find(s => s.key === tab);
+  const grad = spec ? spec.gradient : R ? R.gradient : ["#3f3f46","#18181b"];
+  // Kontext für Build-Your-Own-Renderer
+  const ctx = { R, st, tg, targets, mode, prefs, selKey, toggleSel, update: fn => R && updRS(R.key, fn) };
+  const inputHint = tab==="search" ? "your target — compare your own order below"
+    : tab==="all" ? "across all restaurants — best picks"
+    : tab==="accurate" ? "across accurate restaurants — best picks"
+    : R ? (R.kind==="byo" ? (R.inputHint ? R.inputHint(st) : "build your own") : "à la carte: 1–"+(st.maxN===Infinity?"∞":st.maxN)+" Items") : "";
+  const overrideSw = (R && st) ? (R.switches||[]).find(s => s.overridesCats && st.sw[s.id]) : null;
+
+  return h("div",{style:{minHeight:"100vh",background:S.bg,color:"#e0e0e0",fontFamily:S.font,paddingBottom:40}},
+
+    // Header
+    h("div",{style:{background:"linear-gradient(135deg,"+grad[0]+","+grad[1]+")",padding:"20px 20px 16px",position:"relative",overflow:"hidden"}},
+      h("div",{style:{position:"absolute",top:-20,right:-20,width:120,height:120,borderRadius:"50%",background:"rgba(255,255,255,0.06)"}}),
+      h("div",{style:{fontSize:10,letterSpacing:3,textTransform:"uppercase",color:"rgba(255,255,255,0.6)",fontFamily:S.mono,marginBottom:4}},spec?spec.header:R?R.label:""),
+      h("div",{style:{fontSize:22,fontWeight:700,color:"#fff",letterSpacing:-0.5}},"Macro Optimizer"),
+      h("div",{style:{fontSize:11,color:"rgba(255,255,255,0.5)",marginTop:2}},"Find the optimal order for your goals")
+    ),
+
+    h("div",{style:{padding:"16px 16px 0"}},
+
+      // Modus (vor der Restaurant-Wahl: Ziele bleiben beim Wechsel erhalten)
+      h("div",{style:{display:"flex",gap:8,marginBottom:16}},
+        btn("macros","Enter macros",mode,setMode),
+        btn("calories","Calories + preferences",mode,setMode)
+      ),
+
+      // Screenshot-Import (verbleibende Makros + Kalorien per On-Device-OCR)
+      h("div",{style:{marginBottom:16}},
+        h("label",{style:{display:"inline-flex",alignItems:"center",gap:8,cursor:imp.busy?"progress":"pointer",
+            padding:"10px 14px",borderRadius:8,border:"1px solid #2a2a2a",background:"#151515",
+            color:"#bbb",fontSize:12,fontWeight:600,fontFamily:S.font,opacity:imp.busy?0.65:1}},
+          h("span",{style:{fontSize:15}},"📷"),
+          imp.busy?imp.msg:"Import from screenshot",
+          h("input",{type:"file",accept:"image/*",disabled:imp.busy,onChange:onImport,style:{display:"none"}})
+        ),
+        imp.msg&&!imp.busy&&h("div",{style:{marginTop:6,fontSize:11,fontFamily:S.mono,color:imp.err?"#f87171":"#4ade80"}},
+          (imp.err?"":"✓ ")+imp.msg)
+      ),
+
+      // Eingabe
+      h("div",{style:{background:"#151515",borderRadius:12,padding:16,marginBottom:16,border:"1px solid #222"}},
+        mode==="macros"?h("div",null,
+          h("div",{style:{display:"flex",gap:10,marginBottom:10}},
+            h(NumIn,{label:"Carbs",value:tC,onChange:setTC,placeholder:"45",unit:"g"}),
+            h(NumIn,{label:"Protein",value:tP,onChange:setTP,placeholder:"30",unit:"g"}),
+            h(NumIn,{label:"Fat",value:tF,onChange:setTF,placeholder:"12",unit:"g"})
+          ),
+          h("div",{style:{fontSize:11,color:"#666",fontFamily:S.mono}},"≈ "+autoK+" kcal · "+inputHint)
+        ):h("div",null,
+          h("div",{style:{marginBottom:12}},h(NumIn,{label:"Calorie target",value:tK,onChange:setTK,placeholder:"450",unit:"kcal"})),
+          h("div",{style:{fontSize:10,color:"#666",marginBottom:8,fontFamily:S.mono,textTransform:"uppercase",letterSpacing:1}},"Macro preferences"),
+          h("div",{style:{display:"flex",flexWrap:"wrap",gap:6}},
+            ...[["hp","High Protein"],["lp","Low Protein"],["hc","High Carb"],["lc","Low Carb"],["hf","High Fat"],["lf","Low Fat"]].map(([k,l])=>
+              h(Chip,{key:k,label:l,active:prefs[k],onClick:()=>toggleP(k)}))
+          )
+        )
+      ),
+
+      // Fibre/Salt-Constraints (gehören zu den Zielen)
+      h("div",{style:{marginTop:-8,marginBottom:12}},
+        h("button",{onClick:()=>setAdv(!showAdv),style:{background:"none",border:"none",color:"#666",fontSize:11,cursor:"pointer",fontFamily:S.mono,textDecoration:"underline",padding:0}},
+          showAdv?"Less ▴":"Fibre / Salt ▾")
+      ),
+      showAdv&&h("div",{style:{background:"#151515",borderRadius:12,padding:16,marginBottom:16,border:"1px solid #222"}},
+        h("div",{style:{display:"flex",gap:10,marginBottom:10}},
+          h(NumIn,{label:"Fibre Min",value:fibMin,onChange:setFibMin,placeholder:"–",unit:"g"}),
+          h(NumIn,{label:"Fibre Max",value:fibMax,onChange:setFibMax,placeholder:"–",unit:"g"})
+        ),
+        h("div",{style:{display:"flex",gap:10}},
+          h(NumIn,{label:"Salt Min",value:sMin,onChange:setSMin,placeholder:"–",unit:"g"}),
+          h(NumIn,{label:"Salt Max",value:sMax,onChange:setSMax,placeholder:"–",unit:"g"})
+        )
+      ),
+
+      // Tabs: Spezial-Tabs, dann die Registry-Restaurants
+      h("div",{style:{display:"flex",flexWrap:"wrap",gap:8,marginBottom:16}},
+        ...SPECIAL_TABS.map(s=>btn(s.key,s.label,tab,setTab)),
+        ...RESTAURANTS.map(r=>btn(r.key,r.name,tab,setTab))
+      ),
+
+      // All/Accurate: max items pro à-la-carte-Bestellung
+      isCross&&!crossEmpty&&h("div",{style:{...CARD,marginBottom:16}},
+        h("div",{style:LBL},"Max. items per order"),
+        h("div",{style:{display:"flex",gap:5,marginBottom:8}},
+          ...[1,2,3,5,Infinity].map(n=>h(Chip,{key:String(n),label:n===Infinity?"∞":String(n),active:maxAll===n,onClick:()=>setMaxAll(n),small:true}))
+        ),
+        h("div",{style:{fontSize:10,color:"#666",lineHeight:1.4}},"Applies to all à-la-carte restaurants (one best order per restaurant). Build-your-own restaurants build one composed order regardless.")
+      ),
+      // All/Accurate ohne Restaurants: Hinweis statt Ergebnisliste
+      crossEmpty&&h("div",{style:{...CARD,padding:16,marginBottom:16}},
+        h("div",{style:{fontSize:13,fontWeight:600,color:"#ddd",marginBottom:4}},tab==="accurate"?"No accurate restaurants yet":"No restaurants yet"),
+        h("div",{style:{fontSize:12,color:"#888",lineHeight:1.5}},tab==="accurate"
+          ?"Restaurants show up here once their nutrition data is verified from official sources. Meanwhile, use “All restaurants”."
+          :"Add a restaurant to the registry to get started.")
+      ),
+
+      // À la carte: Kategorien + Max-Items (+ Hinweis) — generisch aus der Registry
+      R&&R.kind==="ac"&&h("div",{style:CARD},
+        h("div",{style:LBL},"Categories",overrideSw&&h("span",{style:{color:"#777",textTransform:"none",letterSpacing:0}},"  · ignored while “"+overrideSw.label+"” is on")),
+        h("div",{style:{display:"flex",flexWrap:"wrap",gap:5,marginBottom:12,opacity:overrideSw?0.45:1}},
+          ...R.data.cats.filter(c=>!c.drink).map(c=>h(Chip,{key:c.id,label:c.name,active:!!st.cats[c.id],
+            onClick:()=>updRS(R.key,s=>({cats:{...s.cats,[c.id]:!s.cats[c.id]}}))}))
+        ),
+        h("div",{style:LBL},"Max. items per order"),
+        h("div",{style:{display:"flex",gap:5,marginBottom:R.note?10:0}},
+          ...[1,2,3,5,Infinity].map(n=>h(Chip,{key:String(n),label:n===Infinity?"∞":String(n),active:st.maxN===n,onClick:()=>updRS(R.key,()=>({maxN:n})),small:true}))
+        ),
+        R.note&&h("div",{style:{fontSize:10,color:"#666",lineHeight:1.4}},R.note)
+      ),
+      // Build-Your-Own: eigene Config
+      R&&R.kind==="byo"&&R.renderConfig(ctx),
+
+      // Schalter (deklarativ aus der Registry; group = UI-exklusiv)
+      h("div",{style:{display:"flex",gap:16,marginBottom:16,alignItems:"center",flexWrap:"wrap"}},
+        ...(R?(R.switches||[]):[]).flatMap(s=>[
+          h("label",{key:s.id,style:{display:"flex",alignItems:"center",gap:6,cursor:"pointer",fontSize:12,color:"#999"}},
+            h("input",{type:"checkbox",checked:!!st.sw[s.id],onChange:e=>{const on=e.target.checked;updRS(R.key,x=>({sw:toggleSwitch(R,x.sw,s.id,on)}));},style:{accentColor:S.green,width:16,height:16}}),
+            s.label),
+          s.hint?h("div",{key:s.id+"_hint",style:{flexBasis:"100%",fontSize:11,color:"#7a7",fontStyle:"italic",margin:"-8px 0 0 22px",lineHeight:1.4}},s.hint):null,
+        ])
+      ),
+
+      // „Add own order" — Suche über alle Restaurants + eigener Warenkorb (zum nachträglichen Tracken)
+      tab==="search"&&h("div",{style:{marginBottom:20}},
+        h("div",{style:{fontSize:10,color:"#555",fontFamily:S.mono,textTransform:"uppercase",letterSpacing:2,marginBottom:6}},"Add own order"),
+        h("div",{style:{fontSize:11,color:"#777",marginBottom:10,lineHeight:1.5}},"Search any dish across all restaurants and add what you actually ordered — the macros are summed below so you can track it."),
+        h("input",{type:"text",value:searchQ,onChange:e=>setSearchQ(e.target.value),placeholder:"Search a dish or restaurant…",
+          style:{width:"100%",boxSizing:"border-box",background:"#151515",border:"1px solid #2a2a2a",borderRadius:10,padding:"11px 14px",color:"#fff",fontSize:14,fontFamily:S.font,outline:"none",marginBottom:12}}),
+        searchQ.trim()&&h("div",{style:{display:"flex",flexDirection:"column",gap:6,marginBottom:18}},
+          moResults.length===0
+            ? h("div",{style:{fontSize:12,color:"#666",fontFamily:S.mono}},"No matches.")
+            : moResults.map((it,i)=>h("div",{key:i,style:{display:"flex",alignItems:"center",justifyContent:"space-between",gap:8,background:"#141414",border:"1px solid #222",borderRadius:9,padding:"9px 11px"}},
+                h("div",{style:{minWidth:0,flex:1}},
+                  h("div",{style:{display:"flex",alignItems:"center",gap:7,marginBottom:2}},
+                    h("span",{style:{fontSize:8,fontWeight:700,color:"#93c5fd",background:"rgba(37,99,235,0.16)",border:"1px solid rgba(37,99,235,0.4)",borderRadius:5,padding:"2px 5px",fontFamily:S.mono,textTransform:"uppercase",letterSpacing:0.5,whiteSpace:"nowrap"}},it.resto),
+                    h("span",{style:{fontSize:13,color:"#eee",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},it.name)),
+                  h("div",{style:{fontSize:10,fontFamily:S.mono,color:"#888"}},it.kcal+" kcal · P "+it.protein+" · C "+it.carbs+" · F "+it.fat)),
+                h("button",{onClick:()=>addToOrder(it),style:{flexShrink:0,background:S.green,border:"none",color:"#fff",borderRadius:8,padding:"7px 12px",fontSize:12,fontWeight:700,cursor:"pointer",fontFamily:S.font}},"+ Add")
+              ))
+        ),
+        h("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:8}},
+          h("div",{style:{fontSize:10,color:"#555",fontFamily:S.mono,textTransform:"uppercase",letterSpacing:2}},"My order"+(myOrder.length?" · "+myOrder.reduce((s,e)=>s+e.qty,0)+" items":"")),
+          myOrder.length>0&&h("button",{onClick:clearOrder,style:{background:"none",border:"none",color:"#777",fontSize:11,cursor:"pointer",fontFamily:S.mono,textDecoration:"underline",padding:0}},"Clear")
+        ),
+        myOrder.length===0
+          ? h("div",{style:{fontSize:12,color:"#666",marginBottom:16}},"Nothing added yet. Search above and tap “+ Add”.")
+          : h("div",null,
+              h("div",{style:{display:"flex",flexDirection:"column",gap:6,marginBottom:14}},
+                ...myOrder.map((e,i)=>h("div",{key:i,style:{display:"flex",alignItems:"center",justifyContent:"space-between",gap:8,background:"#151515",border:"1px solid #222",borderRadius:9,padding:"8px 10px"}},
+                  h("div",{style:{minWidth:0,flex:1}},
+                    h("div",{style:{display:"flex",alignItems:"center",gap:6,marginBottom:2}},
+                      h("span",{style:{fontSize:8,fontWeight:700,color:"#93c5fd",fontFamily:S.mono,textTransform:"uppercase",letterSpacing:0.5,whiteSpace:"nowrap"}},e.item.resto),
+                      h("span",{style:{fontSize:13,color:"#eee",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},e.item.name)),
+                    h("div",{style:{fontSize:10,fontFamily:S.mono,color:"#888"}},Math.round(e.item.kcal*e.qty)+" kcal · P "+r1(e.item.protein*e.qty)+" · C "+r1(e.item.carbs*e.qty)+" · F "+r1(e.item.fat*e.qty))),
+                  h("div",{style:{display:"flex",alignItems:"center",gap:6,flexShrink:0}},
+                    h("button",{onClick:()=>changeQty(i,-1),style:{width:26,height:26,borderRadius:7,border:"1px solid #333",background:"#1c1c1c",color:"#ccc",fontSize:16,lineHeight:1,cursor:"pointer",fontFamily:S.font}},"−"),
+                    h("span",{style:{fontSize:13,fontFamily:S.mono,color:"#fff",minWidth:18,textAlign:"center"}},e.qty),
+                    h("button",{onClick:()=>changeQty(i,1),style:{width:26,height:26,borderRadius:7,border:"1px solid #333",background:"#1c1c1c",color:"#ccc",fontSize:16,lineHeight:1,cursor:"pointer",fontFamily:S.font}},"+"),
+                    h("button",{onClick:()=>removeFromOrder(i),style:{width:26,height:26,borderRadius:7,border:"1px solid #3a2a2a",background:"#1c1414",color:"#f87171",fontSize:13,lineHeight:1,cursor:"pointer",fontFamily:S.font}},"✕")
+                  )
+                ))
+              ),
+              h("div",{style:{background:"#0d0d0d",borderRadius:10,padding:14,border:"1px solid #2a2a2a"}},
+                h("div",{style:{fontSize:10,color:"#888",fontFamily:S.mono,textTransform:"uppercase",letterSpacing:1,marginBottom:10}},mode==="macros"?"Order total vs target":(tK?"Order total vs "+tK+" kcal":"Order total")),
+                h(MacroBars,{n:moTotal,tg,mb:0})
+              )
+            )
+      ),
+
+      // Ergebnisse: Header + Sort by (Accuracy-Sortierung)
+      tab!=="search"&&!crossEmpty&&(isCross||R)&&h("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:8,marginBottom:10}},
+        h("div",{style:{fontSize:10,color:"#555",fontFamily:S.mono,textTransform:"uppercase",letterSpacing:2}},"Top results"),
+        h("div",{style:{display:"flex",alignItems:"center",gap:5,flexWrap:"wrap"}},
+          h("span",{style:{fontSize:9,color:"#555",fontFamily:S.mono,textTransform:"uppercase",letterSpacing:1}},"Sort by"),
+          h(Chip,{label:"Score",small:true,active:sortBy==="score",onClick:()=>setSortBy("score")}),
+          h(Chip,{label:"Calories",small:true,active:sortBy==="kcal",onClick:()=>setSortBy("kcal")}),
+          ...(mode==="macros"?[
+            h(Chip,{key:"sc",label:"Carbs",small:true,active:sortBy==="carbs",onClick:()=>setSortBy("carbs")}),
+            h(Chip,{key:"sp",label:"Protein",small:true,active:sortBy==="protein",onClick:()=>setSortBy("protein")}),
+            h(Chip,{key:"sf",label:"Fat",small:true,active:sortBy==="fat",onClick:()=>setSortBy("fat")}),
+          ]:[])
+        )
+      ),
+
+      // Ergebnisliste: 20 berechnet, 8 angezeigt
+      tab!=="search"&&!crossEmpty&&(isCross||R)&&h("div",{style:{display:"flex",flexDirection:"column",gap:8,marginBottom:20}},
+        ...sortResults(activeResults,effSort,sortTgts).slice(0,8).map((r,i)=>{
+          if(isCross){
+            const rr=RESTO_BY_KEY[r._resto];
+            return h(ResultCard,{key:i,badge:rr?rr.name:r._resto,title:rr?summarizeResult(rr,r):"",n:r.nutrition,onClick:()=>selectAcross(r),hint:"tap → details"});
+          }
+          if(R.kind==="byo") return R.renderCard(r,{...ctx,selected:resultKey(r)===selKey,onSelect:()=>toggleSel(r)});
+          const cats=[...new Set(r.items.map(x=>{const c=R.data.cats.find(y=>y.id===x.cat);return c?c.name:x.cat;}))];
+          return h(ResultCard,{key:i,title:comboLabel(r.items),sub:r.items.length+(r.items.length===1?" Item · ":" Items · ")+cats.join(" · "),
+            n:r.nutrition,selected:resultKey(r)===selKey,onClick:()=>toggleSel(r)});
+        }),
+        activeResults.length===0&&h("div",{style:{fontSize:12,color:"#888",fontFamily:S.mono,padding:"4px 0"}},
+          isCross?"No results.":"No results — turn on more categories or relax the switches.")
+      ),
+
+      // Detail-Panel + Order Guide (generisch; BYO liefert den Mittelteil über renderPanel)
+      R&&sel&&h("div",{style:{background:"#151515",borderRadius:12,border:"1px solid "+S.green,padding:16}},
+        h("div",{style:{fontSize:15,fontWeight:700,color:"#fff",marginBottom:4}},summarizeResult(R,sel)),
+        h("div",{style:{fontSize:11,color:"#777",marginBottom:12,fontFamily:S.mono}},
+          R.kind==="byo"?(R.panelSubtitle?R.panelSubtitle(sel):"build your own"):"à la carte · "+sel.items.length+(sel.items.length===1?" Item":" Items")),
+        h(MacroBars,{n:sel.nutrition,tg}),
+        R.kind==="byo"?R.renderPanel(sel,ctx):h("div",{style:{marginBottom:16}},
+          h("div",{style:{fontSize:10,color:"#555",fontFamily:S.mono,textTransform:"uppercase",letterSpacing:1,marginBottom:6}},"Items"),
+          ...sel.items.map((x,xi)=>h("div",{key:xi,style:{display:"flex",alignItems:"flex-start",justifyContent:"space-between",gap:8,fontSize:12,padding:"4px 0",borderBottom:xi<sel.items.length-1?"1px solid #1f1f1f":"none"}},
+            h("span",{style:{color:"#e0e0e0",minWidth:0,flex:1}},x.name),
+            h("span",{style:{color:"#999",fontFamily:S.mono,whiteSpace:"nowrap"}},x.kcal+" kcal · P "+x.protein+"g")
+          ))
+        ),
+        h(OrderGuide,{platform:R.platform,steps:orderStepsFor(R,sel)})
+      ),
+
+      // Footer
+      h("div",{style:{marginTop:20,fontSize:9,color:"#444",fontFamily:S.mono,lineHeight:1.5,textAlign:"center"}},
+        tab==="search"?"Add own order: search any dish across all "+RESTAURANTS.length+" restaurant"+(RESTAURANTS.length===1?"":"s")+" · saved on this device"
+        :tab==="accurate"?(accList.length?"Accurate restaurants: "+accList.map(r=>r.name).join(" · "):"Accurate restaurants: none yet")
+        :tab==="all"?"Best picks across all restaurants — one per restaurant, default switches"
+        :R?(R.footer||"Data: "+R.name):"")
+    )
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+</script>
+</body>
+</html>
