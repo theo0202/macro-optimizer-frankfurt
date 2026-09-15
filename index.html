@@ -42,10 +42,10 @@ function lsSet(key, value) {
 
 // ═══ Restaurant-Daten (generierte Blöcke — NIE von Hand editieren, immer über <key>-update.js) ═══
 // __COMPLEAT_DATA_START__ (generiert via: node compleat-update.js aus data/compleat-raw.json — nicht von Hand editieren)
-// Quelle: Compleat-Onlineshop (compleat.vmos.io, Frankfurt Nordend), Stand 2026-09-15 · Shop-Werte pro 100 g × Menge · Wolt „Build your Bowl“
-// GESPERRT (nie im Rechner, auch nicht auf künftigen Plattformen): Bunter Bio Quinoa (250g) — Offizielle Werte unplausibel: 130 kcal / 21,3 g KH / 4,5 g Protein je 250 g (= 52 kcal je 100 g) entsprechen eher 100 g gekochter Quinoa (~120 kcal je 100 g). User 15.09.2026: bleibt im Datensatz, im Rechner ausgeschlossen — auch auf künftigen Plattformen (z.B. Uber Eats).
+// Quelle: Compleat-Onlineshop (compleat.vmos.io, Frankfurt Nordend), Stand 2026-09-15 · Shop-Werte pro 100 g × Menge · Menüs + Preise: Wolt „Build your Bowl“, Uber Eats „Selbst zusammenstellen“ (erfasst 2026-09-15)
+// GESPERRT (nie im Rechner, auf keiner Plattform): Bunter Bio Quinoa (250g) — Offizielle Werte unplausibel: 130 kcal / 21,3 g KH / 4,5 g Protein je 250 g (= 52 kcal je 100 g) entsprechen eher 100 g gekochter Quinoa (~120 kcal je 100 g). User 15.09.2026: bleibt im Datensatz, im Rechner ausgeschlossen — auch auf künftigen Plattformen (z.B. Uber Eats).
 const COMPLEAT = {
-  // Kompletter Shop-Datensatz (auch Zutaten, die Wolt nicht anbietet) — Grundlage für weitere Plattformen
+  // Kompletter Shop-Datensatz (auch Zutaten, die eine Plattform nicht anbietet)
   ingredients: [
     {id:"suesskartoffel",name:"Süßkartoffel",group:"base",portion:250,unit:"g",per100:{kcal:113,fat:0.6,sat:0.2,carbs:23.2,sugars:4.5,fibre:3.1,protein:1.6,salt:2},allergens:[],halfPortion:125},
     {id:"protein_pasta",name:"Protein-Pasta",group:"base",portion:200,unit:"g",per100:{kcal:190.5,fat:2.75,sat:0.2,carbs:25,sugars:0.75,fibre:7,protein:13,salt:1},allergens:["Glutenhaltig"],halfPortion:100},
@@ -94,61 +94,129 @@ const COMPLEAT = {
     {id:"olivenoel_salz_halbe_zitrone",name:"Olivenöl, Salz & halbe Zitrone",group:"dips",portion:20,unit:"ml",per100:{kcal:900,fat:100,sat:13,carbs:0,sugars:0,fibre:0,protein:0,salt:0},allergens:[]},
   ],
   wolt: {
-    item: "Build your Bowl", page: "https://wolt.com/de/deu/frankfurt/restaurant/compleat-nordend",
+    item: "Build your Bowl", page: "https://wolt.com/de/deu/frankfurt/restaurant/compleat-nordend", basePrice: 2,
     groups: [
       { id:"base",name:"Deine Basis",min:0,max:5,none:null,options:[
-        {id:"base_basmatireis_250_g",name:"Basmatireis, 250 g",short:"Basmatireis",group:"base",ing:"basmati_reis",amount:250,unit:"g",maxQty:4,kcal:330,fat:0.75,sat:0,carbs:70,sugars:0.25,fibre:1.5,protein:7.5,salt:2.5},
-        {id:"base_salat_mix_100_g",name:"Salat-Mix, 100 g",short:"Salat-Mix",group:"base",ing:"salatmix",amount:100,unit:"g",maxQty:4,kcal:17,fat:0.3,sat:0.1,carbs:2.1,sugars:1.1,fibre:0,protein:1.5,salt:0.1},
-        {id:"base_protein_nudeln_200_g",name:"Protein Nudeln, 200 g",short:"Protein Nudeln",group:"base",ing:"protein_pasta",amount:200,unit:"g",maxQty:1,kcal:381,fat:5.5,sat:0.4,carbs:50,sugars:1.5,fibre:14,protein:26,salt:2},
+        {id:"base_basmatireis_250_g",name:"Basmatireis, 250 g",short:"Basmatireis",group:"base",role:"base",ing:"basmati_reis",amount:250,unit:"g",maxQty:4,price:2.5,kcal:330,fat:0.75,sat:0,carbs:70,sugars:0.25,fibre:1.5,protein:7.5,salt:2.5},
+        {id:"base_salat_mix_100_g",name:"Salat-Mix, 100 g",short:"Salat-Mix",group:"base",role:"base",ing:"salatmix",amount:100,unit:"g",maxQty:4,price:2.5,kcal:17,fat:0.3,sat:0.1,carbs:2.1,sugars:1.1,fibre:0,protein:1.5,salt:0.1},
+        {id:"base_protein_nudeln_200_g",name:"Protein Nudeln, 200 g",short:"Protein Nudeln",group:"base",role:"base",ing:"protein_pasta",amount:200,unit:"g",maxQty:1,price:3.5,kcal:381,fat:5.5,sat:0.4,carbs:50,sugars:1.5,fibre:14,protein:26,salt:2},
       ] },
       { id:"protein",name:"Deine Proteine",min:0,max:10,none:null,options:[
-        {id:"protein_haehnchen_100_g",name:"Hähnchen, 100 g",short:"Hähnchen",group:"protein",ing:"huehnchen",amount:100,unit:"g",maxQty:10,kcal:125,fat:2.7,sat:1.2,carbs:1.6,sugars:0.73,fibre:0,protein:23.2,salt:1.07},
-        {id:"protein_veganes_haehnchen_80_g",name:"Veganes Hähnchen, 80 g",short:"Veganes Hähnchen",group:"protein",ing:"veganes_huehnchen_planted_chicken",amount:80,unit:"g",maxQty:10,kcal:156,fat:8,sat:0.8,carbs:1.76,sugars:0.4,fibre:3.2,protein:16.8,salt:1.52},
-        {id:"protein_vegane_hackbaellchen_100_g",name:"Vegane Hackbällchen, 100 g",short:"Vegane Hackbällchen",group:"protein",ing:"vegane_hackbaellchen",amount:100,unit:"g",maxQty:10,kcal:154,fat:4.5,sat:0.5,carbs:7,sugars:1,fibre:7.5,protein:17.7,salt:1.4},
-        {id:"protein_rinderhackbaellchen_100_g",name:"Rinderhackbällchen, 100 g",short:"Rinderhackbällchen",group:"protein",ing:"rinderhackbaellchen",amount:100,unit:"g",maxQty:10,kcal:222,fat:14,sat:5.2,carbs:10,sugars:1,fibre:2,protein:14,salt:1.8},
-        {id:"protein_pulled_salmon_100_g",name:"Pulled Salmon, 100 g",short:"Pulled Salmon",group:"protein",ing:"pulled_salmon",amount:100,unit:"g",maxQty:1,kcal:215,fat:14.4,sat:3.5,carbs:0,sugars:0,fibre:6,protein:20.3,salt:2.2},
+        {id:"protein_haehnchen_100_g",name:"Hähnchen, 100 g",short:"Hähnchen",group:"protein",role:"protein",ing:"huehnchen",amount:100,unit:"g",maxQty:10,price:3,kcal:125,fat:2.7,sat:1.2,carbs:1.6,sugars:0.73,fibre:0,protein:23.2,salt:1.07},
+        {id:"protein_veganes_haehnchen_80_g",name:"Veganes Hähnchen, 80 g",short:"Veganes Hähnchen",group:"protein",role:"protein",ing:"veganes_huehnchen_planted_chicken",amount:80,unit:"g",maxQty:10,price:3,kcal:156,fat:8,sat:0.8,carbs:1.76,sugars:0.4,fibre:3.2,protein:16.8,salt:1.52},
+        {id:"protein_vegane_hackbaellchen_100_g",name:"Vegane Hackbällchen, 100 g",short:"Vegane Hackbällchen",group:"protein",role:"protein",ing:"vegane_hackbaellchen",amount:100,unit:"g",maxQty:10,price:3,kcal:154,fat:4.5,sat:0.5,carbs:7,sugars:1,fibre:7.5,protein:17.7,salt:1.4},
+        {id:"protein_rinderhackbaellchen_100_g",name:"Rinderhackbällchen, 100 g",short:"Rinderhackbällchen",group:"protein",role:"protein",ing:"rinderhackbaellchen",amount:100,unit:"g",maxQty:10,price:3,kcal:222,fat:14,sat:5.2,carbs:10,sugars:1,fibre:2,protein:14,salt:1.8},
+        {id:"protein_pulled_salmon_100_g",name:"Pulled Salmon, 100 g",short:"Pulled Salmon",group:"protein",role:"protein",ing:"pulled_salmon",amount:100,unit:"g",maxQty:1,price:4,kcal:215,fat:14.4,sat:3.5,carbs:0,sugars:0,fibre:6,protein:20.3,salt:2.2},
       ] },
       { id:"extra",name:"Deine Extras",min:0,max:30,none:null,options:[
-        {id:"extra_haehnchen_100_g",name:"Hähnchen, 100 g",short:"Hähnchen",group:"extra",ing:"huehnchen",amount:100,unit:"g",maxQty:1,kcal:125,fat:2.7,sat:1.2,carbs:1.6,sugars:0.73,fibre:0,protein:23.2,salt:1.07},
-        {id:"extra_veganes_haehnchen_80_g",name:"Veganes Hähnchen, 80 g",short:"Veganes Hähnchen",group:"extra",ing:"veganes_huehnchen_planted_chicken",amount:80,unit:"g",maxQty:1,kcal:156,fat:8,sat:0.8,carbs:1.76,sugars:0.4,fibre:3.2,protein:16.8,salt:1.52},
-        {id:"extra_rinderhackbaellchen_100_g",name:"Rinderhackbällchen, 100 g",short:"Rinderhackbällchen",group:"extra",ing:"rinderhackbaellchen",amount:100,unit:"g",maxQty:1,kcal:222,fat:14,sat:5.2,carbs:10,sugars:1,fibre:2,protein:14,salt:1.8},
-        {id:"extra_vegane_hackbaellchen_100_g",name:"Vegane Hackbällchen, 100 g",short:"Vegane Hackbällchen",group:"extra",ing:"vegane_hackbaellchen",amount:100,unit:"g",maxQty:1,kcal:154,fat:4.5,sat:0.5,carbs:7,sugars:1,fibre:7.5,protein:17.7,salt:1.4},
-        {id:"extra_hart_gekochtes_ei_50_g",name:"Hart gekochtes Ei, 50 g",short:"Hart gekochtes Ei",group:"extra",ing:"hart_gekochtes_ei",amount:50,unit:"g",maxQty:1,kcal:77.5,fat:5.6,sat:1.65,carbs:0.3,sugars:0.15,fibre:0.25,protein:6.55,salt:0.38},
-        {id:"extra_erbsen_50_g",name:"Erbsen, 50 g",short:"Erbsen",group:"extra",ing:"erbsen",amount:50,unit:"g",maxQty:1,kcal:34.5,fat:0.15,sat:0.05,carbs:4.5,sugars:1.55,fibre:2.5,protein:2.6,salt:0.5},
-        {id:"extra_babyspinat_20_g",name:"Babyspinat, 20 g",short:"Babyspinat",group:"extra",ing:"baby_spinat",amount:20,unit:"g",maxQty:1,kcal:3.6,fat:0.12,sat:0.02,carbs:0.12,sugars:0,fibre:0.4,protein:0.88,salt:0},
-        {id:"extra_tomaten_50_g",name:"Tomaten, 50 g",short:"Tomaten",group:"extra",ing:"tomaten",amount:50,unit:"g",maxQty:1,kcal:9.5,fat:0.05,sat:0,carbs:1.75,sugars:1.6,fibre:0.5,protein:0.35,salt:0},
-        {id:"extra_edamame_50_g",name:"Edamame, 50 g",short:"Edamame",group:"extra",ing:"edamame",amount:50,unit:"g",maxQty:1,kcal:55,fat:0,sat:0,carbs:4.25,sugars:1.2,fibre:1.2,protein:5,salt:1},
-        {id:"extra_brokkoli_100_g",name:"Brokkoli, 100 g",short:"Brokkoli",group:"extra",ing:"brokkoli",amount:100,unit:"g",maxQty:1,kcal:25,fat:0.2,sat:0,carbs:4.4,sugars:4.2,fibre:3,protein:3,salt:0.1},
-        {id:"extra_avocado_35_g",name:"Avocado, 35 g",short:"Avocado",group:"extra",ing:"avocado",amount:35,unit:"g",maxQty:1,kcal:75.95,fat:4.38,sat:3.5,carbs:1.26,sugars:0.49,fibre:1.44,protein:0.53,salt:0},
-        {id:"extra_karotten_50_g",name:"Karotten, 50 g",short:"Karotten",group:"extra",ing:"karotten",amount:50,unit:"g",maxQty:1,kcal:16,fat:0.05,sat:0,carbs:2.5,sugars:2.5,fibre:2,protein:0.5,salt:0.08},
-        {id:"extra_mais_50_g",name:"Mais, 50 g",short:"Mais",group:"extra",ing:"mais",amount:50,unit:"g",maxQty:1,kcal:34.5,fat:0.6,sat:0.15,carbs:5.5,sugars:3.5,fibre:1.55,protein:1.25,salt:0.25},
-        {id:"extra_gurken_50_g",name:"Gurken, 50 g",short:"Gurken",group:"extra",ing:"gurke",amount:50,unit:"g",maxQty:1,kcal:7,fat:0.05,sat:0,carbs:0.9,sugars:0.6,fibre:0.45,protein:0.3,salt:0},
-        {id:"extra_mango_70_g",name:"Mango, 70 g",short:"Mango",group:"extra",ing:"mango",amount:70,unit:"g",maxQty:1,kcal:46.2,fat:0,sat:0,carbs:9.87,sugars:8.54,fibre:0.98,protein:1.12,salt:0.01},
-        {id:"extra_feta_50_g",name:"Feta, 50 g",short:"Feta",group:"extra",ing:"feta_kaese",amount:50,unit:"g",maxQty:1,kcal:140,fat:11.75,sat:7,carbs:0.15,sugars:0.15,fibre:0,protein:8.4,salt:1.2},
-        {id:"extra_rote_beete_falafel_100_g",name:"Rote Beete-Falafel, 100 g",short:"Rote Beete-Falafel",group:"extra",ing:"rote_bete_falafel",amount:100,unit:"g",maxQty:1,kcal:216,fat:13,sat:1.1,carbs:15,sugars:5,fibre:6.7,protein:6.5,salt:1.1},
-        {id:"extra_rotkohl_geraspelt_50_g",name:"Rotkohl, geraspelt, 50 g",short:"Rotkohl",group:"extra",ing:"rotkohl_geraspelt",amount:50,unit:"g",maxQty:1,kcal:13.5,fat:0.05,sat:0.05,carbs:2,sugars:1.5,fibre:1.25,protein:1,salt:0.02},
-        {id:"extra_schwarzer_sesam_3_g",name:"Schwarzer Sesam, 3 g",short:"Schwarzer Sesam",group:"extra",ing:"schwarzer_sesam",amount:3,unit:"g",maxQty:1,kcal:17.79,fat:1.5,sat:0.24,carbs:0.3,sugars:0.01,fibre:0.33,protein:0.63,salt:0,crunch:true},
-        {id:"extra_granatapfelkerne_15_g",name:"Granatapfelkerne, 15 g",short:"Granatapfelkerne",group:"extra",ing:"granatapfelkerne",amount:15,unit:"g",maxQty:1,kcal:11.1,fat:0.09,sat:0,carbs:2.55,sugars:2.51,fibre:0.33,protein:0.11,salt:0},
-        {id:"extra_erdnuesse_20_g",name:"Erdnüsse, 20 g",short:"Erdnüsse",group:"extra",ing:"erdnuesse",amount:20,unit:"g",maxQty:1,kcal:125.4,fat:10.6,sat:1.74,carbs:1.18,sugars:0.84,fibre:2.2,protein:5.6,salt:0.18,crunch:true},
-        {id:"extra_walnusskerne_20_g",name:"Walnusskerne, 20 g",short:"Walnusskerne",group:"extra",ing:"walnusskerne",amount:20,unit:"g",maxQty:1,kcal:140.8,fat:13.4,sat:1.26,carbs:1.4,sugars:0.4,fibre:1.34,protein:3.2,salt:0,crunch:true},
-        {id:"extra_roestzwiebeln_20_g",name:"Röstzwiebeln, 20 g",short:"Röstzwiebeln",group:"extra",ing:"roestzwiebeln",amount:20,unit:"g",maxQty:1,kcal:118,fat:8.8,sat:4.2,carbs:8,sugars:1.8,fibre:0.9,protein:1.2,salt:0.24,crunch:true},
-        {id:"extra_chili_gewuerz_1_g",name:"Chili Gewürz, 1 g",short:"Chili Gewürz",group:"extra",ing:"chili_gewuerz",amount:1,unit:"g",maxQty:1,kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
-        {id:"extra_grana_padano_20_g",name:"Grana Padano, 20 g",short:"Grana Padano",group:"extra",ing:"grana_padano",amount:20,unit:"g",maxQty:1,kcal:79.6,fat:5.8,sat:3.6,carbs:0,sugars:0,fibre:0,protein:6.6,salt:0.3},
+        {id:"extra_haehnchen_100_g",name:"Hähnchen, 100 g",short:"Hähnchen",group:"extra",role:"extra",ing:"huehnchen",amount:100,unit:"g",maxQty:1,price:3,kcal:125,fat:2.7,sat:1.2,carbs:1.6,sugars:0.73,fibre:0,protein:23.2,salt:1.07},
+        {id:"extra_veganes_haehnchen_80_g",name:"Veganes Hähnchen, 80 g",short:"Veganes Hähnchen",group:"extra",role:"extra",ing:"veganes_huehnchen_planted_chicken",amount:80,unit:"g",maxQty:1,price:3,kcal:156,fat:8,sat:0.8,carbs:1.76,sugars:0.4,fibre:3.2,protein:16.8,salt:1.52},
+        {id:"extra_rinderhackbaellchen_100_g",name:"Rinderhackbällchen, 100 g",short:"Rinderhackbällchen",group:"extra",role:"extra",ing:"rinderhackbaellchen",amount:100,unit:"g",maxQty:1,price:3,kcal:222,fat:14,sat:5.2,carbs:10,sugars:1,fibre:2,protein:14,salt:1.8},
+        {id:"extra_vegane_hackbaellchen_100_g",name:"Vegane Hackbällchen, 100 g",short:"Vegane Hackbällchen",group:"extra",role:"extra",ing:"vegane_hackbaellchen",amount:100,unit:"g",maxQty:1,price:3,kcal:154,fat:4.5,sat:0.5,carbs:7,sugars:1,fibre:7.5,protein:17.7,salt:1.4},
+        {id:"extra_hart_gekochtes_ei_50_g",name:"Hart gekochtes Ei, 50 g",short:"Hart gekochtes Ei",group:"extra",role:"extra",ing:"hart_gekochtes_ei",amount:50,unit:"g",maxQty:1,price:1,kcal:77.5,fat:5.6,sat:1.65,carbs:0.3,sugars:0.15,fibre:0.25,protein:6.55,salt:0.38},
+        {id:"extra_erbsen_50_g",name:"Erbsen, 50 g",short:"Erbsen",group:"extra",role:"extra",ing:"erbsen",amount:50,unit:"g",maxQty:1,price:1,kcal:34.5,fat:0.15,sat:0.05,carbs:4.5,sugars:1.55,fibre:2.5,protein:2.6,salt:0.5},
+        {id:"extra_babyspinat_20_g",name:"Babyspinat, 20 g",short:"Babyspinat",group:"extra",role:"extra",ing:"baby_spinat",amount:20,unit:"g",maxQty:1,price:1.5,kcal:3.6,fat:0.12,sat:0.02,carbs:0.12,sugars:0,fibre:0.4,protein:0.88,salt:0},
+        {id:"extra_tomaten_50_g",name:"Tomaten, 50 g",short:"Tomaten",group:"extra",role:"extra",ing:"tomaten",amount:50,unit:"g",maxQty:1,price:1.5,kcal:9.5,fat:0.05,sat:0,carbs:1.75,sugars:1.6,fibre:0.5,protein:0.35,salt:0},
+        {id:"extra_edamame_50_g",name:"Edamame, 50 g",short:"Edamame",group:"extra",role:"extra",ing:"edamame",amount:50,unit:"g",maxQty:1,price:1.5,kcal:55,fat:0,sat:0,carbs:4.25,sugars:1.2,fibre:1.2,protein:5,salt:1},
+        {id:"extra_brokkoli_100_g",name:"Brokkoli, 100 g",short:"Brokkoli",group:"extra",role:"extra",ing:"brokkoli",amount:100,unit:"g",maxQty:1,price:2.5,kcal:25,fat:0.2,sat:0,carbs:4.4,sugars:4.2,fibre:3,protein:3,salt:0.1},
+        {id:"extra_avocado_35_g",name:"Avocado, 35 g",short:"Avocado",group:"extra",role:"extra",ing:"avocado",amount:35,unit:"g",maxQty:1,price:1.5,kcal:75.95,fat:4.38,sat:3.5,carbs:1.26,sugars:0.49,fibre:1.44,protein:0.53,salt:0},
+        {id:"extra_karotten_50_g",name:"Karotten, 50 g",short:"Karotten",group:"extra",role:"extra",ing:"karotten",amount:50,unit:"g",maxQty:1,price:1,kcal:16,fat:0.05,sat:0,carbs:2.5,sugars:2.5,fibre:2,protein:0.5,salt:0.08},
+        {id:"extra_mais_50_g",name:"Mais, 50 g",short:"Mais",group:"extra",role:"extra",ing:"mais",amount:50,unit:"g",maxQty:1,price:1,kcal:34.5,fat:0.6,sat:0.15,carbs:5.5,sugars:3.5,fibre:1.55,protein:1.25,salt:0.25},
+        {id:"extra_gurken_50_g",name:"Gurken, 50 g",short:"Gurken",group:"extra",role:"extra",ing:"gurke",amount:50,unit:"g",maxQty:1,price:1,kcal:7,fat:0.05,sat:0,carbs:0.9,sugars:0.6,fibre:0.45,protein:0.3,salt:0},
+        {id:"extra_mango_70_g",name:"Mango, 70 g",short:"Mango",group:"extra",role:"extra",ing:"mango",amount:70,unit:"g",maxQty:1,price:2,kcal:46.2,fat:0,sat:0,carbs:9.87,sugars:8.54,fibre:0.98,protein:1.12,salt:0.01},
+        {id:"extra_feta_50_g",name:"Feta, 50 g",short:"Feta",group:"extra",role:"extra",ing:"feta_kaese",amount:50,unit:"g",maxQty:1,price:2.5,kcal:140,fat:11.75,sat:7,carbs:0.15,sugars:0.15,fibre:0,protein:8.4,salt:1.2},
+        {id:"extra_rote_beete_falafel_100_g",name:"Rote Beete-Falafel, 100 g",short:"Rote Beete-Falafel",group:"extra",role:"extra",ing:"rote_bete_falafel",amount:100,unit:"g",maxQty:1,price:3,kcal:216,fat:13,sat:1.1,carbs:15,sugars:5,fibre:6.7,protein:6.5,salt:1.1},
+        {id:"extra_rotkohl_geraspelt_50_g",name:"Rotkohl, geraspelt, 50 g",short:"Rotkohl",group:"extra",role:"extra",ing:"rotkohl_geraspelt",amount:50,unit:"g",maxQty:1,price:1,kcal:13.5,fat:0.05,sat:0.05,carbs:2,sugars:1.5,fibre:1.25,protein:1,salt:0.02},
+        {id:"extra_schwarzer_sesam_3_g",name:"Schwarzer Sesam, 3 g",short:"Schwarzer Sesam",group:"extra",role:"extra",ing:"schwarzer_sesam",amount:3,unit:"g",maxQty:1,price:1,kcal:17.79,fat:1.5,sat:0.24,carbs:0.3,sugars:0.01,fibre:0.33,protein:0.63,salt:0,crunch:true},
+        {id:"extra_granatapfelkerne_15_g",name:"Granatapfelkerne, 15 g",short:"Granatapfelkerne",group:"extra",role:"extra",ing:"granatapfelkerne",amount:15,unit:"g",maxQty:1,price:1,kcal:11.1,fat:0.09,sat:0,carbs:2.55,sugars:2.51,fibre:0.33,protein:0.11,salt:0},
+        {id:"extra_erdnuesse_20_g",name:"Erdnüsse, 20 g",short:"Erdnüsse",group:"extra",role:"extra",ing:"erdnuesse",amount:20,unit:"g",maxQty:1,price:1,kcal:125.4,fat:10.6,sat:1.74,carbs:1.18,sugars:0.84,fibre:2.2,protein:5.6,salt:0.18,crunch:true},
+        {id:"extra_walnusskerne_20_g",name:"Walnusskerne, 20 g",short:"Walnusskerne",group:"extra",role:"extra",ing:"walnusskerne",amount:20,unit:"g",maxQty:1,price:1,kcal:140.8,fat:13.4,sat:1.26,carbs:1.4,sugars:0.4,fibre:1.34,protein:3.2,salt:0,crunch:true},
+        {id:"extra_roestzwiebeln_20_g",name:"Röstzwiebeln, 20 g",short:"Röstzwiebeln",group:"extra",role:"extra",ing:"roestzwiebeln",amount:20,unit:"g",maxQty:1,price:1,kcal:118,fat:8.8,sat:4.2,carbs:8,sugars:1.8,fibre:0.9,protein:1.2,salt:0.24,crunch:true},
+        {id:"extra_chili_gewuerz_1_g",name:"Chili Gewürz, 1 g",short:"Chili Gewürz",group:"extra",role:"extra",ing:"chili_gewuerz",amount:1,unit:"g",maxQty:1,price:0,kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
+        {id:"extra_grana_padano_20_g",name:"Grana Padano, 20 g",short:"Grana Padano",group:"extra",role:"extra",ing:"grana_padano",amount:20,unit:"g",maxQty:1,price:1,kcal:79.6,fat:5.8,sat:3.6,carbs:0,sugars:0,fibre:0,protein:6.6,salt:0.3},
       ] },
       { id:"dip",name:"Dein Dip",min:1,max:1,none:"Ohne Dip",options:[
-        {id:"dip_curvy_curry_dip",name:"Curvy Curry Dip",short:"Curvy Curry Dip",group:"dip",ing:"curvy_curry",amount:80,unit:"g",maxQty:1,kcal:301.6,fat:30,sat:2.16,carbs:8.48,sugars:1.68,fibre:0.8,protein:0.32,salt:1.12},
-        {id:"dip_honey_muscle_mustard_dip",name:"Honey Muscle Mustard Dip",short:"Honey Muscle Mustard Dip",group:"dip",ing:"honey_muscle_mustard",amount:80,unit:"g",maxQty:1,kcal:200,fat:18.4,sat:1.28,carbs:8.48,sugars:1.84,fibre:28,protein:0.56,salt:1.92},
-        {id:"dip_joghurt_salatdressing",name:"Joghurt-Salatdressing",short:"Joghurt-Salatdressing",group:"dip",ing:"joghurt_salatdressing",amount:80,unit:"g",maxQty:1,kcal:114.4,fat:10.88,sat:1.28,carbs:3.68,sugars:2,fibre:0,protein:0.88,salt:1.04},
-        {id:"dip_power_peanut_dip",name:"Power Peanut Dip",short:"Power Peanut Dip",group:"dip",ing:"power_peanut",amount:80,unit:"g",maxQty:1,kcal:249.6,fat:21.6,sat:2.16,carbs:11.04,sugars:1.92,fibre:0,protein:2.96,salt:2.16},
-        {id:"dip_sexy_sesame_dip",name:"Sexy Sesame Dip",short:"Sexy Sesame Dip",group:"dip",ing:"sexy_sesame",amount:80,unit:"g",maxQty:1,kcal:293.6,fat:27.6,sat:2.56,carbs:9.52,sugars:0.56,fibre:0,protein:1.92,salt:2.4},
-        {id:"dip_champion_chili_dip",name:"Champion Chili-Dip",short:"Champion Chili-Dip",group:"dip",ing:"champion_chili",amount:80,unit:"g",maxQty:1,kcal:218.4,fat:20.48,sat:1.52,carbs:7.76,sugars:1.92,fibre:2,protein:1.04,salt:2.4},
-        {id:"dip_protein_tsatsiki_dip",name:"Protein Tsatsiki Dip",short:"Protein Tsatsiki Dip",group:"dip",ing:"protein_tzatziki",amount:100,unit:"g",maxQty:1,kcal:66.8,fat:0.21,sat:0.1,carbs:4.95,sugars:4.67,fibre:0.1,protein:10.85,salt:1.13},
-        {id:"dip_guacamole",name:"Guacamole",short:"Guacamole",group:"dip",ing:"guacamole",amount:100,unit:"g",maxQty:1,kcal:194,fat:17,sat:2.7,carbs:8.4,sugars:2.3,fibre:6,protein:1.7,salt:0.42},
-        {id:"dip_rotes_pesto_80g",name:"Rotes Pesto, 80g",short:"Rotes Pesto",group:"dip",ing:"rotes_pesto",amount:80,unit:"g",maxQty:1,kcal:264,fat:22.96,sat:3.12,carbs:10.24,sugars:6.56,fibre:1.58,protein:3.68,salt:1.92},
-        {id:"dip_ajvar_100g",name:"Ajvar, 100g",short:"Ajvar",group:"dip",ing:"ajvar",amount:100,unit:"g",maxQty:1,kcal:105,fat:5.3,sat:0.6,carbs:11,sugars:9.2,fibre:3,protein:1.4,salt:1.4},
-        {id:"dip_sojasosse_20ml",name:"Sojasoße , 20ml",short:"Sojasoße",group:"dip",ing:"sojasauce",amount:20,unit:"ml",maxQty:1,kcal:4.2,fat:0.04,sat:0.02,carbs:0.46,sugars:0.12,fibre:0,protein:0.48,salt:2.87},
-        {id:"dip_olivenoel_und_halbe_zitrone",name:"Olivenöl und halbe Zitrone",short:"Olivenöl und halbe Zitrone",group:"dip",ing:"olivenoel_salz_halbe_zitrone",amount:20,unit:"ml",maxQty:1,kcal:180,fat:20,sat:2.6,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
-        {id:"dip_balsamico_dressing_80g",name:"Balsamico Dressing , 80g",short:"Balsamico Dressing",group:"dip",ing:"balsamico_dressing",amount:80,unit:"g",maxQty:1,kcal:46.4,fat:1.84,sat:0.16,carbs:7.04,sugars:6.72,fibre:0.17,protein:0.08,salt:1.6},
+        {id:"dip_curvy_curry_dip",name:"Curvy Curry Dip",short:"Curvy Curry Dip",group:"dip",role:"dip",ing:"curvy_curry",amount:80,unit:"g",maxQty:1,price:2,kcal:301.6,fat:30,sat:2.16,carbs:8.48,sugars:1.68,fibre:0.8,protein:0.32,salt:1.12},
+        {id:"dip_honey_muscle_mustard_dip",name:"Honey Muscle Mustard Dip",short:"Honey Muscle Mustard Dip",group:"dip",role:"dip",ing:"honey_muscle_mustard",amount:80,unit:"g",maxQty:1,price:2,kcal:200,fat:18.4,sat:1.28,carbs:8.48,sugars:1.84,fibre:28,protein:0.56,salt:1.92},
+        {id:"dip_joghurt_salatdressing",name:"Joghurt-Salatdressing",short:"Joghurt-Salatdressing",group:"dip",role:"dip",ing:"joghurt_salatdressing",amount:80,unit:"g",maxQty:1,price:2,kcal:114.4,fat:10.88,sat:1.28,carbs:3.68,sugars:2,fibre:0,protein:0.88,salt:1.04},
+        {id:"dip_power_peanut_dip",name:"Power Peanut Dip",short:"Power Peanut Dip",group:"dip",role:"dip",ing:"power_peanut",amount:80,unit:"g",maxQty:1,price:2,kcal:249.6,fat:21.6,sat:2.16,carbs:11.04,sugars:1.92,fibre:0,protein:2.96,salt:2.16},
+        {id:"dip_sexy_sesame_dip",name:"Sexy Sesame Dip",short:"Sexy Sesame Dip",group:"dip",role:"dip",ing:"sexy_sesame",amount:80,unit:"g",maxQty:1,price:2,kcal:293.6,fat:27.6,sat:2.56,carbs:9.52,sugars:0.56,fibre:0,protein:1.92,salt:2.4},
+        {id:"dip_champion_chili_dip",name:"Champion Chili-Dip",short:"Champion Chili-Dip",group:"dip",role:"dip",ing:"champion_chili",amount:80,unit:"g",maxQty:1,price:2,kcal:218.4,fat:20.48,sat:1.52,carbs:7.76,sugars:1.92,fibre:2,protein:1.04,salt:2.4},
+        {id:"dip_protein_tsatsiki_dip",name:"Protein Tsatsiki Dip",short:"Protein Tsatsiki Dip",group:"dip",role:"dip",ing:"protein_tzatziki",amount:100,unit:"g",maxQty:1,price:3,kcal:66.8,fat:0.21,sat:0.1,carbs:4.95,sugars:4.67,fibre:0.1,protein:10.85,salt:1.13},
+        {id:"dip_guacamole",name:"Guacamole",short:"Guacamole",group:"dip",role:"dip",ing:"guacamole",amount:100,unit:"g",maxQty:1,price:3,kcal:194,fat:17,sat:2.7,carbs:8.4,sugars:2.3,fibre:6,protein:1.7,salt:0.42},
+        {id:"dip_rotes_pesto_80g",name:"Rotes Pesto, 80g",short:"Rotes Pesto",group:"dip",role:"dip",ing:"rotes_pesto",amount:80,unit:"g",maxQty:1,price:1,kcal:264,fat:22.96,sat:3.12,carbs:10.24,sugars:6.56,fibre:1.58,protein:3.68,salt:1.92},
+        {id:"dip_ajvar_100g",name:"Ajvar, 100g",short:"Ajvar",group:"dip",role:"dip",ing:"ajvar",amount:100,unit:"g",maxQty:1,price:3,kcal:105,fat:5.3,sat:0.6,carbs:11,sugars:9.2,fibre:3,protein:1.4,salt:1.4},
+        {id:"dip_sojasosse_20ml",name:"Sojasoße , 20ml",short:"Sojasoße",group:"dip",role:"dip",ing:"sojasauce",amount:20,unit:"ml",maxQty:1,price:1,kcal:4.2,fat:0.04,sat:0.02,carbs:0.46,sugars:0.12,fibre:0,protein:0.48,salt:2.87},
+        {id:"dip_olivenoel_und_halbe_zitrone",name:"Olivenöl und halbe Zitrone",short:"Olivenöl und halbe Zitrone",group:"dip",role:"dip",ing:"olivenoel_salz_halbe_zitrone",amount:20,unit:"ml",maxQty:1,price:2,kcal:180,fat:20,sat:2.6,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
+        {id:"dip_balsamico_dressing_80g",name:"Balsamico Dressing , 80g",short:"Balsamico Dressing",group:"dip",role:"dip",ing:"balsamico_dressing",amount:80,unit:"g",maxQty:1,price:1,kcal:46.4,fat:1.84,sat:0.16,carbs:7.04,sugars:6.72,fibre:0.17,protein:0.08,salt:1.6},
+      ] },
+    ],
+  },
+  ubereats: {
+    item: "Selbst zusammenstellen", page: "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440", basePrice: 1,
+    groups: [
+      { id:"base",name:"Base",min:0,max:100,none:null,options:[
+        {id:"base_basmati_reis_250g",name:"Basmati Reis (250g)",short:"Basmati Reis",group:"base",role:"base",ing:"basmati_reis",amount:250,unit:"g",maxQty:10,price:2.5,kcal:330,fat:0.75,sat:0,carbs:70,sugars:0.25,fibre:1.5,protein:7.5,salt:2.5},
+        {id:"base_salatmix_80g",name:"Salatmix (80g)",short:"Salatmix",group:"base",role:"base",ing:"salatmix",amount:80,unit:"g",maxQty:10,price:2.5,kcal:13.6,fat:0.24,sat:0.08,carbs:1.68,sugars:0.88,fibre:0,protein:1.2,salt:0.08},
+        {id:"base_suesskartoffel_250g",name:"Süßkartoffel (250g)",short:"Süßkartoffel",group:"base",role:"base",ing:"suesskartoffel",amount:250,unit:"g",maxQty:10,price:3.5,kcal:282.5,fat:1.5,sat:0.5,carbs:58,sugars:11.25,fibre:7.75,protein:4,salt:5},
+        {id:"base_protein_pasta_200g",name:"Protein-Pasta (200g)",short:"Protein-Pasta",group:"base",role:"base",ing:"protein_pasta",amount:200,unit:"g",maxQty:10,price:3.5,kcal:381,fat:5.5,sat:0.4,carbs:50,sugars:1.5,fibre:14,protein:26,salt:2},
+        {id:"base_suesskartoffel_halbe_portion_125g",name:"Süßkartoffel - Halbe Portion (125g)",short:"½ Süßkartoffel",group:"base",role:"base",ing:"suesskartoffel",amount:125,unit:"g",maxQty:10,price:1.75,half:true,kcal:141.25,fat:0.75,sat:0.25,carbs:29,sugars:5.63,fibre:3.88,protein:2,salt:2.5},
+        {id:"base_basmati_reis_halbe_portion_125g",name:"Basmati Reis - Halbe Portion (125g)",short:"½ Basmati Reis",group:"base",role:"base",ing:"basmati_reis",amount:125,unit:"g",maxQty:10,price:1.25,half:true,kcal:165,fat:0.38,sat:0,carbs:35,sugars:0.13,fibre:0.75,protein:3.75,salt:1.25},
+        {id:"base_protein_pasta_halbe_portion_100g",name:"Protein-Pasta - Halbe Portion (100g)",short:"½ Protein-Pasta",group:"base",role:"base",ing:"protein_pasta",amount:100,unit:"g",maxQty:10,price:1.75,half:true,kcal:190.5,fat:2.75,sat:0.2,carbs:25,sugars:0.75,fibre:7,protein:13,salt:1},
+        {id:"base_salatmix_halbe_portion_40g",name:"Salatmix - Halbe Portion (40g)",short:"½ Salatmix",group:"base",role:"base",ing:"salatmix",amount:40,unit:"g",maxQty:10,price:1.25,half:true,kcal:6.8,fat:0.12,sat:0.04,carbs:0.84,sugars:0.44,fibre:0,protein:0.6,salt:0.04},
+      ] },
+      { id:"protein",name:"Proteine",min:0,max:100,none:null,options:[
+        {id:"protein_huehnchen_100g",name:"Hühnchen (100g)",short:"Hühnchen",group:"protein",role:"protein",ing:"huehnchen",amount:100,unit:"g",maxQty:5,price:3,kcal:125,fat:2.7,sat:1.2,carbs:1.6,sugars:0.73,fibre:0,protein:23.2,salt:1.07},
+        {id:"protein_veganes_huehnchen_planted_chicken_80g",name:"Veganes Hühnchen planted.chicken (80g)",short:"Veganes Hühnchen planted.chicken",group:"protein",role:"protein",ing:"veganes_huehnchen_planted_chicken",amount:80,unit:"g",maxQty:5,price:3,kcal:156,fat:8,sat:0.8,carbs:1.76,sugars:0.4,fibre:3.2,protein:16.8,salt:1.52},
+        {id:"protein_rinderhackbaellchen_100g",name:"Rinderhackbällchen (100g)",short:"Rinderhackbällchen",group:"protein",role:"protein",ing:"rinderhackbaellchen",amount:100,unit:"g",maxQty:5,price:3,kcal:222,fat:14,sat:5.2,carbs:10,sugars:1,fibre:2,protein:14,salt:1.8},
+        {id:"protein_vegane_hackbaellchen_100g",name:"Vegane Hackbällchen (100g)",short:"Vegane Hackbällchen",group:"protein",role:"protein",ing:"vegane_hackbaellchen",amount:100,unit:"g",maxQty:5,price:3,kcal:154,fat:4.5,sat:0.5,carbs:7,sugars:1,fibre:7.5,protein:17.7,salt:1.4},
+        {id:"protein_pulled_salmon_100g",name:"Pulled Salmon (100g)",short:"Pulled Salmon",group:"protein",role:"protein",ing:"pulled_salmon",amount:100,unit:"g",maxQty:5,price:4,kcal:215,fat:14.4,sat:3.5,carbs:0,sugars:0,fibre:6,protein:20.3,salt:2.2},
+        {id:"protein_hart_gekochtes_ei_50g",name:"Hart gekochtes Ei (50g)",short:"Hart gekochtes Ei",group:"protein",role:"extra",ing:"hart_gekochtes_ei",amount:50,unit:"g",maxQty:5,price:1,kcal:77.5,fat:5.6,sat:1.65,carbs:0.3,sugars:0.15,fibre:0.25,protein:6.55,salt:0.38},
+        {id:"protein_edamame_50g",name:"Edamame (50g)",short:"Edamame",group:"protein",role:"extra",ing:"edamame",amount:50,unit:"g",maxQty:5,price:1.5,kcal:55,fat:0,sat:0,carbs:4.25,sugars:1.2,fibre:1.2,protein:5,salt:1},
+        {id:"protein_erbsen_50g",name:"Erbsen (50g)",short:"Erbsen",group:"protein",role:"extra",ing:"erbsen",amount:50,unit:"g",maxQty:5,price:1,kcal:34.5,fat:0.15,sat:0.05,carbs:4.5,sugars:1.55,fibre:2.5,protein:2.6,salt:0.5},
+        {id:"protein_feta_kaese_50g",name:"Feta Käse (50g)",short:"Feta Käse",group:"protein",role:"extra",ing:"feta_kaese",amount:50,unit:"g",maxQty:5,price:2.5,kcal:140,fat:11.75,sat:7,carbs:0.15,sugars:0.15,fibre:0,protein:8.4,salt:1.2},
+        {id:"protein_huehnchen_halbe_portion_50g",name:"Hühnchen - Halbe Portion (50g)",short:"½ Hühnchen",group:"protein",role:"protein",ing:"huehnchen",amount:50,unit:"g",maxQty:5,price:1.5,half:true,kcal:62.5,fat:1.35,sat:0.6,carbs:0.8,sugars:0.37,fibre:0,protein:11.6,salt:0.54},
+        {id:"protein_vegane_hackbaellchen_halbe_portion_50g",name:"Vegane Hackbällchen - Halbe Portion (50g)",short:"½ Vegane Hackbällchen",group:"protein",role:"protein",ing:"vegane_hackbaellchen",amount:50,unit:"g",maxQty:5,price:1.5,half:true,kcal:77,fat:2.25,sat:0.25,carbs:3.5,sugars:0.5,fibre:3.75,protein:8.85,salt:0.7},
+        {id:"protein_rinderhackbaellchen_halbe_portion_50g",name:"Rinderhackbällchen - Halbe Portion (50g)",short:"½ Rinderhackbällchen",group:"protein",role:"protein",ing:"rinderhackbaellchen",amount:50,unit:"g",maxQty:5,price:1.5,half:true,kcal:111,fat:7,sat:2.6,carbs:5,sugars:0.5,fibre:1,protein:7,salt:0.9},
+        {id:"protein_veganes_huehnchen_planted_chicken_halbe_portion_40g",name:"Veganes Hühnchen planted.chicken - Halbe Portion (40g)",short:"½ Veganes Hühnchen planted.chicken",group:"protein",role:"protein",ing:"veganes_huehnchen_planted_chicken",amount:40,unit:"g",maxQty:5,price:1.5,half:true,kcal:78,fat:4,sat:0.4,carbs:0.88,sugars:0.2,fibre:1.6,protein:8.4,salt:0.76},
+        {id:"protein_pulled_salmon_halbe_portion_50g",name:"Pulled Salmon - Halbe Portion (50g)",short:"½ Pulled Salmon",group:"protein",role:"protein",ing:"pulled_salmon",amount:50,unit:"g",maxQty:5,price:2,half:true,kcal:107.5,fat:7.2,sat:1.75,carbs:0,sugars:0,fibre:3,protein:10.15,salt:1.1},
+      ] },
+      { id:"vitamine",name:"Vitamine",min:0,max:100,none:null,options:[
+        {id:"vitamine_baby_spinat_20g",name:"Baby Spinat (20g)",short:"Baby Spinat",group:"vitamine",role:"extra",ing:"baby_spinat",amount:20,unit:"g",maxQty:5,price:1.5,kcal:3.6,fat:0.12,sat:0.02,carbs:0.12,sugars:0,fibre:0.4,protein:0.88,salt:0},
+        {id:"vitamine_avocado_35g",name:"Avocado (35g)",short:"Avocado",group:"vitamine",role:"extra",ing:"avocado",amount:35,unit:"g",maxQty:5,price:1.5,kcal:75.95,fat:4.38,sat:3.5,carbs:1.26,sugars:0.49,fibre:1.44,protein:0.53,salt:0},
+        {id:"vitamine_karotten_50g",name:"Karotten (50g)",short:"Karotten",group:"vitamine",role:"extra",ing:"karotten",amount:50,unit:"g",maxQty:5,price:1,kcal:16,fat:0.05,sat:0,carbs:2.5,sugars:2.5,fibre:2,protein:0.5,salt:0.08},
+        {id:"vitamine_rotkohl_geraspelt_50g",name:"Rotkohl geraspelt (50g)",short:"Rotkohl geraspelt",group:"vitamine",role:"extra",ing:"rotkohl_geraspelt",amount:50,unit:"g",maxQty:5,price:1,kcal:13.5,fat:0.05,sat:0.05,carbs:2,sugars:1.5,fibre:1.25,protein:1,salt:0.02},
+        {id:"vitamine_gurke_50g",name:"Gurke (50g)",short:"Gurke",group:"vitamine",role:"extra",ing:"gurke",amount:50,unit:"g",maxQty:5,price:1,kcal:7,fat:0.05,sat:0,carbs:0.9,sugars:0.6,fibre:0.45,protein:0.3,salt:0},
+        {id:"vitamine_mais_50g",name:"Mais (50g)",short:"Mais",group:"vitamine",role:"extra",ing:"mais",amount:50,unit:"g",maxQty:5,price:1,kcal:34.5,fat:0.6,sat:0.15,carbs:5.5,sugars:3.5,fibre:1.55,protein:1.25,salt:0.25},
+        {id:"vitamine_mango_70g",name:"Mango (70g)",short:"Mango",group:"vitamine",role:"extra",ing:"mango",amount:70,unit:"g",maxQty:5,price:2,kcal:46.2,fat:0,sat:0,carbs:9.87,sugars:8.54,fibre:0.98,protein:1.12,salt:0.01},
+        {id:"vitamine_tomaten_50g",name:"Tomaten (50g)",short:"Tomaten",group:"vitamine",role:"extra",ing:"tomaten",amount:50,unit:"g",maxQty:5,price:1.5,kcal:9.5,fat:0.05,sat:0,carbs:1.75,sugars:1.6,fibre:0.5,protein:0.35,salt:0},
+        {id:"vitamine_gemuesemix_100g",name:"Gemüsemix (100g)",short:"Gemüsemix",group:"vitamine",role:"extra",ing:"gemuesemix",amount:100,unit:"g",maxQty:5,price:3,kcal:43,fat:0.3,sat:0.1,carbs:6.3,sugars:5.4,fibre:0.5,protein:2.1,salt:0.02},
+        {id:"vitamine_rote_bete_falafel_100g",name:"Rote Bete Falafel (100g)",short:"Rote Bete Falafel",group:"vitamine",role:"extra",ing:"rote_bete_falafel",amount:100,unit:"g",maxQty:5,price:3,kcal:216,fat:13,sat:1.1,carbs:15,sugars:5,fibre:6.7,protein:6.5,salt:1.1},
+        {id:"vitamine_brokkoli_100g",name:"Brokkoli (100g)",short:"Brokkoli",group:"vitamine",role:"extra",ing:"brokkoli",amount:100,unit:"g",maxQty:5,price:2.5,kcal:25,fat:0.2,sat:0,carbs:4.4,sugars:4.2,fibre:3,protein:3,salt:0.1},
+      ] },
+      { id:"toppings",name:"Toppings",min:0,max:100,none:null,options:[
+        {id:"toppings_erdnuesse_20g",name:"Erdnüsse (20g)",short:"Erdnüsse",group:"toppings",role:"extra",ing:"erdnuesse",amount:20,unit:"g",maxQty:5,price:1,kcal:125.4,fat:10.6,sat:1.74,carbs:1.18,sugars:0.84,fibre:2.2,protein:5.6,salt:0.18,crunch:true},
+        {id:"toppings_walnusskerne_20g",name:"Walnusskerne (20g)",short:"Walnusskerne",group:"toppings",role:"extra",ing:"walnusskerne",amount:20,unit:"g",maxQty:5,price:1,kcal:140.8,fat:13.4,sat:1.26,carbs:1.4,sugars:0.4,fibre:1.34,protein:3.2,salt:0,crunch:true},
+        {id:"toppings_roestzwiebeln_20g",name:"Röstzwiebeln (20g)",short:"Röstzwiebeln",group:"toppings",role:"extra",ing:"roestzwiebeln",amount:20,unit:"g",maxQty:5,price:1,kcal:118,fat:8.8,sat:4.2,carbs:8,sugars:1.8,fibre:0.9,protein:1.2,salt:0.24,crunch:true},
+        {id:"toppings_grana_padano_20g",name:"Grana Padano (20g)",short:"Grana Padano",group:"toppings",role:"extra",ing:"grana_padano",amount:20,unit:"g",maxQty:5,price:1,kcal:79.6,fat:5.8,sat:3.6,carbs:0,sugars:0,fibre:0,protein:6.6,salt:0.3},
+        {id:"toppings_granatapfelkerne_15g",name:"Granatapfelkerne (15g)",short:"Granatapfelkerne",group:"toppings",role:"extra",ing:"granatapfelkerne",amount:15,unit:"g",maxQty:5,price:1,kcal:11.1,fat:0.09,sat:0,carbs:2.55,sugars:2.51,fibre:0.33,protein:0.11,salt:0},
+        {id:"toppings_schwarzer_sesam_3g",name:"Schwarzer Sesam (3g)",short:"Schwarzer Sesam",group:"toppings",role:"extra",ing:"schwarzer_sesam",amount:3,unit:"g",maxQty:5,price:1,kcal:17.79,fat:1.5,sat:0.24,carbs:0.3,sugars:0.01,fibre:0.33,protein:0.63,salt:0,crunch:true},
+        {id:"toppings_chili_gewuerz_1g",name:"Chili Gewürz (1g)",short:"Chili Gewürz",group:"toppings",role:"extra",ing:"chili_gewuerz",amount:1,unit:"g",maxQty:5,price:0,kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
+      ] },
+      { id:"dip",name:"Dips",min:1,max:100,none:"ohne Dip",options:[
+        {id:"dip_power_peanut_80g",name:"Power Peanut (80g)",short:"Power Peanut",group:"dip",role:"dip",ing:"power_peanut",amount:80,unit:"g",maxQty:5,price:2,kcal:249.6,fat:21.6,sat:2.16,carbs:11.04,sugars:1.92,fibre:0,protein:2.96,salt:2.16},
+        {id:"dip_honey_muscle_mustard_80g",name:"Honey Muscle Mustard (80g)",short:"Honey Muscle Mustard",group:"dip",role:"dip",ing:"honey_muscle_mustard",amount:80,unit:"g",maxQty:5,price:2,kcal:200,fat:18.4,sat:1.28,carbs:8.48,sugars:1.84,fibre:28,protein:0.56,salt:1.92},
+        {id:"dip_champion_chili_80g",name:"Champion Chili (80g)",short:"Champion Chili",group:"dip",role:"dip",ing:"champion_chili",amount:80,unit:"g",maxQty:5,price:2,kcal:218.4,fat:20.48,sat:1.52,carbs:7.76,sugars:1.92,fibre:2,protein:1.04,salt:2.4},
+        {id:"dip_curvy_curry_80g",name:"Curvy Curry (80g)",short:"Curvy Curry",group:"dip",role:"dip",ing:"curvy_curry",amount:80,unit:"g",maxQty:5,price:2,kcal:301.6,fat:30,sat:2.16,carbs:8.48,sugars:1.68,fibre:0.8,protein:0.32,salt:1.12},
+        {id:"dip_sexy_sesame_80g",name:"Sexy Sesame (80g)",short:"Sexy Sesame",group:"dip",role:"dip",ing:"sexy_sesame",amount:80,unit:"g",maxQty:5,price:2,kcal:293.6,fat:27.6,sat:2.56,carbs:9.52,sugars:0.56,fibre:0,protein:1.92,salt:2.4},
+        {id:"dip_protein_tzatziki_100g",name:"Protein Tzatziki (100g)",short:"Protein Tzatziki",group:"dip",role:"dip",ing:"protein_tzatziki",amount:100,unit:"g",maxQty:5,price:3,kcal:66.8,fat:0.21,sat:0.1,carbs:4.95,sugars:4.67,fibre:0.1,protein:10.85,salt:1.13},
+        {id:"dip_guacamole_100g",name:"Guacamole (100g)",short:"Guacamole",group:"dip",role:"dip",ing:"guacamole",amount:100,unit:"g",maxQty:5,price:3,kcal:194,fat:17,sat:2.7,carbs:8.4,sugars:2.3,fibre:6,protein:1.7,salt:0.42},
+        {id:"dip_ajvar_100g",name:"Ajvar (100g)",short:"Ajvar",group:"dip",role:"dip",ing:"ajvar",amount:100,unit:"g",maxQty:5,price:3,kcal:105,fat:5.3,sat:0.6,carbs:11,sugars:9.2,fibre:3,protein:1.4,salt:1.4},
+        {id:"dip_joghurt_salatdressing_80g",name:"Joghurt-Salatdressing (80g)",short:"Joghurt-Salatdressing",group:"dip",role:"dip",ing:"joghurt_salatdressing",amount:80,unit:"g",maxQty:5,price:2,kcal:114.4,fat:10.88,sat:1.28,carbs:3.68,sugars:2,fibre:0,protein:0.88,salt:1.04},
+        {id:"dip_sojasauce_20ml",name:"Sojasauce (20ml)",short:"Sojasauce",group:"dip",role:"dip",ing:"sojasauce",amount:20,unit:"ml",maxQty:5,price:1,kcal:4.2,fat:0.04,sat:0.02,carbs:0.46,sugars:0.12,fibre:0,protein:0.48,salt:2.87},
+        {id:"dip_olivenoel_20ml_salz_halbe_zitrone",name:"Olivenöl (20ml), Salz & halbe Zitrone",short:"Olivenöl, Salz & halbe Zitrone",group:"dip",role:"dip",ing:"olivenoel_salz_halbe_zitrone",amount:20,unit:"ml",maxQty:5,price:2,kcal:180,fat:20,sat:2.6,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
+        {id:"dip_balsamico_dressing_80g",name:"Balsamico Dressing (80g)",short:"Balsamico Dressing",group:"dip",role:"dip",ing:"balsamico_dressing",amount:80,unit:"g",maxQty:5,price:2,kcal:46.4,fat:1.84,sat:0.16,carbs:7.04,sugars:6.72,fibre:0.17,protein:0.08,salt:1.6},
+        {id:"dip_rotes_pesto_80g",name:"Rotes Pesto (80g)",short:"Rotes Pesto",group:"dip",role:"dip",ing:"rotes_pesto",amount:80,unit:"g",maxQty:5,price:3,kcal:264,fat:22.96,sat:3.12,carbs:10.24,sugars:6.56,fibre:1.58,protein:3.68,salt:1.92},
       ] },
     ],
   },
@@ -459,8 +527,13 @@ function alaCarteCombos(t, mode, p, pool, maxN, opts) {
 //       eines Zusatzes u ist deshalb bei einer kleineren Bowl nie kleiner als bei einer größeren: Verbessert u die Teil-Bowl T nicht,
 //       ist jede Bowl S, die T und u enthält, höchstens so gut wie S ohne u. Erweitert wird daher nur um VERBESSERNDE Zusätze
 //       (das findet das Optimum); die übersprungenen Bowls S werden am Ende nachgetragen, indem zu den Ranglisten-Bowls einzelne
-//       Kern-Portionen ergänzt werden (S ohne u steht selbst in der Rangliste). Zweige mit überschrittenen Zielen fallen weg (bowlOverLB).
+//       Kern-Portionen ergänzt werden (S ohne u steht selbst in der Rangliste).
 //    b) Kalorien-Modus mit Präferenzen (Energieanteile → nicht konvex): alle Kerne, abgeschnitten nur über die Untergrenze bowlShareLB.
+//    In beiden Fällen fallen ganze Teilbäume weg, wenn ein Ziel schon überschritten ist oder mit den restlichen Kern-Bausteinen
+//    (Kapazität SUF) plus der größten Extras-Summe (EMX) nicht mehr erreichbar ist.
+// Zeitbudget: Nur Extrem-Einstellungen (sehr hohe Ziele + Dips + viele Portionen, v.a. Uber Eats mit halben Portionen) brauchen länger als
+// BOWL_MAX_MS. Dann endet die Suche mit der bis dahin besten Rangliste und das Ergebnis trägt approx = true (UI-Hinweis). Für Tests gibt es
+// zusätzlich ein deterministisches Arbeitsbudget in Baum-Knoten (opts.maxWork).
 // 2) Extras je Kern: alle Extras-Teilmengen (≤ max. Extras) liegen als Punkte in einem k-d-Baum; Branch & Bound mit einer
 //    Box-Untergrenze (bowlBoxLB) findet exakt alle Ergänzungen unter der Ranglisten-Schwelle. Der Baum hängt nur von den erlaubten
 //    Extras ab → Cache.
@@ -506,24 +579,37 @@ function bowlOverLB(c, t, mode, p, shareMax) {
 function bowlShareL(v, p) {
   return ((p.hp ? -2 : 0) + (p.lp ? 1.5 : 0)) * 4 * v[6] + ((p.hc ? -1.5 : 0) + (p.lc ? 2 : 0)) * 4 * v[3] + ((p.hf ? -1.5 : 0) + (p.lf ? 2 : 0)) * 9 * v[1];
 }
-// Kalorien-Modus mit Präferenzen: Untergrenze für Kern c + JEDE Erweiterung (rho = kleinstes L / kcal aller Bausteine).
-// Jeder Baustein hat L ≥ rho · kcal → jede Bowl mit K kcal hat L / K ≥ rho + D / K mit D = L(c) − rho · kcal(c). Minimum von
-// 4 · |K − Ziel| / Ziel + rho + D / K über K ≥ kcal(c): Kandidaten kcal(c), max(kcal(c), Ziel) und √(D · Ziel / 4);
-// dazu bereits überschrittene Fibre-/Salz-Maxima
-function bowlShareLB(c, t, p, rho, shareMax) {
+// min über K ∈ [kLo, kHi] von 4 · |K − T| / T + L / K (kLo ≥ 1, kHi darf ∞ sein; T ≤ 0 = kein kcal-Ziel). Das Minimum liegt an einem
+// Rand, bei T (geklemmt) oder für L > 0 bei √(L · T / 4) rechts von T — dazwischen ist die Funktion monoton bzw. konkav.
+function bowlKcalShareMin(L, kLo, kHi, T) {
+  const w = T > 0 ? 4 / Math.max(T, 1) : 0;
+  let best = w * Math.abs(kLo - T) + L / kLo;
+  const hi = kHi === Infinity ? (w > 0 ? Infinity : 0) : w * Math.abs(kHi - T) + L / kHi;
+  if (hi < best) best = hi;
+  if (T > 0) {
+    const k1 = T < kLo ? kLo : T > kHi ? kHi : T;
+    const v1 = w * Math.abs(k1 - T) + L / k1;
+    if (v1 < best) best = v1;
+    if (L > 0) {
+      let k2 = Math.sqrt(L * Math.max(T, 1) / 4);
+      if (k2 < T) k2 = T;
+      if (k2 < kLo) k2 = kLo; else if (k2 > kHi) k2 = kHi;
+      const v2 = w * Math.abs(k2 - T) + L / k2;
+      if (v2 < best) best = v2;
+    }
+  }
+  return best;
+}
+// Kalorien-Modus mit Präferenzen: Untergrenze für Kern c + JEDE Erweiterung (rho = kleinstes L / kcal aller noch möglichen Bausteine,
+// kmax = höchstens erreichbare kcal, Default ∞). Jeder Baustein hat L ≥ rho · kcal → eine Bowl mit K kcal hat L / K ≥ rho + D / K mit
+// D = L(c) − rho · kcal(c); minimiert wird 4 · |K − Ziel| / Ziel + rho + D / K über K ∈ [kcal(c), kmax]. Dazu überschrittene Fibre-/Salz-Maxima
+function bowlShareLB(c, t, p, rho, shareMax, kmax) {
   if (!(c[0] >= 1) || !isFinite(rho)) return bowlOverLB(c, t, "calories", p, shareMax);
   let s = 0;
   if (t.fibMax != null && c[5] > t.fibMax) s += (c[5] - t.fibMax) * 0.5;
   if (t.sMax != null && c[7] > t.sMax) s += (c[7] - t.sMax) * 0.3;
-  const Kc = c[0], T = t.kcal, Tn = Math.max(T, 1), D = bowlShareL(c, p) - rho * Kc;
-  const g = k => (T > 0 ? Math.abs(k - T) / Tn * 4 : 0) + rho + D / k;
-  let best = g(Kc);
-  if (T > 0) {
-    const K1 = Math.max(Kc, T);
-    best = Math.min(best, g(K1));
-    if (D > 0) { const Ks = Math.sqrt(D * Tn / 4); if (Ks > K1) best = Math.min(best, g(Ks)); }
-  } else if (D > 0) best = Math.min(best, rho); // ohne kcal-Ziel fällt L / K höchstens bis rho
-  return s + best;
+  const D = bowlShareL(c, p) - rho * c[0];
+  return s + rho + bowlKcalShareMin(D, c[0], kmax == null ? Infinity : Math.max(c[0], kmax), t.kcal);
 }
 // Untergrenze für Kern c + irgendeinen Punkt der Baum-Box [LO, HI] (Offset off = Knoten × 8)
 function bowlBoxLB(c, LO, HI, off, t, mode, p) {
@@ -534,10 +620,10 @@ function bowlBoxLB(c, LO, HI, off, t, mode, p) {
     if (t.carbs > 0) s += d(t.carbs - c[3], LO[off + 3], HI[off + 3]) / Math.max(t.carbs, 1) * 2;
     if (t.fat > 0) s += d(t.fat - c[1], LO[off + 1], HI[off + 1]) / Math.max(t.fat, 1) * 2;
   } else {
-    if (t.kcal > 0) s += d(t.kcal - c[0], LO[off], HI[off]) / Math.max(t.kcal, 1) * 4;
-    const kMin = Math.max(c[0] + LO[off], 1), kMax = Math.max(c[0] + HI[off], 1);
-    const share = (i, f, coef) => coef < 0 ? coef * f * (c[i] + HI[off + i]) / kMin : coef > 0 ? coef * f * (c[i] + LO[off + i]) / kMax : 0;
-    s += share(6, 4, (p.hp ? -2 : 0) + (p.lp ? 1.5 : 0)) + share(3, 4, (p.hc ? -1.5 : 0) + (p.lc ? 2 : 0)) + share(1, 9, (p.hf ? -1.5 : 0) + (p.lf ? 2 : 0));
+    // kcal-Term + Präferenz-Term L / K gemeinsam: L ≥ Lmin (je Makro die ungünstige Box-Grenze), K in der kcal-Spanne der Box
+    const ap = (p.hp ? -2 : 0) + (p.lp ? 1.5 : 0), ac = (p.hc ? -1.5 : 0) + (p.lc ? 2 : 0), af = (p.hf ? -1.5 : 0) + (p.lf ? 2 : 0);
+    const Lmin = ap * 4 * (c[6] + (ap < 0 ? HI[off + 6] : LO[off + 6])) + ac * 4 * (c[3] + (ac < 0 ? HI[off + 3] : LO[off + 3])) + af * 9 * (c[1] + (af < 0 ? HI[off + 1] : LO[off + 1]));
+    s += bowlKcalShareMin(Lmin, Math.max(c[0] + LO[off], 1), Math.max(c[0] + HI[off], 1), t.kcal);
   }
   if (t.fibMin != null) s += Math.max(0, t.fibMin - c[5] - HI[off + 5]) * 0.5;
   if (t.fibMax != null) s += Math.max(0, c[5] + LO[off + 5] - t.fibMax) * 0.5;
@@ -546,30 +632,33 @@ function bowlBoxLB(c, LO, HI, off, t, mode, p) {
   return s;
 }
 
-// k-d-Baum über alle Extras-Teilmengen mit ≤ maxE Elementen (Punkte = 8 Nährwert-Summen, M = Bitmaske der Extras)
+// k-d-Baum über alle Extras-Teilmengen mit ≤ maxE Elementen (Punkte = 8 Nährwert-Summen, M = Bitmaske der Extras, PR = Preis in Cent;
+// PMIN = billigster Punkt je Knoten → Preislimit schneidet ganze Teilbäume ab)
 const BOWL_INDEX_CACHE = new Map();
 function bowlIndex(extras, maxE) {
-  const ckey = extras.map(e => e.opt.id).join(",") + "#" + maxE;
+  const ckey = extras.map(e => e.opt.id + ":" + (e.pc || 0)).join(",") + "#" + maxE;
   const hit = BOWL_INDEX_CACHE.get(ckey);
   if (hit) return hit;
   const E = extras.length, LEAF = 8;
   if (E > 30) throw new Error("bowlIndex: höchstens 30 Extras");
   let N = 0;
   for (let k = 0, c = 1; k <= Math.min(maxE, E); k++) { N += Math.round(c); c = c * (E - k) / (k + 1); }
-  const P = new Float64Array(N * 8), M = new Uint32Array(N), SD = Array.from({ length: maxE + 2 }, () => new Float64Array(8));
+  const P = new Float64Array(N * 8), M = new Uint32Array(N), PR = new Int32Array(N);
+  const SD = Array.from({ length: maxE + 2 }, () => new Float64Array(8)), SP = new Int32Array(maxE + 2);
   let w = 0;
   const rec = (start, depth, mask) => {
-    P.set(SD[depth], w * 8); M[w] = mask; w++;
+    P.set(SD[depth], w * 8); M[w] = mask; PR[w] = SP[depth]; w++;
     if (depth >= maxE) return;
     for (let j = start; j < E; j++) {
       const v = extras[j].v, a = SD[depth], b = SD[depth + 1];
       for (let k = 0; k < 8; k++) b[k] = a[k] + v[k];
+      SP[depth + 1] = SP[depth] + (extras[j].pc || 0);
       rec(j + 1, depth + 1, (mask | (1 << j)) >>> 0);
     }
   };
   rec(0, 0, 0);
   const maxNodes = 4 * Math.ceil(N / LEAF) + 4;
-  const LO = new Float64Array(maxNodes * 8), HI = new Float64Array(maxNodes * 8);
+  const LO = new Float64Array(maxNodes * 8), HI = new Float64Array(maxNodes * 8), PMIN = new Int32Array(maxNodes);
   const NL = new Int32Array(maxNodes), NR = new Int32Array(maxNodes), NS = new Int32Array(maxNodes), NE = new Int32Array(maxNodes);
   const perm = new Int32Array(N);
   for (let i = 0; i < N; i++) perm[i] = i;
@@ -591,10 +680,13 @@ function bowlIndex(extras, maxE) {
   const build = (s, e) => {
     const id = cnt++, off = id * 8;
     for (let k = 0; k < 8; k++) { LO[off + k] = Infinity; HI[off + k] = -Infinity; }
+    let pm = 2147483647;
     for (let i = s; i < e; i++) {
       const b = perm[i] * 8;
       for (let k = 0; k < 8; k++) { const v = P[b + k]; if (v < LO[off + k]) LO[off + k] = v; if (v > HI[off + k]) HI[off + k] = v; }
+      if (PR[perm[i]] < pm) pm = PR[perm[i]];
     }
+    PMIN[id] = pm;
     NS[id] = s; NE[id] = e; NL[id] = -1; NR[id] = -1;
     if (e - s <= LEAF) return id;
     let dim = 0, best = 0;
@@ -607,39 +699,66 @@ function bowlIndex(extras, maxE) {
     return id;
   };
   build(0, N);
-  const idx = { N, P, M, perm, LO, HI, NL, NR, NS, NE };
+  const idx = { N, P, M, PR, perm, LO, HI, PMIN, NL, NR, NS, NE };
   if (BOWL_INDEX_CACHE.size >= 8) BOWL_INDEX_CACHE.delete(BOWL_INDEX_CACHE.keys().next().value);
   BOWL_INDEX_CACHE.set(ckey, idx);
   return idx;
 }
 
-// menu = { item, groups:[{ id:"base"|"protein"|"extra"|"dip", name, max, none, options:[{ id, name, short, group, ing, maxQty, kcal … salt, Flags }] }] }
-// opts = { cap: max. Portionen je Base-/Protein-Option · maxExtras (Default 6) · keep(option) → bool
-//          · raw: true → nur die ungerundete Rangliste [{ key, rawScore }] (Top 30; für Tests und Benchmarks) }
-// Jede Bowl hat ≥1 Base und ≥1 Protein, höchstens einen Dip; Proteine, die zusätzlich unter „Extras" stehen (Wolt-Duplikat),
-// laufen nur über die Protein-Gruppe. Ergebnis (Top 20): { key, parts:[{opt, qty}], dip, items, nutrition, score, rawScore }
+const BOWL_MAX_MS = 500;        // Zeitbudget je Suche: länger blockiert auch eine Extrem-Einstellung das iPhone nicht (realistische Ziele: meist < 50 ms)
+const BOWL_MAX_WORK = Infinity; // Arbeitsbudget in Baum-Knoten (Standard: keins; Tests setzen opts.maxWork)
+// menu = { item, page, basePrice, groups:[{ id, name, min, max, none, options:[{ id, name, short, group, role, ing, amount, unit, maxQty, price, half?, kcal … salt, Flags }] }] }
+//   role: "base" | "protein" | "extra" | "dip" (fehlt → Gruppen-id) · half: halbe Portion (zählt ½ Portion; neben der ganzen Portion derselben
+//   Zutat höchstens 1×, denn 2 halbe = 1 ganze zum gleichen Preis → sonst Doppel-Ergebnisse)
+// opts = { cap: max. Portionen je Base-/Protein-Zutat (halbe = ½) · maxExtras (Default 6) · keep(option) → bool
+//          · maxPrice: Preislimit in € inkl. Grundpreis (null/undefined = keins) · maxMs: Zeitbudget (Default BOWL_MAX_MS)
+//          · maxWork: Arbeitsbudget in Baum-Knoten (Default ∞, deterministisch für Tests)
+//          · raw: true → nur die ungerundete Rangliste
+//          [{ key, rawScore, price }] (Top 30; für Tests und Benchmarks) }
+// Jede Bowl hat ≥1 Base und ≥1 Protein (nach Rolle), höchstens einen Dip, Extras je 1×. Extras, deren Zutat auch als Protein angeboten
+// wird (Wolt-Duplikat), laufen nur über die Protein-Rolle. Die Kern-Rollen stehen je in genau einer Gruppe (bowlValidate prüft das).
+// Ergebnis (Top 20): { key, parts:[{opt, qty}], dip, items, price, nutrition, score, rawScore }
 function bowlCombos(menu, t, mode, p, opts) {
   const o = opts || {};
-  const cap = Math.max(1, o.cap || 1), keep = o.keep || (() => true), K = 30;
-  const G = {}; for (const g of menu.groups) G[g.id] = g;
+  const cap = Math.max(1, o.cap || 1), keep = o.keep || (() => true), K = 30, capHU = 2 * cap;
   const ok = x => !isShellfish(x) && keep(x); // Schalentier permanent raus (Allergie)
-  const protIngs = new Set(((G.protein && G.protein.options) || []).map(x => x.ing));
-  const core = [], extras = [];
-  const addCore = (gid, gi, qf) => {
-    for (const x of ((G[gid] && G[gid].options) || [])) {
-      if (!ok(x)) continue;
-      const qmax = qf(x);
-      if (qmax >= 1) core.push({ opt: x, g: gi, qmax, v: KEYS.map(k => x[k] || 0) });
+  const all = [];
+  for (const g of menu.groups) for (const x of g.options) all.push({ x, g });
+  // Preislimit in Cent ohne Grundpreis; liegt schon der Grundpreis darüber, gibt es keine Bowl
+  const mp = o.maxPrice == null || o.maxPrice === "" ? NaN : Number(o.maxPrice);
+  const baseCents = Math.round((menu.basePrice || 0) * 100);
+  const budget = isFinite(mp) ? Math.round(mp * 100) - baseCents : Infinity;
+  if (budget < 0) return [];
+  const cents = x => Math.round((x.price || 0) * 100);
+  // Gruppen-Maxima (Anzahl Auswahlen) der Kern-Rollen; Dip höchstens einer
+  const roleMax = { base: Infinity, protein: Infinity, dip: 1 }, RI = { base: 0, protein: 1, dip: 2 };
+  let extraMax = Infinity;
+  for (const { x, g } of all) {
+    const r = bowlRole(x);
+    if (r in roleMax) roleMax[r] = Math.min(roleMax[r], g.max);
+    else if (r === "extra") extraMax = Math.min(extraMax, g.max);
+  }
+  const protIngs = new Set(all.filter(({ x }) => bowlRole(x) === "protein").map(({ x }) => x.ing));
+  const fullOk = new Set(all.filter(({ x }) => !x.half && ok(x)).map(({ x }) => bowlRole(x) + "|" + x.ing));
+  // Kern-Bausteine: Base, Protein, Dip. hu = halbe Portionen je Auswahl (ganz 2, halb 1), slot = Zähler je Zutat (Portionen-Deckel)
+  const core = [], extras = [], slots = new Map();
+  for (const r of ["base", "protein", "dip"]) for (const { x } of all) {
+    if (bowlRole(x) !== r || !ok(x)) continue;
+    let qmax = 1, hu = 0, slot = -1;
+    if (r !== "dip") {
+      hu = x.half ? 1 : 2;
+      qmax = Math.min(x.maxQty || 1, x.half ? (fullOk.has(r + "|" + x.ing) ? 1 : capHU) : cap);
+      if (!slots.has(x.ing)) slots.set(x.ing, slots.size);
+      slot = slots.get(x.ing);
     }
-  };
-  addCore("base", 0, x => Math.min(x.maxQty || 1, cap));
-  addCore("protein", 1, x => Math.min(x.maxQty || 1, cap));
-  addCore("dip", 2, () => 1);
+    if (qmax >= 1) core.push({ opt: x, g: RI[r], qmax, hu, slot, pc: cents(x), v: KEYS.map(k => x[k] || 0) });
+  }
   // Extras ohne Nährwerte (z.B. Chili Gewürz: alle Werte 0) ändern den Score nie und würden nur Doppel-Ergebnisse erzeugen → weglassen
-  for (const x of ((G.extra && G.extra.options) || [])) if (ok(x) && !protIngs.has(x.ing) && KEYS.some(k => (x[k] || 0) > 0)) extras.push({ opt: x, v: KEYS.map(k => x[k] || 0) });
-  const maxE = Math.max(0, Math.min(G.extra ? G.extra.max : 0, o.maxExtras == null ? 6 : o.maxExtras, extras.length));
+  for (const { x } of all) if (bowlRole(x) === "extra" && ok(x) && !protIngs.has(x.ing) && KEYS.some(k => (x[k] || 0) > 0)) extras.push({ opt: x, pc: cents(x), v: KEYS.map(k => x[k] || 0) });
+  const maxE = Math.max(0, Math.min(extraMax, o.maxExtras == null ? 6 : o.maxExtras, extras.length));
   const idx = bowlIndex(extras, maxE);
-  const gmax = [G.base ? G.base.max : 0, G.protein ? G.protein.max : 0, 1];
+  const gmax = [roleMax.base, roleMax.protein, roleMax.dip];
+  if (!(gmax[0] >= 1 && gmax[1] >= 1)) return [];
   const units = core.concat(extras);
   // größter Energieanteil eines Makros über alle Bausteine (Anteil einer Summe ≤ größter Einzelanteil)
   let shareMax = 1;
@@ -648,20 +767,57 @@ function bowlCombos(menu, t, mode, p, opts) {
     if (m > 0) shareMax = Math.max(shareMax, kc > 0 ? m / kc : Infinity);
   }
   if (!isFinite(shareMax)) shareMax = 1e9;
-  // Kalorien-Modus mit Präferenzen → Kern-Suche b); rho = kleinstes L / kcal aller Bausteine (für bowlShareLB)
+  // Kalorien-Modus mit Präferenzen → Kern-Suche b)
   const shares = mode !== "macros" && !!(p && (p.hp || p.lp || p.hc || p.lc || p.hf || p.lf));
-  let rho = Infinity;
-  if (shares) for (const u of units) {
-    const L = bowlShareL(u.v, p);
-    if (u.v[0] > 0) rho = Math.min(rho, L / u.v[0]); else if (L < 0) rho = -Infinity;
+  // Kapazität für Untergrenzen ganzer Teilbäume: SUF[j] = was Kern-Bausteine ab Index j höchstens noch beitragen (je Rolle
+  // min(Σ qmax·v, Gruppen-Maximum × größter Baustein), Dip nur einer); EMX = größte Extras-Summe je Nährwert (Wurzel des k-d-Baums)
+  const C = core.length, SUF = new Float64Array((C + 1) * 8);
+  const sumR = [new Float64Array(8), new Float64Array(8)], maxR = [new Float64Array(8), new Float64Array(8), new Float64Array(8)];
+  for (let j = C - 1; j >= 0; j--) {
+    const u = core[j];
+    for (let k = 0; k < 8; k++) {
+      if (u.g < 2) sumR[u.g][k] += u.qmax * u.v[k];
+      if (u.v[k] > maxR[u.g][k]) maxR[u.g][k] = u.v[k];
+      let capK = maxR[2][k];
+      for (let g = 0; g < 2; g++) if (maxR[g][k] > 0) capK += Math.min(sumR[g][k], gmax[g] * maxR[g][k]);
+      SUF[j * 8 + k] = capK;
+    }
   }
-  const subLB = c => shares ? bowlShareLB(c, t, p, rho, shareMax) : bowlOverLB(c, t, mode, p, shareMax);
+  const EMX = idx.HI.subarray(0, 8);
+  // rhoSuf[j] = kleinstes L / kcal der Kern-Bausteine ab Index j und aller Extras (für bowlShareLB)
+  const rhoSuf = new Float64Array(C + 1).fill(Infinity);
+  if (shares) {
+    const ratio = v => { const L = bowlShareL(v, p); return v[0] > 0 ? L / v[0] : L < 0 ? -Infinity : Infinity; };
+    for (const u of extras) rhoSuf[C] = Math.min(rhoSuf[C], ratio(u.v));
+    for (let j = C - 1; j >= 0; j--) rhoSuf[j] = Math.min(rhoSuf[j + 1], ratio(core[j].v));
+  }
+  const dist = (v, lo, hi) => v < lo ? lo - v : v > hi ? v - hi : 0;
+  // Untergrenze für Kern c + JEDE Erweiterung um Kern-Bausteine ab Index j und Extras: jeder Nährwert endet in [c, c + SUF[j] + EMX]
+  const subLB = (c, j) => {
+    const o8 = j * 8;
+    let lb = 0;
+    if (t.fibMin != null) lb += Math.max(0, t.fibMin - c[5] - SUF[o8 + 5] - EMX[5]) * 0.5;
+    if (t.sMin != null) lb += Math.max(0, t.sMin - c[7] - SUF[o8 + 7] - EMX[7]) * 0.3;
+    if (shares) return lb + bowlShareLB(c, t, p, rhoSuf[j], shareMax, c[0] + SUF[o8] + EMX[0]);
+    if (t.fibMax != null && c[5] > t.fibMax) lb += (c[5] - t.fibMax) * 0.5;
+    if (t.sMax != null && c[7] > t.sMax) lb += (c[7] - t.sMax) * 0.3;
+    if (mode === "macros") {
+      if (t.protein > 0) lb += dist(t.protein, c[6], c[6] + SUF[o8 + 6] + EMX[6]) / Math.max(t.protein, 1) * 3;
+      if (t.carbs > 0) lb += dist(t.carbs, c[3], c[3] + SUF[o8 + 3] + EMX[3]) / Math.max(t.carbs, 1) * 2;
+      if (t.fat > 0) lb += dist(t.fat, c[1], c[1] + SUF[o8 + 1] + EMX[1]) / Math.max(t.fat, 1) * 2;
+    } else if (t.kcal > 0) lb += dist(t.kcal, c[0], c[0] + SUF[o8] + EMX[0]) / Math.max(t.kcal, 1) * 4;
+    return lb;
+  };
 
-  const C = core.length, q = new Uint8Array(C), gc = [0, 0, 0];
-  const top = []; // Rangliste der K besten { s, q, m } (aufsteigend); thr = Score des K-ten
+  const q = new Uint8Array(C), gc = [0, 0, 0], ih = new Uint8Array(Math.max(1, slots.size));
+  let cp = 0; // Preis des aktuellen Kerns in Cent (ohne Grundpreis)
+  const workMax = o.maxWork == null ? BOWL_MAX_WORK : o.maxWork, msMax = o.maxMs == null ? BOWL_MAX_MS : o.maxMs;
+  const clock = typeof performance !== "undefined" && performance.now ? () => performance.now() : () => Date.now(), t0 = clock();
+  let work = 0, aborted = false; // Budgets: Baum-Knoten aller Abfragen; die Uhr wird alle 4096 Knoten gelesen
+  const top = []; // Rangliste der K besten { s, q, m, pc } (aufsteigend); thr = Score des K-ten
   let thr = Infinity;
-  const insert = (s, qq, m) => {
-    const item = { s, q: qq, m };
+  const insert = (s, qq, m, pc) => {
+    const item = { s, q: qq, m, pc };
     let i = top.length;
     top.push(item);
     while (i > 0 && top[i - 1].s > s) { top[i] = top[i - 1]; i--; }
@@ -669,69 +825,93 @@ function bowlCombos(menu, t, mode, p, opts) {
     if (top.length > K) top.pop();
     if (top.length === K) thr = top[K - 1].s;
   };
-  const { P, M, perm, LO, HI, NL, NR, NS, NE } = idx;
+  const { P, M, PR, perm, LO, HI, PMIN, NL, NR, NS, NE } = idx;
   const tot = new Float64Array(8), stack = new Int32Array(256);
-  const query = c => { // alle Extras-Teilmengen für Kern c unter der Schwelle (Branch & Bound im Baum)
+  const query = (c, rem) => { // alle Extras-Teilmengen für Kern c unter der Schwelle und im Preisrahmen rem (Branch & Bound im Baum)
     let sp = 0;
     stack[sp++] = 0;
     while (sp) {
+      if (++work > workMax || ((work & 4095) === 0 && clock() - t0 > msMax)) { aborted = true; return; }
       const nd = stack[--sp];
-      if (bowlBoxLB(c, LO, HI, nd * 8, t, mode, p) >= thr) continue;
+      if (PMIN[nd] > rem || bowlBoxLB(c, LO, HI, nd * 8, t, mode, p) >= thr) continue;
       if (NL[nd] < 0) {
         for (let i = NS[nd]; i < NE[nd]; i++) {
-          const pi = perm[i], b = pi * 8;
+          const pi = perm[i];
+          if (PR[pi] > rem) continue;
+          const b = pi * 8;
           for (let k = 0; k < 8; k++) tot[k] = c[k] + P[b + k];
           const s = scoreVec(tot, t, mode, p);
-          if (s < thr) insert(s, q.slice(), M[pi]);
+          if (s < thr) insert(s, q.slice(), M[pi], cp + PR[pi]);
         }
       } else {
         const l = NL[nd], r = NR[nd];
-        const lbL = bowlBoxLB(c, LO, HI, l * 8, t, mode, p), lbR = bowlBoxLB(c, LO, HI, r * 8, t, mode, p);
+        const lbL = PMIN[l] > rem ? Infinity : bowlBoxLB(c, LO, HI, l * 8, t, mode, p);
+        const lbR = PMIN[r] > rem ? Infinity : bowlBoxLB(c, LO, HI, r * 8, t, mode, p);
         if (lbL <= lbR) { if (lbR < thr) stack[sp++] = r; if (lbL < thr) stack[sp++] = l; } // nähere Box zuerst besuchen
         else { if (lbL < thr) stack[sp++] = l; if (lbR < thr) stack[sp++] = r; }
       }
     }
   };
-  const ND = Array.from({ length: 64 }, () => new Float64Array(8));
+  const ND = Array.from({ length: core.reduce((a, u) => a + u.qmax, 0) + 2 }, () => new Float64Array(8));
   const dfs = (start, depth, s, b0, p0) => { // Kern erweitern (feste Reihenfolge → jede Kombination genau einmal)
     const n = ND[depth], n2 = ND[depth + 1];
     for (let i = start; i < C; i++) {
+      if (aborted) return;
       const u = core[i];
       if ((u.g === 0 && i < b0) || (u.g === 1 && i < p0)) continue;
-      if (q[i] >= u.qmax || gc[u.g] >= gmax[u.g]) continue;
+      if (q[i] >= u.qmax || gc[u.g] >= gmax[u.g] || cp + u.pc > budget) continue;
+      if (u.slot >= 0 && ih[u.slot] + u.hu > capHU) continue;
       for (let k = 0; k < 8; k++) n2[k] = n[k] + u.v[k];
       const s2 = shares ? 0 : scoreVec(n2, t, mode, p);
       if (!shares && !(s2 < s - 1e-9)) continue; // a) nur verbessernde Zusätze
-      if (subLB(n2) >= thr) continue;
-      q[i]++; gc[u.g]++;
-      query(n2);
+      if (subLB(n2, i) >= thr) continue;
+      q[i]++; gc[u.g]++; cp += u.pc; if (u.slot >= 0) ih[u.slot] += u.hu;
+      query(n2, budget - cp);
       dfs(i, depth + 1, s2, b0, p0);
-      q[i]--; gc[u.g]--;
+      q[i]--; gc[u.g]--; cp -= u.pc; if (u.slot >= 0) ih[u.slot] -= u.hu;
     }
   };
+  // Seeds (1 Base × 1 Protein) nach Aussicht sortiert: gute Bowls früh → niedrige Schwelle früh (Reihenfolge frei, bleibt exakt)
+  const seeds = [];
   for (let b = 0; b < C; b++) if (core[b].g === 0) for (let pi = 0; pi < C; pi++) if (core[pi].g === 1) {
-    q.fill(0); q[b] = 1; q[pi] = 1; gc[0] = 1; gc[1] = 1; gc[2] = 0;
+    const nn = new Float64Array(8);
+    for (let k = 0; k < 8; k++) nn[k] = core[b].v[k] + core[pi].v[k];
+    seeds.push([b, pi, subLB(nn, 0) + bowlBoxLB(nn, LO, HI, 0, t, mode, p)]);
+  }
+  seeds.sort((x, y) => x[2] - y[2]);
+  for (const [b, pi] of seeds) {
+    if (aborted) break;
+    const ub = core[b], up = core[pi];
+    if (ub.pc + up.pc > budget) continue;
+    q.fill(0); ih.fill(0); q[b] = 1; q[pi] = 1; gc[0] = 1; gc[1] = 1; gc[2] = 0;
+    ih[ub.slot] += ub.hu; ih[up.slot] += up.hu; cp = ub.pc + up.pc;
     const n = ND[0];
-    for (let k = 0; k < 8; k++) n[k] = core[b].v[k] + core[pi].v[k];
-    if (subLB(n) >= thr) continue;
-    query(n);
+    for (let k = 0; k < 8; k++) n[k] = ub.v[k] + up.v[k];
+    if (subLB(n, 0) >= thr) continue;
+    query(n, budget - cp);
     dfs(0, 0, shares ? 0 : scoreVec(n, t, mode, p), b, pi);
   }
   // a) Nachtragen: zu jeder Ranglisten-Bowl einzeln jede erlaubte Kern-Portion ergänzen, bis keine neue Bowl mehr in die Rangliste kommt
-  if (!shares) {
+  if (!shares && !aborted) {
     const seen = new Set(top.map(it => it.q.join() + "|" + it.m));
-    const nut = new Float64Array(8), cnt = [0, 0, 0];
+    const nut = new Float64Array(8), cnt = [0, 0, 0], hus = new Uint8Array(Math.max(1, slots.size));
     for (let changed = true; changed;) {
       changed = false;
       for (const it of top.slice()) {
         if (it.done) continue;
         it.done = true;
-        nut.fill(0); cnt[0] = cnt[1] = cnt[2] = 0;
-        for (let i = 0; i < C; i++) if (it.q[i]) { cnt[core[i].g] += it.q[i]; for (let k = 0; k < 8; k++) nut[k] += core[i].v[k] * it.q[i]; }
+        nut.fill(0); cnt[0] = cnt[1] = cnt[2] = 0; hus.fill(0);
+        for (let i = 0; i < C; i++) if (it.q[i]) {
+          const u = core[i];
+          cnt[u.g] += it.q[i];
+          if (u.slot >= 0) hus[u.slot] += u.hu * it.q[i];
+          for (let k = 0; k < 8; k++) nut[k] += u.v[k] * it.q[i];
+        }
         for (let j = 0; j < extras.length; j++) if ((it.m >>> j) & 1) for (let k = 0; k < 8; k++) nut[k] += extras[j].v[k];
         for (let i = 0; i < C; i++) {
           const u = core[i];
-          if (it.q[i] >= u.qmax || cnt[u.g] >= gmax[u.g]) continue;
+          if (it.q[i] >= u.qmax || cnt[u.g] >= gmax[u.g] || it.pc + u.pc > budget) continue;
+          if (u.slot >= 0 && hus[u.slot] + u.hu > capHU) continue;
           for (let k = 0; k < 8; k++) tot[k] = nut[k] + u.v[k];
           const s = scoreVec(tot, t, mode, p);
           if (!(s < thr)) continue;
@@ -739,13 +919,13 @@ function bowlCombos(menu, t, mode, p, opts) {
           const key = q2.join() + "|" + it.m;
           if (seen.has(key)) continue;
           seen.add(key);
-          insert(s, q2, it.m);
+          insert(s, q2, it.m, it.pc + u.pc);
           changed = true;
         }
       }
     }
   }
-  // Ausformulieren; Anzeige-Nährwerte wie überall über sumN (1 Dezimale), Score darauf neu berechnet
+  // Ausformulieren; Anzeige-Nährwerte wie überall über sumN (1 Dezimale), Score darauf neu berechnet; Preis inkl. Grundpreis
   const build = it => {
     const parts = [], items = [];
     let dip = null;
@@ -757,9 +937,13 @@ function bowlCombos(menu, t, mode, p, opts) {
     }
     for (let j = 0; j < extras.length; j++) if ((it.m >>> j) & 1) { parts.push({ opt: extras[j].opt, qty: 1 }); items.push(extras[j].opt); }
     if (dip) items.push(dip);
-    return { key: parts.map(pt => pt.opt.id + "x" + pt.qty).join("+") + "|" + (dip ? dip.id : "nodip"), parts, dip, items };
+    return { key: parts.map(pt => pt.opt.id + "x" + pt.qty).join("+") + "|" + (dip ? dip.id : "nodip"), parts, dip, items, price: (baseCents + it.pc) / 100 };
   };
-  if (o.raw) return top.map(it => ({ key: build(it).key, rawScore: it.s }));
+  if (o.raw) {
+    const raw = top.map(it => { const b = build(it); return { key: b.key, rawScore: it.s, price: b.price }; });
+    if (aborted) raw.approx = true;
+    return raw;
+  }
   const out = top.map(it => {
     const r = build(it);
     r.nutrition = sumN(r.items, 1);
@@ -768,23 +952,29 @@ function bowlCombos(menu, t, mode, p, opts) {
     return r;
   });
   out.sort((a, b) => a.score - b.score || a.rawScore - b.rawScore);
-  return out.slice(0, 20);
+  const res = out.slice(0, 20);
+  if (aborted) res.approx = true; // Rangliste nicht vollständig geprüft (Arbeitsbudget erschöpft)
+  return res;
 }
 
 // Kurz-Zusammenfassung einer Bowl: "Basmatireis + 2× Hähnchen + Edamame + Joghurt-Salatdressing"
 function bowlSummary(res) {
   return [...res.parts.map(pt => (pt.qty > 1 ? pt.qty + "× " : "") + (pt.opt.short || pt.opt.name)), ...(res.dip ? [res.dip.short || res.dip.name] : [])].join(" + ");
 }
-// Bestellschritte je Wolt-Gruppe: Stepper-Gruppen (Basis/Proteine) mit Menge, Extras als Häkchen, Dip genau einer
+// Rolle einer Menü-Option: base / protein / extra / dip (fehlt → Gruppen-id, wie bei Wolt)
+function bowlRole(x) { return x.role || x.group; }
+// Preis als „€12.50" (UI Englisch)
+function bowlEuro(v) { return "€" + (Math.round((v || 0) * 100) / 100).toFixed(2); }
+// Bestellschritte je Plattform-Gruppe in Menü-Reihenfolge: Mengen bei Base/Protein und bei Stepper-Extras (Uber Eats), Wolt-Extras
+// (Häkchen) ohne Menge; die Dip-Gruppe immer (Dip-Name oder „Ohne Dip"/„ohne Dip")
 function bowlOrderSteps(menu, sel) {
-  const G = {}; for (const g of menu.groups) G[g.id] = g;
   const steps = [{ l: "Item", v: menu.item }];
-  for (const gid of ["base", "protein", "extra"]) {
-    const ps = sel.parts.filter(pt => pt.opt.group === gid);
-    if (!ps.length || !G[gid]) continue;
-    steps.push({ l: G[gid].name, v: ps.map(pt => (gid === "extra" ? "" : pt.qty + "× ") + pt.opt.name).join(" · ") });
+  for (const g of menu.groups) {
+    const isDip = g.options.some(x => bowlRole(x) === "dip");
+    const vals = sel.parts.filter(pt => pt.opt.group === g.id).map(pt => ((bowlRole(pt.opt) !== "extra" || pt.opt.maxQty > 1) ? pt.qty + "× " : "") + pt.opt.name);
+    if (isDip) vals.push(sel.dip ? sel.dip.name : (g.none || "—"));
+    if (vals.length) steps.push({ l: g.name, v: vals.join(" · ") });
   }
-  if (G.dip) steps.push({ l: G.dip.name, v: sel.dip ? sel.dip.name : (G.dip.none || "—") });
   return steps;
 }
 // Such-Index-Einträge: jede Option einmal (Proteine stehen bei Wolt doppelt), gesperrte Zutaten nie
@@ -796,30 +986,52 @@ function bowlSearchEntries(menu, blocked) {
   }
   return out;
 }
-// Ausschluss-Liste: je Zutat genau ein Eintrag (id = Zutat-id → gilt für alle Gruppen, in denen sie vorkommt)
+// Ausschluss-Liste: je Zutat genau ein Eintrag (id = Zutat-id → gilt für alle Gruppen und ganze + halbe Portionen)
 function bowlExcludables(menu, blocked) {
   const out = [], seen = new Set();
   for (const g of menu.groups) for (const x of g.options) {
     if (seen.has(x.ing) || (blocked && blocked.has(x.ing))) continue;
-    seen.add(x.ing); out.push({ id: x.ing, name: x.short || x.name, group: g.name });
+    seen.add(x.ing); out.push({ id: x.ing, name: x.half ? String(x.short || x.name).replace(/^½\s*/, "") : (x.short || x.name), group: g.name });
   }
   return out;
 }
-// Datenprüfung eines BYO-Datenblocks (validateRegistry ruft das über r.validate() auf)
-function bowlValidate(data) {
-  const P = [], ing = new Set(data.ingredients.map(x => x.id)), blocked = new Set(data.ingredients.filter(x => x.blocked).map(x => x.id)), ids = new Set();
+// Datenprüfung eines BYO-Datenblocks mit Plattform-Menüs (validateRegistry ruft das über r.validate() auf); keys = geprüfte Menüs
+function bowlValidate(data, keys) {
+  const P = [], ing = new Set(data.ingredients.map(x => x.id)), blocked = new Set(data.ingredients.filter(x => x.blocked).map(x => x.id));
   const isNum = v => typeof v === "number" && isFinite(v) && v >= 0;
   for (const x of data.ingredients) for (const k of KEYS) if (!isNum(x.per100 && x.per100[k])) P.push("Zutat " + x.id + ": per100." + k + " fehlt");
-  const gids = data.wolt.groups.map(g => g.id);
-  for (const needG of ["base", "protein", "dip"]) if (!gids.includes(needG)) P.push("Wolt-Gruppe fehlt: " + needG);
-  for (const g of data.wolt.groups) for (const o of g.options) {
-    if (ids.has(o.id)) P.push("Option-id doppelt: " + o.id);
-    ids.add(o.id);
-    if (o.group !== g.id) P.push("Option " + o.id + ": group ≠ " + g.id);
-    if (!ing.has(o.ing)) P.push("Option " + o.id + ": unbekannte Zutat " + o.ing);
-    if (blocked.has(o.ing)) P.push("Option " + o.id + ": gesperrte Zutat im Menü");
-    if (!(o.maxQty >= 1)) P.push("Option " + o.id + ": maxQty < 1");
-    for (const k of KEYS) if (!isNum(o[k])) P.push("Option " + o.id + ": " + k + " keine Zahl ≥ 0");
+  for (const key of (keys || ["wolt", "ubereats"].filter(k => data[k]))) {
+    const menu = data[key], tag = key + ": ";
+    if (!menu || !Array.isArray(menu.groups)) { P.push(tag + "Menü fehlt"); continue; }
+    if (typeof menu.item !== "string" || !menu.item) P.push(tag + "item fehlt");
+    if (!isNum(menu.basePrice)) P.push(tag + "basePrice fehlt");
+    const ids = new Set(), gids = new Set(), roleGroups = { base: new Set(), protein: new Set(), dip: new Set() };
+    for (const g of menu.groups) {
+      if (gids.has(g.id)) P.push(tag + "Gruppen-id doppelt: " + g.id);
+      gids.add(g.id);
+      if (!(g.max >= 1)) P.push(tag + "Gruppe " + g.id + ": max < 1");
+      let hasExtra = false;
+      for (const o of g.options) {
+        const r = bowlRole(o);
+        if (ids.has(o.id)) P.push(tag + "Option-id doppelt: " + o.id);
+        ids.add(o.id);
+        if (o.group !== g.id) P.push(tag + "Option " + o.id + ": group ≠ " + g.id);
+        if (r in roleGroups) roleGroups[r].add(g.id);
+        else if (r === "extra") hasExtra = true;
+        else P.push(tag + "Option " + o.id + ": unbekannte Rolle " + r);
+        if (!ing.has(o.ing)) P.push(tag + "Option " + o.id + ": unbekannte Zutat " + o.ing);
+        if (blocked.has(o.ing)) P.push(tag + "Option " + o.id + ": gesperrte Zutat im Menü");
+        if (!(o.maxQty >= 1)) P.push(tag + "Option " + o.id + ": maxQty < 1");
+        if (!isNum(o.price)) P.push(tag + "Option " + o.id + ": price fehlt");
+        if (o.half && !g.options.some(y => !y.half && y.ing === o.ing && bowlRole(y) === r)) P.push(tag + "Option " + o.id + ": halbe Portion ohne ganze");
+        for (const k of KEYS) if (!isNum(o[k])) P.push(tag + "Option " + o.id + ": " + k + " keine Zahl ≥ 0");
+      }
+      if (hasExtra && g.max < 6) P.push(tag + "Gruppe " + g.id + ": enthält Extras, aber max < 6 (Extras-Chip bis 6)");
+    }
+    for (const r of Object.keys(roleGroups)) {
+      if (!roleGroups[r].size) P.push(tag + "keine Option mit Rolle " + r);
+      if (roleGroups[r].size > 1) P.push(tag + "Rolle " + r + " steht in mehreren Gruppen");
+    }
   }
   return P;
 }
@@ -829,19 +1041,47 @@ function switchPass(r, st) {
   return x => act.every(s => s.filter(x));
 }
 
-// ═══ Compleat (Frankfurt Nordend, Wolt „Build your Bowl") ═══
+// ═══ Compleat (Frankfurt Nordend): Wolt „Build your Bowl" + Uber Eats „Selbst zusammenstellen" ═══
 // GESPERRT = bleibt im Datensatz, wird aber NIE vorgeschlagen, gesucht oder als Ausschluss angeboten. User 15.09.2026:
-// Bunter Bio Quinoa (offizielle Werte unplausibel). Gilt auch für künftige Compleat-Plattformen (z.B. Uber Eats) — dort
-// denselben COMPLEAT_BLOCKED-Filter verwenden (compleat-update.js lässt gesperrte Zutaten zusätzlich aus allen Menüs weg).
+// Bunter Bio Quinoa (offizielle Werte unplausibel) — auf allen Plattformen (compleat-update.js lässt gesperrte Zutaten zusätzlich
+// aus allen Menüs weg).
 const COMPLEAT_BLOCKED = new Set(COMPLEAT.ingredients.filter(x => x.blocked).map(x => x.id));
-// Jede Bowl: ≥1 Base + ≥1 Protein (User 15.09.2026), Dip genau einer oder keiner; Deckel aus der Config-Karte (st.extra)
+// Jede Bowl: ≥1 Base + ≥1 Protein (User 15.09.2026), Dip einer oder keiner; Deckel aus der Config-Karte (st.extra); Preislimit aus den
+// Zielen (t.maxPrice, User 15.09.2026). Das Plattform-Menü hängt am Registry-Eintrag (r.menu).
 function compleatOptimize(t, mode, p, st, ex, r) {
   const x0 = (st && st.extra) || {};
   const pass = switchPass(r, st);
-  return bowlCombos(COMPLEAT.wolt, t, mode, p, {
-    cap: x0.cap || 2, maxExtras: x0.maxExtras == null ? 5 : x0.maxExtras,
+  return bowlCombos(r.menu, t, mode, p, {
+    cap: x0.cap || 2, maxExtras: x0.maxExtras == null ? 5 : x0.maxExtras, maxPrice: t && t.maxPrice,
     keep: x => !COMPLEAT_BLOCKED.has(x.ing) && !(ex && ex.has(x.ing)) && pass(x),
   });
+}
+const COMPLEAT_SWITCHES = [
+  { id:"noDip", label:"No dip", def:true, filter:x=>bowlRole(x)!=="dip" },                          // User 15.09.2026: Default AN
+  { id:"noCrunch", label:"No crunch", def:false, filter:x=>!x.crunch,                                // User 15.09.2026: Default AUS
+    hint:"Hides Erdnüsse, Walnusskerne, Röstzwiebeln and Schwarzer Sesam." },
+];
+// Registry-Eintrag je Compleat-Plattform: gleiche Regeln, Schalter und Ausschluss-Liste (exclusionKey "compleat" — ausverkauft ist
+// ausverkauft, egal über welche App); eigenes Menü mit eigenen Mengen und Preisen
+function compleatEntry(o) {
+  const menu = COMPLEAT[o.menuKey];
+  return {
+    key: o.key, name: o.name, kind: "byo", data: COMPLEAT, menu, exclusionKey: "compleat",
+    gradient: o.gradient, label: o.label, platform: o.platform, accurate: true, maxN: 5, footer: o.footer,
+    switches: COMPLEAT_SWITCHES,
+    initState: () => ({ maxExtras: 5, cap: 2 }),
+    optimize: compleatOptimize,
+    renderConfig: ctx => bowlConfigCard(ctx, o.note(menu), menu),
+    renderCard: (res, ctx) => bowlCard(res, ctx, menu),
+    renderPanel: (sel, ctx) => bowlPanel(menu, sel, ctx),
+    orderSteps: sel => bowlOrderSteps(menu, sel),
+    searchEntries: () => bowlSearchEntries(menu, COMPLEAT_BLOCKED),
+    excludables: () => bowlExcludables(menu, COMPLEAT_BLOCKED),
+    summary: bowlSummary,
+    panelSubtitle: sel => bowlSubtitle(menu, sel),
+    inputHint: () => menu.item + ": 1+ base, 1+ protein",
+    validate: () => bowlValidate(COMPLEAT, [o.menuKey]),
+  };
 }
 
 // ═══ Registry-Hilfsfunktionen (generisch für alle Einträge) ═══
@@ -904,39 +1144,27 @@ function summarizeResult(r, res) { return (r.kind === "byo" && r.summary) ? r.su
 //   gradient  [von, bis] Header-Verlauf                                  label     Mono-Label im Header (GROSSBUCHSTABEN)
 //   platform  Lieferando / Wolt / Uber Eats                              accurate  true = verifizierte offizielle Daten
 //   maxN      Default „Max. items per order" (5)                         note / footer  optionale Texte (Config-Karte / Fußzeile)
+//   exclusionKey  optional: gemeinsame Ausschluss-Liste mehrerer Einträge (ein Restaurant auf mehreren Plattformen; Default: key)
 //   switches  [{ id, label, def, filter?(item), require?(items), overridesCats?, group?, inAll?, hint? }]
 //     filter = wirkt auf den Pool · require = wirkt aufs Ergebnis („must include X") · overridesCats = „only X"-Modus,
 //     ignoriert die Chips · group = UI-exklusiv · inAll = Wert in All/Accurate (Default: def) · hint = Erklärtext
 // kind:"byo" — Pflicht-Methoden am Eintrag:
-//   optimize(t, mode, p, st, ex, r) → sortierte Ergebnisse [{items? | key?, nutrition, score, …}], max 20
-//     (isShellfish im eigenen Pool! ex = Set ausgeschlossener ids aus der Ausschluss-Liste)
+//   optimize(t, mode, p, st, ex, r) → sortierte Ergebnisse [{items? | key?, nutrition, score, price?, …}], max 20
+//     (isShellfish im eigenen Pool! ex = Set ausgeschlossener ids aus der Ausschluss-Liste; t.maxPrice = Preislimit in € oder null)
 //   renderConfig(ctx) · renderCard(res, ctx) · renderPanel(sel, ctx) · orderSteps(sel) → [{l, v}] · searchEntries() → Items
 //   optional: summary(res), panelSubtitle(sel), inputHint(st), initState() → st.extra, excludables() → [{id, name, group}],
-//   validate() → Liste von Datenproblemen (von validateRegistry geprüft)
+//   validate() → Liste von Datenproblemen (von validateRegistry geprüft), menu = Bowl-Menü (bowlCombos)
 const RESTAURANTS = [
-  // Compleat — Frankfurt Nordend (Glauburgstraße 5), Wolt „Build your Bowl". Daten: node compleat-crawl.js (offizieller
-  // Onlineshop + Wolt-API → data/compleat-raw.json) → node compleat-update.js → COMPLEAT-Block. Kontrolle: node verify-compleat.js
-  { key:"compleat", name:"Compleat", kind:"byo", data:COMPLEAT,
-    gradient:["#d7192d","#6b0f1a"], label:"COMPLEAT · NORDEND · WOLT", platform:"Wolt", accurate:true, maxN:5,
-    footer:"Data: Compleat online shop (official, per 100 g × Wolt portion) · 15.09.2026",
-    switches:[
-      { id:"noDip", label:"No dip", def:true, filter:x=>x.group!=="dip" },                         // User 15.09.2026: Default AN
-      { id:"noCrunch", label:"No crunch", def:false, filter:x=>!x.crunch,                            // User 15.09.2026: Default AUS
-        hint:"Hides Erdnüsse, Walnusskerne, Röstzwiebeln and Schwarzer Sesam." },
-    ],
-    initState:()=>({ maxExtras:5, cap:2 }),
-    optimize:compleatOptimize,
-    renderConfig:ctx=>bowlConfigCard(ctx, "Build your Bowl on Wolt: every bowl gets at least 1 base and 1 protein, plus one dip or none. Bunter Quinoa is never suggested (implausible official values)."),
-    renderCard:(res,ctx)=>bowlCard(res,ctx),
-    renderPanel:sel=>bowlPanel(COMPLEAT.wolt, sel),
-    orderSteps:sel=>bowlOrderSteps(COMPLEAT.wolt, sel),
-    searchEntries:()=>bowlSearchEntries(COMPLEAT.wolt, COMPLEAT_BLOCKED),
-    excludables:()=>bowlExcludables(COMPLEAT.wolt, COMPLEAT_BLOCKED),
-    summary:bowlSummary,
-    panelSubtitle:sel=>"Build your Bowl · " + sel.items.length + (sel.items.length === 1 ? " component" : " components"),
-    inputHint:()=>"Build your Bowl: 1+ base, 1+ protein",
-    validate:()=>bowlValidate(COMPLEAT),
-  },
+  // Compleat — Frankfurt Nordend (Glauburgstraße 5), je Plattform ein Eintrag (compleatEntry). Daten: node compleat-crawl.js (offizieller
+  // Onlineshop + Wolt-API + Uber-Eats-Erfassung data/compleat-ubereats-menu.json → data/compleat-raw.json) → node compleat-update.js
+  compleatEntry({ key:"compleat", menuKey:"wolt", name:"Compleat (Wolt)", platform:"Wolt", label:"COMPLEAT · NORDEND · WOLT",
+    gradient:["#d7192d","#6b0f1a"],
+    footer:"Data: Compleat online shop (official, per 100 g × Wolt portion) · menu & prices: Wolt · 15.09.2026",
+    note:m=>"Build your Bowl on Wolt (base price "+bowlEuro(m.basePrice)+"): every bowl gets at least 1 base and 1 protein, plus one dip or none. Bunter Quinoa is never suggested (implausible official values)." }),
+  compleatEntry({ key:"compleatuber", menuKey:"ubereats", name:"Compleat (Uber Eats)", platform:"Uber Eats", label:"COMPLEAT · NORDEND · UBER EATS",
+    gradient:["#b3121d","#141414"],
+    footer:"Data: Compleat online shop (official, per 100 g × Uber Eats portion) · menu & prices: Uber Eats, captured 15.09.2026",
+    note:m=>"Selbst zusammenstellen on Uber Eats (base price "+bowlEuro(m.basePrice)+"): every bowl gets at least 1 base and 1 main protein (half portions count; egg, edamame, peas and feta count as extras), plus one dip or none. Extras at most once each. Bunter Bio Quinoa and Halbe Limette (no official values) are never suggested." }),
 ];
 const RESTO_BY_KEY = Object.fromEntries(RESTAURANTS.map(r => [r.key, r]));
 
@@ -999,20 +1227,25 @@ function validateRegistry(restos) {
 
 // „All restaurants" / „Accurate restaurants": jedes (erlaubte) Restaurant mit Default-Kategorien + inAll-Schaltern,
 // max. 1 Treffer pro Restaurant (dessen beste Bestellung), nach Score sortiert, Top 20. restos optional (für Tests).
-// exclMap = Ausschluss-Listen je Restaurant ({ key: [ids] }) — ausverkaufte Dinge gelten auch hier.
+// exclMap = Ausschluss-Listen ({ exclusionKey bzw. key: [ids] }) — ausverkaufte Dinge gelten auch hier.
 function optimizeAll(t, mode, p, maxN, onlyAccurate, restos, exclMap) {
   const list = (restos || RESTAURANTS).filter(r => !onlyAccurate || r.accurate);
   const picks = [];
+  let approx = false;
   for (const r of list) {
-    const ex = new Set((exclMap && Array.isArray(exclMap[r.key])) ? exclMap[r.key] : []);
+    const xk = r.exclusionKey || r.key;
+    const ex = new Set((exclMap && Array.isArray(exclMap[xk])) ? exclMap[xk] : []);
     const res = runOptimize(r, t, mode, p, allState(r, maxN), ex);
+    if (res && res.approx) approx = true;
     if (!res || !res.length) continue;
     let best = res[0];
     for (const x of res) if (x.score < best.score) best = x;
     picks.push(Object.assign({}, best, { _resto: r.key }));
   }
   picks.sort((a, b) => a.score - b.score);
-  return picks.slice(0, 20);
+  const outAll = picks.slice(0, 20);
+  if (approx) outAll.approx = true;
+  return outAll;
 }
 
 // ═══ „Add own order" — restaurantsübergreifender Such-Index (automatisch aus der Registry) ═══
@@ -1102,12 +1335,12 @@ function Chip({label,active,onClick,small}) {
   }},label);
 }
 
-function NumIn({label,value,onChange,placeholder,unit,min=0}) {
+function NumIn({label,value,onChange,placeholder,unit,min=0,step}) {
   return h("div",{style:{flex:1,minWidth:80}},
     h("label",{style:{display:"block",fontSize:10,color:"#777",marginBottom:3,fontFamily:S.mono,textTransform:"uppercase",letterSpacing:1}},label),
     h("div",{style:{position:"relative"}},
       h("input",{type:"number",value,onChange:e=>onChange(e.target.value===""?"":Number(e.target.value)),
-        placeholder,min,style:{width:"100%",padding:"9px 10px",paddingRight:unit?30:10,
+        placeholder,min,step,inputMode:step?"decimal":undefined,style:{width:"100%",padding:"9px 10px",paddingRight:unit?30:10,
         background:"#1a1a1a",border:"1px solid #333",borderRadius:6,color:"#fff",fontSize:14,
         fontFamily:S.mono,outline:"none",boxSizing:"border-box"}}),
       unit&&h("span",{style:{position:"absolute",right:8,top:"50%",transform:"translateY(-50%)",fontSize:10,color:"#555"}},unit)
@@ -1144,8 +1377,8 @@ function MacroBars({ n, tg, mb }) {
   );
 }
 
-// Ergebnis-Karte (Look wie London). badge = Restaurant-Badge (All/Accurate); hint ersetzt Fibre/Salt in der Makro-Zeile
-function ResultCard({ title, sub, n, selected, onClick, badge, hint }) {
+// Ergebnis-Karte (Look wie London). badge = Restaurant-Badge (All/Accurate); hint ersetzt Fibre/Salt in der Makro-Zeile; price = Bestellpreis (unter den kcal)
+function ResultCard({ title, sub, n, selected, onClick, badge, hint, price }) {
   const titleEl = h("span", { style:{ fontSize:13, fontWeight:600, color:"#fff" } }, title);
   return h("button", { onClick, style:{
       background: selected ? "rgba(0,151,67,0.08)" : "#151515",
@@ -1160,8 +1393,10 @@ function ResultCard({ title, sub, n, selected, onClick, badge, hint }) {
           : h("div", { style:{ marginBottom:2 } }, titleEl),
         sub && h("div", { style:{ fontSize:10, color:"#777", fontFamily:S.mono } }, sub)
       ),
-      h("div", { style:{ fontSize:16, fontWeight:700, color:"#4ade80", fontFamily:S.mono, whiteSpace:"nowrap" } },
-        n.kcal, h("span", { style:{ fontSize:9, color:"#666", fontWeight:400 } }, " kcal"))
+      h("div", { style:{ textAlign:"right", flexShrink:0 } },
+        h("div", { style:{ fontSize:16, fontWeight:700, color:"#4ade80", fontFamily:S.mono, whiteSpace:"nowrap" } },
+          n.kcal, h("span", { style:{ fontSize:9, color:"#666", fontWeight:400 } }, " kcal")),
+        price != null && h("div", { style:{ fontSize:11, color:"#cfcfcf", fontFamily:S.mono, marginTop:2, whiteSpace:"nowrap" } }, bowlEuro(price)))
     ),
     h("div", { style:{ display:"flex", gap:12, fontSize:10, fontFamily:S.mono, flexWrap:"wrap" } },
       h("span", { style:{ color:"#fbbf24" } }, "C "+n.carbs+"g"),
@@ -1218,37 +1453,50 @@ function ExcludeCard({ list, excluded, onAdd, onRemove, onClear }) {
   );
 }
 
-// ── Build-Your-Own-Renderer (Compleat; wiederverwendbar für weitere Bowl-Menüs) ──
-function bowlConfigCard(ctx, note) {
+// ── Build-Your-Own-Renderer (Compleat Wolt + Uber Eats; wiederverwendbar für weitere Bowl-Menüs) ──
+function bowlConfigCard(ctx, note, menu) {
   const x = (ctx.st && ctx.st.extra) || {};
   const set = patch => ctx.update(s => ({ extra: { ...(s.extra || {}), ...patch } }));
+  const halves = !!(menu && menu.groups.some(g => g.options.some(o => o.half)));
   return h("div", { style: CARD },
     h("div", { style: LBL }, "Max. extras per bowl"),
     h("div", { style: { display: "flex", gap: 5, flexWrap: "wrap", marginBottom: 12 } },
       ...[0, 1, 2, 3, 4, 5, 6].map(n => h(Chip, { key: String(n), label: String(n), active: x.maxExtras === n, onClick: () => set({ maxExtras: n }), small: true }))),
-    h("div", { style: LBL }, "Max. portions of the same base / protein"),
+    h("div", { style: LBL }, "Max. portions of the same base / protein" + (halves ? " · half portion = ½" : "")),
     h("div", { style: { display: "flex", gap: 5, marginBottom: note ? 10 : 0 } },
       ...[1, 2, 3, 4].map(n => h(Chip, { key: String(n), label: String(n), active: x.cap === n, onClick: () => set({ cap: n }), small: true }))),
     note && h("div", { style: { fontSize: 10, color: "#666", lineHeight: 1.4 } }, note)
   );
 }
-function bowlCard(res, ctx) {
+function bowlCard(res, ctx, menu) {
   const c = { base: 0, protein: 0, extra: 0 };
-  for (const pt of res.parts) c[pt.opt.group] = (c[pt.opt.group] || 0) + pt.qty;
-  const sub = "Build your Bowl · " + c.base + " base · " + c.protein + " protein · " + c.extra + (c.extra === 1 ? " extra" : " extras") + " · " + (res.dip ? "dip" : "no dip");
-  return h(ResultCard, { key: res.key, title: bowlSummary(res), sub, n: res.nutrition, selected: ctx.selected, onClick: ctx.onSelect });
+  for (const pt of res.parts) { const r = bowlRole(pt.opt); c[r] = (c[r] || 0) + pt.qty; }
+  const sub = (menu ? menu.item : "Bowl") + " · " + c.base + " base · " + c.protein + " protein · " + c.extra + (c.extra === 1 ? " extra" : " extras") + " · " + (res.dip ? "dip" : "no dip");
+  return h(ResultCard, { key: res.key, title: bowlSummary(res), sub, n: res.nutrition, price: res.price, selected: ctx.selected, onClick: ctx.onSelect });
 }
-function bowlPanel(menu, sel) {
+function bowlSubtitle(menu, sel) {
+  const n = sel.items.length;
+  return menu.item + " · " + n + (n === 1 ? " component" : " components") + (sel.price != null ? " · " + bowlEuro(sel.price) : "");
+}
+// Aufschlüsselung je Plattform-Gruppe (kcal · Protein · Preis) + Gesamtpreis inkl. Grundpreis
+function bowlPanel(menu, sel, ctx) {
   const rows = [];
+  const line = { display: "flex", justifyContent: "space-between", gap: 8, fontSize: 12, padding: "4px 0", borderBottom: "1px solid #1f1f1f" };
   for (const g of menu.groups) {
-    const ps = g.id === "dip" ? (sel.dip ? [{ opt: sel.dip, qty: 1 }] : []) : sel.parts.filter(pt => pt.opt.group === g.id);
-    if (!ps.length && g.id !== "dip") continue;
+    const isDip = g.options.some(x => bowlRole(x) === "dip");
+    const ps = sel.parts.filter(pt => pt.opt.group === g.id);
+    if (isDip && sel.dip) ps.push({ opt: sel.dip, qty: 1 });
+    if (!ps.length && !isDip) continue;
     rows.push(h("div", { key: g.id, style: { fontSize: 10, color: "#555", fontFamily: S.mono, textTransform: "uppercase", letterSpacing: 1, margin: "8px 0 4px" } }, g.name));
     if (!ps.length) rows.push(h("div", { key: g.id + "_none", style: { fontSize: 12, color: "#777", padding: "4px 0", borderBottom: "1px solid #1f1f1f" } }, g.none || "—"));
-    for (const pt of ps) rows.push(h("div", { key: g.id + "_" + pt.opt.id, style: { display: "flex", justifyContent: "space-between", gap: 8, fontSize: 12, padding: "4px 0", borderBottom: "1px solid #1f1f1f" } },
+    for (const pt of ps) rows.push(h("div", { key: g.id + "_" + pt.opt.id, style: line },
       h("span", { style: { color: "#e0e0e0", minWidth: 0, flex: 1 } }, (pt.qty > 1 ? pt.qty + "× " : "") + pt.opt.name),
-      h("span", { style: { color: "#999", fontFamily: S.mono, whiteSpace: "nowrap" } }, Math.round(pt.opt.kcal * pt.qty) + " kcal · P " + Math.round(pt.opt.protein * pt.qty * 10) / 10 + "g")));
+      h("span", { style: { color: "#999", fontFamily: S.mono, whiteSpace: "nowrap" } }, Math.round(pt.opt.kcal * pt.qty) + " kcal · P " + Math.round(pt.opt.protein * pt.qty * 10) / 10 + "g · " + bowlEuro((pt.opt.price || 0) * pt.qty))));
   }
+  if (sel.price != null) rows.push(h("div", { key: "_price", style: { ...line, borderBottom: "none", marginTop: 6 } },
+    h("span", { style: { color: "#e0e0e0", minWidth: 0, flex: 1, fontWeight: 600 } }, "Total price",
+      h("span", { style: { color: "#777", fontWeight: 400, fontSize: 10 } }, "  incl. " + menu.item + " " + bowlEuro(menu.basePrice) + " · " + ((ctx && ctx.R && ctx.R.platform) ? ctx.R.platform + " " : "") + "menu prices, no fees")),
+    h("span", { style: { color: "#fff", fontFamily: S.mono, whiteSpace: "nowrap", fontWeight: 600 } }, bowlEuro(sel.price))));
   return h("div", { style: { marginBottom: 16 } }, ...rows);
 }
 
@@ -1266,6 +1514,7 @@ function App() {
   const [fibMax, setFibMax] = useState("");
   const [sMin, setSMin] = useState("");
   const [sMax, setSMax] = useState("");
+  const [maxPrice, setMaxPrice] = useState(""); // Preislimit je Bestellung in € inkl. Grundpreis (User 15.09.2026), leer = keins
   const [imp, setImp] = useState({ busy:false, msg:"", err:false });
   // State pro Restaurant: rs[key] = {cats, maxN, sw, sel, extra} — bleibt beim Tab-Wechsel erhalten. Ziele sind global.
   const [rs, setRs] = useState(() => initRestoStates(RESTAURANTS));
@@ -1295,7 +1544,8 @@ function App() {
 
   const R = RESTO_BY_KEY[tab] || null; // aktives Registry-Restaurant (null bei Spezial-Tabs) — Restaurant-Blöcke nur mit R rendern
   const st = R ? rs[R.key] : null;
-  const exList = R && Array.isArray(excl[R.key]) ? excl[R.key] : [];
+  const exKey = R ? (R.exclusionKey || R.key) : null; // gemeinsame Liste, z.B. Compleat Wolt + Uber Eats
+  const exList = R && Array.isArray(excl[exKey]) ? excl[exKey] : [];
   const exSet = useMemo(() => new Set(exList), [exList]);
   const excludables = useMemo(() => R ? excludablesFor(R) : [], [R]);
   const updRS = (key, fn) => setRs(prev => prev[key] ? { ...prev, [key]: { ...prev[key], ...fn(prev[key]) } } : prev);
@@ -1325,13 +1575,14 @@ function App() {
   };
 
   const targets = useMemo(() => {
-    const t = { protein:0, carbs:0, fat:0, kcal:0, fibMin:null, fibMax:null, sMin:null, sMax:null };
+    const t = { protein:0, carbs:0, fat:0, kcal:0, fibMin:null, fibMax:null, sMin:null, sMax:null, maxPrice:null };
     if (mode === "macros") { t.protein = tP||0; t.carbs = tC||0; t.fat = tF||0; t.kcal = t.protein*4 + t.carbs*4 + t.fat*9; }
     else { t.kcal = tK||0; }
     if (fibMin !== "") t.fibMin = Number(fibMin); if (fibMax !== "") t.fibMax = Number(fibMax);
     if (sMin !== "") t.sMin = Number(sMin); if (sMax !== "") t.sMax = Number(sMax);
+    if (maxPrice !== "" && isFinite(Number(maxPrice)) && Number(maxPrice) >= 0) t.maxPrice = Number(maxPrice);
     return t;
-  }, [mode, tP, tC, tF, tK, fibMin, fibMax, sMin, sMax]);
+  }, [mode, tP, tC, tF, tK, fibMin, fibMax, sMin, sMax, maxPrice]);
 
   // Nur das aktive Restaurant rechnen; sel ist bewusst KEINE Abhängigkeit (Auswahl ändert die Ergebnisse nicht)
   const results = useMemo(() => (R && st) ? runOptimize(R, targets, mode, prefs, st, exSet) : [],
@@ -1420,10 +1671,10 @@ function App() {
         )
       ),
 
-      // Fibre/Salt-Constraints (gehören zu den Zielen)
+      // Fibre/Salt-Constraints + Preislimit (gehören zu den Zielen)
       h("div",{style:{marginTop:-8,marginBottom:12}},
         h("button",{onClick:()=>setAdv(!showAdv),style:{background:"none",border:"none",color:"#666",fontSize:11,cursor:"pointer",fontFamily:S.mono,textDecoration:"underline",padding:0}},
-          showAdv?"Less ▴":"Fibre / Salt ▾")
+          showAdv?"Less ▴":"Fibre / Salt / Price ▾"+(targets.maxPrice!=null?" · max "+bowlEuro(targets.maxPrice):""))
       ),
       showAdv&&h("div",{style:{background:"#151515",borderRadius:12,padding:16,marginBottom:16,border:"1px solid #222"}},
         h("div",{style:{display:"flex",gap:10,marginBottom:10}},
@@ -1433,6 +1684,10 @@ function App() {
         h("div",{style:{display:"flex",gap:10}},
           h(NumIn,{label:"Salt Min",value:sMin,onChange:setSMin,placeholder:"–",unit:"g"}),
           h(NumIn,{label:"Salt Max",value:sMax,onChange:setSMax,placeholder:"–",unit:"g"})
+        ),
+        h("div",{style:{display:"flex",gap:10,marginTop:10,alignItems:"flex-end"}},
+          h(NumIn,{label:"Max. price",value:maxPrice,onChange:setMaxPrice,placeholder:"–",unit:"€",step:0.5}),
+          h("div",{style:{flex:1,minWidth:80,fontSize:10,color:"#666",lineHeight:1.4,paddingBottom:2}},"Per order incl. base price · menu prices only, no delivery or service fees")
         )
       ),
 
@@ -1486,9 +1741,9 @@ function App() {
 
       // Ausschluss-Liste (ausverkauft / heute keine Lust) — generisch für jedes Registry-Restaurant
       R&&h(ExcludeCard,{key:"ex_"+R.key,list:excludables,excluded:exList,
-        onAdd:id=>setExclFor(R.key,cur=>cur.includes(id)?cur:[...cur,id]),
-        onRemove:id=>setExclFor(R.key,cur=>cur.filter(x=>x!==id)),
-        onClear:()=>setExclFor(R.key,()=>[])}),
+        onAdd:id=>setExclFor(exKey,cur=>cur.includes(id)?cur:[...cur,id]),
+        onRemove:id=>setExclFor(exKey,cur=>cur.filter(x=>x!==id)),
+        onClear:()=>setExclFor(exKey,()=>[])}),
 
       // „Add own order" — Suche über alle Restaurants + eigener Warenkorb (zum nachträglichen Tracken)
       tab==="search"&&h("div",{style:{marginBottom:20}},
@@ -1552,12 +1807,15 @@ function App() {
         )
       ),
 
+      // Arbeitsbudget der Bowl-Suche erschöpft (nur Extrem-Einstellungen): ehrlich sagen, dass die Liste nicht vollständig geprüft ist
+      tab!=="search"&&!crossEmpty&&(isCross||R)&&activeResults.approx&&h("div",{style:{...CARD,padding:"10px 12px",border:"1px solid #5a4a1a",background:"rgba(251,191,36,0.08)",fontSize:11,color:"#e5c07b",lineHeight:1.45,marginBottom:10}},
+        "Search stopped early: these settings allow too many combinations to check every bowl in time. The bowls below are good, but maybe not the exact best. For an exact result, lower “Max. portions” or “Max. extras”, or turn on “No dip”."),
       // Ergebnisliste: 20 berechnet, 8 angezeigt
       tab!=="search"&&!crossEmpty&&(isCross||R)&&h("div",{style:{display:"flex",flexDirection:"column",gap:8,marginBottom:20}},
         ...sortResults(activeResults,effSort,sortTgts).slice(0,8).map((r,i)=>{
           if(isCross){
             const rr=RESTO_BY_KEY[r._resto];
-            return h(ResultCard,{key:i,badge:rr?rr.name:r._resto,title:rr?summarizeResult(rr,r):"",n:r.nutrition,onClick:()=>selectAcross(r),hint:"tap → details"});
+            return h(ResultCard,{key:i,badge:rr?rr.name:r._resto,title:rr?summarizeResult(rr,r):"",n:r.nutrition,price:r.price,onClick:()=>selectAcross(r),hint:"tap → details"});
           }
           if(R.kind==="byo") return R.renderCard(r,{...ctx,selected:resultKey(r)===selKey,onSelect:()=>toggleSel(r)});
           const cats=[...new Set(r.items.map(x=>{const c=R.data.cats.find(y=>y.id===x.cat);return c?c.name:x.cat;}))];
@@ -1565,7 +1823,9 @@ function App() {
             n:r.nutrition,selected:resultKey(r)===selKey,onClick:()=>toggleSel(r)});
         }),
         activeResults.length===0&&h("div",{style:{fontSize:12,color:"#888",fontFamily:S.mono,padding:"4px 0"}},
-          isCross?"No results.":R.kind==="byo"?"No results — relax the switches or remove exclusions.":"No results — turn on more categories, relax the switches or remove exclusions.")
+          isCross?(targets.maxPrice!=null?"No results within "+bowlEuro(targets.maxPrice)+" — raise the price limit.":"No results.")
+            :targets.maxPrice!=null&&R.kind==="byo"?"No results within "+bowlEuro(targets.maxPrice)+" — raise the price limit, relax the switches or remove exclusions."
+            :R.kind==="byo"?"No results — relax the switches or remove exclusions.":"No results — turn on more categories, relax the switches or remove exclusions.")
       ),
 
       // Detail-Panel + Order Guide (generisch; BYO liefert den Mittelteil über renderPanel)

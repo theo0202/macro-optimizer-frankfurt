@@ -2,7 +2,7 @@
   "_meta": {
     "restaurant": "Compleat",
     "store": "Frankfurt Nordend (Glauburgstraße 5, 60318 Frankfurt am Main)",
-    "fetchedAt": "2026-09-15T10:32:26.939Z",
+    "fetchedAt": "2026-09-15T14:03:34.181Z",
     "sources": {
       "shop": {
         "url": "https://compleat.vmos.io",
@@ -21,15 +21,26 @@
         "item": "Build your Bowl",
         "itemPrice": 2
       },
+      "ubereats": {
+        "page": "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440",
+        "file": "data/compleat-ubereats-menu.json",
+        "capturedAt": "2026-09-15T13:46:29.957Z",
+        "item": "Selbst zusammenstellen",
+        "itemPrice": 1,
+        "how": "Uber Eats blockt Skript-Abrufe (Cloudflare) → Produktseite im Browser geöffnet, __REACT_QUERY_STATE__ gelesen (ubereats-capture.js)"
+      },
       "word": "data/compleat-word.txt = Word-Copy-Paste des Users (Shop-Anzeige, 15.09.2026) → Abgleich: node verify-compleat.js"
     },
-    "basis": "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Wolt-Mengen weichen nur beim Salat-Mix ab → mit Wolt-Menge gerechnet.",
-    "woltRules": "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert.",
+    "basis": "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Wolt-Mengen weichen nur beim Salat-Mix ab → mit Wolt-Menge gerechnet. Uber Eats nutzt die Shop-Namen und -Mengen (inkl. halber Portionen).",
+    "woltRules": "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Grundpreis „Build your Bowl“ 2 €.",
+    "ubereatsRules": "Selbst zusammenstellen (Grundpreis 1 €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft).",
     "decisions": [
       "User 15.09.2026: Bunter Bio Quinoa bleibt im Datensatz, ist aber im Rechner ausgeschlossen (auch künftige Plattformen)",
       "User 15.09.2026: Jede vorgeschlagene Bowl hat ≥1 Base und ≥1 Protein",
       "User 15.09.2026: „No dip“ Default AN, „No crunch“ (Erdnüsse, Walnusskerne, Röstzwiebeln, Schwarzer Sesam) Default AUS",
-      "User 15.09.2026: Guacamole normal anbieten (enthält laut Zutatenliste Koriander, im Chat erwähnt)"
+      "User 15.09.2026: Guacamole normal anbieten (enthält laut Zutatenliste Koriander, im Chat erwähnt)",
+      "User 15.09.2026: Optionales Preislimit — keine vorgeschlagene Bestellung liegt über dem eingegebenen Maximalpreis (Grundpreis + Zutaten)",
+      "User 15.09.2026: Rechner zusätzlich für Uber Eats („Selbst zusammenstellen“, Grundpreis 1 €)"
     ],
     "portionDiffs": [
       {
@@ -157,6 +168,25 @@
       "Guacamole (100g): Koriander in den Zutaten"
     ],
     "shellfish": [],
+    "ubereats": {
+      "noData": [
+        "Vitamine: „Halbe Limette (50g)“ — keine offiziellen Nährwerte im Compleat-Shop (Uber Eats nennt nur „adds 20 Cal.“) → nicht im Rechner"
+      ],
+      "portionDiffs": [],
+      "kcalDiffs": [
+        {
+          "ubereats": "Protein-Pasta - Halbe Portion (100g)",
+          "ubereatsKcal": 238,
+          "shopKcal": 190.5
+        },
+        {
+          "ubereats": "Granatapfelkerne (15g)",
+          "ubereatsKcal": 15,
+          "shopKcal": 11.1
+        }
+      ],
+      "notOnUberEats": []
+    },
     "eggNote": "Hart gekochtes Ei: offizielle Shop-Werte (pro 100 g 155 kcal → 77,5 kcal je 50 g) statt der generischen Tabellenwerte aus dem Word-Dokument (78 kcal / 6,3 g P / 0,6 g KH / 5,3 g F je 50 g). Seit 15.09.2026 bei Wolt als Extra „Hart gekochtes Ei, 50 g“ bestellbar."
   },
   "ingredients": [
@@ -1768,6 +1798,7 @@
   "wolt": {
     "page": "https://wolt.com/de/deu/frankfurt/restaurant/compleat-nordend",
     "item": "Build your Bowl",
+    "itemPrice": 2,
     "groups": [
       {
         "id": "base",
@@ -1779,6 +1810,7 @@
           {
             "name": "Basmatireis, 250 g",
             "ingredient": "basmati_reis",
+            "role": "base",
             "amount": 250,
             "unit": "g",
             "maxQty": 4,
@@ -1787,6 +1819,7 @@
           {
             "name": "Salat-Mix, 100 g",
             "ingredient": "salatmix",
+            "role": "base",
             "amount": 100,
             "unit": "g",
             "maxQty": 4,
@@ -1795,6 +1828,7 @@
           {
             "name": "Bunter Quinoa, 250 g",
             "ingredient": "bunter_bio_quinoa",
+            "role": "base",
             "amount": 250,
             "unit": "g",
             "maxQty": 4,
@@ -1803,6 +1837,7 @@
           {
             "name": "Protein Nudeln, 200 g",
             "ingredient": "protein_pasta",
+            "role": "base",
             "amount": 200,
             "unit": "g",
             "maxQty": 1,
@@ -1820,6 +1855,7 @@
           {
             "name": "Hähnchen, 100 g",
             "ingredient": "huehnchen",
+            "role": "protein",
             "amount": 100,
             "unit": "g",
             "maxQty": 10,
@@ -1828,6 +1864,7 @@
           {
             "name": "Veganes Hähnchen, 80 g",
             "ingredient": "veganes_huehnchen_planted_chicken",
+            "role": "protein",
             "amount": 80,
             "unit": "g",
             "maxQty": 10,
@@ -1836,6 +1873,7 @@
           {
             "name": "Vegane Hackbällchen, 100 g",
             "ingredient": "vegane_hackbaellchen",
+            "role": "protein",
             "amount": 100,
             "unit": "g",
             "maxQty": 10,
@@ -1844,6 +1882,7 @@
           {
             "name": "Rinderhackbällchen, 100 g",
             "ingredient": "rinderhackbaellchen",
+            "role": "protein",
             "amount": 100,
             "unit": "g",
             "maxQty": 10,
@@ -1852,6 +1891,7 @@
           {
             "name": "Pulled Salmon, 100 g",
             "ingredient": "pulled_salmon",
+            "role": "protein",
             "amount": 100,
             "unit": "g",
             "maxQty": 1,
@@ -1869,6 +1909,7 @@
           {
             "name": "Hähnchen, 100 g",
             "ingredient": "huehnchen",
+            "role": "extra",
             "amount": 100,
             "unit": "g",
             "maxQty": 1,
@@ -1877,6 +1918,7 @@
           {
             "name": "Veganes Hähnchen, 80 g",
             "ingredient": "veganes_huehnchen_planted_chicken",
+            "role": "extra",
             "amount": 80,
             "unit": "g",
             "maxQty": 1,
@@ -1885,6 +1927,7 @@
           {
             "name": "Rinderhackbällchen, 100 g",
             "ingredient": "rinderhackbaellchen",
+            "role": "extra",
             "amount": 100,
             "unit": "g",
             "maxQty": 1,
@@ -1893,6 +1936,7 @@
           {
             "name": "Vegane Hackbällchen, 100 g",
             "ingredient": "vegane_hackbaellchen",
+            "role": "extra",
             "amount": 100,
             "unit": "g",
             "maxQty": 1,
@@ -1901,6 +1945,7 @@
           {
             "name": "Hart gekochtes Ei, 50 g",
             "ingredient": "hart_gekochtes_ei",
+            "role": "extra",
             "amount": 50,
             "unit": "g",
             "maxQty": 1,
@@ -1909,6 +1954,7 @@
           {
             "name": "Erbsen, 50 g",
             "ingredient": "erbsen",
+            "role": "extra",
             "amount": 50,
             "unit": "g",
             "maxQty": 1,
@@ -1917,6 +1963,7 @@
           {
             "name": "Babyspinat, 20 g",
             "ingredient": "baby_spinat",
+            "role": "extra",
             "amount": 20,
             "unit": "g",
             "maxQty": 1,
@@ -1925,6 +1972,7 @@
           {
             "name": "Tomaten, 50 g",
             "ingredient": "tomaten",
+            "role": "extra",
             "amount": 50,
             "unit": "g",
             "maxQty": 1,
@@ -1933,6 +1981,7 @@
           {
             "name": "Edamame, 50 g",
             "ingredient": "edamame",
+            "role": "extra",
             "amount": 50,
             "unit": "g",
             "maxQty": 1,
@@ -1941,6 +1990,7 @@
           {
             "name": "Brokkoli, 100 g",
             "ingredient": "brokkoli",
+            "role": "extra",
             "amount": 100,
             "unit": "g",
             "maxQty": 1,
@@ -1949,6 +1999,7 @@
           {
             "name": "Avocado, 35 g",
             "ingredient": "avocado",
+            "role": "extra",
             "amount": 35,
             "unit": "g",
             "maxQty": 1,
@@ -1957,6 +2008,7 @@
           {
             "name": "Karotten, 50 g",
             "ingredient": "karotten",
+            "role": "extra",
             "amount": 50,
             "unit": "g",
             "maxQty": 1,
@@ -1965,6 +2017,7 @@
           {
             "name": "Mais, 50 g",
             "ingredient": "mais",
+            "role": "extra",
             "amount": 50,
             "unit": "g",
             "maxQty": 1,
@@ -1973,6 +2026,7 @@
           {
             "name": "Gurken, 50 g",
             "ingredient": "gurke",
+            "role": "extra",
             "amount": 50,
             "unit": "g",
             "maxQty": 1,
@@ -1981,6 +2035,7 @@
           {
             "name": "Mango, 70 g",
             "ingredient": "mango",
+            "role": "extra",
             "amount": 70,
             "unit": "g",
             "maxQty": 1,
@@ -1989,6 +2044,7 @@
           {
             "name": "Feta, 50 g",
             "ingredient": "feta_kaese",
+            "role": "extra",
             "amount": 50,
             "unit": "g",
             "maxQty": 1,
@@ -1997,6 +2053,7 @@
           {
             "name": "Rote Beete-Falafel, 100 g",
             "ingredient": "rote_bete_falafel",
+            "role": "extra",
             "amount": 100,
             "unit": "g",
             "maxQty": 1,
@@ -2005,6 +2062,7 @@
           {
             "name": "Rotkohl, geraspelt, 50 g",
             "ingredient": "rotkohl_geraspelt",
+            "role": "extra",
             "amount": 50,
             "unit": "g",
             "maxQty": 1,
@@ -2013,6 +2071,7 @@
           {
             "name": "Schwarzer Sesam, 3 g",
             "ingredient": "schwarzer_sesam",
+            "role": "extra",
             "amount": 3,
             "unit": "g",
             "maxQty": 1,
@@ -2021,6 +2080,7 @@
           {
             "name": "Granatapfelkerne, 15 g",
             "ingredient": "granatapfelkerne",
+            "role": "extra",
             "amount": 15,
             "unit": "g",
             "maxQty": 1,
@@ -2029,6 +2089,7 @@
           {
             "name": "Erdnüsse, 20 g",
             "ingredient": "erdnuesse",
+            "role": "extra",
             "amount": 20,
             "unit": "g",
             "maxQty": 1,
@@ -2037,6 +2098,7 @@
           {
             "name": "Walnusskerne, 20 g",
             "ingredient": "walnusskerne",
+            "role": "extra",
             "amount": 20,
             "unit": "g",
             "maxQty": 1,
@@ -2045,6 +2107,7 @@
           {
             "name": "Röstzwiebeln, 20 g",
             "ingredient": "roestzwiebeln",
+            "role": "extra",
             "amount": 20,
             "unit": "g",
             "maxQty": 1,
@@ -2053,6 +2116,7 @@
           {
             "name": "Chili Gewürz, 1 g",
             "ingredient": "chili_gewuerz",
+            "role": "extra",
             "amount": 1,
             "unit": "g",
             "maxQty": 1,
@@ -2061,6 +2125,7 @@
           {
             "name": "Grana Padano, 20 g",
             "ingredient": "grana_padano",
+            "role": "extra",
             "amount": 20,
             "unit": "g",
             "maxQty": 1,
@@ -2078,6 +2143,7 @@
           {
             "name": "Curvy Curry Dip",
             "ingredient": "curvy_curry",
+            "role": "dip",
             "amount": 80,
             "unit": "g",
             "maxQty": 1,
@@ -2086,6 +2152,7 @@
           {
             "name": "Honey Muscle Mustard Dip",
             "ingredient": "honey_muscle_mustard",
+            "role": "dip",
             "amount": 80,
             "unit": "g",
             "maxQty": 1,
@@ -2094,6 +2161,7 @@
           {
             "name": "Joghurt-Salatdressing",
             "ingredient": "joghurt_salatdressing",
+            "role": "dip",
             "amount": 80,
             "unit": "g",
             "maxQty": 1,
@@ -2102,6 +2170,7 @@
           {
             "name": "Power Peanut Dip",
             "ingredient": "power_peanut",
+            "role": "dip",
             "amount": 80,
             "unit": "g",
             "maxQty": 1,
@@ -2110,6 +2179,7 @@
           {
             "name": "Sexy Sesame Dip",
             "ingredient": "sexy_sesame",
+            "role": "dip",
             "amount": 80,
             "unit": "g",
             "maxQty": 1,
@@ -2118,6 +2188,7 @@
           {
             "name": "Champion Chili-Dip",
             "ingredient": "champion_chili",
+            "role": "dip",
             "amount": 80,
             "unit": "g",
             "maxQty": 1,
@@ -2126,6 +2197,7 @@
           {
             "name": "Protein Tsatsiki Dip",
             "ingredient": "protein_tzatziki",
+            "role": "dip",
             "amount": 100,
             "unit": "g",
             "maxQty": 1,
@@ -2134,6 +2206,7 @@
           {
             "name": "Guacamole",
             "ingredient": "guacamole",
+            "role": "dip",
             "amount": 100,
             "unit": "g",
             "maxQty": 1,
@@ -2142,6 +2215,7 @@
           {
             "name": "Rotes Pesto, 80g",
             "ingredient": "rotes_pesto",
+            "role": "dip",
             "amount": 80,
             "unit": "g",
             "maxQty": 1,
@@ -2150,6 +2224,7 @@
           {
             "name": "Ajvar, 100g",
             "ingredient": "ajvar",
+            "role": "dip",
             "amount": 100,
             "unit": "g",
             "maxQty": 1,
@@ -2158,6 +2233,7 @@
           {
             "name": "Sojasoße , 20ml",
             "ingredient": "sojasauce",
+            "role": "dip",
             "amount": 20,
             "unit": "ml",
             "maxQty": 1,
@@ -2166,6 +2242,7 @@
           {
             "name": "Olivenöl und halbe Zitrone",
             "ingredient": "olivenoel_salz_halbe_zitrone",
+            "role": "dip",
             "amount": 20,
             "unit": "ml",
             "maxQty": 1,
@@ -2174,10 +2251,569 @@
           {
             "name": "Balsamico Dressing , 80g",
             "ingredient": "balsamico_dressing",
+            "role": "dip",
             "amount": 80,
             "unit": "g",
             "maxQty": 1,
             "price": 1
+          }
+        ]
+      }
+    ]
+  },
+  "ubereats": {
+    "page": "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440",
+    "item": "Selbst zusammenstellen",
+    "itemPrice": 1,
+    "capturedAt": "2026-09-15T13:46:29.957Z",
+    "groups": [
+      {
+        "id": "base",
+        "name": "Base",
+        "min": 0,
+        "max": 100,
+        "noneOption": null,
+        "options": [
+          {
+            "name": "Basmati Reis (250g)",
+            "ingredient": "basmati_reis",
+            "role": "base",
+            "amount": 250,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 2.5
+          },
+          {
+            "name": "Salatmix (80g)",
+            "ingredient": "salatmix",
+            "role": "base",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 2.5
+          },
+          {
+            "name": "Bunter Bio Quinoa (250g)",
+            "ingredient": "bunter_bio_quinoa",
+            "role": "base",
+            "amount": 250,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 3.5
+          },
+          {
+            "name": "Süßkartoffel (250g)",
+            "ingredient": "suesskartoffel",
+            "role": "base",
+            "amount": 250,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 3.5
+          },
+          {
+            "name": "Protein-Pasta (200g)",
+            "ingredient": "protein_pasta",
+            "role": "base",
+            "amount": 200,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 3.5
+          },
+          {
+            "name": "Süßkartoffel - Halbe Portion (125g)",
+            "ingredient": "suesskartoffel",
+            "role": "base",
+            "amount": 125,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 1.75,
+            "half": true
+          },
+          {
+            "name": "Bunter Bio Quinoa - Halbe Portion (125g)",
+            "ingredient": "bunter_bio_quinoa",
+            "role": "base",
+            "amount": 125,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 1.75,
+            "half": true
+          },
+          {
+            "name": "Basmati Reis - Halbe Portion (125g)",
+            "ingredient": "basmati_reis",
+            "role": "base",
+            "amount": 125,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 1.25,
+            "half": true
+          },
+          {
+            "name": "Protein-Pasta - Halbe Portion (100g)",
+            "ingredient": "protein_pasta",
+            "role": "base",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 1.75,
+            "half": true
+          },
+          {
+            "name": "Salatmix - Halbe Portion (40g)",
+            "ingredient": "salatmix",
+            "role": "base",
+            "amount": 40,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 1.25,
+            "half": true
+          }
+        ]
+      },
+      {
+        "id": "protein",
+        "name": "Proteine",
+        "min": 0,
+        "max": 100,
+        "noneOption": null,
+        "options": [
+          {
+            "name": "Hühnchen (100g)",
+            "ingredient": "huehnchen",
+            "role": "protein",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 3
+          },
+          {
+            "name": "Veganes Hühnchen planted.chicken (80g)",
+            "ingredient": "veganes_huehnchen_planted_chicken",
+            "role": "protein",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 3
+          },
+          {
+            "name": "Rinderhackbällchen (100g)",
+            "ingredient": "rinderhackbaellchen",
+            "role": "protein",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 3
+          },
+          {
+            "name": "Vegane Hackbällchen (100g)",
+            "ingredient": "vegane_hackbaellchen",
+            "role": "protein",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 3
+          },
+          {
+            "name": "Pulled Salmon (100g)",
+            "ingredient": "pulled_salmon",
+            "role": "protein",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 4
+          },
+          {
+            "name": "Hart gekochtes Ei (50g)",
+            "ingredient": "hart_gekochtes_ei",
+            "role": "extra",
+            "amount": 50,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1
+          },
+          {
+            "name": "Edamame (50g)",
+            "ingredient": "edamame",
+            "role": "extra",
+            "amount": 50,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1.5
+          },
+          {
+            "name": "Erbsen (50g)",
+            "ingredient": "erbsen",
+            "role": "extra",
+            "amount": 50,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1
+          },
+          {
+            "name": "Feta Käse (50g)",
+            "ingredient": "feta_kaese",
+            "role": "extra",
+            "amount": 50,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 2.5
+          },
+          {
+            "name": "Hühnchen - Halbe Portion (50g)",
+            "ingredient": "huehnchen",
+            "role": "protein",
+            "amount": 50,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1.5,
+            "half": true
+          },
+          {
+            "name": "Vegane Hackbällchen - Halbe Portion (50g)",
+            "ingredient": "vegane_hackbaellchen",
+            "role": "protein",
+            "amount": 50,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1.5,
+            "half": true
+          },
+          {
+            "name": "Rinderhackbällchen - Halbe Portion (50g)",
+            "ingredient": "rinderhackbaellchen",
+            "role": "protein",
+            "amount": 50,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1.5,
+            "half": true
+          },
+          {
+            "name": "Veganes Hühnchen planted.chicken - Halbe Portion (40g)",
+            "ingredient": "veganes_huehnchen_planted_chicken",
+            "role": "protein",
+            "amount": 40,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1.5,
+            "half": true
+          },
+          {
+            "name": "Pulled Salmon - Halbe Portion (50g)",
+            "ingredient": "pulled_salmon",
+            "role": "protein",
+            "amount": 50,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 2,
+            "half": true
+          }
+        ]
+      },
+      {
+        "id": "vitamine",
+        "name": "Vitamine",
+        "min": 0,
+        "max": 100,
+        "noneOption": null,
+        "options": [
+          {
+            "name": "Baby Spinat (20g)",
+            "ingredient": "baby_spinat",
+            "role": "extra",
+            "amount": 20,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1.5
+          },
+          {
+            "name": "Avocado (35g)",
+            "ingredient": "avocado",
+            "role": "extra",
+            "amount": 35,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1.5
+          },
+          {
+            "name": "Karotten (50g)",
+            "ingredient": "karotten",
+            "role": "extra",
+            "amount": 50,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1
+          },
+          {
+            "name": "Rotkohl geraspelt (50g)",
+            "ingredient": "rotkohl_geraspelt",
+            "role": "extra",
+            "amount": 50,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1
+          },
+          {
+            "name": "Gurke (50g)",
+            "ingredient": "gurke",
+            "role": "extra",
+            "amount": 50,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1
+          },
+          {
+            "name": "Mais (50g)",
+            "ingredient": "mais",
+            "role": "extra",
+            "amount": 50,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1
+          },
+          {
+            "name": "Mango (70g)",
+            "ingredient": "mango",
+            "role": "extra",
+            "amount": 70,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 2
+          },
+          {
+            "name": "Tomaten (50g)",
+            "ingredient": "tomaten",
+            "role": "extra",
+            "amount": 50,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1.5
+          },
+          {
+            "name": "Gemüsemix (100g)",
+            "ingredient": "gemuesemix",
+            "role": "extra",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 3
+          },
+          {
+            "name": "Rote Bete Falafel (100g)",
+            "ingredient": "rote_bete_falafel",
+            "role": "extra",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 3
+          },
+          {
+            "name": "Brokkoli (100g)",
+            "ingredient": "brokkoli",
+            "role": "extra",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 2.5
+          }
+        ]
+      },
+      {
+        "id": "toppings",
+        "name": "Toppings",
+        "min": 0,
+        "max": 100,
+        "noneOption": null,
+        "options": [
+          {
+            "name": "Erdnüsse (20g)",
+            "ingredient": "erdnuesse",
+            "role": "extra",
+            "amount": 20,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1
+          },
+          {
+            "name": "Walnusskerne (20g)",
+            "ingredient": "walnusskerne",
+            "role": "extra",
+            "amount": 20,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1
+          },
+          {
+            "name": "Röstzwiebeln (20g)",
+            "ingredient": "roestzwiebeln",
+            "role": "extra",
+            "amount": 20,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1
+          },
+          {
+            "name": "Grana Padano (20g)",
+            "ingredient": "grana_padano",
+            "role": "extra",
+            "amount": 20,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1
+          },
+          {
+            "name": "Granatapfelkerne (15g)",
+            "ingredient": "granatapfelkerne",
+            "role": "extra",
+            "amount": 15,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1
+          },
+          {
+            "name": "Schwarzer Sesam (3g)",
+            "ingredient": "schwarzer_sesam",
+            "role": "extra",
+            "amount": 3,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1
+          },
+          {
+            "name": "Chili Gewürz (1g)",
+            "ingredient": "chili_gewuerz",
+            "role": "extra",
+            "amount": 1,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 0
+          }
+        ]
+      },
+      {
+        "id": "dip",
+        "name": "Dips",
+        "min": 1,
+        "max": 100,
+        "noneOption": "ohne Dip",
+        "options": [
+          {
+            "name": "Power Peanut (80g)",
+            "ingredient": "power_peanut",
+            "role": "dip",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 2
+          },
+          {
+            "name": "Honey Muscle Mustard (80g)",
+            "ingredient": "honey_muscle_mustard",
+            "role": "dip",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 2
+          },
+          {
+            "name": "Champion Chili (80g)",
+            "ingredient": "champion_chili",
+            "role": "dip",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 2
+          },
+          {
+            "name": "Curvy Curry (80g)",
+            "ingredient": "curvy_curry",
+            "role": "dip",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 2
+          },
+          {
+            "name": "Sexy Sesame (80g)",
+            "ingredient": "sexy_sesame",
+            "role": "dip",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 2
+          },
+          {
+            "name": "Protein Tzatziki (100g)",
+            "ingredient": "protein_tzatziki",
+            "role": "dip",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 3
+          },
+          {
+            "name": "Guacamole (100g)",
+            "ingredient": "guacamole",
+            "role": "dip",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 3
+          },
+          {
+            "name": "Ajvar (100g)",
+            "ingredient": "ajvar",
+            "role": "dip",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 3
+          },
+          {
+            "name": "Joghurt-Salatdressing (80g)",
+            "ingredient": "joghurt_salatdressing",
+            "role": "dip",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 2
+          },
+          {
+            "name": "Sojasauce (20ml)",
+            "ingredient": "sojasauce",
+            "role": "dip",
+            "amount": 20,
+            "unit": "ml",
+            "maxQty": 5,
+            "price": 1
+          },
+          {
+            "name": "Olivenöl (20ml), Salz & halbe Zitrone",
+            "ingredient": "olivenoel_salz_halbe_zitrone",
+            "role": "dip",
+            "amount": 20,
+            "unit": "ml",
+            "maxQty": 5,
+            "price": 2
+          },
+          {
+            "name": "Balsamico Dressing (80g)",
+            "ingredient": "balsamico_dressing",
+            "role": "dip",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 2
+          },
+          {
+            "name": "Rotes Pesto (80g)",
+            "ingredient": "rotes_pesto",
+            "role": "dip",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 3
           }
         ]
       }

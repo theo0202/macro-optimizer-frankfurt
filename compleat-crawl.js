@@ -1,6 +1,7 @@
-// Holt die offiziellen Compleat-Nährwerte aus dem Compleat-Onlineshop (compleat.vmos.io, Store Frankfurt Nordend) und das
-// Wolt-Menü „Build your Bowl" (Compleat Nordend) → data/compleat-raw.json (Quelle der Wahrheit, NICHT von Hand editieren —
-// Kuratierung passiert in den Tabellen unten). Aufruf: node compleat-crawl.js · danach node compleat-update.js
+// Holt die offiziellen Compleat-Nährwerte aus dem Compleat-Onlineshop (compleat.vmos.io, Store Frankfurt Nordend), das
+// Wolt-Menü „Build your Bowl" (Compleat Nordend) und liest das im Browser erfasste Uber-Eats-Menü „Selbst zusammenstellen"
+// (data/compleat-ubereats-menu.json, siehe ubereats-capture.js) → data/compleat-raw.json (Quelle der Wahrheit, NICHT von Hand
+// editieren — Kuratierung passiert in den Tabellen unten). Aufruf: node compleat-crawl.js · danach node compleat-update.js
 // Kontrolle gegen den Word-Export des Users: node verify-compleat.js
 //
 // Datenbasis: vmos liefert je Zutat nutritionalMeta PRO 100 g (bzw. 100 ml) plus defaultQuantity (= Mengenangabe im Namen).
@@ -22,14 +23,24 @@ const WOLT_SLUG = "compleat-nordend";
 const WOLT_API = "https://consumer-api.wolt.com/consumer-api/consumer-assortment/v1/venues/slug/" + WOLT_SLUG + "/assortment";
 const WOLT_PAGE = "https://wolt.com/de/deu/frankfurt/restaurant/" + WOLT_SLUG;
 const WOLT_ITEM = "Build your Bowl";
+const UE_FILE = path.join(__dirname, "data", "compleat-ubereats-menu.json");
+const UE_ITEM = "Selbst zusammenstellen";
 const OUT = path.join(__dirname, "data", "compleat-raw.json");
 
 const VMOS_GROUPS = { "Base": "base", "Proteine": "proteine", "Vitamine": "vitamine", "Toppings": "toppings", "Dips": "dips" };
 const WOLT_GROUPS = { "Deine Basis": "base", "Deine Proteine": "protein", "Deine Extras": "extra", "Dein Dip": "dip" };
 const WOLT_NONE = { "Ohne Dip": "dip" }; // „keine Auswahl"-Optionen (0 Makros)
+// Uber Eats: Gruppen in Uber-Eats-Reihenfolge; die Getränke-Werbung „Stay hydrated! …" (maxPermitted 0) wird ignoriert
+const UE_GROUPS = { "Base": "base", "Proteine": "protein", "Vitamine": "vitamine", "Toppings": "toppings", "Dips": "dip" };
+const UE_NONE = { "ohne Dip": "dip" };
+// Uber-Eats-Optionen ohne offizielle Nährwerte im Compleat-Shop → nicht im Rechner, nur dokumentiert (keine Schätzungen)
+const UE_NO_DATA = {
+  "Halbe Limette (50g)": "keine offiziellen Nährwerte im Compleat-Shop (Uber Eats nennt nur „adds 20 Cal.“) → nicht im Rechner",
+};
 
 // Wolt-Optionsname (Leerraum normalisiert) → Zutat-id (slug des Shop-Namens ohne Mengenangabe).
 // Unbekannte/umbenannte Wolt-Optionen brechen den Crawl ab → Tabelle ergänzen, nicht raten.
+// (Uber Eats braucht keine Tabelle: dort heißen die Optionen wie im Shop, inkl. „… - Halbe Portion (125g)".)
 const WOLT_MAP = {
   "Basmatireis, 250 g": "basmati_reis", "Salat-Mix, 100 g": "salatmix", "Bunter Quinoa, 250 g": "bunter_bio_quinoa", "Protein Nudeln, 200 g": "protein_pasta",
   "Hähnchen, 100 g": "huehnchen", "Veganes Hähnchen, 80 g": "veganes_huehnchen_planted_chicken", "Vegane Hackbällchen, 100 g": "vegane_hackbaellchen",
@@ -46,10 +57,14 @@ const WOLT_MAP = {
   "Olivenöl und halbe Zitrone": "olivenoel_salz_halbe_zitrone", "Balsamico Dressing , 80g": "balsamico_dressing",
 };
 
+// Haupt-Proteine: nur sie erfüllen „≥1 Protein" (User 15.09.2026: jede Bowl ≥1 Base + ≥1 Protein), auch als halbe Portion.
+// Ei, Edamame, Erbsen und Feta stehen bei Uber Eats unter „Proteine", zählen im Rechner aber wie bei Wolt (dort Extras) als Extras.
+const PROTEIN_MAIN = new Set(["huehnchen", "veganes_huehnchen_planted_chicken", "rinderhackbaellchen", "vegane_hackbaellchen", "pulled_salmon"]);
+
 // „No crunch"-Schalter (User 15.09.2026): Nüsse, Röstzwiebeln, Sesam
 const CRUNCH = new Set(["erdnuesse", "walnusskerne", "roestzwiebeln", "schwarzer_sesam"]);
 
-// Im Rechner gesperrt — bleibt im Datensatz, wird aber auf KEINER Plattform (Wolt, künftig Uber Eats …) vorgeschlagen,
+// Im Rechner gesperrt — bleibt im Datensatz, wird aber auf KEINER Plattform (Wolt, Uber Eats …) vorgeschlagen,
 // gesucht oder als Ausschluss angeboten. compleat-update.js lässt gesperrte Zutaten aus allen Plattform-Menüs weg.
 const BLOCKED = {
   bunter_bio_quinoa: "Offizielle Werte unplausibel: 130 kcal / 21,3 g KH / 4,5 g Protein je 250 g (= 52 kcal je 100 g) entsprechen eher 100 g gekochter Quinoa (~120 kcal je 100 g). User 15.09.2026: bleibt im Datensatz, im Rechner ausgeschlossen — auch auf künftigen Plattformen (z.B. Uber Eats).",
@@ -88,6 +103,11 @@ function splitPortion(name) {
   const m = name.match(/\s*\((\d+(?:[.,]\d+)?)\s*(g|ml)\)/i);
   if (!m) return { base: name, amount: null, unit: null };
   return { base: normName(name.replace(m[0], "")).replace(/\s+,/g, ","), amount: parseFloat(m[1].replace(",", ".")), unit: m[2].toLowerCase() };
+}
+// "Hühnchen - Halbe Portion (50g)" → { base:"Hühnchen", amount:50, unit:"g" } (sonst null)
+function splitHalf(name) {
+  const m = name.match(/^(.*) - Halbe Portion \((\d+(?:[.,]\d+)?)\s*(g|ml)\)$/i);
+  return m ? { base: normName(m[1]), amount: parseFloat(m[2].replace(",", ".")), unit: m[3].toLowerCase() } : null;
 }
 
 async function discoverMenu() {
@@ -129,8 +149,8 @@ async function main() {
     for (const it of g.items || []) {
       const name = normName(it.name), m = it.nutritionalMeta || {};
       if (m.calories == null || m.calories === "") { if (!/^ohne /i.test(name)) problems.push("Keine Nährwerte: " + name); continue; }
-      const half = name.match(/^(.*) - Halbe Portion \((\d+(?:[.,]\d+)?)\s*(g|ml)\)$/i);
-      if (half) { halves.push({ base: normName(half[1]), amount: parseFloat(half[2].replace(",", ".")), name }); continue; }
+      const half = splitHalf(name);
+      if (half) { halves.push({ base: half.base, amount: half.amount, name }); continue; }
       const sp = splitPortion(name);
       if (sp.amount == null) { problems.push("Keine Mengenangabe im Namen: " + name); continue; }
       const id = U.slugId(sp.base);
@@ -172,7 +192,7 @@ async function main() {
     const ing = byId[U.slugId(splitPortion(hp.base).base)] || ingredients.find(x => x.name === hp.base);
     if (ing) ing.halfPortion = hp.amount; else problems.push("Halbe Portion ohne Basis-Zutat: " + hp.name);
   }
-  for (const id of [...CRUNCH, ...Object.keys(BLOCKED), ...Object.keys(MANUAL_ANOMALIES)]) if (!byId[id]) problems.push("Kuratierte id fehlt im Shop: " + id);
+  for (const id of [...CRUNCH, ...Object.keys(BLOCKED), ...Object.keys(MANUAL_ANOMALIES), ...PROTEIN_MAIN]) if (!byId[id]) problems.push("Kuratierte id fehlt im Shop: " + id);
 
   // ── Wolt-Menü „Build your Bowl" ──
   console.log("Wolt: " + WOLT_SLUG + " …");
@@ -200,16 +220,62 @@ async function main() {
       if (!am) portionAssumed.push("„" + wname + "“: Menge bei Wolt nicht angegeben → Shop-Portion " + ing.portion + " " + ing.unit);
       else if (amount !== ing.portion) portionDiffs.push({ wolt: wname, shop: ing.shopName, woltAmount: amount, shopPortion: ing.portion, unit, factor: U.round(amount / ing.portion, 4) });
       const rawMax = v.multi_choice_config && v.multi_choice_config.total_range ? v.multi_choice_config.total_range.max : 0;
-      grp.options.push({ name: wname, ingredient: id, amount, unit, maxQty: Math.max(1, rawMax || 0), price: U.round((v.price || 0) / 100, 2) });
+      const role = gid === "protein" ? (PROTEIN_MAIN.has(id) ? "protein" : "extra") : gid;
+      grp.options.push({ name: wname, ingredient: id, role, amount, unit, maxQty: Math.max(1, rawMax || 0), price: U.round((v.price || 0) / 100, 2) });
     }
     woltGroups.push(grp);
   }
   if (unmapped.length) problems.push("Nicht zugeordnete Wolt-Optionen (WOLT_MAP ergänzen): " + unmapped.join(" · "));
+  const woltItemPrice = U.round((byo.price || 0) / 100, 2);
   const onWolt = new Set(woltGroups.flatMap(g => g.options.map(o => o.ingredient)));
   const notOnWolt = ingredients.filter(x => !onWolt.has(x.id)).map(x => x.shopName);
   // Einträge der WOLT_MAP, die Wolt nicht mehr anbietet (Option entfernt/umbenannt) → sichtbar machen statt still ignorieren
   const woltNames = new Set(woltGroups.flatMap(g => g.options.map(o => o.name)));
   const woltMapUnused = Object.keys(WOLT_MAP).filter(n => !woltNames.has(n));
+
+  // ── Uber Eats „Selbst zusammenstellen" (im Browser erfasst, siehe ubereats-capture.js) ──
+  console.log("Uber Eats: " + path.relative(__dirname, UE_FILE) + " …");
+  const ue = U.readJSON(UE_FILE);
+  if (!ue.item || normName(ue.item.title) !== UE_ITEM) problems.push("Uber-Eats-Erfassung: Item „" + UE_ITEM + "“ fehlt");
+  const ueGroups = [], ueNoData = [], uePortionDiffs = [], ueKcalDiffs = [], ueUnknown = [];
+  for (const g of ue.groups || []) {
+    const gname = normName(g.title), gid = UE_GROUPS[gname];
+    if (!gid) { if (g.maxPermitted > 0) problems.push("Unbekannte Uber-Eats-Gruppe: " + gname); continue; }
+    const grp = { id: gid, name: gname, min: g.minPermitted || 0, max: g.maxPermitted, noneOption: null, options: [] };
+    for (const o of g.options || []) {
+      const uname = normName(o.title);
+      if (UE_NONE[uname] === gid) { grp.noneOption = uname; continue; }
+      if (UE_NO_DATA[uname]) { ueNoData.push(grp.name + ": „" + uname + "“ — " + UE_NO_DATA[uname]); continue; }
+      const half = splitHalf(uname);
+      const sp = half || splitPortion(uname);
+      const id = U.slugId(splitPortion(sp.base).base);
+      const ing = byId[id];
+      if (!ing) { ueUnknown.push(grp.name + ": „" + uname + "“"); continue; }
+      if (sp.amount == null) { problems.push("Uber Eats: keine Mengenangabe: " + uname); continue; }
+      if (sp.unit !== ing.unit) problems.push("Uber Eats: Einheit passt nicht: " + uname + " vs. " + ing.shopName);
+      const expected = half ? ing.halfPortion : ing.portion;
+      if (sp.amount !== expected) uePortionDiffs.push({ ubereats: uname, shop: ing.shopName, ubereatsAmount: sp.amount, shopPortion: expected == null ? null : expected, unit: sp.unit });
+      // kcal-Angabe von Uber Eats („adds 330 Cal.") gegen die eigene Rechnung (Rundung toleriert)
+      const km = String(o.subtitle || "").match(/adds\s+(\d+(?:[.,]\d+)?)\s*Cal/i);
+      const own = ing.per100.kcal * sp.amount / 100;
+      if (km && Math.abs(Number(km[1].replace(",", ".")) - own) >= 1) ueKcalDiffs.push({ ubereats: uname, ubereatsKcal: Number(km[1].replace(",", ".")), shopKcal: U.round(own, 1) });
+      const role = gid === "protein" ? (PROTEIN_MAIN.has(id) ? "protein" : "extra") : (gid === "vitamine" || gid === "toppings") ? "extra" : gid;
+      const opt = { name: uname, ingredient: id, role, amount: sp.amount, unit: sp.unit, maxQty: Math.max(1, o.maxPermitted || 0), price: U.round((o.price || 0) / 100, 2) };
+      if (half) opt.half = true;
+      grp.options.push(opt);
+    }
+    ueGroups.push(grp);
+  }
+  if (ueUnknown.length) problems.push("Uber-Eats-Optionen ohne Shop-Zutat (Namen prüfen oder in UE_NO_DATA begründen): " + ueUnknown.join(" · "));
+  // Halbe Portion = halbe Menge zum halben Preis der ganzen? Nur dann ist „halbe Portion höchstens 1× neben der ganzen" im Rechner verlustfrei
+  for (const g of ueGroups) for (const o of g.options.filter(x => x.half)) {
+    const full = g.options.find(x => !x.half && x.ingredient === o.ingredient);
+    if (!full) { problems.push("Uber Eats: halbe Portion ohne ganze Portion in derselben Gruppe: " + o.name); continue; }
+    if (U.round(2 * o.amount, 2) !== full.amount || U.round(2 * o.price, 2) !== full.price) problems.push("Uber Eats: 2× „" + o.name + "“ ≠ „" + full.name + "“ (Menge oder Preis) → Regel für halbe Portionen prüfen");
+  }
+  const ueItemPrice = U.round(((ue.item && ue.item.price) || 0) / 100, 2);
+  const onUE = new Set(ueGroups.flatMap(g => g.options.map(o => o.ingredient)));
+  const notOnUberEats = ingredients.filter(x => !onUE.has(x.id)).map(x => x.shopName);
 
   // ── Auffälligkeiten (automatisch + manuell) ──
   const anomalies = [];
@@ -224,35 +290,47 @@ async function main() {
       restaurant: "Compleat", store: "Frankfurt Nordend (Glauburgstraße 5, 60318 Frankfurt am Main)", fetchedAt,
       sources: {
         shop: { url: SHOP, api: VMOS, tenant: TENANT, store: STORE, menu: menu.uuid, menuName: menu.name, bundle: bundle.uuid, bundleName: BUNDLE_NAME, discovered: menu.discovered && bundle.discovered },
-        wolt: { page: WOLT_PAGE, api: WOLT_API, item: WOLT_ITEM, itemPrice: U.round((byo.price || 0) / 100, 2) },
+        wolt: { page: WOLT_PAGE, api: WOLT_API, item: WOLT_ITEM, itemPrice: woltItemPrice },
+        ubereats: { page: ue.pageUrl, file: "data/compleat-ubereats-menu.json", capturedAt: ue.capturedAt, item: UE_ITEM, itemPrice: ueItemPrice, how: "Uber Eats blockt Skript-Abrufe (Cloudflare) → Produktseite im Browser geöffnet, __REACT_QUERY_STATE__ gelesen (ubereats-capture.js)" },
         word: "data/compleat-word.txt = Word-Copy-Paste des Users (Shop-Anzeige, 15.09.2026) → Abgleich: node verify-compleat.js",
       },
-      basis: "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Wolt-Mengen weichen nur beim Salat-Mix ab → mit Wolt-Menge gerechnet.",
-      woltRules: "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert.",
+      basis: "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Wolt-Mengen weichen nur beim Salat-Mix ab → mit Wolt-Menge gerechnet. Uber Eats nutzt die Shop-Namen und -Mengen (inkl. halber Portionen).",
+      woltRules: "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Grundpreis „Build your Bowl“ " + woltItemPrice + " €.",
+      ubereatsRules: "Selbst zusammenstellen (Grundpreis " + ueItemPrice + " €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft).",
       decisions: [
         "User 15.09.2026: Bunter Bio Quinoa bleibt im Datensatz, ist aber im Rechner ausgeschlossen (auch künftige Plattformen)",
         "User 15.09.2026: Jede vorgeschlagene Bowl hat ≥1 Base und ≥1 Protein",
         "User 15.09.2026: „No dip“ Default AN, „No crunch“ (Erdnüsse, Walnusskerne, Röstzwiebeln, Schwarzer Sesam) Default AUS",
         "User 15.09.2026: Guacamole normal anbieten (enthält laut Zutatenliste Koriander, im Chat erwähnt)",
+        "User 15.09.2026: Optionales Preislimit — keine vorgeschlagene Bestellung liegt über dem eingegebenen Maximalpreis (Grundpreis + Zutaten)",
+        "User 15.09.2026: Rechner zusätzlich für Uber Eats („Selbst zusammenstellen“, Grundpreis 1 €)",
       ],
       portionDiffs, portionAssumed, displayBugs, anomalies, missingDeclared, notOnWolt, woltMapUnused, dislikes, shellfish,
+      ubereats: { noData: ueNoData, portionDiffs: uePortionDiffs, kcalDiffs: ueKcalDiffs, notOnUberEats },
       eggNote: "Hart gekochtes Ei: offizielle Shop-Werte (pro 100 g 155 kcal → 77,5 kcal je 50 g) statt der generischen Tabellenwerte aus dem Word-Dokument (78 kcal / 6,3 g P / 0,6 g KH / 5,3 g F je 50 g). Seit 15.09.2026 bei Wolt als Extra „Hart gekochtes Ei, 50 g“ bestellbar.",
     },
     ingredients,
-    wolt: { page: WOLT_PAGE, item: WOLT_ITEM, groups: woltGroups },
+    wolt: { page: WOLT_PAGE, item: WOLT_ITEM, itemPrice: woltItemPrice, groups: woltGroups },
+    ubereats: { page: ue.pageUrl, item: UE_ITEM, itemPrice: ueItemPrice, capturedAt: ue.capturedAt, groups: ueGroups },
   };
 
   if (problems.length) { console.error("\nPROBLEME — raw.json wird NICHT geschrieben:\n  " + problems.join("\n  ")); process.exit(1); }
   fs.writeFileSync(OUT, JSON.stringify(raw, null, 2) + "\n", "utf8");
 
   console.log("\n" + ingredients.length + " Zutaten (" + Object.entries(ingredients.reduce((o, x) => (o[x.group] = (o[x.group] || 0) + 1, o), {})).map(([k, v]) => k + " " + v).join(", ") + ") → " + path.relative(__dirname, OUT));
-  console.log("Wolt: " + woltGroups.map(g => g.name + " " + g.options.length + (g.noneOption ? " + „" + g.noneOption + "“" : "") + " (" + g.min + "–" + g.max + ")").join(" · "));
+  console.log("Wolt (Grundpreis " + woltItemPrice + " €): " + woltGroups.map(g => g.name + " " + g.options.length + (g.noneOption ? " + „" + g.noneOption + "“" : "") + " (" + g.min + "–" + g.max + ")").join(" · "));
+  console.log("Uber Eats (Grundpreis " + ueItemPrice + " €, erfasst " + ue.capturedAt + "): " + ueGroups.map(g => g.name + " " + g.options.length + (g.noneOption ? " + „" + g.noneOption + "“" : "") + " (" + g.min + "–" + g.max + ")").join(" · "));
   console.log("Nicht bei Wolt: " + notOnWolt.join(", "));
+  console.log("Nicht bei Uber Eats: " + (notOnUberEats.join(", ") || "—"));
   if (woltMapUnused.length) console.log("⚠ WOLT_MAP-Einträge, die Wolt nicht mehr anbietet: " + woltMapUnused.join(", "));
   console.log("Mengen-Abweichungen Wolt ↔ Shop: " + (portionDiffs.map(d => d.wolt + " statt " + d.shopPortion + " " + d.unit + " (×" + d.factor + ")").join(", ") || "keine"));
+  console.log("Mengen-Abweichungen Uber Eats ↔ Shop: " + (uePortionDiffs.map(d => d.ubereats + " statt " + d.shopPortion + " " + d.unit).join(", ") || "keine"));
+  console.log("Uber Eats ohne offizielle Nährwerte: " + (ueNoData.join(" · ") || "—"));
+  console.log("kcal-Angaben Uber Eats ≠ eigene Rechnung: " + (ueKcalDiffs.map(d => d.ubereats + ": UE " + d.ubereatsKcal + " vs. " + d.shopKcal).join(" · ") || "keine"));
   console.log("Anzeige-Bugs im Shop: " + (displayBugs.map(d => d.shopName + " (rechnet mit " + d.shopRechnetMit + " statt " + d.portion + " " + d.unit + ": " + d.shopZeigtKcal + " statt " + d.richtigKcal + " kcal)").join(", ") || "keine"));
   console.log("Gesperrt: " + ingredients.filter(x => x.blocked).map(x => x.shopName).join(", "));
   console.log("Schalentier-Allergene: " + (shellfish.join(", ") || "keine") + " · Koriander/Minze: " + (dislikes.join(", ") || "keine"));
-  console.log("Auffälligkeiten (" + anomalies.length + "): " + anomalies.map(a => a.name).join(", "));}
+  console.log("Auffälligkeiten (" + anomalies.length + "): " + anomalies.map(a => a.name).join(", "));
+}
 
 main().catch(e => { console.error("FEHLER: " + e.message); process.exit(1); });

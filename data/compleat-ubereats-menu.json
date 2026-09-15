@@ -1,0 +1,134 @@
+{
+  "_source": "Uber Eats „Selbst zusammenstellen“ (Compleat Frankfurt Nordend), am 15.09.2026 im Browser von der geöffneten Produktseite gelesen (__REACT_QUERY_STATE__ → customizationsList; Preise in Cent, maxPermitted = Stepper-Maximum je Option, subtitle = kcal-Angabe von Uber Eats). Skript-Abrufe der Uber-Eats-API blockt Cloudflare → bei Menüänderungen mit ubereats-capture.js neu erfassen. Nicht von Hand ändern.",
+  "capturedAt": "2026-09-15T13:46:29.957Z",
+  "pageUrl": "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440",
+  "item": {
+    "title": "Selbst zusammenstellen",
+    "uuid": "04ac2ecb-2761-58c9-ae0f-7719ec443440",
+    "sectionUuid": "aabb7948-0359-5803-84b7-977f85d0c2a4",
+    "subsectionUuid": "75af6782-2b0f-54a2-833f-27881b849267",
+    "price": 100,
+    "itemDescription": "Stelle dir eine Bowl aus all deinen Lieblingszutaten zusammen.",
+    "isSoldOut": false
+  },
+  "groups": [
+    {
+      "title": "Base",
+      "uuid": "08c99199-bd53-5f1d-b033-118e4110f3df",
+      "minPermitted": 0,
+      "maxPermitted": 100,
+      "minPermittedUnique": 0,
+      "maxPermittedUnique": 0,
+      "options": [
+        { "title": "Basmati Reis (250g)", "uuid": "d7b2dff8-a4ca-5d6a-8e90-761f73dc2d3c", "price": 250, "minPermitted": 0, "maxPermitted": 10, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 330 Cal.", "children": 0 },
+        { "title": "Salatmix (80g)", "uuid": "8e428922-f9ca-5aa8-bd09-87a06a69eb9d", "price": 250, "minPermitted": 0, "maxPermitted": 10, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 14 Cal.", "children": 0 },
+        { "title": "Bunter Bio Quinoa (250g)", "uuid": "d238fada-b356-596c-b7e0-aeb43a20a981", "price": 350, "minPermitted": 0, "maxPermitted": 10, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 130 Cal.", "children": 0 },
+        { "title": "Süßkartoffel (250g)", "uuid": "718c0540-22b7-5791-87b9-bb76106d7653", "price": 350, "minPermitted": 0, "maxPermitted": 10, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 283 Cal.", "children": 0 },
+        { "title": "Protein-Pasta (200g)", "uuid": "44027e09-0619-5b20-84f3-87c61814ad78", "price": 350, "minPermitted": 0, "maxPermitted": 10, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 381 Cal.", "children": 0 },
+        { "title": "Süßkartoffel - Halbe Portion (125g)", "uuid": "044e64e0-a789-5c32-8a19-94d4a9cf2988", "price": 175, "minPermitted": 0, "maxPermitted": 10, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 141 Cal.", "children": 0 },
+        { "title": "Bunter Bio Quinoa - Halbe Portion (125g)", "uuid": "be5fb856-999c-5460-b675-e1a09f1cb5d1", "price": 175, "minPermitted": 0, "maxPermitted": 10, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 65 Cal.", "children": 0 },
+        { "title": "Basmati Reis - Halbe Portion (125g)", "uuid": "e32ea673-50c2-5762-a955-2ddacbc174ba", "price": 125, "minPermitted": 0, "maxPermitted": 10, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 165 Cal.", "children": 0 },
+        { "title": "Protein-Pasta - Halbe Portion (100g)", "uuid": "ec23c9ea-8cb7-5de2-8f4b-28ce8a75e4ef", "price": 175, "minPermitted": 0, "maxPermitted": 10, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 238 Cal.", "children": 0 },
+        { "title": "Salatmix - Halbe Portion (40g)", "uuid": "08eae761-a870-51f0-9cc8-6e63442eba8c", "price": 125, "minPermitted": 0, "maxPermitted": 10, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 7 Cal.", "children": 0 }
+      ]
+    },
+    {
+      "title": "Proteine",
+      "uuid": "4d7f492c-5acf-56b7-af47-3b413dcb6eb9",
+      "minPermitted": 0,
+      "maxPermitted": 100,
+      "minPermittedUnique": 0,
+      "maxPermittedUnique": 0,
+      "options": [
+        { "title": "Hühnchen (100g)", "uuid": "dc6defbe-0330-5cb0-8d0b-ba09e572d99b", "price": 300, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 125 Cal.", "children": 0 },
+        { "title": "Veganes Hühnchen planted.chicken (80g)", "uuid": "cc04936d-90d0-573e-bf71-878e375e04fc", "price": 300, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 156 Cal.", "children": 0 },
+        { "title": "Rinderhackbällchen (100g)", "uuid": "d4ffb235-a7c3-54ed-a812-1d9861d46c86", "price": 300, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 222 Cal.", "children": 0 },
+        { "title": "Vegane Hackbällchen (100g)", "uuid": "cf60c308-e6de-5ee8-9575-23f399ab69a6", "price": 300, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 154 Cal.", "children": 0 },
+        { "title": "Pulled Salmon (100g)", "uuid": "504712b0-7cf5-5be1-83df-fd6d69e18407", "price": 400, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 215 Cal.", "children": 0 },
+        { "title": "Hart gekochtes Ei (50g)", "uuid": "9c4a656b-0b3f-5f4d-b38e-681e90b04c7b", "price": 100, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 78 Cal.", "children": 0 },
+        { "title": "Edamame (50g)", "uuid": "d17c0e42-aa40-55c6-b4ec-a1dd4d7463aa", "price": 150, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 55 Cal.", "children": 0 },
+        { "title": "Erbsen (50g)", "uuid": "6e44c3eb-d57e-5936-afb6-5e1589440a03", "price": 100, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 35 Cal.", "children": 0 },
+        { "title": "Feta Käse (50g)", "uuid": "7a340959-46cd-5c80-bb02-a277e3008fbe", "price": 250, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 140 Cal.", "children": 0 },
+        { "title": "Hühnchen - Halbe Portion (50g)", "uuid": "7753f429-279b-5cfe-8e81-26536e184b41", "price": 150, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 63 Cal.", "children": 0 },
+        { "title": "Vegane Hackbällchen - Halbe Portion (50g)", "uuid": "d43ffc9a-2767-53e1-be58-f8c262480275", "price": 150, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 77 Cal.", "children": 0 },
+        { "title": "Rinderhackbällchen - Halbe Portion (50g)", "uuid": "92ff77f8-ebc5-5417-9ff8-0bf9d00c48b3", "price": 150, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 111 Cal.", "children": 0 },
+        { "title": "Veganes Hühnchen planted.chicken - Halbe Portion (40g)", "uuid": "c8e955c8-6b66-5cbe-a323-4c65478559fa", "price": 150, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 78 Cal.", "children": 0 },
+        { "title": "Pulled Salmon - Halbe Portion (50g)", "uuid": "2ba303e1-be67-5ade-afa5-44e052605859", "price": 200, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 108 Cal.", "children": 0 }
+      ]
+    },
+    {
+      "title": "Vitamine",
+      "uuid": "dd0f9fea-c76d-5fdb-9bd8-2dd3ccfc5492",
+      "minPermitted": 0,
+      "maxPermitted": 100,
+      "minPermittedUnique": 0,
+      "maxPermittedUnique": 0,
+      "options": [
+        { "title": "Baby Spinat (20g)", "uuid": "9bfbf05e-5d54-55b2-a1bb-dc8028bf835b", "price": 150, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 4 Cal.", "children": 0 },
+        { "title": "Avocado (35g)", "uuid": "96c21090-89cb-4b04-9f70-0fa60fa587b3", "price": 150, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 76 Cal.", "children": 0 },
+        { "title": "Karotten (50g)", "uuid": "f1b7df2b-4174-510e-b818-21caf0033eb0", "price": 100, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 16 Cal.", "children": 0 },
+        { "title": "Rotkohl geraspelt (50g)", "uuid": "8d211c30-d9a4-50c1-8455-b5f236b5b7d0", "price": 100, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 14 Cal.", "children": 0 },
+        { "title": "Gurke (50g)", "uuid": "a7244ed2-f4a4-5580-aef0-924fc0b2da3a", "price": 100, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 7 Cal.", "children": 0 },
+        { "title": "Mais (50g)", "uuid": "5fdd2bd9-7efc-5c92-abe2-c346b9394940", "price": 100, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 35 Cal.", "children": 0 },
+        { "title": "Mango (70g)", "uuid": "f393bff2-6595-4557-bc93-cbb15f287da4", "price": 200, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 46 Cal.", "children": 0 },
+        { "title": "Tomaten (50g)", "uuid": "a1d53b2f-11a0-533d-9da4-31d0771a2bdf", "price": 150, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 10 Cal.", "children": 0 },
+        { "title": "Gemüsemix (100g)", "uuid": "af2a9ccc-96bc-5fe4-b178-50bb6bc7fc51", "price": 300, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 43 Cal.", "children": 0 },
+        { "title": "Rote Bete Falafel (100g)", "uuid": "2b0ee95f-548f-555b-90e6-8100c33c14f1", "price": 300, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 216 Cal.", "children": 0 },
+        { "title": "Brokkoli (100g)", "uuid": "adddb8aa-dda9-531a-aa4c-61856e1ca266", "price": 250, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 25 Cal.", "children": 0 },
+        { "title": "Halbe Limette (50g)", "uuid": "170c5b0f-3212-5e06-85af-e9f472d85198", "price": 100, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 20 Cal.", "children": 0 }
+      ]
+    },
+    {
+      "title": "Toppings",
+      "uuid": "1050c161-a462-5c07-832a-876b2987ac5b",
+      "minPermitted": 0,
+      "maxPermitted": 100,
+      "minPermittedUnique": 0,
+      "maxPermittedUnique": 0,
+      "options": [
+        { "title": "Erdnüsse (20g)", "uuid": "e0873731-c399-4e6b-b153-d5af69111d6f", "price": 100, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 125 Cal.", "children": 0 },
+        { "title": "Walnusskerne (20g)", "uuid": "e62e0f40-a4c7-5f94-ac49-0a7236a21579", "price": 100, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 141 Cal.", "children": 0 },
+        { "title": "Röstzwiebeln (20g)", "uuid": "36c538f1-1922-4e50-b74e-4f51d7de8cdc", "price": 100, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 118 Cal.", "children": 0 },
+        { "title": "Grana Padano (20g)", "uuid": "7b6a7bee-3fb9-4b4b-8cee-9aa1f83c975f", "price": 100, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 80 Cal.", "children": 0 },
+        { "title": "Granatapfelkerne (15g)", "uuid": "5616ca7d-c408-41df-8c1d-34c684dfd1b7", "price": 100, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 15 Cal.", "children": 0 },
+        { "title": "Schwarzer Sesam (3g)", "uuid": "7f5ea0b7-a790-4bed-9921-35b97f65bc69", "price": 100, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 18 Cal.", "children": 0 },
+        { "title": "Chili Gewürz (1g)", "uuid": "596be284-1028-5208-8ee0-7d51c57f83e0", "price": 0, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 0 Cal.", "children": 0 }
+      ]
+    },
+    {
+      "title": "Dips",
+      "uuid": "37a39680-ebde-5b34-978b-34590f83db3d",
+      "minPermitted": 1,
+      "maxPermitted": 100,
+      "minPermittedUnique": 0,
+      "maxPermittedUnique": 0,
+      "options": [
+        { "title": "ohne Dip", "uuid": "4a442edd-5bad-5a4e-b7d6-320bc4229f86", "price": 0, "minPermitted": 0, "maxPermitted": 2, "defaultQuantity": 0, "isSoldOut": false, "subtitle": null, "children": 0 },
+        { "title": "Power Peanut (80g)", "uuid": "c0fcd5b4-7a74-5536-a715-64e41e0a4682", "price": 200, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 250 Cal.", "children": 0 },
+        { "title": "Honey Muscle Mustard (80g)", "uuid": "fc73da95-7da0-541d-86e4-d08365dccb0b", "price": 200, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 200 Cal.", "children": 0 },
+        { "title": "Champion Chili (80g)", "uuid": "0ec8fc0d-2179-5dd3-89ef-b5b863f172ac", "price": 200, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 218 Cal.", "children": 0 },
+        { "title": "Curvy Curry (80g)", "uuid": "eff83f93-a29b-560d-997b-fcf96929ec86", "price": 200, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 302 Cal.", "children": 0 },
+        { "title": "Sexy Sesame (80g)", "uuid": "b9285a7e-1254-5422-9a8e-50515e8ac2d0", "price": 200, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 294 Cal.", "children": 0 },
+        { "title": "Protein Tzatziki (100g)", "uuid": "c4852b58-20fd-5e71-8436-0e3ac53ce1e2", "price": 300, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 67 Cal.", "children": 0 },
+        { "title": "Guacamole (100g)", "uuid": "ed3aedd6-0014-5481-b372-c3e7a79a389c", "price": 300, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 194 Cal.", "children": 0 },
+        { "title": "Ajvar (100g)", "uuid": "a4515ca6-fba5-5b71-a4c3-1d3680387746", "price": 300, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 105 Cal.", "children": 0 },
+        { "title": "Joghurt-Salatdressing (80g)", "uuid": "2a5e787f-1181-51a8-9cdd-4487bfad2996", "price": 200, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 114 Cal.", "children": 0 },
+        { "title": "Sojasauce (20ml)", "uuid": "819d8500-2db6-5bf7-8b00-ff393ad933db", "price": 100, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 4 Cal.", "children": 0 },
+        { "title": "Olivenöl (20ml), Salz & halbe Zitrone", "uuid": "82d02899-0fb2-5439-98d2-8360718e1b68", "price": 200, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 180 Cal.", "children": 0 },
+        { "title": "Balsamico Dressing (80g)", "uuid": "6ebb5f37-8233-57b7-a4f7-71d9c3e5037d", "price": 200, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 46 Cal.", "children": 0 },
+        { "title": "Rotes Pesto (80g)", "uuid": "3b16221c-056a-5414-b7ca-75ab6c0a1ad0", "price": 300, "minPermitted": 0, "maxPermitted": 5, "defaultQuantity": 0, "isSoldOut": false, "subtitle": "adds 264 Cal.", "children": 0 }
+      ]
+    },
+    {
+      "title": "Stay hydrated! Möchtest du noch ein Getränk dazu?",
+      "uuid": "4948b5de-7728-5181-a9e8-f6f818cb98e6",
+      "minPermitted": 0,
+      "maxPermitted": 0,
+      "minPermittedUnique": 0,
+      "maxPermittedUnique": 0,
+      "options": [
+        { "title": "Super Pop Pink-Grapefruit-Kumquat (Ballaststoff-Limo)", "uuid": "cfd27173-6952-5a26-b72c-3db4a7239d5f", "price": 349, "minPermitted": 0, "maxPermitted": 0, "defaultQuantity": 0, "isSoldOut": false, "subtitle": null, "children": 1 }
+      ]
+    }
+  ]
+}
