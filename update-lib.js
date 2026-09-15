@@ -22,7 +22,7 @@ function parseNum(v) {
   if (v == null) throw new Error("Nährwert fehlt");
   let s = String(v).replace(/\u00a0/g, " ").trim();
   s = s.replace(/^[<≤]\s*/, "").replace(/\s*(kcal|kj|mg|g)$/i, "").trim();
-  if (/^[-–—]$/.test(s)) return 0;
+  if (/^[-–—]+$/.test(s)) return 0; // "-", "--", "–" = nicht enthalten
   if (/^[1-9]\d{0,2}(\.\d{3})+(,\d+)?$/.test(s)) s = s.replace(/\./g, "").replace(",", "."); // Tausenderpunkt (+ Dezimalkomma)
   else if (/^\d+,\d+$/.test(s)) s = s.replace(",", ".");                                      // Dezimalkomma
   if (!/^\d+(\.\d+)?$/.test(s)) throw new Error("Unlesbarer Nährwert: " + JSON.stringify(v));

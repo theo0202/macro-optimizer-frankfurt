@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, DEMO, KEYS, sumN, score, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, SPECIAL_TABS, DEFAULT_TAB };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlOverLB, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -29,6 +29,7 @@ const sect = s => console.log("\n── " + s + " ──");
 // Test-Helfer: Item mit stimmigen kcal (4·C + 4·P + 9·F), Ziel im Makro-Modus, sortierte id-Signatur eines Ergebnisses
 const it = (id, cat, carbs, protein, fat, extra) => Object.assign({ id, name: id, cat, kcal: 4 * carbs + 4 * protein + 9 * fat, fat, sat: 0, carbs, sugars: 0, fibre: 0, protein, salt: 0 }, extra || {});
 const tgt = (protein, carbs, fat, more) => Object.assign({ protein, carbs, fat, kcal: protein * 4 + carbs * 4 + fat * 9, fibMin: null, fibMax: null, sMin: null, sMax: null }, more || {});
+const kcalT = (kcal, more) => Object.assign({ protein: 0, carbs: 0, fat: 0, kcal, fibMin: null, fibMax: null, sMin: null, sMax: null }, more || {});
 const ids = r => (r ? r.items.map(x => x.id).sort().join("|") : "");
 const throws = f => { try { f(); return false; } catch (e) { return true; } };
 
@@ -40,6 +41,8 @@ check("localStorage nur über LS_PREFIX + key", /localStorage\.\w+\((?!LS_PREFIX
 check("LS_PREFIX ist fra_", T.LS_PREFIX === "fra_", true);
 T.lsSet(T.LS.ownOrder, [{ qty: 2 }]);
 check("lsSet schreibt fra_own_order (nicht own_order)", lsStore.has("fra_own_order") && !lsStore.has("own_order"), true);
+T.lsSet(T.LS.excluded, { compleat: ["huehnchen"] });
+check("Ausschluss-Liste landet in fra_excluded", lsStore.has("fra_excluded") && T.lsGet(T.LS.excluded, {}).compleat[0] === "huehnchen", true);
 check("lsGet liest zurück", T.lsGet(T.LS.ownOrder, [])[0].qty, 2);
 lsStore.set("fra_kaputt", "{kein json");
 check("lsGet: kaputtes JSON → Fallback", T.lsGet("kaputt", "fb") === "fb", true);
@@ -48,6 +51,7 @@ check("keine Vergleiche mit Registry-Keys im Code (Registry statt Sonderlogik)",
 check("DEFAULT_TAB = erstes Registry-Restaurant", T.DEFAULT_TAB === (T.RESTAURANTS[0] ? T.RESTAURANTS[0].key : "all"), true);
 check("Spezial-Tabs in Reihenfolge: Add own order · Accurate · All", T.SPECIAL_TABS.map(s => s.key).join(",") === "search,accurate,all", true);
 check("Spezial-Tabs = RESERVED_TABS", T.SPECIAL_TABS.every(s => T.RESERVED_TABS.includes(s.key)), true);
+check("Demo Bistro vollständig entfernt (Code, Registry, Dateien)", !/DEMO|Demo Bistro/.test(SCRIPT) && !T.RESTO_BY_KEY.demo && !fs.existsSync(__dirname + "/demo-update.js") && !fs.existsSync(__dirname + "/data/demo-raw.json"), true);
 
 // ── sumN ──
 sect("sumN");
@@ -61,8 +65,8 @@ check("sumN: singleItems zählen ×1", T.sumN([a1], 2, [a2]).protein, 20);
 check("sumN: fehlende Keys = 0, null-Items übersprungen", T.sumN([{ kcal: 50 }, null], 1).fat, 0);
 check("sumN: leere Liste = 0", T.sumN([], 1).kcal, 0);
 
-// ── score ──
-sect("score");
+// ── score + scoreVec ──
+sect("score / scoreVec");
 const tS = tgt(50, 100, 20);
 const aS = { kcal: 0, protein: 50, carbs: 100, fat: 20, fibre: 0, salt: 0 };
 check("score Makro: exakt = 0", T.score(aS, tS, "macros", {}), 0);
@@ -70,7 +74,7 @@ check("score Makro: Protein −10 → 10/50×3 = 0.6", T.score({ ...aS, protein:
 check("score Makro: Carbs +10 → 10/100×2 = 0.2", T.score({ ...aS, carbs: 110 }, tS, "macros", {}), 0.2);
 check("score Makro: Fett −2 → 2/20×2 = 0.2", T.score({ ...aS, fat: 18 }, tS, "macros", {}), 0.2);
 check("score Makro: Ziel 0 wird ignoriert", T.score({ ...aS, fat: 99 }, { ...tS, fat: 0 }, "macros", {}), 0);
-const tK = { protein: 0, carbs: 0, fat: 0, kcal: 500, fibMin: null, fibMax: null, sMin: null, sMax: null };
+const tK = kcalT(500);
 const hiP = { kcal: 500, protein: 50, carbs: 50, fat: 0, fibre: 0, salt: 0 }; // Protein- und Carb-Anteil je 0.4
 check("score kcal: Abweichung ×4 (600 statt 500 → 0.8)", T.score({ kcal: 600, protein: 0, carbs: 0, fat: 0, fibre: 0, salt: 0 }, tK, "calories", {}), 0.8);
 check("score kcal: High Protein belohnt (−0.4×2 = −0.8)", T.score(hiP, tK, "calories", { hp: true }), -0.8);
@@ -82,6 +86,17 @@ check("score: Fibre über Max → (9−5)×0.5 = 2", T.score({ ...aS, fibre: 9 }
 check("score: Salz unter Min → (1−0.5)×0.3 = 0.15", T.score({ ...aS, salt: 0.5 }, { ...tS, sMin: 1 }, "macros", {}), 0.15);
 check("score: Salz über Max → (3−2)×0.3 = 0.3", T.score({ ...aS, salt: 3 }, { ...tS, sMax: 2 }, "macros", {}), 0.3);
 check("score: Fibre-Strafe auch im kcal-Modus", T.score({ ...hiP, fibre: 4 }, { ...tK, fibMin: 10 }, "calories", {}), 3);
+let svSeed = 7, svOk = true;
+const svRnd = () => (svSeed = (svSeed * 16807) % 2147483647) / 2147483647;
+for (let i = 0; i < 400; i++) {
+  const n = T.KEYS.map(() => Math.round(svRnd() * 2000) / 10);
+  const obj = Object.fromEntries(T.KEYS.map((k, j) => [k, n[j]]));
+  const t = i % 2 ? tgt(Math.round(svRnd() * 150), Math.round(svRnd() * 150), Math.round(svRnd() * 50), { fibMin: svRnd() < 0.3 ? 10 : null, fibMax: svRnd() < 0.3 ? 20 : null, sMin: svRnd() < 0.3 ? 1 : null, sMax: svRnd() < 0.3 ? 3 : null }) : kcalT(Math.round(200 + svRnd() * 900), { fibMin: svRnd() < 0.3 ? 12 : null });
+  const p = { hp: svRnd() < 0.5, lp: svRnd() < 0.2, hc: svRnd() < 0.3, lc: svRnd() < 0.3, hf: svRnd() < 0.2, lf: svRnd() < 0.5 };
+  const mode = i % 2 ? "macros" : "calories";
+  if (Math.abs(T.scoreVec(n, t, mode, p) - T.score(obj, t, mode, p)) > 1e-12) svOk = false;
+}
+check("scoreVec == score (400 Zufallsfälle, beide Modi, Constraints)", svOk, true);
 
 // ── sortResults ──
 sect("sortResults");
@@ -142,7 +157,7 @@ const shellEN = ["Prawn crackers", "King Prawn Curry", "Shrimp Tempura", "Crab C
 check("isShellfish: deutsche Namen → true", shellDE.every(n => T.isShellfish({ name: n })), true);
 check("isShellfish: englische Namen → true", shellEN.every(n => T.isShellfish({ name: n })), true);
 check("isShellfish: 'Prawnless Crackers' → false", T.isShellfish({ name: "Prawnless Crackers" }), false);
-check("isShellfish: Fisch/Fleisch/Veggie → false", ["Lachs Bowl", "Thunfisch Salat", "Salmon Nigiri", "Kabeljau", "Fish & Chips", "Hähnchen Bowl", "Falafel Wrap", "Döner Kebab", "Hummus Teller"].every(n => !T.isShellfish({ name: n })), true);
+check("isShellfish: Fisch/Fleisch/Veggie → false", ["Lachs Bowl", "Thunfisch Salat", "Salmon Nigiri", "Kabeljau", "Fish & Chips", "Hähnchen Bowl", "Falafel Wrap", "Döner Kebab", "Hummus Teller", "Pulled Salmon, 100 g"].every(n => !T.isShellfish({ name: n })), true);
 check("SHELLFISH_SAFE: Austernpilze / Oyster mushrooms / Muschelnudeln → false", ["Austernpilze", "Ramen mit Austernpilzen", "Oyster mushrooms", "Crispy Oyster Mushroom Bao", "Muschelnudeln mit Tomatensauce"].every(n => !T.isShellfish({ name: n })), true);
 check("SHELLFISH_SAFE greift nicht, wenn echtes Schalentier daneben steht", T.isShellfish({ name: "Muschelnudeln mit Garnelen" }), true);
 check("Flag shellfish:true (Allergenliste „enthält“) → true", T.isShellfish({ name: "Rainbow Roll", shellfish: true }) && !T.isShellfish({ name: "Rainbow Roll" }), true);
@@ -158,10 +173,6 @@ if (regProblems.length) console.log(regProblems.join("\n"));
 check("validateRegistry(RESTAURANTS) ohne Probleme", regProblems.length, 0);
 check("keys eindeutig", new Set(T.RESTAURANTS.map(r => r.key)).size === T.RESTAURANTS.length, true);
 check("RESTO_BY_KEY deckt alle ab", T.RESTAURANTS.every(r => T.RESTO_BY_KEY[r.key] === r), true);
-const acR = T.RESTAURANTS.filter(r => r.kind === "ac");
-check("AC: Item-ids je Restaurant eindeutig", acR.every(r => new Set(r.data.items.map(x => x.id)).size === r.data.items.length), true);
-check("AC: alle Items mit 8 numerischen Makros ≥ 0", acR.every(r => r.data.items.every(x => T.KEYS.every(k => typeof x[k] === "number" && isFinite(x[k]) && x[k] >= 0))), true);
-check("AC: jede Item-Kategorie existiert", acR.every(r => r.data.items.every(x => r.data.cats.some(c => c.id === x.cat))), true);
 check("Plattform je Restaurant: Lieferando / Wolt / Uber Eats", T.RESTAURANTS.every(r => ["Lieferando", "Wolt", "Uber Eats"].includes(r.platform)), true);
 const goodAC = () => ({ key: "testac", name: "Test AC", kind: "ac", gradient: ["#000", "#111"], label: "TEST", platform: "Wolt", accurate: true, maxN: 5,
   data: { cats: [{ id: "k1", name: "K1", on: true }], items: [it("i1", "k1", 10, 10, 1)] }, switches: [] });
@@ -179,6 +190,7 @@ check("validateRegistry: Gruppe mit 2× def:true erkannt", T.validateRegistry([g
 const noEff = goodAC(); noEff.switches = [{ id: "s1", label: "S1", def: false }];
 check("validateRegistry: Schalter ohne Wirkung erkannt", T.validateRegistry([noEff]).some(p => p.includes("ohne Wirkung")), true);
 check("validateRegistry: BYO ohne Methoden erkannt", T.validateRegistry([{ ...goodAC(), key: "testbyo", kind: "byo", data: undefined }]).some(p => p.includes("BYO-Methode fehlt")), true);
+check("validateRegistry: meldet Probleme aus r.validate()", T.validateRegistry([{ ...goodAC(), validate: () => ["Datenfehler X"] }]).some(p => p.includes("Datenfehler X")), true);
 
 // ── optimizeAC (generisch, Test-Restaurant) ──
 sect("optimizeAC (Test-Restaurant)");
@@ -226,23 +238,31 @@ check("maxN aus dem State (1 → nur Singles)", T.optimizeAC(TR, tTR, "macros", 
 const stAll = T.allState(TR, 2);
 check("allState: inAll überschreibt def (noFish), sonst def", stAll.sw.noFish === true && stAll.sw.noSauce === true && stAll.sw.onlySides === false, true);
 check("allState: maxN vom All-Chip", stAll.maxN, 2);
+check("Ausschluss: exakter Treffer m1 ausgeschlossen → nie im Ergebnis", ids(T.optimizeAC(TR, tTR, "macros", {}, stTR)[0]) === "m1" && allItems(T.optimizeAC(TR, tTR, "macros", {}, stTR, new Set(["m1"]))).every(x => x.id !== "m1"), true);
+check("Ausschluss über runOptimize durchgereicht", allItems(T.runOptimize(TR, tTR, "macros", {}, stTR, new Set(["m1", "m2"]))).every(x => x.id !== "m1" && x.id !== "m2"), true);
+check("excludablesFor (à la carte): alle Items außer Getränken", T.excludablesFor(TR).map(x => x.id).join(",") === "m1,m2,s1,s2,d1,fish1" && T.excludablesFor(TR)[0].group === "Mains", true);
+check("switchPass: nur aktive filter-Schalter", T.switchPass(TR, stTR)(it("x", "mains", 1, 1, 1, { sauce: true })) === false && T.switchPass(TR, { sw: {} })(it("x", "mains", 1, 1, 1, { sauce: true })) === true, true);
 
 // ── Build-Your-Own-Schnittstelle (Stub) ──
 sect("Build-Your-Own-Schnittstelle (Stub)");
+let seenArgs = null;
 const BYO = {
   key: "testbyo", name: "Test BYO", kind: "byo", gradient: ["#000", "#111"], label: "TEST BYO", platform: "Uber Eats", accurate: false, maxN: 5, switches: [],
-  optimize: (t, mode, p) => { const parts = [it("base", "b", 50, 10, 5), it("prot", "p", 0, 30, 5)]; const n = T.sumN(parts, 1); return [{ key: "base+prot", items: parts, nutrition: n, score: T.score(n, t, mode, p) }]; },
+  optimize: (t, mode, p, st, ex, r) => { seenArgs = { ex, r }; const parts = [it("base", "b", 50, 10, 5), it("prot", "p", 0, 30, 5)]; const n = T.sumN(parts, 1); return [{ key: "base+prot", items: parts, nutrition: n, score: T.score(n, t, mode, p) }]; },
   renderConfig: () => null, renderCard: () => null, renderPanel: () => null,
   orderSteps: () => [{ l: "Base", v: "base" }, { l: "Protein", v: "prot" }],
   searchEntries: () => [it("base", "b", 50, 10, 5, { name: "BYO Base" }), it("gar", "p", 0, 20, 2, { name: "Extra Garnelen" })],
+  excludables: () => [{ id: "base", name: "BYO Base", group: "Base" }],
   summary: () => "Base + Protein",
 };
 check("BYO-Stub ist gültig", T.validateRegistry([BYO]).length, 0);
-const rB = T.runOptimize(BYO, tTR, "macros", {}, T.defaultRestoState(BYO));
-check("runOptimize → BYO.optimize", rB.length === 1 && rB[0].key === "base+prot", true);
+const exStub = new Set(["base"]);
+const rB = T.runOptimize(BYO, tTR, "macros", {}, T.defaultRestoState(BYO), exStub);
+check("runOptimize → BYO.optimize (mit Ausschluss-Set + Eintrag)", rB.length === 1 && rB[0].key === "base+prot" && seenArgs.ex === exStub && seenArgs.r === BYO, true);
 check("resultKey: BYO-eigener key", T.resultKey(rB[0]) === "base+prot", true);
 check("orderStepsFor → BYO.orderSteps", T.orderStepsFor(BYO, rB[0]).length, 2);
 check("summarizeResult → BYO.summary", T.summarizeResult(BYO, rB[0]) === "Base + Protein", true);
+check("excludablesFor → BYO.excludables", T.excludablesFor(BYO).length === 1 && T.excludablesFor(BYO)[0].id === "base", true);
 const idxB = T.buildSearchIndex([BYO]);
 check("Such-Index nutzt BYO.searchEntries (Schalentier gefiltert)", idxB.length === 1 && idxB[0].name === "BYO Base" && idxB[0].resto === "Test BYO", true);
 
@@ -260,13 +280,15 @@ const tFish = tgt(35, 45, 10); // = fish1
 check("Restaurant-Tab (def): Fisch-Item ist Top-1", ids(T.optimizeAC(TR, tFish, "macros", {}, stTR)[0]) === "fish1", true);
 check("All: inAll (No fish an) filtert das Fisch-Item", T.optimizeAll(tFish, "macros", {}, 5, false, [TR]).every(r => r.items.every(x => !x.fish)), true);
 check("All: Max-Items-Chip wird durchgereicht (1 → Singles)", T.optimizeAll(tTR, "macros", {}, 1, false, [TR, TR2]).every(r => r.items.length === 1), true);
+check("All: Ausschluss-Listen je Restaurant gelten auch hier", T.optimizeAll(tTR, "macros", {}, 5, false, [TR, TR2], { testr: ["m1"] }).find(r => r._resto === "testr").items.every(x => x.id !== "m1") && ids(T.optimizeAll(tTR, "macros", {}, 5, false, [TR, TR2], { testr: ["m1"] }).find(r => r._resto === "testr2")) === "m1", true);
 const rAccT = T.optimizeAll(tTR, "macros", {}, 5, true, cross);
 check("Accurate: nur accurate:true", rAccT.length === 1 && rAccT[0]._resto === "testr", true);
-check("Accurate (echte Registry): ohne accurate-Restaurants leer", T.RESTAURANTS.some(r => r.accurate) || T.optimizeAll(tTR, "macros", {}, 5, true).length === 0, true);
+const accReal = T.RESTAURANTS.filter(r => r.accurate).map(r => r.key).sort().join(",");
+check("Accurate (echte Registry): genau die accurate-Restaurants", T.optimizeAll(tgt(65, 85, 20), "macros", {}, 5, true).map(r => r._resto).sort().join(",") === accReal, true);
 check("All (echte Registry): 1 Treffer je Restaurant", T.optimizeAll(tgt(65, 85, 20), "macros", {}, 5, false).length === T.RESTAURANTS.length, true);
 
-// ── SEARCH_INDEX / searchItems ──
-sect("SEARCH_INDEX / searchItems");
+// ── SEARCH_INDEX / searchItems / matchesQuery ──
+sect("SEARCH_INDEX / searchItems / matchesQuery");
 check("SEARCH_INDEX automatisch aus der Registry", T.SEARCH_INDEX.length > 0 && T.SEARCH_INDEX.length === T.buildSearchIndex(T.RESTAURANTS).length, true);
 check("SEARCH_INDEX: jeder Eintrag mit resto + name + 8 Makros", T.SEARCH_INDEX.every(x => x.resto && x.name && T.KEYS.every(k => typeof x[k] === "number")), true);
 check("SEARCH_INDEX: kein Schalentier", T.SEARCH_INDEX.every(x => !T.isShellfish(x)), true);
@@ -291,6 +313,7 @@ check("searchItems: Restaurantname matcht ('mueller' → alle)", names("mueller"
 check("searchItems: kürzester Name zuerst ('bowl')", names("bowl")[0] === "Bowl", true);
 check("searchItems: respektiert limit", names("k", 2).length <= 2, true);
 check("searchItems: Schalentier nicht im Index ('garnelen')", names("garnelen").length, 0);
+check("matchesQuery: leer = Treffer, Umlaute, alle Begriffe", T.matchesQuery("Röstzwiebeln, 20 g", "") && T.matchesQuery("Röstzwiebeln, 20 g", "roestzw") && T.matchesQuery("Röstzwiebeln, 20 g", "rost 20") && !T.matchesQuery("Röstzwiebeln, 20 g", "rost 50"), true);
 
 // ── orderTotal ──
 sect("orderTotal");
@@ -310,6 +333,182 @@ const steps = T.acOrderSteps([A, Bq, A]);
 check("acOrderSteps: Mengen + Reihenfolge des ersten Auftretens", steps.length === 2 && steps[0].l === "2×" && steps[0].v === "a" && steps[1].l === "1×" && steps[1].v === "b", true);
 check("resultKey: sortierte ids, reihenfolgeunabhängig", T.resultKey({ items: [Bq, A] }) === "a|b" && T.resultKey({ items: [A, Bq] }) === "a|b", true);
 check("resultKey: null → null", T.resultKey(null) === null, true);
+
+// ── Bowl-Engine (generisch, Test-Menü) ──
+sect("Bowl-Engine (bowlCombos, Test-Menü)");
+const opt = (id, group, carbs, protein, fat, more) => Object.assign({ id, name: id, short: id, group, ing: (more && more.ing) || id, maxQty: 1, kcal: 4 * carbs + 4 * protein + 9 * fat, fat, sat: 0, carbs, sugars: 0, fibre: 0, protein, salt: 0 }, more || {});
+const TMENU = { item: "Test Bowl", groups: [
+  { id: "base", name: "Basis", min: 0, max: 3, none: null, options: [opt("reis", "base", 60, 6, 1, { maxQty: 4 }), opt("salat", "base", 3, 1, 0, { maxQty: 4 }), opt("nudeln", "base", 45, 20, 4)] },
+  { id: "protein", name: "Proteine", min: 0, max: 10, none: null, options: [opt("huhn", "protein", 1, 23, 3, { maxQty: 10 }), opt("tofu", "protein", 3, 12, 7, { maxQty: 10 }), opt("lachs", "protein", 0, 20, 14)] },
+  { id: "extra", name: "Extras", min: 0, max: 30, none: null, options: [opt("huhn_x", "extra", 1, 23, 3, { ing: "huhn" }), opt("ei", "extra", 0, 7, 5), opt("mais", "extra", 6, 1, 1), opt("nuss", "extra", 1, 3, 13, { crunch: true }), opt("avo", "extra", 1, 1, 4), opt("garnele", "extra", 0, 18, 1, { name: "Garnelen, 50 g" }), opt("pfeffer", "extra", 0, 0, 0)] },
+  { id: "dip", name: "Dip", min: 1, max: 1, none: "Ohne Dip", options: [opt("curry", "dip", 8, 0, 30), opt("tzatziki", "dip", 5, 11, 0)] },
+] };
+const tB = tgt(60, 70, 18);
+const rTB = T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 3 });
+const cnt = (r, gid) => r.parts.filter(pt => pt.opt.group === gid).reduce((s, pt) => s + pt.qty, 0);
+check("bowlCombos: liefert Ergebnisse (≤ 20)", rTB.length > 0 && rTB.length <= 20, true);
+check("jede Bowl: ≥1 Base und ≥1 Protein", rTB.every(r => cnt(r, "base") >= 1 && cnt(r, "protein") >= 1), true);
+check("Deckel je Base/Protein-Option (cap 2)", rTB.every(r => r.parts.every(pt => pt.qty <= (pt.opt.group === "extra" ? 1 : 2))), true);
+check("Gruppen-Maximum Basis (max 3)", T.bowlCombos(TMENU, tgt(30, 400, 5), "macros", {}, { cap: 4, maxExtras: 0 }).every(r => cnt(r, "base") <= 3), true);
+check("maxQty der Option (nudeln 1×)", T.bowlCombos(TMENU, tgt(200, 200, 30), "macros", {}, { cap: 4, maxExtras: 5 }).every(r => r.parts.every(pt => pt.opt.id !== "nudeln" || pt.qty <= 1)), true);
+check("maxExtras 3 / 0", rTB.every(r => cnt(r, "extra") <= 3) && T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 0 }).every(r => cnt(r, "extra") === 0), true);
+check("Protein-Duplikat unter Extras wird nie genutzt (läuft über die Protein-Gruppe)", T.bowlCombos(TMENU, tgt(150, 60, 10), "macros", {}, { cap: 4, maxExtras: 5 }).every(r => r.parts.every(pt => pt.opt.id !== "huhn_x")), true);
+check("höchstens ein Dip", rTB.every(r => r.items.filter(x => x.group === "dip").length <= 1), true);
+check("Schalentier-Option nie im Ergebnis", T.bowlCombos(TMENU, tgt(80, 60, 5), "macros", {}, { cap: 2, maxExtras: 5 }).every(r => r.items.every(x => x.id !== "garnele")), true);
+check("Option ohne Nährwerte (alles 0) wird nie vorgeschlagen (keine Doppel-Ergebnisse)", T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 5 }).every(r => r.items.every(x => x.id !== "pfeffer")), true);
+check("keep-Filter wirkt (keine Dips / kein Crunch)", T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 3, keep: x => x.group !== "dip" && !x.crunch }).every(r => !r.dip && r.items.every(x => !x.crunch)), true);
+check("Pflicht nicht erfüllbar (keine Base erlaubt) → keine Ergebnisse", T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 3, keep: x => x.group !== "base" }).length, 0);
+check("nutrition = sumN der Items, Score darauf, sortiert", rTB.every(r => JSON.stringify(r.nutrition) === JSON.stringify(T.sumN(r.items, 1)) && Math.abs(r.score - T.score(r.nutrition, tB, "macros", {})) < 1e-12) && rTB.every((r, i) => i === 0 || rTB[i - 1].score <= r.score), true);
+check("Keys eindeutig und stabil", new Set(rTB.map(r => r.key)).size === rTB.length && JSON.stringify(rTB.map(r => r.key)) === JSON.stringify(T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 3 }).map(r => r.key)), true);
+check("exakter Treffer wird gefunden (reis + huhn + ei + tzatziki)", (() => { const tt = tgt(6 + 23 + 7 + 11, 60 + 1 + 0 + 5, 1 + 3 + 5 + 0); const r0 = T.bowlCombos(TMENU, tt, "macros", {}, { cap: 2, maxExtras: 3 })[0]; return r0.score < 1e-9 && r0.key === "reis x1+huhnx1+eix1|tzatziki".replace(" ", ""); })(), true);
+
+// Vollständige Durchrechnung mit identischen Regeln (Referenz für die Exaktheit der Suche): die 30 besten Roh-Scores, aufsteigend
+function exhaustiveBowl(menu, t, mode, p, o) {
+  const G = Object.fromEntries(menu.groups.map(g => [g.id, g]));
+  const keep = x => !T.isShellfish(x) && (!o.keep || o.keep(x));
+  const protIngs = new Set(G.protein.options.map(x => x.ing));
+  const vec = x => T.KEYS.map(k => x[k] || 0);
+  const B = G.base.options.filter(keep), P = G.protein.options.filter(keep), D = [null, ...G.dip.options.filter(keep)];
+  const E = G.extra.options.filter(x => keep(x) && !protIngs.has(x.ing) && vec(x).some(v => v > 0)); // wie bowlCombos: Extras ohne Nährwerte zählen nicht
+  const combos = (arr, maxTotal) => { let out = [[[0, 0, 0, 0, 0, 0, 0, 0], 0]]; for (const u of arr) { const qmax = Math.min(u.maxQty || 1, o.cap), v = vec(u), nx = []; for (const [n, c] of out) for (let q = 0; q <= qmax && c + q <= maxTotal; q++) nx.push([n.map((x, k) => x + v[k] * q), c + q]); out = nx; } return out.filter(x => x[1] >= 1).map(x => x[0]); };
+  const bc = combos(B, G.base.max), pc = combos(P, G.protein.max), es = [];
+  const maxE = Math.min(G.extra.max, o.maxExtras == null ? Infinity : o.maxExtras);
+  const rec = (i, n, c) => { es.push(n); if (c >= maxE) return; for (let j = i; j < E.length; j++) { const v = vec(E[j]); rec(j + 1, n.map((x, k) => x + v[k]), c + 1); } };
+  rec(0, [0, 0, 0, 0, 0, 0, 0, 0], 0);
+  const top = [], n = [0, 0, 0, 0, 0, 0, 0, 0];
+  let thr = Infinity;
+  for (const d of D) {
+    const dv = d ? vec(d) : [0, 0, 0, 0, 0, 0, 0, 0];
+    for (const bn of bc) for (const pn of pc) {
+      const cn = bn.map((x, k) => x + pn[k] + dv[k]);
+      for (const en of es) {
+        for (let k = 0; k < 8; k++) n[k] = cn[k] + en[k];
+        const s = T.scoreVec(n, t, mode, p);
+        if (s >= thr) continue;
+        let i = top.length;
+        top.push(s);
+        while (i > 0 && top[i - 1] > s) { top[i] = top[i - 1]; i--; }
+        top[i] = s;
+        if (top.length > 30) top.pop();
+        if (top.length === 30) thr = top[29];
+      }
+    }
+  }
+  return top;
+}
+const rawTop = (menu, t, mode, p, o) => T.bowlCombos(menu, t, mode, p, Object.assign({}, o, { raw: true })).map(r => r.rawScore);
+const sameTop = (a, b) => a.length === b.length && a.every((s, i) => Math.abs(s - b[i]) < 1e-9);
+const rawT = T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 3, raw: true });
+check("opts.raw: Rangliste { key, rawScore } mit 30 Einträgen, aufsteigend, Keys eindeutig", rawT.length === 30 && rawT.every((x, i) => typeof x.key === "string" && (i === 0 || rawT[i - 1].rawScore <= x.rawScore)) && new Set(rawT.map(x => x.key)).size === 30, true);
+const oT = { cap: 3, maxExtras: 4 };
+let exOkT = 0; const exTargets = [tgt(60, 70, 18), tgt(35, 130, 8), tgt(110, 40, 30), tgt(45, 90, 45), tgt(70, 20, 12, { fibMin: 5, sMax: 1 })];
+for (const tt of exTargets) if (sameTop(rawTop(TMENU, tt, "macros", {}, oT), exhaustiveBowl(TMENU, tt, "macros", {}, oT))) exOkT++;
+check("Makro-Modus: Top 30 = vollständige Durchrechnung (Test-Menü, 5 Ziele)", exOkT, exTargets.length);
+let exKT = 0; const exKTargets = [[kcalT(450), { hp: true, lf: true }], [kcalT(700), { hc: true, lf: true }], [kcalT(900), { lc: true, hp: true }], [kcalT(350), { lp: true, hf: true }], [kcalT(520, { fibMin: 3, sMax: 1 }), { hp: true }], [kcalT(600), {}]];
+for (const [tt, pp] of exKTargets) if (sameTop(rawTop(TMENU, tt, "calories", pp, oT), exhaustiveBowl(TMENU, tt, "calories", pp, oT))) exKT++;
+check("Kalorien-Modus mit/ohne Präferenzen: Top 30 = vollständige Durchrechnung (Test-Menü, 6 Ziele)", exKT, exKTargets.length);
+
+// ── Compleat: Daten ──
+sect("Compleat: Daten (Shop + Wolt)");
+const CR = T.RESTO_BY_KEY.compleat;
+const rawC = U.readJSON(__dirname + "/data/compleat-raw.json");
+const updC = require("./compleat-update.js");
+const W = T.COMPLEAT.wolt, WG = Object.fromEntries(W.groups.map(g => [g.id, g]));
+const wopt = id => W.groups.flatMap(g => g.options).find(o => o.id === id);
+check("Compleat in der Registry: BYO, Wolt, accurate", !!CR && CR.kind === "byo" && CR.platform === "Wolt" && CR.accurate === true, true);
+check("COMPLEAT-Block = compleat-update.js(data/compleat-raw.json) (Block aktuell)", JSON.stringify(W.groups) === JSON.stringify(updC.buildMenu(rawC, "wolt").groups), true);
+check("Datensatz vollständig: alle Shop-Zutaten im Block (auch nicht bei Wolt)", T.COMPLEAT.ingredients.length === rawC.ingredients.length && T.COMPLEAT.ingredients.some(x => x.id === "suesskartoffel") && T.COMPLEAT.ingredients.some(x => x.id === "gemuesemix"), true);
+check("bowlValidate(COMPLEAT) ohne Probleme", T.bowlValidate(T.COMPLEAT).length, 0);
+check("Wolt-Gruppen: Basis 3 (ohne Quinoa) · Proteine 5 · Extras 25 · Dips 13 + „Ohne Dip“", WG.base.options.length === 3 && WG.protein.options.length === 5 && WG.extra.options.length === 25 && WG.dip.options.length === 13 && WG.dip.none === "Ohne Dip", true);
+check("Wolt-Grenzen: Basis 0–5 · Proteine 0–10 · Extras 0–30 · Dip genau 1", WG.base.max === 5 && WG.protein.max === 10 && WG.extra.max === 30 && WG.dip.min === 1 && WG.dip.max === 1, true);
+check("Wolt-Mengen: Basmatireis/Salat-Mix bis 4×, Protein Nudeln 1×, Hähnchen bis 10×, Pulled Salmon 1×, Extras 1×", wopt("base_basmatireis_250_g").maxQty === 4 && wopt("base_salat_mix_100_g").maxQty === 4 && wopt("base_protein_nudeln_200_g").maxQty === 1 && wopt("protein_haehnchen_100_g").maxQty === 10 && wopt("protein_pulled_salmon_100_g").maxQty === 1 && WG.extra.options.every(o => o.maxQty === 1), true);
+check("Salat-Mix: Wolt 100 g statt Shop 80 g → pro-100-g-Werte (17 kcal)", wopt("base_salat_mix_100_g").amount === 100 && wopt("base_salat_mix_100_g").kcal === 17 && T.COMPLEAT.ingredients.find(x => x.id === "salatmix").portion === 80, true);
+check("Basmatireis 250 g: 330 kcal · 70 g KH · 7,5 g P", wopt("base_basmatireis_250_g").kcal === 330 && wopt("base_basmatireis_250_g").carbs === 70 && wopt("base_basmatireis_250_g").protein === 7.5, true);
+check("Walnusskerne 20 g: 140,8 kcal (Shop zeigt fälschlich 7 kcal)", wopt("extra_walnusskerne_20_g").kcal, 140.8);
+check("Röstzwiebeln 20 g: 118 kcal (Shop rechnet mit 18 g)", wopt("extra_roestzwiebeln_20_g").kcal, 118);
+check("Granatapfelkerne 15 g: 11,1 kcal (Shop rechnet mit 20 g)", wopt("extra_granatapfelkerne_15_g").kcal, 11.1);
+check("Sojasoße 20 ml: Salz 2,87 g (Shop rechnet mit 40 ml)", wopt("dip_sojasosse_20ml").salt, 2.87);
+check("Hart gekochtes Ei 50 g (neu bei Wolt): offizielle Shop-Werte 77,5 kcal / 6,55 g P", wopt("extra_hart_gekochtes_ei_50_g").kcal === 77.5 && wopt("extra_hart_gekochtes_ei_50_g").protein === 6.55, true);
+check("Portionswerte = pro 100 g × Menge / 100 (alle Optionen)", W.groups.flatMap(g => g.options).every(o => { const ing = T.COMPLEAT.ingredients.find(x => x.id === o.ing); return T.KEYS.every(k => Math.abs(o[k] - Math.round(ing.per100[k] * o.amount / 100 * 100) / 100) < 1e-9); }), true);
+check("Crunch = Erdnüsse, Walnusskerne, Röstzwiebeln, Schwarzer Sesam", W.groups.flatMap(g => g.options).filter(o => o.crunch).map(o => o.ing).sort().join(",") === "erdnuesse,roestzwiebeln,schwarzer_sesam,walnusskerne", true);
+const quinoa = T.COMPLEAT.ingredients.find(x => x.id === "bunter_bio_quinoa");
+check("Quinoa: im Datensatz, gesperrt mit Begründung (User 15.09.2026)", !!quinoa && /User 15\.09\.2026/.test(quinoa.blocked || "") && T.COMPLEAT_BLOCKED.has("bunter_bio_quinoa"), true);
+check("Quinoa: in keiner Wolt-Option des Rechners", W.groups.every(g => g.options.every(o => o.ing !== "bunter_bio_quinoa")), true);
+check("Quinoa: auch in raw.json-Wolt-Menü markiert (wird vom Update-Skript weggelassen)", rawC.wolt.groups.some(g => g.options.some(o => o.ingredient === "bunter_bio_quinoa")) && updC.buildMenu(rawC, "wolt").skipped.some(s => /Quinoa/.test(s)), true);
+check("Kein Schalentier bei Compleat (Allergene + Namen)", T.COMPLEAT.ingredients.every(x => !x.shellfish && !T.isShellfish(x)) && W.groups.every(g => g.options.every(o => !T.isShellfish(o))), true);
+const metaC = rawC._meta;
+check("_meta: 7 dokumentierte Auffälligkeiten", metaC.anomalies.map(a => a.id).sort().join(",") === "avocado,bunter_bio_quinoa,chili_gewuerz,edamame,honey_muscle_mustard,olivenoel_salz_halbe_zitrone,pulled_salmon", true);
+check("_meta: 4 Anzeige-Bugs im Shop dokumentiert", metaC.displayBugs.map(b => b.id).sort().join(",") === "granatapfelkerne,roestzwiebeln,sojasauce,walnusskerne", true);
+check("_meta: Mengenabweichung Wolt ↔ Shop nur Salat-Mix", metaC.portionDiffs.length === 1 && metaC.portionDiffs[0].wolt === "Salat-Mix, 100 g", true);
+check("_meta: Koriander in der Guacamole vermerkt", metaC.dislikes.some(d => /Guacamole/.test(d) && /Koriander/i.test(d)), true);
+check("_meta: Entscheidungen des Users mit Datum", metaC.decisions.length >= 4 && metaC.decisions.every(d => /User 15\.09\.2026/.test(d)), true);
+check("verify-compleat.js: Word-Export = nachgerechnete Shop-Anzeige", (() => { try { require("child_process").execFileSync(process.execPath, [__dirname + "/verify-compleat.js"], { stdio: "pipe" }); return true; } catch (e) { return false; } })(), true);
+
+// ── Compleat: Optimizer ──
+sect("Compleat: Optimizer");
+const stC = T.defaultRestoState(CR);
+check("Default: No dip AN, No crunch AUS, max. 5 Extras, max. 2 Portionen", stC.sw.noDip === true && stC.sw.noCrunch === false && stC.extra.maxExtras === 5 && stC.extra.cap === 2, true);
+const run = (t, st, ex, mode, p) => T.runOptimize(CR, t, mode || "macros", p || {}, st, ex || new Set());
+const cntC = (r, gid) => r.parts.filter(pt => pt.opt.group === gid).reduce((s, pt) => s + pt.qty, 0);
+const tDef = tgt(65, 85, 20);
+const rDef = run(tDef, stC);
+check("Standardziele: Ergebnisse vorhanden", rDef.length > 0, true);
+check("jede Bowl ≥1 Base + ≥1 Protein", rDef.every(r => cntC(r, "base") >= 1 && cntC(r, "protein") >= 1), true);
+check("No dip AN → nie ein Dip", rDef.every(r => !r.dip), true);
+check("Deckel: je Base/Protein ≤ 2, Extras ≤ 5 und je 1×", rDef.every(r => r.parts.every(pt => pt.qty <= (pt.opt.group === "extra" ? 1 : 2)) && cntC(r, "extra") <= 5), true);
+check("nie Quinoa, nie Schalentier", rDef.every(r => r.items.every(x => x.ing !== "bunter_bio_quinoa" && !T.isShellfish(x))), true);
+check("Chili Gewürz (alle Werte 0) nie vorgeschlagen → keine Doppel-Ergebnisse", rDef.every(r => r.items.every(x => x.ing !== "chili_gewuerz")) && new Set(rDef.map(r => r.key.replace(/\+?extra_chili[^+|]*/g, ""))).size === rDef.length, true);
+const b1 = wopt("base_basmatireis_250_g"), p1 = wopt("protein_haehnchen_100_g"), d1 = wopt("dip_curvy_curry_dip");
+const tDip = tgt(b1.protein + p1.protein + d1.protein, b1.carbs + p1.carbs + d1.carbs, b1.fat + p1.fat + d1.fat);
+const stDipOn = { ...stC, sw: { ...stC.sw, noDip: false } };
+check("No dip AUS → passender Dip wird genommen (Basmatireis + Hähnchen + Curvy Curry)", (() => { const r0 = run(tDip, stDipOn)[0]; return !!r0.dip && r0.dip.id === "dip_curvy_curry_dip"; })(), true);
+check("No dip AN → derselbe Zielwert ohne Dip", run(tDip, stC).every(r => !r.dip), true);
+const s1 = wopt("base_salat_mix_100_g"), wn = wopt("extra_walnusskerne_20_g");
+const tCrunch = tgt(s1.protein + p1.protein + wn.protein, s1.carbs + p1.carbs + wn.carbs, s1.fat + p1.fat + wn.fat);
+check("No crunch AUS → Walnusskerne möglich", run(tCrunch, stC).some(r => r.parts.some(pt => pt.opt.crunch)), true);
+check("No crunch AN → nie Erdnüsse/Walnusskerne/Röstzwiebeln/Sesam", run(tCrunch, { ...stC, sw: { ...stC.sw, noCrunch: true } }).every(r => r.items.every(x => !x.crunch)), true);
+check("Ausschluss 'huehnchen' → nie Hähnchen (Proteine + Extras)", run(tDef, stC, new Set(["huehnchen"])).every(r => r.items.every(x => x.ing !== "huehnchen")), true);
+check("alle Basen ausgeschlossen → keine Bowl", run(tDef, stC, new Set(["basmati_reis", "salatmix", "protein_pasta"])).length, 0);
+check("Portionen-Chip 1 → keine Doppelportion", run(tgt(120, 150, 25), { ...stC, extra: { ...stC.extra, cap: 1 } }).every(r => r.parts.every(pt => pt.qty === 1)), true);
+check("Portionen-Chip 4 → Basis ≤ 5, Protein-Gruppe ≤ 10, Nudeln/Lachs ≤ 1", run(tgt(200, 350, 40), { ...stC, extra: { ...stC.extra, cap: 4 } }).every(r => cntC(r, "base") <= 5 && cntC(r, "protein") <= 10 && r.parts.every(pt => !["base_protein_nudeln_200_g", "protein_pulled_salmon_100_g"].includes(pt.opt.id) || pt.qty === 1)), true);
+check("Extras-Chip 0 → keine Extras", run(tDef, { ...stC, extra: { ...stC.extra, maxExtras: 0 } }).every(r => cntC(r, "extra") === 0), true);
+check("Kalorien-Modus (450 kcal, HP + LF) liefert gültige Bowls", (() => { const r = run(kcalT(450), stC, null, "calories", { hp: true, lf: true }); return r.length > 0 && r.every(x => cntC(x, "base") >= 1 && cntC(x, "protein") >= 1 && !x.dip); })(), true);
+const oC = { cap: 2, maxExtras: 2, keep: x => !T.COMPLEAT_BLOCKED.has(x.ing) };
+let exOkC = 0; const exC = [tgt(65, 85, 20), tgt(40, 60, 25), tgt(90, 50, 15), tgt(31, 80, 33)];
+for (const tt of exC) if (sameTop(rawTop(W, tt, "macros", {}, oC), exhaustiveBowl(W, tt, "macros", {}, oC))) exOkC++;
+check("Makro-Modus: Top 30 = vollständige Durchrechnung (Compleat inkl. Dips, 4 Ziele)", exOkC, exC.length);
+let exKC = 0; const exKCTargets = [[kcalT(450), { hp: true, lf: true }], [kcalT(800), { hc: true }], [kcalT(650, { fibMin: 10, sMax: 3 }), { lc: true, lf: true }], [kcalT(1000), { hp: true, hf: true }]];
+for (const [tt, pp] of exKCTargets) if (sameTop(rawTop(W, tt, "calories", pp, oC), exhaustiveBowl(W, tt, "calories", pp, oC))) exKC++;
+check("Kalorien-Modus mit Präferenzen: Top 30 = vollständige Durchrechnung (Compleat inkl. Dips, 4 Ziele)", exKC, exKCTargets.length);
+// Untergrenzen der Kern-Suche: LB(Kern) ≤ Score JEDER Erweiterung (Zufallsfälle aus Compleat-Optionen)
+let sdLB = 20260915; const rndLB = () => (sdLB = (sdLB * 1103515245 + 12345) % 2147483648) / 2147483648;
+const vecsLB = W.groups.flatMap(g => g.options).filter(x => !T.COMPLEAT_BLOCKED.has(x.ing)).map(x => T.KEYS.map(k => x[k] || 0));
+const addRnd = (v, cnt) => { const out = v.slice(); for (let j = 0; j < cnt; j++) { const u = vecsLB[Math.floor(rndLB() * vecsLB.length)]; for (let k = 0; k < 8; k++) out[k] += u[k]; } return out; };
+const PREFS_LB = [{ hp: true, lf: true }, { hc: true }, { lc: true, hp: true }, { lp: true, hf: true }, { hf: true, lc: true }, { lf: true }, { lp: true }];
+const LBN = 700; let lbShareOk = 0, lbOverOk = 0;
+for (let i = 0; i < LBN; i++) {
+  const pp = PREFS_LB[i % PREFS_LB.length];
+  const more = i % 3 === 0 ? { fibMax: 4 + rndLB() * 10, sMax: 1 + rndLB() * 4 } : i % 3 === 1 ? { fibMin: 5, sMin: 1 } : {};
+  const tk = kcalT(Math.round(150 + rndLB() * 1100), more);
+  const rho = Math.min(...vecsLB.filter(v => v[0] > 0).map(v => T.bowlShareL(v, pp) / v[0]));
+  const c = addRnd([0, 0, 0, 0, 0, 0, 0, 0], 1 + Math.floor(rndLB() * 4)), e = addRnd(c, Math.floor(rndLB() * 10));
+  if (T.bowlShareLB(c, tk, pp, rho, 1e9) <= T.scoreVec(e, tk, "calories", pp) + 1e-9) lbShareOk++;
+  const tm = tgt(Math.round(20 + rndLB() * 140), Math.round(10 + rndLB() * 160), Math.round(3 + rndLB() * 50), more);
+  if (T.bowlOverLB(c, tm, "macros", {}, 1) <= T.scoreVec(e, tm, "macros", {}) + 1e-9) lbOverOk++;
+}
+check("bowlShareLB ≤ Score jeder Erweiterung (700 Zufallsfälle, Kalorien-Modus mit Präferenzen)", lbShareOk, LBN);
+check("bowlOverLB ≤ Score jeder Erweiterung (700 Zufallsfälle, Makro-Modus)", lbOverOk, LBN);
+check("bowlShareLB schneidet: Kern mit 2000 kcal bei 450-kcal-Ziel → Untergrenze > 10", T.bowlShareLB([2000, 50, 0, 200, 0, 0, 100, 0], kcalT(450), { hp: true, lf: true }, -1.2, 1e9) > 10, true);
+const stepsC = T.orderStepsFor(CR, rDef[0]);
+check("Order Guide: Item → Deine Basis → Deine Proteine → (Deine Extras) → Dein Dip", stepsC[0].l === "Item" && stepsC[0].v === "Build your Bowl" && stepsC[1].l === "Deine Basis" && stepsC[2].l === "Deine Proteine" && stepsC[stepsC.length - 1].l === "Dein Dip", true);
+check("Order Guide: Mengen bei Basis/Proteinen („1×“/„2×“), Extras ohne Menge, kein Dip → „Ohne Dip“", /^\d× /.test(stepsC[1].v) && /^\d× /.test(stepsC[2].v) && stepsC.filter(s => s.l === "Deine Extras").every(s => !/×/.test(s.v)) && stepsC[stepsC.length - 1].v === "Ohne Dip", true);
+check("Zusammenfassung mit Kurznamen", T.summarizeResult(CR, rDef[0]) === T.bowlSummary(rDef[0]) && !/, \d/.test(T.bowlSummary(rDef[0])), true);
+const exC2 = T.excludablesFor(CR);
+check("Ausschluss-Liste: jede Zutat einmal, ohne Quinoa, Hähnchen unter „Deine Proteine“", new Set(exC2.map(x => x.id)).size === exC2.length && !exC2.some(x => x.id === "bunter_bio_quinoa") && exC2.find(x => x.id === "huehnchen").group === "Deine Proteine", true);
+check("Such-Index: Compleat-Optionen mit Wolt-Namen, Hähnchen genau einmal, kein Quinoa", T.SEARCH_INDEX.filter(x => x.resto === "Compleat" && x.name === "Hähnchen, 100 g").length === 1 && !T.SEARCH_INDEX.some(x => /quinoa/i.test(x.name)), true);
+check("Suche 'haehnchen' findet Hähnchen + Veganes Hähnchen", (() => { const nm = T.searchItems("haehnchen").map(x => x.name); return nm.includes("Hähnchen, 100 g") && nm.includes("Veganes Hähnchen, 80 g"); })(), true);
+check("All: Compleat vertreten, respektiert Ausschlüsse", T.optimizeAll(tDef, "macros", {}, 5, false).some(r => r._resto === "compleat") && T.optimizeAll(tDef, "macros", {}, 5, false, undefined, { compleat: ["huehnchen"] }).find(r => r._resto === "compleat").items.every(x => x.ing !== "huehnchen"), true);
+check("resultKey stabil über Neuberechnung (Karten-Markierung)", T.resultKey(run(tDef, stC)[0]) === T.resultKey(rDef[0]), true);
 
 // ── Screenshot-Import-Parser (OCR-Text → verbleibende Makros C/P/F + "Übrig"-kcal) — Fälle aus dem London-Tool ──
 sect("parseMacroScreenshot");
@@ -361,7 +560,7 @@ check("parseNum '12,5' → 12.5", U.parseNum("12,5"), 12.5);
 check("parseNum '1.234' → 1234 (Tausenderpunkt)", U.parseNum("1.234"), 1234);
 check("parseNum '1.234,5' → 1234.5", U.parseNum("1.234,5"), 1234.5);
 check("parseNum '<0,5' → 0.5", U.parseNum("<0,5"), 0.5);
-check("parseNum '-' → 0", U.parseNum("-"), 0);
+check("parseNum '-' und '--' → 0", U.parseNum("-") === 0 && U.parseNum("--") === 0, true);
 check("parseNum '0,05 g' → 0.05 (Einheit ignoriert)", U.parseNum("0,05 g"), 0.05);
 check("parseNum '2.267 kJ' → 2267", U.parseNum("2.267 kJ"), 2267);
 check("parseNum '12.5' (Dezimalpunkt) → 12.5", U.parseNum("12.5"), 12.5);
@@ -384,46 +583,6 @@ check("replaceBlock: '$&' im Inhalt bleibt wörtlich", U.replaceBlock(htmlLF, "T
 const dl = U.acDataLines("X", [{ id: "k", name: "K", on: true }, { id: "d", name: "D", on: true, drink: true }], [{ id: "i", name: "I", cat: "k", kcal: 1, fat: 0, sat: 0, carbs: 0, sugars: 0, fibre: 0, protein: 0, salt: 0, sauce: true }], ["sauce"]);
 check("acDataLines: drink- und Flag-Felder im Block", dl.some(l => l.includes("drink:true")) && dl.some(l => l.includes("sauce:true")), true);
 check("buildAcItems: unbekannte Kategorie → Fehler", throws(() => U.buildAcItems([{ name: "X", cat: "nope", kcal: 1, fat: 0, sat: 0, carbs: 0, sugars: 0, fibre: 0, protein: 0, salt: 0 }], [{ id: "k" }])), true);
-
-// ── DEMO Bistro (fiktiv) — beim ersten echten Restaurant zusammen mit dem Demo-Eintrag LÖSCHEN ──
-sect("DEMO Bistro (fiktiv, später löschen)");
-const DEMO_R = T.RESTO_BY_KEY.demo;
-check("Demo: in der Registry, demo:true, à la carte, Wolt", !!DEMO_R && DEMO_R.demo === true && DEMO_R.kind === "ac" && DEMO_R.platform === "Wolt", true);
-check("Demo: nicht accurate (fiktive Werte)", DEMO_R.accurate, false);
-check("Demo: 3 Kategorien Bowls / Sides / Drinks", DEMO_R.data.cats.map(c => c.name).join(",") === "Bowls,Sides,Drinks", true);
-check("Demo: Drinks = drink:true", DEMO_R.data.cats.find(c => c.id === "drinks").drink === true, true);
-check("Demo: ~8 Items (8–10)", DEMO_R.data.items.length >= 8 && DEMO_R.data.items.length <= 10, true);
-check("Demo: kcal = 4·C + 4·P + 9·F (±2)", DEMO_R.data.items.every(x => Math.abs(x.kcal - (4 * x.carbs + 4 * x.protein + 9 * x.fat)) <= 2), true);
-check("Demo: sat ≤ fat und sugars ≤ carbs", DEMO_R.data.items.every(x => x.sat <= x.fat && x.sugars <= x.carbs), true);
-const demoRaw = U.readJSON(__dirname + "/data/demo-raw.json");
-check("Demo: Block entspricht data/demo-raw.json (Namen + kcal)", demoRaw.items.map(x => x.name + ":" + x.kcal).join("|") === DEMO_R.data.items.map(x => x.name + ":" + x.kcal).join("|"), true);
-check("Demo: genau ein sauce:true-Item", DEMO_R.data.items.filter(x => x.sauce).length, 1);
-const noSauceSw = DEMO_R.switches.find(s => s.id === "noSauce");
-check("Demo: Schalter 'No sauce' Default AN", !!noSauceSw && noSauceSw.label === "No sauce" && noSauceSw.def === true, true);
-check("Demo: restriktive Modi (Only bowls / Must include a side) Default AUS", DEMO_R.switches.filter(s => s.overridesCats || s.require).every(s => s.def === false), true);
-const garn = DEMO_R.data.items.find(x => x.name === "Garnelen Bowl");
-check("Demo: Garnelen Bowl in den Daten + isShellfish", !!garn && T.isShellfish(garn), true);
-const stDemo = T.defaultRestoState(DEMO_R);
-const allOn = { ...stDemo, cats: { bowls: true, sides: true, drinks: true }, sw: { noSauce: false, onlyBowls: false, mustSide: false }, maxN: Infinity };
-const tGarn = tgt(garn.protein, garn.carbs, garn.fat);
-check("Demo: Garnelen Bowl nie im Optimizer (exaktes Ziel, alles an, ∞)", T.optimizeAC(DEMO_R, tGarn, "macros", {}, allOn).every(r => r.items.every(x => x.id !== garn.id)), true);
-check("Demo: Garnelen Bowl nie bei 'Only bowls'", T.optimizeAC(DEMO_R, tGarn, "macros", {}, { ...allOn, sw: { noSauce: false, onlyBowls: true, mustSide: false } }).every(r => r.items.every(x => x.id !== garn.id)), true);
-check("Demo: Garnelen Bowl nicht im Such-Index", T.searchItems("garnelen").length, 0);
-check("Demo: Garnelen Bowl nicht in All", T.optimizeAll(tGarn, "macros", {}, Infinity, false).every(r => r.items.every(x => x.id !== garn.id)), true);
-const dip = DEMO_R.data.items.find(x => x.sauce);
-const bowlH = DEMO_R.data.items.find(x => x.name === "Hähnchen Bowl");
-const tDip = tgt(bowlH.protein + dip.protein, bowlH.carbs + dip.carbs, bowlH.fat + dip.fat);
-check("Demo: No sauce AN → Dip nie im Ergebnis", T.optimizeAC(DEMO_R, tDip, "macros", {}, stDemo).every(r => r.items.every(x => !x.sauce)), true);
-check("Demo: No sauce AUS → Hähnchen Bowl + Dip ist Top-1", ids(T.optimizeAC(DEMO_R, tDip, "macros", {}, { ...stDemo, sw: { ...stDemo.sw, noSauce: false } })[0]) === [bowlH.id, dip.id].sort().join("|"), true);
-check("Demo: Drinks nie im Optimizer", T.optimizeAC(DEMO_R, tgt(0, 25, 0), "macros", {}, allOn).every(r => r.items.every(x => x.cat !== "drinks")), true);
-check("Demo: Drinks im Such-Index (Tracken erlaubt)", T.searchItems("apfelschorle").length, 1);
-const rBowls = T.optimizeAC(DEMO_R, tgt(65, 85, 20), "macros", {}, { ...stDemo, sw: T.toggleSwitch(DEMO_R, stDemo.sw, "onlyBowls", true) });
-check("Demo: Only bowls → nur Bowls", rBowls.length > 0 && rBowls.every(r => r.items.every(x => x.cat === "bowls")), true);
-const rSide = T.optimizeAC(DEMO_R, tgt(65, 85, 20), "macros", {}, { ...stDemo, sw: T.toggleSwitch(DEMO_R, stDemo.sw, "mustSide", true) });
-check("Demo: Must include a side → jede Bestellung mit Side", rSide.length > 0 && rSide.every(r => r.items.some(x => x.cat === "sides")), true);
-check("Demo: Standardziele (C85/P65/F20) → 20 Ergebnisse", T.optimizeAC(DEMO_R, tgt(65, 85, 20), "macros", {}, stDemo).length, 20);
-check("Demo: Suche 'haehnchen' findet beide Hähnchen-Items", T.searchItems("haehnchen").length, 2);
-check("Demo: Default-Index = SEARCH_INDEX ('demo bistro' → alle Demo-Einträge)", T.searchItems("demo bistro", 100).length === T.SEARCH_INDEX.length, true);
 
 console.log(`\n${passes} bestanden, ${failures} fehlgeschlagen`);
 if (failures) { console.log(failures + " Test(s) fehlgeschlagen"); process.exit(1); }
