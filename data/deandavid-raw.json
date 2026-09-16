@@ -1,0 +1,2659 @@
+{
+  "_meta": {
+    "restaurant": "dean&david",
+    "fetchedAt": "2026-09-16T09:21:05.382Z",
+    "sources": {
+      "nutrition": {
+        "file": "data/deandavid-naehrwerte.txt",
+        "pdf": "https://deananddavid.com/wp-content/uploads/2026/09/2026-08-dd-Naehrwertuebersicht.pdf",
+        "stand": "August 2026 (PDF vom 18.08.2026)"
+      },
+      "allergens": {
+        "file": "data/deandavid-allergene.json",
+        "pdf": "https://deananddavid.com/wp-content/uploads/2026/09/2026-08-dd-Allergenliste-DE-gueltig-bis-Dezember-2026.pdf",
+        "stand": "gültig bis Dezember 2026 (Stand 01.09.2026)"
+      },
+      "wolt": {
+        "venue": "deandavid-frankfurt-welle",
+        "page": "https://wolt.com/de/deu/frankfurt/restaurant/deandavid-frankfurt-welle",
+        "api": "https://consumer-api.wolt.com/consumer-api/consumer-assortment/v1/venues/slug/deandavid-frankfurt-welle/assortment"
+      }
+    },
+    "basis": "Offizielle Werte PRO PORTION der Mix-Your-Own-Bausteine. Ballaststoffe sind in der Tabelle nicht angegeben → 0. portionG = kJ je Portion / kJ je 100 g (nur Info).",
+    "rules": "Salat: Premium Blattsalatmix immer enthalten (fester Bestandteil), keine Basis-Auswahl; Bowl: genau eine Basis (Jasmin-Duftreis oder Quinoa-Vollkornreis) + Blattsalatmix (laut Wolt-Beschreibung). Dressing/Sauce 0–2 Portionen, Brot 0–2 Scheiben: „Mit knusprigem Landbrot“ = 1 Scheibe, „extra Brot“ = +1 Scheibe (+0,30 €), „Extra Dressing/Sauce“ = +1 Portion des gewählten Dressings (+0,80 €). Proteine (Chicken, Lachs, Rind, Halloumi, Ziegenkäse, Schafskäse) mehrfach bis zum Portionen-Chip, jede Bestellung ≥1 Protein; übrige Toppings je 1× (Wolt erlaubt je Topping bis 999×).",
+    "decisions": [
+      "User 16.09.2026: Dean & David (Wolt) mit zwei Trackern „Mix Your Own Salad bar“ und „Mix Your Own Bowl bar“, mit Preisen und Schalter „No dressing“ (Default AN wie alle „No …“-Schalter)",
+      "User 16.09.2026: Allergenliste von deananddavid.com herunterladen und für den Schalentier-Check auswerten",
+      "User 16.09.2026: ≥1 Protein je Bestellung, Proteine mehrfach (Portionen-Chip), alle anderen Toppings je 1×",
+      "User 16.09.2026: „Mit knusprigem Landbrot“ = 1 Scheibe, „extra Brot“ = +1 Scheibe, „Extra Dressing/Sauce“ = +1 Portion",
+      "User 16.09.2026: „Geg. Kartoffeln extra“ = „Extra - Roast Potatoes“; „Sonnenblumenkerne extra“ NICHT dem Kürbis-Sonnenblumkern-Mix zuordnen (weglassen)"
+    ],
+    "mapping": {
+      "Balsamico Ahornsirup Dressing": "Balsamico-Ahorn",
+      "Caesar Dressing": "Caesar",
+      "Rucola Dressing": "Rucola",
+      "Sweet Honey Mustard": "Honey Mustard",
+      "Tahini Lemon": "Tahini Lemon",
+      "Spicy Ginger Sauce": "Spicy Ginger Sauce",
+      "Teriyaki Sauce": "Teriyaki Sauce",
+      "Lemon Herbs Sauce": "Lemon Herbs Sauce",
+      "Soja Sesam Sauce": "Soja Sesam Sauce",
+      "Jasmin-Duftreis": "Bowl-Basis - Jasmin-Duftreis",
+      "Quinoa-Vollkornreis": "Bowl Basis - Quinoa Vollkornreis",
+      "Mit knusprigem Landbrot": "Brot 1 Scheibe",
+      "Kürbis": "Basic - Kürbis",
+      "Avocado extra": "Extra - Avocado",
+      "Hummus extra": "Extra - Hummus",
+      "Schafskäse extra": "Extra - Schafskäse",
+      "Süßkartoffel extra": "Extra - Süßkartoffel Chunks",
+      "Chicken extra": "Extra - Hähnchen-Filetstreifen",
+      "gegrilltes Gemüse extra": "Extra - Grillgemüse",
+      "Ziegenkäse extra": "Extra - Ziegenkäse",
+      "Lachs extra": "Extra - Räucherlachs",
+      "Rind extra": "Extra - Rinderstreifen",
+      "Halloumi extra": "Extra - Halloumi",
+      "Edamame extra": "Basic - Edamame",
+      "Granatapfelkerne extra": "Basic - Granatapfelkerne",
+      "Rote Bete extra": "Basic - Rote Bete",
+      "Walnüsse extra": "Basic - Walnüsse",
+      "Croutons extra": "Basic - Croûtons",
+      "Crunchy Onions extra": "Basic - Crunchy Onions",
+      "Erdnüsse extra": "Basic - Erdnüsse",
+      "Ei extra": "Basic - Freilandei",
+      "Gurken extra": "Basic - Gurken",
+      "Karotten extra": "Basic - Karotten",
+      "Paprika extra": "Basic - Paprika",
+      "Tomaten extra": "Basic - Kirschtomaten",
+      "Weintrauben extra": "Basic - Weintrauben",
+      "Geg. Kartoffeln extra": "Extra - Roast Potatoes",
+      "Frühlingszwiebeln extra": "Basic - Frühlingszwiebeln"
+    },
+    "noData": [
+      "Mix Your Own Salad bar: „Pumpkin spice Gewürz“ (0 €) — steht nicht in der Nährwerttabelle",
+      "Mix Your Own Salad bar: „Marinierte Zwiebeln“ (1.25 €) — steht nicht in der Nährwerttabelle",
+      "Mix Your Own Bowl bar: „Pumpkin spice Gewürz“ (0 €) — steht nicht in der Nährwerttabelle",
+      "Mix Your Own Bowl bar: „Marinierte Zwiebeln“ (1.25 €) — steht nicht in der Nährwerttabelle"
+    ],
+    "omitted": [
+      "Mix Your Own Salad bar: „Sonnenblumenkerne extra“ (1.25 €) — User 16.09.2026: nicht „Basic - Kürbis-Sonnenblumkern-Mix“ zuordnen → nicht im Rechner",
+      "Mix Your Own Bowl bar: „Sonnenblumenkerne extra“ (1.25 €) — User 16.09.2026: nicht „Basic - Kürbis-Sonnenblumkern-Mix“ zuordnen → nicht im Rechner"
+    ],
+    "notOnWolt": [
+      "Basic - Birne",
+      "Basic - Kürbis-Sonnenblumkern-Mix",
+      "Basic - Mango",
+      "Basic - Miso Mayo",
+      "Basic - Oliventapenade",
+      "Basic - Cranberries",
+      "Basic - Rotkohl mariniert",
+      "Extra - Falafel",
+      "Extra - Italian Hardcheese Flakes",
+      "Extra - planted.chicken"
+    ],
+    "venues": {
+      "deandavid-mainzer-landstrasse": "Mix Your Own Salad bar identisch · Mix Your Own Bowl bar identisch",
+      "deandavid-tower-185": "Mix Your Own Salad bar identisch · Mix Your Own Bowl bar identisch",
+      "deandavid-myzeil": "Mix Your Own Salad bar: nur deandavid-frankfurt-welle [Marinierte Zwiebeln 125] · nur hier [] · Mix Your Own Bowl bar: nur deandavid-frankfurt-welle [Marinierte Zwiebeln 125] · nur hier []",
+      "deandavid-bockenheim": "Mix Your Own Salad bar fehlt · Mix Your Own Bowl bar: nur deandavid-frankfurt-welle [] · nur hier [Rotkohl extra 125]",
+      "dean-david-frankfurt-bahnhofsplatz": "Mix Your Own Salad bar fehlt · Mix Your Own Bowl bar fehlt"
+    },
+    "anomalies": [
+      {
+        "id": "jasmin_duftreis",
+        "name": "Bowl-Basis - Jasmin-Duftreis",
+        "issues": [
+          "Seite 2 („Bowl Basis“, Zeile „Jasmin-Duftreis“) weicht ab: salt je 100 g 0.1 statt 0 → Rechner nutzt die Mix-Your-Own-Zeile"
+        ]
+      },
+      {
+        "id": "raeucherlachs",
+        "name": "Extra - Räucherlachs",
+        "issues": [
+          "je Portion passt nicht zu je 100 g × 60 g bei sugars (0.6 statt 1.2)"
+        ]
+      }
+    ],
+    "allergenNameDiffs": [
+      "Bowl-Basis - Jasmin-Duftreis = Allergenliste „Bowl Basis - Jasmin-Duftreis“",
+      "Brot 1 Scheibe = Allergenliste „Landbrot“",
+      "Basic - Freilandei = Allergenliste „Basic - Ei“",
+      "Basic - Cranberries = Allergenliste „Basic - Preiselbeeren“",
+      "Extra - Falafel = Allergenliste „Extra - Green Falafel“",
+      "Extra - Italian Hardcheese Flakes = Allergenliste „Extra - Gran Moravia (ital. Hartkäse)“",
+      "Extra - Grillgemüse = Allergenliste „Extra - gegrilltes Gemüse“",
+      "Extra - Hähnchen-Filetstreifen = Allergenliste „Extra - gegrilltes Hähnchen-Filet“",
+      "Extra - Räucherlachs = Allergenliste „Extra - Premium Räucherlachs“",
+      "Extra - planted.chicken = Allergenliste „Extra - planted.chicken classic“",
+      "Extra - Rinderstreifen = Allergenliste „Extra - gegrillte Rinderstreifen“",
+      "Extra - Süßkartoffel Chunks = Allergenliste „Extra - Süßkartoffel Scheiben“",
+      "Extra - Ziegenkäse = Allergenliste „Extra - französischer Ziegenkäse“"
+    ],
+    "shellfish": [],
+    "fibre": "Ballaststoffe nicht angegeben → 0 (alle Bausteine)",
+    "dislikes": "Koriander/Minze: Die offiziellen Listen enthalten keine Zutaten → nicht prüfbar (Lemon Herbs Sauce: Kräuter unbekannt)"
+  },
+  "ingredients": [
+    {
+      "id": "blattsalatmix",
+      "name": "Premium Blattsalatmix",
+      "pdfName": "Basis - Blattsalatmix",
+      "section": "basis",
+      "page": 1,
+      "portionG": 100,
+      "kj": {
+        "per100": 84,
+        "perPortion": 84
+      },
+      "per100": {
+        "kcal": 20,
+        "fat": 0.3,
+        "sat": 0.1,
+        "carbs": 2.8,
+        "sugars": 0.9,
+        "fibre": 0,
+        "protein": 1.4,
+        "salt": 0.1
+      },
+      "perPortion": {
+        "kcal": 20,
+        "fat": 0.3,
+        "sat": 0.1,
+        "carbs": 2.8,
+        "sugars": 0.9,
+        "fibre": 0,
+        "protein": 1.4,
+        "salt": 0.1
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "quinoa_vollkornreis",
+      "name": "Quinoa-Vollkornreis",
+      "pdfName": "Bowl Basis - Quinoa Vollkornreis",
+      "section": "bowlbasis",
+      "page": 1,
+      "portionG": 200,
+      "kj": {
+        "per100": 507,
+        "perPortion": 1013
+      },
+      "per100": {
+        "kcal": 121,
+        "fat": 1.5,
+        "sat": 0.2,
+        "carbs": 23.2,
+        "sugars": 0.3,
+        "fibre": 0,
+        "protein": 3.2,
+        "salt": 0.1
+      },
+      "perPortion": {
+        "kcal": 241,
+        "fat": 3,
+        "sat": 0.4,
+        "carbs": 46.4,
+        "sugars": 0.6,
+        "fibre": 0,
+        "protein": 6.4,
+        "salt": 0.3
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "jasmin_duftreis",
+      "name": "Jasmin-Duftreis",
+      "pdfName": "Bowl-Basis - Jasmin-Duftreis",
+      "section": "bowlbasis",
+      "page": 1,
+      "portionG": 200,
+      "kj": {
+        "per100": 700,
+        "perPortion": 1400
+      },
+      "per100": {
+        "kcal": 165,
+        "fat": 0.3,
+        "sat": 0,
+        "carbs": 37,
+        "sugars": 0.1,
+        "fibre": 0,
+        "protein": 3.2,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 330,
+        "fat": 0.6,
+        "sat": 0.1,
+        "carbs": 74,
+        "sugars": 0.2,
+        "fibre": 0,
+        "protein": 6.5,
+        "salt": 0
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "landbrot",
+      "name": "Landbrot (1 Scheibe)",
+      "pdfName": "Brot 1 Scheibe",
+      "section": "brot",
+      "page": 1,
+      "portionG": 25,
+      "kj": {
+        "per100": 1164,
+        "perPortion": 291
+      },
+      "per100": {
+        "kcal": 276,
+        "fat": 5.4,
+        "sat": 0.7,
+        "carbs": 46,
+        "sugars": 0.8,
+        "fibre": 0,
+        "protein": 8.4,
+        "salt": 1.7
+      },
+      "perPortion": {
+        "kcal": 69,
+        "fat": 1.4,
+        "sat": 0.2,
+        "carbs": 11.5,
+        "sugars": 0.2,
+        "fibre": 0,
+        "protein": 2.1,
+        "salt": 0.4
+      },
+      "allergens": [
+        "Gluten (A1, A2, A3)",
+        "Sesam"
+      ],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "caesar",
+      "name": "Caesar Dressing",
+      "pdfName": "Caesar",
+      "section": "dressing",
+      "page": 1,
+      "portionG": 80,
+      "kj": {
+        "per100": 1226,
+        "perPortion": 981
+      },
+      "per100": {
+        "kcal": 293,
+        "fat": 29,
+        "sat": 2.4,
+        "carbs": 6.8,
+        "sugars": 5,
+        "fibre": 0,
+        "protein": 1.5,
+        "salt": 1.2
+      },
+      "perPortion": {
+        "kcal": 234,
+        "fat": 23.2,
+        "sat": 1.9,
+        "carbs": 5.4,
+        "sugars": 4,
+        "fibre": 0,
+        "protein": 1.2,
+        "salt": 1
+      },
+      "allergens": [
+        "Soja",
+        "Senf"
+      ],
+      "hints": [
+        "Knoblauch",
+        "Alkohol",
+        "Vegetarier",
+        "Veganer"
+      ]
+    },
+    {
+      "id": "rucola",
+      "name": "Rucola Dressing",
+      "pdfName": "Rucola",
+      "section": "dressing",
+      "page": 1,
+      "portionG": 80,
+      "kj": {
+        "per100": 1529,
+        "perPortion": 1223
+      },
+      "per100": {
+        "kcal": 365,
+        "fat": 34.1,
+        "sat": 2.8,
+        "carbs": 13.3,
+        "sugars": 12.5,
+        "fibre": 0,
+        "protein": 1.1,
+        "salt": 1.6
+      },
+      "perPortion": {
+        "kcal": 292,
+        "fat": 27.3,
+        "sat": 2.2,
+        "carbs": 10.7,
+        "sugars": 10,
+        "fibre": 0,
+        "protein": 0.9,
+        "salt": 1.3
+      },
+      "allergens": [
+        "Senf"
+      ],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "tahini_lemon",
+      "name": "Tahini Lemon",
+      "pdfName": "Tahini Lemon",
+      "section": "dressing",
+      "page": 1,
+      "portionG": 80,
+      "kj": {
+        "per100": 950,
+        "perPortion": 760
+      },
+      "per100": {
+        "kcal": 227,
+        "fat": 19.4,
+        "sat": 1.9,
+        "carbs": 7.6,
+        "sugars": 6.1,
+        "fibre": 0,
+        "protein": 4.3,
+        "salt": 3
+      },
+      "perPortion": {
+        "kcal": 182,
+        "fat": 15.5,
+        "sat": 1.5,
+        "carbs": 6.1,
+        "sugars": 4.9,
+        "fibre": 0,
+        "protein": 3.4,
+        "salt": 2.4
+      },
+      "allergens": [
+        "Gluten (A1)",
+        "Soja",
+        "Sesam"
+      ],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "honey_mustard",
+      "name": "Honey Mustard",
+      "pdfName": "Honey Mustard",
+      "section": "dressing",
+      "page": 1,
+      "portionG": 80,
+      "kj": {
+        "per100": 1980,
+        "perPortion": 1584
+      },
+      "per100": {
+        "kcal": 480,
+        "fat": 48,
+        "sat": 3.9,
+        "carbs": 11,
+        "sugars": 9.6,
+        "fibre": 0,
+        "protein": 0.7,
+        "salt": 2
+      },
+      "perPortion": {
+        "kcal": 384,
+        "fat": 38.4,
+        "sat": 3.1,
+        "carbs": 8.8,
+        "sugars": 7.7,
+        "fibre": 0,
+        "protein": 0.6,
+        "salt": 1.6
+      },
+      "allergens": [
+        "Senf"
+      ],
+      "hints": [
+        "Zwiebel",
+        "Vegetarier",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "balsamico_ahorn",
+      "name": "Balsamico-Ahorn",
+      "pdfName": "Balsamico-Ahorn",
+      "section": "dressing",
+      "page": 1,
+      "portionG": 80,
+      "kj": {
+        "per100": 1197,
+        "perPortion": 958
+      },
+      "per100": {
+        "kcal": 286,
+        "fat": 26,
+        "sat": 2.1,
+        "carbs": 11,
+        "sugars": 5,
+        "fibre": 0,
+        "protein": 0.5,
+        "salt": 0.6
+      },
+      "perPortion": {
+        "kcal": 229,
+        "fat": 20.8,
+        "sat": 1.7,
+        "carbs": 8.8,
+        "sugars": 4,
+        "fibre": 0,
+        "protein": 0.4,
+        "salt": 0.5
+      },
+      "allergens": [
+        "Senf"
+      ],
+      "hints": [
+        "Knoblauch",
+        "Zwiebel",
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "soja_sesam_sauce",
+      "name": "Soja Sesam Sauce",
+      "pdfName": "Soja Sesam Sauce",
+      "section": "bowlsauce",
+      "page": 2,
+      "portionG": 80,
+      "kj": {
+        "per100": 1493,
+        "perPortion": 1194
+      },
+      "per100": {
+        "kcal": 361,
+        "fat": 33,
+        "sat": 3.4,
+        "carbs": 13,
+        "sugars": 12,
+        "fibre": 0,
+        "protein": 1.8,
+        "salt": 1.3
+      },
+      "perPortion": {
+        "kcal": 289,
+        "fat": 26.4,
+        "sat": 2.7,
+        "carbs": 10.4,
+        "sugars": 9.6,
+        "fibre": 0,
+        "protein": 1.4,
+        "salt": 1
+      },
+      "allergens": [
+        "Gluten (A1)",
+        "Soja",
+        "Milch",
+        "Senf",
+        "Sesam"
+      ],
+      "hints": [
+        "Schärfegrad",
+        "Vegetarier",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "lemon_herbs_sauce",
+      "name": "Lemon Herbs Sauce",
+      "pdfName": "Lemon Herbs Sauce",
+      "section": "bowlsauce",
+      "page": 2,
+      "portionG": 80,
+      "kj": {
+        "per100": 867,
+        "perPortion": 694
+      },
+      "per100": {
+        "kcal": 207,
+        "fat": 20.3,
+        "sat": 1.5,
+        "carbs": 6.2,
+        "sugars": 3.5,
+        "fibre": 0,
+        "protein": 0.3,
+        "salt": 1.9
+      },
+      "perPortion": {
+        "kcal": 166,
+        "fat": 16.2,
+        "sat": 1.2,
+        "carbs": 5,
+        "sugars": 2.8,
+        "fibre": 0,
+        "protein": 0.2,
+        "salt": 1.5
+      },
+      "allergens": [
+        "Sesam"
+      ],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "teriyaki_sauce",
+      "name": "Teriyaki Sauce",
+      "pdfName": "Teriyaki Sauce",
+      "section": "bowlsauce",
+      "page": 2,
+      "portionG": 80,
+      "kj": {
+        "per100": 1071,
+        "perPortion": 857
+      },
+      "per100": {
+        "kcal": 256,
+        "fat": 19.9,
+        "sat": 1.4,
+        "carbs": 16.6,
+        "sugars": 16.1,
+        "fibre": 0,
+        "protein": 1.8,
+        "salt": 4.4
+      },
+      "perPortion": {
+        "kcal": 205,
+        "fat": 15.9,
+        "sat": 1.1,
+        "carbs": 13.3,
+        "sugars": 12.9,
+        "fibre": 0,
+        "protein": 1.4,
+        "salt": 3.5
+      },
+      "allergens": [
+        "Gluten (A1)",
+        "Soja"
+      ],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "spicy_ginger_sauce",
+      "name": "Spicy Ginger Sauce",
+      "pdfName": "Spicy Ginger Sauce",
+      "section": "bowlsauce",
+      "page": 2,
+      "portionG": 80,
+      "kj": {
+        "per100": 1748,
+        "perPortion": 1398
+      },
+      "per100": {
+        "kcal": 418,
+        "fat": 43,
+        "sat": 3.4,
+        "carbs": 7,
+        "sugars": 5.8,
+        "fibre": 0,
+        "protein": 1.6,
+        "salt": 3
+      },
+      "perPortion": {
+        "kcal": 334,
+        "fat": 34.4,
+        "sat": 2.7,
+        "carbs": 5.6,
+        "sugars": 4.6,
+        "fibre": 0,
+        "protein": 1.3,
+        "salt": 2.4
+      },
+      "allergens": [
+        "Gluten (A1)",
+        "Soja"
+      ],
+      "hints": [
+        "Alkohol",
+        "Schärfegrad",
+        "Vegetarier",
+        "Veganer"
+      ]
+    },
+    {
+      "id": "birne",
+      "name": "Birne",
+      "pdfName": "Basic - Birne",
+      "section": "basic",
+      "page": 1,
+      "portionG": 50,
+      "kj": {
+        "per100": 241,
+        "perPortion": 121
+      },
+      "per100": {
+        "kcal": 57,
+        "fat": 0.3,
+        "sat": 0,
+        "carbs": 12.4,
+        "sugars": 10.2,
+        "fibre": 0,
+        "protein": 0.5,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 29,
+        "fat": 0.2,
+        "sat": 0,
+        "carbs": 6.2,
+        "sugars": 5.1,
+        "fibre": 0,
+        "protein": 0.3,
+        "salt": 0
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "croutons",
+      "name": "Croûtons",
+      "pdfName": "Basic - Croûtons",
+      "section": "basic",
+      "page": 1,
+      "portionG": 15,
+      "kj": {
+        "per100": 1707,
+        "perPortion": 256
+      },
+      "per100": {
+        "kcal": 405,
+        "fat": 10,
+        "sat": 1.2,
+        "carbs": 65,
+        "sugars": 5.5,
+        "fibre": 0,
+        "protein": 12,
+        "salt": 2.8
+      },
+      "perPortion": {
+        "kcal": 61,
+        "fat": 1.5,
+        "sat": 0.2,
+        "carbs": 9.8,
+        "sugars": 0.8,
+        "fibre": 0,
+        "protein": 1.8,
+        "salt": 0.4
+      },
+      "allergens": [
+        "Gluten (A1)"
+      ],
+      "hints": [
+        "Knoblauch",
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "crunchy_onions",
+      "name": "Crunchy Onions",
+      "pdfName": "Basic - Crunchy Onions",
+      "section": "basic",
+      "page": 1,
+      "portionG": 10,
+      "kj": {
+        "per100": 2450,
+        "perPortion": 245
+      },
+      "per100": {
+        "kcal": 590,
+        "fat": 44,
+        "sat": 21,
+        "carbs": 40,
+        "sugars": 9,
+        "fibre": 0,
+        "protein": 6,
+        "salt": 1.2
+      },
+      "perPortion": {
+        "kcal": 59,
+        "fat": 4.4,
+        "sat": 2.1,
+        "carbs": 4,
+        "sugars": 0.9,
+        "fibre": 0,
+        "protein": 0.6,
+        "salt": 0.1
+      },
+      "allergens": [
+        "Gluten (A1)"
+      ],
+      "hints": [
+        "Zwiebel",
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "edamame",
+      "name": "Edamame",
+      "pdfName": "Basic - Edamame",
+      "section": "basic",
+      "page": 1,
+      "portionG": 30,
+      "kj": {
+        "per100": 562,
+        "perPortion": 169
+      },
+      "per100": {
+        "kcal": 134,
+        "fat": 6,
+        "sat": 0.8,
+        "carbs": 5.1,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 14,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 40,
+        "fat": 1.8,
+        "sat": 0.2,
+        "carbs": 1.5,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 4.2,
+        "salt": 0
+      },
+      "allergens": [
+        "Soja"
+      ],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "erdnuesse",
+      "name": "Erdnüsse",
+      "pdfName": "Basic - Erdnüsse",
+      "section": "basic",
+      "page": 1,
+      "portionG": 15,
+      "kj": {
+        "per100": 2569,
+        "perPortion": 385
+      },
+      "per100": {
+        "kcal": 620,
+        "fat": 51,
+        "sat": 8.3,
+        "carbs": 9.6,
+        "sugars": 5.2,
+        "fibre": 0,
+        "protein": 27,
+        "salt": 1
+      },
+      "perPortion": {
+        "kcal": 93,
+        "fat": 7.7,
+        "sat": 1.2,
+        "carbs": 1.4,
+        "sugars": 0.8,
+        "fibre": 0,
+        "protein": 4.1,
+        "salt": 0.2
+      },
+      "allergens": [
+        "Erdnüsse"
+      ],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "freilandei",
+      "name": "Freilandei",
+      "pdfName": "Basic - Freilandei",
+      "section": "basic",
+      "page": 1,
+      "portionG": 41,
+      "kj": {
+        "per100": 638,
+        "perPortion": 262
+      },
+      "per100": {
+        "kcal": 153,
+        "fat": 11,
+        "sat": 3.3,
+        "carbs": 0.6,
+        "sugars": 0.5,
+        "fibre": 0,
+        "protein": 13,
+        "salt": 0.4
+      },
+      "perPortion": {
+        "kcal": 63,
+        "fat": 4.5,
+        "sat": 1.4,
+        "carbs": 0.2,
+        "sugars": 0.2,
+        "fibre": 0,
+        "protein": 5.3,
+        "salt": 0.2
+      },
+      "allergens": [
+        "Ei"
+      ],
+      "hints": [
+        "Vegetarier",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "fruehlingszwiebeln",
+      "name": "Frühlingszwiebeln",
+      "pdfName": "Basic - Frühlingszwiebeln",
+      "section": "basic",
+      "page": 1,
+      "portionG": 10,
+      "kj": {
+        "per100": 196,
+        "perPortion": 20
+      },
+      "per100": {
+        "kcal": 47,
+        "fat": 0.3,
+        "sat": 0.1,
+        "carbs": 8.5,
+        "sugars": 6.5,
+        "fibre": 0,
+        "protein": 0.9,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 5,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.9,
+        "sugars": 0.7,
+        "fibre": 0,
+        "protein": 0.1,
+        "salt": 0
+      },
+      "allergens": [],
+      "hints": [
+        "Zwiebel",
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "granatapfelkerne",
+      "name": "Granatapfelkerne",
+      "pdfName": "Basic - Granatapfelkerne",
+      "section": "basic",
+      "page": 1,
+      "portionG": 10,
+      "kj": {
+        "per100": 327,
+        "perPortion": 33
+      },
+      "per100": {
+        "kcal": 76,
+        "fat": 0.6,
+        "sat": 0.1,
+        "carbs": 16.1,
+        "sugars": 16.1,
+        "fibre": 0,
+        "protein": 0.7,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 8,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 1.6,
+        "sugars": 1.6,
+        "fibre": 0,
+        "protein": 0.1,
+        "salt": 0
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "gurken",
+      "name": "Gurken",
+      "pdfName": "Basic - Gurken",
+      "section": "basic",
+      "page": 1,
+      "portionG": 30,
+      "kj": {
+        "per100": 50,
+        "perPortion": 15
+      },
+      "per100": {
+        "kcal": 12,
+        "fat": 0.2,
+        "sat": 0.1,
+        "carbs": 1.8,
+        "sugars": 1.8,
+        "fibre": 0,
+        "protein": 0.6,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 4,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 0.5,
+        "sugars": 0.5,
+        "fibre": 0,
+        "protein": 0.2,
+        "salt": 0
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "karotten",
+      "name": "Karotten",
+      "pdfName": "Basic - Karotten",
+      "section": "basic",
+      "page": 1,
+      "portionG": 30,
+      "kj": {
+        "per100": 137,
+        "perPortion": 41
+      },
+      "per100": {
+        "kcal": 33,
+        "fat": 0.2,
+        "sat": 0,
+        "carbs": 6.8,
+        "sugars": 6.3,
+        "fibre": 0,
+        "protein": 0.8,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 10,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 2,
+        "sugars": 1.9,
+        "fibre": 0,
+        "protein": 0.2,
+        "salt": 0
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "kirschtomaten",
+      "name": "Kirschtomaten",
+      "pdfName": "Basic - Kirschtomaten",
+      "section": "basic",
+      "page": 1,
+      "portionG": 41,
+      "kj": {
+        "per100": 79,
+        "perPortion": 32
+      },
+      "per100": {
+        "kcal": 19,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 3,
+        "sugars": 2,
+        "fibre": 0,
+        "protein": 1,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 8,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 1.2,
+        "sugars": 0.8,
+        "fibre": 0,
+        "protein": 0.4,
+        "salt": 0
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "kuerbis",
+      "name": "Kürbis",
+      "pdfName": "Basic - Kürbis",
+      "section": "basic",
+      "page": 1,
+      "portionG": 85,
+      "kj": {
+        "per100": 187,
+        "perPortion": 159
+      },
+      "per100": {
+        "kcal": 45,
+        "fat": 2,
+        "sat": 0.1,
+        "carbs": 4.9,
+        "sugars": 3.9,
+        "fibre": 0,
+        "protein": 1,
+        "salt": 0.3
+      },
+      "perPortion": {
+        "kcal": 38,
+        "fat": 1.7,
+        "sat": 0.1,
+        "carbs": 4.2,
+        "sugars": 3.3,
+        "fibre": 0,
+        "protein": 0.8,
+        "salt": 0.2
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "kuerbis_sonnenblumenkern_mix",
+      "name": "Kürbis-Sonnenblumenkern-Mix",
+      "pdfName": "Basic - Kürbis-Sonnenblumkern-Mix",
+      "section": "basic",
+      "page": 1,
+      "portionG": 10,
+      "kj": {
+        "per100": 2657,
+        "perPortion": 266
+      },
+      "per100": {
+        "kcal": 643,
+        "fat": 56.6,
+        "sat": 9.7,
+        "carbs": 4.3,
+        "sugars": 2.5,
+        "fibre": 0,
+        "protein": 25.3,
+        "salt": 0.1
+      },
+      "perPortion": {
+        "kcal": 64,
+        "fat": 5.7,
+        "sat": 1,
+        "carbs": 0.4,
+        "sugars": 0.3,
+        "fibre": 0,
+        "protein": 2.5,
+        "salt": 0
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "mango",
+      "name": "Mango",
+      "pdfName": "Basic - Mango",
+      "section": "basic",
+      "page": 1,
+      "portionG": 50,
+      "kj": {
+        "per100": 257,
+        "perPortion": 129
+      },
+      "per100": {
+        "kcal": 60,
+        "fat": 0.5,
+        "sat": 0.1,
+        "carbs": 12.5,
+        "sugars": 12.5,
+        "fibre": 0,
+        "protein": 0.6,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 30,
+        "fat": 0.3,
+        "sat": 0.1,
+        "carbs": 6.3,
+        "sugars": 6.3,
+        "fibre": 0,
+        "protein": 0.3,
+        "salt": 0
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "miso_mayo",
+      "name": "Miso Mayo",
+      "pdfName": "Basic - Miso Mayo",
+      "section": "basic",
+      "page": 1,
+      "portionG": 20,
+      "kj": {
+        "per100": 2212,
+        "perPortion": 442
+      },
+      "per100": {
+        "kcal": 536,
+        "fat": 55.4,
+        "sat": 3.9,
+        "carbs": 7.1,
+        "sugars": 4.7,
+        "fibre": 0,
+        "protein": 1.6,
+        "salt": 1.6
+      },
+      "perPortion": {
+        "kcal": 107,
+        "fat": 11.1,
+        "sat": 0.8,
+        "carbs": 1.4,
+        "sugars": 0.9,
+        "fibre": 0,
+        "protein": 0.3,
+        "salt": 0.3
+      },
+      "allergens": [
+        "Gluten (A1)",
+        "Soja",
+        "Senf"
+      ],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "oliventapenade",
+      "name": "Oliventapenade",
+      "pdfName": "Basic - Oliventapenade",
+      "section": "basic",
+      "page": 1,
+      "portionG": 10,
+      "kj": {
+        "per100": 1425,
+        "perPortion": 143
+      },
+      "per100": {
+        "kcal": 347,
+        "fat": 36,
+        "sat": 3.9,
+        "carbs": 1.2,
+        "sugars": 0.6,
+        "fibre": 0,
+        "protein": 1.5,
+        "salt": 1.7
+      },
+      "perPortion": {
+        "kcal": 35,
+        "fat": 3.6,
+        "sat": 0.4,
+        "carbs": 0.1,
+        "sugars": 0.1,
+        "fibre": 0,
+        "protein": 0.2,
+        "salt": 0.2
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "paprika",
+      "name": "Paprika",
+      "pdfName": "Basic - Paprika",
+      "section": "basic",
+      "page": 1,
+      "portionG": 20,
+      "kj": {
+        "per100": 119,
+        "perPortion": 24
+      },
+      "per100": {
+        "kcal": 29,
+        "fat": 0.4,
+        "sat": 0.1,
+        "carbs": 4.9,
+        "sugars": 4.7,
+        "fibre": 0,
+        "protein": 1.2,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 6,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 1,
+        "sugars": 0.9,
+        "fibre": 0,
+        "protein": 0.2,
+        "salt": 0
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "cranberries",
+      "name": "Cranberries",
+      "pdfName": "Basic - Cranberries",
+      "section": "basic",
+      "page": 1,
+      "portionG": 30,
+      "kj": {
+        "per100": 690,
+        "perPortion": 207
+      },
+      "per100": {
+        "kcal": 162,
+        "fat": 0.2,
+        "sat": 0.1,
+        "carbs": 38.7,
+        "sugars": 35.4,
+        "fibre": 0,
+        "protein": 0.1,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 49,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 11.6,
+        "sugars": 10.6,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "rote_bete",
+      "name": "Rote Bete",
+      "pdfName": "Basic - Rote Bete",
+      "section": "basic",
+      "page": 1,
+      "portionG": 50,
+      "kj": {
+        "per100": 180,
+        "perPortion": 90
+      },
+      "per100": {
+        "kcal": 43,
+        "fat": 0.4,
+        "sat": 0.2,
+        "carbs": 7.1,
+        "sugars": 6.7,
+        "fibre": 0,
+        "protein": 1.4,
+        "salt": 0.2
+      },
+      "perPortion": {
+        "kcal": 21,
+        "fat": 0.2,
+        "sat": 0.1,
+        "carbs": 3.6,
+        "sugars": 3.4,
+        "fibre": 0,
+        "protein": 0.7,
+        "salt": 0.1
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "rotkohl_mariniert",
+      "name": "Rotkohl mariniert",
+      "pdfName": "Basic - Rotkohl mariniert",
+      "section": "basic",
+      "page": 1,
+      "portionG": 30,
+      "kj": {
+        "per100": 178,
+        "perPortion": 53
+      },
+      "per100": {
+        "kcal": 43,
+        "fat": 2.4,
+        "sat": 0.3,
+        "carbs": 3.4,
+        "sugars": 3.3,
+        "fibre": 0,
+        "protein": 1.5,
+        "salt": 0.1
+      },
+      "perPortion": {
+        "kcal": 13,
+        "fat": 0.7,
+        "sat": 0.1,
+        "carbs": 1,
+        "sugars": 1,
+        "fibre": 0,
+        "protein": 0.5,
+        "salt": 0
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "walnuesse",
+      "name": "Walnüsse",
+      "pdfName": "Basic - Walnüsse",
+      "section": "basic",
+      "page": 1,
+      "portionG": 15,
+      "kj": {
+        "per100": 2738,
+        "perPortion": 411
+      },
+      "per100": {
+        "kcal": 663,
+        "fat": 64,
+        "sat": 5,
+        "carbs": 13.7,
+        "sugars": 2.6,
+        "fibre": 0,
+        "protein": 14.8,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 99,
+        "fat": 9.6,
+        "sat": 0.8,
+        "carbs": 2.1,
+        "sugars": 0.4,
+        "fibre": 0,
+        "protein": 2.2,
+        "salt": 0
+      },
+      "allergens": [
+        "Schalenfrüchte (H3)"
+      ],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "weintrauben",
+      "name": "Weintrauben",
+      "pdfName": "Basic - Weintrauben",
+      "section": "basic",
+      "page": 1,
+      "portionG": 50,
+      "kj": {
+        "per100": 294,
+        "perPortion": 147
+      },
+      "per100": {
+        "kcal": 70,
+        "fat": 0.3,
+        "sat": 0.1,
+        "carbs": 15.2,
+        "sugars": 15.1,
+        "fibre": 0,
+        "protein": 0.7,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 35,
+        "fat": 0.2,
+        "sat": 0.1,
+        "carbs": 7.6,
+        "sugars": 7.6,
+        "fibre": 0,
+        "protein": 0.4,
+        "salt": 0
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "avocado",
+      "name": "Avocado",
+      "pdfName": "Extra - Avocado",
+      "section": "extra",
+      "page": 1,
+      "portionG": 25,
+      "kj": {
+        "per100": 579,
+        "perPortion": 145
+      },
+      "per100": {
+        "kcal": 138,
+        "fat": 12.5,
+        "sat": 2.1,
+        "carbs": 3.6,
+        "sugars": 0.4,
+        "fibre": 0,
+        "protein": 1.4,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 35,
+        "fat": 3.1,
+        "sat": 0.5,
+        "carbs": 0.9,
+        "sugars": 0.1,
+        "fibre": 0,
+        "protein": 0.4,
+        "salt": 0
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "falafel",
+      "name": "Falafel",
+      "pdfName": "Extra - Falafel",
+      "section": "extra",
+      "page": 1,
+      "portionG": 87,
+      "kj": {
+        "per100": 937,
+        "perPortion": 815
+      },
+      "per100": {
+        "kcal": 224,
+        "fat": 11.8,
+        "sat": 1.1,
+        "carbs": 22.6,
+        "sugars": 1.8,
+        "fibre": 0,
+        "protein": 6.4,
+        "salt": 0.9
+      },
+      "perPortion": {
+        "kcal": 195,
+        "fat": 10.3,
+        "sat": 1,
+        "carbs": 19.7,
+        "sugars": 1.6,
+        "fibre": 0,
+        "protein": 5.5,
+        "salt": 0.8
+      },
+      "allergens": [],
+      "hints": [
+        "Knoblauch",
+        "Zwiebel",
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "italian_hardcheese_flakes",
+      "name": "Italian Hardcheese Flakes",
+      "pdfName": "Extra - Italian Hardcheese Flakes",
+      "section": "extra",
+      "page": 1,
+      "portionG": 15,
+      "kj": {
+        "per100": 1537,
+        "perPortion": 231
+      },
+      "per100": {
+        "kcal": 378,
+        "fat": 28,
+        "sat": 20,
+        "carbs": 0.6,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 31,
+        "salt": 1.4
+      },
+      "perPortion": {
+        "kcal": 57,
+        "fat": 4.2,
+        "sat": 3,
+        "carbs": 0.1,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 4.7,
+        "salt": 0.2
+      },
+      "allergens": [
+        "Milch"
+      ],
+      "hints": [
+        "Vegetarier",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "grillgemuese",
+      "name": "Grillgemüse",
+      "pdfName": "Extra - Grillgemüse",
+      "section": "extra",
+      "page": 1,
+      "portionG": 83,
+      "kj": {
+        "per100": 389,
+        "perPortion": 323
+      },
+      "per100": {
+        "kcal": 93,
+        "fat": 4.3,
+        "sat": 0.4,
+        "carbs": 9.3,
+        "sugars": 9.3,
+        "fibre": 0,
+        "protein": 3.7,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 77,
+        "fat": 3.6,
+        "sat": 0.3,
+        "carbs": 7.7,
+        "sugars": 7.7,
+        "fibre": 0,
+        "protein": 3.1,
+        "salt": 0
+      },
+      "allergens": [],
+      "hints": [
+        "Zwiebel",
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "haehnchen_filetstreifen",
+      "name": "Hähnchen-Filetstreifen",
+      "pdfName": "Extra - Hähnchen-Filetstreifen",
+      "section": "extra",
+      "page": 1,
+      "portionG": 83,
+      "kj": {
+        "per100": 530,
+        "perPortion": 440
+      },
+      "per100": {
+        "kcal": 126,
+        "fat": 4.6,
+        "sat": 0.5,
+        "carbs": 2.9,
+        "sugars": 0.3,
+        "fibre": 0,
+        "protein": 18.3,
+        "salt": 1.5
+      },
+      "perPortion": {
+        "kcal": 105,
+        "fat": 3.8,
+        "sat": 0.5,
+        "carbs": 2.4,
+        "sugars": 0.2,
+        "fibre": 0,
+        "protein": 15.2,
+        "salt": 1.3
+      },
+      "allergens": [],
+      "hints": [
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "hummus",
+      "name": "Hummus",
+      "pdfName": "Extra - Hummus",
+      "section": "extra",
+      "page": 1,
+      "portionG": 40,
+      "kj": {
+        "per100": 865,
+        "perPortion": 346
+      },
+      "per100": {
+        "kcal": 208,
+        "fat": 14,
+        "sat": 1.1,
+        "carbs": 16,
+        "sugars": 2.7,
+        "fibre": 0,
+        "protein": 5.6,
+        "salt": 1.1
+      },
+      "perPortion": {
+        "kcal": 83,
+        "fat": 5.6,
+        "sat": 0.4,
+        "carbs": 6.4,
+        "sugars": 1.1,
+        "fibre": 0,
+        "protein": 2.2,
+        "salt": 0.4
+      },
+      "allergens": [
+        "Sesam"
+      ],
+      "hints": [
+        "Knoblauch",
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "halloumi",
+      "name": "Halloumi",
+      "pdfName": "Extra - Halloumi",
+      "section": "extra",
+      "page": 1,
+      "portionG": 83,
+      "kj": {
+        "per100": 1468,
+        "perPortion": 1218
+      },
+      "per100": {
+        "kcal": 353,
+        "fat": 27.8,
+        "sat": 14.8,
+        "carbs": 2.3,
+        "sugars": 2.3,
+        "fibre": 0,
+        "protein": 23.5,
+        "salt": 2.3
+      },
+      "perPortion": {
+        "kcal": 293,
+        "fat": 23.1,
+        "sat": 12.3,
+        "carbs": 1.9,
+        "sugars": 1.9,
+        "fibre": 0,
+        "protein": 19.5,
+        "salt": 1.9
+      },
+      "allergens": [
+        "Milch"
+      ],
+      "hints": [
+        "Vegetarier",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "raeucherlachs",
+      "name": "Räucherlachs",
+      "pdfName": "Extra - Räucherlachs",
+      "section": "extra",
+      "page": 1,
+      "portionG": 60,
+      "kj": {
+        "per100": 752,
+        "perPortion": 451
+      },
+      "per100": {
+        "kcal": 180,
+        "fat": 9.9,
+        "sat": 1.8,
+        "carbs": 2,
+        "sugars": 2,
+        "fibre": 0,
+        "protein": 21.2,
+        "salt": 2.5
+      },
+      "perPortion": {
+        "kcal": 108,
+        "fat": 5.9,
+        "sat": 1.1,
+        "carbs": 1.2,
+        "sugars": 0.6,
+        "fibre": 0,
+        "protein": 12.7,
+        "salt": 1.5
+      },
+      "allergens": [
+        "Fisch"
+      ],
+      "hints": []
+    },
+    {
+      "id": "planted_chicken",
+      "name": "planted.chicken",
+      "pdfName": "Extra - planted.chicken",
+      "section": "extra",
+      "page": 1,
+      "portionG": 83,
+      "kj": {
+        "per100": 900,
+        "perPortion": 747
+      },
+      "per100": {
+        "kcal": 216,
+        "fat": 13.1,
+        "sat": 1.2,
+        "carbs": 2.1,
+        "sugars": 0.3,
+        "fibre": 0,
+        "protein": 20.2,
+        "salt": 1.7
+      },
+      "perPortion": {
+        "kcal": 179,
+        "fat": 10.8,
+        "sat": 1,
+        "carbs": 1.8,
+        "sugars": 0.2,
+        "fibre": 0,
+        "protein": 16.8,
+        "salt": 1.4
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "roast_potatoes",
+      "name": "Roast Potatoes",
+      "pdfName": "Extra - Roast Potatoes",
+      "section": "extra",
+      "page": 1,
+      "portionG": 83,
+      "kj": {
+        "per100": 679,
+        "perPortion": 563
+      },
+      "per100": {
+        "kcal": 163,
+        "fat": 6.4,
+        "sat": 0.4,
+        "carbs": 22,
+        "sugars": 1.4,
+        "fibre": 0,
+        "protein": 2.8,
+        "salt": 0.4
+      },
+      "perPortion": {
+        "kcal": 136,
+        "fat": 5.3,
+        "sat": 0.4,
+        "carbs": 18.3,
+        "sugars": 1.1,
+        "fibre": 0,
+        "protein": 2.3,
+        "salt": 0.4
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "rinderstreifen",
+      "name": "Rinderstreifen",
+      "pdfName": "Extra - Rinderstreifen",
+      "section": "extra",
+      "page": 1,
+      "portionG": 83,
+      "kj": {
+        "per100": 682,
+        "perPortion": 566
+      },
+      "per100": {
+        "kcal": 164,
+        "fat": 10.1,
+        "sat": 2,
+        "carbs": 1,
+        "sugars": 0.7,
+        "fibre": 0,
+        "protein": 16.4,
+        "salt": 1.1
+      },
+      "perPortion": {
+        "kcal": 136,
+        "fat": 8.4,
+        "sat": 1.7,
+        "carbs": 0.8,
+        "sugars": 0.6,
+        "fibre": 0,
+        "protein": 13.6,
+        "salt": 0.9
+      },
+      "allergens": [],
+      "hints": [
+        "Knoblauch",
+        "Zwiebel",
+        "Rind",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "schafskaese",
+      "name": "Schafskäse",
+      "pdfName": "Extra - Schafskäse",
+      "section": "extra",
+      "page": 1,
+      "portionG": 50,
+      "kj": {
+        "per100": 1114,
+        "perPortion": 557
+      },
+      "per100": {
+        "kcal": 269,
+        "fat": 22.8,
+        "sat": 16.2,
+        "carbs": 0.8,
+        "sugars": 0.8,
+        "fibre": 0,
+        "protein": 15.7,
+        "salt": 2.8
+      },
+      "perPortion": {
+        "kcal": 135,
+        "fat": 11.4,
+        "sat": 8.1,
+        "carbs": 0.4,
+        "sugars": 0.4,
+        "fibre": 0,
+        "protein": 7.9,
+        "salt": 1.4
+      },
+      "allergens": [
+        "Milch"
+      ],
+      "hints": [
+        "Vegetarier",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "suesskartoffel_chunks",
+      "name": "Süßkartoffel Chunks",
+      "pdfName": "Extra - Süßkartoffel Chunks",
+      "section": "extra",
+      "page": 1,
+      "portionG": 83,
+      "kj": {
+        "per100": 653,
+        "perPortion": 542
+      },
+      "per100": {
+        "kcal": 157,
+        "fat": 6.4,
+        "sat": 0.6,
+        "carbs": 22.6,
+        "sugars": 4.7,
+        "fibre": 0,
+        "protein": 1.9,
+        "salt": 0.3
+      },
+      "perPortion": {
+        "kcal": 130,
+        "fat": 5.3,
+        "sat": 0.5,
+        "carbs": 18.8,
+        "sugars": 3.9,
+        "fibre": 0,
+        "protein": 1.6,
+        "salt": 0.3
+      },
+      "allergens": [],
+      "hints": [
+        "Vegetarier",
+        "Veganer",
+        "Schwangere"
+      ]
+    },
+    {
+      "id": "ziegenkaese",
+      "name": "Ziegenkäse",
+      "pdfName": "Extra - Ziegenkäse",
+      "section": "extra",
+      "page": 1,
+      "portionG": 60,
+      "kj": {
+        "per100": 1208,
+        "perPortion": 725
+      },
+      "per100": {
+        "kcal": 291,
+        "fat": 23,
+        "sat": 16.1,
+        "carbs": 1,
+        "sugars": 1,
+        "fibre": 0,
+        "protein": 20,
+        "salt": 1.5
+      },
+      "perPortion": {
+        "kcal": 175,
+        "fat": 13.8,
+        "sat": 9.7,
+        "carbs": 0.6,
+        "sugars": 0.6,
+        "fibre": 0,
+        "protein": 12,
+        "salt": 0.9
+      },
+      "allergens": [
+        "Milch"
+      ],
+      "hints": [
+        "Vegetarier",
+        "Schwangere"
+      ]
+    }
+  ],
+  "salad": {
+    "page": "https://wolt.com/de/deu/frankfurt/restaurant/deandavid-frankfurt-welle",
+    "venue": "deandavid-frankfurt-welle",
+    "item": "Mix Your Own Salad bar",
+    "itemPrice": 7.25,
+    "require": {
+      "base": false,
+      "protein": true
+    },
+    "fixed": [
+      "blattsalatmix"
+    ],
+    "groups": [
+      {
+        "id": "dressing",
+        "name": "WELCHES DRESSING MÖCHTEST DU? (MYO SALAD)",
+        "kind": "dip",
+        "min": 1,
+        "max": 1,
+        "none": "ohne Dressing/Sauce",
+        "options": [
+          {
+            "name": "Balsamico Ahornsirup Dressing",
+            "ingredient": "balsamico_ahorn",
+            "role": "dip",
+            "maxQty": 1,
+            "price": 0
+          },
+          {
+            "name": "Caesar Dressing",
+            "ingredient": "caesar",
+            "role": "dip",
+            "maxQty": 1,
+            "price": 0
+          },
+          {
+            "name": "Rucola Dressing",
+            "ingredient": "rucola",
+            "role": "dip",
+            "maxQty": 1,
+            "price": 0
+          },
+          {
+            "name": "Sweet Honey Mustard",
+            "ingredient": "honey_mustard",
+            "role": "dip",
+            "maxQty": 1,
+            "price": 0
+          },
+          {
+            "name": "Tahini Lemon",
+            "ingredient": "tahini_lemon",
+            "role": "dip",
+            "maxQty": 1,
+            "price": 0
+          }
+        ]
+      },
+      {
+        "id": "brot",
+        "name": "BROT MIT DAZU?",
+        "kind": "side",
+        "min": 0,
+        "max": 3,
+        "none": "ohne Brot",
+        "options": [
+          {
+            "name": "Mit knusprigem Landbrot",
+            "ingredient": "landbrot",
+            "role": "side",
+            "maxQty": 1,
+            "price": 0
+          }
+        ]
+      },
+      {
+        "id": "extra_brot_dressing",
+        "name": "EXTRA BROT/DRESSING DAZU?",
+        "kind": "extraBreadDressing",
+        "min": 0,
+        "max": 999,
+        "none": null,
+        "options": []
+      },
+      {
+        "id": "extras",
+        "name": "WÄHLE DEINE EXTRAS",
+        "kind": "extras",
+        "min": 0,
+        "max": 999,
+        "none": null,
+        "options": [
+          {
+            "name": "Kürbis",
+            "ingredient": "kuerbis",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 3.75
+          },
+          {
+            "name": "Avocado extra",
+            "ingredient": "avocado",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 2.25
+          },
+          {
+            "name": "Hummus extra",
+            "ingredient": "hummus",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 2.25
+          },
+          {
+            "name": "Schafskäse extra",
+            "ingredient": "schafskaese",
+            "role": "protein",
+            "maxQty": 999,
+            "price": 2.25
+          },
+          {
+            "name": "Süßkartoffel extra",
+            "ingredient": "suesskartoffel_chunks",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 3.75
+          },
+          {
+            "name": "Chicken extra",
+            "ingredient": "haehnchen_filetstreifen",
+            "role": "protein",
+            "maxQty": 999,
+            "price": 3.75
+          },
+          {
+            "name": "gegrilltes Gemüse extra",
+            "ingredient": "grillgemuese",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 3.75
+          },
+          {
+            "name": "Ziegenkäse extra",
+            "ingredient": "ziegenkaese",
+            "role": "protein",
+            "maxQty": 999,
+            "price": 3.75
+          },
+          {
+            "name": "Lachs extra",
+            "ingredient": "raeucherlachs",
+            "role": "protein",
+            "maxQty": 999,
+            "price": 4.25
+          },
+          {
+            "name": "Rind extra",
+            "ingredient": "rinderstreifen",
+            "role": "protein",
+            "maxQty": 999,
+            "price": 4.25
+          },
+          {
+            "name": "Halloumi extra",
+            "ingredient": "halloumi",
+            "role": "protein",
+            "maxQty": 999,
+            "price": 3.75
+          },
+          {
+            "name": "Edamame extra",
+            "ingredient": "edamame",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Granatapfelkerne extra",
+            "ingredient": "granatapfelkerne",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Rote Bete extra",
+            "ingredient": "rote_bete",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Walnüsse extra",
+            "ingredient": "walnuesse",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Croutons extra",
+            "ingredient": "croutons",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Crunchy Onions extra",
+            "ingredient": "crunchy_onions",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Erdnüsse extra",
+            "ingredient": "erdnuesse",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Ei extra",
+            "ingredient": "freilandei",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Gurken extra",
+            "ingredient": "gurken",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Karotten extra",
+            "ingredient": "karotten",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Paprika extra",
+            "ingredient": "paprika",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Tomaten extra",
+            "ingredient": "kirschtomaten",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Weintrauben extra",
+            "ingredient": "weintrauben",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Geg. Kartoffeln extra",
+            "ingredient": "roast_potatoes",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 3.75
+          },
+          {
+            "name": "Frühlingszwiebeln extra",
+            "ingredient": "fruehlingszwiebeln",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          }
+        ]
+      }
+    ],
+    "extraBreadDressing": {
+      "id": "extra_brot_dressing",
+      "name": "EXTRA BROT/DRESSING DAZU?",
+      "min": 0,
+      "max": 999,
+      "dressing": {
+        "name": "Extra Dressing/Sauce",
+        "price": 0.8
+      },
+      "bread": {
+        "name": "extra Brot",
+        "price": 0.3
+      }
+    }
+  },
+  "bowl": {
+    "page": "https://wolt.com/de/deu/frankfurt/restaurant/deandavid-frankfurt-welle",
+    "venue": "deandavid-frankfurt-welle",
+    "item": "Mix Your Own Bowl bar",
+    "itemPrice": 7.25,
+    "require": {
+      "base": true,
+      "protein": true
+    },
+    "fixed": [
+      "blattsalatmix"
+    ],
+    "groups": [
+      {
+        "id": "basis",
+        "name": "WÄHLE DEINE BOWL BASE",
+        "kind": "base",
+        "min": 1,
+        "max": 1,
+        "none": null,
+        "options": [
+          {
+            "name": "Jasmin-Duftreis",
+            "ingredient": "jasmin_duftreis",
+            "role": "base",
+            "maxQty": 1,
+            "price": 0
+          },
+          {
+            "name": "Quinoa-Vollkornreis",
+            "ingredient": "quinoa_vollkornreis",
+            "role": "base",
+            "maxQty": 1,
+            "price": 0
+          }
+        ]
+      },
+      {
+        "id": "dressing",
+        "name": "WÄHLE DEIN DRESSING (MYO BOWL)",
+        "kind": "dip",
+        "min": 0,
+        "max": 1,
+        "none": "ohne Dressing",
+        "options": [
+          {
+            "name": "Spicy Ginger Sauce",
+            "ingredient": "spicy_ginger_sauce",
+            "role": "dip",
+            "maxQty": 1,
+            "price": 0
+          },
+          {
+            "name": "Teriyaki Sauce",
+            "ingredient": "teriyaki_sauce",
+            "role": "dip",
+            "maxQty": 1,
+            "price": 0
+          },
+          {
+            "name": "Lemon Herbs Sauce",
+            "ingredient": "lemon_herbs_sauce",
+            "role": "dip",
+            "maxQty": 1,
+            "price": 0
+          },
+          {
+            "name": "Soja Sesam Sauce",
+            "ingredient": "soja_sesam_sauce",
+            "role": "dip",
+            "maxQty": 1,
+            "price": 0
+          }
+        ]
+      },
+      {
+        "id": "brot",
+        "name": "BROT MIT DAZU?",
+        "kind": "side",
+        "min": 0,
+        "max": 3,
+        "none": "ohne Brot",
+        "options": [
+          {
+            "name": "Mit knusprigem Landbrot",
+            "ingredient": "landbrot",
+            "role": "side",
+            "maxQty": 1,
+            "price": 0
+          }
+        ]
+      },
+      {
+        "id": "extra_brot_dressing",
+        "name": "EXTRA BROT/DRESSING DAZU?",
+        "kind": "extraBreadDressing",
+        "min": 0,
+        "max": 999,
+        "none": null,
+        "options": []
+      },
+      {
+        "id": "extras",
+        "name": "WÄHLE DEINE EXTRAS",
+        "kind": "extras",
+        "min": 0,
+        "max": 999,
+        "none": null,
+        "options": [
+          {
+            "name": "Kürbis",
+            "ingredient": "kuerbis",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 3.75
+          },
+          {
+            "name": "Avocado extra",
+            "ingredient": "avocado",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 2.25
+          },
+          {
+            "name": "Hummus extra",
+            "ingredient": "hummus",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 2.25
+          },
+          {
+            "name": "Schafskäse extra",
+            "ingredient": "schafskaese",
+            "role": "protein",
+            "maxQty": 999,
+            "price": 2.25
+          },
+          {
+            "name": "Süßkartoffel extra",
+            "ingredient": "suesskartoffel_chunks",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 3.75
+          },
+          {
+            "name": "Chicken extra",
+            "ingredient": "haehnchen_filetstreifen",
+            "role": "protein",
+            "maxQty": 999,
+            "price": 3.75
+          },
+          {
+            "name": "gegrilltes Gemüse extra",
+            "ingredient": "grillgemuese",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 3.75
+          },
+          {
+            "name": "Ziegenkäse extra",
+            "ingredient": "ziegenkaese",
+            "role": "protein",
+            "maxQty": 999,
+            "price": 3.75
+          },
+          {
+            "name": "Lachs extra",
+            "ingredient": "raeucherlachs",
+            "role": "protein",
+            "maxQty": 999,
+            "price": 4.25
+          },
+          {
+            "name": "Rind extra",
+            "ingredient": "rinderstreifen",
+            "role": "protein",
+            "maxQty": 999,
+            "price": 4.25
+          },
+          {
+            "name": "Halloumi extra",
+            "ingredient": "halloumi",
+            "role": "protein",
+            "maxQty": 999,
+            "price": 3.75
+          },
+          {
+            "name": "Edamame extra",
+            "ingredient": "edamame",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Granatapfelkerne extra",
+            "ingredient": "granatapfelkerne",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Rote Bete extra",
+            "ingredient": "rote_bete",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Walnüsse extra",
+            "ingredient": "walnuesse",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Croutons extra",
+            "ingredient": "croutons",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Crunchy Onions extra",
+            "ingredient": "crunchy_onions",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Erdnüsse extra",
+            "ingredient": "erdnuesse",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Ei extra",
+            "ingredient": "freilandei",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Gurken extra",
+            "ingredient": "gurken",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Karotten extra",
+            "ingredient": "karotten",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Paprika extra",
+            "ingredient": "paprika",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Tomaten extra",
+            "ingredient": "kirschtomaten",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Weintrauben extra",
+            "ingredient": "weintrauben",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          },
+          {
+            "name": "Geg. Kartoffeln extra",
+            "ingredient": "roast_potatoes",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 3.75
+          },
+          {
+            "name": "Frühlingszwiebeln extra",
+            "ingredient": "fruehlingszwiebeln",
+            "role": "extra",
+            "maxQty": 999,
+            "price": 1.25
+          }
+        ]
+      }
+    ],
+    "extraBreadDressing": {
+      "id": "extra_brot_dressing",
+      "name": "EXTRA BROT/DRESSING DAZU?",
+      "min": 0,
+      "max": 999,
+      "dressing": {
+        "name": "Extra Dressing/Sauce",
+        "price": 0.8
+      },
+      "bread": {
+        "name": "extra Brot",
+        "price": 0.3
+      }
+    }
+  }
+}

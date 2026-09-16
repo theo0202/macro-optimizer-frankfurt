@@ -1,0 +1,2777 @@
+{
+ "source": "allergene.pdf",
+ "note": "Allergen-Overview (gültig für DE/AT/LU/CH bis Dezember 2026); marks = angekreuzte Spalten, codes = Kürzel (A1 = Weizen …, H3 = Walnüsse)",
+ "rows": [
+  {
+   "page": 2,
+   "name": "ohne Brot",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Side Salad ohne Dressing Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Side Salad mit Dressing",
+   "marks": [
+    "Senf",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Salmon Spring ohne Dressing",
+   "marks": [
+    "Fisch",
+    "Milch"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Salmon Spring mit Dressing",
+   "marks": [
+    "Fisch",
+    "Milch",
+    "Senf",
+    "Zwiebel"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Big Easy Beef ohne Dressing",
+   "marks": [
+    "Erdnüsse",
+    "Soja",
+    "Knoblauch",
+    "Zwiebel",
+    "Rind",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Big Easy Beef mit Dressing",
+   "marks": [
+    "Erdnüsse",
+    "Soja",
+    "Senf",
+    "Knoblauch",
+    "Zwiebel",
+    "Rind",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Caesar Chicken ohne Dressing  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Milch",
+    "Knoblauch",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Caesar Chicken mit Dressing  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Soja",
+    "Milch",
+    "Senf",
+    "Knoblauch",
+    "Alkohol"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Planted.chicken Caesar mit Dressing  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Soja",
+    "Milch",
+    "Senf",
+    "Knoblauch",
+    "Alkohol",
+    "Vegetarier"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Chicken Vitality ohne Dressing",
+   "marks": [
+    "Ei",
+    "Milch",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Chicken Vitality mit Dressing",
+   "marks": [
+    "Ei",
+    "Milch",
+    "Senf",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Planted.chicken Vitality mit Dressing",
+   "marks": [
+    "Ei",
+    "Milch",
+    "Senf",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Avocado Halloumi ohne Dressing  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Milch",
+    "Knoblauch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Avocado Halloumi mit Dressing  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Milch",
+    "Senf",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Falafel Tahini ohne Dressing",
+   "marks": [
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Falafel Tahini mit Dressing  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Good Greens ohne Dressing",
+   "marks": [
+    "Nüsse Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": [
+    "H3"
+   ]
+  },
+  {
+   "page": 2,
+   "name": "Good Greens mit Dressing",
+   "marks": [
+    "Nüsse Hinweis",
+    "Senf",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": [
+    "H3"
+   ]
+  },
+  {
+   "page": 2,
+   "name": "Paris ohne Dressing",
+   "marks": [
+    "Milch",
+    "Nüsse Hinweis",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": [
+    "H3"
+   ]
+  },
+  {
+   "page": 2,
+   "name": "Paris mit Dressing",
+   "marks": [
+    "Milch",
+    "Nüsse Hinweis",
+    "Senf",
+    "Zwiebel",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": [
+    "H3"
+   ]
+  },
+  {
+   "page": 2,
+   "name": "Dressings",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Honey Mustard",
+   "marks": [
+    "Senf",
+    "Zwiebel",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Caesar",
+   "marks": [
+    "Soja",
+    "Senf",
+    "Knoblauch",
+    "Alkohol",
+    "Vegetarier",
+    "Veganer"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Rucola",
+   "marks": [
+    "Senf",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Balsamico-Ahorn",
+   "marks": [
+    "Senf",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Tahini Lemon  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Sesam",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Brot",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Landbrot  A1, A2, A3",
+   "marks": [
+    "Gluten Hinweis",
+    "Sesam",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Mix Your Own",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Basis - Blattsalatmix Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Bowl Basis - Quinoa Vollkornreis Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Bowl Basis - Jasmin-Duftreis Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Basic - Birne Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Basic - Crunchy Onions  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Basic - Croûtons  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Knoblauch",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Basic - Edamame",
+   "marks": [
+    "Soja",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Basic - Erdnüsse",
+   "marks": [
+    "Erdnüsse",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Basic - Ei",
+   "marks": [
+    "Ei",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "Basic - Frühlingszwiebeln Keine Allergene enthalten",
+   "marks": [
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 2,
+   "name": "gültig für Deutschland - Luxemburg - Österreich - Schweiz",
+   "marks": [],
+   "codes": [
+    "2",
+    "von",
+    "7"
+   ]
+  },
+  {
+   "page": 3,
+   "name": "Basic - Granatapfelkerne Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Basic - Gurken Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Basic - Karotten Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Basic - Kirschtomaten Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Basic - Kürbis Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Basic - Kürbis-Sonnenblumkern-Mix Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Basic - Mango Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Basic - Miso Mayo  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Senf",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Basic - Oliventapenade Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Basic - Paprika Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Basic - Preiselbeeren Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Basic - Rotkohl mariniert Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Basic - Rote Bete Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Basic - Walnüsse",
+   "marks": [
+    "Nüsse Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": [
+    "H3"
+   ]
+  },
+  {
+   "page": 3,
+   "name": "Basic - Weintrauben Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Extra - Avocado Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Extra - Green Falafel Keine Allergene enthalten",
+   "marks": [
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Extra - Gran Moravia (ital. Hartkäse)",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Extra - gegrilltes Gemüse Keine Allergene enthalten",
+   "marks": [
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Extra - Hummus",
+   "marks": [
+    "Sesam",
+    "Knoblauch",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Extra - Halloumi",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Extra - gegrilltes Hähnchen-Filet Keine Allergene enthalten",
+   "marks": [
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Extra - Premium Räucherlachs",
+   "marks": [
+    "Fisch"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Extra - planted.chicken classic Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Extra - Roast Potatoes Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Extra - gegrillte Rinderstreifen Keine Allergene enthalten",
+   "marks": [
+    "Knoblauch",
+    "Zwiebel",
+    "Rind",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Extra - Schafskäse",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Extra - Süßkartoffel Scheiben Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "Extra - französischer Ziegenkäse",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 3,
+   "name": "gültig für Deutschland - Luxemburg - Österreich - Schweiz",
+   "marks": [],
+   "codes": [
+    "3",
+    "von",
+    "7"
+   ]
+  },
+  {
+   "page": 4,
+   "name": "California Poke Bowl mit Sauce  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Fisch",
+    "Soja",
+    "Senf",
+    "Sesam",
+    "Zwiebel"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "California Poke Bowl ohne Sauce  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Fisch",
+    "Soja",
+    "Senf",
+    "Sesam",
+    "Zwiebel"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Salmon Avocado mit Sauce  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Fisch",
+    "Soja",
+    "Milch",
+    "Senf",
+    "Sesam",
+    "Zwiebel"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Salmon Avocado ohne Sauce  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Fisch",
+    "Soja",
+    "Sesam",
+    "Zwiebel"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Japanese Beef Bowl mit Sauce  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Erdnüsse",
+    "Soja",
+    "Senf",
+    "Knoblauch",
+    "Zwiebel",
+    "Rind",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Japanese Beef Bowl ohne Sauce  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Erdnüsse",
+    "Soja",
+    "Senf",
+    "Knoblauch",
+    "Zwiebel",
+    "Rind",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Crunchy Chicken Bowl mit Sauce  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Senf",
+    "Sesam",
+    "Zwiebel",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Crunchy Chicken Bowl ohne Sauce  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Zwiebel",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Crunchy planted.chicken Bowl mit Sauce  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Senf",
+    "Sesam",
+    "Zwiebel",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Chicken Teriyaki Bowl mit Sauce  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Sesam",
+    "Zwiebel",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Chicken Teriyaki Bowl ohne Sauce",
+   "marks": [
+    "Sesam",
+    "Zwiebel",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Planted.chicken Teriyaki Bowl mit Sauce  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Sesam",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Avocado Chicken Bowl mit Sauce",
+   "marks": [
+    "Sesam",
+    "Zwiebel",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Avocado Chicken Bowl ohne Sauce Keine Allergene enthalten",
+   "marks": [
+    "Zwiebel",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Vegan Falafel Bowl mit Sauce",
+   "marks": [
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Vegan Falafel Bowl ohne Sauce",
+   "marks": [
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Veggie Buddha Bowl mit Sauce  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Nüsse Hinweis",
+    "Senf",
+    "Sesam",
+    "Zwiebel",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": [
+    "H3"
+   ]
+  },
+  {
+   "page": 4,
+   "name": "Veggie Buddha Bowl ohne Sauce",
+   "marks": [
+    "Soja",
+    "Nüsse Hinweis",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": [
+    "H3"
+   ]
+  },
+  {
+   "page": 4,
+   "name": "Quinoa Vollkornreis Basis Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Jasmin-Duftreis Basis Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Cold Bowls",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Black Rice Crunchy Chicken Bowl  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Senf",
+    "Sesam",
+    "Zwiebel",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Black Rice Salmon Avocado Bowl  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Fisch",
+    "Soja",
+    "Milch",
+    "Senf",
+    "Sesam"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Black Rice Avocado Chicken Bowl",
+   "marks": [
+    "Sesam"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Vegan Falafel Bulgur Bowl  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Veggie Buddha Bulgur Bowl  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Nüsse Hinweis",
+    "Senf",
+    "Sesam",
+    "Zwiebel",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": [
+    "H3"
+   ]
+  },
+  {
+   "page": 4,
+   "name": "Bowl Saucen",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Spicy Ginger Sauce  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Alkohol",
+    "Schärfegrad",
+    "Vegetarier",
+    "Veganer"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Soja Sesam Sauce  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Senf",
+    "Sesam",
+    "Schärfegrad",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Teriyaki Sauce  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Lemon Herbs Sauce",
+   "marks": [
+    "Sesam",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Kids Menü",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Mini Chicken Bowl",
+   "marks": [
+    "Erdnüsse",
+    "Senf",
+    "Zwiebel",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Mini Falafel Plate  A1, A2, A3",
+   "marks": [
+    "Gluten Hinweis",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Sandwiches",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Avocado Mozzarella  A1, A2, A3",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Sesam",
+    "Zwiebel",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Smashed Avocado Mozarella  A1, A2, A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Sesam",
+    "Zwiebel",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Chicken Avocado  A1, A2, A3",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Smashed Avocado Chicken  A1, A2, A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Vegan Sweet Potato  A1, A2, A3",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Senf",
+    "Sesam",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Wraps",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Cesar Chicken Wrap, ganz  A1, A2",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Soja",
+    "Milch",
+    "Senf",
+    "Knoblauch",
+    "Alkohol"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Falafel Mezze Wrap, ganz  A1, A2",
+   "marks": [
+    "Gluten Hinweis",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 4,
+   "name": "Veggie Goat Wrap, ganz  A1, A2",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Nüsse Hinweis",
+    "Senf",
+    "Zwiebel",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": [
+    "H3"
+   ]
+  },
+  {
+   "page": 4,
+   "name": "gültig für Deutschland - Luxemburg - Österreich - Schweiz",
+   "marks": [],
+   "codes": [
+    "4",
+    "von",
+    "7"
+   ]
+  },
+  {
+   "page": 5,
+   "name": "Hot Chicken Teriyaki  A1, A2",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Hot Kebab Wrap  A1, A2, A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Nüsse Hinweis",
+    "Senf",
+    "Sesam",
+    "Schwefeldioxid",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": [
+    "H1"
+   ]
+  },
+  {
+   "page": 5,
+   "name": "Dip: Teriyaki  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Dip: Curcuma Aioli",
+   "marks": [
+    "Senf",
+    "Knoblauch",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Grilled Flatbread",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Pesto Chicken  A1, A2",
+   "marks": [
+    "Gluten Hinweis",
+    "Milch",
+    "Knoblauch",
+    "Zwiebel",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Olive Schafskäse  A1, A2",
+   "marks": [
+    "Gluten Hinweis",
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Creamy Koriander Avocado  A1, A2",
+   "marks": [
+    "Gluten Hinweis",
+    "Milch",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Curries",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Mango Chicken Curry",
+   "marks": [
+    "Erdnüsse",
+    "Soja",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Schärfegrad",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Mango planted.chicken Curry",
+   "marks": [
+    "Erdnüsse",
+    "Soja",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Schärfegrad",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": [
+    "Infozu",
+    "unseren",
+    "Currys:"
+   ]
+  },
+  {
+   "page": 5,
+   "name": "Yellow Avocado Curry  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Schärfegrad",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": [
+    "Unsere",
+    "Currys",
+    "werden",
+    "mit"
+   ]
+  },
+  {
+   "page": 5,
+   "name": "Red Avocado Curry  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Schärfegrad",
+    "Schärfegrad",
+    "Schärfegrad",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": [
+    "Ses",
+    "k",
+    "a",
+    "a",
+    "m",
+    "nn",
+    "s",
+    "d",
+    "er",
+    "a",
+    "v",
+    "r",
+    "i",
+    "a",
+    "e",
+    "u",
+    "r",
+    "f",
+    "t",
+    ".",
+    "v",
+    "A",
+    "e",
+    "u",
+    "rz",
+    "f",
+    "ic",
+    "W",
+    "h",
+    "u",
+    "te",
+    "n",
+    "t",
+    "s",
+    "ch"
+   ]
+  },
+  {
+   "page": 5,
+   "name": "Red Thai Chicken Curry",
+   "marks": [
+    "Soja",
+    "Sellerie",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Schärfegrad",
+    "Schärfegrad",
+    "Schärfegrad",
+    "Schwangere"
+   ],
+   "codes": [
+    "werden",
+    "–bitte",
+    "bei",
+    "der"
+   ]
+  },
+  {
+   "page": 5,
+   "name": "Red Thai planted.chicken Curry",
+   "marks": [
+    "Soja",
+    "Sellerie",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Schärfegrad",
+    "Schärfegrad",
+    "Schärfegrad",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": [
+    "Bestellung",
+    "angeben."
+   ]
+  },
+  {
+   "page": 5,
+   "name": "Asian Beef Curry (red sauce)",
+   "marks": [
+    "Erdnüsse",
+    "Soja",
+    "Sellerie",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Rind",
+    "Schärfegrad",
+    "Schärfegrad",
+    "Schärfegrad",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Asian Beef Curry (yellow sauce)",
+   "marks": [
+    "Erdnüsse",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Rind",
+    "Schärfegrad",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Breakfast Toast & Eggs",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Vegan Avocado Toast  A1, A2, A3",
+   "marks": [
+    "Gluten Hinweis",
+    "Sesam",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Avocado Toast mit Spiegelei  A1, A2, A3",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Sesam",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Hummus Toast mit Schafskäse  A1, A2, A3",
+   "marks": [
+    "Gluten Hinweis",
+    "Milch",
+    "Sesam",
+    "Knoblauch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Hummus Toast mit Schafskäse und Ei  A1, A2, A3",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Milch",
+    "Sesam",
+    "Knoblauch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Salmon Avocado Toast  A1, A2, A3",
+   "marks": [
+    "Gluten Hinweis",
+    "Fisch",
+    "Sesam"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Salmon Avodaco Toast mit Spiegelei  A1, A2, A3",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Fisch",
+    "Sesam"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Quinoa Breakfast Bowl",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "*ohne Brot",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Salsa & Egg Bowl",
+   "marks": [
+    "Ei",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Sweet Cups",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Bircher Müsli  A1, A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Milch",
+    "Nüsse Hinweis",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": [
+    "H1",
+    "H2"
+   ]
+  },
+  {
+   "page": 5,
+   "name": "Mango Kokosmilchreis",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 5,
+   "name": "Açaí Bowl  A3, A4, A5",
+   "marks": [
+    "Gluten Hinweis",
+    "Nüsse Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": [
+    "H1",
+    "H4"
+   ]
+  },
+  {
+   "page": 5,
+   "name": "Red Berry Granola Yoghurt  A4, A5",
+   "marks": [
+    "Gluten Hinweis",
+    "Milch",
+    "Nüsse Hinweis",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": [
+    "H1",
+    "H4"
+   ]
+  },
+  {
+   "page": 5,
+   "name": "Mango Matcha Yoghurt  A3, A5",
+   "marks": [
+    "Gluten Hinweis",
+    "Milch",
+    "Nüsse Hinweis",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": [
+    "H1",
+    "H4"
+   ]
+  },
+  {
+   "page": 5,
+   "name": "gültig für Deutschland - Luxemburg - Österreich - Schweiz",
+   "marks": [],
+   "codes": [
+    "5",
+    "von",
+    "7"
+   ]
+  },
+  {
+   "page": 6,
+   "name": "Mango Traube  A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Granola Apfel  A3, A4, A5",
+   "marks": [
+    "Gluten Hinweis",
+    "Nüsse Hinweis",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": [
+    "H1",
+    "H4"
+   ]
+  },
+  {
+   "page": 6,
+   "name": "Apfel Zimt  A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Nüsse Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": [
+    "H3"
+   ]
+  },
+  {
+   "page": 6,
+   "name": "Kaffee",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Espresso / Doppio / Kaffee Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Espresso Macchiato",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Espresso Macchiato mit Haferdrink  A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Cappuccino",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Cappuccino mit Haferdrink  A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Flat White",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Flat White mit Haferdrink  A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Latte Macchiato",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Latte Macchiato mit Haferdrink  A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Caffè Latte",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Caffè Latte mit Haferdrink  A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Chai Latte",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Chai Latte mit Haferdrink  A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Frischer Minztee Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Matcha (Iced and Hot)",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Iced Strawberry Matcha Latte milk",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Iced Strawberry Matcha Latte oatmilk  A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Iced Mango Cocos Matcha Latte milk",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Iced Mango Cocos Matcha Latte oatmilk  A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Iced Matcha Latte milk",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Iced Matcha Latte oatmilk  A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Hot Matcha Latte, milk",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Hot Matcha Latte, oatmilk  A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Supplements",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Collagen Keine Allergene enthalten",
+   "marks": [
+    "Rind",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Whey Protein",
+   "marks": [
+    "Milch",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Kuchen, Muffins, Croissants",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Blueberry Muffin  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Double Chocolate Muffin  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Carrot Cake  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Milch",
+    "Nüsse Hinweis",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": [
+    "H3",
+    "H7"
+   ]
+  },
+  {
+   "page": 6,
+   "name": "Bananabread  A1, A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Nüsse Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": [
+    "H1",
+    "H2",
+    "H3"
+   ]
+  },
+  {
+   "page": 6,
+   "name": "Himbeer Mandel Brownie",
+   "marks": [
+    "Ei",
+    "Soja",
+    "Milch",
+    "Nüsse Hinweis",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": [
+    "H1",
+    "H2"
+   ]
+  },
+  {
+   "page": 6,
+   "name": "Croissant  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Pain au chocolat  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Cinnamon Swirl  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Cranberry Porridge Bread  A1, A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Nüsse Hinweis",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": [
+    "H3"
+   ]
+  },
+  {
+   "page": 6,
+   "name": "Lemonade",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Ingwer Lemongras Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Smoothies",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 6,
+   "name": "Green Machine Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": [
+    "Wir",
+    "verarbe",
+    "In",
+    "ite",
+    "fo",
+    "n",
+    "z",
+    "a",
+    "u",
+    "u",
+    "c",
+    "u",
+    "h",
+    "n",
+    "C",
+    "s",
+    "o",
+    "e",
+    "l",
+    "r",
+    "la",
+    "e",
+    "g",
+    "n",
+    "e",
+    "n",
+    "S",
+    "m",
+    "un",
+    "o",
+    "d",
+    "o",
+    "t",
+    "M",
+    "h",
+    "o",
+    "ie",
+    "lk",
+    "s",
+    "e",
+    ":",
+    "nprotein",
+    "in"
+   ]
+  },
+  {
+   "page": 6,
+   "name": "Açaí Sunrise Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": [
+    "unseren",
+    "Smoothies",
+    "eine",
+    "Kreuzkontamination",
+    "mit",
+    "tierischen"
+   ]
+  },
+  {
+   "page": 6,
+   "name": "Mango Passion Keine Allergene enthalten",
+   "marks": [
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": [
+    "Produkten",
+    "ist",
+    "daher",
+    "nicht",
+    "vollkommen",
+    "ausgeschlossen."
+   ]
+  },
+  {
+   "page": 6,
+   "name": "gültig für Deutschland - Luxemburg - Österreich - Schweiz",
+   "marks": [],
+   "codes": [
+    "6",
+    "von",
+    "7"
+   ]
+  },
+  {
+   "page": 7,
+   "name": "Soave DOC Classico",
+   "marks": [
+    "Schwefeldioxid",
+    "Alkohol",
+    "Vegetarier"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Farnese Primitivo",
+   "marks": [
+    "Schwefeldioxid",
+    "Alkohol",
+    "Vegetarier"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Silver Veneto Frizzante",
+   "marks": [
+    "Schwefeldioxid",
+    "Alkohol",
+    "Vegetarier"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Hugo",
+   "marks": [
+    "Schwefeldioxid",
+    "Alkohol",
+    "Vegetarier"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Aperol Spritz (2,17)",
+   "marks": [
+    "Schwefeldioxid",
+    "Alkohol",
+    "Vegetarier"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Aperol Tonic (2,17) Keine Allergene enthalten",
+   "marks": [
+    "Alkohol",
+    "Vegetarier"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Lillet Wild Berry",
+   "marks": [
+    "Schwefeldioxid",
+    "Alkohol",
+    "Vegetarier"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Lillet Vive (17)",
+   "marks": [
+    "Schwefeldioxid",
+    "Alkohol",
+    "Vegetarier"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Gin Tonic (17) Keine Allergene enthalten",
+   "marks": [
+    "Alkohol",
+    "Vegetarier"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Crodino Spritz (2,17)",
+   "marks": [
+    "Schwefeldioxid",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Seasonals Seasonal",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Pumpkin Spice Curry",
+   "marks": [
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Pumpkin Spice Chicken Curry",
+   "marks": [
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Pumpkin Spice planted.chicken Curry",
+   "marks": [
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Pumpkin Spice Beef Curry",
+   "marks": [
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Rind",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Pumpkin Spice Bowl, Beef  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Senf",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Rind",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Pumpkin Spice Bowl, Chicken  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Senf",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Pumpkin Spice Bowl, planted.chicken  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Senf",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Prepacked Pumpkin Bulgur Bowl  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Soja",
+    "Milch",
+    "Senf",
+    "Sesam",
+    "Knoblauch",
+    "Zwiebel",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Pumpkin Spice Chai Latte",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Pumpkin Spice Chai Latte, Hafermilch  A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Pumpkin Chai Matcha Latte",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Pumpkin Chai Matcha Latte, Hafermilch  A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Pumpkin Spice Chai Latte Macchiato",
+   "marks": [
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Pumpkin Spice Chai Macchiato, Hafermilch  A4",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Weitere Specials",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Special",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Ocean Smoothie Bowl  A4, A5",
+   "marks": [
+    "Gluten Hinweis",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "XL Chicken 'n Egg Bowl  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Soja",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "XL planted.chicken ' Egg Bowl  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Soja",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "XL Protein Power Bowl",
+   "marks": [
+    "Sesam",
+    "Vegetarier",
+    "Veganer",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "XL Chicken Protein Power Bowl",
+   "marks": [
+    "Sesam",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "San Sebastian Cheesecake  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Milch",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "Apple Tarte (7)  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Milch",
+    "Nüsse Hinweis",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": [
+    "H1"
+   ]
+  },
+  {
+   "page": 7,
+   "name": "Banana Walnut Bread  A1",
+   "marks": [
+    "Gluten Hinweis",
+    "Ei",
+    "Milch",
+    "Nüsse Hinweis",
+    "Vegetarier",
+    "Schwangere"
+   ],
+   "codes": [
+    "H3"
+   ]
+  },
+  {
+   "page": 7,
+   "name": "2: Mit Farbstoff",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "7: Mit Antioxidationsmittel",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "17: Chininhaltig",
+   "marks": [],
+   "codes": []
+  },
+  {
+   "page": 7,
+   "name": "gültig für Deutschland - Luxemburg - Österreich - Schweiz",
+   "marks": [],
+   "codes": [
+    "7",
+    "von",
+    "7"
+   ]
+  }
+ ]
+}

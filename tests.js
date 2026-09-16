@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -37,6 +37,7 @@ const throws = f => { try { f(); return false; } catch (e) { return true; } };
 sect("Struktur / Harness");
 check("genau EIN attributloses Inline-<script>", (html.match(/<script>/g) || []).length, 1);
 check("React-Destructuring wie London", SCRIPT.includes("const { useState, useMemo, useEffect, createElement: h } = React;"), true);
+check("Pflicht-Zutaten landen in fra_included (LS.included)", T.LS.included === "included", true);
 check("localStorage nur über LS_PREFIX + key", /localStorage\.\w+\((?!LS_PREFIX \+)/.test(SCRIPT), false);
 check("LS_PREFIX ist fra_", T.LS_PREFIX === "fra_", true);
 T.lsSet(T.LS.ownOrder, [{ qty: 2 }]);
@@ -387,59 +388,90 @@ check("Arbeitsbudget: normale Suche ohne approx-Flag; raw-Rangliste trägt das F
 function exhaustiveBowl(menu, t, mode, p, o) {
   const role = x => x.role || x.group;
   const keep = x => !T.isShellfish(x) && (!o.keep || o.keep(x));
+  const need = Object.assign({ base: true, protein: true }, menu.require || {});
+  const inc = new Set(o.include || []);
   const all = menu.groups.flatMap(g => g.options.map(x => ({ x, g })));
   const vec = x => T.KEYS.map(k => x[k] || 0);
   const cents = x => Math.round((x.price || 0) * 100);
-  const budget = o.maxPrice == null ? Infinity : Math.round(o.maxPrice * 100) - Math.round((menu.basePrice || 0) * 100);
-  if (budget < 0) return [];
+  const fixed = menu.fixed || [];
+  if (fixed.some(x => T.isShellfish(x))) return [];
   const gmax = { base: Infinity, protein: Infinity };
   let emax = Infinity;
   for (const { x, g } of all) { const r = role(x); if (r in gmax) gmax[r] = Math.min(gmax[r], g.max); else if (r === "extra") emax = Math.min(emax, g.max); }
   const protIngs = new Set(all.filter(({ x }) => role(x) === "protein").map(({ x }) => x.ing));
-  // Kern je Rolle: je Zutat a ganze (≤ min(maxQty, cap)) + b halbe (≤ 1 neben erlaubter ganzer, sonst ≤ min(maxQty, 2·cap)), 2a + b ≤ 2·cap
+  // Pflicht-Zutaten: Rolle laut Menü (Wolt-Duplikate unter Extras zählen nicht)
+  const incRole = new Map();
+  for (const { x } of all) if (inc.has(x.ing) && !(role(x) === "extra" && protIngs.has(x.ing)) && !incRole.has(x.ing)) incRole.set(x.ing, role(x));
+  for (const ing of inc) if (!incRole.has(ing)) return [];
+  // fester Anteil: Bestandteile ohne Auswahl + Pflicht-Extras
+  const off = [0, 0, 0, 0, 0, 0, 0, 0];
+  let offPc = 0;
+  const addOff = x => { const v = vec(x); for (let k = 0; k < 8; k++) off[k] += v[k]; offPc += cents(x); };
+  fixed.forEach(addOff);
+  const EA = all.filter(({ x }) => role(x) === "extra" && keep(x) && !protIngs.has(x.ing)).map(({ x }) => x);
+  const forced = [];
+  for (const ing of inc) if (incRole.get(ing) === "extra") { const x = EA.find(y => y.ing === ing); if (!x) return []; forced.push(x); }
+  forced.forEach(addOff);
+  const budget = (o.maxPrice == null ? Infinity : Math.round(o.maxPrice * 100) - Math.round((menu.basePrice || 0) * 100)) - offPc;
+  if (budget < 0) return [];
+  // Kern je Portionen-Rolle: je Zutat a ganze (≤ min(maxQty, cap)) + b halbe (≤ 1 neben erlaubter ganzer, sonst ≤ min(maxQty, 2·cap)),
+  // 2a + b ≤ 2·cap; Pflicht-Zutaten der Rolle brauchen a + b ≥ 1
   const coreCombos = r => {
     const byIng = new Map();
     for (const { x } of all) if (role(x) === r && keep(x)) { const e = byIng.get(x.ing) || { full: null, half: null }; e[x.half ? "half" : "full"] = x; byIng.set(x.ing, e); }
-    let out = [{ n: [0, 0, 0, 0, 0, 0, 0, 0], c: 0, pc: 0 }];
-    for (const { full, half } of byIng.values()) {
+    const must = [...incRole].filter(([, rr]) => rr === r).map(([ing]) => ing);
+    if (must.some(ing => !byIng.has(ing))) return null;
+    let out = [{ n: [0, 0, 0, 0, 0, 0, 0, 0], c: 0, pc: 0, sat: 0 }];
+    for (const [ing, { full, half }] of byIng) {
       const aMax = full ? Math.min(full.maxQty || 1, o.cap) : 0;
       const bMax = half ? Math.min(half.maxQty || 1, full ? 1 : 2 * o.cap) : 0;
-      const nx = [];
+      const isMust = must.includes(ing), nx = [];
       for (const s0 of out) for (let a = 0; a <= aMax; a++) for (let b = 0; b <= bMax; b++) {
         if (2 * a + b > 2 * o.cap || s0.c + a + b > gmax[r]) continue;
         const n = s0.n.slice();
         if (a) { const v = vec(full); for (let k = 0; k < 8; k++) n[k] += v[k] * a; }
         if (b) { const v = vec(half); for (let k = 0; k < 8; k++) n[k] += v[k] * b; }
-        nx.push({ n, c: s0.c + a + b, pc: s0.pc + (a ? cents(full) * a : 0) + (b ? cents(half) * b : 0) });
+        nx.push({ n, c: s0.c + a + b, pc: s0.pc + (a ? cents(full) * a : 0) + (b ? cents(half) * b : 0), sat: s0.sat + (isMust && a + b > 0 ? 1 : 0) });
       }
       out = nx;
     }
-    return out.filter(s0 => s0.c >= 1);
+    return out.filter(s0 => s0.c >= (need[r] ? 1 : 0) && s0.sat === must.length);
   };
   const bc = coreCombos("base"), pc = coreCombos("protein");
-  const E = all.filter(({ x }) => role(x) === "extra" && keep(x) && !protIngs.has(x.ing) && vec(x).some(v => v > 0)).map(({ x }) => x); // wie bowlCombos: Extras ohne Nährwerte zählen nicht
-  const maxE = Math.min(emax, o.maxExtras == null ? Infinity : o.maxExtras);
+  if (!bc || !pc) return [];
+  // Einzelauswahl (dip, side): keine oder eine Option; Pflicht-Zutat → nur deren Varianten
+  const choice = r => {
+    const opts = all.filter(({ x }) => role(x) === r && keep(x)).map(({ x }) => x);
+    const must = [...incRole].filter(([, rr]) => rr === r).map(([ing]) => ing);
+    if (must.length > 1) return null;
+    if (must.length === 1) { const v = opts.filter(x => x.ing === must[0]); return v.length ? v : null; }
+    return [null, ...opts];
+  };
+  const D = choice("dip"), SD = choice("side");
+  if (!D || !SD) return [];
+  const E = EA.filter(x => !inc.has(x.ing) && vec(x).some(v => v > 0)); // wie bowlCombos: Extras ohne Nährwerte zählen nicht
+  const maxE = Math.max(0, Math.min(emax, o.maxExtras == null ? Infinity : o.maxExtras) - forced.length);
   const es = [];
   const rec = (i, n, c, pr) => { es.push({ n, pr }); if (c >= maxE) return; for (let j = i; j < E.length; j++) { const v = vec(E[j]); rec(j + 1, n.map((x, k) => x + v[k]), c + 1, pr + cents(E[j])); } };
   rec(0, [0, 0, 0, 0, 0, 0, 0, 0], 0, 0);
-  const D = [null, ...all.filter(({ x }) => role(x) === "dip" && keep(x)).map(({ x }) => x)];
   const top = [], n = [0, 0, 0, 0, 0, 0, 0, 0];
   let thr = Infinity;
-  for (const d of D) {
-    const dv = d ? vec(d) : [0, 0, 0, 0, 0, 0, 0, 0], dp = d ? cents(d) : 0;
+  for (const d of D) for (const sd of SD) {
+    const cv = off.slice(), cpc = (d ? cents(d) : 0) + (sd ? cents(sd) : 0);
+    for (const x of [d, sd]) if (x) { const v = vec(x); for (let k = 0; k < 8; k++) cv[k] += v[k]; }
     for (const bn of bc) for (const pn of pc) {
-      const cp = bn.pc + pn.pc + dp;
+      const cp = bn.pc + pn.pc + cpc;
       if (cp > budget) continue;
-      const cn = bn.n.map((x, k) => x + pn.n[k] + dv[k]);
+      const cn = cv.map((x, k) => x + bn.n[k] + pn.n[k]);
       for (const en of es) {
         if (cp + en.pr > budget) continue;
         for (let k = 0; k < 8; k++) n[k] = cn[k] + en.n[k];
-        const s = T.scoreVec(n, t, mode, p);
-        if (s >= thr) continue;
+        const sc = T.scoreVec(n, t, mode, p);
+        if (sc >= thr) continue;
         let i = top.length;
-        top.push(s);
-        while (i > 0 && top[i - 1] > s) { top[i] = top[i - 1]; i--; }
-        top[i] = s;
+        top.push(sc);
+        while (i > 0 && top[i - 1] > sc) { top[i] = top[i - 1]; i--; }
+        top[i] = sc;
         if (top.length > 30) top.pop();
         if (top.length === 30) thr = top[29];
       }
@@ -462,6 +494,73 @@ check("Kalorien-Modus mit/ohne Präferenzen: Top 30 = vollständige Durchrechnun
 let exPT = 0; const exPTargets = [[tgt(60, 70, 18), "macros", {}, 8], [tgt(35, 130, 8), "macros", {}, 9.5], [tgt(110, 40, 30), "macros", {}, 11], [kcalT(700), "calories", { hp: true, lf: true }, 8.5], [kcalT(500), "calories", {}, 7]];
 for (const [tt, md, pp, mp] of exPTargets) if (sameTop(rawTop(TMENU, tt, md, pp, { ...oT, maxPrice: mp }), exhaustiveBowl(TMENU, tt, md, pp, { ...oT, maxPrice: mp }))) exPT++;
 check("Preislimit: Top 30 = vollständige Durchrechnung (Test-Menü, 5 Ziele, Makro + Kalorien)", exPT, exPTargets.length);
+// Pflicht-Zutaten (User 16.09.2026): Extras fest, Einzelauswahl nur diese Zutat, Portionen-Rollen ≥1 (halbe zählt)
+const hasIng = (r, ing) => r.items.some(x => x.ing === ing);
+const rInc = T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 3, include: ["lachs", "avo", "tzatziki"] });
+check("Pflicht: Lachs (Protein), Avocado (Extra) und Tzatziki (Dip) in JEDER Bowl, Regeln bleiben erfüllt", rInc.length > 0 && rInc.every(r => hasIng(r, "lachs") && hasIng(r, "avo") && r.dip && r.dip.id === "tzatziki" && cnt(r, "base") >= 1 && cnt(r, "extra") <= 3), true);
+check("Pflicht-Extra zählt zu maxExtras, geht aber vor (maxExtras 0 → genau die Pflicht-Extras)", (() => { const r = T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 0, include: ["ei", "mais"] }); return r.length > 0 && r.every(x => cnt(x, "extra") === 2 && hasIng(x, "ei") && hasIng(x, "mais")); })(), true);
+check("Pflicht-Extra ohne Nährwerte (Pfeffer) ist trotzdem in jeder Bowl", (() => { const r = T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 2, include: ["pfeffer"] }); return r.length > 0 && r.every(x => hasIng(x, "pfeffer")); })(), true);
+check("Pflicht-Base mit halber Portion: jede Bowl hat Reis (ganz oder halb), keine Doppel-Keys", (() => { const r = T.bowlCombos(TMENU, tgt(20, 60, 8), "macros", {}, { cap: 2, maxExtras: 1, include: ["reis"] }); return r.length > 0 && r.every(x => hasIng(x, "reis")) && new Set(r.map(x => x.key)).size === r.length && r.some(x => x.parts.some(pt => pt.opt.id === "reis_h")); })(), true);
+check("Pflicht-Protein (Hähnchen) ersetzt das Duplikat unter Extras nicht (läuft über die Protein-Rolle)", (() => { const r = T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 3, include: ["huhn"] }); return r.length > 0 && r.every(x => x.parts.some(pt => pt.opt.id === "huhn") && x.items.every(y => y.id !== "huhn_x")); })(), true);
+check("Pflicht nicht verfügbar (per keep ausgeschlossen / Schalentier / unbekannt) → [] mit missing", (() => { const a = T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 3, include: ["avo"], keep: x => x.id !== "avo" }); const b = T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 3, include: ["garnele"] }); const c = T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 3, include: ["gibtsnicht"] }); return a.length === 0 && a.missing.join() === "avo" && b.missing.join() === "garnele" && c.missing.join() === "gibtsnicht"; })(), true);
+check("zwei Pflicht-Dips → [] mit conflict", (() => { const r = T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 3, include: ["curry", "tzatziki"] }); return r.length === 0 && r.conflict.length === 2; })(), true);
+check("Pflicht + Preislimit: Pflicht-Extras zählen zum Preis", (() => { const r = T.bowlCombos(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 3, include: ["avo"], maxPrice: 9 }); return r.length > 0 && r.every(x => x.price <= 9 + 1e-9 && Math.abs(x.price - priceOf(TMENU, x)) < 1e-9); })(), true);
+const incCases = [[tgt(60, 70, 18), "macros", {}, ["lachs"]], [tgt(35, 130, 8), "macros", {}, ["reis", "ei"]], [tgt(110, 40, 30), "macros", {}, ["curry", "nudeln"]], [kcalT(700), "calories", { hp: true, lf: true }, ["avo", "tofu"]], [kcalT(500), "calories", {}, ["tzatziki", "reis"]], [tgt(45, 90, 45), "macros", {}, ["huhn", "pfeffer", "mais"]], [kcalT(600), "calories", { lc: true }, ["salat", "bohnen"]]];
+let exInc = 0;
+for (const [tt, md, pp, inc] of incCases) if (sameTop(rawTop(TMENU, tt, md, pp, { ...oT, include: inc }), exhaustiveBowl(TMENU, tt, md, pp, { ...oT, include: inc }))) exInc++;
+check("Pflicht-Zutaten: Top 30 = vollständige Durchrechnung (Test-Menü, Makro + Kalorien mit/ohne Präferenzen, 7 Fälle)", exInc, incCases.length);
+let exIncP = 0;
+for (const [tt, md, pp, inc, mp] of [[tgt(60, 70, 18), "macros", {}, ["lachs", "avo"], 11], [kcalT(650), "calories", { hp: true }, ["reis"], 9]]) if (sameTop(rawTop(TMENU, tt, md, pp, { ...oT, include: inc, maxPrice: mp }), exhaustiveBowl(TMENU, tt, md, pp, { ...oT, include: inc, maxPrice: mp }))) exIncP++;
+check("Pflicht-Zutaten + Preislimit: Top 30 = vollständige Durchrechnung (2 Fälle)", exIncP, 2);
+
+// Menü ohne Basis-Pflicht, mit festem Bestandteil, Brot (side) und Varianten (2 Portionen Dressing / Brot) — Muster Dean & David
+const TSAL = { item: "Test Salad", basePrice: 7.25, require: { base: false, protein: true },
+  fixed: [opt("blatt", "fixed", 2.8, 1.4, 0.3, { price: 0 })],
+  groups: [
+    { id: "dressing", name: "Dressing", min: 1, max: 1, none: "ohne Dressing", options: [opt("caesar", "dressing", 5.4, 1.2, 23.2, { role: "dip", price: 0 }), opt("caesar2", "dressing", 10.8, 2.4, 46.4, { role: "dip", ing: "caesar", variant: true, price: 0.8, orderName: "caesar", order: [{ group: "extra", name: "Extra Dressing/Sauce" }] }), opt("tahini", "dressing", 6.1, 3.4, 15.5, { role: "dip", price: 0 }), opt("tahini2", "dressing", 12.2, 6.8, 31, { role: "dip", ing: "tahini", variant: true, price: 0.8, orderName: "tahini", order: [{ group: "extra", name: "Extra Dressing/Sauce" }] })] },
+    { id: "brot", name: "Brot", min: 0, max: 3, none: "ohne Brot", options: [opt("brot", "brot", 11.5, 2.1, 1.4, { role: "side", price: 0 }), opt("brot2", "brot", 23, 4.2, 2.8, { role: "side", ing: "brot", variant: true, price: 0.3, orderName: "brot", order: [{ group: "extra", name: "extra Brot" }] })] },
+    { id: "extra", name: "Extra Brot/Dressing", min: 0, max: 999, none: null, options: [] },
+    { id: "extras", name: "Extras", min: 0, max: 999, none: null, options: [opt("chicken", "extras", 2.4, 15.2, 3.8, { role: "protein", maxQty: 999, price: 3.75 }), opt("lachs2", "extras", 1.2, 12.7, 5.9, { role: "protein", maxQty: 999, price: 4.25 }), opt("halloumi", "extras", 1.9, 19.5, 23.1, { role: "protein", maxQty: 999, price: 3.75 }), opt("avocado", "extras", 0.9, 0.4, 3.1, { role: "extra", maxQty: 999, price: 2.25 }), opt("ei2", "extras", 0.2, 5.3, 4.5, { role: "extra", maxQty: 999, price: 1.25 }), opt("croutons", "extras", 9.8, 1.8, 1.5, { role: "extra", maxQty: 999, price: 1.25 }), opt("kartoffeln", "extras", 18.3, 2.3, 5.3, { role: "extra", maxQty: 999, price: 3.75 }), opt("gurke", "extras", 0.5, 0.2, 0.1, { role: "extra", maxQty: 999, price: 1.25 }), opt("gewuerz", "extras", 0, 0, 0, { role: "extra", maxQty: 999, price: 0 })] },
+  ] };
+const TBOWL = { ...TSAL, item: "Test Bowl bar", require: { base: true, protein: true }, groups: [{ id: "basis", name: "Basis", min: 1, max: 1, none: null, options: [opt("jasmin", "basis", 74, 6.5, 0.6, { role: "base", price: 0 }), opt("quinoa", "basis", 46.4, 6.4, 3, { role: "base", price: 0 })] }, ...TSAL.groups] };
+const tSal = tgt(45, 40, 25), oS = { cap: 2, maxExtras: 3 };
+const rSal = T.bowlCombos(TSAL, tSal, "macros", {}, oS);
+check("require base:false → Bowls ohne Basis erlaubt, ≥1 Protein bleibt Pflicht", rSal.length > 0 && rSal.every(r => cnt(r, "base") === 0 && cnt(r, "protein") >= 1), true);
+check("fester Bestandteil (Blattsalat) in jeder Bowl: items + Nährwerte, kein Aufpreis", rSal.every(r => r.fixed.length === 1 && r.items[0].id === "blatt" && JSON.stringify(r.nutrition) === JSON.stringify(T.sumN(r.items, 1)) && Math.abs(r.price - (7.25 + r.parts.reduce((a, pt) => a + pt.opt.price * pt.qty, 0) + (r.dip ? r.dip.price : 0) + (r.side ? r.side.price : 0))) < 1e-9), true);
+check("Einzelauswahl: höchstens ein Dressing (auch als 2-Portionen-Variante) und höchstens ein Brot", rSal.every(r => r.items.filter(x => T.bowlRole(x) === "dip").length <= 1 && r.items.filter(x => T.bowlRole(x) === "side").length <= 1), true);
+check("Brot-Variante (2 Scheiben, +0,30 €) und Dressing-Variante (+0,80 €) werden gewählt, wenn sie passen", (() => { const tt = tgt(1.4 + 4.2 + 15.2 + 2.4, 2.8 + 23 + 2.4 + 10.8, 0.3 + 2.8 + 3.8 + 46.4); const r0 = T.bowlCombos(TSAL, tt, "macros", {}, oS)[0]; return r0.rawScore < 1e-9 && r0.side.id === "brot2" && r0.dip.id === "caesar2" && Math.abs(r0.price - (7.25 + 3.75 + 0.3 + 0.8)) < 1e-9; })(), true);
+check("Key enthält Brot und Dressing; Keys eindeutig", rSal.every(r => (r.side ? r.key.includes("|" + r.side.id + "|") : true)) && new Set(rSal.map(r => r.key)).size === rSal.length, true);
+check("Zusammenfassung: Teile, dann Brot, dann Dressing (Kurznamen)", (() => { const r = { parts: [{ opt: { short: "Chicken" }, qty: 2 }], side: { short: "2× Landbrot" }, dip: { short: "Caesar" } }; return T.bowlSummary(r) === "2× Chicken + 2× Landbrot + Caesar"; })(), true);
+check("Order Guide: Varianten → Name in der eigenen Gruppe + „Extra …“ in der Bestellschritt-Gruppe; „ohne …“ bei leerer Einzelauswahl; Stepper-Extras mit Menge", (() => {
+  const X = id => TSAL.groups.flatMap(g => g.options).find(o => o.id === id);
+  const st1 = T.bowlOrderSteps(TSAL, { parts: [{ opt: X("chicken"), qty: 2 }, { opt: X("avocado"), qty: 1 }], side: X("brot2"), dip: X("caesar2") });
+  const st2 = T.bowlOrderSteps(TSAL, { parts: [{ opt: X("chicken"), qty: 1 }], side: null, dip: null });
+  const v = (st, l) => (st.find(x => x.l === l) || {}).v;
+  return v(st1, "Dressing") === "caesar" && v(st1, "Brot") === "brot" && v(st1, "Extra Brot/Dressing") === "extra Brot · Extra Dressing/Sauce" && v(st1, "Extras") === "2× chicken · 1× avocado"
+    && v(st2, "Dressing") === "ohne Dressing" && v(st2, "Brot") === "ohne Brot" && v(st2, "Extra Brot/Dressing") === undefined;
+})(), true);
+check("Pflicht bei Varianten: Dressing Tahini → jede Bowl hat Tahini (1 oder 2 Portionen); Brot → jede Bowl hat Brot", (() => { const r = T.bowlCombos(TSAL, tSal, "macros", {}, { ...oS, include: ["tahini", "brot"] }); return r.length > 0 && r.every(x => x.dip && x.dip.ing === "tahini" && x.side && x.side.ing === "brot") && r.some(x => x.dip.id === "tahini2" || x.side.id === "brot2"); })(), true);
+check("Basis-Pflicht im Bowl-Menü: genau eine Basis (Gruppe max 1)", (() => { const r = T.bowlCombos(TBOWL, tgt(50, 110, 25), "macros", {}, oS); return r.length > 0 && r.every(x => cnt(x, "base") === 1); })(), true);
+let exSal = 0;
+const salCases = [[TSAL, tSal, "macros", {}, oS], [TSAL, tgt(70, 25, 40), "macros", {}, { cap: 3, maxExtras: 4 }], [TSAL, kcalT(600), "calories", { hp: true, lf: true }, oS], [TSAL, kcalT(450), "calories", {}, oS], [TBOWL, tgt(50, 110, 25), "macros", {}, oS], [TBOWL, kcalT(800), "calories", { hc: true }, oS],
+  [TSAL, tSal, "macros", {}, { ...oS, include: ["halloumi", "avocado"] }], [TSAL, kcalT(650), "calories", { hp: true }, { ...oS, include: ["caesar", "gewuerz"] }], [TBOWL, tgt(60, 90, 20), "macros", {}, { ...oS, include: ["quinoa", "brot", "lachs2"] }], [TSAL, tSal, "macros", {}, { ...oS, maxPrice: 14 }], [TBOWL, tgt(60, 90, 20), "macros", {}, { ...oS, include: ["ei2"], maxPrice: 16 }]];
+for (const [mn, tt, md, pp, oo] of salCases) if (sameTop(rawTop(mn, tt, md, pp, oo), exhaustiveBowl(mn, tt, md, pp, oo))) exSal++;
+check("Salat-/Bowl-Muster (fester Bestandteil, Brot, Varianten, ohne Basis-Pflicht): Top 30 = vollständige Durchrechnung (11 Fälle inkl. Pflicht + Preislimit)", exSal, salCases.length);
+check("bowlValidate: Test-Salat gültig; meldet Variante ohne Grundoption und Bestellschritt mit unbekannter Gruppe", (() => {
+  const data = { ingredients: ["blatt", "caesar", "tahini", "brot", "chicken", "lachs2", "halloumi", "avocado", "ei2", "croutons", "kartoffeln", "gurke", "gewuerz"].map(id => ({ id, name: id, per100: { kcal: 1, fat: 0, sat: 0, carbs: 0, sugars: 0, fibre: 0, protein: 0, salt: 0 } })), salad: TSAL };
+  const okV = T.bowlValidate(data, ["salad"]).length === 0;
+  const bad = JSON.parse(JSON.stringify(data));
+  bad.salad.groups[0].options = bad.salad.groups[0].options.filter(o => o.id !== "tahini");
+  bad.salad.groups[1].options[1].order[0].group = "gibtsnicht";
+  const P = T.bowlValidate(bad, ["salad"]);
+  return okV && P.some(x => /Variante ohne Grundoption/.test(x)) && P.some(x => /Bestellschritt ohne gültige Gruppe/.test(x));
+})(), true);
+check("bowlIncludables: je Zutat einmal mit Rolle, ohne Varianten, ohne Wolt-Duplikat, ohne Schalentier/Gesperrtes", (() => {
+  const a = T.bowlIncludables(TSAL, new Set(["croutons"])); const b = T.bowlIncludables(TMENU, null);
+  return a.map(x => x.id).join() === "caesar,tahini,brot,chicken,lachs2,halloumi,avocado,ei2,kartoffeln,gurke,gewuerz" && a.find(x => x.id === "caesar").role === "dip" && a.find(x => x.id === "brot").role === "side"
+    && b.filter(x => x.id === "huhn").length === 1 && b.find(x => x.id === "huhn").role === "protein" && !b.some(x => x.id === "garnele") && b.find(x => x.id === "reis").name === "reis";
+})(), true);
+check("addInclude: keine Doppelten; ein neuer Dip ersetzt den alten, Extras/Proteine bleiben", (() => { const inc = T.bowlIncludables(TSAL, null); const l1 = T.addInclude(["caesar", "avocado"], "tahini", inc); const l2 = T.addInclude(l1, "avocado", inc); const l3 = T.addInclude(l2, "brot", inc); return l1.join() === "avocado,tahini" && l2.join() === "tahini,avocado" && l3.join() === "tahini,avocado,brot"; })(), true);
 
 // ── Compleat: Daten ──
 sect("Compleat: Daten (Shop + Wolt + Uber Eats)");
@@ -668,8 +767,21 @@ let exUok = 0; const exUT = [
 ];
 for (const [tt, md, pp, oo] of exUT) if (sameTop(rawTop(UE, tt, md, pp, oo), exhaustiveBowl(UE, tt, md, pp, oo))) exUok++;
 check("Uber Eats: Top 30 = vollständige Durchrechnung (Makro/Kalorien, halbe Portionen, Dips, Preislimit; 10 Fälle)", exUok, exUT.length);
+// Pflicht-Zutaten bei Compleat (User 16.09.2026)
+const runI = (R, t, st, ex, inc) => T.runOptimize(R, t, "macros", {}, st, ex || new Set(), new Set(inc));
+check("Compleat Wolt: Pflicht Pulled Salmon → in jeder Bowl, Regeln + Deckel bleiben", (() => { const r = runI(CR, tDef, stC, null, ["pulled_salmon"]); return r.length > 0 && r.every(x => x.items.some(y => y.ing === "pulled_salmon") && cntC(x, "base") >= 1 && !x.dip); })(), true);
+check("Pflicht geht am Schalter vorbei: „No dip“ AN + Pflicht Guacamole → Guacamole in jeder Bowl; „No crunch“ AN + Erdnüsse → drin", (() => { const a = runI(CR, tDef, stC, null, ["guacamole"]); const b = runI(CR, tDef, { ...stC, sw: { ...stC.sw, noCrunch: true } }, null, ["erdnuesse"]); return a.length > 0 && a.every(x => x.dip && x.dip.ing === "guacamole") && b.length > 0 && b.every(x => x.items.some(y => y.ing === "erdnuesse")); })(), true);
+check("Pflicht nie gegen Ausschluss oder Sperre: ausgeschlossene Pflicht wird ignoriert, Quinoa bleibt gesperrt", (() => { const a = runI(CR, tDef, stC, new Set(["avocado"]), ["avocado"]); const b = runI(CR, tDef, stC, null, ["bunter_bio_quinoa"]); return a.length > 0 && a.every(x => x.items.every(y => y.ing !== "avocado")) && b.length > 0 && b.every(x => x.items.every(y => y.ing !== "bunter_bio_quinoa")); })(), true);
+check("Plattform-Unterschied: Pflicht Süßkartoffel → Wolt [] mit missing, Uber Eats Bowls mit Süßkartoffel", (() => { const w = runI(CR, tDef, stC, null, ["suesskartoffel"]); const u = runI(CU, tDef, stU, null, ["suesskartoffel"]); return w.length === 0 && w.missing.join() === "suesskartoffel" && u.length > 0 && u.every(x => x.items.some(y => y.ing === "suesskartoffel")); })(), true);
+check("Uber Eats: Pflicht Hühnchen darf auch als halbe Portion erfüllt werden", (() => { const u = runI(CU, tgt(30, 70, 15), stU, null, ["huehnchen"]); return u.length > 0 && u.every(x => x.items.some(y => y.ing === "huehnchen")) && u.some(x => x.parts.some(pt => pt.opt.ing === "huehnchen" && pt.opt.half)); })(), true);
+check("includables: Wolt ohne Quinoa und ohne Protein-Duplikate, Uber Eats ohne Limette; gemeinsamer Schlüssel compleat", (() => { const w = T.includablesFor(CR), u = T.includablesFor(CU); return !w.some(x => x.id === "bunter_bio_quinoa") && w.filter(x => x.id === "huehnchen").length === 1 && w.find(x => x.id === "huehnchen").role === "protein" && !u.some(x => /limette/i.test(x.name)) && CR.exclusionKey === CU.exclusionKey; })(), true);
+check("All: Pflicht-Liste (inclMap.compleat) gilt für Wolt UND Uber Eats", (() => { const a = T.optimizeAll(tDef, "macros", {}, 5, false, undefined, {}, { compleat: ["avocado"] }); const w = a.find(r => r._resto === "compleat"), u = a.find(r => r._resto === "compleatuber"); return !!w && !!u && w.items.some(x => x.ing === "avocado") && u.items.some(x => x.ing === "avocado"); })(), true);
+let exUI = 0;
+const exUIC = [[tgt(65, 85, 20), "macros", {}, { ...oU1, include: ["avocado"] }], [kcalT(600), "calories", { hp: true }, { ...oUh, include: ["huehnchen", "mais"] }], [tgt(80, 100, 20), "macros", {}, { ...oUh, include: ["pulled_salmon", "curvy_curry"] }]];
+for (const [tt, md, pp, oo] of exUIC) if (sameTop(rawTop(UE, tt, md, pp, oo), exhaustiveBowl(UE, tt, md, pp, oo))) exUI++;
+check("Uber Eats mit Pflicht-Zutaten: Top 30 = vollständige Durchrechnung (3 Fälle, halbe Portionen, Dip)", exUI, exUIC.length);
 // plattformübergreifend
-check("Such-Index: beide Plattformen mit eigenen Namen (Hähnchen, 100 g · Hühnchen (100g)), kein Quinoa, keine Limette", T.SEARCH_INDEX.filter(x => x.resto === "Compleat (Wolt)" && x.name === "Hähnchen, 100 g").length === 1 && T.SEARCH_INDEX.filter(x => x.resto === "Compleat (Uber Eats)" && x.name === "Hühnchen (100g)").length === 1 && !T.SEARCH_INDEX.some(x => /quinoa|limette/i.test(x.name)), true);
+check("Such-Index: beide Plattformen mit eigenen Namen (Hähnchen, 100 g · Hühnchen (100g)), kein Quinoa, keine Limette", T.SEARCH_INDEX.filter(x => x.resto === "Compleat (Wolt)" && x.name === "Hähnchen, 100 g").length === 1 && T.SEARCH_INDEX.filter(x => x.resto === "Compleat (Uber Eats)" && x.name === "Hühnchen (100g)").length === 1 && !T.SEARCH_INDEX.some(x => /^Compleat/.test(x.resto) && /quinoa|limette/i.test(x.name)), true);
 check("Suche 'haehnchen' findet Hähnchen + Veganes Hähnchen (Wolt)", (() => { const nm = T.searchItems("haehnchen").map(x => x.name); return nm.includes("Hähnchen, 100 g") && nm.includes("Veganes Hähnchen, 80 g"); })(), true);
 check("Suche 'huehnchen uber' findet Uber-Eats-Hühnchen (ganz + halb)", (() => { const nm = T.searchItems("huehnchen uber").map(x => x.name); return nm.includes("Hühnchen (100g)") && nm.includes("Hühnchen - Halbe Portion (50g)"); })(), true);
 const allC = T.optimizeAll(tDef, "macros", {}, 5, false);
@@ -677,6 +789,49 @@ check("All: beide Compleat-Einträge mit je einem Treffer und Preis", allC.filte
 check("All: gemeinsame Ausschluss-Liste (exclMap.compleat) gilt für Wolt UND Uber Eats", (() => { const a = T.optimizeAll(tDef, "macros", {}, 5, false, undefined, { compleat: ["huehnchen"] }); const w = a.find(r => r._resto === "compleat"), u = a.find(r => r._resto === "compleatuber"); return !!w && !!u && w.items.every(x => x.ing !== "huehnchen") && u.items.every(x => x.ing !== "huehnchen"); })(), true);
 check("All: Preislimit gilt auch dort", T.optimizeAll({ ...tDef, maxPrice: 12 }, "macros", {}, 5, false).every(r => r.price == null || r.price <= 12 + 1e-9), true);
 check("resultKey stabil über Neuberechnung (Karten-Markierung)", T.resultKey(run(tDef, stC)[0]) === T.resultKey(rDef[0]), true);
+
+// ── Dean & David (Wolt, Mix Your Own) ──
+sect("Dean & David (Wolt, Mix Your Own Salad bar + Bowl bar)");
+const rawDD = U.readJSON(__dirname + "/data/deandavid-raw.json");
+const updDD = require("./deandavid-update.js");
+const DD = T.DEANDAVID, DS = DD.salad, DB = DD.bowl;
+const DRS = T.RESTO_BY_KEY.deandavidsalad, DRB = T.RESTO_BY_KEY.deandavidbowl;
+const ddOpt = (menu, name) => menu.groups.flatMap(g => g.options).find(o => o.name === name);
+const ddG = (menu, id) => menu.groups.find(g => g.id === id);
+check("Registry: Dean & David Salad + Bowl (Wolt) — BYO, accurate, gemeinsame Listen (deandavid), Schalter „No dressing“ Default AN", !!DRS && !!DRB && DRS.kind === "byo" && DRB.kind === "byo" && DRS.accurate === true && DRB.accurate === true && DRS.exclusionKey === "deandavid" && DRB.exclusionKey === "deandavid" && DRS.menu === DS && DRB.menu === DB && DRS.switches.length === 1 && DRS.switches[0].id === "noDressing" && DRS.switches[0].def === true, true);
+check("DEANDAVID-Block = deandavid-update.js(data/deandavid-raw.json) (Block aktuell)", (() => { const a = updDD.buildMenu(rawDD, "salad"), b = updDD.buildMenu(rawDD, "bowl"); return JSON.stringify(a.groups) === JSON.stringify(DS.groups) && JSON.stringify(b.groups) === JSON.stringify(DB.groups) && JSON.stringify(a.fixed) === JSON.stringify(DS.fixed) && JSON.stringify(b.fixed) === JSON.stringify(DB.fixed) && a.basePrice === DS.basePrice && b.basePrice === DB.basePrice && DD.ingredients.length === rawDD.ingredients.length; })(), true);
+const valDD = T.bowlValidate(DD, ["salad", "bowl"]);
+if (valDD.length) console.log(valDD.join("\n"));
+check("bowlValidate(DEANDAVID) ohne Probleme (Salat + Bowl)", valDD.length, 0);
+check("Grundpreis 7,25 € · Salat ohne Basis-Pflicht, Bowl mit · Premium Blattsalatmix fest in beiden (20 kcal, 1,4 g P)", DS.basePrice === 7.25 && DB.basePrice === 7.25 && DS.require.base === false && DB.require.base === true && DS.fixed.length === 1 && DS.fixed[0].kcal === 20 && DS.fixed[0].protein === 1.4 && DB.fixed.length === 1 && DB.fixed[0].ing === "blattsalatmix", true);
+check("Salat: 5 Dressings (+5 Varianten) + „ohne Dressing/Sauce“ · Landbrot (+Variante) + „ohne Brot“ · „Extra Brot/Dressing“ nur Bestellschritt · 26 Extras", ddG(DS, "dressing").options.filter(o => !o.variant).length === 5 && ddG(DS, "dressing").options.filter(o => o.variant).length === 5 && ddG(DS, "dressing").none === "ohne Dressing/Sauce" && ddG(DS, "brot").options.length === 2 && ddG(DS, "brot").none === "ohne Brot" && ddG(DS, "extra_brot_dressing").options.length === 0 && ddG(DS, "extras").options.length === 26, true);
+check("Bowl: 2 Basen (je 1×) · 4 Saucen (+4 Varianten) + „ohne Dressing“ · Landbrot · 26 Extras", ddG(DB, "basis").options.length === 2 && ddG(DB, "basis").options.every(o => o.role === "base" && o.maxQty === 1) && ddG(DB, "dressing").options.filter(o => !o.variant).length === 4 && ddG(DB, "dressing").none === "ohne Dressing" && ddG(DB, "brot").options.length === 2 && ddG(DB, "extras").options.length === 26, true);
+check("Proteine (User 16.09.2026): Chicken, Lachs, Rind, Halloumi, Ziegenkäse, Schafskäse mit Rolle protein; 20 übrige Toppings extra; Wolt-Stepper bis 999", ddG(DS, "extras").options.filter(o => o.role === "protein").map(o => o.name).sort().join("|") === ["Chicken extra", "Halloumi extra", "Lachs extra", "Rind extra", "Schafskäse extra", "Ziegenkäse extra"].sort().join("|") && ddG(DS, "extras").options.filter(o => o.role === "extra").length === 20 && ddG(DS, "extras").options.every(o => o.maxQty === 999), true);
+check("Werte pro Portion: Chicken extra = Hähnchen-Filetstreifen 105 kcal / 15,2 g P · Halloumi 293 kcal · Lachs = Räucherlachs 108 kcal · Geg. Kartoffeln = Roast Potatoes 136 kcal · Jasmin-Duftreis 330 kcal", ddOpt(DS, "Chicken extra").kcal === 105 && ddOpt(DS, "Chicken extra").protein === 15.2 && ddOpt(DS, "Halloumi extra").kcal === 293 && ddOpt(DS, "Lachs extra").kcal === 108 && ddOpt(DS, "Geg. Kartoffeln extra").kcal === 136 && ddOpt(DS, "Geg. Kartoffeln extra").ing === "roast_potatoes" && ddOpt(DB, "Jasmin-Duftreis").kcal === 330, true);
+check("Preise laut Wolt: Lachs 4,25 € · Avocado 2,25 € · Edamame 1,25 € · Kürbis 3,75 € · Dressing und Brot 0 €", ddOpt(DS, "Lachs extra").price === 4.25 && ddOpt(DS, "Avocado extra").price === 2.25 && ddOpt(DS, "Edamame extra").price === 1.25 && ddOpt(DS, "Kürbis").price === 3.75 && ddOpt(DS, "Caesar Dressing").price === 0 && ddOpt(DS, "Mit knusprigem Landbrot").price === 0, true);
+check("Varianten (User 16.09.2026): Caesar ×2 = 468 kcal für +0,80 €, Landbrot ×2 = 138 kcal für +0,30 €, mit Bestellschritten „Extra Dressing/Sauce“ / „extra Brot“", (() => { const c2 = ddOpt(DS, "Caesar Dressing + Extra Dressing/Sauce"), b2 = ddOpt(DS, "Mit knusprigem Landbrot + extra Brot"); return !!c2 && !!b2 && c2.variant === true && c2.kcal === 468 && c2.price === 0.8 && c2.orderName === "Caesar Dressing" && c2.order[0].name === "Extra Dressing/Sauce" && c2.order[0].group === "extra_brot_dressing" && b2.variant === true && b2.kcal === 138 && b2.price === 0.3 && b2.order[0].name === "extra Brot" && b2.short === "2× Landbrot"; })(), true);
+check("Ohne offizielle Werte bzw. weggelassen nicht im Menü, aber dokumentiert: Pumpkin spice Gewürz, Marinierte Zwiebeln, Sonnenblumenkerne extra (User 16.09.2026)", [DS, DB].every(m => m.groups.every(g => g.options.every(o => !/Pumpkin spice|Marinierte Zwiebeln|Sonnenblumenkerne/.test(o.name)))) && rawDD._meta.noData.some(x => /Pumpkin spice Gewürz/.test(x)) && rawDD._meta.noData.some(x => /Marinierte Zwiebeln/.test(x)) && rawDD._meta.omitted.some(x => /Sonnenblumenkerne extra/.test(x) && /User 16\.09\.2026/.test(x)), true);
+check("Allergenliste: kein Baustein mit Krebs- oder Weichtieren; Landbrot Gluten + Sesam, Halloumi Milch, Lachs Fisch", DD.ingredients.every(x => !x.shellfish) && rawDD._meta.shellfish.length === 0 && DD.ingredients.find(x => x.id === "landbrot").allergens.some(a => /^Gluten/.test(a)) && DD.ingredients.find(x => x.id === "landbrot").allergens.includes("Sesam") && DD.ingredients.find(x => x.id === "halloumi").allergens.includes("Milch") && DD.ingredients.find(x => x.id === "raeucherlachs").allergens.includes("Fisch"), true);
+check("Ballaststoffe nicht angegeben → 0 (dokumentiert); Auffälligkeiten dokumentiert (Jasmin-Duftreis Seite 2, Räucherlachs Zucker)", DD.ingredients.every(x => x.perPortion.fibre === 0 && x.per100.fibre === 0) && /Ballaststoffe/.test(rawDD._meta.fibre) && rawDD._meta.anomalies.some(a => a.id === "jasmin_duftreis") && rawDD._meta.anomalies.some(a => a.id === "raeucherlachs"), true);
+check("Filialen: Mainzer Landstraße + Tower 185 identisch, MyZeil ohne Marinierte Zwiebeln, Bockenheim ohne Salat bar", /identisch/.test(rawDD._meta.venues["deandavid-mainzer-landstrasse"]) && /identisch/.test(rawDD._meta.venues["deandavid-tower-185"]) && /Marinierte Zwiebeln/.test(rawDD._meta.venues["deandavid-myzeil"]) && /Salad bar fehlt/.test(rawDD._meta.venues["deandavid-bockenheim"]), true);
+const stDS = T.defaultRestoState(DRS), stDB = T.defaultRestoState(DRB);
+const runDD = (R, t, st, inc, mode, p) => T.runOptimize(R, t, mode || "macros", p || {}, st, new Set(), new Set(inc || []));
+const rDS = runDD(DRS, tDef, stDS), rDB = runDD(DRB, tDef, stDB);
+check("Defaults: No dressing AN, max. 5 Extras, max. 2 Portionen", stDS.sw.noDressing === true && stDS.extra.maxExtras === 5 && stDS.extra.cap === 2 && stDB.sw.noDressing === true, true);
+check("Salat: ≥1 Protein, keine Basis, kein Dressing (Schalter), Blattsalatmix enthalten, Proteine ≤ 2 Portionen, Toppings je 1×", rDS.length > 0 && rDS.every(r => cntC(r, "protein") >= 1 && cntC(r, "base") === 0 && !r.dip && r.fixed.length === 1 && r.items[0].ing === "blattsalatmix" && r.parts.every(pt => T.bowlRole(pt.opt) === "protein" ? pt.qty <= 2 : pt.qty === 1)), true);
+check("Bowl: genau eine Basis, ≥1 Protein", rDB.length > 0 && rDB.every(r => cntC(r, "base") === 1 && cntC(r, "protein") >= 1), true);
+check("Preis = 7,25 € + Toppings + Brot-/Dressing-Varianten", [...rDS, ...rDB].every(r => Math.abs(r.price - Math.round((7.25 + r.parts.reduce((a, pt) => a + pt.opt.price * pt.qty, 0) + (r.dip ? r.dip.price : 0) + (r.side ? r.side.price : 0)) * 100) / 100) < 1e-9), true);
+check("No dressing AUS → Dressing wird genutzt, wenn es passt (höchstens eines)", (() => { const r = runDD(DRS, tgt(40, 30, 45), { ...stDS, sw: { noDressing: false } }); return r.length > 0 && r.some(x => x.dip) && r.every(x => x.items.filter(y => T.bowlRole(y) === "dip").length <= 1); })(), true);
+check("Pflicht „Tahini Lemon“ geht am Schalter vorbei; Pflicht Halloumi in jedem Salat", (() => { const r = runDD(DRS, tDef, stDS, ["tahini_lemon", "halloumi"]); return r.length > 0 && r.every(x => x.dip && x.dip.ing === "tahini_lemon" && x.items.some(y => y.ing === "halloumi")); })(), true);
+check("Pflicht Jasmin-Duftreis: im Salat-Tab missing, im Bowl-Tab in jeder Bowl", (() => { const s1 = runDD(DRS, tDef, stDS, ["jasmin_duftreis"]); const b1 = runDD(DRB, tDef, stDB, ["jasmin_duftreis"]); return s1.length === 0 && s1.missing.join() === "jasmin_duftreis" && b1.length > 0 && b1.every(x => x.parts.some(pt => pt.opt.ing === "jasmin_duftreis")); })(), true);
+check("Order Guide Salat: Item → Dressing („ohne Dressing/Sauce“) → Brot → Extras mit Mengen", (() => { const st1 = DRS.orderSteps(rDS[0]); return st1[0].v === "Mix Your Own Salad bar" && st1[1].l === "WELCHES DRESSING MÖCHTEST DU? (MYO SALAD)" && st1[1].v === "ohne Dressing/Sauce" && st1[2].l === "BROT MIT DAZU?" && st1.slice(-1)[0].l === "WÄHLE DEINE EXTRAS" && st1.slice(-1)[0].v.split(" · ").every(v => /^\d× /.test(v)); })(), true);
+check("Order Guide mit Varianten: „Caesar Dressing“, „Mit knusprigem Landbrot“ und beide Extras in „EXTRA BROT/DRESSING DAZU?“", (() => { const X = n => ddOpt(DS, n); const st1 = DRS.orderSteps({ parts: [{ opt: X("Chicken extra"), qty: 1 }], side: X("Mit knusprigem Landbrot + extra Brot"), dip: X("Caesar Dressing + Extra Dressing/Sauce") }); const v = l => (st1.find(x => x.l === l) || {}).v; return v("WELCHES DRESSING MÖCHTEST DU? (MYO SALAD)") === "Caesar Dressing" && v("BROT MIT DAZU?") === "Mit knusprigem Landbrot" && v("EXTRA BROT/DRESSING DAZU?") === "extra Brot · Extra Dressing/Sauce"; })(), true);
+check("Suche, Ausschluss, Pflicht: je Zutat ein Eintrag ohne Varianten; Such-Index mit Dean-&-David-Badge", (() => { const inc = T.includablesFor(DRS), ex = T.excludablesFor(DRB); return inc.filter(x => x.id === "caesar").length === 1 && !inc.some(x => /\+ /.test(x.name)) && ex.some(x => x.id === "jasmin_duftreis") && !T.SEARCH_INDEX.some(x => /\+ (Extra Dressing\/Sauce|extra Brot)$/.test(x.name)) && T.SEARCH_INDEX.some(x => x.resto === "Dean & David Salad (Wolt)" && x.name === "Halloumi extra"); })(), true);
+check("All: Dean & David Salat + Bowl mit je einem Treffer und Preis", (() => { const a = T.optimizeAll(tDef, "macros", {}, 5, false); return a.filter(r => r._resto === "deandavidsalad").length === 1 && a.filter(r => r._resto === "deandavidbowl").length === 1 && a.every(r => typeof r.price === "number"); })(), true);
+let exDD = 0;
+const exDDC = [[DS, tDef, "macros", {}, { cap: 2, maxExtras: 2 }], [DS, kcalT(550), "calories", { hp: true, lf: true }, { cap: 2, maxExtras: 2 }], [DB, tgt(50, 110, 20), "macros", {}, { cap: 2, maxExtras: 2 }], [DS, tgt(40, 30, 45), "macros", {}, { cap: 2, maxExtras: 2, include: ["tahini_lemon", "avocado"] }], [DB, kcalT(900), "calories", { hc: true }, { cap: 1, maxExtras: 2, maxPrice: 16 }]];
+for (const [mn, tt, md, pp, oo] of exDDC) if (sameTop(rawTop(mn, tt, md, pp, oo), exhaustiveBowl(mn, tt, md, pp, oo))) exDD++;
+check("Dean & David: Top 30 = vollständige Durchrechnung (Salat + Bowl, Makro/Kalorien, Pflicht, Preislimit; 5 Fälle)", exDD, exDDC.length);
 
 // ── Screenshot-Import-Parser (OCR-Text → verbleibende Makros C/P/F + "Übrig"-kcal) — Fälle aus dem London-Tool ──
 sect("parseMacroScreenshot");
