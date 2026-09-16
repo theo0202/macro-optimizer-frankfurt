@@ -1,0 +1,780 @@
+{
+  "_meta": {
+    "restaurant": "Lorys Gymfood",
+    "fetchedAt": "2026-09-16T13:00:16.567Z",
+    "sources": {
+      "nutrition": {
+        "site": "https://www.lorys-gymfood.de/menu?location=Berliner+Stra%C3%9Fe",
+        "location": "Berliner Straße",
+        "data": "Wix-Restaurant-Menü (Script-Tag wix-warmup-data → populatedMenus)",
+        "menus": [
+          "BURGER",
+          "BOWLS",
+          "WRAPS",
+          "BEILAGEN"
+        ],
+        "skippedMenus": {
+          "SHAKES": "Shakes (User 16.09.2026: ignorieren)",
+          "BREAKFAST": "Breakfast (User 16.09.2026: ignorieren)"
+        }
+      },
+      "wolt": {
+        "venue": "lorys-gym-food",
+        "name": "LORYS GYMFOOD (Offenbach)",
+        "page": "https://wolt.com/de/deu/frankfurt/restaurant/lorys-gym-food",
+        "api": "https://consumer-api.wolt.com/consumer-api/consumer-assortment/v1/venues/slug/lorys-gym-food/assortment?language=de",
+        "categories": [
+          "Bowls",
+          "Wraps",
+          "Burger",
+          "Beilagen"
+        ],
+        "skippedCategories": {
+          "Protein Shakes/Smoothies": "Shakes und Smoothies (User 16.09.2026: Shakes ignorieren)",
+          "Alkoholfreie Getränke": "Getränke"
+        }
+      }
+    },
+    "basis": "Offizielle Werte je Gericht laut lorys-gymfood.de (Standort Berliner Straße), jeweils für die Standard-Auswahl (Pflicht-Auswahl bei Wolt = Standard-Option). Angegeben sind nur kcal, Kohlenhydrate, Eiweiß und Fett — gesättigte Fettsäuren, Zucker, Ballaststoffe und Salz fehlen und stehen als 0 im Tracker. Namen, Verfügbarkeit und Preise von Wolt (Menüpreise ohne Rabattaktionen).",
+    "notDeclared": [
+      "sat",
+      "sugars",
+      "fibre",
+      "salt"
+    ],
+    "decisions": [
+      "User 16.09.2026: Lorys Gymfood als Tracker, Nährwerte aller Produkte von lorys-gymfood.de (Standort Berliner Straße); die Werte gelten für die Standard-Auswahl (z.B. High Protein Chicken Bowl mit Sesam-Miso-Sauce)",
+      "User 16.09.2026: Plattform Wolt (LORYS GYMFOOD) — Namen, Verfügbarkeit, Preise",
+      "User 16.09.2026: Breakfast und Shakes ignorieren"
+    ],
+    "checks": [
+      "Wolt-UI 16.09.2026: optionale Gruppen mit Standard-Option sind nicht vorbelegt — Plant Based Protein Bowl „Zur Bestellung hinzufügen 12,90 €“ ohne Halloumi (+4,00 €), Pure Beef Burger ohne Bio-Spiegelei/Ketchup"
+    ],
+    "mapping": {
+      "Pommes Frites": "Pommes Frites inkl. Dip",
+      "Süßkartoffelpommes": "Süßkartoffel Pommes inkl. Dip"
+    },
+    "notes": [
+      "Pommes Frites: Website-Name „Pommes Frites inkl. Dip“ — die Werte enthalten laut Website einen Dip; Wolt nennt keinen Dip (Artikel ohne Dip-Auswahl)",
+      "Süßkartoffelpommes: Website-Name „Süßkartoffel Pommes inkl. Dip“ — die Werte enthalten laut Website einen Dip; Wolt nennt keinen Dip (Artikel ohne Dip-Auswahl)"
+    ],
+    "skipped": [
+      "Website: SHAKES (4 Produkte) — Shakes (User 16.09.2026: ignorieren)",
+      "Website: BREAKFAST (8 Produkte) — Breakfast (User 16.09.2026: ignorieren)",
+      "Wolt: Protein Shakes/Smoothies (9 Artikel) — Shakes und Smoothies (User 16.09.2026: Shakes ignorieren)",
+      "Wolt: Alkoholfreie Getränke (6 Artikel) — Getränke"
+    ],
+    "notOnWolt": [],
+    "anomalies": [
+      {
+        "name": "Bulking Beef Burger",
+        "issues": [
+          "kcal 1650 ≠ 4·C+4·P+9·F = 1410"
+        ]
+      },
+      {
+        "name": "Spicy Gurkensalat",
+        "issues": [
+          "kcal 101 ≠ 4·C+4·P+9·F = 259"
+        ]
+      },
+      {
+        "name": "Lorys Rote Beete Salat",
+        "issues": [
+          "kcal 144 ≠ 4·C+4·P+9·F = 160"
+        ]
+      },
+      {
+        "name": "Hausgemachter Hummus",
+        "issues": [
+          "kcal 532 ≠ 4·C+4·P+9·F = 654"
+        ]
+      },
+      {
+        "name": "Wolt-Beschreibung ≠ Website",
+        "issues": [
+          "Die Wolt-Beschreibung nennt bei 5 Gerichten andere Werte; der Tracker nutzt die Website (vom User genannte Quelle): Lorys Farmers Bowl: Website 1154/58/91/73 · Wolt-Beschreibung 854/58/49/73 · Bulking Beef Burger: Website 1650/44/133/78 · Wolt-Beschreibung 1147/44/84/78 · Crispy Chicken Burger: Website 820/64/33/40 · Wolt-Beschreibung 776/76/33/36 · Pure Beef Burger: Website 854/58/49/42 · Wolt-Beschreibung 854/58/49/46 · Chili Cheese Burger: Website 970/60/68/58 · Wolt-Beschreibung 1150/60/58/74"
+        ]
+      }
+    ],
+    "shellfish": "keine Allergenangaben veröffentlicht; kein Produkt mit Krebs-/Weichtier-Begriff in Name oder Beschreibung (Thunfisch, Lachs = Fisch, erlaubt)",
+    "dislikes": "kein Tracker-Produkt nennt Koriander oder Minze (vollständige Zutatenlisten gibt es nicht)"
+  },
+  "site": [
+    {
+      "siteId": "bf103d27-2585-4474-92b9-d3ac11bcc593",
+      "name": "Pure Beef Burger",
+      "menu": "BURGER",
+      "section": "BURGER",
+      "price": 11.9,
+      "description": "100% Rindfleisch 200g, Brioche Bun aus der Brotfabrik Cavus, Salat, Tomaten, eingelegte Zwiebeln, Gürkchen, Lorys Burger-Sauce / Kcal 854 | KH 58 | E 49 | F 42",
+      "macroLine": "Kcal 854 | KH 58 | E 49 | F 42",
+      "perServing": {
+        "kcal": 854,
+        "carbs": 58,
+        "protein": 49,
+        "fat": 42
+      },
+      "modifierGroups": [
+        {
+          "name": "Burger Toppings",
+          "modifiers": [
+            "Bio-Spiegelei",
+            "Cheddar Cheese",
+            "Burger Patty",
+            "Avocado"
+          ]
+        }
+      ]
+    },
+    {
+      "siteId": "c73b6989-cdad-452a-9b33-794220dd87dc",
+      "name": "Bulking Beef Burger",
+      "menu": "BURGER",
+      "section": "BURGER",
+      "price": 18.9,
+      "description": "100% Rindfleisch 400g, Brioche Bun aus der Brotfabrik Cavus, Salat, double Cheddar Cheese, eingelegte Zwiebeln, Spiegelei, Lorys Burger-Sauce / Kcal 1650 | KH 44 | E 133 | F 78",
+      "macroLine": "Kcal 1650 | KH 44 | E 133 | F 78",
+      "perServing": {
+        "kcal": 1650,
+        "carbs": 44,
+        "protein": 133,
+        "fat": 78
+      },
+      "modifierGroups": [
+        {
+          "name": "Burger Toppings",
+          "modifiers": [
+            "Bio-Spiegelei",
+            "Cheddar Cheese",
+            "Burger Patty",
+            "Avocado"
+          ]
+        }
+      ]
+    },
+    {
+      "siteId": "2c604aa1-d620-4803-a43d-a2116fe10f62",
+      "name": "Chili Cheese Burger",
+      "menu": "BURGER",
+      "section": "BURGER",
+      "price": 12.9,
+      "description": "100% Rindfleisch 200g, Brioche Bun aus der Brotfabrik Cavus, Salat, Cheddar Cheese, / eingelegte Jalapenos, Chili Mayo / Kcal 970 | KH 60 | E 68 | F 58",
+      "macroLine": "Kcal 970 | KH 60 | E 68 | F 58",
+      "perServing": {
+        "kcal": 970,
+        "carbs": 60,
+        "protein": 68,
+        "fat": 58
+      },
+      "modifierGroups": [
+        {
+          "name": "Burger Toppings",
+          "modifiers": [
+            "Bio-Spiegelei",
+            "Cheddar Cheese",
+            "Burger Patty",
+            "Avocado"
+          ]
+        }
+      ]
+    },
+    {
+      "siteId": "ddb4cdea-c2a1-42fa-8411-75b2298b502c",
+      "name": "Crispy Chicken Burger",
+      "menu": "BURGER",
+      "section": "BURGER",
+      "price": 11.9,
+      "description": "Hähnchenbrust in Flakes-Kruste 150g, Brioche Bun aus der Brotfabrik Cavus, Salat, frische Tomaten, Cheddar Cheese, eingelegte Zwiebeln, Gürkchen, Lorys Burger-Sauce / Kcal 820 | KH 64 | E 33 | F 40",
+      "macroLine": "Kcal 820 | KH 64 | E 33 | F 40",
+      "perServing": {
+        "kcal": 820,
+        "carbs": 64,
+        "protein": 33,
+        "fat": 40
+      },
+      "modifierGroups": [
+        {
+          "name": "Burger Toppings",
+          "modifiers": [
+            "Bio-Spiegelei",
+            "Cheddar Cheese",
+            "Burger Patty",
+            "Avocado"
+          ]
+        }
+      ]
+    },
+    {
+      "siteId": "11a1e58b-771d-464e-9e88-f99a4eb7c2b2",
+      "name": "Avocado Feta Bowl",
+      "menu": "BOWLS",
+      "section": "BOWLS",
+      "price": 13.9,
+      "description": "gebackene Süßkartoffel, griechischer Bio Feta Käse, Quinoa-Reis, Edamame, Avocado, Lorys Rote Beete-Salat / Kcal 800 | KH 90 | E 30 | F 37",
+      "macroLine": "Kcal 800 | KH 90 | E 30 | F 37",
+      "perServing": {
+        "kcal": 800,
+        "carbs": 90,
+        "protein": 30,
+        "fat": 37
+      },
+      "modifierGroups": []
+    },
+    {
+      "siteId": "de463910-fd85-44f9-abc4-23d5edb3e6e3",
+      "name": "Lorys Farmers Bowl",
+      "menu": "BOWLS",
+      "section": "BOWLS",
+      "price": 15.9,
+      "description": "100 % saftiges Rindfleisch 200g, gebackene Süßkartoffel, frische Mango, gegrillter Brokkoli, Hüttenkäse von Gervais, weichgekochtes Bio Ei / // fleischlose Alternative mit BEYOND MEAT / Kcal 1154 | KH 58 | E 91 | F 73",
+      "macroLine": "Kcal 1154 | KH 58 | E 91 | F 73",
+      "perServing": {
+        "kcal": 1154,
+        "carbs": 58,
+        "protein": 91,
+        "fat": 73
+      },
+      "modifierGroups": []
+    },
+    {
+      "siteId": "7f8e3911-3a83-4b24-bacc-70fffcda9ca2",
+      "name": "High Protein Chicken Bowl",
+      "menu": "BOWLS",
+      "section": "BOWLS",
+      "price": 14.9,
+      "description": "Gegrillte Hähnchenbrust 200g, Quinoa-Reis, gegrillter Brokkoli, Lory’s Rote-Beete-Salat, Edamame, Lorys Sesam-Miso-Sauce / // alternativ Teriyaki-Sauce / Kcal 732 | KH 60 | E 69 | F 23",
+      "macroLine": "Kcal 732 | KH 60 | E 69 | F 23",
+      "perServing": {
+        "kcal": 732,
+        "carbs": 60,
+        "protein": 69,
+        "fat": 23
+      },
+      "modifierGroups": []
+    },
+    {
+      "siteId": "3f6bf5d5-ae23-4da8-acc5-ab4a5e0aecb6",
+      "name": "High Protein Salmon Bowl",
+      "menu": "BOWLS",
+      "section": "BOWLS",
+      "price": 15.9,
+      "description": "Gegrilltes Lachsfilet in Miso-Glasur 150g, Quinoa-Reis, Avocado, frische Mango, Edamame, Spicy Gurkensalat / Kcal 803 | KH 64 | E 48 | F 42",
+      "macroLine": "Kcal 803 | KH 64 | E 48 | F 42",
+      "perServing": {
+        "kcal": 803,
+        "carbs": 64,
+        "protein": 48,
+        "fat": 42
+      },
+      "modifierGroups": []
+    },
+    {
+      "siteId": "f7b99384-3e49-40cd-a00f-a4688fb95038",
+      "name": "Korean Fried Chicken Bowl",
+      "menu": "BOWLS",
+      "section": "BOWLS",
+      "price": 16.9,
+      "description": "Original Korean Fried Chicken, Süßkartoffel-Würfel, Quinoa-Reis, Edamame, Spicy Gurkensalat, Teriyaki-Sauce / Kcal 854 | KH 58 | E 49 | F 46",
+      "macroLine": "Kcal 854 | KH 58 | E 49 | F 46",
+      "perServing": {
+        "kcal": 854,
+        "carbs": 58,
+        "protein": 49,
+        "fat": 46
+      },
+      "modifierGroups": []
+    },
+    {
+      "siteId": "a6a577bb-6dad-4f57-890d-2dbebdc3e679",
+      "name": "Plant Based Protein Bowl",
+      "menu": "BOWLS",
+      "section": "BOWLS",
+      "price": 9.9,
+      "description": "Hummus, Crispy Kichererbsen, gegrillter Brokkoli, Babyspinat, Lory’s Rote Beete Salat, Lorys Sesam-Miso-Sauce / Kcal 778 | KH 69 | E 24 | F 44",
+      "macroLine": "Kcal 778 | KH 69 | E 24 | F 44",
+      "perServing": {
+        "kcal": 778,
+        "carbs": 69,
+        "protein": 24,
+        "fat": 44
+      },
+      "modifierGroups": []
+    },
+    {
+      "siteId": "b5c5c0dd-7c47-4bbe-86a8-55d145a6f482",
+      "name": "High Protein Tuna Wrap",
+      "menu": "WRAPS",
+      "section": "WRAPS",
+      "price": 8.9,
+      "description": "Tortilla-Wrap, Lorys Signature Thunfisch Salat, Avocado, Babyspinat, Crispy Kichererbsen / Kcal 688 | KH 61 | E 30 | F 35",
+      "macroLine": "Kcal 688 | KH 61 | E 30 | F 35",
+      "perServing": {
+        "kcal": 688,
+        "carbs": 61,
+        "protein": 30,
+        "fat": 35
+      },
+      "modifierGroups": []
+    },
+    {
+      "siteId": "5e7f5e89-d73f-4625-940c-2ecf50e88646",
+      "name": "High Protein Chicken Wrap",
+      "menu": "WRAPS",
+      "section": "WRAPS",
+      "price": 8.9,
+      "description": "Tortilla-Wrap, Gegrillte Hähnchenbrust 100g, Avocado, eingelegte Zwiebeln, Babyspinat, Lorys Sesam-Miso-Sauce / Kcal 604 | KH 58 | E 57 | F 16",
+      "macroLine": "Kcal 604 | KH 58 | E 57 | F 16",
+      "perServing": {
+        "kcal": 604,
+        "carbs": 58,
+        "protein": 57,
+        "fat": 16
+      },
+      "modifierGroups": []
+    },
+    {
+      "siteId": "f5831e0b-e2f1-4ed1-a0f4-a01f1c69c4ad",
+      "name": "High Protein Beef Wrap",
+      "menu": "WRAPS",
+      "section": "WRAPS",
+      "price": 8.9,
+      "description": "Tortilla-Wrap, 100% Rindfleisch 100g, Edamame, Teriyaki Sauce, Gegrillter Brokkoli, Frühlingszwiebel / KCAL 575 | KH 49 | E 42 | F 24",
+      "macroLine": "KCAL 575 | KH 49 | E 42 | F 24",
+      "perServing": {
+        "kcal": 575,
+        "carbs": 49,
+        "protein": 42,
+        "fat": 24
+      },
+      "modifierGroups": []
+    },
+    {
+      "siteId": "3d3fbca9-49a9-4530-80c2-85e001338fdb",
+      "name": "Plant Based Protein Wrap",
+      "menu": "WRAPS",
+      "section": "WRAPS",
+      "price": 7.9,
+      "description": "Tortilla-Wrap, Hausgemachter Hummus, gegrillter Brokkoli, Crispy Kichererbsen, Blattspinat / KCAL 484 | KH 54 | E 22 | F 20",
+      "macroLine": "KCAL 484 | KH 54 | E 22 | F 20",
+      "perServing": {
+        "kcal": 484,
+        "carbs": 54,
+        "protein": 22,
+        "fat": 20
+      },
+      "modifierGroups": []
+    },
+    {
+      "siteId": "47595e4a-49aa-4d3d-a4fe-54c50f5eaf43",
+      "name": "Pommes Frites inkl. Dip",
+      "menu": "BEILAGEN",
+      "section": "BEILAGEN",
+      "price": 3.5,
+      "description": "Kcal 580 | KH 66 | E 6 | F 35",
+      "macroLine": "Kcal 580 | KH 66 | E 6 | F 35",
+      "perServing": {
+        "kcal": 580,
+        "carbs": 66,
+        "protein": 6,
+        "fat": 35
+      },
+      "modifierGroups": []
+    },
+    {
+      "siteId": "8c19a4e4-3833-4a93-95d3-81b2a4dfd3df",
+      "name": "Süßkartoffel Pommes inkl. Dip",
+      "menu": "BEILAGEN",
+      "section": "BEILAGEN",
+      "price": 4.5,
+      "description": "Kcal 521 | KH 61 | E 5 | F 30",
+      "macroLine": "Kcal 521 | KH 61 | E 5 | F 30",
+      "perServing": {
+        "kcal": 521,
+        "carbs": 61,
+        "protein": 5,
+        "fat": 30
+      },
+      "modifierGroups": []
+    },
+    {
+      "siteId": "3cf9df4d-580f-4630-b449-60e951405337",
+      "name": "Spicy Gurkensalat",
+      "menu": "BEILAGEN",
+      "section": "BEILAGEN",
+      "price": 4.5,
+      "description": "Kcal 101 | KH 8 | E 5 | F 23",
+      "macroLine": "Kcal 101 | KH 8 | E 5 | F 23",
+      "perServing": {
+        "kcal": 101,
+        "carbs": 8,
+        "protein": 5,
+        "fat": 23
+      },
+      "modifierGroups": []
+    },
+    {
+      "siteId": "e7c195cc-31d6-43fe-bbc6-575364401b0d",
+      "name": "Lorys Rote Beete Salat",
+      "menu": "BEILAGEN",
+      "section": "BEILAGEN",
+      "price": 4.5,
+      "description": "Kcal 144 | KH 26 | E 5 | F 4",
+      "macroLine": "Kcal 144 | KH 26 | E 5 | F 4",
+      "perServing": {
+        "kcal": 144,
+        "carbs": 26,
+        "protein": 5,
+        "fat": 4
+      },
+      "modifierGroups": []
+    },
+    {
+      "siteId": "87f2cc1d-40a1-4dbe-8e41-b0e721ae724b",
+      "name": "Gegrillter Halloumi Käse",
+      "menu": "BEILAGEN",
+      "section": "BEILAGEN",
+      "price": 4,
+      "description": "Kcal 780 | KH 6 | E 44 | F 62",
+      "macroLine": "Kcal 780 | KH 6 | E 44 | F 62",
+      "perServing": {
+        "kcal": 780,
+        "carbs": 6,
+        "protein": 44,
+        "fat": 62
+      },
+      "modifierGroups": []
+    },
+    {
+      "siteId": "79776083-cf68-4549-a19c-1b292649f6be",
+      "name": "Hausgemachter Hummus",
+      "menu": "BEILAGEN",
+      "section": "BEILAGEN",
+      "price": 4.5,
+      "description": "Kcal 532 | KH 35 | E 43 | F 38",
+      "macroLine": "Kcal 532 | KH 35 | E 43 | F 38",
+      "perServing": {
+        "kcal": 532,
+        "carbs": 35,
+        "protein": 43,
+        "fat": 38
+      },
+      "modifierGroups": []
+    }
+  ],
+  "wolt": {
+    "venue": "lorys-gym-food",
+    "page": "https://wolt.com/de/deu/frankfurt/restaurant/lorys-gym-food",
+    "cats": [
+      {
+        "id": "bowls",
+        "name": "Bowls",
+        "on": true
+      },
+      {
+        "id": "wraps",
+        "name": "Wraps",
+        "on": true
+      },
+      {
+        "id": "burger",
+        "name": "Burger",
+        "on": true
+      },
+      {
+        "id": "beilagen",
+        "name": "Beilagen",
+        "on": true
+      }
+    ],
+    "items": [
+      {
+        "name": "High Protein Chicken Bowl",
+        "siteName": "High Protein Chicken Bowl",
+        "siteId": "7f8e3911-3a83-4b24-bacc-70fffcda9ca2",
+        "cat": "bowls",
+        "price": 17.9,
+        "sitePrice": 14.9,
+        "required": [
+          {
+            "group": "Sauce nach Wahl (Hühnchen-Bowl)",
+            "choice": "Lorys Sesam-Miso-Sauce",
+            "alternatives": [
+              "Teriyaki Sauce"
+            ]
+          }
+        ],
+        "optional": [],
+        "woltDescription": "Gegrillte Hähnchenbrust 200g, Quinoa-Reis, gegrillter Brokkoli, Lorys Rote-Beete-Salat, Edamame, Lorys Sesam-Miso-Sauce kcal: 732 Kh: 60g E: 69g F: 23g"
+      },
+      {
+        "name": "High Protein Salmon Bowl",
+        "siteName": "High Protein Salmon Bowl",
+        "siteId": "3f6bf5d5-ae23-4da8-acc5-ab4a5e0aecb6",
+        "cat": "bowls",
+        "price": 18.9,
+        "sitePrice": 15.9,
+        "required": [],
+        "optional": [],
+        "woltDescription": "Gegrilltes Lachsfilet in Miso-Glasur 150g, Quinoa-Reis, Avocado, frische Mango, Edamame, Asiatischer Gurken Salat kcal: 803 Kh: 64g E: 48g F: 42g"
+      },
+      {
+        "name": "Avocado Feta Bowl",
+        "siteName": "Avocado Feta Bowl",
+        "siteId": "11a1e58b-771d-464e-9e88-f99a4eb7c2b2",
+        "cat": "bowls",
+        "price": 15.9,
+        "sitePrice": 13.9,
+        "required": [],
+        "optional": [],
+        "woltDescription": "Gebackene Süßkartoffel griechischer Fetakäse, Quinoa-Reis, Edamame, Avocado, Lorys Rote Beete-Salat kcal: 800 Kh: 90g E: 30g F: 37g"
+      },
+      {
+        "name": "Plant Based Protein Bowl",
+        "siteName": "Plant Based Protein Bowl",
+        "siteId": "a6a577bb-6dad-4f57-890d-2dbebdc3e679",
+        "cat": "bowls",
+        "price": 12.9,
+        "sitePrice": 9.9,
+        "required": [],
+        "optional": [
+          "Add-ons (Plant Based Protein-Bowl) [0–1]: Halloumi Käse +4.00 €"
+        ],
+        "woltDescription": "Hummus, Crispy Kichererbsen, gegrillter Brokkoli, Babyspinat, Lorys Rote Beete Salat, Lorys Sesam-Miso-Sauce kcal: 778 Kh: 69 E: 24 F: 44"
+      },
+      {
+        "name": "Korean Fried Chicken Bowl",
+        "siteName": "Korean Fried Chicken Bowl",
+        "siteId": "f7b99384-3e49-40cd-a00f-a4688fb95038",
+        "cat": "bowls",
+        "price": 18.9,
+        "sitePrice": 16.9,
+        "required": [],
+        "optional": [],
+        "woltDescription": "Original Korean Fried Chicken, Süßkartoffel-Würfel, Quinoa-Reis, Edamame, Gochujang-Gurken-Kimchi, Lorys Teriyaki-Sauce kcal: 854 Kh: 58 E: 49 F: 46"
+      },
+      {
+        "name": "Lorys Farmers Bowl",
+        "siteName": "Lorys Farmers Bowl",
+        "siteId": "de463910-fd85-44f9-abc4-23d5edb3e6e3",
+        "cat": "bowls",
+        "price": 17.9,
+        "sitePrice": 15.9,
+        "required": [
+          {
+            "group": "Proteinauswahl (Lorys Farmers Bowl)",
+            "choice": "Rindfleisch 200g",
+            "alternatives": [
+              "Beyond Meat Patty",
+              "Crunchy Chicken Pattie"
+            ]
+          }
+        ],
+        "optional": [],
+        "woltDescription": "100 % saftiges Rindfleisch 200g, gebackene Süßkartoffel, frische Mango, gegrillter Brokkoli, Hüttenkäse von Gervais, weichgekochtes Ei, blanchierte Mandeln kcal: 854 Kh: 58g E: 49g F: 73g"
+      },
+      {
+        "name": "High Protein Tuna Wrap",
+        "siteName": "High Protein Tuna Wrap",
+        "siteId": "b5c5c0dd-7c47-4bbe-86a8-55d145a6f482",
+        "cat": "wraps",
+        "price": 9.9,
+        "sitePrice": 8.9,
+        "required": [],
+        "optional": [],
+        "woltDescription": "Tortilla-Wrap, Lory’s Signature Thunfisch Salat, Avocado, Babyspinat, Crispy Kichererbsen kcal: 688 C: 61 P: 30 F: 35"
+      },
+      {
+        "name": "High Protein Chicken Wrap",
+        "siteName": "High Protein Chicken Wrap",
+        "siteId": "5e7f5e89-d73f-4625-940c-2ecf50e88646",
+        "cat": "wraps",
+        "price": 11.9,
+        "sitePrice": 8.9,
+        "required": [],
+        "optional": [],
+        "woltDescription": "Tortilla-Wrap, Gegrillte Hähnchenbrust, Avocado, eingelegte Zwiebeln, Babyspinat, Lory’s Sesam-Miso-Sauce kcal: 604 Kh: 58 E: 57 F: 16"
+      },
+      {
+        "name": "Plant Based Protein Wrap",
+        "siteName": "Plant Based Protein Wrap",
+        "siteId": "3d3fbca9-49a9-4530-80c2-85e001338fdb",
+        "cat": "wraps",
+        "price": 9.9,
+        "sitePrice": 7.9,
+        "required": [],
+        "optional": [
+          "Add-ons (Plant Based Protein-Wrap) [0–1]: Bio Feta Käse +1.00 €"
+        ],
+        "woltDescription": "Tortilla-Wrap, Hausgemachter Hummus, gegrillter Brokkoli, Crispy Kichererbsen, Blattspinat Das Produktbild stellt unsere Lorys Empfehlung mit Feta Käse dar, welche zusätzlich gebucht werden muss. kcal: 484 Kh: 54 E: 22 F: 20"
+      },
+      {
+        "name": "High Protein Beef Wrap",
+        "siteName": "High Protein Beef Wrap",
+        "siteId": "f5831e0b-e2f1-4ed1-a0f4-a01f1c69c4ad",
+        "cat": "wraps",
+        "price": 9.9,
+        "sitePrice": 8.9,
+        "required": [],
+        "optional": [],
+        "woltDescription": "Tortilla-Wrap, 100% Rindfleisch 100g, Edamame, Teriyaki Sauce, Gegrillter Brokkoli, Frühlingszwiebel kcal: 575 Kh: 49 E: 42 F: 24"
+      },
+      {
+        "name": "Bulking Beef Burger",
+        "siteName": "Bulking Beef Burger",
+        "siteId": "c73b6989-cdad-452a-9b33-794220dd87dc",
+        "cat": "burger",
+        "price": 20.9,
+        "sitePrice": 18.9,
+        "required": [
+          {
+            "group": "Bun Type",
+            "choice": "Brioche Bun",
+            "alternatives": [
+              "Ohne Brioche Bun (Low-Carb)"
+            ]
+          }
+        ],
+        "optional": [
+          "Burger Toppings [0–999]: Bio-Spiegelei +1.50 €, Cheddar-Käse +1.00 €, Burger Patty +4.00 €, Avocado +2.00 €, Halloumi +4.00 €, • Jalapenos +1.00 €",
+          "Extra Dips & Saucen [0–999]: Ketchup +0.50 €, Mayo | vegane Mayo +0.50 €, Chili Mayo +0.50 €, Lorys Sesam-Miso-Sauce +0.50 €, Teriyaki Sauce +0.50 €, • Burger Soße +0.50 €"
+        ],
+        "woltDescription": "100 Prozent Rindfleisch 400g, Brioche Bun aus der Brotfabrik Cavus, Salat, double Cheddar Cheese, eingelegte Zwiebeln, Spiegelei, Lorys Burger Sauce kcal: 1147 Kh: 44 E: 84 F: 78"
+      },
+      {
+        "name": "Crispy Chicken Burger",
+        "siteName": "Crispy Chicken Burger",
+        "siteId": "ddb4cdea-c2a1-42fa-8411-75b2298b502c",
+        "cat": "burger",
+        "price": 14.9,
+        "sitePrice": 11.9,
+        "required": [
+          {
+            "group": "Bun Type",
+            "choice": "Brioche Bun",
+            "alternatives": [
+              "Ohne Brioche Bun (Low-Carb)"
+            ]
+          }
+        ],
+        "optional": [
+          "Burger Toppings [0–999]: Bio-Spiegelei +1.50 €, Cheddar-Käse +1.00 €, Burger Patty +4.00 €, Avocado +2.00 €, Halloumi +4.00 €, • Jalapenos +1.00 €",
+          "Extra Dips & Saucen [0–999]: Ketchup +0.50 €, Mayo | vegane Mayo +0.50 €, Chili Mayo +0.50 €, Lorys Sesam-Miso-Sauce +0.50 €, Teriyaki Sauce +0.50 €, • Burger Soße +0.50 €"
+        ],
+        "woltDescription": "Hähnchenbrust in Flakeskruste 150g, Brioche Bun aus der Brotfabrik Cavus, Salat, frische Tomaten, Cheddar Cheese, eingelegte Zwiebeln, Gürkchen, Lory’s Burger-Sauce kcal: 776 Kh: 76 E: 33 F: 36"
+      },
+      {
+        "name": "Pure Beef Burger",
+        "siteName": "Pure Beef Burger",
+        "siteId": "bf103d27-2585-4474-92b9-d3ac11bcc593",
+        "cat": "burger",
+        "price": 13.9,
+        "sitePrice": 11.9,
+        "required": [
+          {
+            "group": "Bun Type",
+            "choice": "Brioche Bun",
+            "alternatives": [
+              "Ohne Brioche Bun (Low-Carb)"
+            ]
+          }
+        ],
+        "optional": [
+          "Burger Toppings [0–999]: Bio-Spiegelei +1.50 €, Cheddar-Käse +1.00 €, Burger Patty +4.00 €, Avocado +2.00 €, Halloumi +4.00 €, • Jalapenos +1.00 €",
+          "Extra Dips & Saucen [0–999]: Ketchup +0.50 €, Mayo | vegane Mayo +0.50 €, Chili Mayo +0.50 €, Lorys Sesam-Miso-Sauce +0.50 €, Teriyaki Sauce +0.50 €, • Burger Soße +0.50 €"
+        ],
+        "woltDescription": "100% Rindfleisch 200g, Brioche Bun aus der Brotfabrik Cavus, Salat, Tomaten, eingelegte Zwiebeln, Gurken, Lory’s Burger-Sauce kcal: 854 Kh: 58 E: 49 F: 46"
+      },
+      {
+        "name": "Chili Cheese Burger",
+        "siteName": "Chili Cheese Burger",
+        "siteId": "2c604aa1-d620-4803-a43d-a2116fe10f62",
+        "cat": "burger",
+        "price": 15.9,
+        "sitePrice": 12.9,
+        "required": [
+          {
+            "group": "Bun Type",
+            "choice": "Brioche Bun",
+            "alternatives": [
+              "Ohne Brioche Bun (Low-Carb)"
+            ]
+          }
+        ],
+        "optional": [
+          "Burger Toppings [0–999]: Bio-Spiegelei +1.50 €, Cheddar-Käse +1.00 €, Burger Patty +4.00 €, Avocado +2.00 €, Halloumi +4.00 €, • Jalapenos +1.00 €",
+          "Extra Dips & Saucen [0–999]: Ketchup +0.50 €, Mayo | vegane Mayo +0.50 €, Chili Mayo +0.50 €, Lorys Sesam-Miso-Sauce +0.50 €, Teriyaki Sauce +0.50 €, • Burger Soße +0.50 €"
+        ],
+        "woltDescription": "100% Rindfleisch 200g, Brioche Bun aus der Brotfabrik Cavus, Salat, Cheddar Cheese, eingelegte Jalapenos, Chili Mayo kcal: 1150 Kh: 60 E: 58 F: 74"
+      },
+      {
+        "name": "Pommes Frites",
+        "siteName": "Pommes Frites inkl. Dip",
+        "siteId": "47595e4a-49aa-4d3d-a4fe-54c50f5eaf43",
+        "cat": "beilagen",
+        "price": 3.5,
+        "sitePrice": 3.5,
+        "required": [],
+        "optional": [],
+        "woltDescription": "Normale Pommes, extra dünn, super Crunch.",
+        "note": "Website-Name „Pommes Frites inkl. Dip“ — die Werte enthalten laut Website einen Dip; Wolt nennt keinen Dip (Artikel ohne Dip-Auswahl)"
+      },
+      {
+        "name": "Süßkartoffelpommes",
+        "siteName": "Süßkartoffel Pommes inkl. Dip",
+        "siteId": "8c19a4e4-3833-4a93-95d3-81b2a4dfd3df",
+        "cat": "beilagen",
+        "price": 4.5,
+        "sitePrice": 4.5,
+        "required": [],
+        "optional": [],
+        "woltDescription": "Süßkartoffelpommes, Pommes aus Süßkartoffeln mit einem Krossmantel",
+        "note": "Website-Name „Süßkartoffel Pommes inkl. Dip“ — die Werte enthalten laut Website einen Dip; Wolt nennt keinen Dip (Artikel ohne Dip-Auswahl)"
+      },
+      {
+        "name": "Spicy Gurkensalat",
+        "siteName": "Spicy Gurkensalat",
+        "siteId": "3cf9df4d-580f-4630-b449-60e951405337",
+        "cat": "beilagen",
+        "price": 4.5,
+        "sitePrice": 4.5,
+        "required": [],
+        "optional": [],
+        "woltDescription": "Hausgemachter Gurkensalat mit scharfem Geschmack"
+      },
+      {
+        "name": "Lorys Rote Beete Salat",
+        "siteName": "Lorys Rote Beete Salat",
+        "siteId": "e7c195cc-31d6-43fe-bbc6-575364401b0d",
+        "cat": "beilagen",
+        "price": 4.5,
+        "sitePrice": 4.5,
+        "required": [],
+        "optional": [],
+        "woltDescription": "Hausgemachter Rote Beete Salat"
+      },
+      {
+        "name": "Hausgemachter Hummus",
+        "siteName": "Hausgemachter Hummus",
+        "siteId": "79776083-cf68-4549-a19c-1b292649f6be",
+        "cat": "beilagen",
+        "price": 4.5,
+        "sitePrice": 4.5,
+        "required": [],
+        "optional": [],
+        "woltDescription": "Hausgemachter Hummus"
+      },
+      {
+        "name": "Gegrillter Halloumi Käse",
+        "siteName": "Gegrillter Halloumi Käse",
+        "siteId": "87f2cc1d-40a1-4dbe-8e41-b0e721ae724b",
+        "cat": "beilagen",
+        "price": 4,
+        "sitePrice": 4,
+        "required": [],
+        "optional": [],
+        "woltDescription": "Gegrillter Halloumi Käse"
+      }
+    ]
+  }
+}

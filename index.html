@@ -802,6 +802,39 @@ const CHIDOBA = {
   },
 };
 // __CHIDOBA_DATA_END__
+// __LORYS_DATA_START__ (generiert via: node lorys-update.js aus data/lorys-raw.json — nicht von Hand editieren)
+// Quelle: lorys-gymfood.de (offizielle Werte je Gericht, Standard-Auswahl; nur kcal/KH/Eiweiß/Fett angegeben) · Menü, Namen + Preise: Wolt lorys-gym-food, Stand 2026-09-16
+const LORYS = {
+  cats: [
+    {id:"bowls",name:"Bowls",on:true},
+    {id:"wraps",name:"Wraps",on:true},
+    {id:"burger",name:"Burger",on:true},
+    {id:"beilagen",name:"Beilagen",on:true},
+  ],
+  items: [
+    {id:"high_protein_chicken_bowl",name:"High Protein Chicken Bowl",cat:"bowls",kcal:732,fat:23,sat:0,carbs:60,sugars:0,fibre:0,protein:69,salt:0,price:17.9,orderNote:"Sauce nach Wahl (Hühnchen-Bowl): Lorys Sesam-Miso-Sauce"},
+    {id:"high_protein_salmon_bowl",name:"High Protein Salmon Bowl",cat:"bowls",kcal:803,fat:42,sat:0,carbs:64,sugars:0,fibre:0,protein:48,salt:0,price:18.9},
+    {id:"avocado_feta_bowl",name:"Avocado Feta Bowl",cat:"bowls",kcal:800,fat:37,sat:0,carbs:90,sugars:0,fibre:0,protein:30,salt:0,price:15.9},
+    {id:"plant_based_protein_bowl",name:"Plant Based Protein Bowl",cat:"bowls",kcal:778,fat:44,sat:0,carbs:69,sugars:0,fibre:0,protein:24,salt:0,price:12.9},
+    {id:"korean_fried_chicken_bowl",name:"Korean Fried Chicken Bowl",cat:"bowls",kcal:854,fat:46,sat:0,carbs:58,sugars:0,fibre:0,protein:49,salt:0,price:18.9},
+    {id:"lorys_farmers_bowl",name:"Lorys Farmers Bowl",cat:"bowls",kcal:1154,fat:73,sat:0,carbs:58,sugars:0,fibre:0,protein:91,salt:0,price:17.9,orderNote:"Proteinauswahl (Lorys Farmers Bowl): Rindfleisch 200g"},
+    {id:"high_protein_tuna_wrap",name:"High Protein Tuna Wrap",cat:"wraps",kcal:688,fat:35,sat:0,carbs:61,sugars:0,fibre:0,protein:30,salt:0,price:9.9},
+    {id:"high_protein_chicken_wrap",name:"High Protein Chicken Wrap",cat:"wraps",kcal:604,fat:16,sat:0,carbs:58,sugars:0,fibre:0,protein:57,salt:0,price:11.9},
+    {id:"plant_based_protein_wrap",name:"Plant Based Protein Wrap",cat:"wraps",kcal:484,fat:20,sat:0,carbs:54,sugars:0,fibre:0,protein:22,salt:0,price:9.9},
+    {id:"high_protein_beef_wrap",name:"High Protein Beef Wrap",cat:"wraps",kcal:575,fat:24,sat:0,carbs:49,sugars:0,fibre:0,protein:42,salt:0,price:9.9},
+    {id:"bulking_beef_burger",name:"Bulking Beef Burger",cat:"burger",kcal:1650,fat:78,sat:0,carbs:44,sugars:0,fibre:0,protein:133,salt:0,price:20.9,orderNote:"Bun Type: Brioche Bun"},
+    {id:"crispy_chicken_burger",name:"Crispy Chicken Burger",cat:"burger",kcal:820,fat:40,sat:0,carbs:64,sugars:0,fibre:0,protein:33,salt:0,price:14.9,orderNote:"Bun Type: Brioche Bun"},
+    {id:"pure_beef_burger",name:"Pure Beef Burger",cat:"burger",kcal:854,fat:42,sat:0,carbs:58,sugars:0,fibre:0,protein:49,salt:0,price:13.9,orderNote:"Bun Type: Brioche Bun"},
+    {id:"chili_cheese_burger",name:"Chili Cheese Burger",cat:"burger",kcal:970,fat:58,sat:0,carbs:60,sugars:0,fibre:0,protein:68,salt:0,price:15.9,orderNote:"Bun Type: Brioche Bun"},
+    {id:"pommes_frites",name:"Pommes Frites",cat:"beilagen",kcal:580,fat:35,sat:0,carbs:66,sugars:0,fibre:0,protein:6,salt:0,price:3.5},
+    {id:"suesskartoffelpommes",name:"Süßkartoffelpommes",cat:"beilagen",kcal:521,fat:30,sat:0,carbs:61,sugars:0,fibre:0,protein:5,salt:0,price:4.5},
+    {id:"spicy_gurkensalat",name:"Spicy Gurkensalat",cat:"beilagen",kcal:101,fat:23,sat:0,carbs:8,sugars:0,fibre:0,protein:5,salt:0,price:4.5},
+    {id:"lorys_rote_beete_salat",name:"Lorys Rote Beete Salat",cat:"beilagen",kcal:144,fat:4,sat:0,carbs:26,sugars:0,fibre:0,protein:5,salt:0,price:4.5},
+    {id:"hausgemachter_hummus",name:"Hausgemachter Hummus",cat:"beilagen",kcal:532,fat:38,sat:0,carbs:35,sugars:0,fibre:0,protein:43,salt:0,price:4.5},
+    {id:"gegrillter_halloumi_kaese",name:"Gegrillter Halloumi Käse",cat:"beilagen",kcal:780,fat:62,sat:0,carbs:6,sugars:0,fibre:0,protein:44,salt:0,price:4},
+  ],
+};
+// __LORYS_DATA_END__
 
 // ═══ Kern-Helper (inhaltlich identisch zum London-Tool) ═══
 const KEYS = ["kcal","fat","sat","carbs","sugars","fibre","protein","salt"];
@@ -2399,6 +2432,12 @@ const RESTAURANTS = [
     panelSubtitle:sel => (sel.type === "salat" ? "Salat" : "Cup") + (sel.parts.some(pt => pt.opt.group === "chili") ? " + Chili con Carne" : "") + " · " + bowlEuro(sel.price),
     inputHint:st => { const tp = (st && st.extra && st.extra.types) || []; return (tp.length === 1 ? (tp[0] === "salat" ? "Salat" : "Cup") : "Cup or Salat") + ": 1 protein + standard toppings"; },
     validate:chidobaValidate },
+  // Lorys Gymfood Offenbach (Wolt; User 16.09.2026). Daten: node lorys-crawl.js (Nährwerte lorys-gymfood.de, Standard-Auswahl + Wolt-Menü →
+  // data/lorys-raw.json) → node lorys-update.js. À la carte mit Preisen; Pflicht-Produkte über „Must include“; die Website nennt nur kcal/KH/E/F
+  { key:"lorys", name:"Lorys Gymfood (Wolt)", kind:"ac", data:LORYS, gradient:["#0f766e","#042f2e"], label:"LORYS GYMFOOD · OFFENBACH · WOLT", platform:"Wolt", accurate:true, maxN:5,
+    switches:[],
+    note:"Official values per dish from lorys-gymfood.de for the standard choice (e.g. High Protein Chicken Bowl with Sesam-Miso-Sauce, burgers with Brioche Bun — the order guide says what to pick); names and prices from Wolt (LORYS GYMFOOD), without promotions. Only kcal, carbs, protein and fat are published — fibre, sugar, saturated fat and salt show as 0. Add-ons (toppings, extra dips) are not used. Not in the optimizer: breakfast, shakes, drinks.",
+    footer:"Data: lorys-gymfood.de (official, per dish, standard choice) · menu & prices: Wolt LORYS GYMFOOD · 16.09.2026" },
 ];
 const RESTO_BY_KEY = Object.fromEntries(RESTAURANTS.map(r => [r.key, r]));
 
