@@ -58,7 +58,14 @@ function buildMenu(raw, platform) {
     }),
   }));
   if (typeof menu.itemPrice !== "number") throw new Error("Grundpreis fehlt: " + platform);
-  return { item: menu.item, page: menu.page, basePrice: menu.itemPrice, groups, skipped };
+  // Vorauswahl der Plattform (Wolt wählt im Pflicht-Dip „Curvy Curry Dip“ vor → Menükarte 4 € statt 2 € Grundpreis).
+  // Der Rechner nutzt sie nur für den Hinweistext; gerechnet wird mit Grundpreis + tatsächlich gewählten Optionen.
+  const preselected = (menu.preselected || []).map(x => {
+    if (!groups.some(g => g.id === x.group)) throw new Error("Vorauswahl zeigt auf unbekannte Gruppe: " + x.group + " (" + platform + ")");
+    if (typeof x.price !== "number" || !(x.price >= 0)) throw new Error("Vorauswahl ohne Preis: " + x.name + " (" + platform + ")");
+    return { group: x.group, name: x.name, price: x.price };
+  });
+  return { item: menu.item, page: menu.page, basePrice: menu.itemPrice, preselected, groups, skipped };
 }
 
 function blockLines(raw) {
@@ -82,7 +89,10 @@ function blockLines(raw) {
   }
   lines.push("  ],");
   for (const [pf, m] of menus) {
-    lines.push("  " + pf + ": {", "    item: " + JSON.stringify(m.item) + ", page: " + JSON.stringify(m.page) + ", basePrice: " + m.basePrice + ",", "    groups: [");
+    lines.push("  " + pf + ": {", "    item: " + JSON.stringify(m.item) + ", page: " + JSON.stringify(m.page) + ", basePrice: " + m.basePrice + ",");
+    // Vorausgewählte Pflicht-Optionen der Plattform (nur für den Hinweistext „Menükarte zeigt …“)
+    if (m.preselected.length) lines.push("    preselected: [" + m.preselected.map(lit).join(",") + "],");
+    lines.push("    groups: [");
     for (const g of m.groups) {
       lines.push("      { id:" + JSON.stringify(g.id) + ",name:" + JSON.stringify(g.name) + ",min:" + g.min + ",max:" + g.max + ",none:" + JSON.stringify(g.none) + ",options:[");
       for (const o of g.options) lines.push("        " + lit(o) + ",");

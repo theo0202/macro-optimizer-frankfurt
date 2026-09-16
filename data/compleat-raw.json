@@ -2,7 +2,7 @@
   "_meta": {
     "restaurant": "Compleat",
     "store": "Frankfurt Nordend (Glauburgstraße 5, 60318 Frankfurt am Main)",
-    "fetchedAt": "2026-09-15T14:03:34.181Z",
+    "fetchedAt": "2026-09-16T05:04:56.348Z",
     "sources": {
       "shop": {
         "url": "https://compleat.vmos.io",
@@ -19,7 +19,8 @@
         "page": "https://wolt.com/de/deu/frankfurt/restaurant/compleat-nordend",
         "api": "https://consumer-api.wolt.com/consumer-api/consumer-assortment/v1/venues/slug/compleat-nordend/assortment",
         "item": "Build your Bowl",
-        "itemPrice": 2
+        "itemPrice": 2,
+        "cardPrice": 4
       },
       "ubereats": {
         "page": "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440",
@@ -27,20 +28,22 @@
         "capturedAt": "2026-09-15T13:46:29.957Z",
         "item": "Selbst zusammenstellen",
         "itemPrice": 1,
+        "cardPrice": 1,
         "how": "Uber Eats blockt Skript-Abrufe (Cloudflare) → Produktseite im Browser geöffnet, __REACT_QUERY_STATE__ gelesen (ubereats-capture.js)"
       },
       "word": "data/compleat-word.txt = Word-Copy-Paste des Users (Shop-Anzeige, 15.09.2026) → Abgleich: node verify-compleat.js"
     },
     "basis": "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Wolt-Mengen weichen nur beim Salat-Mix ab → mit Wolt-Menge gerechnet. Uber Eats nutzt die Shop-Namen und -Mengen (inkl. halber Portionen).",
-    "woltRules": "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Grundpreis „Build your Bowl“ 2 €.",
-    "ubereatsRules": "Selbst zusammenstellen (Grundpreis 1 €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft).",
+    "woltRules": "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Grundpreis „Build your Bowl“ 2 €. Wolt zeigt für „Build your Bowl“ 4 € auf der Menükarte, nicht den Grundpreis 2 €: in Pflicht-Gruppen ist die Standard-Option vorausgewählt (Dein Dip: „Curvy Curry Dip“ 2 €). Wählt man dort „Ohne Dip“, steht wieder 2 € da (am 16.09.2026 im Web-UI geprüft).",
+    "ubereatsRules": "Selbst zusammenstellen (Grundpreis 1 €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft). Uber Eats: keine Vorauswahl — die Menükarte zeigt den Grundpreis 1 €.",
     "decisions": [
       "User 15.09.2026: Bunter Bio Quinoa bleibt im Datensatz, ist aber im Rechner ausgeschlossen (auch künftige Plattformen)",
       "User 15.09.2026: Jede vorgeschlagene Bowl hat ≥1 Base und ≥1 Protein",
       "User 15.09.2026: „No dip“ Default AN, „No crunch“ (Erdnüsse, Walnusskerne, Röstzwiebeln, Schwarzer Sesam) Default AUS",
       "User 15.09.2026: Guacamole normal anbieten (enthält laut Zutatenliste Koriander, im Chat erwähnt)",
       "User 15.09.2026: Optionales Preislimit — keine vorgeschlagene Bestellung liegt über dem eingegebenen Maximalpreis (Grundpreis + Zutaten)",
-      "User 15.09.2026: Rechner zusätzlich für Uber Eats („Selbst zusammenstellen“, Grundpreis 1 €)"
+      "User 15.09.2026: Rechner zusätzlich für Uber Eats („Selbst zusammenstellen“, Grundpreis 1 €)",
+      "User 16.09.2026 (Rückfrage „Build your Bowl kostet 4 €“): Grundpreis bleibt 2 € — die 4 € auf der Wolt-Karte sind Grundpreis + vorausgewählter Dip; der Rechner rechnet Grundpreis + gewählte Optionen und nennt die Vorauswahl im Hinweistext"
     ],
     "portionDiffs": [
       {
@@ -1799,6 +1802,15 @@
     "page": "https://wolt.com/de/deu/frankfurt/restaurant/compleat-nordend",
     "item": "Build your Bowl",
     "itemPrice": 2,
+    "cardPrice": 4,
+    "preselected": [
+      {
+        "group": "dip",
+        "groupName": "Dein Dip",
+        "name": "Curvy Curry Dip",
+        "price": 2
+      }
+    ],
     "groups": [
       {
         "id": "base",
@@ -1843,7 +1855,11 @@
             "maxQty": 1,
             "price": 3.5
           }
-        ]
+        ],
+        "defaultOption": {
+          "name": "Basmatireis, 250 g",
+          "price": 2.5
+        }
       },
       {
         "id": "protein",
@@ -1897,7 +1913,11 @@
             "maxQty": 1,
             "price": 4
           }
-        ]
+        ],
+        "defaultOption": {
+          "name": "Hähnchen, 100 g",
+          "price": 3
+        }
       },
       {
         "id": "extra",
@@ -2131,7 +2151,11 @@
             "maxQty": 1,
             "price": 1
           }
-        ]
+        ],
+        "defaultOption": {
+          "name": "Hähnchen, 100 g",
+          "price": 3
+        }
       },
       {
         "id": "dip",
@@ -2257,7 +2281,11 @@
             "maxQty": 1,
             "price": 1
           }
-        ]
+        ],
+        "defaultOption": {
+          "name": "Curvy Curry Dip",
+          "price": 2
+        }
       }
     ]
   },
@@ -2265,6 +2293,8 @@
     "page": "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440",
     "item": "Selbst zusammenstellen",
     "itemPrice": 1,
+    "cardPrice": 1,
+    "preselected": [],
     "capturedAt": "2026-09-15T13:46:29.957Z",
     "groups": [
       {

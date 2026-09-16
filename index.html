@@ -42,7 +42,7 @@ function lsSet(key, value) {
 
 // ═══ Restaurant-Daten (generierte Blöcke — NIE von Hand editieren, immer über <key>-update.js) ═══
 // __COMPLEAT_DATA_START__ (generiert via: node compleat-update.js aus data/compleat-raw.json — nicht von Hand editieren)
-// Quelle: Compleat-Onlineshop (compleat.vmos.io, Frankfurt Nordend), Stand 2026-09-15 · Shop-Werte pro 100 g × Menge · Menüs + Preise: Wolt „Build your Bowl“, Uber Eats „Selbst zusammenstellen“ (erfasst 2026-09-15)
+// Quelle: Compleat-Onlineshop (compleat.vmos.io, Frankfurt Nordend), Stand 2026-09-16 · Shop-Werte pro 100 g × Menge · Menüs + Preise: Wolt „Build your Bowl“, Uber Eats „Selbst zusammenstellen“ (erfasst 2026-09-15)
 // GESPERRT (nie im Rechner, auf keiner Plattform): Bunter Bio Quinoa (250g) — Offizielle Werte unplausibel: 130 kcal / 21,3 g KH / 4,5 g Protein je 250 g (= 52 kcal je 100 g) entsprechen eher 100 g gekochter Quinoa (~120 kcal je 100 g). User 15.09.2026: bleibt im Datensatz, im Rechner ausgeschlossen — auch auf künftigen Plattformen (z.B. Uber Eats).
 const COMPLEAT = {
   // Kompletter Shop-Datensatz (auch Zutaten, die eine Plattform nicht anbietet)
@@ -95,6 +95,7 @@ const COMPLEAT = {
   ],
   wolt: {
     item: "Build your Bowl", page: "https://wolt.com/de/deu/frankfurt/restaurant/compleat-nordend", basePrice: 2,
+    preselected: [{group:"dip",name:"Curvy Curry Dip",price:2}],
     groups: [
       { id:"base",name:"Deine Basis",min:0,max:5,none:null,options:[
         {id:"base_basmatireis_250_g",name:"Basmatireis, 250 g",short:"Basmatireis",group:"base",role:"base",ing:"basmati_reis",amount:250,unit:"g",maxQty:4,price:2.5,kcal:330,fat:0.75,sat:0,carbs:70,sugars:0.25,fibre:1.5,protein:7.5,salt:2.5},
@@ -965,6 +966,18 @@ function bowlSummary(res) {
 function bowlRole(x) { return x.role || x.group; }
 // Preis als „€12.50" (UI Englisch)
 function bowlEuro(v) { return "€" + (Math.round((v || 0) * 100) / 100).toFixed(2); }
+// Hinweis, wenn die Plattform in Pflicht-Gruppen etwas vorauswählt: Wolt zeigt für „Build your Bowl“ 4,00 € auf der Menükarte,
+// weil der Pflicht-Dip mit „Curvy Curry Dip“ (2,00 €) vorbelegt ist — der Grundpreis sind 2,00 € (User-Rückfrage, im Wolt-UI am
+// 16.09.2026 geprüft). Der Rechner rechnet immer Grundpreis + tatsächlich gewählte Optionen; ohne Dip stellt man die Gruppe
+// wie im Order Guide auf „Ohne Dip“ (0 €).
+function bowlPreselectNote(menu, platform) {
+  const pre = (menu && menu.preselected) || [];
+  if (!pre.length) return "";
+  const card = (menu.basePrice || 0) + pre.reduce((sum, x) => sum + (x.price || 0), 0);
+  const none = pre.map(x => (menu.groups.find(g => g.id === x.group) || {}).none).filter(Boolean);
+  return " " + (platform || "The platform") + " shows " + bowlEuro(card) + " on the menu card because " + pre.map(x => x.name + " " + bowlEuro(x.price)).join(" + ") +
+    " is preselected; prices here are the base price plus what the order guide lists" + (none.length ? ", so switch that group to “" + none.join("” / “") + "” when the guide says so." : ".");
+}
 // Bestellschritte je Plattform-Gruppe in Menü-Reihenfolge: Mengen bei Base/Protein und bei Stepper-Extras (Uber Eats), Wolt-Extras
 // (Häkchen) ohne Menge; die Dip-Gruppe immer (Dip-Name oder „Ohne Dip"/„ohne Dip")
 function bowlOrderSteps(menu, sel) {
@@ -1005,7 +1018,12 @@ function bowlValidate(data, keys) {
     if (!menu || !Array.isArray(menu.groups)) { P.push(tag + "Menü fehlt"); continue; }
     if (typeof menu.item !== "string" || !menu.item) P.push(tag + "item fehlt");
     if (!isNum(menu.basePrice)) P.push(tag + "basePrice fehlt");
+    if (menu.preselected && !Array.isArray(menu.preselected)) P.push(tag + "preselected ist keine Liste");
     const ids = new Set(), gids = new Set(), roleGroups = { base: new Set(), protein: new Set(), dip: new Set() };
+    for (const x of menu.preselected || []) { // Vorauswahl der Plattform (nur Hinweistext)
+      if (!menu.groups.some(g => g.id === x.group)) P.push(tag + "preselected: unbekannte Gruppe " + x.group);
+      if (!isNum(x.price)) P.push(tag + "preselected: Preis fehlt (" + x.name + ")");
+    }
     for (const g of menu.groups) {
       if (gids.has(g.id)) P.push(tag + "Gruppen-id doppelt: " + g.id);
       gids.add(g.id);
@@ -1159,12 +1177,12 @@ const RESTAURANTS = [
   // Onlineshop + Wolt-API + Uber-Eats-Erfassung data/compleat-ubereats-menu.json → data/compleat-raw.json) → node compleat-update.js
   compleatEntry({ key:"compleat", menuKey:"wolt", name:"Compleat (Wolt)", platform:"Wolt", label:"COMPLEAT · NORDEND · WOLT",
     gradient:["#d7192d","#6b0f1a"],
-    footer:"Data: Compleat online shop (official, per 100 g × Wolt portion) · menu & prices: Wolt · 15.09.2026",
-    note:m=>"Build your Bowl on Wolt (base price "+bowlEuro(m.basePrice)+"): every bowl gets at least 1 base and 1 protein, plus one dip or none. Bunter Quinoa is never suggested (implausible official values)." }),
+    footer:"Data: Compleat online shop (official, per 100 g × Wolt portion) · menu & prices: Wolt · 16.09.2026",
+    note:m=>"Build your Bowl on Wolt (base price "+bowlEuro(m.basePrice)+"): every bowl gets at least 1 base and 1 protein, plus one dip or none. Bunter Quinoa is never suggested (implausible official values)."+bowlPreselectNote(m,"Wolt") }),
   compleatEntry({ key:"compleatuber", menuKey:"ubereats", name:"Compleat (Uber Eats)", platform:"Uber Eats", label:"COMPLEAT · NORDEND · UBER EATS",
     gradient:["#b3121d","#141414"],
     footer:"Data: Compleat online shop (official, per 100 g × Uber Eats portion) · menu & prices: Uber Eats, captured 15.09.2026",
-    note:m=>"Selbst zusammenstellen on Uber Eats (base price "+bowlEuro(m.basePrice)+"): every bowl gets at least 1 base and 1 main protein (half portions count; egg, edamame, peas and feta count as extras), plus one dip or none. Extras at most once each. Bunter Bio Quinoa and Halbe Limette (no official values) are never suggested." }),
+    note:m=>"Selbst zusammenstellen on Uber Eats (base price "+bowlEuro(m.basePrice)+"): every bowl gets at least 1 base and 1 main protein (half portions count; egg, edamame, peas and feta count as extras), plus one dip or none. Extras at most once each. Bunter Bio Quinoa and Halbe Limette (no official values) are never suggested."+bowlPreselectNote(m,"Uber Eats") }),
 ];
 const RESTO_BY_KEY = Object.fromEntries(RESTAURANTS.map(r => [r.key, r]));
 

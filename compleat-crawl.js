@@ -206,7 +206,12 @@ async function main() {
     if (!gid) { problems.push("Unbekannte Wolt-Gruppe: " + ref.name); continue; }
     const cfg = (ref.multi_choice_config && ref.multi_choice_config.total_range) || {};
     const grp = { id: gid, name: normName(ref.name), min: cfg.min != null ? cfg.min : 0, max: cfg.max != null ? cfg.max : 1, noneOption: null, options: [] };
-    for (const v of (optById[ref.option_id] || {}).values || []) {
+    // Standard-Option der Gruppe (Wolt-API: default_value). In Pflicht-Gruppen (min ≥ 1) ist sie im Wolt-UI vorausgewählt — deshalb
+    // zeigt die Menükarte Grundpreis + Vorauswahl (Build your Bowl: 2 € + Curvy Curry Dip 2 € = 4 €, User-Rückfrage 16.09.2026).
+    const wgrp = optById[ref.option_id] || {};
+    const dflt = (wgrp.values || []).find(v => v.id === wgrp.default_value);
+    if (dflt) grp.defaultOption = { name: normName(dflt.name), price: U.round((dflt.price || 0) / 100, 2) };
+    for (const v of wgrp.values || []) {
       const wname = normName(v.name);
       if (WOLT_NONE[wname] === gid) { grp.noneOption = wname; continue; }
       const id = WOLT_MAP[wname];
@@ -227,6 +232,9 @@ async function main() {
   }
   if (unmapped.length) problems.push("Nicht zugeordnete Wolt-Optionen (WOLT_MAP ergänzen): " + unmapped.join(" · "));
   const woltItemPrice = U.round((byo.price || 0) / 100, 2);
+  // Vorausgewählt ist die Standard-Option jeder PFLICHT-Gruppe (min ≥ 1); in optionalen Gruppen wählt Wolt nichts vor.
+  const woltPreselect = woltGroups.filter(g => g.min >= 1 && g.defaultOption).map(g => ({ group: g.id, groupName: g.name, name: g.defaultOption.name, price: g.defaultOption.price }));
+  const woltCardPrice = U.round(woltItemPrice + woltPreselect.reduce((sum, x) => sum + x.price, 0), 2);
   const onWolt = new Set(woltGroups.flatMap(g => g.options.map(o => o.ingredient)));
   const notOnWolt = ingredients.filter(x => !onWolt.has(x.id)).map(x => x.shopName);
   // Einträge der WOLT_MAP, die Wolt nicht mehr anbietet (Option entfernt/umbenannt) → sichtbar machen statt still ignorieren
@@ -237,13 +245,15 @@ async function main() {
   console.log("Uber Eats: " + path.relative(__dirname, UE_FILE) + " …");
   const ue = U.readJSON(UE_FILE);
   if (!ue.item || normName(ue.item.title) !== UE_ITEM) problems.push("Uber-Eats-Erfassung: Item „" + UE_ITEM + "“ fehlt");
-  const ueGroups = [], ueNoData = [], uePortionDiffs = [], ueKcalDiffs = [], ueUnknown = [];
+  const ueGroups = [], ueNoData = [], uePortionDiffs = [], ueKcalDiffs = [], ueUnknown = [], uePreselect = [];
   for (const g of ue.groups || []) {
     const gname = normName(g.title), gid = UE_GROUPS[gname];
     if (!gid) { if (g.maxPermitted > 0) problems.push("Unbekannte Uber-Eats-Gruppe: " + gname); continue; }
     const grp = { id: gid, name: gname, min: g.minPermitted || 0, max: g.maxPermitted, noneOption: null, options: [] };
     for (const o of g.options || []) {
       const uname = normName(o.title);
+      // Vorauswahl bei Uber Eats wäre defaultQuantity > 0 (aktuell keine) → Kartenpreis = Grundpreis
+      if ((o.defaultQuantity || 0) > 0) uePreselect.push({ group: gid, groupName: gname, name: uname, price: U.round((o.price || 0) / 100, 2), qty: o.defaultQuantity });
       if (UE_NONE[uname] === gid) { grp.noneOption = uname; continue; }
       if (UE_NO_DATA[uname]) { ueNoData.push(grp.name + ": „" + uname + "“ — " + UE_NO_DATA[uname]); continue; }
       const half = splitHalf(uname);
@@ -274,6 +284,7 @@ async function main() {
     if (U.round(2 * o.amount, 2) !== full.amount || U.round(2 * o.price, 2) !== full.price) problems.push("Uber Eats: 2× „" + o.name + "“ ≠ „" + full.name + "“ (Menge oder Preis) → Regel für halbe Portionen prüfen");
   }
   const ueItemPrice = U.round(((ue.item && ue.item.price) || 0) / 100, 2);
+  const ueCardPrice = U.round(ueItemPrice + uePreselect.reduce((sum, x) => sum + x.price * (x.qty || 1), 0), 2);
   const onUE = new Set(ueGroups.flatMap(g => g.options.map(o => o.ingredient)));
   const notOnUberEats = ingredients.filter(x => !onUE.has(x.id)).map(x => x.shopName);
 
@@ -285,18 +296,26 @@ async function main() {
     if (issues.length) anomalies.push({ id: ing.id, name: ing.shopName, issues });
   }
 
-  const raw = {
-    _meta: {
+  // Angezeigter Kartenpreis ≠ Grundpreis, wenn die Plattform Pflicht-Optionen vorauswählt (User-Rückfrage 16.09.2026: „Build your Bowl
+  // kostet doch 4 €“) — der Rechner rechnet mit Grundpreis + tatsächlich gewählten Optionen und weist im Hinweistext darauf hin.
+  const preselectNote = (label, item, base, card, pre, none) => pre.length
+    ? label + " zeigt für „" + item + "“ " + card + " € auf der Menükarte, nicht den Grundpreis " + base + " €: in Pflicht-Gruppen ist die Standard-Option vorausgewählt ("
+      + pre.map(x => x.groupName + ": „" + x.name + "“ " + x.price + " €").join(", ") + "). Wählt man dort „" + none + "“, steht wieder " + base + " € da (am 16.09.2026 im Web-UI geprüft)."
+    : label + ": keine Vorauswahl — die Menükarte zeigt den Grundpreis " + base + " €.";
+  const woltCardNote = preselectNote("Wolt", WOLT_ITEM, woltItemPrice, woltCardPrice, woltPreselect, (woltGroups.find(g => g.id === "dip") || {}).noneOption || "Ohne Dip");
+  const ueCardNote = preselectNote("Uber Eats", UE_ITEM, ueItemPrice, ueCardPrice, uePreselect, (ueGroups.find(g => g.id === "dip") || {}).noneOption || "ohne Dip");
+
+  const raw = {    _meta: {
       restaurant: "Compleat", store: "Frankfurt Nordend (Glauburgstraße 5, 60318 Frankfurt am Main)", fetchedAt,
       sources: {
         shop: { url: SHOP, api: VMOS, tenant: TENANT, store: STORE, menu: menu.uuid, menuName: menu.name, bundle: bundle.uuid, bundleName: BUNDLE_NAME, discovered: menu.discovered && bundle.discovered },
-        wolt: { page: WOLT_PAGE, api: WOLT_API, item: WOLT_ITEM, itemPrice: woltItemPrice },
-        ubereats: { page: ue.pageUrl, file: "data/compleat-ubereats-menu.json", capturedAt: ue.capturedAt, item: UE_ITEM, itemPrice: ueItemPrice, how: "Uber Eats blockt Skript-Abrufe (Cloudflare) → Produktseite im Browser geöffnet, __REACT_QUERY_STATE__ gelesen (ubereats-capture.js)" },
+        wolt: { page: WOLT_PAGE, api: WOLT_API, item: WOLT_ITEM, itemPrice: woltItemPrice, cardPrice: woltCardPrice },
+        ubereats: { page: ue.pageUrl, file: "data/compleat-ubereats-menu.json", capturedAt: ue.capturedAt, item: UE_ITEM, itemPrice: ueItemPrice, cardPrice: ueCardPrice, how: "Uber Eats blockt Skript-Abrufe (Cloudflare) → Produktseite im Browser geöffnet, __REACT_QUERY_STATE__ gelesen (ubereats-capture.js)" },
         word: "data/compleat-word.txt = Word-Copy-Paste des Users (Shop-Anzeige, 15.09.2026) → Abgleich: node verify-compleat.js",
       },
       basis: "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Wolt-Mengen weichen nur beim Salat-Mix ab → mit Wolt-Menge gerechnet. Uber Eats nutzt die Shop-Namen und -Mengen (inkl. halber Portionen).",
-      woltRules: "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Grundpreis „Build your Bowl“ " + woltItemPrice + " €.",
-      ubereatsRules: "Selbst zusammenstellen (Grundpreis " + ueItemPrice + " €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft).",
+      woltRules: "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Grundpreis „Build your Bowl“ " + woltItemPrice + " €. " + woltCardNote,
+      ubereatsRules: "Selbst zusammenstellen (Grundpreis " + ueItemPrice + " €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft). " + ueCardNote,
       decisions: [
         "User 15.09.2026: Bunter Bio Quinoa bleibt im Datensatz, ist aber im Rechner ausgeschlossen (auch künftige Plattformen)",
         "User 15.09.2026: Jede vorgeschlagene Bowl hat ≥1 Base und ≥1 Protein",
@@ -304,14 +323,15 @@ async function main() {
         "User 15.09.2026: Guacamole normal anbieten (enthält laut Zutatenliste Koriander, im Chat erwähnt)",
         "User 15.09.2026: Optionales Preislimit — keine vorgeschlagene Bestellung liegt über dem eingegebenen Maximalpreis (Grundpreis + Zutaten)",
         "User 15.09.2026: Rechner zusätzlich für Uber Eats („Selbst zusammenstellen“, Grundpreis 1 €)",
+        "User 16.09.2026 (Rückfrage „Build your Bowl kostet 4 €“): Grundpreis bleibt " + woltItemPrice + " € — die " + woltCardPrice + " € auf der Wolt-Karte sind Grundpreis + vorausgewählter Dip; der Rechner rechnet Grundpreis + gewählte Optionen und nennt die Vorauswahl im Hinweistext",
       ],
       portionDiffs, portionAssumed, displayBugs, anomalies, missingDeclared, notOnWolt, woltMapUnused, dislikes, shellfish,
       ubereats: { noData: ueNoData, portionDiffs: uePortionDiffs, kcalDiffs: ueKcalDiffs, notOnUberEats },
       eggNote: "Hart gekochtes Ei: offizielle Shop-Werte (pro 100 g 155 kcal → 77,5 kcal je 50 g) statt der generischen Tabellenwerte aus dem Word-Dokument (78 kcal / 6,3 g P / 0,6 g KH / 5,3 g F je 50 g). Seit 15.09.2026 bei Wolt als Extra „Hart gekochtes Ei, 50 g“ bestellbar.",
     },
     ingredients,
-    wolt: { page: WOLT_PAGE, item: WOLT_ITEM, itemPrice: woltItemPrice, groups: woltGroups },
-    ubereats: { page: ue.pageUrl, item: UE_ITEM, itemPrice: ueItemPrice, capturedAt: ue.capturedAt, groups: ueGroups },
+    wolt: { page: WOLT_PAGE, item: WOLT_ITEM, itemPrice: woltItemPrice, cardPrice: woltCardPrice, preselected: woltPreselect, groups: woltGroups },
+    ubereats: { page: ue.pageUrl, item: UE_ITEM, itemPrice: ueItemPrice, cardPrice: ueCardPrice, preselected: uePreselect, capturedAt: ue.capturedAt, groups: ueGroups },
   };
 
   if (problems.length) { console.error("\nPROBLEME — raw.json wird NICHT geschrieben:\n  " + problems.join("\n  ")); process.exit(1); }
@@ -320,6 +340,8 @@ async function main() {
   console.log("\n" + ingredients.length + " Zutaten (" + Object.entries(ingredients.reduce((o, x) => (o[x.group] = (o[x.group] || 0) + 1, o), {})).map(([k, v]) => k + " " + v).join(", ") + ") → " + path.relative(__dirname, OUT));
   console.log("Wolt (Grundpreis " + woltItemPrice + " €): " + woltGroups.map(g => g.name + " " + g.options.length + (g.noneOption ? " + „" + g.noneOption + "“" : "") + " (" + g.min + "–" + g.max + ")").join(" · "));
   console.log("Uber Eats (Grundpreis " + ueItemPrice + " €, erfasst " + ue.capturedAt + "): " + ueGroups.map(g => g.name + " " + g.options.length + (g.noneOption ? " + „" + g.noneOption + "“" : "") + " (" + g.min + "–" + g.max + ")").join(" · "));
+  console.log("Vorauswahl: " + woltCardNote);
+  console.log("Vorauswahl: " + ueCardNote);
   console.log("Nicht bei Wolt: " + notOnWolt.join(", "));
   console.log("Nicht bei Uber Eats: " + (notOnUberEats.join(", ") || "—"));
   if (woltMapUnused.length) console.log("⚠ WOLT_MAP-Einträge, die Wolt nicht mehr anbietet: " + woltMapUnused.join(", "));
