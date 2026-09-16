@@ -20,7 +20,8 @@ function buildData(raw) {
   const catIds = new Set(cats.map(c => c.id));
   const notDeclared = new Set(raw._meta.notDeclared || []);
   const used = new Set();
-  const items = raw.wolt.items.map(w => {
+  // Gesperrte Gerichte (User 16.09.2026: Spicy Gurkensalat) bleiben im Datensatz, aber nicht im Tracker
+  const items = raw.wolt.items.filter(w => !w.blocked).map(w => {
     const p = bySite[w.siteId];
     if (!p) throw new Error("Website-Produkt fehlt: " + w.siteName + " (" + w.siteId + ")");
     if (!catIds.has(w.cat)) throw new Error("Unbekannte Kategorie bei " + w.name + ": " + w.cat);
@@ -63,5 +64,5 @@ if (require.main === module) {
   const raw = U.readJSON(RAW);
   const { lines, data } = blockLines(raw);
   U.writeBlock(path.join(__dirname, "index.html"), KEY, lines);
-  console.log(data.items.length + " Gerichte → index.html (" + KEY + "-Block): " + data.cats.map(c => c.name + " " + data.items.filter(x => x.cat === c.id).length + (c.on ? "" : " (aus)")).join(", "));
+  console.log(data.items.length + " Gerichte → index.html (" + KEY + "-Block): " + data.cats.map(c => c.name + " " + data.items.filter(x => x.cat === c.id).length + (c.on ? "" : " (aus)")).join(", ") + (raw._meta.blocked && raw._meta.blocked.length ? " · gesperrt: " + raw._meta.blocked.map(b => b.split(" — ")[0]).join(", ") : ""));
 }

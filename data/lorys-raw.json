@@ -1,7 +1,7 @@
 {
   "_meta": {
     "restaurant": "Lorys Gymfood",
-    "fetchedAt": "2026-09-16T13:00:16.567Z",
+    "fetchedAt": "2026-09-16T13:27:59.017Z",
     "sources": {
       "nutrition": {
         "site": "https://www.lorys-gymfood.de/menu?location=Berliner+Stra%C3%9Fe",
@@ -45,7 +45,8 @@
     "decisions": [
       "User 16.09.2026: Lorys Gymfood als Tracker, Nährwerte aller Produkte von lorys-gymfood.de (Standort Berliner Straße); die Werte gelten für die Standard-Auswahl (z.B. High Protein Chicken Bowl mit Sesam-Miso-Sauce)",
       "User 16.09.2026: Plattform Wolt (LORYS GYMFOOD) — Namen, Verfügbarkeit, Preise",
-      "User 16.09.2026: Breakfast und Shakes ignorieren"
+      "User 16.09.2026: Breakfast und Shakes ignorieren",
+      "User 16.09.2026: Spicy Gurkensalat sperren (Werte widersprechen sich)"
     ],
     "checks": [
       "Wolt-UI 16.09.2026: optionale Gruppen mit Standard-Option sind nicht vorbelegt — Plant Based Protein Bowl „Zur Bestellung hinzufügen 12,90 €“ ohne Halloumi (+4,00 €), Pure Beef Burger ohne Bio-Spiegelei/Ketchup"
@@ -57,6 +58,9 @@
     "notes": [
       "Pommes Frites: Website-Name „Pommes Frites inkl. Dip“ — die Werte enthalten laut Website einen Dip; Wolt nennt keinen Dip (Artikel ohne Dip-Auswahl)",
       "Süßkartoffelpommes: Website-Name „Süßkartoffel Pommes inkl. Dip“ — die Werte enthalten laut Website einen Dip; Wolt nennt keinen Dip (Artikel ohne Dip-Auswahl)"
+    ],
+    "blocked": [
+      "Spicy Gurkensalat — User 16.09.2026: gesperrt — 101 kcal passen nicht zu 23 g Fett (4·KH + 4·E + 9·F = 259 kcal)"
     ],
     "skipped": [
       "Website: SHAKES (4 Produkte) — Shakes (User 16.09.2026: ignorieren)",
@@ -740,7 +744,8 @@
         "sitePrice": 4.5,
         "required": [],
         "optional": [],
-        "woltDescription": "Hausgemachter Gurkensalat mit scharfem Geschmack"
+        "woltDescription": "Hausgemachter Gurkensalat mit scharfem Geschmack",
+        "blocked": "User 16.09.2026: gesperrt — 101 kcal passen nicht zu 23 g Fett (4·KH + 4·E + 9·F = 259 kcal)"
       },
       {
         "name": "Lorys Rote Beete Salat",

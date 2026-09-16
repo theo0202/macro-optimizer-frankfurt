@@ -30,6 +30,8 @@ const NOTES = {
   "Pommes Frites": "Website-Name „Pommes Frites inkl. Dip“ — die Werte enthalten laut Website einen Dip; Wolt nennt keinen Dip (Artikel ohne Dip-Auswahl)",
   "Süßkartoffelpommes": "Website-Name „Süßkartoffel Pommes inkl. Dip“ — die Werte enthalten laut Website einen Dip; Wolt nennt keinen Dip (Artikel ohne Dip-Auswahl)",
 };
+// Gesperrt: bleibt im Datensatz, kommt nicht in den Tracker (lorys-update.js lässt es weg)
+const BLOCKED = { "Spicy Gurkensalat": "User 16.09.2026: gesperrt — 101 kcal passen nicht zu 23 g Fett (4·KH + 4·E + 9·F = 259 kcal)" };
 const SHELLFISH_RE = /garnele|shrimp|scampi|gambas|prawn|krabbe|krebs|hummer|langust|muschel|auster|jakobsmuschel|tintenfisch|calamar|sepia|oktopus|pulpo|meeresfr/i;
 const DISLIKE_RE = /koriander|cilantro|minze|\bmint/i;
 
@@ -133,9 +135,11 @@ async function main() {
       if (wv && U.KEYS.some(k => wv[k] != null && pr.perServing[k] != null && Math.abs(wv[k] - pr.perServing[k]) > 1e-9)) woltDiffs.push(name + ": Website " + ["kcal", "carbs", "protein", "fat"].map(k => pr.perServing[k]).join("/") + " · Wolt-Beschreibung " + ["kcal", "carbs", "protein", "fat"].map(k => wv[k]).join("/"));
       const entry = { name, siteName: pr.name, siteId: pr.siteId, cat: def.id, price, sitePrice: pr.price, required, optional, woltDescription: normName(it.description) };
       if (NOTES[name]) entry.note = NOTES[name];
+      if (BLOCKED[name]) entry.blocked = BLOCKED[name];
       items.push(entry);
     }
   }
+  for (const n of Object.keys(BLOCKED)) if (!items.some(i => i.name === n)) problems.push("BLOCKED: Wolt-Artikel „" + n + "“ fehlt");
   if (unknownCats.length) problems.push("Wolt: unbekannte Kategorie(n) " + unknownCats.map(c => "„" + c + "“").join(", ") + " (WOLT_CATEGORIES oder SKIPPED_WOLT_CATEGORIES ergänzen)");
   for (const [w, sname] of Object.entries(WOLT_TO_SITE)) if (!site.some(p => p.name === sname)) problems.push("WOLT_TO_SITE: Website-Produkt „" + sname + "“ fehlt");
   const onWolt = new Set(items.map(i => i.siteId));
@@ -164,12 +168,14 @@ async function main() {
         "User 16.09.2026: Lorys Gymfood als Tracker, Nährwerte aller Produkte von lorys-gymfood.de (Standort Berliner Straße); die Werte gelten für die Standard-Auswahl (z.B. High Protein Chicken Bowl mit Sesam-Miso-Sauce)",
         "User 16.09.2026: Plattform Wolt (LORYS GYMFOOD) — Namen, Verfügbarkeit, Preise",
         "User 16.09.2026: Breakfast und Shakes ignorieren",
+        "User 16.09.2026: Spicy Gurkensalat sperren (Werte widersprechen sich)",
       ],
       checks: [
         "Wolt-UI 16.09.2026: optionale Gruppen mit Standard-Option sind nicht vorbelegt — Plant Based Protein Bowl „Zur Bestellung hinzufügen 12,90 €“ ohne Halloumi (+4,00 €), Pure Beef Burger ohne Bio-Spiegelei/Ketchup",
       ],
       mapping: Object.fromEntries(items.filter(i => i.name !== i.siteName).map(i => [i.name, i.siteName])),
       notes: items.filter(i => i.note).map(i => i.name + ": " + i.note),
+      blocked: items.filter(i => i.blocked).map(i => i.name + " — " + i.blocked),
       skipped: [...siteSkipped.map(x => "Website: " + x), ...skippedWolt.map(x => "Wolt: " + x)],
       notOnWolt, anomalies,
       shellfish: shellfish.length ? shellfish : "keine Allergenangaben veröffentlicht; kein Produkt mit Krebs-/Weichtier-Begriff in Name oder Beschreibung (Thunfisch, Lachs = Fisch, erlaubt)",
@@ -180,10 +186,11 @@ async function main() {
   };
   if (problems.length) { console.error("\nPROBLEME — raw.json wird NICHT geschrieben:\n  " + problems.join("\n  ")); process.exit(1); }
   fs.writeFileSync(OUT, JSON.stringify(out, null, 2) + "\n", "utf8");
-  console.log(site.length + " Website-Produkte mit Nährwerten, " + items.length + " Wolt-Produkte im Tracker → " + path.relative(__dirname, OUT));
+  console.log(site.length + " Website-Produkte mit Nährwerten, " + items.length + " Wolt-Produkte zugeordnet (" + items.filter(i => i.blocked).length + " gesperrt) → " + path.relative(__dirname, OUT));
   for (const c of out.wolt.cats) console.log("  " + c.name + (c.on ? "" : " (aus)") + ": " + items.filter(i => i.cat === c.id).map(i => i.name + " " + i.price + " €" + (i.required.length ? " [" + i.required.map(r => r.group + ": " + r.choice).join("; ") + "]" : "")).join(" · "));
   console.log("Zuordnung abweichend: " + (Object.entries(out._meta.mapping).map(([w, s]) => w + " = " + s).join(" · ") || "–"));
   console.log("Hinweise: " + (out._meta.notes.join(" · ") || "–"));
+  console.log("Gesperrt: " + (out._meta.blocked.join(" · ") || "–"));
   console.log("Weggelassen: " + out._meta.skipped.join(" · "));
   console.log("Nicht bei Wolt: " + (notOnWolt.join(", ") || "–"));
   console.log("Schalentier: " + (Array.isArray(out._meta.shellfish) ? out._meta.shellfish.join(", ") : out._meta.shellfish));
