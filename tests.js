@@ -531,6 +531,18 @@ check("_meta: Koriander in der Guacamole vermerkt", metaC.dislikes.some(d => /Gu
 check("_meta: Entscheidungen des Users mit Datum (inkl. Preislimit + Uber Eats)", metaC.decisions.length >= 7 && metaC.decisions.every(d => /^User [0-9]{2}[.][0-9]{2}[.][0-9]{4}/.test(d)) && metaC.decisions.some(d => /Preislimit/.test(d)) && metaC.decisions.some(d => /Uber Eats/.test(d)), true);
 check("_meta: 4-€-Rückfrage dokumentiert (Grundpreis bleibt 2 € + vorausgewählter Dip)", metaC.decisions.some(d => /User 16[.]09[.]2026/.test(d) && /4 €/.test(d) && /Grundpreis bleibt 2 €/.test(d)) && /Menükarte/.test(metaC.woltRules) && /keine Vorauswahl/.test(metaC.ubereatsRules), true);
 check("verify-compleat.js: Word-Export = nachgerechnete Shop-Anzeige", (() => { try { require("child_process").execFileSync(process.execPath, [__dirname + "/verify-compleat.js"], { stdio: "pipe" }); return true; } catch (e) { return false; } })(), true);
+check("_meta: halbe Portionen haben je 100 g dieselben Werte wie die ganze — einzige Ausnahme Quinoa (gesperrt, Eiweiß 0,9 statt 1,8)", metaC.halfPortionDiffs.length === 1 && metaC.halfPortionDiffs[0].id === "bunter_bio_quinoa" && metaC.halfPortionDiffs[0].halb.protein === 0.9 && metaC.halfPortionDiffs[0].ganz.protein === 1.8 && !!rawC.ingredients.find(x => x.id === "bunter_bio_quinoa").blocked, true);
+// Abgleich mit den 41 Fertig-Bowls des Onlineshops (data/compleat-presets.json, Anzeige vom 16.09.2026)
+const presetsC = U.readJSON(__dirname + "/data/compleat-presets.json");
+const vp = require("./verify-compleat-presets.js");
+const vpRes = vp.verifyPresets(rawC, presetsC);
+if (vpRes.failures.length) vpRes.failures.forEach(f => console.log(f));
+check("Fertig-Bowls: 41 Bowls, Shop-Rechnung reproduziert jede Anzeige, keine unerklärte Abweichung", presetsC.bowls.length === 41 && vpRes.failures.length === 0, true);
+check("Fertig-Bowls: unser Datensatz trifft 33 von 41 Anzeigen im Rahmen der Rundung (Rest = bekannte Shop-Effekte)", vpRes.rows.filter(r => r.direct).length, 33);
+check("Fertig-Bowls (User-Beispiele): Classic Bowl - High Protein 730 kcal · Super Bowl - High Protein 759 kcal — beide ohne Abweichung", [["Classic Bowl - High Protein", 730], ["Super Bowl - High Protein", 759]].every(([n, kcal]) => { const r = vpRes.rows.find(x => x.name === n); return r && r.direct && r.shown.kcal === kcal && Math.abs(r.ours.kcal - kcal) < 1 && Math.abs(r.ours.protein - r.shown.protein) <= 0.05; }), true);
+check("Fertig-Bowls: Shop-Rundung (kcal je Option gerundet, Rest Σ Wert × Menge / 100) — Super Bowl HP 759 statt ungerundet 758,3", (() => { const b = presetsC.bowls.find(x => x.name === "Super Bowl - High Protein"); const t = vp.shopTotal(b.items.map(it => ({ per100: it.per100, q: it.shopAmount }))); return t.kcal === 759 && t.carbs === 72.3 && t.fat === 20.6; })(), true);
+check("Fertig-Bowls: Datenfehler im Datensatz fällt auf (Hühnchen-Eiweiß verfälscht → Abgleich meldet Probleme)", (() => { const bad = JSON.parse(JSON.stringify(rawC)); bad.ingredients.find(x => x.id === "huehnchen").per100.protein = 25; return vp.verifyPresets(bad, presetsC).failures.length > 0; })(), true);
+check("verify-compleat-presets.js läuft ohne Probleme", (() => { try { require("child_process").execFileSync(process.execPath, [__dirname + "/verify-compleat-presets.js"], { stdio: "pipe" }); return true; } catch (e) { return false; } })(), true);
 
 // ── Compleat: Optimizer ──
 sect("Compleat: Optimizer (Wolt + Uber Eats)");

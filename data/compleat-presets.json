@@ -1,0 +1,520 @@
+{
+  "_meta": {
+    "source": "Compleat-Onlineshop compleat.vmos.io, Store Frankfurt Nordend, Menü „Menu Compleat 2025Q3 - Categories“: alle Fertig-Bowls der Kategorien Ausgewogen, Abnehmen/Low Carb, Vegan, Muskelaufbau/High Protein (ohne Wraps) — Kontrollquelle für node verify-compleat-presets.js",
+    "capturedAt": "2026-09-16",
+    "shown": "Produktseite /store/{store}/menu/category/{category}/bundle/{uuid}/bundleCustomization, Reiter „Nährwerte“ („Nutrition facts per serving“) in der Standard-Auswahl (ohne Dip), im Browser abgelesen",
+    "items": "vorausgewählte Optionen (isPreselected) aus /catalog/bundles/{uuid}/item-types: Werte je 100 g (nutritionalMeta), amount = Menge laut Name, shopAmount = customizations[0].variations[0].value (damit rechnet die Shop-Anzeige); bundleBase = Nährwert-Datensatz am Bundle selbst (Typ BUNDLE_BASE)",
+    "shopRule": "kcal je Option gerundet (Math.round) und addiert; übrige Werte Σ(Wert je 100 g × shopAmount) / 100 → toFixed (Salz 2, sonst 1 Nachkommastelle); ein bundleBase-Datensatz zählt mit. Reproduziert alle 41 Anzeigen exakt (328 Werte, 16.09.2026)"
+  },
+  "bowls": [
+    {
+      "name": "Kraftpaket", "category": "Ausgewogen", "uuid": "53d05caf-e8e0-4633-b9d7-23dc8b1008ed",
+      "shown": {"kcal":713,"kj":2983,"fat":19.9,"sat":4.6,"carbs":82,"sugars":10.2,"fibre":10.2,"protein":47.4,"salt":4.32},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Karotten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":32,"fat":0.1,"sat":0,"carbs":5,"sugars":5,"fibre":4,"protein":1,"salt":0.15}},
+        {"name":"Rotkohl geraspelt (50g)","amount":50,"shopAmount":50,"per100":{"kcal":27,"fat":0.1,"sat":0.1,"carbs":4,"sugars":3,"fibre":2.5,"protein":2,"salt":0.03}},
+        {"name":"Brokkoli (100g)","amount":100,"shopAmount":100,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Hart gekochtes Ei (50g)","amount":50,"shopAmount":50,"per100":{"kcal":155,"fat":11.2,"sat":3.3,"carbs":0.6,"sugars":0.3,"fibre":0.5,"protein":13.1,"salt":0.75}},
+        {"name":"Erdnüsse (20g)","amount":20,"shopAmount":20,"per100":{"kcal":627,"fat":53,"sat":8.7,"carbs":5.9,"sugars":4.2,"fibre":11,"protein":28,"salt":0.9}}
+      ]
+    },
+    {
+      "name": "Classic Bowl", "category": "Ausgewogen", "uuid": "8e78b58b-5a18-4d60-a260-7ed7caecc8ea",
+      "shown": {"kcal":605,"kj":2531,"fat":14.3,"sat":2.9,"carbs":77.2,"sugars":6,"fibre":6.7,"protein":39.3,"salt":3.85},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Brokkoli (100g)","amount":100,"shopAmount":100,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Erdnüsse (20g)","amount":20,"shopAmount":20,"per100":{"kcal":627,"fat":53,"sat":8.7,"carbs":5.9,"sugars":4.2,"fibre":11,"protein":28,"salt":0.9}}
+      ]
+    },
+    {
+      "name": "Mango Fire", "category": "Ausgewogen", "uuid": "669a9832-3770-4af3-b33e-b43734483169",
+      "shown": {"kcal":656,"kj":2745,"fat":15.4,"sat":8.2,"carbs":84.3,"sugars":12.2,"fibre":3.2,"protein":41.2,"salt":4.78},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Feta Käse (50g)","amount":50,"shopAmount":50,"per100":{"kcal":280,"fat":23.5,"sat":14,"carbs":0.3,"sugars":0.3,"fibre":0,"protein":16.8,"salt":2.4}},
+        {"name":"Mango (70g)","amount":70,"shopAmount":70,"per100":{"kcal":66,"fat":0,"sat":0,"carbs":14.1,"sugars":12.2,"fibre":1.4,"protein":1.6,"salt":0.01}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Granatapfelkerne (15g)","amount":15,"shopAmount":15,"per100":{"kcal":74,"fat":0.6,"sat":0,"carbs":17,"sugars":16.7,"fibre":2.2,"protein":0.7,"salt":0}}
+      ]
+    },
+    {
+      "name": "Super Bowl", "category": "Ausgewogen", "uuid": "2e123c7a-7f71-41f0-81d3-29843f226c60",
+      "shown": {"kcal":634,"kj":2653,"fat":17.9,"sat":9,"carbs":70.8,"sugars":21.7,"fibre":11.6,"protein":41.3,"salt":7.39},
+      "items": [
+        {"name":"Süßkartoffel (250g)","amount":250,"shopAmount":250,"per100":{"kcal":113,"fat":0.6,"sat":0.2,"carbs":23.2,"sugars":4.5,"fibre":3.1,"protein":1.6,"salt":2}},
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Brokkoli (100g)","amount":100,"shopAmount":100,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Gemüsemix (100g)","amount":100,"shopAmount":100,"per100":{"kcal":43,"fat":0.3,"sat":0.1,"carbs":6.3,"sugars":5.4,"fibre":0.5,"protein":2.1,"salt":0.02}},
+        {"name":"Feta Käse (50g)","amount":50,"shopAmount":50,"per100":{"kcal":280,"fat":23.5,"sat":14,"carbs":0.3,"sugars":0.3,"fibre":0,"protein":16.8,"salt":2.4}},
+        {"name":"Schwarzer Sesam (3g)","amount":3,"shopAmount":3,"per100":{"kcal":593,"fat":50,"sat":8,"carbs":10,"sugars":0.2,"fibre":11,"protein":21,"salt":0.1}}
+      ]
+    },
+    {
+      "name": "Zlatan Veganovic", "category": "Ausgewogen", "uuid": "e4a6e8ff-5c22-4905-ab5d-57a84ac79b01",
+      "shown": {"kcal":764,"kj":3197,"fat":23.3,"sat":5.5,"carbs":103.8,"sugars":12.3,"fibre":12.7,"protein":22.6,"salt":5.09},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Rote Bete Falafel (100g)","amount":100,"shopAmount":100,"per100":{"kcal":216,"fat":13,"sat":1.1,"carbs":15,"sugars":5,"fibre":6.7,"protein":6.5,"salt":1.1}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":19.99,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Edamame (50g)","amount":50,"shopAmount":49.99,"per100":{"kcal":110,"fat":0,"sat":0,"carbs":8.5,"sugars":2.4,"fibre":2.4,"protein":10,"salt":2}},
+        {"name":"Mais (50g)","amount":50,"shopAmount":49.99,"per100":{"kcal":69,"fat":1.2,"sat":0.3,"carbs":11,"sugars":7,"fibre":3.1,"protein":2.5,"salt":0.5}},
+        {"name":"Gurke (50g)","amount":50,"shopAmount":50,"per100":{"kcal":14,"fat":0.1,"sat":0,"carbs":1.8,"sugars":1.2,"fibre":0.9,"protein":0.6,"salt":0}},
+        {"name":"Röstzwiebeln (20g)","amount":20,"shopAmount":20,"per100":{"kcal":590,"fat":44,"sat":21,"carbs":40,"sugars":9,"fibre":4.5,"protein":6,"salt":1.2}}
+      ]
+    },
+    {
+      "name": "Hackuna Matata", "category": "Ausgewogen", "uuid": "aa9b66bc-b3dc-4d35-b95a-d91246f82aa6",
+      "shown": {"kcal":764,"kj":3197,"fat":29.5,"sat":13,"carbs":89.9,"sugars":4.6,"fibre":5.3,"protein":30.5,"salt":4.84},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Rinderhackbällchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":222,"fat":14,"sat":5.2,"carbs":10,"sugars":1,"fibre":2,"protein":14,"salt":1.8}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Tomaten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":19,"fat":0.1,"sat":0,"carbs":3.5,"sugars":3.2,"fibre":1,"protein":0.7,"salt":0}},
+        {"name":"Röstzwiebeln (20g)","amount":20,"shopAmount":19.99,"per100":{"kcal":590,"fat":44,"sat":21,"carbs":40,"sugars":9,"fibre":4.5,"protein":6,"salt":1.2}},
+        {"name":"Grana Padano (20g)","amount":20,"shopAmount":20,"per100":{"kcal":398,"fat":29,"sat":18,"carbs":0,"sugars":0,"fibre":0,"protein":33,"salt":1.5}}
+      ]
+    },
+    {
+      "name": "Knackarsch", "category": "Ausgewogen", "uuid": "1ad277fa-c955-4e9a-ae9b-5abb41440b75",
+      "shown": {"kcal":562,"kj":2351,"fat":4.3,"sat":1.4,"carbs":87,"sugars":10.6,"fibre":9.3,"protein":36.4,"salt":4.41},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Karotten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":32,"fat":0.1,"sat":0,"carbs":5,"sugars":5,"fibre":4,"protein":1,"salt":0.15}},
+        {"name":"Rotkohl geraspelt (50g)","amount":50,"shopAmount":50,"per100":{"kcal":27,"fat":0.1,"sat":0.1,"carbs":4,"sugars":3,"fibre":2.5,"protein":2,"salt":0.03}},
+        {"name":"Gurke (50g)","amount":50,"shopAmount":50,"per100":{"kcal":14,"fat":0.1,"sat":0,"carbs":1.8,"sugars":1.2,"fibre":0.9,"protein":0.6,"salt":0}},
+        {"name":"Mais (50g)","amount":50,"shopAmount":50,"per100":{"kcal":69,"fat":1.2,"sat":0.3,"carbs":11,"sugars":7,"fibre":3.1,"protein":2.5,"salt":0.5}},
+        {"name":"Erbsen (50g)","amount":50,"shopAmount":50,"per100":{"kcal":69,"fat":0.3,"sat":0.1,"carbs":9,"sugars":3.1,"fibre":5,"protein":5.2,"salt":1}}
+      ]
+    },
+    {
+      "name": "Strammer Lachs", "category": "Ausgewogen", "uuid": "5e5926b5-ea6c-41be-b3cf-e54f38a7131f",
+      "shown": {"kcal":698,"kj":2920,"fat":19.8,"sat":7,"carbs":79.1,"sugars":5,"fibre":11.3,"protein":34.6,"salt":5.7},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Pulled Salmon (100g)","amount":100,"shopAmount":100,"per100":{"kcal":215,"fat":14.4,"sat":3.5,"carbs":0,"sugars":0,"fibre":6,"protein":20.3,"salt":2.2}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Avocado (35g)","amount":35,"shopAmount":35,"per100":{"kcal":217,"fat":12.5,"sat":10,"carbs":3.6,"sugars":1.4,"fibre":4.1,"protein":1.5,"salt":0}},
+        {"name":"Gurke (50g)","amount":50,"shopAmount":50,"per100":{"kcal":14,"fat":0.1,"sat":0,"carbs":1.8,"sugars":1.2,"fibre":0.9,"protein":0.6,"salt":0}},
+        {"name":"Edamame (50g)","amount":50,"shopAmount":50,"per100":{"kcal":110,"fat":0,"sat":0,"carbs":8.5,"sugars":2.4,"fibre":2.4,"protein":10,"salt":2}},
+        {"name":"Granatapfelkerne (15g)","amount":15,"shopAmount":15,"per100":{"kcal":74,"fat":0.6,"sat":0,"carbs":17,"sugars":16.7,"fibre":2.2,"protein":0.7,"salt":0}}
+      ]
+    },
+    {
+      "name": "Vitaminbombe", "category": "Ausgewogen", "uuid": "9999b23a-1856-46c2-b108-643cb2f8194a",
+      "shown": {"kcal":382,"kj":1598,"fat":8.7,"sat":4.9,"carbs":34.9,"sugars":20.8,"fibre":11.4,"protein":31.5,"salt":2.52},
+      "items": [
+        {"name":"Bunter Bio Quinoa - Halbe Portion (125g)","amount":125,"shopAmount":125,"per100":{"kcal":52,"fat":0.9,"sat":0.1,"carbs":8.5,"sugars":0.3,"fibre":1.6,"protein":0.9,"salt":1}},
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Brokkoli (100g)","amount":100,"shopAmount":100,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Karotten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":32,"fat":0.1,"sat":0,"carbs":5,"sugars":5,"fibre":4,"protein":1,"salt":0.15}},
+        {"name":"Rotkohl geraspelt (50g)","amount":50,"shopAmount":50,"per100":{"kcal":27,"fat":0.1,"sat":0.1,"carbs":4,"sugars":3,"fibre":2.5,"protein":2,"salt":0.03}},
+        {"name":"Mango (70g)","amount":70,"shopAmount":70,"per100":{"kcal":66,"fat":0,"sat":0,"carbs":14.1,"sugars":12.2,"fibre":1.4,"protein":1.6,"salt":0.01}},
+        {"name":"Avocado (35g)","amount":35,"shopAmount":35,"per100":{"kcal":217,"fat":12.5,"sat":10,"carbs":3.6,"sugars":1.4,"fibre":4.1,"protein":1.5,"salt":0}},
+        {"name":"Granatapfelkerne (15g)","amount":15,"shopAmount":15,"per100":{"kcal":74,"fat":0.6,"sat":0,"carbs":17,"sugars":16.7,"fibre":2.2,"protein":0.7,"salt":0}}
+      ]
+    },
+    {
+      "name": "Power Pasta", "category": "Ausgewogen", "uuid": "eb563030-e480-4c45-aa7e-a05b2e599c84",
+      "shown": {"kcal":629,"kj":2632,"fat":16,"sat":4.5,"carbs":58.9,"sugars":4.1,"fibre":22.4,"protein":51.5,"salt":3.7},
+      "items": [
+        {"name":"Vegane Hackbällchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":154,"fat":4.5,"sat":0.5,"carbs":7,"sugars":1,"fibre":7.5,"protein":17.7,"salt":1.4}},
+        {"name":"Protein-Pasta (200g)","amount":200,"shopAmount":200,"per100":{"kcal":190.5,"fat":2.75,"sat":0.2,"carbs":25,"sugars":0.75,"fibre":7,"protein":13,"salt":1}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Tomaten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":19,"fat":0.1,"sat":0,"carbs":3.5,"sugars":3.2,"fibre":1,"protein":0.7,"salt":0}},
+        {"name":"Grana Padano (20g)","amount":20,"shopAmount":20,"per100":{"kcal":398,"fat":29,"sat":18,"carbs":0,"sugars":0,"fibre":0,"protein":33,"salt":1.5}}
+      ]
+    },
+    {
+      "name": "Mr. Olympia", "category": "Ausgewogen", "uuid": "938639f0-c5e6-4404-bd54-470a7b4d80cd",
+      "shown": {"kcal":799,"kj":3343,"fat":26.1,"sat":10,"carbs":83.7,"sugars":6.7,"fibre":9.2,"protein":50.3,"salt":5.95},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Erbsen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":69,"fat":0.3,"sat":0.1,"carbs":9,"sugars":3.1,"fibre":5,"protein":5.2,"salt":1}},
+        {"name":"Tomaten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":19,"fat":0.1,"sat":0,"carbs":3.5,"sugars":3.2,"fibre":1,"protein":0.7,"salt":0}},
+        {"name":"Feta Käse (50g)","amount":50,"shopAmount":50,"per100":{"kcal":280,"fat":23.5,"sat":14,"carbs":0.3,"sugars":0.3,"fibre":0,"protein":16.8,"salt":2.4}},
+        {"name":"Erdnüsse (20g)","amount":20,"shopAmount":20,"per100":{"kcal":627,"fat":53,"sat":8.7,"carbs":5.9,"sugars":4.2,"fibre":11,"protein":28,"salt":0.9}}
+      ]
+    },
+    {
+      "name": "Lachs-Nudeln", "category": "Ausgewogen", "uuid": "cbe4bf54-d8bc-49ff-bef1-fe75a85a8acd",
+      "shown": {"kcal":766,"kj":3205,"fat":33.2,"sat":5.4,"carbs":60.2,"sugars":8.9,"fibre":22,"protein":49.5,"salt":6.21},
+      "items": [
+        {"name":"Pulled Salmon (100g)","amount":100,"shopAmount":100,"per100":{"kcal":215,"fat":14.4,"sat":3.5,"carbs":0,"sugars":0,"fibre":6,"protein":20.3,"salt":2.2}},
+        {"name":"Protein-Pasta (200g)","amount":200,"shopAmount":200,"per100":{"kcal":190.5,"fat":2.75,"sat":0.2,"carbs":25,"sugars":0.75,"fibre":7,"protein":13,"salt":1}},
+        {"name":"Tomaten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":19,"fat":0.1,"sat":0,"carbs":3.5,"sugars":3.2,"fibre":1,"protein":0.7,"salt":0}},
+        {"name":"Brokkoli (50g)","amount":50,"shopAmount":50,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Joghurt Tzatziki Dip (100g)","amount":100,"shopAmount":100,"per100":{"kcal":147.1,"fat":13.11,"sat":1.54,"carbs":6.24,"sugars":3.74,"fibre":0,"protein":1.33,"salt":1.96}}
+      ]
+    },
+    {
+      "name": "Garden Crunch", "category": "Low Carb", "uuid": "86c2caac-f5f7-4767-9674-3c4791d9a821",
+      "shown": {"kcal":304,"kj":1272,"fat":12,"sat":5.5,"carbs":19.2,"sugars":10.5,"fibre":4.9,"protein":27.5,"salt":1.48},
+      "items": [
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Salatmix (80g)","amount":80,"shopAmount":80,"per100":{"kcal":17,"fat":0.3,"sat":0.1,"carbs":2.1,"sugars":1.1,"fibre":0,"protein":1.5,"salt":0.1}},
+        {"name":"Karotten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":32,"fat":0.1,"sat":0,"carbs":5,"sugars":5,"fibre":4,"protein":1,"salt":0.15}},
+        {"name":"Rotkohl geraspelt (50g)","amount":50,"shopAmount":49.99,"per100":{"kcal":27,"fat":0.1,"sat":0.1,"carbs":4,"sugars":3,"fibre":2.5,"protein":2,"salt":0.03}},
+        {"name":"Röstzwiebeln (20g)","amount":20,"shopAmount":20,"per100":{"kcal":590,"fat":44,"sat":21,"carbs":40,"sugars":9,"fibre":4.5,"protein":6,"salt":1.2}},
+        {"name":"Granatapfelkerne (15g)","amount":15,"shopAmount":14.99,"per100":{"kcal":74,"fat":0.6,"sat":0,"carbs":17,"sugars":16.7,"fibre":2.2,"protein":0.7,"salt":0}},
+        {"name":"Gurke (50g)","amount":50,"shopAmount":50,"per100":{"kcal":14,"fat":0.1,"sat":0,"carbs":1.8,"sugars":1.2,"fibre":0.9,"protein":0.6,"salt":0}}
+      ]
+    },
+    {
+      "name": "Adonis Greens", "category": "Low Carb", "uuid": "91de360f-a788-4e66-806e-7c92bdf9e710",
+      "shown": {"kcal":436,"kj":1824,"fat":28.2,"sat":9.5,"carbs":7.5,"sugars":4.4,"fibre":2.3,"protein":36.6,"salt":2.35},
+      "items": [
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Salatmix (80g)","amount":80,"shopAmount":80,"per100":{"kcal":17,"fat":0.3,"sat":0.1,"carbs":2.1,"sugars":1.1,"fibre":0,"protein":1.5,"salt":0.1}},
+        {"name":"Gurke (50g)","amount":50,"shopAmount":50,"per100":{"kcal":14,"fat":0.1,"sat":0,"carbs":1.8,"sugars":1.2,"fibre":0.9,"protein":0.6,"salt":0}},
+        {"name":"Tomaten (50g)","amount":50,"shopAmount":49.99,"per100":{"kcal":19,"fat":0.1,"sat":0,"carbs":3.5,"sugars":3.2,"fibre":1,"protein":0.7,"salt":0}},
+        {"name":"Feta Käse (50g)","amount":50,"shopAmount":49.99,"per100":{"kcal":280,"fat":23.5,"sat":14,"carbs":0.3,"sugars":0.3,"fibre":0,"protein":16.8,"salt":2.4}},
+        {"name":"Walnusskerne (20g)","amount":20,"shopAmount":20,"per100":{"kcal":704,"fat":67,"sat":6.3,"carbs":7,"sugars":2,"fibre":6.7,"protein":16,"salt":0}}
+      ]
+    },
+    {
+      "name": "Kraftpaket - Low Carb", "category": "Low Carb", "uuid": "7ee7b2eb-3e8e-4373-9ed0-ab17c178bda6",
+      "shown": {"kcal":397,"kj":1661,"fat":19.4,"sat":4.7,"carbs":13.7,"sugars":10.8,"fibre":8.7,"protein":41,"salt":1.9},
+      "items": [
+        {"name":"Salatmix (80g)","amount":80,"shopAmount":80,"per100":{"kcal":17,"fat":0.3,"sat":0.1,"carbs":2.1,"sugars":1.1,"fibre":0,"protein":1.5,"salt":0.1}},
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Karotten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":32,"fat":0.1,"sat":0,"carbs":5,"sugars":5,"fibre":4,"protein":1,"salt":0.15}},
+        {"name":"Rotkohl geraspelt (50g)","amount":50,"shopAmount":50,"per100":{"kcal":27,"fat":0.1,"sat":0.1,"carbs":4,"sugars":3,"fibre":2.5,"protein":2,"salt":0.03}},
+        {"name":"Brokkoli (100g)","amount":100,"shopAmount":100,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Hart gekochtes Ei (50g)","amount":50,"shopAmount":50,"per100":{"kcal":155,"fat":11.2,"sat":3.3,"carbs":0.6,"sugars":0.3,"fibre":0.5,"protein":13.1,"salt":0.75}},
+        {"name":"Erdnüsse (20g)","amount":20,"shopAmount":20,"per100":{"kcal":627,"fat":53,"sat":8.7,"carbs":5.9,"sugars":4.2,"fibre":11,"protein":28,"salt":0.9}}
+      ]
+    },
+    {
+      "name": "Classic Bowl - Low Carb", "category": "Low Carb", "uuid": "59372f5c-29f9-4a1a-95a9-c42d3686bc9a",
+      "shown": {"kcal":289,"kj":1209,"fat":13.7,"sat":3,"carbs":8.9,"sugars":6.7,"fibre":5.2,"protein":33,"salt":1.43},
+      "items": [
+        {"name":"Salatmix (80g)","amount":80,"shopAmount":80,"per100":{"kcal":17,"fat":0.3,"sat":0.1,"carbs":2.1,"sugars":1.1,"fibre":0,"protein":1.5,"salt":0.1}},
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Brokkoli (100g)","amount":100,"shopAmount":100,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Erdnüsse (20g)","amount":20,"shopAmount":20,"per100":{"kcal":627,"fat":53,"sat":8.7,"carbs":5.9,"sugars":4.2,"fibre":11,"protein":28,"salt":0.9}}
+      ]
+    },
+    {
+      "name": "Hackuna Matata - Low Carb", "category": "Low Carb", "uuid": "ba4a360c-9729-4581-a568-90e56955a6c9",
+      "shown": {"kcal":448,"kj":1874,"fat":29,"sat":13.1,"carbs":21.6,"sugars":5.3,"fibre":3.8,"protein":24.2,"salt":2.42},
+      "items": [
+        {"name":"Salatmix (80g)","amount":80,"shopAmount":80,"per100":{"kcal":17,"fat":0.3,"sat":0.1,"carbs":2.1,"sugars":1.1,"fibre":0,"protein":1.5,"salt":0.1}},
+        {"name":"Rinderhackbällchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":222,"fat":14,"sat":5.2,"carbs":10,"sugars":1,"fibre":2,"protein":14,"salt":1.8}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Tomaten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":19,"fat":0.1,"sat":0,"carbs":3.5,"sugars":3.2,"fibre":1,"protein":0.7,"salt":0}},
+        {"name":"Röstzwiebeln (20g)","amount":20,"shopAmount":20,"per100":{"kcal":590,"fat":44,"sat":21,"carbs":40,"sugars":9,"fibre":4.5,"protein":6,"salt":1.2}},
+        {"name":"Grana Padano (20g)","amount":20,"shopAmount":20,"per100":{"kcal":398,"fat":29,"sat":18,"carbs":0,"sugars":0,"fibre":0,"protein":33,"salt":1.5}}
+      ]
+    },
+    {
+      "name": "Knackarsch - Low Carb", "category": "Low Carb", "uuid": "e97a6bfd-556d-4e35-b794-18d3e0f75629",
+      "shown": {"kcal":352,"kj":1473,"fat":4.7,"sat":1.8,"carbs":34.1,"sugars":20.9,"fibre":8,"protein":35.7,"salt":2.37},
+      "items": [
+        {"name":"Salatmix (80g)","amount":80,"shopAmount":80,"per100":{"kcal":17,"fat":0.3,"sat":0.1,"carbs":2.1,"sugars":1.1,"fibre":0,"protein":1.5,"salt":0.1}},
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Karotten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":32,"fat":0.1,"sat":0,"carbs":5,"sugars":5,"fibre":4,"protein":1,"salt":0.15}},
+        {"name":"Rotkohl geraspelt (50g)","amount":50,"shopAmount":50,"per100":{"kcal":27,"fat":0.1,"sat":0.1,"carbs":4,"sugars":3,"fibre":2.5,"protein":2,"salt":0.03}},
+        {"name":"Gurke (50g)","amount":50,"shopAmount":50,"per100":{"kcal":14,"fat":0.1,"sat":0,"carbs":1.8,"sugars":1.2,"fibre":0.9,"protein":0.6,"salt":0}},
+        {"name":"Mais (50g)","amount":50,"shopAmount":50,"per100":{"kcal":69,"fat":1.2,"sat":0.3,"carbs":11,"sugars":7,"fibre":3.1,"protein":2.5,"salt":0.5}},
+        {"name":"Erbsen (50g)","amount":50,"shopAmount":50,"per100":{"kcal":69,"fat":0.3,"sat":0.1,"carbs":9,"sugars":3.1,"fibre":5,"protein":5.2,"salt":1}},
+        {"name":"Knackarsch - Low Carb","bundleBase":true,"shopAmount":250,"per100":{"kcal":42.2,"fat":0.36,"sat":0.1,"carbs":6.16,"sugars":3.86,"fibre":0.1,"protein":2.26,"salt":0.15}}
+      ]
+    },
+    {
+      "name": "Mr. Olympia - Low Carb", "category": "Low Carb", "uuid": "6b96ef87-e702-4ed1-a71c-ff16f35e08be",
+      "shown": {"kcal":483,"kj":2021,"fat":25.6,"sat":10.1,"carbs":15.4,"sugars":7.3,"fibre":7.7,"protein":44,"salt":3.53},
+      "items": [
+        {"name":"Salatmix (80g)","amount":80,"shopAmount":80,"per100":{"kcal":17,"fat":0.3,"sat":0.1,"carbs":2.1,"sugars":1.1,"fibre":0,"protein":1.5,"salt":0.1}},
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Erbsen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":69,"fat":0.3,"sat":0.1,"carbs":9,"sugars":3.1,"fibre":5,"protein":5.2,"salt":1}},
+        {"name":"Tomaten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":19,"fat":0.1,"sat":0,"carbs":3.5,"sugars":3.2,"fibre":1,"protein":0.7,"salt":0}},
+        {"name":"Feta Käse (50g)","amount":50,"shopAmount":50,"per100":{"kcal":280,"fat":23.5,"sat":14,"carbs":0.3,"sugars":0.3,"fibre":0,"protein":16.8,"salt":2.4}},
+        {"name":"Erdnüsse (20g)","amount":20,"shopAmount":20,"per100":{"kcal":627,"fat":53,"sat":8.7,"carbs":5.9,"sugars":4.2,"fibre":11,"protein":28,"salt":0.9}}
+      ]
+    },
+    {
+      "name": "Super Bowl - Low Carb", "category": "Low Carb", "uuid": "19a15421-4c98-4b3e-8f92-3bfb7311e720",
+      "shown": {"kcal":365,"kj":1527,"fat":16.7,"sat":8.6,"carbs":14.4,"sugars":11.4,"fibre":3.8,"protein":38.5,"salt":2.47},
+      "items": [
+        {"name":"Salatmix (80g)","amount":80,"shopAmount":80,"per100":{"kcal":17,"fat":0.3,"sat":0.1,"carbs":2.1,"sugars":1.1,"fibre":0,"protein":1.5,"salt":0.1}},
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Brokkoli (100g)","amount":100,"shopAmount":100,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Gemüsemix (100g)","amount":100,"shopAmount":100,"per100":{"kcal":43,"fat":0.3,"sat":0.1,"carbs":6.3,"sugars":5.4,"fibre":0.5,"protein":2.1,"salt":0.02}},
+        {"name":"Feta Käse (50g)","amount":50,"shopAmount":50,"per100":{"kcal":280,"fat":23.5,"sat":14,"carbs":0.3,"sugars":0.3,"fibre":0,"protein":16.8,"salt":2.4}},
+        {"name":"Schwarzer Sesam (3g)","amount":3,"shopAmount":3,"per100":{"kcal":593,"fat":50,"sat":8,"carbs":10,"sugars":0.2,"fibre":11,"protein":21,"salt":0.1}}
+      ]
+    },
+    {
+      "name": "Mango Fire - Low Carb", "category": "Low Carb", "uuid": "7c1b55f7-a631-47cf-b4c1-e415329efc1b",
+      "shown": {"kcal":541,"kj":2264,"fat":26.9,"sat":15.3,"carbs":28.6,"sugars":24,"fibre":3.4,"protein":45.4,"salt":3.55},
+      "items": [
+        {"name":"Salatmix (80g)","amount":80,"shopAmount":80,"per100":{"kcal":17,"fat":0.3,"sat":0.1,"carbs":2.1,"sugars":1.1,"fibre":0,"protein":1.5,"salt":0.1}},
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Feta Käse (50g)","amount":50,"shopAmount":50,"per100":{"kcal":280,"fat":23.5,"sat":14,"carbs":0.3,"sugars":0.3,"fibre":0,"protein":16.8,"salt":2.4}},
+        {"name":"Mango (70g)","amount":70,"shopAmount":70,"per100":{"kcal":66,"fat":0,"sat":0,"carbs":14.1,"sugars":12.2,"fibre":1.4,"protein":1.6,"salt":0.01}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Granatapfelkerne (15g)","amount":15,"shopAmount":15,"per100":{"kcal":74,"fat":0.6,"sat":0,"carbs":17,"sugars":16.7,"fibre":2.2,"protein":0.7,"salt":0}},
+        {"name":"Mango Fire - Low Carb","bundleBase":true,"shopAmount":155,"per100":{"kcal":129.61,"fat":7.71,"sat":4.52,"carbs":8.18,"sugars":7.22,"fibre":1.1,"protein":6.77,"salt":0.77}}
+      ]
+    },
+    {
+      "name": "Zlatan Veganovic - Low Carb", "category": "Low Carb", "uuid": "6d84ef27-accb-47f9-be62-47606fe2e059",
+      "shown": {"kcal":449,"kj":1879,"fat":22.8,"sat":5.5,"carbs":35.5,"sugars":13,"fibre":11.2,"protein":16.3,"salt":2.67},
+      "items": [
+        {"name":"Salatmix (80g)","amount":80,"shopAmount":80,"per100":{"kcal":17,"fat":0.3,"sat":0.1,"carbs":2.1,"sugars":1.1,"fibre":0,"protein":1.5,"salt":0.1}},
+        {"name":"Rote Bete Falafel (100g)","amount":100,"shopAmount":100,"per100":{"kcal":216,"fat":13,"sat":1.1,"carbs":15,"sugars":5,"fibre":6.7,"protein":6.5,"salt":1.1}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Edamame (50g)","amount":50,"shopAmount":50,"per100":{"kcal":110,"fat":0,"sat":0,"carbs":8.5,"sugars":2.4,"fibre":2.4,"protein":10,"salt":2}},
+        {"name":"Mais (50g)","amount":50,"shopAmount":50,"per100":{"kcal":69,"fat":1.2,"sat":0.3,"carbs":11,"sugars":7,"fibre":3.1,"protein":2.5,"salt":0.5}},
+        {"name":"Gurke (50g)","amount":50,"shopAmount":50,"per100":{"kcal":14,"fat":0.1,"sat":0,"carbs":1.8,"sugars":1.2,"fibre":0.9,"protein":0.6,"salt":0}},
+        {"name":"Röstzwiebeln (20g)","amount":20,"shopAmount":20,"per100":{"kcal":590,"fat":44,"sat":21,"carbs":40,"sugars":9,"fibre":4.5,"protein":6,"salt":1.2}}
+      ]
+    },
+    {
+      "name": "Vitaminbombe - Low Carb", "category": "Low Carb", "uuid": "2542a526-bbd0-4f27-96d9-518fb1d40ece",
+      "shown": {"kcal":331,"kj":1385,"fat":7.8,"sat":4.8,"carbs":26,"sugars":21.3,"fibre":9.4,"protein":31.5,"salt":1.35},
+      "items": [
+        {"name":"Salatmix (80g)","amount":80,"shopAmount":80,"per100":{"kcal":17,"fat":0.3,"sat":0.1,"carbs":2.1,"sugars":1.1,"fibre":0,"protein":1.5,"salt":0.1}},
+        {"name":"Hühnchen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Brokkoli (100g)","amount":100,"shopAmount":100,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Karotten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":32,"fat":0.1,"sat":0,"carbs":5,"sugars":5,"fibre":4,"protein":1,"salt":0.15}},
+        {"name":"Rotkohl geraspelt (50g)","amount":50,"shopAmount":50,"per100":{"kcal":27,"fat":0.1,"sat":0.1,"carbs":4,"sugars":3,"fibre":2.5,"protein":2,"salt":0.03}},
+        {"name":"Mango (70g)","amount":70,"shopAmount":70,"per100":{"kcal":66,"fat":0,"sat":0,"carbs":14.1,"sugars":12.2,"fibre":1.4,"protein":1.6,"salt":0.01}},
+        {"name":"Avocado (35g)","amount":35,"shopAmount":35,"per100":{"kcal":217,"fat":12.5,"sat":10,"carbs":3.6,"sugars":1.4,"fibre":4.1,"protein":1.5,"salt":0}},
+        {"name":"Granatapfelkerne (15g)","amount":15,"shopAmount":15,"per100":{"kcal":74,"fat":0.6,"sat":0,"carbs":17,"sugars":16.7,"fibre":2.2,"protein":0.7,"salt":0}}
+      ]
+    },
+    {
+      "name": "Strammer Lachs - Low Carb", "category": "Low Carb", "uuid": "fd849561-0b10-4eb4-b769-db4f24e0c5eb",
+      "shown": {"kcal":382,"kj":1598,"fat":19.3,"sat":7.1,"carbs":10.8,"sugars":5.7,"fibre":9.8,"protein":28.3,"salt":3.28},
+      "items": [
+        {"name":"Salatmix (80g)","amount":80,"shopAmount":80,"per100":{"kcal":17,"fat":0.3,"sat":0.1,"carbs":2.1,"sugars":1.1,"fibre":0,"protein":1.5,"salt":0.1}},
+        {"name":"Pulled Salmon (100g)","amount":100,"shopAmount":100,"per100":{"kcal":215,"fat":14.4,"sat":3.5,"carbs":0,"sugars":0,"fibre":6,"protein":20.3,"salt":2.2}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Avocado (35g)","amount":35,"shopAmount":35,"per100":{"kcal":217,"fat":12.5,"sat":10,"carbs":3.6,"sugars":1.4,"fibre":4.1,"protein":1.5,"salt":0}},
+        {"name":"Gurke (50g)","amount":50,"shopAmount":50,"per100":{"kcal":14,"fat":0.1,"sat":0,"carbs":1.8,"sugars":1.2,"fibre":0.9,"protein":0.6,"salt":0}},
+        {"name":"Edamame (50g)","amount":50,"shopAmount":50,"per100":{"kcal":110,"fat":0,"sat":0,"carbs":8.5,"sugars":2.4,"fibre":2.4,"protein":10,"salt":2}},
+        {"name":"Granatapfelkerne (15g)","amount":15,"shopAmount":15,"per100":{"kcal":74,"fat":0.6,"sat":0,"carbs":17,"sugars":16.7,"fibre":2.2,"protein":0.7,"salt":0}}
+      ]
+    },
+    {
+      "name": "Vitaminbombe - vegan", "category": "Vegan", "uuid": "792e5e46-828d-4608-801d-298bd134906a",
+      "shown": {"kcal":413,"kj":1728,"fat":14,"sat":4.5,"carbs":35.1,"sugars":20.5,"fibre":14.6,"protein":25.1,"salt":2.97},
+      "items": [
+        {"name":"Bunter Bio Quinoa - Halbe Portion (125g)","amount":125,"shopAmount":125,"per100":{"kcal":52,"fat":0.9,"sat":0.1,"carbs":8.5,"sugars":0.3,"fibre":1.6,"protein":0.9,"salt":1}},
+        {"name":"Veganes Hühnchen planted.chicken (80g)","amount":80,"shopAmount":80,"per100":{"kcal":195,"fat":10,"sat":1,"carbs":2.2,"sugars":0.5,"fibre":4,"protein":21,"salt":1.9}},
+        {"name":"Brokkoli (100g)","amount":100,"shopAmount":100,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Karotten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":32,"fat":0.1,"sat":0,"carbs":5,"sugars":5,"fibre":4,"protein":1,"salt":0.15}},
+        {"name":"Rotkohl geraspelt (50g)","amount":50,"shopAmount":50,"per100":{"kcal":27,"fat":0.1,"sat":0.1,"carbs":4,"sugars":3,"fibre":2.5,"protein":2,"salt":0.03}},
+        {"name":"Mango (70g)","amount":70,"shopAmount":70,"per100":{"kcal":66,"fat":0,"sat":0,"carbs":14.1,"sugars":12.2,"fibre":1.4,"protein":1.6,"salt":0.01}},
+        {"name":"Avocado (35g)","amount":35,"shopAmount":35,"per100":{"kcal":217,"fat":12.5,"sat":10,"carbs":3.6,"sugars":1.4,"fibre":4.1,"protein":1.5,"salt":0}},
+        {"name":"Granatapfelkerne (15g)","amount":15,"shopAmount":15,"per100":{"kcal":74,"fat":0.6,"sat":0,"carbs":17,"sugars":16.7,"fibre":2.2,"protein":0.7,"salt":0}}
+      ]
+    },
+    {
+      "name": "Classic Bowl - vegan", "category": "Vegan", "uuid": "ed9e97e0-6202-48cb-9846-e8256f78a37c",
+      "shown": {"kcal":636,"kj":2661,"fat":19.6,"sat":2.5,"carbs":77.3,"sugars":5.7,"fibre":9.9,"protein":32.9,"salt":4.3},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Veganes Hühnchen planted.chicken (80g)","amount":80,"shopAmount":80,"per100":{"kcal":195,"fat":10,"sat":1,"carbs":2.2,"sugars":0.5,"fibre":4,"protein":21,"salt":1.9}},
+        {"name":"Brokkoli (100g)","amount":100,"shopAmount":100,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Erdnüsse (20g)","amount":20,"shopAmount":20,"per100":{"kcal":627,"fat":53,"sat":8.7,"carbs":5.9,"sugars":4.2,"fibre":11,"protein":28,"salt":0.9}}
+      ]
+    },
+    {
+      "name": "Knackarsch - vegan", "category": "Vegan", "uuid": "a4d10e12-628f-4228-bdca-ce3d035990eb",
+      "shown": {"kcal":593,"kj":2481,"fat":9.7,"sat":1.1,"carbs":87.2,"sugars":10.3,"fibre":12.4,"protein":29.9,"salt":4.86},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Veganes Hühnchen planted.chicken (80g)","amount":80,"shopAmount":80,"per100":{"kcal":195,"fat":10,"sat":1,"carbs":2.2,"sugars":0.5,"fibre":4,"protein":21,"salt":1.9}},
+        {"name":"Karotten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":32,"fat":0.1,"sat":0,"carbs":5,"sugars":5,"fibre":4,"protein":1,"salt":0.15}},
+        {"name":"Rotkohl geraspelt (50g)","amount":50,"shopAmount":50,"per100":{"kcal":27,"fat":0.1,"sat":0.1,"carbs":4,"sugars":3,"fibre":2.5,"protein":2,"salt":0.03}},
+        {"name":"Gurke (50g)","amount":50,"shopAmount":50,"per100":{"kcal":14,"fat":0.1,"sat":0,"carbs":1.8,"sugars":1.2,"fibre":0.9,"protein":0.6,"salt":0}},
+        {"name":"Mais (50g)","amount":50,"shopAmount":50,"per100":{"kcal":69,"fat":1.2,"sat":0.3,"carbs":11,"sugars":7,"fibre":3.1,"protein":2.5,"salt":0.5}},
+        {"name":"Erbsen (50g)","amount":50,"shopAmount":50,"per100":{"kcal":69,"fat":0.3,"sat":0.1,"carbs":9,"sugars":3.1,"fibre":5,"protein":5.2,"salt":1}}
+      ]
+    },
+    {
+      "name": "Garden Crunch - vegan", "category": "Vegan", "uuid": "a710a9ed-68de-48fb-9b4d-f3260bd71503",
+      "shown": {"kcal":336,"kj":1406,"fat":17.3,"sat":5.1,"carbs":19.4,"sugars":10.2,"fibre":8.1,"protein":21.1,"salt":1.93},
+      "items": [
+        {"name":"Veganes Hühnchen planted.chicken (80g)","amount":80,"shopAmount":80,"per100":{"kcal":195,"fat":10,"sat":1,"carbs":2.2,"sugars":0.5,"fibre":4,"protein":21,"salt":1.9}},
+        {"name":"Salatmix (80g)","amount":80,"shopAmount":80,"per100":{"kcal":17,"fat":0.3,"sat":0.1,"carbs":2.1,"sugars":1.1,"fibre":0,"protein":1.5,"salt":0.1}},
+        {"name":"Gurke (50g)","amount":50,"shopAmount":50,"per100":{"kcal":14,"fat":0.1,"sat":0,"carbs":1.8,"sugars":1.2,"fibre":0.9,"protein":0.6,"salt":0}},
+        {"name":"Karotten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":32,"fat":0.1,"sat":0,"carbs":5,"sugars":5,"fibre":4,"protein":1,"salt":0.15}},
+        {"name":"Rotkohl geraspelt (50g)","amount":50,"shopAmount":50,"per100":{"kcal":27,"fat":0.1,"sat":0.1,"carbs":4,"sugars":3,"fibre":2.5,"protein":2,"salt":0.03}},
+        {"name":"Röstzwiebeln (20g)","amount":20,"shopAmount":20,"per100":{"kcal":590,"fat":44,"sat":21,"carbs":40,"sugars":9,"fibre":4.5,"protein":6,"salt":1.2}},
+        {"name":"Granatapfelkerne (15g)","amount":15,"shopAmount":15,"per100":{"kcal":74,"fat":0.6,"sat":0,"carbs":17,"sugars":16.7,"fibre":2.2,"protein":0.7,"salt":0}}
+      ]
+    },
+    {
+      "name": "Mr. Olympia - High Protein", "category": "High Protein", "uuid": "014d69ec-1fc9-448d-95de-1a16ac5543c3",
+      "shown": {"kcal":924,"kj":3866,"fat":28.9,"sat":11.2,"carbs":85.3,"sugars":7.4,"fibre":9.2,"protein":73.5,"salt":7.02},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Doppelt Hühnchen (200g)","amount":200,"shopAmount":200,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Erbsen (100g)","amount":100,"shopAmount":100,"per100":{"kcal":69,"fat":0.3,"sat":0.1,"carbs":9,"sugars":3.1,"fibre":5,"protein":5.2,"salt":1}},
+        {"name":"Tomaten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":19,"fat":0.1,"sat":0,"carbs":3.5,"sugars":3.2,"fibre":1,"protein":0.7,"salt":0}},
+        {"name":"Feta Käse (50g)","amount":50,"shopAmount":50,"per100":{"kcal":280,"fat":23.5,"sat":14,"carbs":0.3,"sugars":0.3,"fibre":0,"protein":16.8,"salt":2.4}},
+        {"name":"Erdnüsse (20g)","amount":20,"shopAmount":20,"per100":{"kcal":627,"fat":53,"sat":8.7,"carbs":5.9,"sugars":4.2,"fibre":11,"protein":28,"salt":0.9}}
+      ]
+    },
+    {
+      "name": "Kraftpaket - High Protein", "category": "High Protein", "uuid": "840cae33-bfaa-4507-baee-127a6134b22a",
+      "shown": {"kcal":838,"kj":3506,"fat":22.6,"sat":5.8,"carbs":83.6,"sugars":10.9,"fibre":10.2,"protein":70.5,"salt":5.38},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Doppelt Hühnchen (200g)","amount":200,"shopAmount":200,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Karotten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":32,"fat":0.1,"sat":0,"carbs":5,"sugars":5,"fibre":4,"protein":1,"salt":0.15}},
+        {"name":"Rotkohl geraspelt (50g)","amount":50,"shopAmount":50,"per100":{"kcal":27,"fat":0.1,"sat":0.1,"carbs":4,"sugars":3,"fibre":2.5,"protein":2,"salt":0.03}},
+        {"name":"Brokkoli (100g)","amount":100,"shopAmount":100,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Hart gekochtes Ei (50g)","amount":50,"shopAmount":50,"per100":{"kcal":155,"fat":11.2,"sat":3.3,"carbs":0.6,"sugars":0.3,"fibre":0.5,"protein":13.1,"salt":0.75}},
+        {"name":"Erdnüsse (20g)","amount":20,"shopAmount":20,"per100":{"kcal":627,"fat":53,"sat":8.7,"carbs":5.9,"sugars":4.2,"fibre":11,"protein":28,"salt":0.9}}
+      ]
+    },
+    {
+      "name": "Classic Bowl - High Protein", "category": "High Protein", "uuid": "20b5b399-3f16-4b3b-9de4-ea6dd07b88b1",
+      "shown": {"kcal":730,"kj":3054,"fat":16.9,"sat":4.1,"carbs":78.8,"sugars":6.8,"fibre":6.7,"protein":62.5,"salt":4.92},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Doppelt Hühnchen (200g)","amount":200,"shopAmount":200,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Brokkoli (100g)","amount":100,"shopAmount":100,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Erdnüsse (20g)","amount":20,"shopAmount":20,"per100":{"kcal":627,"fat":53,"sat":8.7,"carbs":5.9,"sugars":4.2,"fibre":11,"protein":28,"salt":0.9}}
+      ]
+    },
+    {
+      "name": "Hackuna Matata - High Protein", "category": "High Protein", "uuid": "73549087-39ad-4cad-bd5f-31067b610500",
+      "shown": {"kcal":986,"kj":4125,"fat":43.5,"sat":18.2,"carbs":99.9,"sugars":5.7,"fibre":7.3,"protein":44.5,"salt":6.64},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Doppelt Rinderhackbällchen (200g)","amount":200,"shopAmount":200,"per100":{"kcal":222,"fat":14,"sat":5.2,"carbs":10,"sugars":1,"fibre":2,"protein":14,"salt":1.8}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Tomaten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":19,"fat":0.1,"sat":0,"carbs":3.5,"sugars":3.2,"fibre":1,"protein":0.7,"salt":0}},
+        {"name":"Röstzwiebeln (20g)","amount":20,"shopAmount":20,"per100":{"kcal":590,"fat":44,"sat":21,"carbs":40,"sugars":9,"fibre":4.5,"protein":6,"salt":1.2}},
+        {"name":"Grana Padano (20g)","amount":20,"shopAmount":20,"per100":{"kcal":398,"fat":29,"sat":18,"carbs":0,"sugars":0,"fibre":0,"protein":33,"salt":1.5}}
+      ]
+    },
+    {
+      "name": "Knackarsch - High Protein", "category": "High Protein", "uuid": "07fd59d9-1c95-43ef-8504-1c00437488f1",
+      "shown": {"kcal":687,"kj":2874,"fat":7,"sat":2.6,"carbs":88.6,"sugars":11.4,"fibre":9.3,"protein":59.5,"salt":5.48},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Doppelt Hühnchen (200g)","amount":200,"shopAmount":200,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Karotten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":32,"fat":0.1,"sat":0,"carbs":5,"sugars":5,"fibre":4,"protein":1,"salt":0.15}},
+        {"name":"Rotkohl geraspelt (50g)","amount":50,"shopAmount":50,"per100":{"kcal":27,"fat":0.1,"sat":0.1,"carbs":4,"sugars":3,"fibre":2.5,"protein":2,"salt":0.03}},
+        {"name":"Gurke (50g)","amount":50,"shopAmount":50,"per100":{"kcal":14,"fat":0.1,"sat":0,"carbs":1.8,"sugars":1.2,"fibre":0.9,"protein":0.6,"salt":0}},
+        {"name":"Mais (50g)","amount":50,"shopAmount":50,"per100":{"kcal":69,"fat":1.2,"sat":0.3,"carbs":11,"sugars":7,"fibre":3.1,"protein":2.5,"salt":0.5}},
+        {"name":"Erbsen (50g)","amount":50,"shopAmount":50,"per100":{"kcal":69,"fat":0.3,"sat":0.1,"carbs":9,"sugars":3.1,"fibre":5,"protein":5.2,"salt":1}}
+      ]
+    },
+    {
+      "name": "Super Bowl - High Protein", "category": "High Protein", "uuid": "b5bdcbfe-2b56-48c7-ac26-93e2e9588ccf",
+      "shown": {"kcal":759,"kj":3176,"fat":20.6,"sat":10.2,"carbs":72.3,"sugars":22.5,"fibre":11.6,"protein":64.5,"salt":8.46},
+      "items": [
+        {"name":"Süßkartoffel (250g)","amount":250,"shopAmount":250,"per100":{"kcal":113,"fat":0.6,"sat":0.2,"carbs":23.2,"sugars":4.5,"fibre":3.1,"protein":1.6,"salt":2}},
+        {"name":"Doppelt Hühnchen (200g)","amount":200,"shopAmount":200,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Brokkoli (100g)","amount":100,"shopAmount":100,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Gemüsemix (100g)","amount":100,"shopAmount":100,"per100":{"kcal":43,"fat":0.3,"sat":0.1,"carbs":6.3,"sugars":5.4,"fibre":0.5,"protein":2.1,"salt":0.02}},
+        {"name":"Feta Käse (50g)","amount":50,"shopAmount":50,"per100":{"kcal":280,"fat":23.5,"sat":14,"carbs":0.3,"sugars":0.3,"fibre":0,"protein":16.8,"salt":2.4}},
+        {"name":"Schwarzer Sesam (3g)","amount":3,"shopAmount":3,"per100":{"kcal":593,"fat":50,"sat":8,"carbs":10,"sugars":0.2,"fibre":11,"protein":21,"salt":0.1}}
+      ]
+    },
+    {
+      "name": "Mango Fire - High Protein", "category": "High Protein", "uuid": "2e0c5b38-b36b-4150-8522-f6bc43138a62",
+      "shown": {"kcal":781,"kj":3268,"fat":18.1,"sat":9.4,"carbs":85.9,"sugars":12.9,"fibre":3.2,"protein":64.4,"salt":5.85},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Doppelt Hühnchen (200g)","amount":200,"shopAmount":200,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Feta Käse (50g)","amount":50,"shopAmount":50,"per100":{"kcal":280,"fat":23.5,"sat":14,"carbs":0.3,"sugars":0.3,"fibre":0,"protein":16.8,"salt":2.4}},
+        {"name":"Mango (70g)","amount":70,"shopAmount":70,"per100":{"kcal":66,"fat":0,"sat":0,"carbs":14.1,"sugars":12.2,"fibre":1.4,"protein":1.6,"salt":0.01}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Granatapfelkerne (15g)","amount":15,"shopAmount":15,"per100":{"kcal":74,"fat":0.6,"sat":0,"carbs":17,"sugars":16.7,"fibre":2.2,"protein":0.7,"salt":0}}
+      ]
+    },
+    {
+      "name": "Power Pasta - High Protein", "category": "High Protein", "uuid": "448d4bdd-0733-4f91-8025-db3e205c2710",
+      "shown": {"kcal":878,"kj":3674,"fat":21.8,"sat":5.1,"carbs":78.4,"sugars":5.5,"fibre":33.4,"protein":75.7,"salt":5.6},
+      "items": [
+        {"name":"Doppelt Vegane Hackbällchen (200g)","amount":200,"shopAmount":200,"per100":{"kcal":154,"fat":4.5,"sat":0.5,"carbs":7,"sugars":1,"fibre":7.5,"protein":17.7,"salt":1.4}},
+        {"name":"Protein-Pasta (200g)","amount":200,"shopAmount":250,"per100":{"kcal":190.5,"fat":2.75,"sat":0.2,"carbs":25,"sugars":0.75,"fibre":7,"protein":13,"salt":1}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Tomaten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":19,"fat":0.1,"sat":0,"carbs":3.5,"sugars":3.2,"fibre":1,"protein":0.7,"salt":0}},
+        {"name":"Grana Padano (20g)","amount":20,"shopAmount":20,"per100":{"kcal":398,"fat":29,"sat":18,"carbs":0,"sugars":0,"fibre":0,"protein":33,"salt":1.5}}
+      ]
+    },
+    {
+      "name": "Vitaminbombe - High Protein", "category": "High Protein", "uuid": "e241222b-6565-4c44-a3c9-68fce9a74853",
+      "shown": {"kcal":507,"kj":2121,"fat":11.4,"sat":6.1,"carbs":36.5,"sugars":21.6,"fibre":11.4,"protein":54.7,"salt":3.59},
+      "items": [
+        {"name":"Bunter Bio Quinoa - Halbe Portion (125g)","amount":125,"shopAmount":125,"per100":{"kcal":52,"fat":0.9,"sat":0.1,"carbs":8.5,"sugars":0.3,"fibre":1.6,"protein":0.9,"salt":1}},
+        {"name":"Doppelt Hühnchen (200g)","amount":200,"shopAmount":200,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Brokkoli (100g)","amount":100,"shopAmount":100,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Karotten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":32,"fat":0.1,"sat":0,"carbs":5,"sugars":5,"fibre":4,"protein":1,"salt":0.15}},
+        {"name":"Rotkohl geraspelt (50g)","amount":50,"shopAmount":50,"per100":{"kcal":27,"fat":0.1,"sat":0.1,"carbs":4,"sugars":3,"fibre":2.5,"protein":2,"salt":0.03}},
+        {"name":"Mango (70g)","amount":70,"shopAmount":70,"per100":{"kcal":66,"fat":0,"sat":0,"carbs":14.1,"sugars":12.2,"fibre":1.4,"protein":1.6,"salt":0.01}},
+        {"name":"Avocado (35g)","amount":35,"shopAmount":35,"per100":{"kcal":217,"fat":12.5,"sat":10,"carbs":3.6,"sugars":1.4,"fibre":4.1,"protein":1.5,"salt":0}},
+        {"name":"Granatapfelkerne (15g)","amount":15,"shopAmount":15,"per100":{"kcal":74,"fat":0.6,"sat":0,"carbs":17,"sugars":16.7,"fibre":2.2,"protein":0.7,"salt":0}}
+      ]
+    },
+    {
+      "name": "Garden Crunch - High Protein", "category": "High Protein", "uuid": "0f724053-5a92-4895-8c05-fdac6c26ed6f",
+      "shown": {"kcal":430,"kj":1799,"fat":14.7,"sat":6.7,"carbs":20.8,"sugars":11.2,"fibre":4.9,"protein":50.7,"salt":2.55},
+      "items": [
+        {"name":"Doppelt Hühnchen (200g)","amount":200,"shopAmount":200,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Salatmix (80g)","amount":80,"shopAmount":80,"per100":{"kcal":17,"fat":0.3,"sat":0.1,"carbs":2.1,"sugars":1.1,"fibre":0,"protein":1.5,"salt":0.1}},
+        {"name":"Gurke (50g)","amount":50,"shopAmount":50,"per100":{"kcal":14,"fat":0.1,"sat":0,"carbs":1.8,"sugars":1.2,"fibre":0.9,"protein":0.6,"salt":0}},
+        {"name":"Karotten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":32,"fat":0.1,"sat":0,"carbs":5,"sugars":5,"fibre":4,"protein":1,"salt":0.15}},
+        {"name":"Rotkohl geraspelt (50g)","amount":50,"shopAmount":50,"per100":{"kcal":27,"fat":0.1,"sat":0.1,"carbs":4,"sugars":3,"fibre":2.5,"protein":2,"salt":0.03}},
+        {"name":"Röstzwiebeln (20g)","amount":20,"shopAmount":20,"per100":{"kcal":590,"fat":44,"sat":21,"carbs":40,"sugars":9,"fibre":4.5,"protein":6,"salt":1.2}},
+        {"name":"Granatapfelkerne (15g)","amount":15,"shopAmount":15,"per100":{"kcal":74,"fat":0.6,"sat":0,"carbs":17,"sugars":16.7,"fibre":2.2,"protein":0.7,"salt":0}}
+      ]
+    },
+    {
+      "name": "Adonis Greens - High Protein", "category": "High Protein", "uuid": "0529b9b1-4dcf-4f63-8c2a-0953dda50257",
+      "shown": {"kcal":562,"kj":2351,"fat":30.9,"sat":10.7,"carbs":9.1,"sugars":5.1,"fibre":2.3,"protein":59.9,"salt":3.42},
+      "items": [
+        {"name":"Doppelt Hühnchen (200g)","amount":200,"shopAmount":200,"per100":{"kcal":125,"fat":2.7,"sat":1.2,"carbs":1.6,"sugars":0.73,"fibre":0,"protein":23.2,"salt":1.07}},
+        {"name":"Salatmix (80g)","amount":80,"shopAmount":80,"per100":{"kcal":17,"fat":0.3,"sat":0.1,"carbs":2.1,"sugars":1.1,"fibre":0,"protein":1.5,"salt":0.1}},
+        {"name":"Gurke (50g)","amount":50,"shopAmount":50,"per100":{"kcal":14,"fat":0.1,"sat":0,"carbs":1.8,"sugars":1.2,"fibre":0.9,"protein":0.6,"salt":0}},
+        {"name":"Tomaten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":19,"fat":0.1,"sat":0,"carbs":3.5,"sugars":3.2,"fibre":1,"protein":0.7,"salt":0}},
+        {"name":"Feta Käse (50g)","amount":50,"shopAmount":50,"per100":{"kcal":280,"fat":23.5,"sat":14,"carbs":0.3,"sugars":0.3,"fibre":0,"protein":16.8,"salt":2.4}},
+        {"name":"Walnusskerne (20g)","amount":20,"shopAmount":20,"per100":{"kcal":704,"fat":67,"sat":6.3,"carbs":7,"sugars":2,"fibre":6.7,"protein":16,"salt":0}}
+      ]
+    },
+    {
+      "name": "Strammer Lachs - High Protein", "category": "High Protein", "uuid": "126d9617-2ff6-427f-b934-d521ac18135f",
+      "shown": {"kcal":913,"kj":3820,"fat":34.2,"sat":10.5,"carbs":79.1,"sugars":5,"fibre":17.3,"protein":54.9,"salt":7.9},
+      "items": [
+        {"name":"Basmati Reis (250g)","amount":250,"shopAmount":250,"per100":{"kcal":132,"fat":0.3,"sat":0,"carbs":28,"sugars":0.1,"fibre":0.6,"protein":3,"salt":1}},
+        {"name":"Doppelt Pulled Salmon (200g)","amount":200,"shopAmount":200,"per100":{"kcal":215,"fat":14.4,"sat":3.5,"carbs":0,"sugars":0,"fibre":6,"protein":20.3,"salt":2.2}},
+        {"name":"Baby Spinat (20g)","amount":20,"shopAmount":20,"per100":{"kcal":18,"fat":0.6,"sat":0.1,"carbs":0.6,"sugars":0,"fibre":2,"protein":4.4,"salt":0}},
+        {"name":"Avocado (35g)","amount":35,"shopAmount":35,"per100":{"kcal":217,"fat":12.5,"sat":10,"carbs":3.6,"sugars":1.4,"fibre":4.1,"protein":1.5,"salt":0}},
+        {"name":"Gurke (50g)","amount":50,"shopAmount":50,"per100":{"kcal":14,"fat":0.1,"sat":0,"carbs":1.8,"sugars":1.2,"fibre":0.9,"protein":0.6,"salt":0}},
+        {"name":"Edamame (50g)","amount":50,"shopAmount":50,"per100":{"kcal":110,"fat":0,"sat":0,"carbs":8.5,"sugars":2.4,"fibre":2.4,"protein":10,"salt":2}},
+        {"name":"Granatapfelkerne (15g)","amount":15,"shopAmount":15,"per100":{"kcal":74,"fat":0.6,"sat":0,"carbs":17,"sugars":16.7,"fibre":2.2,"protein":0.7,"salt":0}}
+      ]
+    },
+    {
+      "name": "Lachs-Nudeln - High Protein", "category": "High Protein", "uuid": "3c5842c6-d803-402c-b0fe-f27f55b89127",
+      "shown": {"kcal":981,"kj":4105,"fat":47.6,"sat":8.9,"carbs":60.2,"sugars":8.9,"fibre":28,"protein":69.8,"salt":8.41},
+      "items": [
+        {"name":"Doppelt Pulled Salmon (200g)","amount":200,"shopAmount":200,"per100":{"kcal":215,"fat":14.4,"sat":3.5,"carbs":0,"sugars":0,"fibre":6,"protein":20.3,"salt":2.2}},
+        {"name":"Protein-Pasta (200g)","amount":200,"shopAmount":200,"per100":{"kcal":190.5,"fat":2.75,"sat":0.2,"carbs":25,"sugars":0.75,"fibre":7,"protein":13,"salt":1}},
+        {"name":"Tomaten (50g)","amount":50,"shopAmount":50,"per100":{"kcal":19,"fat":0.1,"sat":0,"carbs":3.5,"sugars":3.2,"fibre":1,"protein":0.7,"salt":0}},
+        {"name":"Brokkoli (50g)","amount":50,"shopAmount":50,"per100":{"kcal":25,"fat":0.2,"sat":0,"carbs":4.4,"sugars":4.2,"fibre":3,"protein":3,"salt":0.1}},
+        {"name":"Joghurt Tzatziki Dip (100g)","amount":100,"shopAmount":100,"per100":{"kcal":147.1,"fat":13.11,"sat":1.54,"carbs":6.24,"sugars":3.74,"fibre":0,"protein":1.33,"salt":1.96}}
+      ]
+    }
+  ]
+}

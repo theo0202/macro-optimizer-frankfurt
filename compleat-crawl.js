@@ -142,7 +142,7 @@ async function main() {
   if (!Object.keys(allergenName).length) throw new Error("Allergenliste leer");
 
   // ── Zutaten (kompletter Shop-Datensatz „Selbst zusammenstellen") ──
-  const ingredients = [], byId = {}, halves = [], problems = [], missingDeclared = [], displayBugs = [], dislikes = [], shellfish = [];
+  const ingredients = [], byId = {}, halves = [], problems = [], missingDeclared = [], displayBugs = [], dislikes = [], shellfish = [], halfPortionDiffs = [];
   for (const g of itemTypes.payload || []) {
     const group = VMOS_GROUPS[normName(g.name)];
     if (!group) continue; // „base item type" = das Bundle selbst
@@ -150,7 +150,7 @@ async function main() {
       const name = normName(it.name), m = it.nutritionalMeta || {};
       if (m.calories == null || m.calories === "") { if (!/^ohne /i.test(name)) problems.push("Keine Nährwerte: " + name); continue; }
       const half = splitHalf(name);
-      if (half) { halves.push({ base: half.base, amount: half.amount, name }); continue; }
+      if (half) { halves.push({ base: half.base, amount: half.amount, name, per100: Object.fromEntries(PER100.map(([k, src]) => [k, m[src] === "" || m[src] == null ? 0 : U.parseNum(Number(m[src]))])) }); continue; }
       const sp = splitPortion(name);
       if (sp.amount == null) { problems.push("Keine Mengenangabe im Namen: " + name); continue; }
       const id = U.slugId(sp.base);
@@ -190,7 +190,15 @@ async function main() {
   }
   for (const hp of halves) {
     const ing = byId[U.slugId(splitPortion(hp.base).base)] || ingredients.find(x => x.name === hp.base);
-    if (ing) ing.halfPortion = hp.amount; else problems.push("Halbe Portion ohne Basis-Zutat: " + hp.name);
+    if (!ing) { problems.push("Halbe Portion ohne Basis-Zutat: " + hp.name); continue; }
+    ing.halfPortion = hp.amount;
+    // Der Rechner nutzt für halbe Portionen die Werte je 100 g der ganzen Portion → die halbe Portion muss dieselben Werte haben.
+    // (Abgleich mit den Fertig-Bowls, 16.09.2026: „Bunter Bio Quinoa - Halbe Portion“ hat 0,9 statt 1,8 g Eiweiß je 100 g.)
+    const diff = U.KEYS.filter(k => Math.abs(hp.per100[k] - ing.per100[k]) > 1e-9);
+    if (diff.length) {
+      halfPortionDiffs.push({ id: ing.id, name: hp.name, halb: Object.fromEntries(diff.map(k => [k, hp.per100[k]])), ganz: Object.fromEntries(diff.map(k => [k, ing.per100[k]])) });
+      if (!ing.blocked) problems.push("Halbe Portion „" + hp.name + "“ hat andere Werte je 100 g als die ganze Portion (" + diff.map(k => k + " " + hp.per100[k] + " statt " + ing.per100[k]).join(", ") + ") → Rechner würde die Werte der ganzen Portion nutzen: prüfen und entscheiden");
+    }
   }
   for (const id of [...CRUNCH, ...Object.keys(BLOCKED), ...Object.keys(MANUAL_ANOMALIES), ...PROTEIN_MAIN]) if (!byId[id]) problems.push("Kuratierte id fehlt im Shop: " + id);
 
@@ -293,6 +301,7 @@ async function main() {
   for (const ing of ingredients) {
     const issues = U.checkItem(ing.perPortion);
     if (MANUAL_ANOMALIES[ing.id]) issues.push(MANUAL_ANOMALIES[ing.id]);
+    for (const h of halfPortionDiffs.filter(x => x.id === ing.id)) issues.push("Halbe Portion „" + h.name + "“ hat andere Werte je 100 g: " + Object.keys(h.halb).map(k => k + " " + h.halb[k] + " statt " + h.ganz[k]).join(", ") + " → unverändert übernommen, der Rechner nutzt die Werte der ganzen Portion");
     if (issues.length) anomalies.push({ id: ing.id, name: ing.shopName, issues });
   }
 
@@ -325,7 +334,7 @@ async function main() {
         "User 15.09.2026: Rechner zusätzlich für Uber Eats („Selbst zusammenstellen“, Grundpreis 1 €)",
         "User 16.09.2026 (Rückfrage „Build your Bowl kostet 4 €“): Grundpreis bleibt " + woltItemPrice + " € — die " + woltCardPrice + " € auf der Wolt-Karte sind Grundpreis + vorausgewählter Dip; der Rechner rechnet Grundpreis + gewählte Optionen und nennt die Vorauswahl im Hinweistext",
       ],
-      portionDiffs, portionAssumed, displayBugs, anomalies, missingDeclared, notOnWolt, woltMapUnused, dislikes, shellfish,
+      portionDiffs, portionAssumed, displayBugs, halfPortionDiffs, anomalies, missingDeclared, notOnWolt, woltMapUnused, dislikes, shellfish,
       ubereats: { noData: ueNoData, portionDiffs: uePortionDiffs, kcalDiffs: ueKcalDiffs, notOnUberEats },
       eggNote: "Hart gekochtes Ei: offizielle Shop-Werte (pro 100 g 155 kcal → 77,5 kcal je 50 g) statt der generischen Tabellenwerte aus dem Word-Dokument (78 kcal / 6,3 g P / 0,6 g KH / 5,3 g F je 50 g). Seit 15.09.2026 bei Wolt als Extra „Hart gekochtes Ei, 50 g“ bestellbar.",
     },
@@ -349,6 +358,7 @@ async function main() {
   console.log("Mengen-Abweichungen Uber Eats ↔ Shop: " + (uePortionDiffs.map(d => d.ubereats + " statt " + d.shopPortion + " " + d.unit).join(", ") || "keine"));
   console.log("Uber Eats ohne offizielle Nährwerte: " + (ueNoData.join(" · ") || "—"));
   console.log("kcal-Angaben Uber Eats ≠ eigene Rechnung: " + (ueKcalDiffs.map(d => d.ubereats + ": UE " + d.ubereatsKcal + " vs. " + d.shopKcal).join(" · ") || "keine"));
+  console.log("Halbe Portionen mit anderen Werten je 100 g: " + (halfPortionDiffs.map(h => h.name + " (" + Object.keys(h.halb).map(k => k + " " + h.halb[k] + " statt " + h.ganz[k]).join(", ") + ")").join(", ") || "keine"));
   console.log("Anzeige-Bugs im Shop: " + (displayBugs.map(d => d.shopName + " (rechnet mit " + d.shopRechnetMit + " statt " + d.portion + " " + d.unit + ": " + d.shopZeigtKcal + " statt " + d.richtigKcal + " kcal)").join(", ") || "keine"));
   console.log("Gesperrt: " + ingredients.filter(x => x.blocked).map(x => x.shopName).join(", "));
   console.log("Schalentier-Allergene: " + (shellfish.join(", ") || "keine") + " · Koriander/Minze: " + (dislikes.join(", ") || "keine"));

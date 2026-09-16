@@ -2,7 +2,7 @@
   "_meta": {
     "restaurant": "Compleat",
     "store": "Frankfurt Nordend (Glauburgstraße 5, 60318 Frankfurt am Main)",
-    "fetchedAt": "2026-09-16T05:04:56.348Z",
+    "fetchedAt": "2026-09-16T08:38:10.758Z",
     "sources": {
       "shop": {
         "url": "https://compleat.vmos.io",
@@ -104,12 +104,25 @@
         "richtigKcal": 4
       }
     ],
+    "halfPortionDiffs": [
+      {
+        "id": "bunter_bio_quinoa",
+        "name": "Bunter Bio Quinoa - Halbe Portion (125g)",
+        "halb": {
+          "protein": 0.9
+        },
+        "ganz": {
+          "protein": 1.8
+        }
+      }
+    ],
     "anomalies": [
       {
         "id": "bunter_bio_quinoa",
         "name": "Bunter Bio Quinoa (250g)",
         "issues": [
-          "Portionswerte unplausibel niedrig (siehe BLOCKED)"
+          "Portionswerte unplausibel niedrig (siehe BLOCKED)",
+          "Halbe Portion „Bunter Bio Quinoa - Halbe Portion (125g)“ hat andere Werte je 100 g: protein 0.9 statt 1.8 → unverändert übernommen, der Rechner nutzt die Werte der ganzen Portion"
         ]
       },
       {
