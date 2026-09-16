@@ -23,7 +23,7 @@ function buildMenu(raw, type) {
   const compOf = id => { const c = byComp[id]; if (!c) throw new Error("Baustein fehlt: " + id); return c; };
   const pre = type + "_", used = new Set();
   const uid = s => { let id = pre + U.slugId(s); while (used.has(id)) id += "_2"; used.add(id); return id; };
-  const groups = [], fixed = [], removals = [];
+  const groups = [], fixed = [], removals = [], ohneOrder = [];
   const products = raw.wolt.products.filter(p => p.type === type);
   if (!products.length) throw new Error("Keine Produkte: " + type);
   groups.push({ id: "produkt", name: T.products, min: 1, max: 1, none: null, options: products.map(p => {
@@ -40,9 +40,10 @@ function buildMenu(raw, type) {
       for (const o of g.options) {
         const c = compOf(o.component);
         if (o.optional) opts.push({ id: uid("zutaten_" + o.name), name: o.name, short: o.name, group: "zutaten", role: "extra", ing: o.ing, maxQty: 1, price: 0, removeName: o.removeName, ...nut(c) });
-        else fixed.push(Object.assign({ id: uid("fix_" + o.ing), name: o.name, short: o.name, ing: o.ing, price: 0, removeName: o.removeName }, o.sauce ? { sauce: true } : {}, nut(c)));
+        else fixed.push(Object.assign({ id: uid("fix_" + o.ing), name: o.name, short: o.name, ing: o.ing, price: 0, removeName: o.removeName }, o.sauce ? { sauce: true } : {}, o.defaultOff ? { defaultOff: true } : {}, nut(c)));
       }
       removals.push(...g.removals);
+      ohneOrder.push(...(g.ohneOrder || []));
       groups.push({ id: "zutaten", name: g.name, min: g.min, max: g.max, none: null, own: true, options: opts });
       continue;
     }
@@ -50,15 +51,17 @@ function buildMenu(raw, type) {
     const grp = Object.assign({ id: g.id, name: g.name, min: g.min, max: g.max, none: g.none || null }, g.kind === "cream" || g.kind === "salsa" ? { own: true } : {}, { options: [] });
     for (const o of g.options) {
       const c = compOf(o.component);
-      // Salsa heißt bei Wolt nur „Mild“ → Kurzname mit „Salsa“ (Karten-Titel), Bestellname bleibt der Wolt-Name
-      grp.options.push(Object.assign({ id: uid(g.id + "_" + o.name), name: o.name, short: g.kind === "salsa" ? "Salsa " + o.name : o.name, group: g.id, role, ing: o.ing, maxQty: 1, price: o.price }, o.sauce ? { sauce: true } : {}, nut(c)));
+      // Salsa heißt bei Wolt nur „Mild“ → Kurzname mit „Salsa“ (Karten-Titel); gleiche Werte wie „Medium“ (User 16.09.2026) → „Mild or Medium“
+      const names = [o.name, ...(o.also || [])];
+      grp.options.push(Object.assign({ id: uid(g.id + "_" + o.name), name: o.name, short: g.kind === "salsa" ? "Salsa " + names.join("/") : o.name, group: g.id, role, ing: o.ing, maxQty: 1, price: o.price },
+        names.length > 1 ? { orderName: names.join(" or ") + " (your choice)" } : {}, o.sauce ? { sauce: true } : {}, nut(c)));
     }
     groups.push(grp);
   }
   const ch = raw.wolt.chili;
   if (!ch) throw new Error("Chili con Carne fehlt");
   groups.push({ id: "chili", name: "Snacks", min: 0, max: 1, none: null, own: true, options: [{ id: uid("chili_" + ch.name), name: ch.name, short: ch.name, group: "chili", role: "extra", ing: ch.ing, maxQty: 1, price: ch.price, ...nut(compOf(ch.component)) }] });
-  return { item: T.item, type, basePrice: 0, require: { base: false, protein: true }, proteinExtras: true, fixed, removals, groups };
+  return { item: T.item, type, basePrice: 0, require: { base: false, protein: true }, proteinExtras: true, fixed, removals, ohneOrder, groups };
 }
 
 function blockLines(raw) {
@@ -74,7 +77,7 @@ function blockLines(raw) {
   for (const x of ings.values()) lines.push("    " + lit(x) + ",");
   lines.push("  ],");
   for (const [tp, m] of menus) {
-    lines.push("  " + tp + ": {", "    item: " + JSON.stringify(m.item) + ", type: " + JSON.stringify(m.type) + ", basePrice: 0, require: " + lit(m.require) + ", proteinExtras: true, removals: " + lit(m.removals) + ",", "    fixed: [");
+    lines.push("  " + tp + ": {", "    item: " + JSON.stringify(m.item) + ", type: " + JSON.stringify(m.type) + ", basePrice: 0, require: " + lit(m.require) + ", proteinExtras: true, removals: " + lit(m.removals) + ",", "    ohneOrder: " + lit(m.ohneOrder) + ",", "    fixed: [");
     for (const f of m.fixed) lines.push("      " + lit(f) + ",");
     lines.push("    ],", "    groups: [");
     for (const g of m.groups) {

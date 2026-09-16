@@ -1,7 +1,7 @@
 {
   "_meta": {
     "restaurant": "chidoba MEXICAN GRILL",
-    "fetchedAt": "2026-09-16T11:05:01.784Z",
+    "fetchedAt": "2026-09-16T12:53:23.494Z",
     "sources": {
       "nutrition": {
         "calculator": "https://www.chidoba.com/nutrition?type=%7BProduktart%7D",
@@ -30,7 +30,10 @@
       "User 16.09.2026: Schalter „No Sauce/Cheese/Dips“ Default AN (keine Cheesesauce, Salsa, Sour Cream, Cheddar Jack Cheese, Guacamole)",
       "User 16.09.2026: Plattform Wolt, Filiale Kaiserstraße (Namen, Verfügbarkeit, Preise)",
       "User 16.09.2026: Schalter „Add Chili con carne“ (Default AUS) — an: der Optimizer darf 1× Chili con Carne als zweiten Artikel dazunehmen, wenn es die Ziele besser trifft",
-      "User 16.09.2026: Standard-Zutaten fix, nur Black Beans darf der Optimizer abwählen"
+      "User 16.09.2026: Standard-Zutaten fix, nur Black Beans darf der Optimizer abwählen",
+      "User 16.09.2026: Limette standardmäßig immer raus (Order Guide „Ohne Limette“; als Pflicht-Zutat bleibt sie drin)",
+      "User 16.09.2026: Salsa Mild und Medium auch bei „No sauce/cheese/dips“ erlaubt (gleiche Rechner-Zeile → Order Guide „Mild or Medium“)",
+      "User 16.09.2026: Bestellfenster Chicken Cup / Chicken Salat abgeglichen (Gruppen, Grenzen, „Ohne …“-Reihenfolge, Extras-Preise) — der Order Guide folgt ihm"
     ],
     "assumptions": [
       "„No Sauce/Cheese/Dips“ wählt auch die Standard-Zutaten Cheddar Jack Cheese und (Salat) California Dressing ab",
@@ -61,9 +64,9 @@
     ],
     "noData": [
       "„Chili Creme“ (Deine Cream) — nicht im Rechner",
-      "„Jalapeños“ (Deine Extras) — nicht im Rechner",
-      "„Chili con Carne“ (Deine Extras) — Extra-Portion im Cup/Salat nicht im Rechner (nur der Snack)",
-      "„Planted Chicken“ (Deine Extras) — als Extra nicht im Rechner",
+      "„Jalapeños“ (Deine Extras, +0,89 €) — nicht im Rechner",
+      "„Chili con Carne“ (Deine Extras, +1,69 €) — Extra-Portion im Cup/Salat nicht im Rechner (nur der Snack)",
+      "„Planted Chicken“ (Deine Extras, +3,99 €) — als Extra nicht im Rechner",
       "„Habanero Sauce“ (Deine Extras) — nicht im Rechner",
       "„Tabasco“ (Deine Extras) — nicht im Rechner",
       "„Tortilla Strips“ (Standard-Zutat Salat) — Tortilla Strips haben im Rechner keine Werte → der Order Guide wählt sie immer ab",
@@ -4629,10 +4632,18 @@
               "ing": "limette",
               "price": 0,
               "optional": false,
-              "sauce": false
+              "sauce": false,
+              "defaultOff": true
             }
           ],
-          "removals": []
+          "removals": [],
+          "ohneOrder": [
+            "Ohne Black Beans",
+            "Ohne gegrillte Paprika & rote Zwiebeln",
+            "Ohne Eisbergsalat",
+            "Ohne Cheddar Jack Cheese",
+            "Ohne Limette"
+          ]
         },
         {
           "id": "cream",
@@ -4667,7 +4678,9 @@
               "ing": "salsa",
               "price": 0,
               "maxQty": 1,
-              "sauce": true
+              "also": [
+                "Medium"
+              ]
             }
           ],
           "removals": []
@@ -4779,7 +4792,8 @@
               "ing": "limette",
               "price": 0,
               "optional": false,
-              "sauce": false
+              "sauce": false,
+              "defaultOff": true
             },
             {
               "name": "California Dressing",
@@ -4793,6 +4807,14 @@
           ],
           "removals": [
             "Ohne Tortilla Strips"
+          ],
+          "ohneOrder": [
+            "Ohne Black Beans",
+            "Ohne gegrillte Paprika & rote Zwiebeln",
+            "Ohne Cheddar Jack Cheese",
+            "Ohne Limette",
+            "Ohne Tortilla Strips",
+            "Ohne California Dressing"
           ]
         },
         {
@@ -4828,7 +4850,9 @@
               "ing": "salsa",
               "price": 0,
               "maxQty": 1,
-              "sauce": true
+              "also": [
+                "Medium"
+              ]
             }
           ],
           "removals": []

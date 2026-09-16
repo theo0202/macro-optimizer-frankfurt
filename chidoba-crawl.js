@@ -47,12 +47,14 @@ const STANDARD_MAP = {
   "Ohne gegrillte Paprika & rote Zwiebeln": { ing: "gegrilltes_gemuese", calc: "gegrilltes Gemüse", name: "gegrillte Paprika & rote Zwiebeln" },
   "Ohne Eisbergsalat": { ing: "eisbergsalat", calc: "Eisbergsalat", name: "Eisbergsalat" },
   "Ohne Cheddar Jack Cheese": { ing: "cheddar_jack_cheese", calc: "Cheddar Jack Cheese", name: "Cheddar Jack Cheese", sauce: true },
-  "Ohne Limette": { ing: "limette", calc: "Limette", name: "Limette" },
+  "Ohne Limette": { ing: "limette", calc: "Limette", name: "Limette", defaultOff: "User 16.09.2026: Limette standardmäßig immer raus" },
   "Ohne California Dressing": { ing: "california_dressing", calc: "California Dressing", name: "California Dressing", sauce: true },
   "Ohne Tortilla Strips": { noData: "Tortilla Strips haben im Rechner keine Werte → der Order Guide wählt sie immer ab" },
 };
 const CREAM_MAP = { "Sour Cream": ["sour_cream", "Sour Cream"] };
 const SALSA_MAP = { "Mild": ["salsa", "Salsa Mild oder Medium"] };
+// Salsa mit gleichen Werten, die zusätzlich bestellt werden darf (User 16.09.2026: „Salsa Mild und Medium“ auch bei „No sauce/cheese/dips“)
+const SALSA_ALSO = ["Medium"];
 const SALSA_SAME = { "Medium": "gleiche Rechner-Zeile wie Mild („Salsa Mild oder Medium“) → nicht doppelt angeboten", "Scharf": "„Salsa Hot“ hat genau die Werte von Mild/Medium → nicht doppelt angeboten" };
 const EXTRA_MAP = {
   "Beef": ["beef", "Beef (extra)"], "Chicken": ["chicken", "Chicken (extra)"], "Barbacoa": ["barbacoa", "Barbacoa (extra)"], "Filetsteak": ["filetsteak", "Filetsteak (extra)"],
@@ -162,30 +164,33 @@ async function main() {
       const g = byOpt[ref.option_id] || {}, cfg = (ref.multi_choice_config && ref.multi_choice_config.total_range) || {};
       if (!gd) { problems.push("Wolt: unbekannte Gruppe „" + gname + "“ (" + name + ")"); continue; }
       const grp = { id: gd.id, name: gname, kind: gd.kind, min: cfg.min != null ? cfg.min : 0, max: cfg.max != null ? cfg.max : 1, none: null, options: [], removals: [] };
+      if (gd.kind === "standard") grp.ohneOrder = [];
       for (const v of g.values || []) {
         const vn = normName(v.name), price = U.round(v.price / 100, 2);
         sig.push(gname + "|" + vn + "|" + price);
         if (NONE.has(vn)) { grp.none = vn; continue; }
         if (NEVER[vn]) { never.set(gname + "|" + vn, "„" + vn + "“ (" + gname + ") — " + NEVER[vn]); continue; }
         if (gd.kind === "standard") {
+          grp.ohneOrder.push(vn);
           const sd = STANDARD_MAP[vn];
           if (!sd) { problems.push("Wolt: unbekannte Standard-Zutat „" + vn + "“ (" + name + ")"); continue; }
           if (sd.noData) { grp.removals.push(vn); noData.set(vn, "„" + vn.replace(/^Ohne /, "") + "“ (Standard-Zutat Salat) — " + sd.noData); continue; }
           const c = comp(def.type, sd.ing, calcType, sd.calc, "Zutaten", sd.name);
           if (!c) continue;
-          grp.options.push({ name: sd.name, removeName: vn, component: c.id, ing: sd.ing, price: 0, optional: !!sd.optional, sauce: !!sd.sauce });
+          grp.options.push(Object.assign({ name: sd.name, removeName: vn, component: c.id, ing: sd.ing, price: 0, optional: !!sd.optional, sauce: !!sd.sauce }, sd.defaultOff ? { defaultOff: true } : {}));
           continue;
         }
         const map = gd.kind === "base" ? BASE_MAP : gd.kind === "cream" ? CREAM_MAP : gd.kind === "salsa" ? SALSA_MAP : EXTRA_MAP;
         if (gd.kind === "salsa" && SALSA_SAME[vn]) { same.set(vn, "Salsa „" + vn + "“ — " + SALSA_SAME[vn]); continue; }
         if (gd.kind === "extras" && vn === "Cheesesauce" && def.type === "salat") { noData.set("Salat|Cheesesauce", "„Cheesesauce“ (Extra im Salat) — der Salat-Rechner führt keine Cheesesauce"); continue; }
-        if (NO_DATA[vn]) { noData.set(vn, "„" + vn + "“ (" + gname + ") — " + NO_DATA[vn]); continue; }
+        if (NO_DATA[vn]) { noData.set(vn, "„" + vn + "“ (" + gname + (price ? ", +" + price.toFixed(2).replace(".", ",") + " €" : "") + ") — " + NO_DATA[vn]); continue; }
         const mm = map[vn];
         if (!mm) { problems.push("Wolt: nicht zugeordnete Option „" + vn + "“ in „" + gname + "“ (" + name + ")"); continue; }
         const c = comp(def.type, mm[0], calcType, mm[1], gd.kind === "base" ? "Füllung" : "Zutaten", gd.kind === "extras" ? vn : null);
         if (!c) continue;
         const o = { name: vn, component: c.id, ing: mm[0], price, maxQty: 1 };
-        if (mm[2] || gd.kind === "cream" || gd.kind === "salsa") o.sauce = true;
+        if (mm[2] || gd.kind === "cream") o.sauce = true;
+        if (gd.kind === "salsa") o.also = SALSA_ALSO.slice();
         grp.options.push(o);
       }
       groups.push(grp);
@@ -228,6 +233,9 @@ async function main() {
         "User 16.09.2026: Plattform Wolt, Filiale Kaiserstraße (Namen, Verfügbarkeit, Preise)",
         "User 16.09.2026: Schalter „Add Chili con carne“ (Default AUS) — an: der Optimizer darf 1× Chili con Carne als zweiten Artikel dazunehmen, wenn es die Ziele besser trifft",
         "User 16.09.2026: Standard-Zutaten fix, nur Black Beans darf der Optimizer abwählen",
+        "User 16.09.2026: Limette standardmäßig immer raus (Order Guide „Ohne Limette“; als Pflicht-Zutat bleibt sie drin)",
+        "User 16.09.2026: Salsa Mild und Medium auch bei „No sauce/cheese/dips“ erlaubt (gleiche Rechner-Zeile → Order Guide „Mild or Medium“)",
+        "User 16.09.2026: Bestellfenster Chicken Cup / Chicken Salat abgeglichen (Gruppen, Grenzen, „Ohne …“-Reihenfolge, Extras-Preise) — der Order Guide folgt ihm",
       ],
       assumptions: [
         "„No Sauce/Cheese/Dips“ wählt auch die Standard-Zutaten Cheddar Jack Cheese und (Salat) California Dressing ab",

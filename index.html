@@ -721,11 +721,12 @@ const CHIDOBA = {
   ],
   cup: {
     item: "Cup", type: "cup", basePrice: 0, require: {base:false,protein:true}, proteinExtras: true, removals: [],
+    ohneOrder: ["Ohne Black Beans","Ohne gegrillte Paprika & rote Zwiebeln","Ohne Eisbergsalat","Ohne Cheddar Jack Cheese","Ohne Limette"],
     fixed: [
       {id:"cup_fix_gegrilltes_gemuese",name:"gegrillte Paprika & rote Zwiebeln",short:"gegrillte Paprika & rote Zwiebeln",ing:"gegrilltes_gemuese",price:0,removeName:"Ohne gegrillte Paprika & rote Zwiebeln",kcal:12.21,fat:0.16,sat:0.03,carbs:2.02,sugars:2.02,fibre:1.39,protein:0.53,salt:0.005},
       {id:"cup_fix_eisbergsalat",name:"Eisbergsalat",short:"Eisbergsalat",ing:"eisbergsalat",price:0,removeName:"Ohne Eisbergsalat",kcal:6.5,fat:0.1,sat:0.02,carbs:0.79,sugars:0.79,fibre:0.9,protein:0.5,salt:0.015},
       {id:"cup_fix_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",ing:"cheddar_jack_cheese",price:0,removeName:"Ohne Cheddar Jack Cheese",sauce:true,kcal:65.12,fat:4.96,sat:3.31,carbs:0.48,sugars:0.02,fibre:0,protein:4.16,salt:0.002},
-      {id:"cup_fix_limette",name:"Limette",short:"Limette",ing:"limette",price:0,removeName:"Ohne Limette",kcal:3.29,fat:0,sat:0,carbs:0.13,sugars:0,fibre:0,protein:0.05,salt:0},
+      {id:"cup_fix_limette",name:"Limette",short:"Limette",ing:"limette",price:0,removeName:"Ohne Limette",defaultOff:true,kcal:3.29,fat:0,sat:0,carbs:0.13,sugars:0,fibre:0,protein:0.05,salt:0},
     ],
     groups: [
       { id:"produkt",name:"Cups",min:1,max:1,none:null,options:[
@@ -745,7 +746,7 @@ const CHIDOBA = {
         {id:"cup_cream_sour_cream",name:"Sour Cream",short:"Sour Cream",group:"cream",role:"extra",ing:"sour_cream",maxQty:1,price:0,sauce:true,kcal:35.1,fat:3,sat:1.82,carbs:0.99,sugars:0.99,fibre:0,protein:0.93,salt:0.03},
       ] },
       { id:"salsa",name:"Deine Salsa",min:1,max:1,none:"Ohne Salsa",own:true,options:[
-        {id:"cup_salsa_mild",name:"Mild",short:"Salsa Mild",group:"salsa",role:"extra",ing:"salsa",maxQty:1,price:0,sauce:true,kcal:19.88,fat:0.28,sat:0.04,carbs:3.48,sugars:1.28,fibre:0.5,protein:0.85,salt:0.001},
+        {id:"cup_salsa_mild",name:"Mild",short:"Salsa Mild/Medium",group:"salsa",role:"extra",ing:"salsa",maxQty:1,price:0,orderName:"Mild or Medium (your choice)",kcal:19.88,fat:0.28,sat:0.04,carbs:3.48,sugars:1.28,fibre:0.5,protein:0.85,salt:0.001},
       ] },
       { id:"extras",name:"Deine Extras",min:0,max:7,none:null,options:[
         {id:"cup_extras_beef",name:"Beef",short:"Beef",group:"extras",role:"extra",ing:"beef",maxQty:1,price:2.49,kcal:155.22,fat:11.7,sat:5.07,carbs:3.67,sugars:1.25,fibre:0.78,protein:10.92,salt:0.741},
@@ -763,11 +764,12 @@ const CHIDOBA = {
   },
   salat: {
     item: "Salat", type: "salat", basePrice: 0, require: {base:false,protein:true}, proteinExtras: true, removals: ["Ohne Tortilla Strips"],
+    ohneOrder: ["Ohne Black Beans","Ohne gegrillte Paprika & rote Zwiebeln","Ohne Cheddar Jack Cheese","Ohne Limette","Ohne Tortilla Strips","Ohne California Dressing"],
     fixed: [
       {id:"salat_fix_salatbasis",name:"Eisbergsalat (Salat-Basis)",short:"Eisbergsalat (Salat-Basis)",ing:"salatbasis",price:0,kcal:39,fat:0.6,sat:0.09,carbs:4.71,sugars:4.71,fibre:5.4,protein:3,salt:0.09},
       {id:"salat_fix_gegrilltes_gemuese",name:"gegrillte Paprika & rote Zwiebeln",short:"gegrillte Paprika & rote Zwiebeln",ing:"gegrilltes_gemuese",price:0,removeName:"Ohne gegrillte Paprika & rote Zwiebeln",kcal:12.21,fat:0.16,sat:0.03,carbs:2.02,sugars:2.02,fibre:1.39,protein:0.53,salt:0.005},
       {id:"salat_fix_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",ing:"cheddar_jack_cheese",price:0,removeName:"Ohne Cheddar Jack Cheese",sauce:true,kcal:65.12,fat:4.96,sat:3.31,carbs:0.48,sugars:0.02,fibre:0,protein:4.16,salt:0.002},
-      {id:"salat_fix_limette",name:"Limette",short:"Limette",ing:"limette",price:0,removeName:"Ohne Limette",kcal:3.29,fat:0,sat:0,carbs:0.13,sugars:0,fibre:0,protein:0.05,salt:0},
+      {id:"salat_fix_limette",name:"Limette",short:"Limette",ing:"limette",price:0,removeName:"Ohne Limette",defaultOff:true,kcal:3.29,fat:0,sat:0,carbs:0.13,sugars:0,fibre:0,protein:0.05,salt:0},
       {id:"salat_fix_california_dressing",name:"California Dressing",short:"California Dressing",ing:"california_dressing",price:0,removeName:"Ohne California Dressing",sauce:true,kcal:175.2,fat:15.6,sat:0.96,carbs:9.18,sugars:7.8,fibre:0,protein:0.12,salt:0.003},
     ],
     groups: [
@@ -783,7 +785,7 @@ const CHIDOBA = {
         {id:"salat_cream_sour_cream",name:"Sour Cream",short:"Sour Cream",group:"cream",role:"extra",ing:"sour_cream",maxQty:1,price:0,sauce:true,kcal:35.1,fat:3,sat:1.82,carbs:0.99,sugars:0.99,fibre:0,protein:0.93,salt:0.03},
       ] },
       { id:"salsa",name:"Deine Salsa",min:1,max:1,none:"Ohne Salsa",own:true,options:[
-        {id:"salat_salsa_mild",name:"Mild",short:"Salsa Mild",group:"salsa",role:"extra",ing:"salsa",maxQty:1,price:0,sauce:true,kcal:19.88,fat:0.28,sat:0.04,carbs:3.48,sugars:1.28,fibre:0.5,protein:0.85,salt:0.001},
+        {id:"salat_salsa_mild",name:"Mild",short:"Salsa Mild/Medium",group:"salsa",role:"extra",ing:"salsa",maxQty:1,price:0,orderName:"Mild or Medium (your choice)",kcal:19.88,fat:0.28,sat:0.04,carbs:3.48,sugars:1.28,fibre:0.5,protein:0.85,salt:0.001},
       ] },
       { id:"extras",name:"Deine Extras",min:0,max:7,none:null,options:[
         {id:"salat_extras_beef",name:"Beef",short:"Beef",group:"extras",role:"extra",ing:"beef",maxQty:1,price:2.49,kcal:155.22,fat:11.7,sat:5.07,carbs:3.67,sugars:1.25,fibre:0.78,protein:10.92,salt:0.741},
@@ -1916,8 +1918,9 @@ const SUBWAY_SIZES = [{ id: "small", label: "15-CM" }, { id: "footlong", label: 
 const SUBWAY_SWITCHES = [
   { id:"noSauce", label:"No sauce", def:true, filter:x=>x.group!=="saucen"&&!x.sauce },               // User 16.09.2026: Default AN, blendet auch Frischkäse aus
   { id:"noCheese", label:"No cheese", def:true, filter:x=>bowlRole(x)!=="side" },                      // User 16.09.2026: Default AN
+  { id:"noSeasonings", label:"No seasonings", def:true, filter:x=>x.group!=="seasonings" },             // User 16.09.2026: Default AN
   { id:"stdVeggies", label:"Standard veggies", def:true, force:SUBWAY.stdVeggies,                     // User 16.09.2026 (Default AN = Annahme, siehe CLAUDE.md)
-    hint:"Eisbergsalat, Tomaten, Rote Paprika, Rote Zwiebeln and Mais on every sub. Other veggies only via “Must include”." },
+    hint:"Eisbergsalat, Tomaten, Rote Paprika, Rote Zwiebeln and Mais on every sub. Tap an order to change its veggies; other veggies for every sub via “Must include”." },
 ];
 const SUBWAY_NOTE = "Create Your Own on Wolt (Subway Frankfurt Zeil): one sub and one bread, cheese 0–1, sauces up to 2 (Footlong 3). Footlong doubles every value (official table: two 15-cm portions). “Extra Fleisch / Protein” = a second portion of the sub's protein. Not suggested — no official values: BBQ Pulled Pork, BBQ Pulled Plant, Plant-based Dölicious Chicken, Nacho Chicken Classic, Sour Cream, Pulled Pork, Pulled Plant, Meersalz, Pfefferkörner; contradictory values: Garlic & Herb.";
 function subwayMenu(extra) { return extra && extra.size === "footlong" ? SUBWAY.footlong : SUBWAY.small; }
@@ -1989,11 +1992,37 @@ function subwayCard(res, ctx) {
     res.side ? "cheese" : "no cheese", pl(n("veggies"), "veggie", "veggies")];
   return h(ResultCard, { key: res.key, title: subwaySummary(res), sub: bits.join(" · "), n: res.nutrition, price: res.price, selected: ctx.selected, onClick: ctx.onSelect });
 }
+// Veggies einer gewählten Bestellung nachträglich setzen (User 16.09.2026, wie „Salad“ im London-Tool): Veggie-Teile ersetzen (Menü-Reihenfolge wie
+// in bowlCombos), Nährwerte über sumN neu, Preis um die Veggie-Preise korrigiert; key bleibt → die Karte bleibt markiert
+function subwaySetVeggies(sel, ings) {
+  const menu = subwayMenuOf(sel), vg = menu.groups.find(g => g.id === "veggies");
+  if (!sel || !vg) return sel;
+  const want = new Set(ings), ord = new Map(menu.groups.flatMap(g => g.options).map((o, i) => [o.id, i]));
+  const isVeg = pt => pt.opt.group === "veggies", cents = list => list.reduce((a, pt) => a + Math.round((pt.opt.price || 0) * 100) * pt.qty, 0);
+  const core = sel.parts.filter(pt => bowlRole(pt.opt) !== "extra");
+  const veg = vg.options.filter(o => want.has(o.ing)).map(o => ({ opt: o, qty: 1 }));
+  const extras = sel.parts.filter(pt => bowlRole(pt.opt) === "extra" && !isVeg(pt)).concat(veg).sort((a, b) => ord.get(a.opt.id) - ord.get(b.opt.id));
+  const parts = core.concat(extras);
+  const items = [...(sel.fixed || []), ...parts.flatMap(pt => Array(pt.qty).fill(pt.opt)), sel.side, sel.dip].filter(Boolean);
+  const price = (Math.round((sel.price || 0) * 100) - cents(sel.parts.filter(isVeg)) + cents(veg)) / 100;
+  return Object.assign({}, sel, { parts, items, nutrition: sumN(items, 1), price });
+}
+function subwayVeggieIngs(sel) { return sel.parts.filter(pt => pt.opt.group === "veggies").map(pt => pt.opt.ing); }
 function subwayPanel(sel, ctx) {
-  const menu = subwayMenuOf(sel);
+  const menu = subwayMenuOf(sel), vg = menu.groups.find(g => g.id === "veggies"), on = new Set(subwayVeggieIngs(sel));
+  const ex = (ctx && ctx.ex) || new Set();
+  const edit = fn => ctx && ctx.update && ctx.update(st => (st.sel ? { sel: subwaySetVeggies(st.sel, fn(subwayVeggieIngs(st.sel))) } : {}));
   return h("div", null,
     h("div", { style: { fontSize: 11, color: "#999", fontFamily: S.mono, marginBottom: 4 } }, "Size: " + (menu.factor === 2 ? "Footlong — every value ×2 (two 15-cm portions)" : "15-CM")),
-    bowlPanel(menu, sel, ctx));
+    bowlPanel(menu, sel, ctx),
+    vg && h("div", { style: { marginBottom: 16 } },
+      h("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginBottom: 8 } },
+        h("div", { style: { fontSize: 10, color: "#555", fontFamily: S.mono, textTransform: "uppercase", letterSpacing: 1 } }, "Veggies"),
+        h("button", { onClick: () => edit(() => SUBWAY.stdVeggies.filter(id => !ex.has(id))),
+          style: { padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 600, background: S.green, border: "none", color: "#fff", cursor: "pointer", fontFamily: S.font } }, "✦ My standard")),
+      h("div", { style: { display: "flex", flexWrap: "wrap", gap: 5 } },
+        ...vg.options.map(o => h(Chip, { key: o.ing, label: o.short || o.name, small: true, active: on.has(o.ing),
+          onClick: () => edit(cur => cur.includes(o.ing) ? cur.filter(x => x !== o.ing) : [...cur, o.ing]) })))));
 }
 // Order Guide in Wolt-Reihenfolge: Artikel (Sub) → Deine Größe → Brot → Zubereitungsart → Käse → Extras (inkl. „Extra Fleisch / Protein“) → Veggies →
 // Saucen → Seasonings. Leere Pflicht-Gruppen des jeweiligen Subs → dessen „ohne …“-Option („ohne Käse“ gibt es nur bei manchen Subs)
@@ -2066,22 +2095,23 @@ function subwayValidate() {
 // ═══ Chidoba (Frankfurt Kaiserstraße, Wolt): Cups + Salate, optional Snack „Chili con Carne“ ═══
 // Eine Bestellung = ein Cup oder Salat (Wolt-Artikel je Protein, Rolle protein) mit seinen Standard-Zutaten (fixed); nur Black Beans darf der
 // Optimizer abwählen (User 16.09.2026). Cup: Basis 0–1 (side). Cream und Salsa je 0–1 (own), Extras je 1× (Extras-Chip), „Chili con Carne“ als
-// zweiter Artikel (own, nur mit „Add Chili con carne“ oder als Pflicht). „No sauce/cheese/dips“ (User 16.09.2026, Default AN) filtert Cream, Salsa,
-// Guacamole, Cheesesauce und Extra-Käse und wählt die Standard-Zutaten Cheddar Jack Cheese und California Dressing ab. Menüs je Produktart
-// (CHIDOBA.cup / CHIDOBA.salat) mit eigenen Rechner-Werten; Ausschluss- und Pflicht-Listen unter „chidoba“.
+// zweiter Artikel (own, nur mit „Add Chili con carne“ oder als Pflicht). „No sauce/cheese/dips“ (User 16.09.2026, Default AN) filtert Cream,
+// Guacamole, Cheesesauce und Extra-Käse und wählt die Standard-Zutaten Cheddar Jack Cheese und California Dressing ab; Salsa Mild/Medium bleibt erlaubt.
+// Limette ist standardmäßig abgewählt (defaultOff, User 16.09.2026; als Pflicht-Zutat bleibt sie). Menüs je Produktart (CHIDOBA.cup / CHIDOBA.salat)
+// mit eigenen Rechner-Werten; Ausschluss- und Pflicht-Listen unter „chidoba“. Order Guide in der Reihenfolge des Wolt-Bestellfensters.
 const CHIDOBA_TYPES = [{ id: "cup", label: "Cup" }, { id: "salat", label: "Salat" }];
 const CHIDOBA_SWITCHES = [
   { id:"noSauce", label:"No sauce/cheese/dips", def:true, filter:x=>!x.sauce,                         // User 16.09.2026: Default AN
-    hint:"Also leaves out the standard Cheddar Jack Cheese (and California Dressing on salads) — the order guide says “Ohne …”." },
+    hint:"Also leaves out the standard Cheddar Jack Cheese (and California Dressing on salads) — the order guide says “Ohne …”. Salsa Mild/Medium stays allowed." },
   { id:"addChili", label:"Add Chili con carne", def:false, allow:x=>x.group==="chili",               // User 16.09.2026: Optimizer entscheidet, Default AUS
     hint:"Lets the optimizer add one Chili con Carne (snack) as a second item when it gets you closer to your targets." },
 ];
-const CHIDOBA_NOTE = "Cup or salad on Wolt (chidoba Kaiserstraße) with its standard toppings (grilled peppers & onions, lettuce, lime, Cheddar Jack Cheese; salads also California Dressing) — only Black Beans may be left out. Cup base: Gewürzreis, Cubes or none. Salads are always ordered “Ohne Tortilla Strips” (no official values). Not suggested: Korianderreis and Cilantro Cream (coriander); Chili Cream, Jalapeños, Habanero, Tabasco, Chili con Carne and Planted Chicken as extras (no values); Veggie, Vegan and Planted Chicken cups/salads (raw peppers & onions have no values). Salsa Mild, Medium and Scharf have identical values (shown as Mild).";
-// Menü einer Produktart für eine Suche: Standard-Zutaten ohne ausgeschlossene; Käse/Dressing fallen mit „No sauce/cheese/dips“ weg (außer Pflicht);
-// removed = „Ohne …“-Einträge für den Order Guide (inkl. immer abgewählter Standard-Zutaten ohne Werte)
+const CHIDOBA_NOTE = "Cup or salad on Wolt (chidoba Kaiserstraße) with its standard toppings (grilled peppers & onions, lettuce, Cheddar Jack Cheese; salads also California Dressing) — only Black Beans may be left out. Lime is always ordered “Ohne Limette” (add it under “Must include” to keep it). Cup base: Gewürzreis, Cubes or none. Salsa: Mild or Medium (identical values). Salads are always ordered “Ohne Tortilla Strips” (no official values). Not suggested: Korianderreis and Cilantro Cream (coriander); Chili Cream, Jalapeños, Habanero, Tabasco, Chili con Carne and Planted Chicken as extras (no values); Veggie, Vegan and Planted Chicken cups/salads (raw peppers & onions have no values).";
+// Menü einer Produktart für eine Suche: Standard-Zutaten ohne ausgeschlossene; Käse/Dressing fallen mit „No sauce/cheese/dips“ weg, Limette
+// (defaultOff) immer — außer als Pflicht-Zutat; removed = „Ohne …“-Einträge für den Order Guide (inkl. immer abgewählter Standard-Zutaten ohne Werte)
 function chidobaMenu(type, sw, ex, picks) {
-  const m = CHIDOBA[type];
-  const keepFixed = f => !(ex && ex.has(f.ing)) && !(f.sauce && sw && sw.noSauce && !(picks && picks.has(f.ing)));
+  const m = CHIDOBA[type], picked = f => !!(picks && picks.has(f.ing));
+  const keepFixed = f => !(ex && ex.has(f.ing)) && !(f.sauce && sw && sw.noSauce && !picked(f)) && !(f.defaultOff && !picked(f));
   return Object.assign({}, m, { fixed: m.fixed.filter(keepFixed), removed: [...m.fixed.filter(f => !keepFixed(f)).map(f => f.removeName), ...(m.removals || [])] });
 }
 function chidobaMenuOf(res) { return CHIDOBA[res && res.type] || CHIDOBA.cup; }
@@ -2131,17 +2161,19 @@ function chidobaSummary(res) {
   return ["produkt", "basis", "cream", "salsa", "extras", "chili"].flatMap(g => opts.filter(x => x.group === g).map(x => x.short || x.name)).join(" + ");
 }
 function chidobaCard(res, ctx) {
-  const n = gid => res.parts.filter(pt => pt.opt.group === gid).length, sauces = n("cream") + n("salsa");
+  const n = gid => res.parts.filter(pt => pt.opt.group === gid).length;
   const bits = [res.type === "salat" ? "Salat" : "Cup"];
   if (res.type !== "salat") bits.push(res.side ? res.side.short || res.side.name : "no base");
-  bits.push(n("zutaten") ? "beans" : "no beans", sauces ? sauces + (sauces === 1 ? " sauce" : " sauces") : "no sauce", n("extras") + (n("extras") === 1 ? " extra" : " extras"));
+  bits.push(n("zutaten") ? "beans" : "no beans", n("cream") ? "sour cream" : "no cream", n("salsa") ? "salsa" : "no salsa", n("extras") + (n("extras") === 1 ? " extra" : " extras"));
   if (n("chili")) bits.push("+ Chili con Carne");
   return h(ResultCard, { key: res.key, title: chidobaSummary(res), sub: bits.join(" · "), n: res.nutrition, price: res.price, selected: ctx.selected, onClick: ctx.onSelect });
 }
-// „Ohne …“ für die Wolt-Gruppe „Wähle deine Zutaten“: abgewählte Black Beans + weggefallene/immer abgewählte Standard-Zutaten
+// „Ohne …“ für die Wolt-Gruppe „Wähle deine Zutaten“: abgewählte Black Beans + weggefallene/immer abgewählte Standard-Zutaten, in der Reihenfolge
+// des Wolt-Bestellfensters (menu.ohneOrder)
 function chidobaRemovals(sel) {
-  const zg = chidobaMenuOf(sel).groups.find(g => g.id === "zutaten");
-  return [...(zg ? zg.options.filter(o => !sel.parts.some(pt => pt.opt.id === o.id)).map(o => o.removeName) : []), ...(sel.removed || [])];
+  const m = chidobaMenuOf(sel), zg = m.groups.find(g => g.id === "zutaten"), pos = x => { const i = (m.ohneOrder || []).indexOf(x); return i < 0 ? 999 : i; };
+  const list = [...(zg ? zg.options.filter(o => !sel.parts.some(pt => pt.opt.id === o.id)).map(o => o.removeName) : []), ...(sel.removed || [])];
+  return [...new Set(list)].sort((a, b) => pos(a) - pos(b));
 }
 function chidobaPanel(sel, ctx) {
   const rem = chidobaRemovals(sel);
@@ -2179,7 +2211,7 @@ function chidobaListEntries() {
       seen.add(x.ing);
       out.push({ id: x.ing, name: g.id === "produkt" ? x.name.replace(/ (Cup|Salat)$/, "") : x.name, group: g.id === "produkt" ? "Protein" : g.name, role: bowlRole(x) });
     }
-    for (const f of m.fixed) if (f.removeName && !seen.has(f.ing)) { seen.add(f.ing); out.push({ id: f.ing, name: f.name, group: "Standard toppings", role: "fixed" }); }
+    for (const f of m.fixed) if (f.removeName && !seen.has(f.ing)) { seen.add(f.ing); out.push(Object.assign({ id: f.ing, name: f.name, group: "Standard toppings", role: "fixed" }, f.defaultOff ? { defaultOff: true } : {})); }
   }
   return out;
 }
@@ -2208,6 +2240,8 @@ function chidobaValidate() {
     if (!ch || ch.options.length !== 1 || !ch.own || ch.max !== 1) P.push(tp.id + ": Snack-Gruppe „chili“ fehlt oder falsch");
     const zg = m.groups.find(g => g.id === "zutaten");
     if (!zg || !zg.options.every(o => /^Ohne /.test(o.removeName || ""))) P.push(tp.id + ": abwählbare Standard-Zutaten ohne „Ohne …“");
+    const names = [...(zg ? zg.options : []), ...m.fixed].map(o => o.removeName).filter(Boolean).concat(m.removals || []);
+    if (!Array.isArray(m.ohneOrder) || names.some(x => !m.ohneOrder.includes(x))) P.push(tp.id + ": ohneOrder deckt nicht alle „Ohne …“-Einträge ab");
     if (!(m.groups.find(g => g.id === "produkt") || { options: [] }).options.length) P.push(tp.id + ": keine Produkte");
   }
   return P;
@@ -2359,7 +2393,7 @@ const RESTAURANTS = [
     renderPanel:chidobaPanel,
     orderSteps:chidobaOrderSteps,
     searchEntries:chidobaSearchEntries,
-    excludables:() => chidobaListEntries().map(({ role, ...x }) => x),
+    excludables:() => chidobaListEntries().filter(x => !x.defaultOff).map(({ role, defaultOff, ...x }) => x),
     includables:chidobaListEntries,
     summary:chidobaSummary,
     panelSubtitle:sel => (sel.type === "salat" ? "Salat" : "Cup") + (sel.parts.some(pt => pt.opt.group === "chili") ? " + Chili con Carne" : "") + " · " + bowlEuro(sel.price),
@@ -2887,7 +2921,7 @@ function App() {
   const spec = SPECIAL_TABS.find(s => s.key === tab);
   const grad = spec ? spec.gradient : R ? R.gradient : ["#3f3f46","#18181b"];
   // Kontext für Build-Your-Own-Renderer
-  const ctx = { R, st, tg, targets, mode, prefs, selKey, toggleSel, inc: inSet, update: fn => R && updRS(R.key, fn) };
+  const ctx = { R, st, tg, targets, mode, prefs, selKey, toggleSel, inc: inSet, ex: exSet, update: fn => R && updRS(R.key, fn) };
   const inputHint = tab==="search" ? "your target — compare your own order below"
     : tab==="all" ? "across all restaurants — best picks"
     : tab==="accurate" ? "across accurate restaurants — best picks"
