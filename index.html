@@ -607,6 +607,199 @@ const SUBWAY = {
   },
 };
 // __SUBWAY_DATA_END__
+// __MCDONALDS_DATA_START__ (generiert via: node mcdonalds-update.js aus data/mcdonalds-raw.json — nicht von Hand editieren)
+// Quelle: mcdonalds.com/de (offizielle Nährwerte je Produkt) · Menü, Namen + Preise: Wolt mcdonalds-an-der-hauptwache, Stand 2026-09-16
+const MCDONALDS = {
+  cats: [
+    {id:"burger",name:"Burger",on:true},
+    {id:"mcwrap",name:"McWrap®",on:true},
+    {id:"nuggets",name:"McNuggets® & Fingerfood",on:true},
+    {id:"beilagen",name:"Beilagen & Extras",on:true},
+    {id:"desserts",name:"Desserts",on:false},
+  ],
+  items: [
+    {id:"big_tasty_pepper_bacon",name:"Big Tasty® Pepper Bacon",cat:"burger",kcal:897,fat:54,sat:22,carbs:51,sugars:12,fibre:4.3,protein:50,salt:3.3,price:9.79},
+    {id:"der_m",name:"Der M®",cat:"burger",kcal:1141,fat:74,sat:28,carbs:52,sugars:10,fibre:4.7,protein:62,salt:3.8,price:9.99},
+    {id:"der_m_bacon",name:"Der M® Bacon",cat:"burger",kcal:1254,fat:83,sat:32,carbs:52,sugars:10,fibre:4.7,protein:71,salt:4.6,price:10.49},
+    {id:"mccrispy_pepper_delight",name:"McCrispy® Pepper Delight",cat:"burger",kcal:545,fat:21,sat:2.1,carbs:61,sugars:9.8,fibre:4.3,protein:24,salt:2.3,price:6.39},
+    {id:"mcveggie_sweet_chili",name:"McVeggie® Sweet Chili",cat:"burger",kcal:461,fat:13,sat:3.9,carbs:62,sugars:20,fibre:6.7,protein:20,salt:2.8,price:5.49},
+    {id:"mcveggie_pepper_delight",name:"McVeggie® Pepper Delight",cat:"burger",kcal:417,fat:15,sat:1.8,carbs:49,sugars:10,fibre:6.8,protein:18,salt:2.2,price:5.49},
+    {id:"big_tasty_bacon",name:"Big Tasty® Bacon",cat:"burger",kcal:912,fat:57,sat:22,carbs:51,sugars:12,fibre:2.4,protein:49,salt:4,price:8.79},
+    {id:"mccrispy",name:"McCrispy®",cat:"burger",kcal:525,fat:21,sat:2.2,carbs:58,sugars:7.8,fibre:3.3,protein:24,salt:2.3,price:6.89},
+    {id:"double_hamburger_royal_ts",name:"Double Hamburger Royal TS",cat:"burger",kcal:835,fat:52,sat:22,carbs:37,sugars:9.3,fibre:3,protein:54,salt:2.8,price:9.99},
+    {id:"double_hamburger_royal_cheese",name:"Double Hamburger Royal Cheese",cat:"burger",kcal:800,fat:48,sat:22,carbs:38,sugars:10,fibre:2.9,protein:54,salt:3,price:9.79},
+    {id:"mcveggie_ts",name:"McVeggie® TS",cat:"burger",kcal:449,fat:17,sat:4.4,carbs:50,sugars:10,fibre:6.2,protein:20,salt:2.6,price:5.79},
+    {id:"big_mac",name:"Big Mac®",cat:"burger",kcal:545,fat:29,sat:11,carbs:42,sugars:8.6,fibre:3.9,protein:27,salt:2.3,price:6.99},
+    {id:"hamburger_royal_ts",name:"Hamburger Royal TS",cat:"burger",kcal:536,fat:29,sat:12,carbs:36,sugars:8.8,fibre:3,protein:30,salt:1.9,price:6.89},
+    {id:"hamburger_royal_cheese",name:"Hamburger Royal Cheese",cat:"burger",kcal:549,fat:29,sat:14,carbs:38,sugars:10,fibre:2.9,protein:33,salt:2.5,price:6.59},
+    {id:"mcchicken_classic",name:"McChicken® Classic",cat:"burger",kcal:467,fat:22,sat:3,carbs:49,sugars:4.1,fibre:3.6,protein:19,salt:2,price:6.19},
+    {id:"double_beef_classic",name:"Double Beef Classic",cat:"burger",kcal:497,fat:28,sat:7.4,carbs:37,sugars:8.9,fibre:2.3,protein:23,salt:2,price:5.69},
+    {id:"mcrib",name:"McRib®",cat:"burger",kcal:470,fat:22,sat:8.5,carbs:42,sugars:11,fibre:1.9,protein:24,salt:2.9,price:6.59},
+    {id:"filet_o_fish",name:"Filet-o-Fish®",cat:"burger",kcal:331,fat:14,sat:2.7,carbs:35,sugars:5.2,fibre:2.2,protein:15,salt:1.4,price:5.19},
+    {id:"mcdouble_chili_cheese",name:"McDouble® Chili Cheese",cat:"burger",kcal:435,fat:24,sat:11,carbs:28,sugars:5.7,fibre:2.3,protein:26,salt:2.2,price:4.29},
+    {id:"double_cheeseburger",name:"Double Cheeseburger",cat:"burger",kcal:460,fat:25,sat:12,carbs:31,sugars:8,fibre:2.4,protein:27,salt:2.4,price:4.29},
+    {id:"cheeseburger",name:"Cheeseburger",cat:"burger",kcal:307,fat:13,sat:6.3,carbs:30,sugars:7.4,fibre:2.2,protein:16,salt:1.6,price:3.19},
+    {id:"hamburger",name:"Hamburger",cat:"burger",kcal:259,fat:9.5,sat:3.7,carbs:29,sugars:6.9,fibre:2.2,protein:13,salt:1.1,price:2.79},
+    {id:"double_chickenburger",name:"Double Chickenburger",cat:"burger",kcal:410,fat:16,sat:2.5,carbs:34,sugars:11,fibre:2.5,protein:17,salt:1.7,price:4.29},
+    {id:"chickenburger",name:"Chickenburger",cat:"burger",kcal:293,fat:8.7,sat:1.4,carbs:34,sugars:11,fibre:2.2,protein:11,salt:1.3,price:3.19},
+    {id:"mcwrap_chicken_sweet_chili",name:"McWrap® Chicken Sweet Chili",cat:"mcwrap",kcal:543,fat:22,sat:6,carbs:65,sugars:14,fibre:5.5,protein:21,salt:2.2,price:5.49},
+    {id:"mcwrap_veggie_sweet_chili",name:"McWrap® Veggie Sweet Chili",cat:"mcwrap",kcal:466,fat:13,sat:4.4,carbs:63,sugars:15,fibre:8.3,protein:20,salt:2.5,price:5.49},
+    {id:"mcwrap_veggie_honig_senf",name:"McWrap® Veggie Honig-Senf",cat:"mcwrap",kcal:487,fat:20,sat:5.1,carbs:52,sugars:6.5,fibre:8.3,protein:20,salt:2.5,price:5.99},
+    {id:"mcwrap_chicken_honig_senf",name:"McWrap® Chicken Honig-Senf",cat:"mcwrap",kcal:501,fat:25,sat:6.6,carbs:51,sugars:5.8,fibre:4.7,protein:21,salt:2.4,price:5.99},
+    {id:"chicken_cheese_box",name:"Chicken + Cheese Box",cat:"nuggets",kcal:1051,fat:56,sat:18,carbs:76,sugars:4,fibre:4.9,protein:58,salt:4.8,price:11.99,orderNote:"Sauce 1/3, Sauce 2/3, Sauce 3/3: Ohne Sauce"},
+    {id:"7_mozzarella_snackers",name:"7 Mozzarella Snackers",cat:"nuggets",kcal:533,fat:31,sat:14,carbs:37,sugars:2.9,fibre:3,protein:26,salt:2.4,price:3.79},
+    {id:"4_mozzarella_snackers",name:"4 Mozzarella Snackers",cat:"nuggets",kcal:305,fat:17,sat:8.1,carbs:21,sugars:1.7,fibre:1.7,protein:15,salt:1.4,price:2.79},
+    {id:"20_spicy_chicken_mcnuggets",name:"20 Spicy Chicken McNuggets",cat:"nuggets",kcal:932,fat:50,sat:4.7,carbs:66,sugars:2.6,fibre:2.3,protein:55,salt:3.9,price:11.99,orderNote:"Sauce 1/3, Sauce 2/3, Sauce 3/3: Ohne Sauce"},
+    {id:"9_spicy_chicken_mcnuggets",name:"9 Spicy Chicken McNuggets",cat:"nuggets",kcal:420,fat:22,sat:2.1,carbs:30,sugars:1.2,fibre:1,protein:25,salt:1.8,price:7.69,orderNote:"Sauce 1/2, Sauce 2/2: Ohne Sauce"},
+    {id:"6_spicy_chicken_mcnuggets",name:"6 Spicy Chicken McNuggets",cat:"nuggets",kcal:280,fat:15,sat:1.4,carbs:20,sugars:0.8,fibre:0.7,protein:16,salt:1.2,price:5.69,orderNote:"Sauce: Ohne Sauce"},
+    {id:"20_chicken_mcnuggets",name:"20 Chicken McNuggets®",cat:"nuggets",kcal:892,fat:47,sat:5.6,carbs:60,sugars:2.7,fibre:4.1,protein:54,salt:3.7,price:11.99,orderNote:"Sauce 1/3, Sauce 2/3, Sauce 3/3: Ohne Sauce"},
+    {id:"9_chicken_mcnuggets",name:"9 Chicken McNuggets®",cat:"nuggets",kcal:401,fat:21,sat:2.5,carbs:27,sugars:1.2,fibre:1.8,protein:24,salt:1.7,price:7.79,orderNote:"Sauce 1/2, Sauce 2/2: Ohne Sauce"},
+    {id:"6_chicken_mcnuggets",name:"6 Chicken McNuggets®",cat:"nuggets",kcal:267,fat:14,sat:1.7,carbs:18,sugars:0.8,fibre:1.2,protein:16,salt:1.1,price:6.19,orderNote:"Sauce: Ohne Sauce"},
+    {id:"20_mcplant_nuggets",name:"20 McPlant® Nuggets",cat:"nuggets",kcal:947,fat:52,sat:5,carbs:69,sugars:3,fibre:14,protein:44,salt:3.7,price:11.99,orderNote:"Sauce 1/3, Sauce 2/3, Sauce 3/3: Ohne Sauce"},
+    {id:"9_mcplant_nuggets",name:"9 McPlant® Nuggets",cat:"nuggets",kcal:426,fat:23,sat:2.2,carbs:31,sugars:1.3,fibre:6.1,protein:20,salt:1.7,price:7.79,orderNote:"Sauce 1/2, Sauce 2/2: Ohne Sauce"},
+    {id:"6_mcplant_nuggets",name:"6 McPlant® Nuggets",cat:"nuggets",kcal:284,fat:16,sat:1.5,carbs:21,sugars:0.9,fibre:4.1,protein:13,salt:1.1,price:6.19,orderNote:"Sauce: Ohne Sauce"},
+    {id:"potato_dippers",name:"Potato Dippers",cat:"beilagen",kcal:373,fat:20,sat:1.9,carbs:42,sugars:0.7,fibre:5.5,protein:4.2,salt:2.3,price:4.49,orderNote:"Sauce: Ohne Sauce"},
+    {id:"pommes_frites_gross",name:"Pommes Frites Groß",cat:"beilagen",kcal:463,fat:22,sat:2.1,carbs:58,sugars:0.5,fibre:5.6,protein:5.5,salt:0.75,price:4.49},
+    {id:"pommes_frites_mittel",name:"Pommes Frites Mittel",cat:"beilagen",kcal:329,fat:16,sat:1.5,carbs:41,sugars:0.4,fibre:4,protein:3.9,salt:0.53,price:4.19},
+    {id:"pommes_frites_klein",name:"Pommes Frites Klein",cat:"beilagen",kcal:231,fat:11,sat:1,carbs:29,sugars:0.3,fibre:2.8,protein:2.8,salt:0.37,price:3.49},
+    {id:"big_veggie_salad",name:"Big Veggie Salad",cat:"beilagen",kcal:191,fat:6.9,sat:1.2,carbs:16,sugars:4,fibre:6.1,protein:13,salt:1.2,price:5.49,orderNote:"Dressing: Ohne Dressing"},
+    {id:"big_chicken_salad",name:"Big Chicken Salad",cat:"beilagen",kcal:280,fat:15,sat:2.3,carbs:19,sugars:3,fibre:4.5,protein:14,salt:1.1,price:5.59,orderNote:"Dressing: Ohne Dressing"},
+    {id:"snack_salad",name:"Snack Salad",cat:"beilagen",kcal:21,fat:0.2,sat:0,carbs:3.1,sugars:2.2,fibre:1.2,protein:1.1,salt:0.03,price:3.29,orderNote:"Dressing: Ohne Dressing"},
+    {id:"sunny_tomato_sauce_25ml",name:"Sunny Tomato Sauce 25ml",cat:"beilagen",kcal:65,fat:2.9,sat:0.3,carbs:8.3,sugars:6.6,fibre:0.4,protein:0.4,salt:0.5,price:0.6,sauce:true},
+    {id:"spicy_pepper_sauce_25ml",name:"Spicy Pepper Sauce 25ml",cat:"beilagen",kcal:83,fat:7.5,sat:0.7,carbs:3.3,sugars:2.8,fibre:0.2,protein:0.3,salt:0.42,price:0.6,sauce:true},
+    {id:"sweet_chili_sauce_25ml",name:"Sweet Chili Sauce 25ml",cat:"beilagen",kcal:67,fat:0,sat:0,carbs:16,sugars:15,fibre:0.2,protein:0.2,salt:0.5,price:0.6,sauce:true},
+    {id:"sour_cream_schnittlauch_dip_25ml",name:"Sour Cream-Schnittlauch Dip 25ml",cat:"beilagen",kcal:112,fat:12,sat:1.1,carbs:0.5,sugars:0.2,fibre:0.1,protein:0.3,salt:0.22,price:0.6,sauce:true},
+    {id:"ketchup_20ml",name:"Ketchup 20ml",cat:"beilagen",kcal:28,fat:0.1,sat:0,carbs:6.4,sugars:4.3,fibre:0.5,protein:0.4,salt:0.45,price:0.6,sauce:true},
+    {id:"mayonnaise_20ml",name:"Mayonnaise 20ml",cat:"beilagen",kcal:141,fat:15,sat:1.7,carbs:0.4,sugars:0.4,fibre:0,protein:0.2,salt:0.19,price:0.6,sauce:true},
+    {id:"curry_sauce_25ml",name:"Curry Sauce 25ml",cat:"beilagen",kcal:47,fat:0.4,sat:0.1,carbs:10,sugars:9.6,fibre:0.4,protein:0.3,salt:0.32,price:0.6,sauce:true},
+    {id:"suesssauer_sauce_25ml",name:"Süßsauer Sauce 25ml",cat:"beilagen",kcal:49,fat:0.3,sat:0,carbs:11,sugars:9.7,fibre:0.4,protein:0.1,salt:0.31,price:0.6,sauce:true},
+    {id:"barbecue_sauce_25ml",name:"Barbecue Sauce 25ml",cat:"beilagen",kcal:48,fat:0.3,sat:0,carbs:11,sugars:9.5,fibre:0,protein:0.2,salt:0.44,price:0.6,sauce:true},
+    {id:"senf_sauce_25ml",name:"Senf Sauce 25ml",cat:"beilagen",kcal:59,fat:3.3,sat:0.3,carbs:6.4,sugars:5.7,fibre:0.4,protein:0.6,salt:0.52,price:0.6,sauce:true},
+    {id:"balsamico_dressing_30ml",name:"Balsamico Dressing 30ml",cat:"beilagen",kcal:22,fat:0.8,sat:0.1,carbs:3.2,sugars:3.2,fibre:0.1,protein:0,salt:0.57,price:0.6,sauce:true},
+    {id:"honig_senf_dressing_50ml",name:"Honig-Senf Dressing 50ml",cat:"beilagen",kcal:118,fat:8.4,sat:0.6,carbs:9.3,sugars:8.9,fibre:0.6,protein:0.6,salt:1.1,price:0.8,sauce:true},
+    {id:"mcflurry_kitkat_white_mit_erdbeer_sauce",name:"McFlurry® Kitkat White mit Erdbeer Sauce",cat:"desserts",kcal:401,fat:11,sat:7.2,carbs:67,sugars:55,fibre:0.7,protein:7,salt:0.37,price:4.49},
+    {id:"mcflurry_choc_pretzel",name:"McFlurry® Choc Pretzel",cat:"desserts",kcal:388,fat:11,sat:7.8,carbs:64,sugars:50,fibre:1.7,protein:8.2,salt:0.82,price:4.49},
+    {id:"mcflurry_original_mix_match",name:"McFlurry® Original Mix & Match",cat:"desserts",kcal:197,fat:5.2,sat:3.8,carbs:33,sugars:30,fibre:0,protein:4.8,salt:0.03,price:4.49,orderNote:"Zutat (inklusive) 1/2, Zutat (inklusive) 2/2: Ohne Zutat"},
+    {id:"heisse_lychee_tasche",name:"Heiße Lychee Tasche",cat:"desserts",kcal:249,fat:12,sat:3.3,carbs:34,sugars:14,fibre:1,protein:2.5,salt:0.33,price:2.29},
+    {id:"heisse_apfeltasche",name:"Heiße Apfeltasche",cat:"desserts",kcal:228,fat:12,sat:2.8,carbs:28,sugars:9.2,fibre:1.5,protein:2.3,salt:0.33,price:2.29},
+    {id:"mcpops_berry_bomb",name:"McPops® Berry Bomb",cat:"desserts",kcal:104,fat:6,sat:2.8,carbs:11,sugars:5.3,fibre:0.4,protein:1.4,salt:0.17,price:0.89},
+    {id:"mcpops_hazel_hero",name:"McPops® Hazel Hero",cat:"desserts",kcal:121,fat:7.3,sat:2.8,carbs:12,sugars:6.5,fibre:0.4,protein:1.7,salt:0.2,price:0.89},
+    {id:"marmor_muffin",name:"Marmor Muffin",cat:"desserts",kcal:488,fat:28,sat:4.9,carbs:53,sugars:30,fibre:2.3,protein:6,salt:0.81,price:3.29},
+    {id:"hhmmbeer_donut",name:"Hhmmbeer Donut",cat:"desserts",kcal:278,fat:15,sat:4.9,carbs:32,sugars:12,fibre:1.4,protein:3.7,salt:0.44,price:2.79},
+    {id:"pistachio_cream_donut",name:"Pistachio Cream Donut",cat:"desserts",kcal:356,fat:21,sat:5.9,carbs:36,sugars:18,fibre:1.7,protein:5,salt:0.46,price:2.79},
+    {id:"himbeer_white_choc_cookie",name:"Himbeer White Choc Cookie",cat:"desserts",kcal:385,fat:19,sat:10,carbs:49,sugars:29,fibre:0.8,protein:3.9,salt:0.55,price:1.99},
+    {id:"triple_choc_cookie",name:"Triple Choc Cookie",cat:"desserts",kcal:383,fat:19,sat:11,carbs:46,sugars:31,fibre:1.8,protein:4.2,salt:0.46,price:1.99},
+    {id:"bio_mcfreezy_erdbeer_banane_70ml",name:"Bio McFreezy® Erdbeer-Banane 70ml",cat:"desserts",kcal:40,fat:0.1,sat:0,carbs:9,sugars:8.6,fibre:0.4,protein:0.3,salt:0.01,price:1.89},
+    {id:"bio_apfeltuete_60g",name:"Bio Apfeltüte 60g",cat:"desserts",kcal:34,fat:0.1,sat:0.1,carbs:7.6,sugars:6.4,fibre:1.1,protein:0.1,salt:0.01,price:2.29},
+    {id:"frucht_quatsch_80g",name:"Frucht-Quatsch 80g",cat:"desserts",kcal:41,fat:0.5,sat:0.1,carbs:7.8,sugars:7.1,fibre:1.4,protein:0.4,salt:0.01,price:2.39},
+  ],
+};
+// __MCDONALDS_DATA_END__
+// __CHIDOBA_DATA_START__ (generiert via: node chidoba-update.js aus data/chidoba-raw.json — nicht von Hand editieren)
+// Quelle: chidoba-Nährwertrechner (chidoba.com/nutrition, Werte je Portion und Produktart) · Menü + Preise: Wolt chidobi-mexican-grill (Kaiserstraße), Stand 2026-09-16
+const CHIDOBA = {
+  // Zutaten-ids (Ausschluss/Pflicht über Cup und Salat hinweg); die Werte stehen je Produktart an den Optionen
+  ingredients: [
+    {id:"gegrilltes_gemuese",name:"gegrillte Paprika & rote Zwiebeln",valuesOnOptions:true},
+    {id:"eisbergsalat",name:"Eisbergsalat",valuesOnOptions:true},
+    {id:"cheddar_jack_cheese",name:"Cheddar Jack Cheese",valuesOnOptions:true},
+    {id:"limette",name:"Limette",valuesOnOptions:true},
+    {id:"barbacoa",name:"Barbacoa",valuesOnOptions:true},
+    {id:"filetsteak",name:"Filetsteak",valuesOnOptions:true},
+    {id:"chicken",name:"Chicken",valuesOnOptions:true},
+    {id:"beef",name:"Beef",valuesOnOptions:true},
+    {id:"gewuerzreis",name:"Gewürzreis",valuesOnOptions:true},
+    {id:"cubes",name:"Cubes",valuesOnOptions:true},
+    {id:"black_beans",name:"Black Beans",valuesOnOptions:true},
+    {id:"sour_cream",name:"Sour Cream",valuesOnOptions:true},
+    {id:"salsa",name:"Mild",valuesOnOptions:true},
+    {id:"guacamole",name:"Guacamole",valuesOnOptions:true},
+    {id:"cheesesauce",name:"Cheesesauce",valuesOnOptions:true},
+    {id:"chili_con_carne",name:"Chili con Carne",valuesOnOptions:true},
+    {id:"salatbasis",name:"Eisbergsalat (Salat-Basis)",valuesOnOptions:true},
+    {id:"california_dressing",name:"California Dressing",valuesOnOptions:true},
+  ],
+  cup: {
+    item: "Cup", type: "cup", basePrice: 0, require: {base:false,protein:true}, proteinExtras: true, removals: [],
+    fixed: [
+      {id:"cup_fix_gegrilltes_gemuese",name:"gegrillte Paprika & rote Zwiebeln",short:"gegrillte Paprika & rote Zwiebeln",ing:"gegrilltes_gemuese",price:0,removeName:"Ohne gegrillte Paprika & rote Zwiebeln",kcal:12.21,fat:0.16,sat:0.03,carbs:2.02,sugars:2.02,fibre:1.39,protein:0.53,salt:0.005},
+      {id:"cup_fix_eisbergsalat",name:"Eisbergsalat",short:"Eisbergsalat",ing:"eisbergsalat",price:0,removeName:"Ohne Eisbergsalat",kcal:6.5,fat:0.1,sat:0.02,carbs:0.79,sugars:0.79,fibre:0.9,protein:0.5,salt:0.015},
+      {id:"cup_fix_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",ing:"cheddar_jack_cheese",price:0,removeName:"Ohne Cheddar Jack Cheese",sauce:true,kcal:65.12,fat:4.96,sat:3.31,carbs:0.48,sugars:0.02,fibre:0,protein:4.16,salt:0.002},
+      {id:"cup_fix_limette",name:"Limette",short:"Limette",ing:"limette",price:0,removeName:"Ohne Limette",kcal:3.29,fat:0,sat:0,carbs:0.13,sugars:0,fibre:0,protein:0.05,salt:0},
+    ],
+    groups: [
+      { id:"produkt",name:"Cups",min:1,max:1,none:null,options:[
+        {id:"cup_produkt_barbacoa_cup",name:"Barbacoa Cup",short:"Barbacoa Cup",group:"produkt",role:"protein",ing:"barbacoa",maxQty:1,price:15.99,kcal:144,fat:6.3,sat:2.25,carbs:1.8,sugars:0,fibre:0.9,protein:21.6,salt:1.193},
+        {id:"cup_produkt_filetsteak_cup",name:"Filetsteak Cup",short:"Filetsteak Cup",group:"produkt",role:"protein",ing:"filetsteak",maxQty:1,price:16.99,kcal:151.25,fat:5,sat:2.2,carbs:0.19,sugars:0.19,fibre:0.05,protein:26.5,salt:0.244},
+        {id:"cup_produkt_chicken_cup",name:"Chicken Cup",short:"Chicken Cup",group:"produkt",role:"protein",ing:"chicken",maxQty:1,price:14.49,kcal:116.8,fat:2.96,sat:1.2,carbs:2.96,sugars:2.96,fibre:0.4,protein:19.6,salt:0.566},
+        {id:"cup_produkt_beef_cup",name:"Beef Cup",short:"Beef Cup",group:"produkt",role:"protein",ing:"beef",maxQty:1,price:14.49,kcal:155.22,fat:11.7,sat:5.07,carbs:3.67,sugars:1.25,fibre:0.78,protein:10.92,salt:0.741},
+      ] },
+      { id:"basis",name:"Deine Basis",min:1,max:1,none:"Ohne Basis",options:[
+        {id:"cup_basis_gewuerzreis",name:"Gewürzreis",short:"Gewürzreis",group:"basis",role:"side",ing:"gewuerzreis",maxQty:1,price:0,kcal:343.18,fat:0.49,sat:0.12,carbs:77.59,sugars:0.24,fibre:1.38,protein:6.39,salt:0.679},
+        {id:"cup_basis_cubes",name:"Cubes",short:"Cubes",group:"basis",role:"side",ing:"cubes",maxQty:1,price:0,kcal:271.2,fat:13.2,sat:2.04,carbs:31,sugars:0.42,fibre:3.5,protein:3.84,salt:0.001},
+      ] },
+      { id:"zutaten",name:"Wähle deine Zutaten",min:0,max:5,none:null,own:true,options:[
+        {id:"cup_zutaten_black_beans",name:"Black Beans",short:"Black Beans",group:"zutaten",role:"extra",ing:"black_beans",maxQty:1,price:0,removeName:"Ohne Black Beans",kcal:77.18,fat:0.32,sat:0.08,carbs:13.87,sugars:0,fibre:5.1,protein:5.18,salt:0.347},
+      ] },
+      { id:"cream",name:"Deine Cream",min:1,max:1,none:"Ohne Creme",own:true,options:[
+        {id:"cup_cream_sour_cream",name:"Sour Cream",short:"Sour Cream",group:"cream",role:"extra",ing:"sour_cream",maxQty:1,price:0,sauce:true,kcal:35.1,fat:3,sat:1.82,carbs:0.99,sugars:0.99,fibre:0,protein:0.93,salt:0.03},
+      ] },
+      { id:"salsa",name:"Deine Salsa",min:1,max:1,none:"Ohne Salsa",own:true,options:[
+        {id:"cup_salsa_mild",name:"Mild",short:"Salsa Mild",group:"salsa",role:"extra",ing:"salsa",maxQty:1,price:0,sauce:true,kcal:19.88,fat:0.28,sat:0.04,carbs:3.48,sugars:1.28,fibre:0.5,protein:0.85,salt:0.001},
+      ] },
+      { id:"extras",name:"Deine Extras",min:0,max:7,none:null,options:[
+        {id:"cup_extras_beef",name:"Beef",short:"Beef",group:"extras",role:"extra",ing:"beef",maxQty:1,price:2.49,kcal:155.22,fat:11.7,sat:5.07,carbs:3.67,sugars:1.25,fibre:0.78,protein:10.92,salt:0.741},
+        {id:"cup_extras_chicken",name:"Chicken",short:"Chicken",group:"extras",role:"extra",ing:"chicken",maxQty:1,price:2.49,kcal:116.8,fat:2.96,sat:1.2,carbs:2.96,sugars:2.96,fibre:0.4,protein:19.6,salt:0.566},
+        {id:"cup_extras_barbacoa",name:"Barbacoa",short:"Barbacoa",group:"extras",role:"extra",ing:"barbacoa",maxQty:1,price:4.99,kcal:144,fat:6.3,sat:2.25,carbs:1.8,sugars:0,fibre:0.9,protein:21.6,salt:1.193},
+        {id:"cup_extras_filetsteak",name:"Filetsteak",short:"Filetsteak",group:"extras",role:"extra",ing:"filetsteak",maxQty:1,price:4.99,kcal:151.25,fat:5,sat:2.2,carbs:0.19,sugars:0.19,fibre:0.05,protein:26.5,salt:0.244},
+        {id:"cup_extras_guacamole",name:"Guacamole",short:"Guacamole",group:"extras",role:"extra",ing:"guacamole",maxQty:1,price:2.39,sauce:true,kcal:37.25,fat:3.5,sat:0.55,carbs:1.7,sugars:0.48,fibre:1.03,protein:0.35,salt:0.158},
+        {id:"cup_extras_cheesesauce",name:"Cheesesauce",short:"Cheesesauce",group:"extras",role:"extra",ing:"cheesesauce",maxQty:1,price:1.89,sauce:true,kcal:110.77,fat:9.28,sat:0.8,carbs:2.07,sugars:1.86,fibre:0,protein:4.4,salt:0},
+        {id:"cup_extras_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",group:"extras",role:"extra",ing:"cheddar_jack_cheese",maxQty:1,price:0.99,sauce:true,kcal:65.12,fat:4.96,sat:3.31,carbs:0.48,sugars:0.02,fibre:0,protein:4.16,salt:0.002},
+      ] },
+      { id:"chili",name:"Snacks",min:0,max:1,none:null,own:true,options:[
+        {id:"cup_chili_chili_con_carne",name:"Chili con Carne",short:"Chili con Carne",group:"chili",role:"extra",ing:"chili_con_carne",maxQty:1,price:8.49,kcal:315.4,fat:11.78,sat:2.28,carbs:33.06,sugars:15.96,fibre:15.58,protein:15.58,salt:3.563},
+      ] },
+    ],
+  },
+  salat: {
+    item: "Salat", type: "salat", basePrice: 0, require: {base:false,protein:true}, proteinExtras: true, removals: ["Ohne Tortilla Strips"],
+    fixed: [
+      {id:"salat_fix_salatbasis",name:"Eisbergsalat (Salat-Basis)",short:"Eisbergsalat (Salat-Basis)",ing:"salatbasis",price:0,kcal:39,fat:0.6,sat:0.09,carbs:4.71,sugars:4.71,fibre:5.4,protein:3,salt:0.09},
+      {id:"salat_fix_gegrilltes_gemuese",name:"gegrillte Paprika & rote Zwiebeln",short:"gegrillte Paprika & rote Zwiebeln",ing:"gegrilltes_gemuese",price:0,removeName:"Ohne gegrillte Paprika & rote Zwiebeln",kcal:12.21,fat:0.16,sat:0.03,carbs:2.02,sugars:2.02,fibre:1.39,protein:0.53,salt:0.005},
+      {id:"salat_fix_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",ing:"cheddar_jack_cheese",price:0,removeName:"Ohne Cheddar Jack Cheese",sauce:true,kcal:65.12,fat:4.96,sat:3.31,carbs:0.48,sugars:0.02,fibre:0,protein:4.16,salt:0.002},
+      {id:"salat_fix_limette",name:"Limette",short:"Limette",ing:"limette",price:0,removeName:"Ohne Limette",kcal:3.29,fat:0,sat:0,carbs:0.13,sugars:0,fibre:0,protein:0.05,salt:0},
+      {id:"salat_fix_california_dressing",name:"California Dressing",short:"California Dressing",ing:"california_dressing",price:0,removeName:"Ohne California Dressing",sauce:true,kcal:175.2,fat:15.6,sat:0.96,carbs:9.18,sugars:7.8,fibre:0,protein:0.12,salt:0.003},
+    ],
+    groups: [
+      { id:"produkt",name:"Salate",min:1,max:1,none:null,options:[
+        {id:"salat_produkt_beef_salat",name:"Beef Salat",short:"Beef Salat",group:"produkt",role:"protein",ing:"beef",maxQty:1,price:15.69,kcal:155.22,fat:11.7,sat:5.07,carbs:3.67,sugars:1.25,fibre:0.78,protein:10.92,salt:0.741},
+        {id:"salat_produkt_chicken_salat",name:"Chicken Salat",short:"Chicken Salat",group:"produkt",role:"protein",ing:"chicken",maxQty:1,price:15.69,kcal:116.8,fat:2.96,sat:0,carbs:2.96,sugars:2.96,fibre:0.4,protein:19.6,salt:0.566},
+        {id:"salat_produkt_filetsteak_salat",name:"Filetsteak Salat",short:"Filetsteak Salat",group:"produkt",role:"protein",ing:"filetsteak",maxQty:1,price:18.49,kcal:151.25,fat:5,sat:2.2,carbs:0.19,sugars:0.19,fibre:0.05,protein:26.5,salt:0.244},
+      ] },
+      { id:"zutaten",name:"Wähle deine Zutaten",min:0,max:6,none:null,own:true,options:[
+        {id:"salat_zutaten_black_beans",name:"Black Beans",short:"Black Beans",group:"zutaten",role:"extra",ing:"black_beans",maxQty:1,price:0,removeName:"Ohne Black Beans",kcal:77.18,fat:0.32,sat:0.08,carbs:13.87,sugars:0,fibre:5.1,protein:5.18,salt:0.347},
+      ] },
+      { id:"cream",name:"Deine Soße",min:1,max:1,none:"Ohne Cream",own:true,options:[
+        {id:"salat_cream_sour_cream",name:"Sour Cream",short:"Sour Cream",group:"cream",role:"extra",ing:"sour_cream",maxQty:1,price:0,sauce:true,kcal:35.1,fat:3,sat:1.82,carbs:0.99,sugars:0.99,fibre:0,protein:0.93,salt:0.03},
+      ] },
+      { id:"salsa",name:"Deine Salsa",min:1,max:1,none:"Ohne Salsa",own:true,options:[
+        {id:"salat_salsa_mild",name:"Mild",short:"Salsa Mild",group:"salsa",role:"extra",ing:"salsa",maxQty:1,price:0,sauce:true,kcal:19.88,fat:0.28,sat:0.04,carbs:3.48,sugars:1.28,fibre:0.5,protein:0.85,salt:0.001},
+      ] },
+      { id:"extras",name:"Deine Extras",min:0,max:7,none:null,options:[
+        {id:"salat_extras_beef",name:"Beef",short:"Beef",group:"extras",role:"extra",ing:"beef",maxQty:1,price:2.49,kcal:155.22,fat:11.7,sat:5.07,carbs:3.67,sugars:1.25,fibre:0.78,protein:10.92,salt:0.741},
+        {id:"salat_extras_chicken",name:"Chicken",short:"Chicken",group:"extras",role:"extra",ing:"chicken",maxQty:1,price:2.49,kcal:116.8,fat:2.96,sat:0,carbs:2.96,sugars:2.96,fibre:0.4,protein:19.6,salt:0.566},
+        {id:"salat_extras_barbacoa",name:"Barbacoa",short:"Barbacoa",group:"extras",role:"extra",ing:"barbacoa",maxQty:1,price:4.99,kcal:177.6,fat:9.16,sat:4.84,carbs:0.18,sugars:0.18,fibre:0.05,protein:23.59,salt:0.699},
+        {id:"salat_extras_filetsteak",name:"Filetsteak",short:"Filetsteak",group:"extras",role:"extra",ing:"filetsteak",maxQty:1,price:4.99,kcal:151.25,fat:5,sat:2.2,carbs:0.19,sugars:0.19,fibre:0.05,protein:26.5,salt:0.244},
+        {id:"salat_extras_guacamole",name:"Guacamole",short:"Guacamole",group:"extras",role:"extra",ing:"guacamole",maxQty:1,price:2.39,sauce:true,kcal:37.25,fat:3.5,sat:0.55,carbs:1.7,sugars:0.48,fibre:1.03,protein:0.35,salt:0.158},
+        {id:"salat_extras_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",group:"extras",role:"extra",ing:"cheddar_jack_cheese",maxQty:1,price:0.99,sauce:true,kcal:65.12,fat:4.96,sat:3.31,carbs:0.48,sugars:0.02,fibre:0,protein:4.16,salt:0.002},
+      ] },
+      { id:"chili",name:"Snacks",min:0,max:1,none:null,own:true,options:[
+        {id:"salat_chili_chili_con_carne",name:"Chili con Carne",short:"Chili con Carne",group:"chili",role:"extra",ing:"chili_con_carne",maxQty:1,price:8.49,kcal:315.4,fat:11.78,sat:2.28,carbs:33.06,sugars:15.96,fibre:15.58,protein:15.58,salt:3.563},
+      ] },
+    ],
+  },
+};
+// __CHIDOBA_DATA_END__
 
 // ═══ Kern-Helper (inhaltlich identisch zum London-Tool) ═══
 const KEYS = ["kcal","fat","sat","carbs","sugars","fibre","protein","salt"];
@@ -826,12 +1019,13 @@ function comboLabel(items) {
   return items.filter(x => { const k = key(x); if (seen.has(k)) return false; seen.add(k); return true; })
     .map(x => (counts[key(x)] > 1 ? counts[key(x)] + "× " : "") + x.name).join(" + ");
 }
-// Order-Guide-Schritte einer à-la-carte-Bestellung: [{l:"2×", v:"Hähnchen Bowl"}, …]
+// Order-Guide-Schritte einer à-la-carte-Bestellung: [{l:"2×", v:"Hähnchen Bowl"}, …]; orderNote = Pflicht-Auswahl der Plattform, die der Gast
+// so setzen soll (z.B. McDonald's Nuggets „Sauce 1/2, Sauce 2/2: Ohne Sauce“ — die Werte gelten ohne die inklusive Sauce)
 function acOrderSteps(items) {
   const key = x => x.id + "|" + x.name;
   const counts = {}, uniq = [];
   for (const x of items) { const k = key(x); if (!counts[k]) { counts[k] = 0; uniq.push(x); } counts[k]++; }
-  return uniq.map(x => ({ l: counts[key(x)] + "×", v: x.name }));
+  return uniq.map(x => ({ l: counts[key(x)] + "×", v: x.name + (x.orderNote ? " — " + x.orderNote : "") }));
 }
 // Stabiler Ergebnis-Key (sortierte Item-IDs) → markiert die gewählte Karte auch nach Neuberechnung und Tab-Wechsel.
 // BYO-Ergebnisse dürfen einen eigenen .key mitliefern.
@@ -845,23 +1039,36 @@ function resultKey(r) {
 // Singles + Paare voll (Duplikate erlaubt), Triples per Beam (beste 80 Paare). maxN=Infinity (∞-Chip): Stufe 4+ erweitert
 // die besten Kombos so lange um je 1 Item, wie sich der Score verbessert (harte Obergrenze 12 Items). Top 20.
 // opts: distinctBy(x) = keine zwei Items mit gleichem Key · dedupKey(items) = gleichwertige Ergebnisse zusammenfassen ·
-//       resultFilter(items) = „muss X enthalten" · baseItems = feste Basis in JEDER Kombo (maxN zählt nur die Zusätze)
+//       resultFilter(items) = „muss X enthalten" · baseItems = feste Basis in JEDER Kombo (maxN zählt nur die Zusätze; 0 = nur die Basis)
+//       · priced = Ergebnisse tragen price (Σ Item-Preise in €) · maxPrice = harte Obergrenze in € inkl. Basis (null/undefined = keine)
 function alaCarteCombos(t, mode, p, pool, maxN, opts) {
   const o = opts || {};
   pool = pool.filter(x => !isShellfish(x)); // Schalentier permanent raus (Allergie)
   const dk = o.distinctBy || null;
   const distinctOk = dk ? (items, x) => { const k = dk(x); return !items.some(y => dk(y) === k); } : null;
   const B = (o.baseItems && o.baseItems.length) ? o.baseItems : null;
+  const cents = x => Math.round((x.price || 0) * 100);
+  const mp = o.maxPrice == null || o.maxPrice === "" ? NaN : Number(o.maxPrice);
+  const budget = isFinite(mp) ? Math.round(mp * 100) : Infinity;
+  if (B && B.reduce((a, x) => a + cents(x), 0) > budget) return [];
+  // Kombination bewerten; über dem Preislimit → null
+  const mk = items => {
+    const c = items.reduce((a, x) => a + cents(x), 0);
+    if (c > budget) return null;
+    const n = sumN(items, 1), r = { items, nutrition: n, score: score(n, t, mode, p) };
+    if (o.priced) r.price = c / 100;
+    return r;
+  };
   const R = [];
   const byScore = (a, b) => a.score - b.score;
-  if (B) { const n0 = sumN(B, 1); R.push({ items: B.slice(), nutrition: n0, score: score(n0, t, mode, p) }); } // nur die Basis
-  for (const x of pool) { const items = B ? [...B, x] : [x]; const n = sumN(items, 1); R.push({ items, nutrition: n, score: score(n, t, mode, p) }); }
+  if (B) R.push(mk(B.slice())); // nur die Basis
+  if (maxN >= 1) for (const x of pool) { const r = mk(B ? [...B, x] : [x]); if (r) R.push(r); }
   if (maxN >= 2) {
     const pairs = [];
     for (let i = 0; i < pool.length; i++) for (let j = i; j < pool.length; j++) {
       if (dk && dk(pool[i]) === dk(pool[j])) continue; // distinct: gleicher Key (inkl. i==j) raus
-      const items = B ? [...B, pool[i], pool[j]] : [pool[i], pool[j]], n = sumN(items, 1);
-      const r = { items, nutrition: n, score: score(n, t, mode, p) };
+      const r = mk(B ? [...B, pool[i], pool[j]] : [pool[i], pool[j]]);
+      if (!r) continue;
       R.push(r); pairs.push(r);
     }
     if (maxN >= 3) {
@@ -873,8 +1080,8 @@ function alaCarteCombos(t, mode, p, pool, maxN, opts) {
         const items = [...pr.items, x];
         const key = items.map(y => y.id).sort().join("|");
         if (seen.has(key)) continue; seen.add(key);
-        const n = sumN(items, 1);
-        const r = { items, nutrition: n, score: score(n, t, mode, p) };
+        const r = mk(items);
+        if (!r) continue;
         R.push(r); frontier.push(r);
       }
       let depth = 3;
@@ -886,9 +1093,8 @@ function alaCarteCombos(t, mode, p, pool, maxN, opts) {
           const items = [...pr.items, x];
           const key = items.map(y => y.id).sort().join("|");
           if (seen.has(key)) continue; seen.add(key);
-          const n = sumN(items, 1);
-          const s = score(n, t, mode, p);
-          if (s < pr.score) { const r = { items, nutrition: n, score: s }; R.push(r); next.push(r); }
+          const r = mk(items);
+          if (r && r.score < pr.score) { R.push(r); next.push(r); }
         }
         frontier = next; depth++;
       }
@@ -1460,6 +1666,27 @@ function bowlCombos(menu, t, mode, p, opts) {
 function bowlSummary(res) {
   return [...res.parts.map(pt => (pt.qty > 1 ? pt.qty + "× " : "") + (pt.opt.short || pt.opt.name)), ...[res.side, res.dip].filter(Boolean).map(x => x.short || x.name)].join(" + ");
 }
+// Gleiche Bestellung in anderer Anordnung: dieselben Zutaten (Menge, Varianten doppelt, feste Bestandteile) und dieselben Nährwerte, z.B. Chidoba
+// „Chicken Cup + Beef“ = „Beef Cup + Chicken“ oder Subway „Ham + Chicken Teriyaki“ = „Chicken Teriyaki + Ham“ (Sub- und Extra-Portion gleich)
+function bowlSameKey(r) {
+  // je Portion: Zutat + ihre Werte (Variante = 2 Portionen); die gerundete Summe taugt nicht, sie hängt von der Summier-Reihenfolge ab
+  const one = x => x.ing + ":" + KEYS.map(k => (x.variant ? (x[k] || 0) / 2 : x[k] || 0)).join("/");
+  const ings = [];
+  for (const pt of r.parts) for (let i = 0; i < pt.qty * (pt.opt.variant ? 2 : 1); i++) ings.push(one(pt.opt));
+  for (const x of [r.side, r.dip]) if (x) for (let i = 0; i < (x.variant ? 2 : 1); i++) ings.push(one(x));
+  for (const f of r.fixed || []) ings.push("fix:" + one(f));
+  return (r.type || r.size || "") + "|" + ings.sort().join(",");
+}
+// Doppelte Anordnungen zusammenfassen: je Schlüssel bleibt die günstigste (bei gleichem Preis die zuerst gereihte) an der Position der ersten
+function bowlDedupe(list) {
+  const best = new Map(), order = [];
+  for (const r of list) {
+    const k = bowlSameKey(r), cur = best.get(k);
+    if (!cur) { best.set(k, r); order.push(k); }
+    else if ((r.price || 0) < (cur.price || 0) - 1e-9) best.set(k, r);
+  }
+  return order.map(k => best.get(k));
+}
 // Rolle einer Menü-Option: base / protein / extra / dip / side (fehlt → Gruppen-id, wie bei Wolt)
 function bowlRole(x) { return x.role || x.group; }
 // Preis als „€12.50" (UI Englisch)
@@ -1539,7 +1766,10 @@ function addInclude(list, id, includables) {
 function bowlValidate(data, keys) {
   const P = [], ing = new Set(data.ingredients.map(x => x.id)), blocked = new Set(data.ingredients.filter(x => x.blocked).map(x => x.id));
   const isNum = v => typeof v === "number" && isFinite(v) && v >= 0;
-  for (const x of data.ingredients) for (const k of KEYS) if (!isNum(x.per100 && x.per100[k])) P.push("Zutat " + x.id + ": per100." + k + " fehlt");
+  for (const x of data.ingredients) {
+    if (x.valuesOnOptions) continue; // Werte stehen je Produktart an den Optionen (Chidoba: Cup und Salat mit eigenen Rechner-Zeilen)
+    for (const k of KEYS) if (!isNum(x.per100 && x.per100[k])) P.push("Zutat " + x.id + ": per100." + k + " fehlt");
+  }
   for (const key of (keys || Object.keys(data).filter(k => data[k] && Array.isArray(data[k].groups)))) {
     const menu = data[key], tag = key + ": ";
     if (!menu || !Array.isArray(menu.groups)) { P.push(tag + "Menü fehlt"); continue; }
@@ -1589,10 +1819,13 @@ function bowlValidate(data, keys) {
   }
   return P;
 }
-// Aktive filter-Schalter eines Eintrags als ein Prädikat (für BYO-Pools)
+// Aktive filter-Schalter eines Eintrags als ein Prädikat (für BYO-Pools); allow-Schalter lassen ihre Optionen nur eingeschaltet zu
+// (z.B. Chidoba „Add Chili con carne“)
 function switchPass(r, st) {
-  const act = (r.switches || []).filter(s => s.filter && st && st.sw && st.sw[s.id]);
-  return x => act.every(s => s.filter(x));
+  const sw = (st && st.sw) || {};
+  const act = (r.switches || []).filter(s => s.filter && sw[s.id]);
+  const gated = (r.switches || []).filter(s => s.allow && !sw[s.id]);
+  return x => act.every(s => s.filter(x)) && !gated.some(s => s.allow(x));
 }
 // Zutat-ids aktiver force-Schalter (z.B. Subway „Standard veggies“): jede Bestellung enthält sie — wie Pflicht-Zutaten, aber ohne ★
 function switchForce(r, st) {
@@ -1693,7 +1926,7 @@ function subwayMenuOf(res) { return res && res.size === SUBWAY.footlong.size ? S
 // 2 Saucen) und Subs, deren Zutat auch als Extra angeboten wird (Ham, Chicken Teriyaki: das gleichnamige Extra entfällt, doppelt nur über
 // „Extra Fleisch / Protein“ — gleiche Werte, sonst Doppel-Ergebnisse), laufen je für sich. Jede Rangliste ist exakt → die zusammengeführte auch.
 // o = Optionen wie bei bowlCombos (keep, include, cap, maxExtras, maxPrice, maxMs, maxWork, raw); das Zeitbudget gilt für alle Teile zusammen.
-// Ergebnisse tragen size = Größen-Label des Menüs.
+// Ergebnisse tragen size = Größen-Label des Menüs; gleiche Bestellungen in anderer Anordnung (bowlDedupe) bleiben nur in der günstigsten Form.
 function subwayCombos(menu, t, mode, p, o) {
   o = o || {};
   const keep = o.keep || (() => true), subG = menu.groups.find(g => g.id === "sub");
@@ -1721,9 +1954,8 @@ function subwayCombos(menu, t, mode, p, o) {
     out = out.concat(res);
   }
   if (o.raw) out.sort((a, b) => a.rawScore - b.rawScore);
-  else out.sort((a, b) => a.score - b.score || a.rawScore - b.rawScore);
+  else { out.sort((a, b) => a.score - b.score || a.rawScore - b.rawScore); for (const r of out) r.size = menu.size; out = bowlDedupe(out); }
   out = out.slice(0, o.raw ? 30 : 20);
-  if (!o.raw) for (const r of out) r.size = menu.size;
   if (!out.length && conflict) return Object.assign([], { conflict });
   if (!out.length && allMissing && missing && missing.length) return Object.assign([], { missing });
   if (approx) out.approx = true;
@@ -1831,6 +2063,156 @@ function subwayValidate() {
   return P;
 }
 
+// ═══ Chidoba (Frankfurt Kaiserstraße, Wolt): Cups + Salate, optional Snack „Chili con Carne“ ═══
+// Eine Bestellung = ein Cup oder Salat (Wolt-Artikel je Protein, Rolle protein) mit seinen Standard-Zutaten (fixed); nur Black Beans darf der
+// Optimizer abwählen (User 16.09.2026). Cup: Basis 0–1 (side). Cream und Salsa je 0–1 (own), Extras je 1× (Extras-Chip), „Chili con Carne“ als
+// zweiter Artikel (own, nur mit „Add Chili con carne“ oder als Pflicht). „No sauce/cheese/dips“ (User 16.09.2026, Default AN) filtert Cream, Salsa,
+// Guacamole, Cheesesauce und Extra-Käse und wählt die Standard-Zutaten Cheddar Jack Cheese und California Dressing ab. Menüs je Produktart
+// (CHIDOBA.cup / CHIDOBA.salat) mit eigenen Rechner-Werten; Ausschluss- und Pflicht-Listen unter „chidoba“.
+const CHIDOBA_TYPES = [{ id: "cup", label: "Cup" }, { id: "salat", label: "Salat" }];
+const CHIDOBA_SWITCHES = [
+  { id:"noSauce", label:"No sauce/cheese/dips", def:true, filter:x=>!x.sauce,                         // User 16.09.2026: Default AN
+    hint:"Also leaves out the standard Cheddar Jack Cheese (and California Dressing on salads) — the order guide says “Ohne …”." },
+  { id:"addChili", label:"Add Chili con carne", def:false, allow:x=>x.group==="chili",               // User 16.09.2026: Optimizer entscheidet, Default AUS
+    hint:"Lets the optimizer add one Chili con Carne (snack) as a second item when it gets you closer to your targets." },
+];
+const CHIDOBA_NOTE = "Cup or salad on Wolt (chidoba Kaiserstraße) with its standard toppings (grilled peppers & onions, lettuce, lime, Cheddar Jack Cheese; salads also California Dressing) — only Black Beans may be left out. Cup base: Gewürzreis, Cubes or none. Salads are always ordered “Ohne Tortilla Strips” (no official values). Not suggested: Korianderreis and Cilantro Cream (coriander); Chili Cream, Jalapeños, Habanero, Tabasco, Chili con Carne and Planted Chicken as extras (no values); Veggie, Vegan and Planted Chicken cups/salads (raw peppers & onions have no values). Salsa Mild, Medium and Scharf have identical values (shown as Mild).";
+// Menü einer Produktart für eine Suche: Standard-Zutaten ohne ausgeschlossene; Käse/Dressing fallen mit „No sauce/cheese/dips“ weg (außer Pflicht);
+// removed = „Ohne …“-Einträge für den Order Guide (inkl. immer abgewählter Standard-Zutaten ohne Werte)
+function chidobaMenu(type, sw, ex, picks) {
+  const m = CHIDOBA[type];
+  const keepFixed = f => !(ex && ex.has(f.ing)) && !(f.sauce && sw && sw.noSauce && !(picks && picks.has(f.ing)));
+  return Object.assign({}, m, { fixed: m.fixed.filter(keepFixed), removed: [...m.fixed.filter(f => !keepFixed(f)).map(f => f.removeName), ...(m.removals || [])] });
+}
+function chidobaMenuOf(res) { return CHIDOBA[res && res.type] || CHIDOBA.cup; }
+// Exakte Suche je Produktart (bowlCombos), Ranglisten gemischt; o.includeFor(menu) = Pflicht-Zutaten dieser Produktart. Ergebnisse tragen type + removed;
+// gleiche Bestellungen in anderer Anordnung (z.B. Chicken Cup + Beef = Beef Cup + Chicken) bleiben nur in der günstigsten Form (bowlDedupe)
+function chidobaCombos(menus, t, mode, p, o) {
+  o = o || {};
+  const clock = typeof performance !== "undefined" && performance.now ? () => performance.now() : () => Date.now(), t0 = clock();
+  const msMax = o.maxMs == null ? BOWL_MAX_MS : o.maxMs;
+  let out = [], approx = false, conflict = null, missing = null, allMissing = menus.length > 0;
+  for (const m of menus) {
+    const left = msMax - (clock() - t0);
+    if (!(left > 0) && out.length) { approx = true; break; }
+    const res = bowlCombos(m, t, mode, p, Object.assign({}, o, { maxMs: Math.max(0, left), include: o.includeFor ? o.includeFor(m) : o.include }));
+    if (res.approx) approx = true;
+    if (res.conflict) conflict = res.conflict;
+    if (res.missing) missing = missing ? missing.filter(id => res.missing.includes(id)) : res.missing.slice();
+    else allMissing = false;
+    if (!o.raw) for (const r of res) { r.type = m.type; r.removed = m.removed || []; }
+    out = out.concat(res);
+  }
+  if (o.raw) out.sort((a, b) => a.rawScore - b.rawScore);
+  else { out.sort((a, b) => a.score - b.score || a.rawScore - b.rawScore); out = bowlDedupe(out); }
+  out = out.slice(0, o.raw ? 30 : 20);
+  if (!out.length && conflict) return Object.assign([], { conflict });
+  if (!out.length && allMissing && missing && missing.length) return Object.assign([], { missing });
+  if (approx) out.approx = true;
+  return out;
+}
+// Chidoba optimieren: Produktart-Chips + Extras-Chip (st.extra), Schalter, Ausschluss-Liste, Pflicht-Zutaten (gehen an Schaltern vorbei; eine Pflicht
+// auf eine Standard-Zutat hält sie im Cup/Salat), Preislimit
+function chidobaOptimize(t, mode, p, st, ex, r, inc) {
+  const x0 = (st && st.extra) || {}, sw = (st && st.sw) || {};
+  const types = CHIDOBA_TYPES.map(x => x.id).filter(id => !(x0.types && x0.types.length) || x0.types.includes(id));
+  const allowed = id => !(ex && ex.has(id));
+  const picks = new Set([...(inc || [])].filter(allowed));
+  const pass = switchPass(r, st);
+  return chidobaCombos(types.map(tp => chidobaMenu(tp, sw, ex, picks)), t, mode, p, {
+    cap: 1, maxExtras: x0.maxExtras == null ? 5 : x0.maxExtras, maxPrice: t && t.maxPrice,
+    includeFor: m => [...picks].filter(id => !m.fixed.some(f => f.ing === id)),
+    keep: x => allowed(x.ing) && (picks.has(x.ing) || pass(x)),
+  });
+}
+// Kurzname: Produkt + Basis + Cream + Salsa + Extras + Chili (Standard-Zutaten stehen im Untertitel und im Detail-Panel)
+function chidobaSummary(res) {
+  const opts = [...res.parts.map(pt => pt.opt), res.side, res.dip].filter(Boolean);
+  return ["produkt", "basis", "cream", "salsa", "extras", "chili"].flatMap(g => opts.filter(x => x.group === g).map(x => x.short || x.name)).join(" + ");
+}
+function chidobaCard(res, ctx) {
+  const n = gid => res.parts.filter(pt => pt.opt.group === gid).length, sauces = n("cream") + n("salsa");
+  const bits = [res.type === "salat" ? "Salat" : "Cup"];
+  if (res.type !== "salat") bits.push(res.side ? res.side.short || res.side.name : "no base");
+  bits.push(n("zutaten") ? "beans" : "no beans", sauces ? sauces + (sauces === 1 ? " sauce" : " sauces") : "no sauce", n("extras") + (n("extras") === 1 ? " extra" : " extras"));
+  if (n("chili")) bits.push("+ Chili con Carne");
+  return h(ResultCard, { key: res.key, title: chidobaSummary(res), sub: bits.join(" · "), n: res.nutrition, price: res.price, selected: ctx.selected, onClick: ctx.onSelect });
+}
+// „Ohne …“ für die Wolt-Gruppe „Wähle deine Zutaten“: abgewählte Black Beans + weggefallene/immer abgewählte Standard-Zutaten
+function chidobaRemovals(sel) {
+  const zg = chidobaMenuOf(sel).groups.find(g => g.id === "zutaten");
+  return [...(zg ? zg.options.filter(o => !sel.parts.some(pt => pt.opt.id === o.id)).map(o => o.removeName) : []), ...(sel.removed || [])];
+}
+function chidobaPanel(sel, ctx) {
+  const rem = chidobaRemovals(sel);
+  return h("div", null,
+    bowlPanel(chidobaMenuOf(sel), sel, ctx),
+    rem.length > 0 && h("div", { style: { fontSize: 11, color: "#999", fontFamily: S.mono, margin: "-8px 0 16px", lineHeight: 1.4 } }, "Left out: " + rem.join(" · ")));
+}
+// Order Guide in Wolt-Reihenfolge: Artikel → Deine Basis (Cup) → Wähle deine Zutaten („Ohne …“) → Cream/Soße → Salsa → Extras → Snack als zweiter Artikel
+function chidobaOrderSteps(sel) {
+  const m = chidobaMenuOf(sel), prod = sel.parts.map(pt => pt.opt).find(x => x.group === "produkt");
+  const steps = bowlOrderSteps(Object.assign({}, m, { item: prod ? prod.name : m.item, groups: m.groups.filter(g => !["produkt", "zutaten", "chili"].includes(g.id)) }), sel);
+  const rem = chidobaRemovals(sel), zg = m.groups.find(g => g.id === "zutaten");
+  if (rem.length) { const bi = steps.findIndex(x => x.l === "Deine Basis"); steps.splice(bi >= 0 ? bi + 1 : 1, 0, { l: zg ? zg.name : "Wähle deine Zutaten", v: rem.join(" · ") }); }
+  const chili = sel.parts.find(pt => pt.opt.group === "chili");
+  if (chili) steps.push({ l: "Snacks (2nd item)", v: chili.opt.name });
+  return steps;
+}
+// Such-Index: jeder Baustein je Produktart mit Art im Namen (Protein des Produkts als „Chicken (Cup protein)“)
+function chidobaSearchEntries() {
+  const out = [];
+  for (const tp of CHIDOBA_TYPES) {
+    const m = CHIDOBA[tp.id];
+    for (const x of m.fixed) out.push(Object.assign({}, x, { name: x.name.includes("(") ? x.name : x.name + " (" + tp.label + ")" }));
+    for (const g of m.groups) for (const x of g.options) out.push(Object.assign({}, x, { name: g.id === "produkt" ? x.name.replace(/ (Cup|Salat)$/, "") + " (" + tp.label + " protein)" : g.id === "chili" ? x.name + " (Snack)" : x.name + " (" + tp.label + ")" }));
+  }
+  return out;
+}
+// Ausschluss- und Pflicht-Liste: je Zutat ein Eintrag über Cup und Salat (Produkte als Protein-Zutat, Standard-Zutaten mit Rolle fixed)
+function chidobaListEntries() {
+  const out = [], seen = new Set();
+  for (const tp of CHIDOBA_TYPES) {
+    const m = CHIDOBA[tp.id];
+    for (const g of m.groups) for (const x of g.options) {
+      if (seen.has(x.ing)) continue;
+      seen.add(x.ing);
+      out.push({ id: x.ing, name: g.id === "produkt" ? x.name.replace(/ (Cup|Salat)$/, "") : x.name, group: g.id === "produkt" ? "Protein" : g.name, role: bowlRole(x) });
+    }
+    for (const f of m.fixed) if (f.removeName && !seen.has(f.ing)) { seen.add(f.ing); out.push({ id: f.ing, name: f.name, group: "Standard toppings", role: "fixed" }); }
+  }
+  return out;
+}
+function chidobaConfigCard(ctx, note) {
+  const x = (ctx.st && ctx.st.extra) || {}, chosen = x.types || [];
+  const set = (patch, clearSel) => ctx.update(st => Object.assign({ extra: { ...(st.extra || {}), ...patch } }, clearSel ? { sel: null } : {}));
+  return h("div", { style: CARD },
+    h("div", { style: LBL }, "Product (pick one or both — optimizer chooses the best)"),
+    h("div", { style: { display: "flex", gap: 5, flexWrap: "wrap", marginBottom: 12 } },
+      h(Chip, { label: "Cup & Salat", active: !CHIDOBA_TYPES.some(tp => chosen.includes(tp.id)), onClick: () => set({ types: [] }, true), small: true }),
+      ...CHIDOBA_TYPES.map(tp => h(Chip, { key: tp.id, label: tp.label, active: chosen.includes(tp.id), small: true,
+        onClick: () => set({ types: chosen.includes(tp.id) ? chosen.filter(y => y !== tp.id) : [...chosen, tp.id] }, true) }))),
+    h("div", { style: LBL }, "Max. extras per order"),
+    h("div", { style: { display: "flex", gap: 5, flexWrap: "wrap", marginBottom: note ? 10 : 0 } },
+      ...[0, 1, 2, 3, 4, 5, 6].map(n => h(Chip, { key: String(n), label: String(n), active: x.maxExtras === n, onClick: () => set({ maxExtras: n }), small: true }))),
+    note && h("div", { style: { fontSize: 10, color: "#666", lineHeight: 1.4 } }, note));
+}
+// Datenprüfung: beide Menüs gültig, Standard-Zutaten mit „Ohne …“, Chili-Gruppe, Produkte je Art
+function chidobaValidate() {
+  const P = bowlValidate(CHIDOBA, CHIDOBA_TYPES.map(x => x.id));
+  for (const tp of CHIDOBA_TYPES) {
+    const m = CHIDOBA[tp.id];
+    if (m.type !== tp.id) P.push(tp.id + ": type ≠ " + tp.id);
+    for (const f of m.fixed) if (f.ing !== "salatbasis" && !/^Ohne /.test(f.removeName || "")) P.push(tp.id + ": Standard-Zutat " + f.id + " ohne „Ohne …“");
+    const ch = m.groups.find(g => g.id === "chili");
+    if (!ch || ch.options.length !== 1 || !ch.own || ch.max !== 1) P.push(tp.id + ": Snack-Gruppe „chili“ fehlt oder falsch");
+    const zg = m.groups.find(g => g.id === "zutaten");
+    if (!zg || !zg.options.every(o => /^Ohne /.test(o.removeName || ""))) P.push(tp.id + ": abwählbare Standard-Zutaten ohne „Ohne …“");
+    if (!(m.groups.find(g => g.id === "produkt") || { options: [] }).options.length) P.push(tp.id + ": keine Produkte");
+  }
+  return P;
+}
+
 // ═══ Registry-Hilfsfunktionen (generisch für alle Einträge) ═══
 const RESERVED_TABS = ["search", "all", "accurate"];
 
@@ -1861,24 +2243,38 @@ function toggleSwitch(r, sw, id, on) {
 }
 
 // À la carte: Pool = Items der aktiven Kategorien (drink:true NIE; ein aktiver overridesCats-Schalter ignoriert die Chips),
-// danach alle aktiven filter-Schalter; require-Schalter werden zum resultFilter → alaCarteCombos.
-// ex = Set ausgeschlossener Item-ids (Ausschluss-Liste: ausverkauft / heute keine Lust)
-function optimizeAC(r, t, mode, p, st, ex) {
+// danach alle aktiven filter-Schalter (allow-Schalter: deren Items nur eingeschaltet); require-Schalter werden zum resultFilter → alaCarteCombos.
+// ex = Set ausgeschlossener Item-ids (Ausschluss-Liste: ausverkauft / heute keine Lust) · inc = Pflicht-Produkte („Must include“, User 16.09.2026):
+// feste Basis jeder Bestellung (zählen zu „Max. items“), gehen an Kategorien und Schaltern vorbei, nie an Ausschlüssen, Getränken oder Schalentier;
+// unbekannte → [] mit missing. Haben alle Items Preise (Plattform-Menü), tragen Ergebnisse price und t.maxPrice ist eine harte Grenze.
+function optimizeAC(r, t, mode, p, st, ex, inc) {
   const D = r.data, sw = (st && st.sw) || {}, cats = (st && st.cats) || {};
   const drinkCats = new Set(D.cats.filter(c => c.drink).map(c => c.id));
   const active = (r.switches || []).filter(s => sw[s.id]);
   const override = active.some(s => s.overridesCats);
   let pool = D.items.filter(x => !drinkCats.has(x.cat) && (override || cats[x.cat]) && !(ex && ex.has(x.id)));
   for (const s of active) if (s.filter) pool = pool.filter(s.filter);
+  for (const s of r.switches || []) if (s.allow && !sw[s.id]) pool = pool.filter(x => !s.allow(x));
   const reqs = active.filter(s => s.require);
-  return alaCarteCombos(t, mode, p, pool, (st && st.maxN) || r.maxN || 5, {
-    distinctBy: r.distinctBy, dedupKey: r.dedupKey,
+  const byId = new Map(D.items.map(x => [x.id, x]));
+  const picks = [], missing = [];
+  for (const id of inc || []) {
+    if (ex && ex.has(id)) continue;
+    const x = byId.get(id);
+    if (!x || drinkCats.has(x.cat) || isShellfish(x)) missing.push(id); else picks.push(x);
+  }
+  if (missing.length) return Object.assign([], { missing });
+  const maxN = (st && st.maxN) || r.maxN || 5;
+  const priced = D.items.length > 0 && D.items.every(x => typeof x.price === "number");
+  return alaCarteCombos(t, mode, p, pool, maxN === Infinity ? Infinity : Math.max(0, maxN - picks.length), {
+    distinctBy: r.distinctBy, dedupKey: r.dedupKey, baseItems: picks,
     resultFilter: reqs.length ? items => reqs.every(s => s.require(items)) : undefined,
+    priced, maxPrice: priced && t ? t.maxPrice : null,
   });
 }
 
 // Dispatch ac ↔ byo (BYO-Einträge bringen die Methoden selbst mit, siehe Registry-Kommentar)
-function runOptimize(r, t, mode, p, st, ex, inc) { return r.kind === "byo" ? r.optimize(t, mode, p, st, ex, r, inc) : optimizeAC(r, t, mode, p, st, ex); }
+function runOptimize(r, t, mode, p, st, ex, inc) { return r.kind === "byo" ? r.optimize(t, mode, p, st, ex, r, inc) : optimizeAC(r, t, mode, p, st, ex, inc); }
 function orderStepsFor(r, sel) { return r.kind === "byo" ? r.orderSteps(sel) : acOrderSteps(sel.items); }
 function searchEntriesFor(r) { return r.kind === "byo" ? r.searchEntries() : r.data.items; }
 function summarizeResult(r, res) { return (r.kind === "byo" && r.summary) ? r.summary(res) : comboLabel(res.items || []); }
@@ -1942,6 +2338,33 @@ const RESTAURANTS = [
     panelSubtitle:sel => "Create Your Own · " + (subwayMenuOf(sel).factor === 2 ? "Footlong" : "15-CM") + " · " + bowlEuro(sel.price),
     inputHint:st => "Create Your Own: 1 sub + 1 bread · " + (subwayMenu(st && st.extra).factor === 2 ? "Footlong" : "15-CM"),
     validate:subwayValidate },
+  // McDonald's Frankfurt An der Hauptwache (Wolt; User 16.09.2026). Daten: node mcdonalds-crawl.js (Nährwerte mcdonalds.com/de + Wolt-Menü →
+  // data/mcdonalds-raw.json) → node mcdonalds-update.js. À la carte mit Preisen; Pflicht-Produkte über „Must include“
+  { key:"mcdonalds", name:"McDonald's (Wolt)", kind:"ac", data:MCDONALDS, gradient:["#c21a1a","#6b4800"], label:"MCDONALD'S · HAUPTWACHE · WOLT", platform:"Wolt", accurate:true, maxN:5,
+    switches:[
+      { id:"noSauce", label:"No sauces & dressings", def:true, filter:x=>!x.sauce },   // Default AN (wie alle „No …“)
+    ],
+    note:"Official nutrition values per product from mcdonalds.com; names and prices from Wolt (McDonald's An der Hauptwache). Nuggets, Potato Dippers, salads and McFlurry Mix & Match count without their included sauce, dressing or topping — the order guide says “Ohne …”. Not in the optimizer: breakfast, drinks, McMenüs, Happy Meals, bundles, Mild Wasabi Sauce (no official values).",
+    footer:"Data: mcdonalds.com/de (official, per product) · menu & prices: Wolt McDonald's An der Hauptwache · 16.09.2026" },
+  // chidoba Frankfurt Kaiserstraße (Wolt; User 16.09.2026). Daten: node chidoba-crawl.js (Nährwertrechner chidoba.com + Wolt-Menü →
+  // data/chidoba-raw.json) → node chidoba-update.js
+  { key:"chidoba", name:"Chidoba (Wolt)", kind:"byo", data:CHIDOBA, menu:CHIDOBA.cup, exclusionKey:"chidoba",
+    gradient:["#1d4ed8","#0b1a3d"], label:"CHIDOBA · KAISERSTRASSE · WOLT", platform:"Wolt", accurate:true, maxN:5,
+    footer:"Data: chidoba nutrition calculator (official, per portion) · menu & prices: Wolt chidoba Kaiserstraße · 16.09.2026",
+    switches:CHIDOBA_SWITCHES,
+    initState:() => ({ types:[], maxExtras:5 }),
+    optimize:chidobaOptimize,
+    renderConfig:ctx => chidobaConfigCard(ctx, CHIDOBA_NOTE),
+    renderCard:chidobaCard,
+    renderPanel:chidobaPanel,
+    orderSteps:chidobaOrderSteps,
+    searchEntries:chidobaSearchEntries,
+    excludables:() => chidobaListEntries().map(({ role, ...x }) => x),
+    includables:chidobaListEntries,
+    summary:chidobaSummary,
+    panelSubtitle:sel => (sel.type === "salat" ? "Salat" : "Cup") + (sel.parts.some(pt => pt.opt.group === "chili") ? " + Chili con Carne" : "") + " · " + bowlEuro(sel.price),
+    inputHint:st => { const tp = (st && st.extra && st.extra.types) || []; return (tp.length === 1 ? (tp[0] === "salat" ? "Salat" : "Cup") : "Cup or Salat") + ": 1 protein + standard toppings"; },
+    validate:chidobaValidate },
 ];
 const RESTO_BY_KEY = Object.fromEntries(RESTAURANTS.map(r => [r.key, r]));
 
@@ -1969,7 +2392,8 @@ function validateRegistry(restos) {
       if (s.filter && typeof s.filter !== "function") P.push(tag + "filter ist keine Funktion: " + s.id);
       if (s.require && typeof s.require !== "function") P.push(tag + "require ist keine Funktion: " + s.id);
       if (s.force && (!Array.isArray(s.force) || s.force.some(id => typeof id !== "string") || r.kind !== "byo")) P.push(tag + "force muss eine Liste von Zutat-ids sein (nur Build-Your-Own): " + s.id);
-      if (!s.filter && !s.require && !s.overridesCats && !s.force) P.push(tag + "Schalter ohne Wirkung: " + s.id);
+      if (s.allow && typeof s.allow !== "function") P.push(tag + "allow ist keine Funktion: " + s.id);
+      if (!s.filter && !s.require && !s.overridesCats && !s.force && !s.allow) P.push(tag + "Schalter ohne Wirkung: " + s.id);
       if (s.group) {
         const g = groups[s.group] || (groups[s.group] = { def: 0, all: 0 });
         if (s.def) g.def++;
@@ -1993,6 +2417,7 @@ function validateRegistry(restos) {
         if (typeof it.name !== "string" || !it.name.trim()) P.push(tag + "Item ohne Namen: " + it.id);
         if (!catIds.has(it.cat)) P.push(tag + "Item mit unbekannter Kategorie: " + it.id + " → " + it.cat);
         for (const m of KEYS) if (!isNum(it[m])) P.push(tag + "Item " + it.id + ": " + m + " ist keine Zahl ≥ 0");
+        if (it.price !== undefined && !isNum(it.price)) P.push(tag + "Item " + it.id + ": price ist keine Zahl ≥ 0");
       }
     } else if (r.kind === "byo") {
       for (const f of ["optimize", "renderConfig", "renderCard", "renderPanel", "orderSteps", "searchEntries"])
@@ -2078,8 +2503,11 @@ function matchesQuery(text, query) {
   const hay = foldVariants(text);
   return q.split(/\s+/).map(foldVariants).every(tv => tv.some(v => hay.some(hs => hs.includes(v))));
 }
-// Was sich pro Restaurant als Pflicht-Zutat wählen lässt (nur BYO-Menüs mit includables)
-function includablesFor(r) { return r.kind === "byo" && r.includables ? r.includables() : []; }
+// Was sich pro Restaurant als Pflicht-Zutat bzw. -Produkt wählen lässt: BYO = r.includables(), à la carte = alle Items wie die Ausschluss-Liste
+function includablesFor(r) {
+  if (r.kind === "byo") return r.includables ? r.includables() : [];
+  return excludablesFor(r).map(x => Object.assign({ role: "item" }, x));
+}
 // Was sich pro Restaurant ausschließen lässt: à la carte = Items (ohne Getränke/Schalentier), BYO = r.excludables()
 function excludablesFor(r) {
   if (r.kind === "byo") return r.excludables ? r.excludables() : [];
@@ -2255,7 +2683,7 @@ function IncludeCard({ list, included, nameOf, platform, onAdd, onRemove, onClea
       h("button", { onClick: onClear, style: { ...linkBtn, color: "#777", marginLeft: 4 } }, "Clear")
     ),
     open && h("div", { style: { marginTop: 10 } },
-      h("div", { style: { fontSize: 11, color: "#777", marginBottom: 8, lineHeight: 1.4 } }, "Craving something today? Tap it — every suggested bowl includes it and the optimizer picks the rest to fit your targets. Switches like “No dip” don't hide your picks (saved on this device)."),
+      h("div", { style: { fontSize: 11, color: "#777", marginBottom: 8, lineHeight: 1.4 } }, "Craving something today? Tap it — every suggested order includes it and the optimizer picks the rest to fit your targets. Switches and category chips don't hide your picks (saved on this device)."),
       h("input", { type: "text", value: q, onChange: e => setQ(e.target.value), placeholder: "Search items…",
         style: { width: "100%", boxSizing: "border-box", background: "#0d0d0d", border: "1px solid #2a2a2a", borderRadius: 8, padding: "9px 12px", color: "#fff", fontSize: 14, fontFamily: S.font, outline: "none", marginBottom: 8 } }),
       shown.length === 0
@@ -2586,7 +3014,7 @@ function App() {
 
       // Ausschluss-Liste (ausverkauft / heute keine Lust) — generisch für jedes Registry-Restaurant
       // Pflicht-Zutaten („Must include“) — für BYO-Restaurants mit includables(); Ausschluss und Pflicht schließen sich gegenseitig aus
-      R&&R.kind==="byo"&&R.includables&&h(IncludeCard,{key:"in_"+R.key,list:includables.filter(x=>!exSet.has(x.id)),included:inList,platform:R.platform,nameOf:ingName,
+      R&&includables.length>0&&h(IncludeCard,{key:"in_"+R.key,list:includables.filter(x=>!exSet.has(x.id)),included:inList,platform:R.platform,nameOf:ingName,
         onAdd:id=>{setInclFor(exKey,cur=>addInclude(cur,id,includables));setExclFor(exKey,cur=>cur.filter(x=>x!==id));},
         onRemove:id=>setInclFor(exKey,cur=>cur.filter(x=>x!==id)),
         onClear:()=>setInclFor(exKey,()=>[])}),
@@ -2670,13 +3098,13 @@ function App() {
           if(R.kind==="byo") return R.renderCard(r,{...ctx,selected:resultKey(r)===selKey,onSelect:()=>toggleSel(r)});
           const cats=[...new Set(r.items.map(x=>{const c=R.data.cats.find(y=>y.id===x.cat);return c?c.name:x.cat;}))];
           return h(ResultCard,{key:i,title:comboLabel(r.items),sub:r.items.length+(r.items.length===1?" Item · ":" Items · ")+cats.join(" · "),
-            n:r.nutrition,selected:resultKey(r)===selKey,onClick:()=>toggleSel(r)});
+            n:r.nutrition,price:r.price,selected:resultKey(r)===selKey,onClick:()=>toggleSel(r)});
         }),
         activeResults.length===0&&h("div",{style:{fontSize:12,color:"#888",fontFamily:S.mono,padding:"4px 0"}},
           !isCross&&activeResults.missing?"Not on the "+R.platform+" menu: "+activeResults.missing.map(ingName).join(", ")+" — remove it from “Must include” or try another tab."
             :!isCross&&activeResults.conflict?"These picks don't fit together in one order: "+activeResults.conflict.map(ingName).join(" / ")+" — keep fewer of them in “Must include”."
             :isCross?(targets.maxPrice!=null?"No results within "+bowlEuro(targets.maxPrice)+" — raise the price limit.":"No results.")
-            :targets.maxPrice!=null&&R.kind==="byo"?"No results within "+bowlEuro(targets.maxPrice)+" — raise the price limit, relax the switches or remove exclusions"+(inList.length?" or picks.":".")
+            :targets.maxPrice!=null&&(R.kind==="byo"||R.data.items.some(x=>x.price!=null))?"No results within "+bowlEuro(targets.maxPrice)+" — raise the price limit, relax the switches or remove exclusions"+(inList.length?" or picks.":".")
             :R.kind==="byo"?"No results — relax the switches or remove exclusions"+(inList.length?" or picks.":"."):"No results — turn on more categories, relax the switches or remove exclusions.")
       ),
 
@@ -2689,9 +3117,12 @@ function App() {
         R.kind==="byo"?R.renderPanel(sel,ctx):h("div",{style:{marginBottom:16}},
           h("div",{style:{fontSize:10,color:"#555",fontFamily:S.mono,textTransform:"uppercase",letterSpacing:1,marginBottom:6}},"Items"),
           ...sel.items.map((x,xi)=>h("div",{key:xi,style:{display:"flex",alignItems:"flex-start",justifyContent:"space-between",gap:8,fontSize:12,padding:"4px 0",borderBottom:xi<sel.items.length-1?"1px solid #1f1f1f":"none"}},
-            h("span",{style:{color:"#e0e0e0",minWidth:0,flex:1}},x.name),
-            h("span",{style:{color:"#999",fontFamily:S.mono,whiteSpace:"nowrap"}},x.kcal+" kcal · P "+x.protein+"g")
-          ))
+            h("span",{style:{color:"#e0e0e0",minWidth:0,flex:1}},(inSet.has(x.id)?"★ ":"")+x.name),
+            h("span",{style:{color:"#999",fontFamily:S.mono,whiteSpace:"nowrap"}},x.kcal+" kcal · P "+x.protein+"g"+(x.price!=null?" · "+bowlEuro(x.price):""))
+          )),
+          sel.price!=null&&h("div",{style:{display:"flex",justifyContent:"space-between",gap:8,fontSize:12,padding:"6px 0 0",marginTop:4,borderTop:"1px solid #1f1f1f"}},
+            h("span",{style:{color:"#e0e0e0",fontWeight:600}},"Total price",h("span",{style:{color:"#777",fontWeight:400,fontSize:10}},"  "+R.platform+" menu prices, no fees")),
+            h("span",{style:{color:"#fff",fontFamily:S.mono,fontWeight:600,whiteSpace:"nowrap"}},bowlEuro(sel.price)))
         ),
         h(OrderGuide,{platform:R.platform,steps:orderStepsFor(R,sel)})
       ),

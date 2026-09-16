@@ -1,0 +1,4902 @@
+{
+  "_meta": {
+    "restaurant": "chidoba MEXICAN GRILL",
+    "fetchedAt": "2026-09-16T11:05:01.784Z",
+    "sources": {
+      "nutrition": {
+        "calculator": "https://www.chidoba.com/nutrition?type=%7BProduktart%7D",
+        "types": [
+          "Burrito",
+          "Taco 1er",
+          "Taco 3er",
+          "Cup",
+          "Salat",
+          "Sides",
+          "Snacks",
+          "Dips"
+        ]
+      },
+      "wolt": {
+        "venue": "chidobi-mexican-grill",
+        "name": "chidoba MEXICAN GRILL® - Frankfurt Kaiserstraße",
+        "page": "https://wolt.com/de/deu/frankfurt/restaurant/chidobi-mexican-grill",
+        "api": "https://consumer-api.wolt.com/consumer-api/consumer-assortment/v1/venues/slug/chidobi-mexican-grill/assortment?language=de"
+      }
+    },
+    "basis": "Offizielle Werte je Portion aus dem chidoba-Nährwertrechner (data-Attribute je Zutat), getrennt je Produktart (Cup, Salat, Snacks). Salz = Natrium (mg) × 2,5 / 1000. Wolt-Namen und -Preise der Filiale Kaiserstraße.",
+    "rules": "Jede Bestellung = ein Cup oder Salat (Protein laut Artikel) mit seinen Standard-Zutaten; Cup: Basis 0–1 (Gewürzreis, Cubes); Cream 0–1, Salsa 0–1, Extras je 1× (Wolt bis 7); optional 1× Snack „Chili con Carne“ als zweiter Artikel.",
+    "decisions": [
+      "User 16.09.2026: Chidoba als Tracker; relevant nur „Cup“, „Salat“ und „Chili con Carne“ (Snacks); Nährwerte aus dem Rechner auf chidoba.com",
+      "User 16.09.2026: Schalter „No Sauce/Cheese/Dips“ Default AN (keine Cheesesauce, Salsa, Sour Cream, Cheddar Jack Cheese, Guacamole)",
+      "User 16.09.2026: Plattform Wolt, Filiale Kaiserstraße (Namen, Verfügbarkeit, Preise)",
+      "User 16.09.2026: Schalter „Add Chili con carne“ (Default AUS) — an: der Optimizer darf 1× Chili con Carne als zweiten Artikel dazunehmen, wenn es die Ziele besser trifft",
+      "User 16.09.2026: Standard-Zutaten fix, nur Black Beans darf der Optimizer abwählen"
+    ],
+    "assumptions": [
+      "„No Sauce/Cheese/Dips“ wählt auch die Standard-Zutaten Cheddar Jack Cheese und (Salat) California Dressing ab",
+      "Extra Cheddar Jack Cheese = eine weitere Portion laut Rechner",
+      "Tortilla Strips (Standard im Salat) haben keine Werte → der Order Guide wählt sie immer ab"
+    ],
+    "products": [
+      "Barbacoa Cup 15.99 €",
+      "Beef Salat 15.69 €",
+      "Filetsteak Cup 16.99 €",
+      "Chicken Cup 14.49 €",
+      "Beef Cup 14.49 €",
+      "Chicken Salat 15.69 €",
+      "Filetsteak Salat 18.49 €"
+    ],
+    "productNoData": [
+      "Vegan Salat (14.99 €) — Standard-Zutat „rohe Paprika & rote Zwiebeln“ ohne Werte im Rechner",
+      "Veggie Cup (13.69 €) — Standard-Zutat „rohe Paprika & rote Zwiebeln“ hat im Rechner keine Werte (dort nur gegrilltes Gemüse)",
+      "Vegan Cup (13.69 €) — Standard-Zutat „rohe Paprika & rote Zwiebeln“ ohne Werte im Rechner",
+      "Planted Chicken Cup (15.99 €) — Standard-Zutat „rohe Paprika & rote Zwiebeln“ ohne Werte im Rechner",
+      "Veggie Salat (14.99 €) — Standard-Zutat „rohe Paprika & rote Zwiebeln“ ohne Werte im Rechner",
+      "Planted Chicken Salat (17.29 €) — Standard-Zutat „rohe Paprika & rote Zwiebeln“ ohne Werte im Rechner"
+    ],
+    "never": [
+      "„Korianderreis“ (Deine Basis) — Koriander (User 13.09.2026)",
+      "„Cilantro Creme“ (Deine Cream) — Koriander (User 13.09.2026); keine Werte im Rechner",
+      "„Cilantro Cream“ (Deine Soße) — Koriander (User 13.09.2026); keine Werte im Rechner"
+    ],
+    "noData": [
+      "„Chili Creme“ (Deine Cream) — nicht im Rechner",
+      "„Jalapeños“ (Deine Extras) — nicht im Rechner",
+      "„Chili con Carne“ (Deine Extras) — Extra-Portion im Cup/Salat nicht im Rechner (nur der Snack)",
+      "„Planted Chicken“ (Deine Extras) — als Extra nicht im Rechner",
+      "„Habanero Sauce“ (Deine Extras) — nicht im Rechner",
+      "„Tabasco“ (Deine Extras) — nicht im Rechner",
+      "„Tortilla Strips“ (Standard-Zutat Salat) — Tortilla Strips haben im Rechner keine Werte → der Order Guide wählt sie immer ab",
+      "„Chili Cream“ (Deine Soße) — nicht im Rechner",
+      "„Cheesesauce“ (Extra im Salat) — der Salat-Rechner führt keine Cheesesauce"
+    ],
+    "sameValues": [
+      "Salsa „Medium“ — gleiche Rechner-Zeile wie Mild („Salsa Mild oder Medium“) → nicht doppelt angeboten",
+      "Salsa „Scharf“ — „Salsa Hot“ hat genau die Werte von Mild/Medium → nicht doppelt angeboten"
+    ],
+    "chili": {
+      "name": "Chili con Carne",
+      "price": 8.49,
+      "description": "mit 100% Rindfleisch, Bohnen, Mais, Sour Cream und bedeckt mit Maischip Strips",
+      "options": [
+        "Wähle deine Zutaten [0–2]: Ohne Tortilla Strips, Ohne Sour Cream",
+        "Dein extra Dip [0–3]: Guacamole Dip +3.19, Cheesesauce Dip +2.49, Adobada Dip +1.69"
+      ],
+      "note": "Werte = Standard-Zusammenstellung laut Rechner (inkl. Sour Cream und Tortilla Strips laut Wolt-Beschreibung); wird nicht umgebaut"
+    },
+    "anomalies": [
+      {
+        "name": "Cup ↔ Salat",
+        "issues": [
+          "Rechner nennt je Produktart andere Werte (Tracker nutzt je Produktart die eigene Zeile): Barbacoa: Cup kcal 144, fat 6.3, sat 2.25, carbs 1.8, sugars 0, fibre 0.9, protein 21.6, salt 1.193 · Salat kcal 177.6, fat 9.16, sat 4.84, carbs 0.18, sugars 0.18, fibre 0.05, protein 23.59, salt 0.699 · Chicken: Cup sat 1.2 · Salat sat 0"
+        ]
+      },
+      {
+        "name": "Snacks / Chili con Carne",
+        "issues": [
+          "Ballaststoffe = Eiweiß (je 15.58 g) — möglicher Übertragungsfehler, unverändert übernommen"
+        ]
+      },
+      {
+        "name": "Natrium",
+        "issues": [
+          "auffällig niedrig (Salz ≈ 0): Cup / Cubes 0.28 mg, Cup / gegrilltes Gemüse 2.15 mg, Cup / Cheddar Jack Cheese 0.8 mg, Cup / Salsa Mild oder Medium 0.57 mg, Cup / Cheesesauce 0 mg, Salat / gegrilltes Gemüse 2.15 mg, Salat / Cheddar Jack Cheese 0.8 mg, Salat / California Dressing 1.14 mg, Salat / Salsa Mild oder Medium 0.57 mg"
+        ]
+      }
+    ],
+    "coriander": [
+      "Cup / Barbacoa: Koriander (Gewürz)",
+      "Cup / gewürzter Reis: Koriander (Gewürz)",
+      "Cup / Cubes: Koriander (Gewürz)",
+      "Cup / gegrilltes Gemüse: Koriander (Gewürz)",
+      "Cup / Salsa Mild oder Medium: frischer Koriander",
+      "Cup / Beef (extra): Koriander (Gewürz)",
+      "Cup / Chicken (extra): Koriander (Gewürz)",
+      "Cup / Filetsteak (extra): Koriander (Gewürz)",
+      "Cup / 1 Kugel Guacamole: frischer Koriander",
+      "Salat / Beef: Koriander (Gewürz)",
+      "Salat / gegrilltes Gemüse: Koriander (Gewürz)",
+      "Salat / Salsa Mild oder Medium: frischer Koriander",
+      "Salat / Chicken (extra): Koriander (Gewürz)",
+      "Salat / Barbacoa (extra): Koriander (Gewürz)",
+      "Salat / Filetsteak (extra): Koriander (Gewürz)",
+      "Salat / 1 Kugel Guacamole: frischer Koriander",
+      "Snacks / Chili con Carne: Koriander (Gewürz)"
+    ],
+    "shellfish": "kein Baustein mit Krebs- oder Weichtieren laut Rechner"
+  },
+  "calculator": {
+    "Burrito": [
+      {
+        "section": "Tortilla",
+        "items": [
+          {
+            "label": "Tortilla",
+            "section": "Tortilla",
+            "multi": false,
+            "perPortion": {
+              "kcal": 286.71,
+              "fat": 6.87,
+              "sat": 3.48,
+              "carbs": 46.17,
+              "sugars": 1.28,
+              "fibre": 2.75,
+              "protein": 8.7,
+              "salt": 0.001
+            },
+            "natriumMg": 0.55,
+            "allergens": [
+              "Gluten"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Füllung",
+        "items": [
+          {
+            "label": "ohne Füllung",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": null,
+            "natriumMg": null,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Cubes",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": {
+              "kcal": 135.6,
+              "fat": 6.6,
+              "sat": 1.02,
+              "carbs": 15.5,
+              "sugars": 0.21,
+              "fibre": 1.75,
+              "protein": 1.92,
+              "salt": 0
+            },
+            "natriumMg": 0.14,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Koriander Reis",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": {
+              "kcal": 171.59,
+              "fat": 0.25,
+              "sat": 0.06,
+              "carbs": 38.79,
+              "sugars": 0.12,
+              "fibre": 0.69,
+              "protein": 3.2,
+              "salt": 0.339
+            },
+            "natriumMg": 135.7,
+            "allergens": [],
+            "hints": [
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "gewürzter Reis",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": {
+              "kcal": 171.59,
+              "fat": 0.25,
+              "sat": 0.06,
+              "carbs": 38.79,
+              "sugars": 0.12,
+              "fibre": 0.69,
+              "protein": 3.2,
+              "salt": 0.339
+            },
+            "natriumMg": 135.7,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Reis halb/halb",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": {
+              "kcal": 171.59,
+              "fat": 0.25,
+              "sat": 0.06,
+              "carbs": 38.79,
+              "sugars": 0.12,
+              "fibre": 0.69,
+              "protein": 3.2,
+              "salt": 0.339
+            },
+            "natriumMg": 135.7,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Reis (bei Veggie Burrito)",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": {
+              "kcal": 244.3,
+              "fat": 0.35,
+              "sat": 0.08,
+              "carbs": 55.23,
+              "sugars": 0.17,
+              "fibre": 0.98,
+              "protein": 4.55,
+              "salt": 0.483
+            },
+            "natriumMg": 193.2,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Fleisch",
+        "items": [
+          {
+            "label": "Chicken",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 116.8,
+              "fat": 2.96,
+              "sat": 1.2,
+              "carbs": 2.96,
+              "sugars": 2.96,
+              "fibre": 0.4,
+              "protein": 19.6,
+              "salt": 0.566
+            },
+            "natriumMg": 226.4,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "gefluegel"
+            ]
+          },
+          {
+            "label": "Beef",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 155.22,
+              "fat": 11.7,
+              "sat": 5.07,
+              "carbs": 3.67,
+              "sugars": 1.25,
+              "fibre": 0.78,
+              "protein": 10.92,
+              "salt": 0.741
+            },
+            "natriumMg": 296.4,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Filetsteak",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 151.25,
+              "fat": 5,
+              "sat": 2.2,
+              "carbs": 0.19,
+              "sugars": 0.19,
+              "fibre": 0.05,
+              "protein": 26.5,
+              "salt": 0.244
+            },
+            "natriumMg": 97.5,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "koriander_gew",
+              "rindfleisch"
+            ]
+          },
+          {
+            "label": "Barbacoa",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 144,
+              "fat": 6.3,
+              "sat": 2.25,
+              "carbs": 1.8,
+              "sugars": 0,
+              "fibre": 0.9,
+              "protein": 21.6,
+              "salt": 1.193
+            },
+            "natriumMg": 477,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Veggie",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": null,
+            "natriumMg": null,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Planted Chicken",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 140.43,
+              "fat": 2.7,
+              "sat": 0.56,
+              "carbs": 1.95,
+              "sugars": 0,
+              "fibre": 4.09,
+              "protein": 22.51,
+              "salt": 0.002
+            },
+            "natriumMg": 0.74,
+            "allergens": [],
+            "hints": [
+              "spuren_gluten",
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Zutaten",
+        "items": [
+          {
+            "label": "gegrilltes Gemüse",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 12.21,
+              "fat": 0.16,
+              "sat": 0.03,
+              "carbs": 2.02,
+              "sugars": 2.02,
+              "fibre": 1.39,
+              "protein": 0.53,
+              "salt": 0.005
+            },
+            "natriumMg": 2.15,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_roh",
+              "koriander_gew",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Black Beans",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 77.18,
+              "fat": 0.32,
+              "sat": 0.08,
+              "carbs": 13.87,
+              "sugars": 0,
+              "fibre": 5.1,
+              "protein": 5.18,
+              "salt": 0.347
+            },
+            "natriumMg": 138.72,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Salsa Mild oder Medium",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 19.88,
+              "fat": 0.28,
+              "sat": 0.04,
+              "carbs": 3.48,
+              "sugars": 1.28,
+              "fibre": 0.5,
+              "protein": 0.85,
+              "salt": 0.001
+            },
+            "natriumMg": 0.57,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "mais",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Salsa Hot",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 19.88,
+              "fat": 0.28,
+              "sat": 0.04,
+              "carbs": 3.48,
+              "sugars": 1.28,
+              "fibre": 0.5,
+              "protein": 0.85,
+              "salt": 0.001
+            },
+            "natriumMg": 0.57,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Cheesesauce",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 110.77,
+              "fat": 9.28,
+              "sat": 0.8,
+              "carbs": 2.07,
+              "sugars": 1.86,
+              "fibre": 0,
+              "protein": 4.4,
+              "salt": 0
+            },
+            "natriumMg": 0,
+            "allergens": [
+              "Fisch",
+              "Milch",
+              "Schwefeldioxid/Sulfite"
+            ],
+            "hints": [
+              "laktose",
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "Eisbergsalat",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 6.5,
+              "fat": 0.1,
+              "sat": 0.02,
+              "carbs": 0.79,
+              "sugars": 0.79,
+              "fibre": 0.9,
+              "protein": 0.5,
+              "salt": 0.015
+            },
+            "natriumMg": 6,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Sour Cream",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 35.1,
+              "fat": 3,
+              "sat": 1.82,
+              "carbs": 0.99,
+              "sugars": 0.99,
+              "fibre": 0,
+              "protein": 0.93,
+              "salt": 0.03
+            },
+            "natriumMg": 12,
+            "allergens": [
+              "Milch"
+            ],
+            "hints": [
+              "laktose",
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "Cheddar Jack Cheese",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 65.12,
+              "fat": 4.96,
+              "sat": 3.31,
+              "carbs": 0.48,
+              "sugars": 0.02,
+              "fibre": 0,
+              "protein": 4.16,
+              "salt": 0.002
+            },
+            "natriumMg": 0.8,
+            "allergens": [],
+            "hints": [
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "1 Kugel Guacamole",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 37.25,
+              "fat": 3.5,
+              "sat": 0.55,
+              "carbs": 1.7,
+              "sugars": 0.48,
+              "fibre": 1.03,
+              "protein": 0.35,
+              "salt": 0.158
+            },
+            "natriumMg": 63,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "2 Kugel Guacamole",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 74.5,
+              "fat": 7,
+              "sat": 1.1,
+              "carbs": 3.4,
+              "sugars": 0.95,
+              "fibre": 2.05,
+              "protein": 0.7,
+              "salt": 0.315
+            },
+            "natriumMg": 126,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "3 Kugel Guacamole",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 111.75,
+              "fat": 10.5,
+              "sat": 1.65,
+              "carbs": 5.1,
+              "sugars": 1.43,
+              "fibre": 3.08,
+              "protein": 1.05,
+              "salt": 0.473
+            },
+            "natriumMg": 189,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Limette",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 3.29,
+              "fat": 0,
+              "sat": 0,
+              "carbs": 0.13,
+              "sugars": 0,
+              "fibre": 0,
+              "protein": 0.05,
+              "salt": 0
+            },
+            "natriumMg": 0,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Beef (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 155.22,
+              "fat": 11.7,
+              "sat": 5.07,
+              "carbs": 3.67,
+              "sugars": 1.25,
+              "fibre": 0.78,
+              "protein": 10.92,
+              "salt": 0.741
+            },
+            "natriumMg": 296.4,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Chicken (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 116.8,
+              "fat": 2.96,
+              "sat": 1.2,
+              "carbs": 2.96,
+              "sugars": 2.96,
+              "fibre": 0.4,
+              "protein": 19.6,
+              "salt": 0.566
+            },
+            "natriumMg": 226.4,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "gefluegel"
+            ]
+          },
+          {
+            "label": "Filetsteak (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 151.25,
+              "fat": 5,
+              "sat": 2.2,
+              "carbs": 0.19,
+              "sugars": 0.19,
+              "fibre": 0.05,
+              "protein": 26.5,
+              "salt": 0.244
+            },
+            "natriumMg": 97.5,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "koriander_gew",
+              "rindfleisch"
+            ]
+          },
+          {
+            "label": "Barbacoa (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 144,
+              "fat": 6.3,
+              "sat": 2.25,
+              "carbs": 1.8,
+              "sugars": 0,
+              "fibre": 0.9,
+              "protein": 21.6,
+              "salt": 1.193
+            },
+            "natriumMg": 477,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          }
+        ]
+      }
+    ],
+    "Taco 1er": [
+      {
+        "section": "Tortilla",
+        "items": [
+          {
+            "label": "Maistaco (HARD Shell)",
+            "section": "Tortilla",
+            "multi": false,
+            "perPortion": {
+              "kcal": 70,
+              "fat": 4,
+              "sat": 1,
+              "carbs": 8,
+              "sugars": 0,
+              "fibre": 0,
+              "protein": 0,
+              "salt": 0
+            },
+            "natriumMg": 0,
+            "allergens": [],
+            "hints": [
+              "mais",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Softtaco",
+            "section": "Tortilla",
+            "multi": false,
+            "perPortion": {
+              "kcal": 90,
+              "fat": 3,
+              "sat": 1,
+              "carbs": 15,
+              "sugars": 1,
+              "fibre": 1,
+              "protein": 2,
+              "salt": 0.225
+            },
+            "natriumMg": 90,
+            "allergens": [
+              "Gluten"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Füllung",
+        "items": [
+          {
+            "label": "Standard ohne Reis",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": null,
+            "natriumMg": null,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Koriander Reis",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": {
+              "kcal": 58.17,
+              "fat": 0.08,
+              "sat": 0.02,
+              "carbs": 13.15,
+              "sugars": 0.04,
+              "fibre": 0.23,
+              "protein": 1.08,
+              "salt": 0.115
+            },
+            "natriumMg": 46,
+            "allergens": [],
+            "hints": [
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "gewürzter Reis",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": {
+              "kcal": 58.17,
+              "fat": 0.08,
+              "sat": 0.02,
+              "carbs": 13.15,
+              "sugars": 0.04,
+              "fibre": 0.23,
+              "protein": 1.08,
+              "salt": 0.115
+            },
+            "natriumMg": 46,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Fleisch",
+        "items": [
+          {
+            "label": "Chicken",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 46.72,
+              "fat": 1.18,
+              "sat": 0,
+              "carbs": 1.18,
+              "sugars": 1.18,
+              "fibre": 0.16,
+              "protein": 7.84,
+              "salt": 0.226
+            },
+            "natriumMg": 90.56,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "gefluegel"
+            ]
+          },
+          {
+            "label": "Beef",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 47.71,
+              "fat": 2.43,
+              "sat": 1.02,
+              "carbs": 0.83,
+              "sugars": 0.57,
+              "fibre": 0.17,
+              "protein": 5.65,
+              "salt": 0.167
+            },
+            "natriumMg": 66.6,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Filetsteak",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 62.78,
+              "fat": 1.59,
+              "sat": 0,
+              "carbs": 1.59,
+              "sugars": 1.59,
+              "fibre": 0.22,
+              "protein": 10.54,
+              "salt": 0.304
+            },
+            "natriumMg": 121.69,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "koriander_gew",
+              "rindfleisch"
+            ]
+          },
+          {
+            "label": "Barbacoa",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 48,
+              "fat": 2.1,
+              "sat": 0.75,
+              "carbs": 0.6,
+              "sugars": 0,
+              "fibre": 0.3,
+              "protein": 7.2,
+              "salt": 0.398
+            },
+            "natriumMg": 159,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Veggie",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": null,
+            "natriumMg": null,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Zutaten",
+        "items": [
+          {
+            "label": "Salsa Mild oder Medium",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 19.88,
+              "fat": 0.28,
+              "sat": 0.04,
+              "carbs": 3.48,
+              "sugars": 1.28,
+              "fibre": 0.5,
+              "protein": 0.85,
+              "salt": 0.001
+            },
+            "natriumMg": 0.57,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "mais",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Salsa Hot",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 19.88,
+              "fat": 0.28,
+              "sat": 0.04,
+              "carbs": 3.48,
+              "sugars": 1.28,
+              "fibre": 0.5,
+              "protein": 0.85,
+              "salt": 0.001
+            },
+            "natriumMg": 0.57,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Cheesesauce",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 110.77,
+              "fat": 9.28,
+              "sat": 0.8,
+              "carbs": 2.07,
+              "sugars": 1.86,
+              "fibre": 0,
+              "protein": 4.4,
+              "salt": 0
+            },
+            "natriumMg": 0,
+            "allergens": [
+              "Fisch",
+              "Milch",
+              "Schwefeldioxid/Sulfite"
+            ],
+            "hints": [
+              "laktose",
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "Eisbergsalat",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 6.5,
+              "fat": 0.1,
+              "sat": 0.02,
+              "carbs": 0.79,
+              "sugars": 0.79,
+              "fibre": 0.9,
+              "protein": 0.5,
+              "salt": 0.015
+            },
+            "natriumMg": 6,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Sour Cream",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 17.55,
+              "fat": 1.5,
+              "sat": 0.91,
+              "carbs": 0.5,
+              "sugars": 0.5,
+              "fibre": 0,
+              "protein": 0.47,
+              "salt": 0.015
+            },
+            "natriumMg": 6,
+            "allergens": [
+              "Milch"
+            ],
+            "hints": [
+              "laktose",
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "Cheddar Jack Cheese",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 20.35,
+              "fat": 1.55,
+              "sat": 1.04,
+              "carbs": 0.15,
+              "sugars": 0.01,
+              "fibre": 0,
+              "protein": 1.3,
+              "salt": 0.001
+            },
+            "natriumMg": 0.25,
+            "allergens": [],
+            "hints": [
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "1 Kugel Guacamole",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 37.25,
+              "fat": 3.5,
+              "sat": 0.55,
+              "carbs": 1.7,
+              "sugars": 0.48,
+              "fibre": 1.03,
+              "protein": 0.35,
+              "salt": 0.158
+            },
+            "natriumMg": 63,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Limette",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 3.29,
+              "fat": 0,
+              "sat": 0,
+              "carbs": 0.13,
+              "sugars": 0,
+              "fibre": 0,
+              "protein": 0.05,
+              "salt": 0
+            },
+            "natriumMg": 0,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Black Beans",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 15.89,
+              "fat": 0.07,
+              "sat": 0.02,
+              "carbs": 2.85,
+              "sugars": 0,
+              "fibre": 1.05,
+              "protein": 1.07,
+              "salt": 0.071
+            },
+            "natriumMg": 28.56,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Beef (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 47.71,
+              "fat": 2.43,
+              "sat": 1.02,
+              "carbs": 0.83,
+              "sugars": 0.57,
+              "fibre": 0.17,
+              "protein": 5.65,
+              "salt": 0.167
+            },
+            "natriumMg": 66.6,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Chicken (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 46.72,
+              "fat": 1.18,
+              "sat": 0,
+              "carbs": 1.18,
+              "sugars": 1.18,
+              "fibre": 0.16,
+              "protein": 7.84,
+              "salt": 0.226
+            },
+            "natriumMg": 90.56,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "gefluegel"
+            ]
+          },
+          {
+            "label": "Filetsteak (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 62.78,
+              "fat": 1.59,
+              "sat": 0,
+              "carbs": 1.59,
+              "sugars": 1.59,
+              "fibre": 0.22,
+              "protein": 10.54,
+              "salt": 0.304
+            },
+            "natriumMg": 121.69,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "koriander_gew",
+              "rindfleisch"
+            ]
+          },
+          {
+            "label": "Barbacoa (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 48,
+              "fat": 2.1,
+              "sat": 0.75,
+              "carbs": 0.6,
+              "sugars": 0,
+              "fibre": 0.3,
+              "protein": 7.2,
+              "salt": 0.398
+            },
+            "natriumMg": 159,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          }
+        ]
+      }
+    ],
+    "Taco 3er": [
+      {
+        "section": "Tortilla",
+        "items": [
+          {
+            "label": "Maistaco (HARD Shell)",
+            "section": "Tortilla",
+            "multi": false,
+            "perPortion": {
+              "kcal": 210,
+              "fat": 12,
+              "sat": 3,
+              "carbs": 24,
+              "sugars": 0,
+              "fibre": 0,
+              "protein": 0,
+              "salt": 0
+            },
+            "natriumMg": 0,
+            "allergens": [],
+            "hints": [
+              "mais",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Softtaco",
+            "section": "Tortilla",
+            "multi": false,
+            "perPortion": {
+              "kcal": 270,
+              "fat": 9,
+              "sat": 3,
+              "carbs": 45,
+              "sugars": 3,
+              "fibre": 3,
+              "protein": 6,
+              "salt": 0.675
+            },
+            "natriumMg": 270,
+            "allergens": [
+              "Gluten"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Füllung",
+        "items": [
+          {
+            "label": "Standard ohne Reis",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": null,
+            "natriumMg": null,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Koriander Reis",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": {
+              "kcal": 174.5,
+              "fat": 0.25,
+              "sat": 0.06,
+              "carbs": 39.45,
+              "sugars": 0.12,
+              "fibre": 0.7,
+              "protein": 3.25,
+              "salt": 0.345
+            },
+            "natriumMg": 138,
+            "allergens": [],
+            "hints": [
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "gewürzter Reis",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": {
+              "kcal": 174.5,
+              "fat": 0.25,
+              "sat": 0.06,
+              "carbs": 39.45,
+              "sugars": 0.12,
+              "fibre": 0.7,
+              "protein": 3.25,
+              "salt": 0.345
+            },
+            "natriumMg": 138,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Fleisch",
+        "items": [
+          {
+            "label": "Chicken",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 140.16,
+              "fat": 3.55,
+              "sat": 0,
+              "carbs": 3.55,
+              "sugars": 3.55,
+              "fibre": 0.48,
+              "protein": 23.52,
+              "salt": 0.679
+            },
+            "natriumMg": 271.68,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "gefluegel"
+            ]
+          },
+          {
+            "label": "Beef",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 143.14,
+              "fat": 7.29,
+              "sat": 3.06,
+              "carbs": 2.49,
+              "sugars": 1.72,
+              "fibre": 0.5,
+              "protein": 16.95,
+              "salt": 0.5
+            },
+            "natriumMg": 199.8,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Filetsteak",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 188.34,
+              "fat": 4.77,
+              "sat": 0,
+              "carbs": 4.77,
+              "sugars": 4.77,
+              "fibre": 0.65,
+              "protein": 31.61,
+              "salt": 0.913
+            },
+            "natriumMg": 365.07,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "koriander_gew",
+              "rindfleisch"
+            ]
+          },
+          {
+            "label": "Barbacoa",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 144,
+              "fat": 6.3,
+              "sat": 2.25,
+              "carbs": 1.8,
+              "sugars": 0,
+              "fibre": 0.9,
+              "protein": 21.6,
+              "salt": 1.193
+            },
+            "natriumMg": 477,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Veggie",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": null,
+            "natriumMg": null,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Zutaten",
+        "items": [
+          {
+            "label": "gegrilltes Gemüse",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 12.21,
+              "fat": 0.16,
+              "sat": 0.03,
+              "carbs": 2.02,
+              "sugars": 2.02,
+              "fibre": 1.39,
+              "protein": 0.53,
+              "salt": 0.005
+            },
+            "natriumMg": 2.15,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_roh",
+              "koriander_gew",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Black Beans",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 47.67,
+              "fat": 0.2,
+              "sat": 0.05,
+              "carbs": 8.56,
+              "sugars": 0,
+              "fibre": 3.15,
+              "protein": 3.2,
+              "salt": 0.214
+            },
+            "natriumMg": 85.68,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Salsa Mild oder Medium",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 19.88,
+              "fat": 0.28,
+              "sat": 0.04,
+              "carbs": 3.48,
+              "sugars": 1.28,
+              "fibre": 0.5,
+              "protein": 0.85,
+              "salt": 0.001
+            },
+            "natriumMg": 0.57,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "mais",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Salsa Hot",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 19.88,
+              "fat": 0.28,
+              "sat": 0.04,
+              "carbs": 3.48,
+              "sugars": 1.28,
+              "fibre": 0.5,
+              "protein": 0.85,
+              "salt": 0.001
+            },
+            "natriumMg": 0.57,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Cheesesauce",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 110.77,
+              "fat": 9.28,
+              "sat": 0.8,
+              "carbs": 2.07,
+              "sugars": 1.86,
+              "fibre": 0,
+              "protein": 4.4,
+              "salt": 0
+            },
+            "natriumMg": 0,
+            "allergens": [
+              "Fisch",
+              "Milch",
+              "Schwefeldioxid/Sulfite"
+            ],
+            "hints": [
+              "laktose",
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "Eisbergsalat",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 19.5,
+              "fat": 0.3,
+              "sat": 0.05,
+              "carbs": 2.36,
+              "sugars": 2.36,
+              "fibre": 2.7,
+              "protein": 1.5,
+              "salt": 0.045
+            },
+            "natriumMg": 18,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Sour Cream",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 52.65,
+              "fat": 4.5,
+              "sat": 2.73,
+              "carbs": 1.49,
+              "sugars": 1.49,
+              "fibre": 0,
+              "protein": 1.4,
+              "salt": 0.045
+            },
+            "natriumMg": 18,
+            "allergens": [
+              "Milch"
+            ],
+            "hints": [
+              "laktose",
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "Cheddar Jack Cheese",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 61.05,
+              "fat": 4.65,
+              "sat": 3.11,
+              "carbs": 0.45,
+              "sugars": 0.02,
+              "fibre": 0,
+              "protein": 3.9,
+              "salt": 0.002
+            },
+            "natriumMg": 0.75,
+            "allergens": [],
+            "hints": [
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "3 Kugel Guacamole",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 111.75,
+              "fat": 10.5,
+              "sat": 1.65,
+              "carbs": 5.1,
+              "sugars": 1.43,
+              "fibre": 3.08,
+              "protein": 1.05,
+              "salt": 0.473
+            },
+            "natriumMg": 189,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Limette",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 3.29,
+              "fat": 0,
+              "sat": 0,
+              "carbs": 0.13,
+              "sugars": 0,
+              "fibre": 0,
+              "protein": 0.05,
+              "salt": 0
+            },
+            "natriumMg": 0,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Beef (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 143.14,
+              "fat": 7.29,
+              "sat": 3.06,
+              "carbs": 2.49,
+              "sugars": 1.72,
+              "fibre": 0.5,
+              "protein": 16.95,
+              "salt": 0.5
+            },
+            "natriumMg": 199.8,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Chicken (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 140.16,
+              "fat": 3.55,
+              "sat": 0,
+              "carbs": 3.55,
+              "sugars": 3.55,
+              "fibre": 0.48,
+              "protein": 23.52,
+              "salt": 0.679
+            },
+            "natriumMg": 271.68,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "gefluegel"
+            ]
+          },
+          {
+            "label": "Filetsteak (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 188.34,
+              "fat": 4.77,
+              "sat": 0,
+              "carbs": 4.77,
+              "sugars": 4.77,
+              "fibre": 0.65,
+              "protein": 31.61,
+              "salt": 0.913
+            },
+            "natriumMg": 365.07,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "koriander_gew",
+              "rindfleisch"
+            ]
+          },
+          {
+            "label": "Barbacoa (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 144,
+              "fat": 6.3,
+              "sat": 2.25,
+              "carbs": 1.8,
+              "sugars": 0,
+              "fibre": 0.9,
+              "protein": 21.6,
+              "salt": 1.193
+            },
+            "natriumMg": 477,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          }
+        ]
+      }
+    ],
+    "Cup": [
+      {
+        "section": "Füllung",
+        "items": [
+          {
+            "label": "ohne Füllung",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": null,
+            "natriumMg": null,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Koriander Reis",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": {
+              "kcal": 343.18,
+              "fat": 0.49,
+              "sat": 0.12,
+              "carbs": 77.59,
+              "sugars": 0.24,
+              "fibre": 1.38,
+              "protein": 6.39,
+              "salt": 0.679
+            },
+            "natriumMg": 271.4,
+            "allergens": [],
+            "hints": [
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "gewürzter Reis",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": {
+              "kcal": 343.18,
+              "fat": 0.49,
+              "sat": 0.12,
+              "carbs": 77.59,
+              "sugars": 0.24,
+              "fibre": 1.38,
+              "protein": 6.39,
+              "salt": 0.679
+            },
+            "natriumMg": 271.4,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Reis halb/halb",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": {
+              "kcal": 343.18,
+              "fat": 0.49,
+              "sat": 0.12,
+              "carbs": 77.59,
+              "sugars": 0.24,
+              "fibre": 1.38,
+              "protein": 6.39,
+              "salt": 0.679
+            },
+            "natriumMg": 271.4,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Cubes",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": {
+              "kcal": 271.2,
+              "fat": 13.2,
+              "sat": 2.04,
+              "carbs": 31,
+              "sugars": 0.42,
+              "fibre": 3.5,
+              "protein": 3.84,
+              "salt": 0.001
+            },
+            "natriumMg": 0.28,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "fructose",
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Fleisch",
+        "items": [
+          {
+            "label": "Chicken",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 116.8,
+              "fat": 2.96,
+              "sat": 1.2,
+              "carbs": 2.96,
+              "sugars": 2.96,
+              "fibre": 0.4,
+              "protein": 19.6,
+              "salt": 0.566
+            },
+            "natriumMg": 226.4,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "gefluegel"
+            ]
+          },
+          {
+            "label": "Beef",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 155.22,
+              "fat": 11.7,
+              "sat": 5.07,
+              "carbs": 3.67,
+              "sugars": 1.25,
+              "fibre": 0.78,
+              "protein": 10.92,
+              "salt": 0.741
+            },
+            "natriumMg": 296.4,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Filetsteak",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 151.25,
+              "fat": 5,
+              "sat": 2.2,
+              "carbs": 0.19,
+              "sugars": 0.19,
+              "fibre": 0.05,
+              "protein": 26.5,
+              "salt": 0.244
+            },
+            "natriumMg": 97.5,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "koriander_gew",
+              "rindfleisch"
+            ]
+          },
+          {
+            "label": "Barbacoa",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 144,
+              "fat": 6.3,
+              "sat": 2.25,
+              "carbs": 1.8,
+              "sugars": 0,
+              "fibre": 0.9,
+              "protein": 21.6,
+              "salt": 1.193
+            },
+            "natriumMg": 477,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Veggie",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": null,
+            "natriumMg": null,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Planted Chicken",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 140.43,
+              "fat": 2.7,
+              "sat": 0.56,
+              "carbs": 1.95,
+              "sugars": 0,
+              "fibre": 4.09,
+              "protein": 22.51,
+              "salt": 0.002
+            },
+            "natriumMg": 0.74,
+            "allergens": [],
+            "hints": [
+              "spuren_gluten",
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Zutaten",
+        "items": [
+          {
+            "label": "gegrilltes Gemüse",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 12.21,
+              "fat": 0.16,
+              "sat": 0.03,
+              "carbs": 2.02,
+              "sugars": 2.02,
+              "fibre": 1.39,
+              "protein": 0.53,
+              "salt": 0.005
+            },
+            "natriumMg": 2.15,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_roh",
+              "koriander_gew",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Black Beans",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 77.18,
+              "fat": 0.32,
+              "sat": 0.08,
+              "carbs": 13.87,
+              "sugars": 0,
+              "fibre": 5.1,
+              "protein": 5.18,
+              "salt": 0.347
+            },
+            "natriumMg": 138.72,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Salsa Mild oder Medium",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 19.88,
+              "fat": 0.28,
+              "sat": 0.04,
+              "carbs": 3.48,
+              "sugars": 1.28,
+              "fibre": 0.5,
+              "protein": 0.85,
+              "salt": 0.001
+            },
+            "natriumMg": 0.57,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "mais",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Salsa Hot",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 19.88,
+              "fat": 0.28,
+              "sat": 0.04,
+              "carbs": 3.48,
+              "sugars": 1.28,
+              "fibre": 0.5,
+              "protein": 0.85,
+              "salt": 0.001
+            },
+            "natriumMg": 0.57,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Cheesesauce",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 110.77,
+              "fat": 9.28,
+              "sat": 0.8,
+              "carbs": 2.07,
+              "sugars": 1.86,
+              "fibre": 0,
+              "protein": 4.4,
+              "salt": 0
+            },
+            "natriumMg": 0,
+            "allergens": [
+              "Fisch",
+              "Milch",
+              "Schwefeldioxid/Sulfite"
+            ],
+            "hints": [
+              "laktose",
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "Eisbergsalat",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 6.5,
+              "fat": 0.1,
+              "sat": 0.02,
+              "carbs": 0.79,
+              "sugars": 0.79,
+              "fibre": 0.9,
+              "protein": 0.5,
+              "salt": 0.015
+            },
+            "natriumMg": 6,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Sour Cream",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 35.1,
+              "fat": 3,
+              "sat": 1.82,
+              "carbs": 0.99,
+              "sugars": 0.99,
+              "fibre": 0,
+              "protein": 0.93,
+              "salt": 0.03
+            },
+            "natriumMg": 12,
+            "allergens": [
+              "Milch"
+            ],
+            "hints": [
+              "laktose",
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "Cheddar Jack Cheese",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 65.12,
+              "fat": 4.96,
+              "sat": 3.31,
+              "carbs": 0.48,
+              "sugars": 0.02,
+              "fibre": 0,
+              "protein": 4.16,
+              "salt": 0.002
+            },
+            "natriumMg": 0.8,
+            "allergens": [],
+            "hints": [
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "1 Kugel Guacamole",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 37.25,
+              "fat": 3.5,
+              "sat": 0.55,
+              "carbs": 1.7,
+              "sugars": 0.48,
+              "fibre": 1.03,
+              "protein": 0.35,
+              "salt": 0.158
+            },
+            "natriumMg": 63,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "2 Kugel Guacamole (Veggie)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 74.5,
+              "fat": 7,
+              "sat": 1.1,
+              "carbs": 3.4,
+              "sugars": 0.95,
+              "fibre": 2.05,
+              "protein": 0.7,
+              "salt": 0.525
+            },
+            "natriumMg": 210,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "3 Kugel Guacamole",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 111.75,
+              "fat": 10.5,
+              "sat": 1.65,
+              "carbs": 5.1,
+              "sugars": 1.43,
+              "fibre": 3.08,
+              "protein": 1.05,
+              "salt": 0.473
+            },
+            "natriumMg": 189,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Limette",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 3.29,
+              "fat": 0,
+              "sat": 0,
+              "carbs": 0.13,
+              "sugars": 0,
+              "fibre": 0,
+              "protein": 0.05,
+              "salt": 0
+            },
+            "natriumMg": 0,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Beef (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 155.22,
+              "fat": 11.7,
+              "sat": 5.07,
+              "carbs": 3.67,
+              "sugars": 1.25,
+              "fibre": 0.78,
+              "protein": 10.92,
+              "salt": 0.741
+            },
+            "natriumMg": 296.4,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Chicken (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 116.8,
+              "fat": 2.96,
+              "sat": 1.2,
+              "carbs": 2.96,
+              "sugars": 2.96,
+              "fibre": 0.4,
+              "protein": 19.6,
+              "salt": 0.566
+            },
+            "natriumMg": 226.4,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "gefluegel"
+            ]
+          },
+          {
+            "label": "Filetsteak (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 151.25,
+              "fat": 5,
+              "sat": 2.2,
+              "carbs": 0.19,
+              "sugars": 0.19,
+              "fibre": 0.05,
+              "protein": 26.5,
+              "salt": 0.244
+            },
+            "natriumMg": 97.5,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "koriander_gew",
+              "rindfleisch"
+            ]
+          },
+          {
+            "label": "Barbacoa (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 144,
+              "fat": 6.3,
+              "sat": 2.25,
+              "carbs": 1.8,
+              "sugars": 0,
+              "fibre": 0.9,
+              "protein": 21.6,
+              "salt": 1.193
+            },
+            "natriumMg": 477,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          }
+        ]
+      }
+    ],
+    "Salat": [
+      {
+        "section": "Füllung",
+        "items": [
+          {
+            "label": "Eisbergsalat",
+            "section": "Füllung",
+            "multi": false,
+            "perPortion": {
+              "kcal": 39,
+              "fat": 0.6,
+              "sat": 0.09,
+              "carbs": 4.71,
+              "sugars": 4.71,
+              "fibre": 5.4,
+              "protein": 3,
+              "salt": 0.09
+            },
+            "natriumMg": 36,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Fleisch",
+        "items": [
+          {
+            "label": "Chicken",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 116.8,
+              "fat": 2.96,
+              "sat": 0,
+              "carbs": 2.96,
+              "sugars": 2.96,
+              "fibre": 0.4,
+              "protein": 19.6,
+              "salt": 0.566
+            },
+            "natriumMg": 226.4,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "gefluegel"
+            ]
+          },
+          {
+            "label": "Beef",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 155.22,
+              "fat": 11.7,
+              "sat": 5.07,
+              "carbs": 3.67,
+              "sugars": 1.25,
+              "fibre": 0.78,
+              "protein": 10.92,
+              "salt": 0.741
+            },
+            "natriumMg": 296.4,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Filetsteak",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 151.25,
+              "fat": 5,
+              "sat": 2.2,
+              "carbs": 0.19,
+              "sugars": 0.19,
+              "fibre": 0.05,
+              "protein": 26.5,
+              "salt": 0.244
+            },
+            "natriumMg": 97.5,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "koriander_gew",
+              "rindfleisch"
+            ]
+          },
+          {
+            "label": "Barbacoa",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 177.6,
+              "fat": 9.16,
+              "sat": 4.84,
+              "carbs": 0.18,
+              "sugars": 0.18,
+              "fibre": 0.05,
+              "protein": 23.59,
+              "salt": 0.699
+            },
+            "natriumMg": 279.6,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Veggie",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": null,
+            "natriumMg": null,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Planted Chicken",
+            "section": "Fleisch",
+            "multi": false,
+            "perPortion": {
+              "kcal": 140.43,
+              "fat": 2.7,
+              "sat": 0.56,
+              "carbs": 1.95,
+              "sugars": 0,
+              "fibre": 4.09,
+              "protein": 22.51,
+              "salt": 0.002
+            },
+            "natriumMg": 0.74,
+            "allergens": [],
+            "hints": [
+              "spuren_gluten",
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Zutaten",
+        "items": [
+          {
+            "label": "gegrilltes Gemüse",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 12.21,
+              "fat": 0.16,
+              "sat": 0.03,
+              "carbs": 2.02,
+              "sugars": 2.02,
+              "fibre": 1.39,
+              "protein": 0.53,
+              "salt": 0.005
+            },
+            "natriumMg": 2.15,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_roh",
+              "koriander_gew",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Black Beans",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 77.18,
+              "fat": 0.32,
+              "sat": 0.08,
+              "carbs": 13.87,
+              "sugars": 0,
+              "fibre": 5.1,
+              "protein": 5.18,
+              "salt": 0.347
+            },
+            "natriumMg": 138.72,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Salsa Mild oder Medium",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 19.88,
+              "fat": 0.28,
+              "sat": 0.04,
+              "carbs": 3.48,
+              "sugars": 1.28,
+              "fibre": 0.5,
+              "protein": 0.85,
+              "salt": 0.001
+            },
+            "natriumMg": 0.57,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "mais",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Salsa Hot",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 19.88,
+              "fat": 0.28,
+              "sat": 0.04,
+              "carbs": 3.48,
+              "sugars": 1.28,
+              "fibre": 0.5,
+              "protein": 0.85,
+              "salt": 0.001
+            },
+            "natriumMg": 0.57,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Sour Cream",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 35.1,
+              "fat": 3,
+              "sat": 1.82,
+              "carbs": 0.99,
+              "sugars": 0.99,
+              "fibre": 0,
+              "protein": 0.93,
+              "salt": 0.03
+            },
+            "natriumMg": 12,
+            "allergens": [
+              "Milch"
+            ],
+            "hints": [
+              "laktose",
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "Cheddar Jack Cheese",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 65.12,
+              "fat": 4.96,
+              "sat": 3.31,
+              "carbs": 0.48,
+              "sugars": 0.02,
+              "fibre": 0,
+              "protein": 4.16,
+              "salt": 0.002
+            },
+            "natriumMg": 0.8,
+            "allergens": [],
+            "hints": [
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "1 Kugel Guacamole",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 37.25,
+              "fat": 3.5,
+              "sat": 0.55,
+              "carbs": 1.7,
+              "sugars": 0.48,
+              "fibre": 1.03,
+              "protein": 0.35,
+              "salt": 0.158
+            },
+            "natriumMg": 63,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "2 Kugel Guacamole (Veggie)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 74.5,
+              "fat": 7,
+              "sat": 1.1,
+              "carbs": 3.4,
+              "sugars": 0.95,
+              "fibre": 2.05,
+              "protein": 0.7,
+              "salt": 0.525
+            },
+            "natriumMg": 210,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "3 Kugel Guacamole",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 111.75,
+              "fat": 10.5,
+              "sat": 1.65,
+              "carbs": 5.1,
+              "sugars": 1.43,
+              "fibre": 3.08,
+              "protein": 1.05,
+              "salt": 0.473
+            },
+            "natriumMg": 189,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Limette",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 3.29,
+              "fat": 0,
+              "sat": 0,
+              "carbs": 0.13,
+              "sugars": 0,
+              "fibre": 0,
+              "protein": 0.05,
+              "salt": 0
+            },
+            "natriumMg": 0,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "California Dressing",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 175.2,
+              "fat": 15.6,
+              "sat": 0.96,
+              "carbs": 9.18,
+              "sugars": 7.8,
+              "fibre": 0,
+              "protein": 0.12,
+              "salt": 0.003
+            },
+            "natriumMg": 1.14,
+            "allergens": [],
+            "hints": [
+              "vegan"
+            ]
+          },
+          {
+            "label": "Beef (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 155.22,
+              "fat": 11.7,
+              "sat": 5.07,
+              "carbs": 3.67,
+              "sugars": 1.25,
+              "fibre": 0.78,
+              "protein": 10.92,
+              "salt": 0.741
+            },
+            "natriumMg": 296.4,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Chicken (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 116.8,
+              "fat": 2.96,
+              "sat": 0,
+              "carbs": 2.96,
+              "sugars": 2.96,
+              "fibre": 0.4,
+              "protein": 19.6,
+              "salt": 0.566
+            },
+            "natriumMg": 226.4,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "gefluegel"
+            ]
+          },
+          {
+            "label": "Filetsteak (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 151.25,
+              "fat": 5,
+              "sat": 2.2,
+              "carbs": 0.19,
+              "sugars": 0.19,
+              "fibre": 0.05,
+              "protein": 26.5,
+              "salt": 0.244
+            },
+            "natriumMg": 97.5,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "koriander_gew",
+              "rindfleisch"
+            ]
+          },
+          {
+            "label": "Barbacoa (extra)",
+            "section": "Zutaten",
+            "multi": true,
+            "perPortion": {
+              "kcal": 177.6,
+              "fat": 9.16,
+              "sat": 4.84,
+              "carbs": 0.18,
+              "sugars": 0.18,
+              "fibre": 0.05,
+              "protein": 23.59,
+              "salt": 0.699
+            },
+            "natriumMg": 279.6,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": [
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "rindfleisch",
+              "fructose"
+            ]
+          }
+        ]
+      }
+    ],
+    "Sides": [
+      {
+        "section": "Sides",
+        "items": [
+          {
+            "label": "Cheese Quesadilla",
+            "section": "Sides",
+            "multi": false,
+            "perPortion": {
+              "kcal": 482.07,
+              "fat": 21.75,
+              "sat": 13.42,
+              "carbs": 47.61,
+              "sugars": 1.33,
+              "fibre": 2.75,
+              "protein": 21.18,
+              "salt": 0.007
+            },
+            "natriumMg": 2.95,
+            "allergens": [
+              "Gluten"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "Veggie Quesadilla",
+            "section": "Sides",
+            "multi": false,
+            "perPortion": {
+              "kcal": 494.28,
+              "fat": 21.91,
+              "sat": 13.45,
+              "carbs": 49.63,
+              "sugars": 3.35,
+              "fibre": 4.14,
+              "protein": 21.71,
+              "salt": 0.013
+            },
+            "natriumMg": 5.1,
+            "allergens": [
+              "Gluten"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "laktose",
+              "fructose",
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "Vegan Quesadilla",
+            "section": "Sides",
+            "multi": false,
+            "perPortion": {
+              "kcal": 458.27,
+              "fat": 14.47,
+              "sat": 4.7,
+              "carbs": 66.91,
+              "sugars": 3.51,
+              "fibre": 10.4,
+              "protein": 15.44,
+              "salt": 0.875
+            },
+            "natriumMg": 349.84,
+            "allergens": [
+              "Gluten"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "zwiebel_roh",
+              "koriander_fri",
+              "mais",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Chili Cheese Quesadilla",
+            "section": "Sides",
+            "multi": false,
+            "perPortion": {
+              "kcal": 545.15,
+              "fat": 24.11,
+              "sat": 13.87,
+              "carbs": 54.22,
+              "sugars": 4.52,
+              "fibre": 5.86,
+              "protein": 24.3,
+              "salt": 0.72
+            },
+            "natriumMg": 287.95,
+            "allergens": [
+              "Milch",
+              "Sellerie"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "laktose",
+              "koriander_gew",
+              "mais",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Hot Pepper Quesadilla",
+            "section": "Sides",
+            "multi": false,
+            "perPortion": {
+              "kcal": 492.07,
+              "fat": 21.75,
+              "sat": 13.42,
+              "carbs": 49.61,
+              "sugars": 1.33,
+              "fibre": 2.75,
+              "protein": 21.18,
+              "salt": 1.107
+            },
+            "natriumMg": 442.95,
+            "allergens": [
+              "Gluten"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "Pepper Corn Fries",
+            "section": "Sides",
+            "multi": false,
+            "perPortion": {
+              "kcal": 376.8,
+              "fat": 21.3,
+              "sat": 10.44,
+              "carbs": 40.44,
+              "sugars": 1.56,
+              "fibre": 3.96,
+              "protein": 3.84,
+              "salt": 0.002
+            },
+            "natriumMg": 0.85,
+            "allergens": [
+              "Gluten"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "mais",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Cajun Fries",
+            "section": "Sides",
+            "multi": false,
+            "perPortion": {
+              "kcal": 426.73,
+              "fat": 25.9,
+              "sat": 5.79,
+              "carbs": 52.28,
+              "sugars": 3.28,
+              "fibre": 3.4,
+              "protein": 6.74,
+              "salt": 0.072
+            },
+            "natriumMg": 28.7,
+            "allergens": [],
+            "hints": [
+              "spuren_gluten",
+              "mais",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Chips",
+            "section": "Sides",
+            "multi": false,
+            "perPortion": {
+              "kcal": 280,
+              "fat": 16,
+              "sat": 4,
+              "carbs": 32,
+              "sugars": 0,
+              "fibre": 0,
+              "protein": 0,
+              "salt": 0
+            },
+            "natriumMg": 0,
+            "allergens": [],
+            "hints": [
+              "spuren_gluten",
+              "koriander_gew",
+              "mais",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Adobada Chili Cheese Fries",
+            "section": "Sides",
+            "multi": false,
+            "perPortion": {
+              "kcal": 885.55,
+              "fat": 39.88,
+              "sat": 7.2,
+              "carbs": 61.9,
+              "sugars": 45.26,
+              "fibre": 6.52,
+              "protein": 16.02,
+              "salt": 0.784
+            },
+            "natriumMg": 313.7,
+            "allergens": [
+              "Fisch",
+              "Milch",
+              "Sellerie",
+              "Senf",
+              "Schwefeldioxid/Sulfite"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "laktose",
+              "koriander_gew",
+              "mais",
+              "rindfleisch",
+              "fructose"
+            ]
+          }
+        ]
+      }
+    ],
+    "Snacks": [
+      {
+        "section": "Snacks",
+        "items": [
+          {
+            "label": "Crunchwrap Beef",
+            "section": "Snacks",
+            "multi": false,
+            "perPortion": {
+              "kcal": 749.51,
+              "fat": 37.37,
+              "sat": 15.6,
+              "carbs": 67.77,
+              "sugars": 4.6,
+              "fibre": 3.25,
+              "protein": 31.97,
+              "salt": 0.354
+            },
+            "natriumMg": 141.53,
+            "allergens": [
+              "Gluten",
+              "Fisch",
+              "Milch",
+              "Schwefeldioxid/Sulfite"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "laktose",
+              "koriander_gew",
+              "koriander_fri",
+              "mais",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Crunchwrap Chicken",
+            "section": "Snacks",
+            "multi": false,
+            "perPortion": {
+              "kcal": 731.96,
+              "fat": 34.48,
+              "sat": 14.35,
+              "carbs": 68.09,
+              "sugars": 5.42,
+              "fibre": 3.18,
+              "protein": 33.74,
+              "salt": 0.398
+            },
+            "natriumMg": 159.27,
+            "allergens": [
+              "Gluten",
+              "Fisch",
+              "Milch",
+              "Schwefeldioxid/Sulfite"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "laktose",
+              "koriander_gew",
+              "koriander_fri",
+              "mais",
+              "gefluegel",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Crunchwrap Barbacoa",
+            "section": "Snacks",
+            "multi": false,
+            "perPortion": {
+              "kcal": 781.18,
+              "fat": 45.08,
+              "sat": 19.67,
+              "carbs": 67.92,
+              "sugars": 4.75,
+              "fibre": 3.29,
+              "protein": 51.83,
+              "salt": 0.942
+            },
+            "natriumMg": 376.99,
+            "allergens": [
+              "Gluten",
+              "Fisch",
+              "Milch",
+              "Schwefeldioxid/Sulfite"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "laktose",
+              "koriander_gew",
+              "koriander_fri",
+              "mais",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Crunchwrap Veggie",
+            "section": "Snacks",
+            "multi": false,
+            "perPortion": {
+              "kcal": 764.29,
+              "fat": 44.45,
+              "sat": 16.72,
+              "carbs": 84.32,
+              "sugars": 5.59,
+              "fibre": 5.53,
+              "protein": 33.75,
+              "salt": 0.994
+            },
+            "natriumMg": 397.53,
+            "allergens": [
+              "Gluten",
+              "Fisch",
+              "Milch",
+              "Schwefeldioxid/Sulfite"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "laktose",
+              "koriander_gew",
+              "koriander_fri",
+              "mais",
+              "fructose",
+              "vegetarisch"
+            ]
+          },
+          {
+            "label": "Crunchwrap Chili Cheese",
+            "section": "Snacks",
+            "multi": false,
+            "perPortion": {
+              "kcal": 694.71,
+              "fat": 30.84,
+              "sat": 12.2,
+              "carbs": 71.6,
+              "sugars": 6.84,
+              "fibre": 5.77,
+              "protein": 26.79,
+              "salt": 0.504
+            },
+            "natriumMg": 201.42,
+            "allergens": [
+              "Gluten",
+              "Fisch",
+              "Milch",
+              "Sellerie",
+              "Schwefeldioxid/Sulfite"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "knoblauch",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "laktose",
+              "koriander_gew",
+              "koriander_fri",
+              "mais",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Beef Cheese Tostado",
+            "section": "Snacks",
+            "multi": false,
+            "perPortion": {
+              "kcal": 691.63,
+              "fat": 34.41,
+              "sat": 7.94,
+              "carbs": 59.53,
+              "sugars": 6.43,
+              "fibre": 5.05,
+              "protein": 21.79,
+              "salt": 0.73
+            },
+            "natriumMg": 292.12,
+            "allergens": [
+              "Gluten",
+              "Fisch",
+              "Milch",
+              "Schwefeldioxid/Sulfite"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "knoblauch",
+              "laktose",
+              "koriander_gew",
+              "rindfleisch"
+            ]
+          },
+          {
+            "label": "Chicken Cheese Tostado",
+            "section": "Snacks",
+            "multi": false,
+            "perPortion": {
+              "kcal": 670.91,
+              "fat": 29.75,
+              "sat": 4.74,
+              "carbs": 59.89,
+              "sugars": 7.59,
+              "fibre": 4.93,
+              "protein": 23.69,
+              "salt": 0.775
+            },
+            "natriumMg": 309.84,
+            "allergens": [
+              "Gluten",
+              "Fisch",
+              "Milch",
+              "Schwefeldioxid/Sulfite"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "knoblauch",
+              "laktose",
+              "koriander_gew",
+              "rindfleisch"
+            ]
+          },
+          {
+            "label": "Chili Cheese Tostado",
+            "section": "Snacks",
+            "multi": false,
+            "perPortion": {
+              "kcal": 644.2,
+              "fat": 28.31,
+              "sat": 4.71,
+              "carbs": 63.8,
+              "sugars": 8.87,
+              "fibre": 7.76,
+              "protein": 17.06,
+              "salt": 0.937
+            },
+            "natriumMg": 374.76,
+            "allergens": [
+              "Gluten",
+              "Fisch",
+              "Milch",
+              "Sellerie"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "laktose",
+              "koriander_gew",
+              "mais",
+              "rindfleisch",
+              "fructose"
+            ]
+          },
+          {
+            "label": "Verde Tostado",
+            "section": "Snacks",
+            "multi": false,
+            "perPortion": {
+              "kcal": 460.34,
+              "fat": 20.42,
+              "sat": 4.24,
+              "carbs": 60.96,
+              "sugars": 5.73,
+              "fibre": 7.56,
+              "protein": 8.55,
+              "salt": 0.719
+            },
+            "natriumMg": 287.77,
+            "allergens": [
+              "Gluten",
+              "Schwefeldioxid/Sulfite"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "zwiebel_roh",
+              "koriander_fri",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Chili con Carne",
+            "section": "Snacks",
+            "multi": false,
+            "perPortion": {
+              "kcal": 315.4,
+              "fat": 11.78,
+              "sat": 2.28,
+              "carbs": 33.06,
+              "sugars": 15.96,
+              "fibre": 15.58,
+              "protein": 15.58,
+              "salt": 3.563
+            },
+            "natriumMg": 1425,
+            "allergens": [
+              "Milch",
+              "Sellerie"
+            ],
+            "hints": [
+              "spuren_gluten",
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "laktose",
+              "koriander_gew",
+              "mais",
+              "rindfleisch",
+              "fructose"
+            ]
+          }
+        ]
+      }
+    ],
+    "Dips": [
+      {
+        "section": "Dip",
+        "items": [
+          {
+            "label": "Adobada Dip",
+            "section": "Dip",
+            "multi": false,
+            "perPortion": {
+              "kcal": 198.9,
+              "fat": 0.43,
+              "sat": 0,
+              "carbs": 44,
+              "sugars": 36.55,
+              "fibre": 0,
+              "protein": 0.85,
+              "salt": 0
+            },
+            "natriumMg": 0,
+            "allergens": [
+              "Senf"
+            ],
+            "hints": []
+          },
+          {
+            "label": "Salsa Mild Dip",
+            "section": "Dip",
+            "multi": false,
+            "perPortion": {
+              "kcal": 19.88,
+              "fat": 0.28,
+              "sat": 0.04,
+              "carbs": 3.48,
+              "sugars": 1.28,
+              "fibre": 0.5,
+              "protein": 0.85,
+              "salt": 0.001
+            },
+            "natriumMg": 0.57,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "koriander_fri",
+              "mais",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Salsa Medium Dip",
+            "section": "Dip",
+            "multi": false,
+            "perPortion": {
+              "kcal": 19.88,
+              "fat": 0.28,
+              "sat": 0.04,
+              "carbs": 3.48,
+              "sugars": 1.28,
+              "fibre": 0.5,
+              "protein": 0.85,
+              "salt": 0.001
+            },
+            "natriumMg": 0.57,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "koriander_fri",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Salsa Hot Dip",
+            "section": "Dip",
+            "multi": false,
+            "perPortion": {
+              "kcal": 19.88,
+              "fat": 0.28,
+              "sat": 0.04,
+              "carbs": 3.48,
+              "sugars": 1.28,
+              "fibre": 0.5,
+              "protein": 0.85,
+              "salt": 0.001
+            },
+            "natriumMg": 0.57,
+            "allergens": [],
+            "hints": [
+              "knoblauch",
+              "zwiebel_gewuerz",
+              "koriander_gew",
+              "fructose",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Guacamole Dip",
+            "section": "Dip",
+            "multi": false,
+            "perPortion": {
+              "kcal": 186.25,
+              "fat": 17.5,
+              "sat": 2.75,
+              "carbs": 8.5,
+              "sugars": 2.38,
+              "fibre": 5.13,
+              "protein": 1.75,
+              "salt": 0.63
+            },
+            "natriumMg": 252,
+            "allergens": [],
+            "hints": [
+              "zwiebel_roh",
+              "zwiebel_gewuerz",
+              "koriander_fri",
+              "vegan"
+            ]
+          },
+          {
+            "label": "Cheese Sauce Dip",
+            "section": "Dip",
+            "multi": false,
+            "perPortion": {
+              "kcal": 167.2,
+              "fat": 14,
+              "sat": 1.2,
+              "carbs": 3.12,
+              "sugars": 2.8,
+              "fibre": 0,
+              "protein": 6.64,
+              "salt": 0
+            },
+            "natriumMg": 0,
+            "allergens": [
+              "Fisch",
+              "Milch",
+              "Schwefeldioxid/Sulfite"
+            ],
+            "hints": [
+              "laktose",
+              "vegetarisch"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "cup_barbacoa",
+      "ing": "barbacoa",
+      "type": "cup",
+      "name": "Barbacoa",
+      "calcType": "Cup",
+      "calcLabel": "Barbacoa",
+      "section": "Fleisch",
+      "perPortion": {
+        "kcal": 144,
+        "fat": 6.3,
+        "sat": 2.25,
+        "carbs": 1.8,
+        "sugars": 0,
+        "fibre": 0.9,
+        "protein": 21.6,
+        "salt": 1.193
+      },
+      "natriumMg": 477,
+      "allergens": [
+        "Senf"
+      ],
+      "hints": [
+        "knoblauch",
+        "zwiebel_roh",
+        "zwiebel_gewuerz",
+        "koriander_gew",
+        "rindfleisch",
+        "fructose"
+      ]
+    },
+    {
+      "id": "cup_gewuerzreis",
+      "ing": "gewuerzreis",
+      "type": "cup",
+      "name": "gewürzter Reis",
+      "calcType": "Cup",
+      "calcLabel": "gewürzter Reis",
+      "section": "Füllung",
+      "perPortion": {
+        "kcal": 343.18,
+        "fat": 0.49,
+        "sat": 0.12,
+        "carbs": 77.59,
+        "sugars": 0.24,
+        "fibre": 1.38,
+        "protein": 6.39,
+        "salt": 0.679
+      },
+      "natriumMg": 271.4,
+      "allergens": [
+        "Senf"
+      ],
+      "hints": [
+        "knoblauch",
+        "zwiebel_gewuerz",
+        "koriander_gew",
+        "vegan"
+      ]
+    },
+    {
+      "id": "cup_cubes",
+      "ing": "cubes",
+      "type": "cup",
+      "name": "Cubes",
+      "calcType": "Cup",
+      "calcLabel": "Cubes",
+      "section": "Füllung",
+      "perPortion": {
+        "kcal": 271.2,
+        "fat": 13.2,
+        "sat": 2.04,
+        "carbs": 31,
+        "sugars": 0.42,
+        "fibre": 3.5,
+        "protein": 3.84,
+        "salt": 0.001
+      },
+      "natriumMg": 0.28,
+      "allergens": [
+        "Senf"
+      ],
+      "hints": [
+        "spuren_gluten",
+        "knoblauch",
+        "zwiebel_roh",
+        "zwiebel_gewuerz",
+        "koriander_gew",
+        "fructose",
+        "vegan"
+      ]
+    },
+    {
+      "id": "cup_black_beans",
+      "ing": "black_beans",
+      "type": "cup",
+      "name": "Black Beans",
+      "calcType": "Cup",
+      "calcLabel": "Black Beans",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 77.18,
+        "fat": 0.32,
+        "sat": 0.08,
+        "carbs": 13.87,
+        "sugars": 0,
+        "fibre": 5.1,
+        "protein": 5.18,
+        "salt": 0.347
+      },
+      "natriumMg": 138.72,
+      "allergens": [],
+      "hints": [
+        "vegan"
+      ]
+    },
+    {
+      "id": "cup_gegrilltes_gemuese",
+      "ing": "gegrilltes_gemuese",
+      "type": "cup",
+      "name": "gegrillte Paprika & rote Zwiebeln",
+      "calcType": "Cup",
+      "calcLabel": "gegrilltes Gemüse",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 12.21,
+        "fat": 0.16,
+        "sat": 0.03,
+        "carbs": 2.02,
+        "sugars": 2.02,
+        "fibre": 1.39,
+        "protein": 0.53,
+        "salt": 0.005
+      },
+      "natriumMg": 2.15,
+      "allergens": [],
+      "hints": [
+        "knoblauch",
+        "zwiebel_roh",
+        "koriander_gew",
+        "fructose"
+      ]
+    },
+    {
+      "id": "cup_eisbergsalat",
+      "ing": "eisbergsalat",
+      "type": "cup",
+      "name": "Eisbergsalat",
+      "calcType": "Cup",
+      "calcLabel": "Eisbergsalat",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 6.5,
+        "fat": 0.1,
+        "sat": 0.02,
+        "carbs": 0.79,
+        "sugars": 0.79,
+        "fibre": 0.9,
+        "protein": 0.5,
+        "salt": 0.015
+      },
+      "natriumMg": 6,
+      "allergens": [],
+      "hints": [
+        "vegan"
+      ]
+    },
+    {
+      "id": "cup_cheddar_jack_cheese",
+      "ing": "cheddar_jack_cheese",
+      "type": "cup",
+      "name": "Cheddar Jack Cheese",
+      "calcType": "Cup",
+      "calcLabel": "Cheddar Jack Cheese",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 65.12,
+        "fat": 4.96,
+        "sat": 3.31,
+        "carbs": 0.48,
+        "sugars": 0.02,
+        "fibre": 0,
+        "protein": 4.16,
+        "salt": 0.002
+      },
+      "natriumMg": 0.8,
+      "allergens": [],
+      "hints": [
+        "vegetarisch"
+      ]
+    },
+    {
+      "id": "cup_limette",
+      "ing": "limette",
+      "type": "cup",
+      "name": "Limette",
+      "calcType": "Cup",
+      "calcLabel": "Limette",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 3.29,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.13,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0.05,
+        "salt": 0
+      },
+      "natriumMg": 0,
+      "allergens": [],
+      "hints": [
+        "vegan"
+      ]
+    },
+    {
+      "id": "cup_sour_cream",
+      "ing": "sour_cream",
+      "type": "cup",
+      "name": "Sour Cream",
+      "calcType": "Cup",
+      "calcLabel": "Sour Cream",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 35.1,
+        "fat": 3,
+        "sat": 1.82,
+        "carbs": 0.99,
+        "sugars": 0.99,
+        "fibre": 0,
+        "protein": 0.93,
+        "salt": 0.03
+      },
+      "natriumMg": 12,
+      "allergens": [
+        "Milch"
+      ],
+      "hints": [
+        "laktose",
+        "vegetarisch"
+      ]
+    },
+    {
+      "id": "cup_salsa",
+      "ing": "salsa",
+      "type": "cup",
+      "name": "Salsa Mild oder Medium",
+      "calcType": "Cup",
+      "calcLabel": "Salsa Mild oder Medium",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 19.88,
+        "fat": 0.28,
+        "sat": 0.04,
+        "carbs": 3.48,
+        "sugars": 1.28,
+        "fibre": 0.5,
+        "protein": 0.85,
+        "salt": 0.001
+      },
+      "natriumMg": 0.57,
+      "allergens": [],
+      "hints": [
+        "zwiebel_roh",
+        "zwiebel_gewuerz",
+        "koriander_fri",
+        "mais",
+        "fructose",
+        "vegan"
+      ]
+    },
+    {
+      "id": "cup_beef",
+      "ing": "beef",
+      "type": "cup",
+      "name": "Beef",
+      "calcType": "Cup",
+      "calcLabel": "Beef (extra)",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 155.22,
+        "fat": 11.7,
+        "sat": 5.07,
+        "carbs": 3.67,
+        "sugars": 1.25,
+        "fibre": 0.78,
+        "protein": 10.92,
+        "salt": 0.741
+      },
+      "natriumMg": 296.4,
+      "allergens": [],
+      "hints": [
+        "knoblauch",
+        "zwiebel_gewuerz",
+        "koriander_gew",
+        "rindfleisch",
+        "fructose"
+      ]
+    },
+    {
+      "id": "cup_chicken",
+      "ing": "chicken",
+      "type": "cup",
+      "name": "Chicken",
+      "calcType": "Cup",
+      "calcLabel": "Chicken (extra)",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 116.8,
+        "fat": 2.96,
+        "sat": 1.2,
+        "carbs": 2.96,
+        "sugars": 2.96,
+        "fibre": 0.4,
+        "protein": 19.6,
+        "salt": 0.566
+      },
+      "natriumMg": 226.4,
+      "allergens": [],
+      "hints": [
+        "knoblauch",
+        "zwiebel_gewuerz",
+        "koriander_gew",
+        "gefluegel"
+      ]
+    },
+    {
+      "id": "cup_filetsteak",
+      "ing": "filetsteak",
+      "type": "cup",
+      "name": "Filetsteak",
+      "calcType": "Cup",
+      "calcLabel": "Filetsteak (extra)",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 151.25,
+        "fat": 5,
+        "sat": 2.2,
+        "carbs": 0.19,
+        "sugars": 0.19,
+        "fibre": 0.05,
+        "protein": 26.5,
+        "salt": 0.244
+      },
+      "natriumMg": 97.5,
+      "allergens": [],
+      "hints": [
+        "knoblauch",
+        "koriander_gew",
+        "rindfleisch"
+      ]
+    },
+    {
+      "id": "cup_guacamole",
+      "ing": "guacamole",
+      "type": "cup",
+      "name": "Guacamole",
+      "calcType": "Cup",
+      "calcLabel": "1 Kugel Guacamole",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 37.25,
+        "fat": 3.5,
+        "sat": 0.55,
+        "carbs": 1.7,
+        "sugars": 0.48,
+        "fibre": 1.03,
+        "protein": 0.35,
+        "salt": 0.158
+      },
+      "natriumMg": 63,
+      "allergens": [],
+      "hints": [
+        "zwiebel_roh",
+        "zwiebel_gewuerz",
+        "koriander_fri",
+        "vegan"
+      ]
+    },
+    {
+      "id": "cup_cheesesauce",
+      "ing": "cheesesauce",
+      "type": "cup",
+      "name": "Cheesesauce",
+      "calcType": "Cup",
+      "calcLabel": "Cheesesauce",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 110.77,
+        "fat": 9.28,
+        "sat": 0.8,
+        "carbs": 2.07,
+        "sugars": 1.86,
+        "fibre": 0,
+        "protein": 4.4,
+        "salt": 0
+      },
+      "natriumMg": 0,
+      "allergens": [
+        "Fisch",
+        "Milch",
+        "Schwefeldioxid/Sulfite"
+      ],
+      "hints": [
+        "laktose",
+        "vegetarisch"
+      ]
+    },
+    {
+      "id": "salat_beef",
+      "ing": "beef",
+      "type": "salat",
+      "name": "Beef",
+      "calcType": "Salat",
+      "calcLabel": "Beef",
+      "section": "Fleisch",
+      "perPortion": {
+        "kcal": 155.22,
+        "fat": 11.7,
+        "sat": 5.07,
+        "carbs": 3.67,
+        "sugars": 1.25,
+        "fibre": 0.78,
+        "protein": 10.92,
+        "salt": 0.741
+      },
+      "natriumMg": 296.4,
+      "allergens": [],
+      "hints": [
+        "knoblauch",
+        "zwiebel_gewuerz",
+        "koriander_gew",
+        "rindfleisch",
+        "fructose"
+      ]
+    },
+    {
+      "id": "salat_black_beans",
+      "ing": "black_beans",
+      "type": "salat",
+      "name": "Black Beans",
+      "calcType": "Salat",
+      "calcLabel": "Black Beans",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 77.18,
+        "fat": 0.32,
+        "sat": 0.08,
+        "carbs": 13.87,
+        "sugars": 0,
+        "fibre": 5.1,
+        "protein": 5.18,
+        "salt": 0.347
+      },
+      "natriumMg": 138.72,
+      "allergens": [],
+      "hints": [
+        "vegan"
+      ]
+    },
+    {
+      "id": "salat_gegrilltes_gemuese",
+      "ing": "gegrilltes_gemuese",
+      "type": "salat",
+      "name": "gegrillte Paprika & rote Zwiebeln",
+      "calcType": "Salat",
+      "calcLabel": "gegrilltes Gemüse",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 12.21,
+        "fat": 0.16,
+        "sat": 0.03,
+        "carbs": 2.02,
+        "sugars": 2.02,
+        "fibre": 1.39,
+        "protein": 0.53,
+        "salt": 0.005
+      },
+      "natriumMg": 2.15,
+      "allergens": [],
+      "hints": [
+        "knoblauch",
+        "zwiebel_roh",
+        "koriander_gew",
+        "fructose"
+      ]
+    },
+    {
+      "id": "salat_cheddar_jack_cheese",
+      "ing": "cheddar_jack_cheese",
+      "type": "salat",
+      "name": "Cheddar Jack Cheese",
+      "calcType": "Salat",
+      "calcLabel": "Cheddar Jack Cheese",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 65.12,
+        "fat": 4.96,
+        "sat": 3.31,
+        "carbs": 0.48,
+        "sugars": 0.02,
+        "fibre": 0,
+        "protein": 4.16,
+        "salt": 0.002
+      },
+      "natriumMg": 0.8,
+      "allergens": [],
+      "hints": [
+        "vegetarisch"
+      ]
+    },
+    {
+      "id": "salat_limette",
+      "ing": "limette",
+      "type": "salat",
+      "name": "Limette",
+      "calcType": "Salat",
+      "calcLabel": "Limette",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 3.29,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.13,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0.05,
+        "salt": 0
+      },
+      "natriumMg": 0,
+      "allergens": [],
+      "hints": [
+        "vegan"
+      ]
+    },
+    {
+      "id": "salat_california_dressing",
+      "ing": "california_dressing",
+      "type": "salat",
+      "name": "California Dressing",
+      "calcType": "Salat",
+      "calcLabel": "California Dressing",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 175.2,
+        "fat": 15.6,
+        "sat": 0.96,
+        "carbs": 9.18,
+        "sugars": 7.8,
+        "fibre": 0,
+        "protein": 0.12,
+        "salt": 0.003
+      },
+      "natriumMg": 1.14,
+      "allergens": [],
+      "hints": [
+        "vegan"
+      ]
+    },
+    {
+      "id": "salat_sour_cream",
+      "ing": "sour_cream",
+      "type": "salat",
+      "name": "Sour Cream",
+      "calcType": "Salat",
+      "calcLabel": "Sour Cream",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 35.1,
+        "fat": 3,
+        "sat": 1.82,
+        "carbs": 0.99,
+        "sugars": 0.99,
+        "fibre": 0,
+        "protein": 0.93,
+        "salt": 0.03
+      },
+      "natriumMg": 12,
+      "allergens": [
+        "Milch"
+      ],
+      "hints": [
+        "laktose",
+        "vegetarisch"
+      ]
+    },
+    {
+      "id": "salat_salsa",
+      "ing": "salsa",
+      "type": "salat",
+      "name": "Salsa Mild oder Medium",
+      "calcType": "Salat",
+      "calcLabel": "Salsa Mild oder Medium",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 19.88,
+        "fat": 0.28,
+        "sat": 0.04,
+        "carbs": 3.48,
+        "sugars": 1.28,
+        "fibre": 0.5,
+        "protein": 0.85,
+        "salt": 0.001
+      },
+      "natriumMg": 0.57,
+      "allergens": [],
+      "hints": [
+        "zwiebel_roh",
+        "zwiebel_gewuerz",
+        "koriander_fri",
+        "mais",
+        "fructose",
+        "vegan"
+      ]
+    },
+    {
+      "id": "salat_chicken",
+      "ing": "chicken",
+      "type": "salat",
+      "name": "Chicken",
+      "calcType": "Salat",
+      "calcLabel": "Chicken (extra)",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 116.8,
+        "fat": 2.96,
+        "sat": 0,
+        "carbs": 2.96,
+        "sugars": 2.96,
+        "fibre": 0.4,
+        "protein": 19.6,
+        "salt": 0.566
+      },
+      "natriumMg": 226.4,
+      "allergens": [],
+      "hints": [
+        "knoblauch",
+        "zwiebel_gewuerz",
+        "koriander_gew",
+        "gefluegel"
+      ]
+    },
+    {
+      "id": "salat_barbacoa",
+      "ing": "barbacoa",
+      "type": "salat",
+      "name": "Barbacoa",
+      "calcType": "Salat",
+      "calcLabel": "Barbacoa (extra)",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 177.6,
+        "fat": 9.16,
+        "sat": 4.84,
+        "carbs": 0.18,
+        "sugars": 0.18,
+        "fibre": 0.05,
+        "protein": 23.59,
+        "salt": 0.699
+      },
+      "natriumMg": 279.6,
+      "allergens": [
+        "Senf"
+      ],
+      "hints": [
+        "knoblauch",
+        "zwiebel_roh",
+        "zwiebel_gewuerz",
+        "koriander_gew",
+        "rindfleisch",
+        "fructose"
+      ]
+    },
+    {
+      "id": "salat_filetsteak",
+      "ing": "filetsteak",
+      "type": "salat",
+      "name": "Filetsteak",
+      "calcType": "Salat",
+      "calcLabel": "Filetsteak (extra)",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 151.25,
+        "fat": 5,
+        "sat": 2.2,
+        "carbs": 0.19,
+        "sugars": 0.19,
+        "fibre": 0.05,
+        "protein": 26.5,
+        "salt": 0.244
+      },
+      "natriumMg": 97.5,
+      "allergens": [],
+      "hints": [
+        "knoblauch",
+        "koriander_gew",
+        "rindfleisch"
+      ]
+    },
+    {
+      "id": "salat_guacamole",
+      "ing": "guacamole",
+      "type": "salat",
+      "name": "Guacamole",
+      "calcType": "Salat",
+      "calcLabel": "1 Kugel Guacamole",
+      "section": "Zutaten",
+      "perPortion": {
+        "kcal": 37.25,
+        "fat": 3.5,
+        "sat": 0.55,
+        "carbs": 1.7,
+        "sugars": 0.48,
+        "fibre": 1.03,
+        "protein": 0.35,
+        "salt": 0.158
+      },
+      "natriumMg": 63,
+      "allergens": [],
+      "hints": [
+        "zwiebel_roh",
+        "zwiebel_gewuerz",
+        "koriander_fri",
+        "vegan"
+      ]
+    },
+    {
+      "id": "salat_salatbasis",
+      "ing": "salatbasis",
+      "type": "salat",
+      "name": "Eisbergsalat (Salat-Basis)",
+      "calcType": "Salat",
+      "calcLabel": "Eisbergsalat",
+      "section": "Füllung",
+      "perPortion": {
+        "kcal": 39,
+        "fat": 0.6,
+        "sat": 0.09,
+        "carbs": 4.71,
+        "sugars": 4.71,
+        "fibre": 5.4,
+        "protein": 3,
+        "salt": 0.09
+      },
+      "natriumMg": 36,
+      "allergens": [],
+      "hints": [
+        "vegan"
+      ]
+    },
+    {
+      "id": "snack_chili_con_carne",
+      "ing": "chili_con_carne",
+      "type": "snack",
+      "name": "Chili con Carne",
+      "calcType": "Snacks",
+      "calcLabel": "Chili con Carne",
+      "section": "Snacks",
+      "perPortion": {
+        "kcal": 315.4,
+        "fat": 11.78,
+        "sat": 2.28,
+        "carbs": 33.06,
+        "sugars": 15.96,
+        "fibre": 15.58,
+        "protein": 15.58,
+        "salt": 3.563
+      },
+      "natriumMg": 1425,
+      "allergens": [
+        "Milch",
+        "Sellerie"
+      ],
+      "hints": [
+        "spuren_gluten",
+        "zwiebel_roh",
+        "zwiebel_gewuerz",
+        "laktose",
+        "koriander_gew",
+        "mais",
+        "rindfleisch",
+        "fructose"
+      ]
+    }
+  ],
+  "wolt": {
+    "venue": "chidobi-mexican-grill",
+    "page": "https://wolt.com/de/deu/frankfurt/restaurant/chidobi-mexican-grill",
+    "products": [
+      {
+        "name": "Barbacoa Cup",
+        "type": "cup",
+        "protein": "barbacoa",
+        "component": "cup_barbacoa",
+        "price": 15.99
+      },
+      {
+        "name": "Beef Salat",
+        "type": "salat",
+        "protein": "beef",
+        "component": "salat_beef",
+        "price": 15.69
+      },
+      {
+        "name": "Filetsteak Cup",
+        "type": "cup",
+        "protein": "filetsteak",
+        "component": "cup_filetsteak",
+        "price": 16.99
+      },
+      {
+        "name": "Chicken Cup",
+        "type": "cup",
+        "protein": "chicken",
+        "component": "cup_chicken",
+        "price": 14.49
+      },
+      {
+        "name": "Beef Cup",
+        "type": "cup",
+        "protein": "beef",
+        "component": "cup_beef",
+        "price": 14.49
+      },
+      {
+        "name": "Chicken Salat",
+        "type": "salat",
+        "protein": "chicken",
+        "component": "salat_chicken",
+        "price": 15.69
+      },
+      {
+        "name": "Filetsteak Salat",
+        "type": "salat",
+        "protein": "filetsteak",
+        "component": "salat_filetsteak",
+        "price": 18.49
+      }
+    ],
+    "menus": {
+      "cup": [
+        {
+          "id": "basis",
+          "name": "Deine Basis",
+          "kind": "base",
+          "min": 1,
+          "max": 1,
+          "none": "Ohne Basis",
+          "options": [
+            {
+              "name": "Gewürzreis",
+              "component": "cup_gewuerzreis",
+              "ing": "gewuerzreis",
+              "price": 0,
+              "maxQty": 1
+            },
+            {
+              "name": "Cubes",
+              "component": "cup_cubes",
+              "ing": "cubes",
+              "price": 0,
+              "maxQty": 1
+            }
+          ],
+          "removals": []
+        },
+        {
+          "id": "zutaten",
+          "name": "Wähle deine Zutaten",
+          "kind": "standard",
+          "min": 0,
+          "max": 5,
+          "none": null,
+          "options": [
+            {
+              "name": "Black Beans",
+              "removeName": "Ohne Black Beans",
+              "component": "cup_black_beans",
+              "ing": "black_beans",
+              "price": 0,
+              "optional": true,
+              "sauce": false
+            },
+            {
+              "name": "gegrillte Paprika & rote Zwiebeln",
+              "removeName": "Ohne gegrillte Paprika & rote Zwiebeln",
+              "component": "cup_gegrilltes_gemuese",
+              "ing": "gegrilltes_gemuese",
+              "price": 0,
+              "optional": false,
+              "sauce": false
+            },
+            {
+              "name": "Eisbergsalat",
+              "removeName": "Ohne Eisbergsalat",
+              "component": "cup_eisbergsalat",
+              "ing": "eisbergsalat",
+              "price": 0,
+              "optional": false,
+              "sauce": false
+            },
+            {
+              "name": "Cheddar Jack Cheese",
+              "removeName": "Ohne Cheddar Jack Cheese",
+              "component": "cup_cheddar_jack_cheese",
+              "ing": "cheddar_jack_cheese",
+              "price": 0,
+              "optional": false,
+              "sauce": true
+            },
+            {
+              "name": "Limette",
+              "removeName": "Ohne Limette",
+              "component": "cup_limette",
+              "ing": "limette",
+              "price": 0,
+              "optional": false,
+              "sauce": false
+            }
+          ],
+          "removals": []
+        },
+        {
+          "id": "cream",
+          "name": "Deine Cream",
+          "kind": "cream",
+          "min": 1,
+          "max": 1,
+          "none": "Ohne Creme",
+          "options": [
+            {
+              "name": "Sour Cream",
+              "component": "cup_sour_cream",
+              "ing": "sour_cream",
+              "price": 0,
+              "maxQty": 1,
+              "sauce": true
+            }
+          ],
+          "removals": []
+        },
+        {
+          "id": "salsa",
+          "name": "Deine Salsa",
+          "kind": "salsa",
+          "min": 1,
+          "max": 1,
+          "none": "Ohne Salsa",
+          "options": [
+            {
+              "name": "Mild",
+              "component": "cup_salsa",
+              "ing": "salsa",
+              "price": 0,
+              "maxQty": 1,
+              "sauce": true
+            }
+          ],
+          "removals": []
+        },
+        {
+          "id": "extras",
+          "name": "Deine Extras",
+          "kind": "extras",
+          "min": 0,
+          "max": 7,
+          "none": null,
+          "options": [
+            {
+              "name": "Beef",
+              "component": "cup_beef",
+              "ing": "beef",
+              "price": 2.49,
+              "maxQty": 1
+            },
+            {
+              "name": "Chicken",
+              "component": "cup_chicken",
+              "ing": "chicken",
+              "price": 2.49,
+              "maxQty": 1
+            },
+            {
+              "name": "Barbacoa",
+              "component": "cup_barbacoa",
+              "ing": "barbacoa",
+              "price": 4.99,
+              "maxQty": 1
+            },
+            {
+              "name": "Filetsteak",
+              "component": "cup_filetsteak",
+              "ing": "filetsteak",
+              "price": 4.99,
+              "maxQty": 1
+            },
+            {
+              "name": "Guacamole",
+              "component": "cup_guacamole",
+              "ing": "guacamole",
+              "price": 2.39,
+              "maxQty": 1,
+              "sauce": true
+            },
+            {
+              "name": "Cheesesauce",
+              "component": "cup_cheesesauce",
+              "ing": "cheesesauce",
+              "price": 1.89,
+              "maxQty": 1,
+              "sauce": true
+            },
+            {
+              "name": "Cheddar Jack Cheese",
+              "component": "cup_cheddar_jack_cheese",
+              "ing": "cheddar_jack_cheese",
+              "price": 0.99,
+              "maxQty": 1,
+              "sauce": true
+            }
+          ],
+          "removals": []
+        }
+      ],
+      "salat": [
+        {
+          "id": "zutaten",
+          "name": "Wähle deine Zutaten",
+          "kind": "standard",
+          "min": 0,
+          "max": 6,
+          "none": null,
+          "options": [
+            {
+              "name": "Black Beans",
+              "removeName": "Ohne Black Beans",
+              "component": "salat_black_beans",
+              "ing": "black_beans",
+              "price": 0,
+              "optional": true,
+              "sauce": false
+            },
+            {
+              "name": "gegrillte Paprika & rote Zwiebeln",
+              "removeName": "Ohne gegrillte Paprika & rote Zwiebeln",
+              "component": "salat_gegrilltes_gemuese",
+              "ing": "gegrilltes_gemuese",
+              "price": 0,
+              "optional": false,
+              "sauce": false
+            },
+            {
+              "name": "Cheddar Jack Cheese",
+              "removeName": "Ohne Cheddar Jack Cheese",
+              "component": "salat_cheddar_jack_cheese",
+              "ing": "cheddar_jack_cheese",
+              "price": 0,
+              "optional": false,
+              "sauce": true
+            },
+            {
+              "name": "Limette",
+              "removeName": "Ohne Limette",
+              "component": "salat_limette",
+              "ing": "limette",
+              "price": 0,
+              "optional": false,
+              "sauce": false
+            },
+            {
+              "name": "California Dressing",
+              "removeName": "Ohne California Dressing",
+              "component": "salat_california_dressing",
+              "ing": "california_dressing",
+              "price": 0,
+              "optional": false,
+              "sauce": true
+            }
+          ],
+          "removals": [
+            "Ohne Tortilla Strips"
+          ]
+        },
+        {
+          "id": "cream",
+          "name": "Deine Soße",
+          "kind": "cream",
+          "min": 1,
+          "max": 1,
+          "none": "Ohne Cream",
+          "options": [
+            {
+              "name": "Sour Cream",
+              "component": "salat_sour_cream",
+              "ing": "sour_cream",
+              "price": 0,
+              "maxQty": 1,
+              "sauce": true
+            }
+          ],
+          "removals": []
+        },
+        {
+          "id": "salsa",
+          "name": "Deine Salsa",
+          "kind": "salsa",
+          "min": 1,
+          "max": 1,
+          "none": "Ohne Salsa",
+          "options": [
+            {
+              "name": "Mild",
+              "component": "salat_salsa",
+              "ing": "salsa",
+              "price": 0,
+              "maxQty": 1,
+              "sauce": true
+            }
+          ],
+          "removals": []
+        },
+        {
+          "id": "extras",
+          "name": "Deine Extras",
+          "kind": "extras",
+          "min": 0,
+          "max": 7,
+          "none": null,
+          "options": [
+            {
+              "name": "Beef",
+              "component": "salat_beef",
+              "ing": "beef",
+              "price": 2.49,
+              "maxQty": 1
+            },
+            {
+              "name": "Chicken",
+              "component": "salat_chicken",
+              "ing": "chicken",
+              "price": 2.49,
+              "maxQty": 1
+            },
+            {
+              "name": "Barbacoa",
+              "component": "salat_barbacoa",
+              "ing": "barbacoa",
+              "price": 4.99,
+              "maxQty": 1
+            },
+            {
+              "name": "Filetsteak",
+              "component": "salat_filetsteak",
+              "ing": "filetsteak",
+              "price": 4.99,
+              "maxQty": 1
+            },
+            {
+              "name": "Guacamole",
+              "component": "salat_guacamole",
+              "ing": "guacamole",
+              "price": 2.39,
+              "maxQty": 1,
+              "sauce": true
+            },
+            {
+              "name": "Cheddar Jack Cheese",
+              "component": "salat_cheddar_jack_cheese",
+              "ing": "cheddar_jack_cheese",
+              "price": 0.99,
+              "maxQty": 1,
+              "sauce": true
+            }
+          ],
+          "removals": []
+        }
+      ]
+    },
+    "saladBase": "salat_salatbasis",
+    "chili": {
+      "name": "Chili con Carne",
+      "component": "snack_chili_con_carne",
+      "ing": "chili_con_carne",
+      "price": 8.49,
+      "category": "SNACKS 🥪"
+    }
+  }
+}
