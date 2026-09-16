@@ -386,6 +386,227 @@ const DEANDAVID = {
   },
 };
 // __DEANDAVID_DATA_END__
+// __SUBWAY_DATA_START__ (generiert via: node subway-update.js aus data/subway-raw.json — nicht von Hand editieren)
+// Quelle: Subway Deutschland Nährwertinformationen September 2026 (Werte pro 15-cm-Portion; Footlong ×2) · Menü + Preise: Wolt subway-frankfurt-zeil („Create Your Own“), Stand 2026-09-16
+const SUBWAY = {
+  // Sub-Bausteine der Nährwerttabelle (Brot, Käse, Saucen, Toppings, Einzel-Zutaten — auch die, die im Tracker nicht vorkommen); Werte pro 100 g und pro 15-cm-Portion
+  ingredients: [
+    {id:"italian",name:"Italian",section:"Brot",portionG:70,per100:{kcal:271,fat:3,sat:0,carbs:51,sugars:6,fibre:3,protein:10,salt:0.8},perPortion:{kcal:190,fat:2.1,sat:0,carbs:36,sugars:4.2,fibre:2.1,protein:7,salt:0.6}},
+    {id:"sesam",name:"Sesam",section:"Brot",portionG:75,per100:{kcal:249,fat:5.3,sat:1.3,carbs:39,sugars:1,fibre:2.6,protein:11,salt:1.3},perPortion:{kcal:187,fat:4,sat:1,carbs:29,sugars:1,fibre:2,protein:8,salt:1}},
+    {id:"cheese_oregano",name:"Cheese Oregano",section:"Brot",portionG:81,per100:{kcal:241,fat:4.8,sat:2,carbs:37,sugars:1,fibre:2.3,protein:11,salt:0.9},perPortion:{kcal:195,fat:3.9,sat:1.6,carbs:30,sugars:1,fibre:1.9,protein:9.3,salt:0.7}},
+    {id:"honey_oat",name:"Honey Oat",section:"Brot",portionG:96,per100:{kcal:245,fat:2.7,sat:0.5,carbs:42,sugars:9,fibre:5.5,protein:10,salt:0.5},perPortion:{kcal:235,fat:2.6,sat:0.5,carbs:41,sugars:9,fibre:5,protein:9.5,salt:0.5}},
+    {id:"vollkornbrot",name:"Vollkornbrot",section:"Brot",portionG:76,per100:{kcal:207,fat:1.1,sat:0.2,carbs:35,sugars:1.8,fibre:5.8,protein:10,salt:0.7},perPortion:{kcal:157,fat:0.8,sat:0.2,carbs:27,sugars:1.4,fibre:4.4,protein:7.5,salt:1}},
+    {id:"weizenwrap",name:"Weizenwrap",section:"Brot",portionG:95,per100:{kcal:290,fat:6,sat:0.8,carbs:50,sugars:2.7,fibre:4.1,protein:7,salt:1.3},perPortion:{kcal:276,fat:5.7,sat:0.8,carbs:48,sugars:2.6,fibre:3.9,protein:6.7,salt:1.2}},
+    {id:"glutenfrei",name:"Glutenfrei",section:"Brot",portionG:110,per100:{kcal:267,fat:6,sat:0.5,carbs:48,sugars:1.1,fibre:3.4,protein:3,salt:0.9},perPortion:{kcal:294,fat:6.6,sat:0.6,carbs:53,sugars:1.2,fibre:3.7,protein:3.3,salt:1}},
+    {id:"scheibenkaese",name:"Scheibenkäse",section:"Käse",portionG:12,per100:{kcal:353,fat:29,sat:18,carbs:3.5,sugars:3.2,fibre:0,protein:20,salt:2.5},perPortion:{kcal:42,fat:3.5,sat:2.2,carbs:0.4,sugars:0.4,fibre:0,protein:2.3,salt:0.3}},
+    {id:"mozzarella_emmental_mix",name:"Mozzarella-Emmental-Mix",section:"Käse",portionG:14,per100:{kcal:320,fat:25,sat:16,carbs:4.6,sugars:0.8,fibre:0,protein:23,salt:1.4},perPortion:{kcal:45,fat:3.4,sat:2.2,carbs:0.6,sugars:0.1,fibre:0,protein:3.2,salt:0.2}},
+    {id:"frischkaese",name:"Frischkäse",section:"Käse",portionG:14,per100:{kcal:197,fat:16,sat:11,carbs:3.9,sugars:3.8,fibre:0,protein:8.7,salt:0.8},perPortion:{kcal:28,fat:2.2,sat:1.5,carbs:0.5,sugars:0.5,fibre:0,protein:1.2,salt:0.1}},
+    {id:"cheddar",name:"Cheddar",section:"Käse",portionG:11,per100:{kcal:416,fat:35,sat:22,carbs:0.1,sugars:0.1,fibre:0,protein:25,salt:1.9},perPortion:{kcal:46,fat:3.8,sat:2.3,carbs:0,sugars:0,fibre:0,protein:2.8,salt:0.2}},
+    {id:"vegan_slices",name:"Vegan Slices (vegan)",section:"Käse",portionG:10,per100:{kcal:296,fat:24,sat:21,carbs:19,sugars:0.1,fibre:0.1,protein:0.1,salt:1.3},perPortion:{kcal:30,fat:2.4,sat:2.1,carbs:1.9,sugars:0,fibre:0,protein:0,salt:0.1}},
+    {id:"bbq_sauce",name:"BBQ Sauce (vegan)",section:"Saucen",portionG:14,per100:{kcal:153,fat:0.5,sat:0.1,carbs:36,sugars:30,fibre:2.1,protein:0.9,salt:2.7},perPortion:{kcal:21,fat:0,sat:0,carbs:4.9,sugars:4.2,fibre:0.3,protein:0.1,salt:0.4}},
+    {id:"caesar_sauce",name:"Caesar Sauce",section:"Saucen",portionG:14,per100:{kcal:357,fat:34,sat:3.5,carbs:8.4,sugars:5.1,fibre:0,protein:2.6,salt:2.4},perPortion:{kcal:50,fat:4.8,sat:0.5,carbs:1.2,sugars:0.7,fibre:0,protein:0.4,salt:0.3}},
+    {id:"chipotle_southwest",name:"Chipotle Southwest Sauce",section:"Saucen",portionG:14,per100:{kcal:440,fat:45,sat:3.4,carbs:9,sugars:5.9,fibre:0.5,protein:1,salt:1.7},perPortion:{kcal:62,fat:6.3,sat:0.5,carbs:1.3,sugars:0.8,fibre:0,protein:0.1,salt:0.2}},
+    {id:"x_spicy_chipotle",name:"X-spicy Chipotle Sauce (vegan)",section:"Saucen",portionG:14,per100:{kcal:429,fat:44,sat:3.4,carbs:8,sugars:5,fibre:0.7,protein:1.2,salt:1.8},perPortion:{kcal:60,fat:6.1,sat:0.5,carbs:1.1,sugars:0.7,fibre:0.1,protein:0.2,salt:0.3}},
+    {id:"honey_wholegrain_mustard",name:"Honey & Wholegrain Mustard Sauce",section:"Saucen",portionG:14,per100:{kcal:208,fat:14,sat:0.9,carbs:19,sugars:17,fibre:1.7,protein:1.8,salt:1.4},perPortion:{kcal:29,fat:1.9,sat:0.1,carbs:2.7,sugars:2.3,fibre:0.2,protein:0.3,salt:0.2}},
+    {id:"lite_mayonnaise",name:"Lite Mayonnaise",section:"Saucen",portionG:14,per100:{kcal:329,fat:35,sat:2.4,carbs:4,sugars:4,fibre:0,protein:0,salt:1.7},perPortion:{kcal:46,fat:4.9,sat:0.3,carbs:0.6,sugars:0.6,fibre:0,protein:0,salt:0.2}},
+    {id:"joghurt",name:"Joghurt",section:"Saucen",portionG:14,per100:{kcal:134,fat:10,sat:0.1,carbs:9,sugars:4.9,fibre:0.2,protein:1.2,salt:1.7},perPortion:{kcal:18,fat:1.4,sat:0,carbs:1.3,sugars:0.6,fibre:0,protein:0.1,salt:0.2}},
+    {id:"sweet_onion",name:"Sweet Onion (vegan)",section:"Saucen",portionG:14,per100:{kcal:155,fat:1.4,sat:0.1,carbs:35,sugars:31,fibre:0.5,protein:0.5,salt:0.7},perPortion:{kcal:23,fat:0.1,sat:0,carbs:5.6,sugars:4.8,fibre:0.1,protein:0.1,salt:0.1}},
+    {id:"garlic_herb",name:"Garlic & Herb (vegan)",section:"Saucen",portionG:14,per100:{kcal:570,fat:60,sat:4.3,carbs:6.2,sugars:7,fibre:0,protein:0,salt:1},perPortion:{kcal:22,fat:0.19,sat:0,carbs:4.9,sugars:4.2,fibre:0,protein:0,salt:0.1},blocked:true,blockedReason:"Portion (14 g: 22 kcal, 0,19 g Fett, 4,9 g KH) passt nicht zu je 100 g (570 kcal, 60 g Fett → 80 kcal je 14 g); KH/Zucker je Portion = BBQ Sauce → Portionszeile vermutlich fehlerhaft. Gesperrt bis zur Entscheidung des Users"},
+    {id:"balsamic_vinegar",name:"Balsamic Vinegar (vegan)",section:"Saucen",portionG:3.5,per100:{kcal:28,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},perPortion:{kcal:1,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0}},
+    {id:"olivenoel",name:"Olivenöl (vegan)",section:"Saucen",portionG:3.5,per100:{kcal:900,fat:100,sat:13.3,carbs:0,sugars:0,fibre:0,protein:0,salt:0},perPortion:{kcal:32,fat:3.5,sat:0.4,carbs:0,sugars:0,fibre:0,protein:0,salt:0}},
+    {id:"ketchup",name:"Ketchup",section:"Saucen",portionG:14,per100:{kcal:127,fat:0.1,sat:0.1,carbs:29,sugars:23,fibre:0.8,protein:1.2,salt:3},perPortion:{kcal:18,fat:0,sat:0,carbs:4,sugars:3.2,fibre:0,protein:0,salt:0.4}},
+    {id:"jalapenos",name:"Jalapeños",section:"Zutaten/Toppings",portionG:7,per100:{kcal:11,fat:0.5,sat:0.1,carbs:1.6,sugars:0.8,fibre:1.4,protein:0.4,salt:4.3},perPortion:{kcal:0.8,fat:0,sat:0,carbs:0.1,sugars:0.1,fibre:0.1,protein:0,salt:0.3}},
+    {id:"oliven",name:"Oliven",section:"Zutaten/Toppings",portionG:3,per100:{kcal:97,fat:9.4,sat:1.5,carbs:1.1,sugars:0.1,fibre:3.1,protein:1,salt:1.9},perPortion:{kcal:2.9,fat:0.3,sat:0,carbs:0,sugars:0,fibre:0.1,protein:0,salt:0.1}},
+    {id:"gewuerzgurken",name:"Gewürzgurken",section:"Zutaten/Toppings",portionG:7.5,per100:{kcal:9,fat:0.5,sat:0.1,carbs:1.37,sugars:0.1,fibre:1.1,protein:0.4,salt:2.9},perPortion:{kcal:0.7,fat:0,sat:0,carbs:0.1,sugars:0,fibre:0.1,protein:0,salt:0.2}},
+    {id:"mais",name:"Mais",section:"Zutaten/Toppings",portionG:7,per100:{kcal:80,fat:1.9,sat:1,carbs:11,sugars:5.2,fibre:3.8,protein:2.9,salt:0.4},perPortion:{kcal:5.6,fat:0.1,sat:0,carbs:0.8,sugars:0.4,fibre:0.3,protein:0.2,salt:0}},
+    {id:"salat",name:"Salat",section:"Zutaten/Toppings",portionG:14,per100:{kcal:11,fat:0.1,sat:0,carbs:1.4,sugars:1.4,fibre:1.5,protein:1.2,salt:0},perPortion:{kcal:1.5,fat:0,sat:0,carbs:0.2,sugars:0.2,fibre:0.2,protein:0.2,salt:0}},
+    {id:"tomaten",name:"Tomaten",section:"Zutaten/Toppings",portionG:30,per100:{kcal:18,fat:0.2,sat:0,carbs:2.7,sugars:2.6,fibre:1.2,protein:0.9,salt:0},perPortion:{kcal:5.4,fat:0.1,sat:0,carbs:0.8,sugars:0.8,fibre:0.4,protein:0.3,salt:0}},
+    {id:"gurken",name:"Gurken",section:"Zutaten/Toppings",portionG:18,per100:{kcal:15,fat:0.1,sat:0,carbs:3.1,sugars:1.7,fibre:0.5,protein:0.7,salt:0},perPortion:{kcal:2.7,fat:0,sat:0,carbs:0.6,sugars:0.3,fibre:0.1,protein:0.1,salt:0}},
+    {id:"paprika",name:"Paprika",section:"Zutaten/Toppings",portionG:12,per100:{kcal:25,fat:0,sat:0,carbs:4.3,sugars:2.3,fibre:1.8,protein:0.7,salt:0},perPortion:{kcal:3,fat:0,sat:0,carbs:0.5,sugars:0.3,fibre:0.2,protein:0.1,salt:0}},
+    {id:"zwiebeln",name:"Zwiebeln",section:"Zutaten/Toppings",portionG:7,per100:{kcal:36,fat:0.2,sat:0,carbs:7.9,sugars:5.6,fibre:1.4,protein:1.2,salt:0},perPortion:{kcal:2.5,fat:0,sat:0,carbs:0.6,sugars:0.4,fibre:0.1,protein:0.1,salt:0}},
+    {id:"rucola",name:"Rucola",section:"Zutaten/Toppings",portionG:7,per100:{kcal:28,fat:0.7,sat:0,carbs:2.1,sugars:0,fibre:1.6,protein:2.6,salt:0},perPortion:{kcal:2,fat:0,sat:0,carbs:0.1,sugars:0,fibre:0.1,protein:0.2,salt:0}},
+    {id:"nachos",name:"Nachos (Doritos® Nacho Cheese)",section:"Zutaten/Toppings",portionG:12,per100:{kcal:499,fat:26,sat:3.4,carbs:58,sugars:2.7,fibre:5.6,protein:6.5,salt:1.2},perPortion:{kcal:60,fat:3.1,sat:0.4,carbs:6.9,sugars:0.3,fibre:0.7,protein:0.8,salt:0.1}},
+    {id:"guacamole",name:"Guacamole",section:"Zutaten/Toppings",portionG:35,per100:{kcal:68,fat:17,sat:1,carbs:2.5,sugars:1.1,fibre:1.7,protein:1.9,salt:0.7},perPortion:{kcal:24,fat:6,sat:0.3,carbs:0.9,sugars:0.4,fibre:0.6,protein:0.7,salt:0.2}},
+    {id:"roestzwiebeln",name:"Röstzwiebeln",section:"Zutaten/Toppings",portionG:7,per100:{kcal:584,fat:43,sat:14.3,carbs:41.6,sugars:8.9,fibre:3.6,protein:6,salt:0},perPortion:{kcal:41,fat:3,sat:1,carbs:2.9,sugars:0.6,fibre:0.3,protein:0.4,salt:0}},
+    {id:"peperoni_salami",name:"Peperoni-Salami",section:"Einzel-Zutaten",portionG:18,per100:{kcal:405,fat:35,sat:12.2,carbs:3.5,sugars:0,fibre:0,protein:20,salt:4},perPortion:{kcal:73,fat:6.3,sat:2.2,carbs:0.6,sugars:0,fibre:0,protein:3.6,salt:0.7}},
+    {id:"salami",name:"Salami",section:"Einzel-Zutaten",portionG:18,per100:{kcal:405,fat:35,sat:12.7,carbs:3.5,sugars:0,fibre:0,protein:20,salt:3.7},perPortion:{kcal:73,fat:6.3,sat:2.3,carbs:0.6,sugars:0,fibre:0,protein:3.6,salt:0.7}},
+    {id:"tuna",name:"Tuna (mit Lite Mayonnaise)",section:"Einzel-Zutaten",portionG:74,per100:{kcal:196,fat:14,sat:1.1,carbs:3.3,sugars:1.4,fibre:0,protein:16,salt:1.2},perPortion:{kcal:145,fat:10,sat:0.9,carbs:2.5,sugars:1,fibre:0,protein:12,salt:0.9}},
+    {id:"philly_beef",name:"Philly Beef",section:"Einzel-Zutaten",portionG:71,per100:{kcal:121,fat:2,sat:0.5,carbs:11,sugars:5.5,fibre:1,protein:14.9,salt:1},perPortion:{kcal:86,fat:1.4,sat:0.4,carbs:8,sugars:3.9,fibre:0.7,protein:11,salt:0.7}},
+    {id:"beef_chili",name:"Beef Chili",section:"Einzel-Zutaten",portionG:120,per100:{kcal:95,fat:2,sat:0.6,carbs:8,sugars:2.6,fibre:1.7,protein:10,salt:1.1},perPortion:{kcal:114,fat:2.4,sat:0.7,carbs:10,sugars:3.1,fibre:2,protein:12,salt:1.3}},
+    {id:"pulled_chicken_breast",name:"Rotisserie-Style Chicken/Pulled Chicken Breast",section:"Einzel-Zutaten",portionG:56,per100:{kcal:127,fat:3.5,sat:0.5,carbs:0.2,sugars:0.2,fibre:0,protein:22,salt:0.9},perPortion:{kcal:71,fat:2,sat:0.3,carbs:0.1,sugars:0.1,fibre:0,protein:12,salt:0.5}},
+    {id:"chicken_teriyaki",name:"Chicken Teriyaki",section:"Einzel-Zutaten",portionG:74,per100:{kcal:109,fat:1.7,sat:0.5,carbs:5.4,sugars:4,fibre:0.13,protein:17,salt:0.9},perPortion:{kcal:81,fat:1.3,sat:0.4,carbs:4,sugars:3,fibre:0.1,protein:13,salt:0.7}},
+    {id:"chicken_fajita",name:"Chicken Fajita",section:"Einzel-Zutaten",portionG:56,per100:{kcal:109,fat:1,sat:0.3,carbs:3.2,sugars:1.7,fibre:0.1,protein:22,salt:2},perPortion:{kcal:61,fat:0.5,sat:0.2,carbs:1.8,sugars:0.9,fibre:0.1,protein:12,salt:1.1}},
+    {id:"chicken_tandoori",name:"Chicken Tandoori",section:"Einzel-Zutaten",portionG:71,per100:{kcal:126,fat:2,sat:0.5,carbs:2.5,sugars:1.2,fibre:0,protein:25,salt:0.9},perPortion:{kcal:89,fat:1.4,sat:0.4,carbs:1.8,sugars:0.9,fibre:0,protein:18,salt:0.6}},
+    {id:"ham",name:"Ham",section:"Einzel-Zutaten",portionG:28,per100:{kcal:122,fat:3.6,sat:1.1,carbs:2.5,sugars:1.4,fibre:1,protein:19,salt:1.6},perPortion:{kcal:34,fat:1,sat:0.3,carbs:0.7,sugars:0.4,fibre:0.3,protein:5.4,salt:0.5}},
+    {id:"bbq_rib",name:"BBQ Rib",section:"Einzel-Zutaten",portionG:72,per100:{kcal:291,fat:24,sat:9.1,carbs:2,sugars:1,fibre:1.6,protein:16,salt:1.5},perPortion:{kcal:209,fat:17,sat:6.5,carbs:1.4,sugars:0.7,fibre:1.1,protein:12,salt:1}},
+    {id:"bacon",name:"Bacon",section:"Einzel-Zutaten",portionG:9,per100:{kcal:410,fat:31,sat:11,carbs:2.4,sugars:3,fibre:0,protein:33,salt:3.6},perPortion:{kcal:37,fat:2.8,sat:1,carbs:0.2,sugars:0.3,fibre:0,protein:3,salt:0.3}},
+    {id:"spicy_vegan_patty",name:"Spicy Vegan Patty",section:"Einzel-Zutaten",portionG:85,per100:{kcal:199,fat:10,sat:0.9,carbs:12,sugars:1.9,fibre:3.2,protein:13,salt:1.3},perPortion:{kcal:169,fat:8.8,sat:0.8,carbs:10.2,sugars:1.6,fibre:2.7,protein:11,salt:1.1}},
+    {id:"pb_chicken_teriyaki",name:"Plant-based Chicken Teriyaki",section:"Einzel-Zutaten",portionG:74,per100:{kcal:135,fat:3.1,sat:0.6,carbs:11,sugars:3.2,fibre:4.7,protein:14,salt:2.1},perPortion:{kcal:100,fat:2.3,sat:0.5,carbs:8.1,sugars:2.4,fibre:3.5,protein:10,salt:1.6}},
+    {id:"omelette",name:"Omelette",section:"Einzel-Zutaten",portionG:70,per100:{kcal:124,fat:6.7,sat:2,carbs:3.3,sugars:1,fibre:0.1,protein:11,salt:1.1},perPortion:{kcal:87,fat:4.69,sat:1.4,carbs:2.3,sugars:0.7,fibre:0,protein:7.8,salt:0.8}},
+    {id:"nacho_chicken",name:"Nacho Chicken",section:"Einzel-Zutaten",portionG:18,per100:{kcal:250,fat:12,sat:1.6,carbs:20,sugars:0.9,fibre:1.4,protein:15,salt:1.4},perPortion:{kcal:45,fat:2.1,sat:0.3,carbs:3.5,sugars:0.2,fibre:0,protein:2.6,salt:0.2}},
+    {id:"veggie_delite",name:"Veggie Delite® (kein Protein)",section:"Create Your Own",portionG:0,per100:{kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},perPortion:{kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0}},
+  ],
+  stdVeggies: ["salat","tomaten","paprika","zwiebeln","mais"], // User 16.09.2026: Eisbergsalat, Tomaten, Rote Paprika, Rote Zwiebeln, Mais
+  small: {
+    item: "Create Your Own", page: "https://wolt.com/de/deu/frankfurt/restaurant/subway-frankfurt-zeil", size: "15-CM", factor: 1, basePrice: 0, require: {base:true,protein:true}, proteinExtras: true, pickRoles: ["side","extra"],
+    groups: [
+      { id:"sub",name:"Create Your Own",min:1,max:1,none:null,options:[
+        {id:"sub_beef_chili",name:"Beef Chili",short:"Beef Chili",group:"sub",role:"protein",ing:"beef_chili",maxQty:1,price:9.79,sizeName:"Beef Chili - 15-CM",none:{kaese:"ohne Käse",veggies:"ohne Veggies"},kcal:114,fat:2.4,sat:0.7,carbs:10,sugars:3.1,fibre:2,protein:12,salt:1.3},
+        {id:"sub_chicken_teriyaki",name:"Chicken Teriyaki",short:"Chicken Teriyaki",group:"sub",role:"protein",ing:"chicken_teriyaki",maxQty:1,price:8.99,sizeName:"Chicken Teriyaki - 15-CM",none:{veggies:"ohne Veggies"},kcal:81,fat:1.3,sat:0.4,carbs:4,sugars:3,fibre:0.1,protein:13,salt:0.7},
+        {id:"sub_plant_based_chicken_teriyaki",name:"Plant-based Chicken Teriyaki",short:"Plant-based Chicken Teriyaki",group:"sub",role:"protein",ing:"pb_chicken_teriyaki",maxQty:1,price:8.99,sizeName:"Plant-based Chicken Teriyaki - 15-CM",none:{veggies:"ohne Veggies"},kcal:100,fat:2.3,sat:0.5,carbs:8.1,sugars:2.4,fibre:3.5,protein:10,salt:1.6},
+        {id:"sub_chicken_fajita",name:"Chicken Fajita",short:"Chicken Fajita",group:"sub",role:"protein",ing:"chicken_fajita",maxQty:1,price:8.99,sizeName:"Chicken Fajita - 15-CM",none:{veggies:"ohne Veggies"},kcal:61,fat:0.5,sat:0.2,carbs:1.8,sugars:0.9,fibre:0.1,protein:12,salt:1.1},
+        {id:"sub_chicken_tandoori",name:"Chicken Tandoori",short:"Chicken Tandoori",group:"sub",role:"protein",ing:"chicken_tandoori",maxQty:1,price:8.99,sizeName:"Chicken Tandoori - 15-CM",none:{kaese:"ohne Käse",veggies:"ohne Veggies",saucen:"ohne Saucen"},kcal:89,fat:1.4,sat:0.4,carbs:1.8,sugars:0.9,fibre:0,protein:18,salt:0.6},
+        {id:"sub_pulled_chicken_breast",name:"Pulled Chicken Breast",short:"Pulled Chicken Breast",group:"sub",role:"protein",ing:"pulled_chicken_breast",maxQty:1,price:9.29,sizeName:"Pulled Chicken Breast - 15-CM",none:{veggies:"ohne Veggies"},kcal:71,fat:2,sat:0.3,carbs:0.1,sugars:0.1,fibre:0,protein:12,salt:0.5},
+        {id:"sub_philly_beef_cheese",name:"Philly Beef & Cheese",short:"Philly Beef & Cheese",group:"sub",role:"protein",ing:"philly_beef",maxQty:1,price:9.29,sizeName:"Philly Beef & Cheese - 15-CM",none:{kaese:"ohne Käse",veggies:"ohne Veggies"},kcal:86,fat:1.4,sat:0.4,carbs:8,sugars:3.9,fibre:0.7,protein:11,salt:0.7},
+        {id:"sub_bbq_rib",name:"BBQ Rib",short:"BBQ Rib",group:"sub",role:"protein",ing:"bbq_rib",maxQty:1,price:8.99,sizeName:"BBQ Rib - 15-CM",none:{kaese:"ohne Käse",veggies:"ohne Veggies",seasonings:"ohne Seasonings"},kcal:209,fat:17,sat:6.5,carbs:1.4,sugars:0.7,fibre:1.1,protein:12,salt:1},
+        {id:"sub_ham",name:"Ham",short:"Ham",group:"sub",role:"protein",ing:"ham",maxQty:1,price:7.59,sizeName:"Ham - 15-CM",none:{veggies:"ohne Veggies"},kcal:34,fat:1,sat:0.3,carbs:0.7,sugars:0.4,fibre:0.3,protein:5.4,salt:0.5},
+        {id:"sub_spicy_vegan_patty",name:"Spicy Vegan Patty",short:"Spicy Vegan Patty",group:"sub",role:"protein",ing:"spicy_vegan_patty",maxQty:1,price:8.39,sizeName:"Spicy Vegan Patty - 15-CM",none:{veggies:"ohne Veggies"},kcal:169,fat:8.8,sat:0.8,carbs:10.2,sugars:1.6,fibre:2.7,protein:11,salt:1.1},
+        {id:"sub_veggie_delite",name:"Veggie Delite®",short:"Veggie Delite",group:"sub",role:"protein",ing:"veggie_delite",maxQty:1,price:6.49,sizeName:"Veggie Delite® - 15-CM",none:{kaese:"ohne Käse",veggies:"ohne Veggies"},kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
+        {id:"sub_beef_chili_extra_fleisch_protein",name:"Beef Chili + Extra Fleisch / Protein",short:"2× Beef Chili",group:"sub",role:"protein",ing:"beef_chili",maxQty:1,price:11.98,sizeName:"Beef Chili - 15-CM",none:{kaese:"ohne Käse",veggies:"ohne Veggies"},kcal:228,fat:4.8,sat:1.4,carbs:20,sugars:6.2,fibre:4,protein:24,salt:2.6,variant:true,orderName:"Beef Chili",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"sub_chicken_teriyaki_extra_fleisch_protein",name:"Chicken Teriyaki + Extra Fleisch / Protein",short:"2× Chicken Teriyaki",group:"sub",role:"protein",ing:"chicken_teriyaki",maxQty:1,price:11.18,sizeName:"Chicken Teriyaki - 15-CM",none:{veggies:"ohne Veggies"},kcal:162,fat:2.6,sat:0.8,carbs:8,sugars:6,fibre:0.2,protein:26,salt:1.4,variant:true,orderName:"Chicken Teriyaki",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"sub_plant_based_chicken_teriyaki_extra_fleisch_protein",name:"Plant-based Chicken Teriyaki + Extra Fleisch / Protein",short:"2× Plant-based Chicken Teriyaki",group:"sub",role:"protein",ing:"pb_chicken_teriyaki",maxQty:1,price:11.18,sizeName:"Plant-based Chicken Teriyaki - 15-CM",none:{veggies:"ohne Veggies"},kcal:200,fat:4.6,sat:1,carbs:16.2,sugars:4.8,fibre:7,protein:20,salt:3.2,variant:true,orderName:"Plant-based Chicken Teriyaki",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"sub_chicken_fajita_extra_fleisch_protein",name:"Chicken Fajita + Extra Fleisch / Protein",short:"2× Chicken Fajita",group:"sub",role:"protein",ing:"chicken_fajita",maxQty:1,price:11.18,sizeName:"Chicken Fajita - 15-CM",none:{veggies:"ohne Veggies"},kcal:122,fat:1,sat:0.4,carbs:3.6,sugars:1.8,fibre:0.2,protein:24,salt:2.2,variant:true,orderName:"Chicken Fajita",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"sub_chicken_tandoori_extra_fleisch_protein",name:"Chicken Tandoori + Extra Fleisch / Protein",short:"2× Chicken Tandoori",group:"sub",role:"protein",ing:"chicken_tandoori",maxQty:1,price:11.18,sizeName:"Chicken Tandoori - 15-CM",none:{kaese:"ohne Käse",veggies:"ohne Veggies",saucen:"ohne Saucen"},kcal:178,fat:2.8,sat:0.8,carbs:3.6,sugars:1.8,fibre:0,protein:36,salt:1.2,variant:true,orderName:"Chicken Tandoori",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"sub_pulled_chicken_breast_extra_fleisch_protein",name:"Pulled Chicken Breast + Extra Fleisch / Protein",short:"2× Pulled Chicken Breast",group:"sub",role:"protein",ing:"pulled_chicken_breast",maxQty:1,price:11.48,sizeName:"Pulled Chicken Breast - 15-CM",none:{veggies:"ohne Veggies"},kcal:142,fat:4,sat:0.6,carbs:0.2,sugars:0.2,fibre:0,protein:24,salt:1,variant:true,orderName:"Pulled Chicken Breast",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"sub_philly_beef_cheese_extra_fleisch_protein",name:"Philly Beef & Cheese + Extra Fleisch / Protein",short:"2× Philly Beef & Cheese",group:"sub",role:"protein",ing:"philly_beef",maxQty:1,price:11.48,sizeName:"Philly Beef & Cheese - 15-CM",none:{kaese:"ohne Käse",veggies:"ohne Veggies"},kcal:172,fat:2.8,sat:0.8,carbs:16,sugars:7.8,fibre:1.4,protein:22,salt:1.4,variant:true,orderName:"Philly Beef & Cheese",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"sub_bbq_rib_extra_fleisch_protein",name:"BBQ Rib + Extra Fleisch / Protein",short:"2× BBQ Rib",group:"sub",role:"protein",ing:"bbq_rib",maxQty:1,price:11.18,sizeName:"BBQ Rib - 15-CM",none:{kaese:"ohne Käse",veggies:"ohne Veggies",seasonings:"ohne Seasonings"},kcal:418,fat:34,sat:13,carbs:2.8,sugars:1.4,fibre:2.2,protein:24,salt:2,variant:true,orderName:"BBQ Rib",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"sub_ham_extra_fleisch_protein",name:"Ham + Extra Fleisch / Protein",short:"2× Ham",group:"sub",role:"protein",ing:"ham",maxQty:1,price:9.78,sizeName:"Ham - 15-CM",none:{veggies:"ohne Veggies"},kcal:68,fat:2,sat:0.6,carbs:1.4,sugars:0.8,fibre:0.6,protein:10.8,salt:1,variant:true,orderName:"Ham",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"sub_spicy_vegan_patty_extra_fleisch_protein",name:"Spicy Vegan Patty + Extra Fleisch / Protein",short:"2× Spicy Vegan Patty",group:"sub",role:"protein",ing:"spicy_vegan_patty",maxQty:1,price:10.58,sizeName:"Spicy Vegan Patty - 15-CM",none:{veggies:"ohne Veggies"},kcal:338,fat:17.6,sat:1.6,carbs:20.4,sugars:3.2,fibre:5.4,protein:22,salt:2.2,variant:true,orderName:"Spicy Vegan Patty",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+      ] },
+      { id:"brot",name:"Brot",min:1,max:1,none:null,options:[
+        {id:"brot_cheese_oregano",name:"Cheese Oregano",short:"Cheese Oregano",group:"brot",role:"base",ing:"cheese_oregano",maxQty:1,price:0,kcal:195,fat:3.9,sat:1.6,carbs:30,sugars:1,fibre:1.9,protein:9.3,salt:0.7},
+        {id:"brot_honey_oat",name:"Honey Oat",short:"Honey Oat",group:"brot",role:"base",ing:"honey_oat",maxQty:1,price:0,kcal:235,fat:2.6,sat:0.5,carbs:41,sugars:9,fibre:5,protein:9.5,salt:0.5},
+        {id:"brot_sesam",name:"Sesam",short:"Sesam",group:"brot",role:"base",ing:"sesam",maxQty:1,price:0,kcal:187,fat:4,sat:1,carbs:29,sugars:1,fibre:2,protein:8,salt:1},
+        {id:"brot_vollkorn",name:"Vollkorn",short:"Vollkorn",group:"brot",role:"base",ing:"vollkornbrot",maxQty:1,price:0,kcal:157,fat:0.8,sat:0.2,carbs:27,sugars:1.4,fibre:4.4,protein:7.5,salt:1},
+        {id:"brot_italian",name:"Italian",short:"Italian",group:"brot",role:"base",ing:"italian",maxQty:1,price:0,kcal:190,fat:2.1,sat:0,carbs:36,sugars:4.2,fibre:2.1,protein:7,salt:0.6},
+        {id:"brot_glutenfrei",name:"Glutenfrei",short:"Glutenfrei",group:"brot",role:"base",ing:"glutenfrei",maxQty:1,price:1.49,kcal:294,fat:6.6,sat:0.6,carbs:53,sugars:1.2,fibre:3.7,protein:3.3,salt:1},
+      ] },
+      { id:"zubereitung",name:"Zubereitungsart",min:1,max:1,none:null,choices:["Getoastet","Ungetoastet"],options:[
+      ] },
+      { id:"kaese",name:"Käse",min:0,max:1,none:"ohne Käse",options:[
+        {id:"kaese_scheibenkaese",name:"Scheibenkäse",short:"Scheibenkäse",group:"kaese",role:"side",ing:"scheibenkaese",maxQty:1,price:0,kcal:42,fat:3.5,sat:2.2,carbs:0.4,sugars:0.4,fibre:0,protein:2.3,salt:0.3},
+        {id:"kaese_cheddar",name:"Cheddar",short:"Cheddar",group:"kaese",role:"side",ing:"cheddar",maxQty:1,price:0,kcal:46,fat:3.8,sat:2.3,carbs:0,sugars:0,fibre:0,protein:2.8,salt:0.2},
+        {id:"kaese_mozzarella_emmental_mix",name:"Mozzarella-Emmental-Mix",short:"Mozzarella-Emmental-Mix",group:"kaese",role:"side",ing:"mozzarella_emmental_mix",maxQty:1,price:0,kcal:45,fat:3.4,sat:2.2,carbs:0.6,sugars:0.1,fibre:0,protein:3.2,salt:0.2},
+      ] },
+      { id:"extras",name:"Extras",min:0,max:15,none:null,options:[
+        {id:"extras_bacon",name:"Bacon",short:"Bacon",group:"extras",role:"extra",ing:"bacon",maxQty:1,price:1.49,kcal:37,fat:2.8,sat:1,carbs:0.2,sugars:0.3,fibre:0,protein:3,salt:0.3},
+        {id:"extras_chicken_teriyaki",name:"Chicken Teriyaki",short:"Chicken Teriyaki",group:"extras",role:"extra",ing:"chicken_teriyaki",maxQty:1,price:1.49,kcal:81,fat:1.3,sat:0.4,carbs:4,sugars:3,fibre:0.1,protein:13,salt:0.7},
+        {id:"extras_frischkaese",name:"Frischkäse",short:"Frischkäse",group:"extras",role:"extra",ing:"frischkaese",maxQty:1,price:0.89,kcal:28,fat:2.2,sat:1.5,carbs:0.5,sugars:0.5,fibre:0,protein:1.2,salt:0.1,sauce:true},
+        {id:"extras_tuna",name:"Tuna",short:"Tuna",group:"extras",role:"extra",ing:"tuna",maxQty:1,price:1.49,kcal:145,fat:10,sat:0.9,carbs:2.5,sugars:1,fibre:0,protein:12,salt:0.9},
+        {id:"extras_peperoni_salami",name:"Peperoni-Salami",short:"Peperoni-Salami",group:"extras",role:"extra",ing:"peperoni_salami",maxQty:1,price:1.69,kcal:73,fat:6.3,sat:2.2,carbs:0.6,sugars:0,fibre:0,protein:3.6,salt:0.7},
+        {id:"extras_ham",name:"Ham",short:"Ham",group:"extras",role:"extra",ing:"ham",maxQty:1,price:1.49,kcal:34,fat:1,sat:0.3,carbs:0.7,sugars:0.4,fibre:0.3,protein:5.4,salt:0.5},
+      ] },
+      { id:"veggies",name:"Veggies",min:1,max:14,none:"ohne Veggies",own:true,options:[
+        {id:"veggies_eisbergsalat",name:"Eisbergsalat",short:"Eisbergsalat",group:"veggies",role:"extra",ing:"salat",maxQty:1,price:0,kcal:1.5,fat:0,sat:0,carbs:0.2,sugars:0.2,fibre:0.2,protein:0.2,salt:0,pick:true},
+        {id:"veggies_rucola",name:"Rucola",short:"Rucola",group:"veggies",role:"extra",ing:"rucola",maxQty:1,price:0,kcal:2,fat:0,sat:0,carbs:0.1,sugars:0,fibre:0.1,protein:0.2,salt:0,pick:true},
+        {id:"veggies_tomaten",name:"Tomaten",short:"Tomaten",group:"veggies",role:"extra",ing:"tomaten",maxQty:1,price:0,kcal:5.4,fat:0.1,sat:0,carbs:0.8,sugars:0.8,fibre:0.4,protein:0.3,salt:0,pick:true},
+        {id:"veggies_gurken",name:"Gurken",short:"Gurken",group:"veggies",role:"extra",ing:"gurken",maxQty:1,price:0,kcal:2.7,fat:0,sat:0,carbs:0.6,sugars:0.3,fibre:0.1,protein:0.1,salt:0,pick:true},
+        {id:"veggies_rote_paprika",name:"Rote Paprika",short:"Rote Paprika",group:"veggies",role:"extra",ing:"paprika",maxQty:1,price:0,kcal:3,fat:0,sat:0,carbs:0.5,sugars:0.3,fibre:0.2,protein:0.1,salt:0,pick:true},
+        {id:"veggies_rote_zwiebeln",name:"Rote Zwiebeln",short:"Rote Zwiebeln",group:"veggies",role:"extra",ing:"zwiebeln",maxQty:1,price:0,kcal:2.5,fat:0,sat:0,carbs:0.6,sugars:0.4,fibre:0.1,protein:0.1,salt:0,pick:true},
+        {id:"veggies_schwarze_oliven",name:"Schwarze Oliven",short:"Schwarze Oliven",group:"veggies",role:"extra",ing:"oliven",maxQty:1,price:0,kcal:2.9,fat:0.3,sat:0,carbs:0,sugars:0,fibre:0.1,protein:0,salt:0.1,pick:true},
+        {id:"veggies_jalapenos",name:"Jalapeños",short:"Jalapeños",group:"veggies",role:"extra",ing:"jalapenos",maxQty:1,price:0,kcal:0.8,fat:0,sat:0,carbs:0.1,sugars:0.1,fibre:0.1,protein:0,salt:0.3,pick:true},
+        {id:"veggies_mais",name:"Mais",short:"Mais",group:"veggies",role:"extra",ing:"mais",maxQty:1,price:0,kcal:5.6,fat:0.1,sat:0,carbs:0.8,sugars:0.4,fibre:0.3,protein:0.2,salt:0,pick:true},
+        {id:"veggies_gewuerzgurke",name:"Gewürzgurke",short:"Gewürzgurke",group:"veggies",role:"extra",ing:"gewuerzgurken",maxQty:1,price:0,kcal:0.7,fat:0,sat:0,carbs:0.1,sugars:0,fibre:0.1,protein:0,salt:0.2,pick:true},
+      ] },
+      { id:"saucen",name:"Saucen",min:0,max:2,none:"ohne Saucen",own:true,options:[
+        {id:"saucen_x_spicy_chipotle_southwest",name:"X-spicy Chipotle Southwest",short:"X-spicy Chipotle Southwest",group:"saucen",role:"extra",ing:"x_spicy_chipotle",maxQty:1,price:0,kcal:60,fat:6.1,sat:0.5,carbs:1.1,sugars:0.7,fibre:0.1,protein:0.2,salt:0.3},
+        {id:"saucen_chipotle_southwest",name:"Chipotle Southwest",short:"Chipotle Southwest",group:"saucen",role:"extra",ing:"chipotle_southwest",maxQty:1,price:0,kcal:62,fat:6.3,sat:0.5,carbs:1.3,sugars:0.8,fibre:0,protein:0.1,salt:0.2},
+        {id:"saucen_sweet_onion",name:"Sweet Onion",short:"Sweet Onion",group:"saucen",role:"extra",ing:"sweet_onion",maxQty:1,price:0,kcal:23,fat:0.1,sat:0,carbs:5.6,sugars:4.8,fibre:0.1,protein:0.1,salt:0.1},
+        {id:"saucen_caesar",name:"Caesar",short:"Caesar",group:"saucen",role:"extra",ing:"caesar_sauce",maxQty:1,price:0,kcal:50,fat:4.8,sat:0.5,carbs:1.2,sugars:0.7,fibre:0,protein:0.4,salt:0.3},
+        {id:"saucen_joghurt",name:"Joghurt",short:"Joghurt",group:"saucen",role:"extra",ing:"joghurt",maxQty:1,price:0,kcal:18,fat:1.4,sat:0,carbs:1.3,sugars:0.6,fibre:0,protein:0.1,salt:0.2},
+        {id:"saucen_lite_mayonnaise",name:"Lite Mayonnaise",short:"Lite Mayonnaise",group:"saucen",role:"extra",ing:"lite_mayonnaise",maxQty:1,price:0,kcal:46,fat:4.9,sat:0.3,carbs:0.6,sugars:0.6,fibre:0,protein:0,salt:0.2},
+        {id:"saucen_balsamico_essig",name:"Balsamico Essig",short:"Balsamico Essig",group:"saucen",role:"extra",ing:"balsamic_vinegar",maxQty:1,price:0,kcal:1,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
+        {id:"saucen_olivenoel",name:"Olivenöl",short:"Olivenöl",group:"saucen",role:"extra",ing:"olivenoel",maxQty:1,price:0,kcal:32,fat:3.5,sat:0.4,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
+        {id:"saucen_honey_wholegrain_mustard",name:"Honey & Wholegrain Mustard",short:"Honey & Wholegrain Mustard",group:"saucen",role:"extra",ing:"honey_wholegrain_mustard",maxQty:1,price:0,kcal:29,fat:1.9,sat:0.1,carbs:2.7,sugars:2.3,fibre:0.2,protein:0.3,salt:0.2},
+        {id:"saucen_bbq_sauce_vegan",name:"BBQ Sauce (vegan)",short:"BBQ Sauce (vegan)",group:"saucen",role:"extra",ing:"bbq_sauce",maxQty:1,price:0,kcal:21,fat:0,sat:0,carbs:4.9,sugars:4.2,fibre:0.3,protein:0.1,salt:0.4},
+        {id:"saucen_ketchup",name:"Ketchup",short:"Ketchup",group:"saucen",role:"extra",ing:"ketchup",maxQty:1,price:0,kcal:18,fat:0,sat:0,carbs:4,sugars:3.2,fibre:0,protein:0,salt:0.4},
+      ] },
+      { id:"seasonings",name:"Seasonings",min:0,max:3,none:"ohne Seasonings",own:true,options:[
+        {id:"seasonings_roestzwiebeln",name:"Röstzwiebeln",short:"Röstzwiebeln",group:"seasonings",role:"extra",ing:"roestzwiebeln",maxQty:1,price:0,kcal:41,fat:3,sat:1,carbs:2.9,sugars:0.6,fibre:0.3,protein:0.4,salt:0},
+      ] },
+    ],
+  },
+  footlong: {
+    item: "Create Your Own", page: "https://wolt.com/de/deu/frankfurt/restaurant/subway-frankfurt-zeil", size: "FOOTLONG (30-CM)", factor: 2, basePrice: 0, require: {base:true,protein:true}, proteinExtras: true, pickRoles: ["side","extra"],
+    groups: [
+      { id:"sub",name:"Create Your Own",min:1,max:1,none:null,options:[
+        {id:"fl_sub_beef_chili",name:"Beef Chili",short:"Beef Chili",group:"sub",role:"protein",ing:"beef_chili",maxQty:1,price:16.79,sizeName:"Beef Chili - FOOTLONG (30-CM)",none:{kaese:"ohne Käse",veggies:"ohne Veggies"},kcal:228,fat:4.8,sat:1.4,carbs:20,sugars:6.2,fibre:4,protein:24,salt:2.6},
+        {id:"fl_sub_chicken_teriyaki",name:"Chicken Teriyaki",short:"Chicken Teriyaki",group:"sub",role:"protein",ing:"chicken_teriyaki",maxQty:1,price:15.69,sizeName:"Chicken Teriyaki - FOOTLONG (30-CM)",none:{veggies:"ohne Veggies"},kcal:162,fat:2.6,sat:0.8,carbs:8,sugars:6,fibre:0.2,protein:26,salt:1.4},
+        {id:"fl_sub_plant_based_chicken_teriyaki",name:"Plant-based Chicken Teriyaki",short:"Plant-based Chicken Teriyaki",group:"sub",role:"protein",ing:"pb_chicken_teriyaki",maxQty:1,price:15.69,sizeName:"Plant-based Chicken Teriyaki - FOOTLONG (30-CM)",none:{veggies:"ohne Veggies"},kcal:200,fat:4.6,sat:1,carbs:16.2,sugars:4.8,fibre:7,protein:20,salt:3.2,groupMax:{saucen:2}},
+        {id:"fl_sub_chicken_fajita",name:"Chicken Fajita",short:"Chicken Fajita",group:"sub",role:"protein",ing:"chicken_fajita",maxQty:1,price:15.69,sizeName:"Chicken Fajita - FOOTLONG (30-CM)",none:{veggies:"ohne Veggies"},kcal:122,fat:1,sat:0.4,carbs:3.6,sugars:1.8,fibre:0.2,protein:24,salt:2.2},
+        {id:"fl_sub_chicken_tandoori",name:"Chicken Tandoori",short:"Chicken Tandoori",group:"sub",role:"protein",ing:"chicken_tandoori",maxQty:1,price:15.69,sizeName:"Chicken Tandoori - FOOTLONG (30-CM)",none:{kaese:"ohne Käse",veggies:"ohne Veggies",saucen:"ohne Saucen"},kcal:178,fat:2.8,sat:0.8,carbs:3.6,sugars:1.8,fibre:0,protein:36,salt:1.2},
+        {id:"fl_sub_pulled_chicken_breast",name:"Pulled Chicken Breast",short:"Pulled Chicken Breast",group:"sub",role:"protein",ing:"pulled_chicken_breast",maxQty:1,price:15.99,sizeName:"Pulled Chicken Breast - FOOTLONG (30-CM)",none:{veggies:"ohne Veggies"},kcal:142,fat:4,sat:0.6,carbs:0.2,sugars:0.2,fibre:0,protein:24,salt:1},
+        {id:"fl_sub_philly_beef_cheese",name:"Philly Beef & Cheese",short:"Philly Beef & Cheese",group:"sub",role:"protein",ing:"philly_beef",maxQty:1,price:15.99,sizeName:"Philly Beef & Cheese - FOOTLONG (30-CM)",none:{kaese:"ohne Käse",veggies:"ohne Veggies"},kcal:172,fat:2.8,sat:0.8,carbs:16,sugars:7.8,fibre:1.4,protein:22,salt:1.4},
+        {id:"fl_sub_bbq_rib",name:"BBQ Rib",short:"BBQ Rib",group:"sub",role:"protein",ing:"bbq_rib",maxQty:1,price:15.69,sizeName:"BBQ Rib - FOOTLONG (30-CM)",none:{kaese:"ohne Käse",veggies:"ohne Veggies",seasonings:"ohne Seasonings"},kcal:418,fat:34,sat:13,carbs:2.8,sugars:1.4,fibre:2.2,protein:24,salt:2},
+        {id:"fl_sub_ham",name:"Ham",short:"Ham",group:"sub",role:"protein",ing:"ham",maxQty:1,price:13.19,sizeName:"Ham - FOOTLONG (30-CM)",none:{veggies:"ohne Veggies"},kcal:68,fat:2,sat:0.6,carbs:1.4,sugars:0.8,fibre:0.6,protein:10.8,salt:1},
+        {id:"fl_sub_spicy_vegan_patty",name:"Spicy Vegan Patty",short:"Spicy Vegan Patty",group:"sub",role:"protein",ing:"spicy_vegan_patty",maxQty:1,price:14.89,sizeName:"Spicy Vegan Patty - FOOTLONG (30-CM)",none:{veggies:"ohne Veggies"},kcal:338,fat:17.6,sat:1.6,carbs:20.4,sugars:3.2,fibre:5.4,protein:22,salt:2.2},
+        {id:"fl_sub_veggie_delite",name:"Veggie Delite®",short:"Veggie Delite",group:"sub",role:"protein",ing:"veggie_delite",maxQty:1,price:11.69,sizeName:"Veggie Delite® - FOOTLONG (30-CM)",none:{kaese:"ohne Käse",veggies:"ohne Veggies"},kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
+        {id:"fl_sub_beef_chili_extra_fleisch_protein",name:"Beef Chili + Extra Fleisch / Protein",short:"2× Beef Chili",group:"sub",role:"protein",ing:"beef_chili",maxQty:1,price:21.08,sizeName:"Beef Chili - FOOTLONG (30-CM)",none:{kaese:"ohne Käse",veggies:"ohne Veggies"},kcal:456,fat:9.6,sat:2.8,carbs:40,sugars:12.4,fibre:8,protein:48,salt:5.2,variant:true,orderName:"Beef Chili",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"fl_sub_chicken_teriyaki_extra_fleisch_protein",name:"Chicken Teriyaki + Extra Fleisch / Protein",short:"2× Chicken Teriyaki",group:"sub",role:"protein",ing:"chicken_teriyaki",maxQty:1,price:19.98,sizeName:"Chicken Teriyaki - FOOTLONG (30-CM)",none:{veggies:"ohne Veggies"},kcal:324,fat:5.2,sat:1.6,carbs:16,sugars:12,fibre:0.4,protein:52,salt:2.8,variant:true,orderName:"Chicken Teriyaki",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"fl_sub_plant_based_chicken_teriyaki_extra_fleisch_protein",name:"Plant-based Chicken Teriyaki + Extra Fleisch / Protein",short:"2× Plant-based Chicken Teriyaki",group:"sub",role:"protein",ing:"pb_chicken_teriyaki",maxQty:1,price:19.98,sizeName:"Plant-based Chicken Teriyaki - FOOTLONG (30-CM)",none:{veggies:"ohne Veggies"},kcal:400,fat:9.2,sat:2,carbs:32.4,sugars:9.6,fibre:14,protein:40,salt:6.4,groupMax:{saucen:2},variant:true,orderName:"Plant-based Chicken Teriyaki",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"fl_sub_chicken_fajita_extra_fleisch_protein",name:"Chicken Fajita + Extra Fleisch / Protein",short:"2× Chicken Fajita",group:"sub",role:"protein",ing:"chicken_fajita",maxQty:1,price:19.98,sizeName:"Chicken Fajita - FOOTLONG (30-CM)",none:{veggies:"ohne Veggies"},kcal:244,fat:2,sat:0.8,carbs:7.2,sugars:3.6,fibre:0.4,protein:48,salt:4.4,variant:true,orderName:"Chicken Fajita",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"fl_sub_chicken_tandoori_extra_fleisch_protein",name:"Chicken Tandoori + Extra Fleisch / Protein",short:"2× Chicken Tandoori",group:"sub",role:"protein",ing:"chicken_tandoori",maxQty:1,price:19.98,sizeName:"Chicken Tandoori - FOOTLONG (30-CM)",none:{kaese:"ohne Käse",veggies:"ohne Veggies",saucen:"ohne Saucen"},kcal:356,fat:5.6,sat:1.6,carbs:7.2,sugars:3.6,fibre:0,protein:72,salt:2.4,variant:true,orderName:"Chicken Tandoori",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"fl_sub_pulled_chicken_breast_extra_fleisch_protein",name:"Pulled Chicken Breast + Extra Fleisch / Protein",short:"2× Pulled Chicken Breast",group:"sub",role:"protein",ing:"pulled_chicken_breast",maxQty:1,price:20.28,sizeName:"Pulled Chicken Breast - FOOTLONG (30-CM)",none:{veggies:"ohne Veggies"},kcal:284,fat:8,sat:1.2,carbs:0.4,sugars:0.4,fibre:0,protein:48,salt:2,variant:true,orderName:"Pulled Chicken Breast",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"fl_sub_philly_beef_cheese_extra_fleisch_protein",name:"Philly Beef & Cheese + Extra Fleisch / Protein",short:"2× Philly Beef & Cheese",group:"sub",role:"protein",ing:"philly_beef",maxQty:1,price:20.28,sizeName:"Philly Beef & Cheese - FOOTLONG (30-CM)",none:{kaese:"ohne Käse",veggies:"ohne Veggies"},kcal:344,fat:5.6,sat:1.6,carbs:32,sugars:15.6,fibre:2.8,protein:44,salt:2.8,variant:true,orderName:"Philly Beef & Cheese",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"fl_sub_bbq_rib_extra_fleisch_protein",name:"BBQ Rib + Extra Fleisch / Protein",short:"2× BBQ Rib",group:"sub",role:"protein",ing:"bbq_rib",maxQty:1,price:19.98,sizeName:"BBQ Rib - FOOTLONG (30-CM)",none:{kaese:"ohne Käse",veggies:"ohne Veggies",seasonings:"ohne Seasonings"},kcal:836,fat:68,sat:26,carbs:5.6,sugars:2.8,fibre:4.4,protein:48,salt:4,variant:true,orderName:"BBQ Rib",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"fl_sub_ham_extra_fleisch_protein",name:"Ham + Extra Fleisch / Protein",short:"2× Ham",group:"sub",role:"protein",ing:"ham",maxQty:1,price:17.48,sizeName:"Ham - FOOTLONG (30-CM)",none:{veggies:"ohne Veggies"},kcal:136,fat:4,sat:1.2,carbs:2.8,sugars:1.6,fibre:1.2,protein:21.6,salt:2,variant:true,orderName:"Ham",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+        {id:"fl_sub_spicy_vegan_patty_extra_fleisch_protein",name:"Spicy Vegan Patty + Extra Fleisch / Protein",short:"2× Spicy Vegan Patty",group:"sub",role:"protein",ing:"spicy_vegan_patty",maxQty:1,price:19.18,sizeName:"Spicy Vegan Patty - FOOTLONG (30-CM)",none:{veggies:"ohne Veggies"},kcal:676,fat:35.2,sat:3.2,carbs:40.8,sugars:6.4,fibre:10.8,protein:44,salt:4.4,variant:true,orderName:"Spicy Vegan Patty",order:[{group:"extras",name:"Extra Fleisch / Protein"}]},
+      ] },
+      { id:"brot",name:"Brot",min:1,max:1,none:null,options:[
+        {id:"fl_brot_cheese_oregano",name:"Cheese Oregano",short:"Cheese Oregano",group:"brot",role:"base",ing:"cheese_oregano",maxQty:1,price:0,kcal:390,fat:7.8,sat:3.2,carbs:60,sugars:2,fibre:3.8,protein:18.6,salt:1.4},
+        {id:"fl_brot_honey_oat",name:"Honey Oat",short:"Honey Oat",group:"brot",role:"base",ing:"honey_oat",maxQty:1,price:0,kcal:470,fat:5.2,sat:1,carbs:82,sugars:18,fibre:10,protein:19,salt:1},
+        {id:"fl_brot_sesam",name:"Sesam",short:"Sesam",group:"brot",role:"base",ing:"sesam",maxQty:1,price:0,kcal:374,fat:8,sat:2,carbs:58,sugars:2,fibre:4,protein:16,salt:2},
+        {id:"fl_brot_vollkorn",name:"Vollkorn",short:"Vollkorn",group:"brot",role:"base",ing:"vollkornbrot",maxQty:1,price:0,kcal:314,fat:1.6,sat:0.4,carbs:54,sugars:2.8,fibre:8.8,protein:15,salt:2},
+        {id:"fl_brot_italian",name:"Italian",short:"Italian",group:"brot",role:"base",ing:"italian",maxQty:1,price:0,kcal:380,fat:4.2,sat:0,carbs:72,sugars:8.4,fibre:4.2,protein:14,salt:1.2},
+        {id:"fl_brot_glutenfrei",name:"Glutenfrei",short:"Glutenfrei",group:"brot",role:"base",ing:"glutenfrei",maxQty:1,price:2.89,kcal:588,fat:13.2,sat:1.2,carbs:106,sugars:2.4,fibre:7.4,protein:6.6,salt:2},
+      ] },
+      { id:"zubereitung",name:"Zubereitungsart",min:1,max:1,none:null,choices:["Getoastet","Ungetoastet"],options:[
+      ] },
+      { id:"kaese",name:"Käse",min:0,max:1,none:"ohne Käse",options:[
+        {id:"fl_kaese_scheibenkaese",name:"Scheibenkäse",short:"Scheibenkäse",group:"kaese",role:"side",ing:"scheibenkaese",maxQty:1,price:0,kcal:84,fat:7,sat:4.4,carbs:0.8,sugars:0.8,fibre:0,protein:4.6,salt:0.6},
+        {id:"fl_kaese_cheddar",name:"Cheddar",short:"Cheddar",group:"kaese",role:"side",ing:"cheddar",maxQty:1,price:0,kcal:92,fat:7.6,sat:4.6,carbs:0,sugars:0,fibre:0,protein:5.6,salt:0.4},
+        {id:"fl_kaese_mozzarella_emmental_mix",name:"Mozzarella-Emmental-Mix",short:"Mozzarella-Emmental-Mix",group:"kaese",role:"side",ing:"mozzarella_emmental_mix",maxQty:1,price:0,kcal:90,fat:6.8,sat:4.4,carbs:1.2,sugars:0.2,fibre:0,protein:6.4,salt:0.4},
+      ] },
+      { id:"extras",name:"Extras",min:0,max:15,none:null,options:[
+        {id:"fl_extras_bacon",name:"Bacon",short:"Bacon",group:"extras",role:"extra",ing:"bacon",maxQty:1,price:2.89,kcal:74,fat:5.6,sat:2,carbs:0.4,sugars:0.6,fibre:0,protein:6,salt:0.6},
+        {id:"fl_extras_chicken_teriyaki",name:"Chicken Teriyaki",short:"Chicken Teriyaki",group:"extras",role:"extra",ing:"chicken_teriyaki",maxQty:1,price:2.89,kcal:162,fat:2.6,sat:0.8,carbs:8,sugars:6,fibre:0.2,protein:26,salt:1.4},
+        {id:"fl_extras_frischkaese",name:"Frischkäse",short:"Frischkäse",group:"extras",role:"extra",ing:"frischkaese",maxQty:1,price:1.69,kcal:56,fat:4.4,sat:3,carbs:1,sugars:1,fibre:0,protein:2.4,salt:0.2,sauce:true},
+        {id:"fl_extras_tuna",name:"Tuna",short:"Tuna",group:"extras",role:"extra",ing:"tuna",maxQty:1,price:2.89,kcal:290,fat:20,sat:1.8,carbs:5,sugars:2,fibre:0,protein:24,salt:1.8},
+        {id:"fl_extras_peperoni_salami",name:"Peperoni-Salami",short:"Peperoni-Salami",group:"extras",role:"extra",ing:"peperoni_salami",maxQty:1,price:3.39,kcal:146,fat:12.6,sat:4.4,carbs:1.2,sugars:0,fibre:0,protein:7.2,salt:1.4},
+        {id:"fl_extras_ham",name:"Ham",short:"Ham",group:"extras",role:"extra",ing:"ham",maxQty:1,price:2.89,kcal:68,fat:2,sat:0.6,carbs:1.4,sugars:0.8,fibre:0.6,protein:10.8,salt:1},
+      ] },
+      { id:"veggies",name:"Veggies",min:1,max:14,none:"ohne Veggies",own:true,options:[
+        {id:"fl_veggies_eisbergsalat",name:"Eisbergsalat",short:"Eisbergsalat",group:"veggies",role:"extra",ing:"salat",maxQty:1,price:0,kcal:3,fat:0,sat:0,carbs:0.4,sugars:0.4,fibre:0.4,protein:0.4,salt:0,pick:true},
+        {id:"fl_veggies_rucola",name:"Rucola",short:"Rucola",group:"veggies",role:"extra",ing:"rucola",maxQty:1,price:0,kcal:4,fat:0,sat:0,carbs:0.2,sugars:0,fibre:0.2,protein:0.4,salt:0,pick:true},
+        {id:"fl_veggies_tomaten",name:"Tomaten",short:"Tomaten",group:"veggies",role:"extra",ing:"tomaten",maxQty:1,price:0,kcal:10.8,fat:0.2,sat:0,carbs:1.6,sugars:1.6,fibre:0.8,protein:0.6,salt:0,pick:true},
+        {id:"fl_veggies_gurken",name:"Gurken",short:"Gurken",group:"veggies",role:"extra",ing:"gurken",maxQty:1,price:0,kcal:5.4,fat:0,sat:0,carbs:1.2,sugars:0.6,fibre:0.2,protein:0.2,salt:0,pick:true},
+        {id:"fl_veggies_rote_paprika",name:"Rote Paprika",short:"Rote Paprika",group:"veggies",role:"extra",ing:"paprika",maxQty:1,price:0,kcal:6,fat:0,sat:0,carbs:1,sugars:0.6,fibre:0.4,protein:0.2,salt:0,pick:true},
+        {id:"fl_veggies_rote_zwiebeln",name:"Rote Zwiebeln",short:"Rote Zwiebeln",group:"veggies",role:"extra",ing:"zwiebeln",maxQty:1,price:0,kcal:5,fat:0,sat:0,carbs:1.2,sugars:0.8,fibre:0.2,protein:0.2,salt:0,pick:true},
+        {id:"fl_veggies_schwarze_oliven",name:"Schwarze Oliven",short:"Schwarze Oliven",group:"veggies",role:"extra",ing:"oliven",maxQty:1,price:0,kcal:5.8,fat:0.6,sat:0,carbs:0,sugars:0,fibre:0.2,protein:0,salt:0.2,pick:true},
+        {id:"fl_veggies_jalapenos",name:"Jalapeños",short:"Jalapeños",group:"veggies",role:"extra",ing:"jalapenos",maxQty:1,price:0,kcal:1.6,fat:0,sat:0,carbs:0.2,sugars:0.2,fibre:0.2,protein:0,salt:0.6,pick:true},
+        {id:"fl_veggies_mais",name:"Mais",short:"Mais",group:"veggies",role:"extra",ing:"mais",maxQty:1,price:0,kcal:11.2,fat:0.2,sat:0,carbs:1.6,sugars:0.8,fibre:0.6,protein:0.4,salt:0,pick:true},
+        {id:"fl_veggies_gewuerzgurke",name:"Gewürzgurke",short:"Gewürzgurke",group:"veggies",role:"extra",ing:"gewuerzgurken",maxQty:1,price:0,kcal:1.4,fat:0,sat:0,carbs:0.2,sugars:0,fibre:0.2,protein:0,salt:0.4,pick:true},
+      ] },
+      { id:"saucen",name:"Saucen",min:0,max:3,none:"ohne Saucen",own:true,options:[
+        {id:"fl_saucen_x_spicy_chipotle_southwest",name:"X-spicy Chipotle Southwest",short:"X-spicy Chipotle Southwest",group:"saucen",role:"extra",ing:"x_spicy_chipotle",maxQty:1,price:0,kcal:120,fat:12.2,sat:1,carbs:2.2,sugars:1.4,fibre:0.2,protein:0.4,salt:0.6},
+        {id:"fl_saucen_chipotle_southwest",name:"Chipotle Southwest",short:"Chipotle Southwest",group:"saucen",role:"extra",ing:"chipotle_southwest",maxQty:1,price:0,kcal:124,fat:12.6,sat:1,carbs:2.6,sugars:1.6,fibre:0,protein:0.2,salt:0.4},
+        {id:"fl_saucen_sweet_onion",name:"Sweet Onion",short:"Sweet Onion",group:"saucen",role:"extra",ing:"sweet_onion",maxQty:1,price:0,kcal:46,fat:0.2,sat:0,carbs:11.2,sugars:9.6,fibre:0.2,protein:0.2,salt:0.2},
+        {id:"fl_saucen_caesar",name:"Caesar",short:"Caesar",group:"saucen",role:"extra",ing:"caesar_sauce",maxQty:1,price:0,kcal:100,fat:9.6,sat:1,carbs:2.4,sugars:1.4,fibre:0,protein:0.8,salt:0.6},
+        {id:"fl_saucen_joghurt",name:"Joghurt",short:"Joghurt",group:"saucen",role:"extra",ing:"joghurt",maxQty:1,price:0,kcal:36,fat:2.8,sat:0,carbs:2.6,sugars:1.2,fibre:0,protein:0.2,salt:0.4},
+        {id:"fl_saucen_lite_mayonnaise",name:"Lite Mayonnaise",short:"Lite Mayonnaise",group:"saucen",role:"extra",ing:"lite_mayonnaise",maxQty:1,price:0,kcal:92,fat:9.8,sat:0.6,carbs:1.2,sugars:1.2,fibre:0,protein:0,salt:0.4},
+        {id:"fl_saucen_balsamico_essig",name:"Balsamico Essig",short:"Balsamico Essig",group:"saucen",role:"extra",ing:"balsamic_vinegar",maxQty:1,price:0,kcal:2,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
+        {id:"fl_saucen_olivenoel",name:"Olivenöl",short:"Olivenöl",group:"saucen",role:"extra",ing:"olivenoel",maxQty:1,price:0,kcal:64,fat:7,sat:0.8,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
+        {id:"fl_saucen_honey_wholegrain_mustard",name:"Honey & Wholegrain Mustard",short:"Honey & Wholegrain Mustard",group:"saucen",role:"extra",ing:"honey_wholegrain_mustard",maxQty:1,price:0,kcal:58,fat:3.8,sat:0.2,carbs:5.4,sugars:4.6,fibre:0.4,protein:0.6,salt:0.4},
+        {id:"fl_saucen_bbq_sauce_vegan",name:"BBQ Sauce (vegan)",short:"BBQ Sauce (vegan)",group:"saucen",role:"extra",ing:"bbq_sauce",maxQty:1,price:0,kcal:42,fat:0,sat:0,carbs:9.8,sugars:8.4,fibre:0.6,protein:0.2,salt:0.8},
+        {id:"fl_saucen_ketchup",name:"Ketchup",short:"Ketchup",group:"saucen",role:"extra",ing:"ketchup",maxQty:1,price:0,kcal:36,fat:0,sat:0,carbs:8,sugars:6.4,fibre:0,protein:0,salt:0.8},
+      ] },
+      { id:"seasonings",name:"Seasonings",min:0,max:3,none:"ohne Seasonings",own:true,options:[
+        {id:"fl_seasonings_roestzwiebeln",name:"Röstzwiebeln",short:"Röstzwiebeln",group:"seasonings",role:"extra",ing:"roestzwiebeln",maxQty:1,price:0,kcal:82,fat:6,sat:2,carbs:5.8,sugars:1.2,fibre:0.6,protein:0.8,salt:0},
+      ] },
+    ],
+  },
+};
+// __SUBWAY_DATA_END__
 
 // ═══ Kern-Helper (inhaltlich identisch zum London-Tool) ═══
 const KEYS = ["kcal","fat","sat","carbs","sugars","fibre","protein","salt"];
@@ -723,6 +944,14 @@ function scoreVec(n, t, mode, p) {
   return s;
 }
 
+// Welche Nährwerte (Reihenfolge KEYS) den Score in diesem Modus beeinflussen: Makro-Modus Protein/KH/Fett mit Ziel > 0; Kalorien-Modus kcal (mit
+// Ziel oder Präferenz) und die Makros der gesetzten Präferenzen; Ballaststoffe/Salz nur mit Min/Max
+function bowlScoreKeys(t, mode, p) {
+  const q = p || {}, fib = t.fibMin != null || t.fibMax != null, salt = t.sMin != null || t.sMax != null;
+  if (mode === "macros") return [false, t.fat > 0, false, t.carbs > 0, false, fib, t.protein > 0, salt];
+  const pr = !!(q.hp || q.lp || q.hc || q.lc || q.hf || q.lf);
+  return [t.kcal > 0 || pr, !!(q.hf || q.lf), false, !!(q.hc || q.lc), false, fib, !!(q.hp || q.lp), salt];
+}
 // Untergrenze für Kern c + JEDE Erweiterung (alle Beiträge ≥ 0): überschrittene Ziele bleiben überschritten.
 // shareMax = größtmöglicher Energieanteil eines Makros (für die Präferenz-Terme im Kalorien-Modus)
 function bowlOverLB(c, t, mode, p, shareMax) {
@@ -796,31 +1025,46 @@ function bowlBoxLB(c, LO, HI, off, t, mode, p) {
   return s;
 }
 
-// k-d-Baum über alle Extras-Teilmengen mit ≤ maxE Elementen (Punkte = 8 Nährwert-Summen, M = Bitmaske der Extras, PR = Preis in Cent;
-// PMIN = billigster Punkt je Knoten → Preislimit schneidet ganze Teilbäume ab)
+// k-d-Baum über alle Extras-Teilmengen (Punkte = 8 Nährwert-Summen, M = Bitmaske der Extras, PR = Preis in Cent; PMIN = billigster Punkt je
+// Knoten → Preislimit schneidet ganze Teilbäume ab). caps = Obergrenze je Extras-Klasse (Zahl = nur Klasse 0; Klasse je Extra in e.ci, Default 0):
+// Klasse 0 = Extras-Chip, weitere Klassen = Gruppen mit eigener Plattform-Grenze (z.B. Subway: Saucen bis 2)
 const BOWL_INDEX_CACHE = new Map();
-function bowlIndex(extras, maxE) {
-  const ckey = extras.map(e => e.opt.id + ":" + (e.pc || 0)).join(",") + "#" + maxE;
-  const hit = BOWL_INDEX_CACHE.get(ckey);
-  if (hit) return hit;
+function bowlIndex(extras, caps) {
   const E = extras.length, LEAF = 8;
   if (E > 30) throw new Error("bowlIndex: höchstens 30 Extras");
-  let N = 0;
-  for (let k = 0, c = 1; k <= Math.min(maxE, E); k++) { N += Math.round(c); c = c * (E - k) / (k + 1); }
+  const cls = extras.map(e => e.ci || 0), NC = Math.max(1, Array.isArray(caps) ? caps.length : 1, ...cls.map(c => c + 1));
+  const cap = Array.from({ length: NC }, (_, c) => Math.max(0, Math.min(Array.isArray(caps) ? (caps[c] || 0) : (c === 0 ? caps : 0), cls.filter(x => x === c).length)));
+  const ckey = extras.map((e, j) => e.opt.id + ":" + (e.pc || 0) + ":" + cls[j]).join(",") + "#" + cap.join("/");
+  const hit = BOWL_INDEX_CACHE.get(ckey);
+  if (hit) return hit;
+  // Anzahl Punkte: die Klassen sind unabhängig → Produkt über die Klassen von Σ_{k ≤ Grenze} C(n, k)
+  let N = 1;
+  for (let c = 0; c < NC; c++) {
+    const n = cls.filter(x => x === c).length;
+    let sum = 0;
+    for (let k = 0, b = 1; k <= cap[c]; k++) { sum += Math.round(b); b = b * (n - k) / (k + 1); }
+    N *= sum;
+  }
+  const maxD = cap.reduce((a, b) => a + b, 0);
   const P = new Float64Array(N * 8), M = new Uint32Array(N), PR = new Int32Array(N);
-  const SD = Array.from({ length: maxE + 2 }, () => new Float64Array(8)), SP = new Int32Array(maxE + 2);
+  const SD = Array.from({ length: maxD + 2 }, () => new Float64Array(8)), SP = new Int32Array(maxD + 2), CNT = new Int32Array(NC);
   let w = 0;
   const rec = (start, depth, mask) => {
     P.set(SD[depth], w * 8); M[w] = mask; PR[w] = SP[depth]; w++;
-    if (depth >= maxE) return;
+    if (depth >= maxD) return;
     for (let j = start; j < E; j++) {
+      const c = cls[j];
+      if (CNT[c] >= cap[c]) continue;
       const v = extras[j].v, a = SD[depth], b = SD[depth + 1];
       for (let k = 0; k < 8; k++) b[k] = a[k] + v[k];
       SP[depth + 1] = SP[depth] + (extras[j].pc || 0);
+      CNT[c]++;
       rec(j + 1, depth + 1, (mask | (1 << j)) >>> 0);
+      CNT[c]--;
     }
   };
   rec(0, 0, 0);
+  if (w !== N) throw new Error("bowlIndex: " + w + " statt " + N + " Punkte");
   const maxNodes = 4 * Math.ceil(N / LEAF) + 4;
   const LO = new Float64Array(maxNodes * 8), HI = new Float64Array(maxNodes * 8), PMIN = new Int32Array(maxNodes);
   const NL = new Int32Array(maxNodes), NR = new Int32Array(maxNodes), NS = new Int32Array(maxNodes), NE = new Int32Array(maxNodes);
@@ -864,7 +1108,7 @@ function bowlIndex(extras, maxE) {
   };
   build(0, N);
   const idx = { N, P, M, PR, perm, LO, HI, PMIN, NL, NR, NS, NE };
-  if (BOWL_INDEX_CACHE.size >= 8) BOWL_INDEX_CACHE.delete(BOWL_INDEX_CACHE.keys().next().value);
+  if (BOWL_INDEX_CACHE.size >= 12) BOWL_INDEX_CACHE.delete(BOWL_INDEX_CACHE.keys().next().value);
   BOWL_INDEX_CACHE.set(ckey, idx);
   return idx;
 }
@@ -880,6 +1124,10 @@ const BOWL_MAX_WORK = Infinity; // Arbeitsbudget in Baum-Knoten (Standard: keins
 //   zusätzliche Einträge in anderen Plattform-Gruppen, z.B. „Extra Dressing/Sauce“). Gruppen ohne Optionen = reine Bestellschritt-Gruppen.
 //   require: Portionen-Rollen, die jede Bowl haben muss (Default base + protein) · fixed: immer enthaltene Bestandteile ohne eigene Auswahl
 //   (z.B. Blattsalatmix bei Dean & David) — zählen zu Nährwerten und Preis (price, Default 0)
+//   proteinExtras: true → Extras derselben Zutat wie ein Protein sind eigene Beläge (Subway: Ham als Extra auf einem Chicken-Sub); sonst gelten
+//   sie als Plattform-Duplikat und laufen nur über die Protein-Rolle (Compleat Wolt) · pickRoles: Rollen, die „Must include“ betrifft (Default
+//   alle; Subway: Käse + Extras — Brot und Sub wählt man dort über Chips) · Gruppe own: true → eigene Obergrenze g.max, zählt nicht zum
+//   Extras-Chip (Subway: Veggies, Saucen, Seasonings) · Option pick: true → nur als Pflicht-Zutat, nie vom Optimizer selbst (Subway: Veggies)
 // opts = { cap: max. Portionen je Base-/Protein-Zutat (halbe = ½) · maxExtras (Default 6) · keep(option) → bool
 //          · include: Zutat-ids, die jede Bowl enthalten muss („Must include“, User 16.09.2026)
 //          · maxPrice: Preislimit in € inkl. Grundpreis (null/undefined = keins) · maxMs: Zeitbudget (Default BOWL_MAX_MS)
@@ -887,10 +1135,10 @@ const BOWL_MAX_WORK = Infinity; // Arbeitsbudget in Baum-Knoten (Standard: keins
 //          · raw: true → nur die ungerundete Rangliste [{ key, rawScore, price }] (Top 30; für Tests und Benchmarks) }
 // Jede Bowl hat die Portionen-Rollen aus require (≥1), je Einzelauswahl-Rolle höchstens eine Option, Extras je 1×. Extras, deren Zutat auch als
 // Protein angeboten wird (Wolt-Duplikat), laufen nur über die Protein-Rolle. Die Kern-Rollen stehen je in genau einer Gruppe (bowlValidate).
-// Pflicht-Zutaten: Extra → fest in jeder Bowl (zählt zu maxExtras, geht aber vor) · Einzelauswahl → nur diese Zutat (in einer ihrer Varianten)
-// · Portionen-Rolle → mindestens eine (halbe) Portion. Pflicht-Zutaten gehen an keep vorbei nur über den Aufrufer (Schalter), nie an Sperren,
-// Ausschlüssen oder Schalentier. Nicht verfügbare Pflicht-Zutat → [] mit missing = [Zutat-ids]; zwei Pflicht-Zutaten derselben
-// Einzelauswahl-Rolle → [] mit conflict = [ids].
+// Pflicht-Zutaten: Extra → fest in jeder Bowl (zählt zu maxExtras, geht aber vor; in own-Gruppen zur Gruppen-Grenze) · Einzelauswahl → nur diese
+// Zutat (in einer ihrer Varianten) · Portionen-Rolle → mindestens eine (halbe) Portion. Pflicht-Zutaten gehen an keep vorbei nur über den Aufrufer
+// (Schalter), nie an Sperren, Ausschlüssen oder Schalentier. Nicht verfügbare Pflicht-Zutat → [] mit missing = [Zutat-ids]; zwei Pflicht-Zutaten
+// derselben Einzelauswahl-Rolle oder mehr Pflicht-Extras als die Grenze einer own-Gruppe → [] mit conflict = [ids].
 // Ergebnis (Top 20): { key, parts:[{opt, qty}], dip, side, fixed, items, price, nutrition, score, rawScore }
 function bowlCombos(menu, t, mode, p, opts) {
   const o = opts || {};
@@ -914,15 +1162,15 @@ function bowlCombos(menu, t, mode, p, opts) {
   for (const { x, g } of all) {
     const r = bowlRole(x);
     if (r in PORTION) roleMax[r] = Math.min(roleMax[r], g.max);
-    else if (r === "extra") extraMax = Math.min(extraMax, g.max);
+    else if (r === "extra" && !g.own) extraMax = Math.min(extraMax, g.max);
   }
-  const protIngs = new Set(all.filter(({ x }) => bowlRole(x) === "protein").map(({ x }) => x.ing));
+  const protIngs = menu.proteinExtras ? new Set() : new Set(all.filter(({ x }) => bowlRole(x) === "protein").map(({ x }) => x.ing));
   // Pflicht-Zutaten: Rolle laut Menü (Wolt-Duplikate unter Extras zählen nicht)
   const inc = new Set(o.include || []), incRole = new Map();
   for (const { x } of all) {
     if (!inc.has(x.ing)) continue;
     const r = bowlRole(x);
-    if (r === "extra" && protIngs.has(x.ing)) continue;
+    if ((menu.pickRoles && !menu.pickRoles.includes(r)) || (r === "extra" && protIngs.has(x.ing))) continue;
     if (!incRole.has(x.ing)) incRole.set(x.ing, r);
   }
   const forcedChoice = new Map(); // Einzelauswahl-Rolle → Pflicht-Zutat
@@ -945,13 +1193,15 @@ function bowlCombos(menu, t, mode, p, opts) {
     }
     if (qmax >= 1) core.push({ opt: x, g: r in PORTION ? PORTION[r] : CHOICE[r], qmax, hu, slot, pc: cents(x), v: KEYS.map(k => x[k] || 0) });
   }
-  // Extras ohne Nährwerte (z.B. Chili Gewürz: alle Werte 0) ändern den Score nie und würden nur Doppel-Ergebnisse erzeugen → weglassen
-  // (als Pflicht-Zutat bleiben sie drin); Pflicht-Extras sind fest und kommen nicht in den Baum
-  for (const { x } of all) {
+  // Extras, die den Score im aktuellen Modus nie ändern (z.B. Chili Gewürz: alle Werte 0; Subway Balsamico Essig: nur 1 kcal → im Makro-Modus
+  // wirkungslos), würden nur Doppel-Ergebnisse erzeugen → weglassen (als Pflicht-Zutat bleiben sie drin; bowlScoreKeys sagt, welche Werte zählen).
+  // Pflicht-Extras sind fest und kommen nicht in den Baum; pick-Optionen nur als Pflicht-Zutat. cls = Extras-Klasse ("" = Extras-Chip, sonst own-Gruppe)
+  const counts = bowlScoreKeys(t, mode, p);
+  for (const { x, g } of all) {
     if (bowlRole(x) !== "extra" || !ok(x) || protIngs.has(x.ing)) continue;
-    const v = KEYS.map(k => x[k] || 0);
-    if (inc.has(x.ing)) { if (!forcedExtras.some(e => e.opt.ing === x.ing)) forcedExtras.push({ opt: x, pc: cents(x), v }); }
-    else if (v.some(val => val > 0)) extras.push({ opt: x, pc: cents(x), v });
+    const v = KEYS.map(k => x[k] || 0), cls = g.own ? g.id : "";
+    if (incRole.get(x.ing) === "extra") { if (!forcedExtras.some(e => e.opt.ing === x.ing)) forcedExtras.push({ opt: x, pc: cents(x), v, cls }); }
+    else if (v.some((val, k) => val > 0 && counts[k]) && !x.pick) extras.push({ opt: x, pc: cents(x), v, cls });
   }
   const missing = [];
   for (const ing of inc) {
@@ -959,6 +1209,9 @@ function bowlCombos(menu, t, mode, p, opts) {
     if (!r || (r === "extra" ? !forcedExtras.some(e => e.opt.ing === ing) : !core.some(u => u.opt.ing === ing))) missing.push(ing);
   }
   if (missing.length) return Object.assign([], { missing });
+  // Gruppen mit eigener Plattform-Grenze (own): mehr Pflicht-Extras als erlaubt → nicht erfüllbar
+  const ownG = menu.groups.filter(g => g.own), nForced = cls => forcedExtras.filter(e => e.cls === cls).length;
+  for (const g of ownG) if (nForced(g.id) > g.max) return Object.assign([], { conflict: forcedExtras.filter(e => e.cls === g.id).map(e => e.opt.ing) });
   // Fester Anteil jeder Bowl: Bestandteile ohne Auswahl + Pflicht-Extras (Nährwerte OFF, Preis offPc)
   const OFF = new Float64Array(8);
   let offPc = 0;
@@ -966,8 +1219,9 @@ function bowlCombos(menu, t, mode, p, opts) {
   for (const e of forcedExtras) { for (let k = 0; k < 8; k++) OFF[k] += e.v[k]; offPc += e.pc; }
   budget -= offPc;
   if (budget < 0) return [];
-  const maxE = Math.max(0, Math.min(extraMax, o.maxExtras == null ? 6 : o.maxExtras) - forcedExtras.length);
-  const idx = bowlIndex(extras, Math.min(maxE, extras.length));
+  const maxE = Math.max(0, Math.min(extraMax, o.maxExtras == null ? 6 : o.maxExtras) - nForced(""));
+  for (const e of extras) e.ci = e.cls ? 1 + ownG.findIndex(g => g.id === e.cls) : 0;
+  const idx = bowlIndex(extras, [maxE, ...ownG.map(g => g.max - nForced(g.id))]);
   const gmax = [roleMax.base, roleMax.protein, 1, 1];
   if ((need.base && !(gmax[0] >= 1)) || (need.protein && !(gmax[1] >= 1))) return [];
   // größter Energieanteil eines Makros über alle Bausteine (Anteil einer Summe ≤ größter Einzelanteil)
@@ -1222,9 +1476,10 @@ function bowlPreselectNote(menu, platform) {
   return " " + (platform || "The platform") + " shows " + bowlEuro(card) + " on the menu card because " + pre.map(x => x.name + " " + bowlEuro(x.price)).join(" + ") +
     " is preselected; prices here are the base price plus what the order guide lists" + (none.length ? ", so switch that group to “" + none.join("” / “") + "” when the guide says so." : ".");
 }
-// Bestellschritte je Plattform-Gruppe in Menü-Reihenfolge: Mengen bei Base/Protein und bei Stepper-Extras (maxQty > 1), Häkchen-Extras
-// ohne Menge; Einzelauswahl-Gruppen (Dip/Dressing, Brot) immer (Name oder „Ohne …“). orderName = Name in der eigenen Gruppe (Varianten),
-// order = zusätzliche Einträge in anderen Gruppen (z.B. „Extra Dressing/Sauce“ in „Extra Brot/Dressing dazu?“)
+// Bestellschritte je Plattform-Gruppe in Menü-Reihenfolge: Mengen bei Base/Protein (wenn die Gruppe oder Option mehr als 1 erlaubt) und bei
+// Stepper-Extras (maxQty > 1), Häkchen-Extras ohne Menge; leere Einzelauswahl-Gruppen (Dip/Dressing, Brot) und leere Pflicht-Gruppen (min ≥ 1)
+// mit ihrer „ohne …“-Option. orderName = Name in der eigenen Gruppe (Varianten), order = zusätzliche Einträge in anderen Gruppen, zuerst
+// (z.B. „Extra Dressing/Sauce“ in „Extra Brot/Dressing dazu?“, Subway „Extra Fleisch / Protein“ in „Extras“)
 function bowlOrderSteps(menu, sel) {
   const steps = [{ l: "Item", v: menu.item }];
   const chosen = sel.parts.map(pt => ({ opt: pt.opt, qty: pt.qty }));
@@ -1232,13 +1487,13 @@ function bowlOrderSteps(menu, sel) {
   for (const g of menu.groups) {
     const choice = g.options.some(x => ["dip", "side"].includes(bowlRole(x)));
     const vals = [];
+    for (const c of chosen) for (const e of c.opt.order || []) if (e.group === g.id) vals.push(e.name);
     for (const c of chosen) if (c.opt.group === g.id) {
       const r = bowlRole(c.opt);
-      const withQty = r === "base" || r === "protein" || (r === "extra" && c.opt.maxQty > 1);
+      const withQty = ((r === "base" || r === "protein") && (g.max > 1 || c.opt.maxQty > 1)) || (r === "extra" && c.opt.maxQty > 1);
       vals.push((withQty ? c.qty + "× " : "") + (c.opt.orderName || c.opt.name));
     }
-    if (choice && !chosen.some(c => c.opt.group === g.id)) vals.push(g.none || "—");
-    for (const c of chosen) for (const e of c.opt.order || []) if (e.group === g.id) vals.push(e.name);
+    if (!vals.length && g.none && (choice || g.min >= 1)) vals.push(g.none);
     if (vals.length) steps.push({ l: g.name, v: vals.join(" · ") });
   }
   return steps;
@@ -1262,13 +1517,13 @@ function bowlExcludables(menu, blocked) {
   return out;
 }
 // Pflicht-Zutaten („Must include“, User 16.09.2026): je Zutat ein Eintrag mit Rolle; Wolt-Duplikate unter Extras (Zutat auch als Protein)
-// laufen über die Protein-Rolle; gesperrte Zutaten und Schalentier nie
+// laufen über die Protein-Rolle (außer proteinExtras); nur Rollen aus pickRoles; gesperrte Zutaten und Schalentier nie
 function bowlIncludables(menu, blocked) {
-  const protIngs = new Set(menu.groups.flatMap(g => g.options.filter(x => bowlRole(x) === "protein").map(x => x.ing)));
+  const protIngs = menu.proteinExtras ? new Set() : new Set(menu.groups.flatMap(g => g.options.filter(x => bowlRole(x) === "protein").map(x => x.ing)));
   const out = [], seen = new Set();
   for (const g of menu.groups) for (const x of g.options) {
     const r = bowlRole(x);
-    if (x.variant || seen.has(x.ing) || (blocked && blocked.has(x.ing)) || isShellfish(x) || (r === "extra" && protIngs.has(x.ing))) continue;
+    if (x.variant || seen.has(x.ing) || (blocked && blocked.has(x.ing)) || isShellfish(x) || (menu.pickRoles && !menu.pickRoles.includes(r)) || (r === "extra" && protIngs.has(x.ing))) continue;
     seen.add(x.ing);
     out.push({ id: x.ing, name: x.half ? String(x.short || x.name).replace(/^½\s*/, "") : (x.short || x.name), group: g.name, role: r });
   }
@@ -1292,6 +1547,7 @@ function bowlValidate(data, keys) {
     if (!isNum(menu.basePrice)) P.push(tag + "basePrice fehlt");
     if (menu.preselected && !Array.isArray(menu.preselected)) P.push(tag + "preselected ist keine Liste");
     const need = Object.assign({ base: true, protein: true }, menu.require || {});
+    if (menu.pickRoles && (!Array.isArray(menu.pickRoles) || menu.pickRoles.some(r => !["base", "protein", "extra", "dip", "side"].includes(r)))) P.push(tag + "pickRoles ungültig");
     for (const x of menu.fixed || []) {
       if (!ing.has(x.ing)) P.push(tag + "fester Bestandteil " + x.id + ": unbekannte Zutat " + x.ing);
       for (const k of KEYS) if (!isNum(x[k])) P.push(tag + "fester Bestandteil " + x.id + ": " + k + " keine Zahl ≥ 0");
@@ -1320,10 +1576,11 @@ function bowlValidate(data, keys) {
         if (!isNum(o.price)) P.push(tag + "Option " + o.id + ": price fehlt");
         if (o.half && !g.options.some(y => !y.half && y.ing === o.ing && bowlRole(y) === r)) P.push(tag + "Option " + o.id + ": halbe Portion ohne ganze");
         if (o.variant && !g.options.some(y => !y.variant && y.ing === o.ing && bowlRole(y) === r)) P.push(tag + "Option " + o.id + ": Variante ohne Grundoption");
+        if (o.pick && r !== "extra") P.push(tag + "Option " + o.id + ": pick nur bei Extras");
         for (const e of o.order || []) if (!allG.has(e.group) || typeof e.name !== "string" || !e.name) P.push(tag + "Option " + o.id + ": Bestellschritt ohne gültige Gruppe");
         for (const k of KEYS) if (!isNum(o[k])) P.push(tag + "Option " + o.id + ": " + k + " keine Zahl ≥ 0");
       }
-      if (hasExtra && g.max < 6) P.push(tag + "Gruppe " + g.id + ": enthält Extras, aber max < 6 (Extras-Chip bis 6)");
+      if (hasExtra && g.max < 6 && !g.own) P.push(tag + "Gruppe " + g.id + ": enthält Extras, aber max < 6 (Extras-Chip bis 6)");
     }
     for (const r of Object.keys(roleGroups)) {
       if (!roleGroups[r].size && ((r === "base" && need.base) || (r === "protein" && need.protein))) P.push(tag + "keine Option mit Rolle " + r);
@@ -1337,6 +1594,10 @@ function switchPass(r, st) {
   const act = (r.switches || []).filter(s => s.filter && st && st.sw && st.sw[s.id]);
   return x => act.every(s => s.filter(x));
 }
+// Zutat-ids aktiver force-Schalter (z.B. Subway „Standard veggies“): jede Bestellung enthält sie — wie Pflicht-Zutaten, aber ohne ★
+function switchForce(r, st) {
+  return (r.switches || []).filter(s => s.force && st && st.sw && st.sw[s.id]).flatMap(s => s.force);
+}
 
 // ═══ Compleat (Frankfurt Nordend): Wolt „Build your Bowl" + Uber Eats „Selbst zusammenstellen" ═══
 // GESPERRT = bleibt im Datensatz, wird aber NIE vorgeschlagen, gesucht oder als Ausschluss angeboten. User 15.09.2026:
@@ -1348,10 +1609,13 @@ const COMPLEAT_BLOCKED = new Set(COMPLEAT.ingredients.filter(x => x.blocked).map
 function bowlOptimize(t, mode, p, st, ex, r, inc, blocked) {
   const x0 = (st && st.extra) || {};
   const pass = switchPass(r, st), picks = inc || new Set();
+  const allowed = id => !(ex && ex.has(id)) && !(blocked && blocked.has(id));
+  const inMenu = new Set(r.menu.groups.flatMap(g => g.options.map(o => o.ing)));
+  const force = new Set(switchForce(r, st).filter(id => allowed(id) && inMenu.has(id)));
   return bowlCombos(r.menu, t, mode, p, {
     cap: x0.cap || 2, maxExtras: x0.maxExtras == null ? 5 : x0.maxExtras, maxPrice: t && t.maxPrice,
-    include: [...picks].filter(id => !(ex && ex.has(id)) && !(blocked && blocked.has(id))),
-    keep: x => !(blocked && blocked.has(x.ing)) && !(ex && ex.has(x.ing)) && (picks.has(x.ing) || pass(x)),
+    include: [...new Set([...[...picks].filter(allowed), ...force])],
+    keep: x => allowed(x.ing) && (picks.has(x.ing) || force.has(x.ing) || pass(x)),
   });
 }
 // Jede Compleat-Bowl: ≥1 Base + ≥1 Protein (User 15.09.2026), Dip einer oder keiner
@@ -1406,6 +1670,165 @@ function ddExtraPrice(menu, role) {
 }
 function deanDavidEntry(o) {
   return bowlEntry(Object.assign({ data: DEANDAVID, exclusionKey: "deandavid", switches: DEANDAVID_SWITCHES, blocked: DEANDAVID_BLOCKED, labels: { dip: "dressing", side: "bread" } }, o));
+}
+
+// ═══ Subway (Frankfurt Zeil, Wolt): „Create Your Own“ ═══
+// Ein Sub = ein Create-Your-Own-Artikel (Sub-Protein, Rolle protein; „Extra Fleisch / Protein“ = Variante mit doppelter Portion) + genau ein Brot
+// (base) + Käse 0–1 (side) + Extras (zählen zum Extras-Chip) + Veggies, Saucen, Seasonings (eigene Wolt-Grenzen, own). Zwei Menüs je Größe:
+// SUBWAY.small (15-CM) und SUBWAY.footlong (alle Werte ×2 laut Nährwerttabelle, Footlong-Preise). Veggies wählt der Optimizer nie selbst, nur
+// über „Standard veggies“ oder „Must include“ (pick). Brot und Sub als Mehrfach-Chips wie im London-Tool (User 16.09.2026). Gesperrte Bausteine
+// (Garlic & Herb: Portion und 100 g widersprechen sich) fehlen in den Menüs; Ausschluss- und Pflicht-Listen unter „subway“.
+const SUBWAY_BLOCKED = new Set(SUBWAY.ingredients.filter(x => x.blocked).map(x => x.id));
+const SUBWAY_SIZES = [{ id: "small", label: "15-CM" }, { id: "footlong", label: "Footlong" }];
+const SUBWAY_SWITCHES = [
+  { id:"noSauce", label:"No sauce", def:true, filter:x=>x.group!=="saucen"&&!x.sauce },               // User 16.09.2026: Default AN, blendet auch Frischkäse aus
+  { id:"noCheese", label:"No cheese", def:true, filter:x=>bowlRole(x)!=="side" },                      // User 16.09.2026: Default AN
+  { id:"stdVeggies", label:"Standard veggies", def:true, force:SUBWAY.stdVeggies,                     // User 16.09.2026 (Default AN = Annahme, siehe CLAUDE.md)
+    hint:"Eisbergsalat, Tomaten, Rote Paprika, Rote Zwiebeln and Mais on every sub. Other veggies only via “Must include”." },
+];
+const SUBWAY_NOTE = "Create Your Own on Wolt (Subway Frankfurt Zeil): one sub and one bread, cheese 0–1, sauces up to 2 (Footlong 3). Footlong doubles every value (official table: two 15-cm portions). “Extra Fleisch / Protein” = a second portion of the sub's protein. Not suggested — no official values: BBQ Pulled Pork, BBQ Pulled Plant, Plant-based Dölicious Chicken, Nacho Chicken Classic, Sour Cream, Pulled Pork, Pulled Plant, Meersalz, Pfefferkörner; contradictory values: Garlic & Herb.";
+function subwayMenu(extra) { return extra && extra.size === "footlong" ? SUBWAY.footlong : SUBWAY.small; }
+function subwayMenuOf(res) { return res && res.size === SUBWAY.footlong.size ? SUBWAY.footlong : SUBWAY.small; }
+// Exakte Suche über die Bowl-Engine, getrennt nach Sub-Gruppen: Subs mit kleinerer Wolt-Grenze (Footlong Plant-based Chicken Teriyaki: höchstens
+// 2 Saucen) und Subs, deren Zutat auch als Extra angeboten wird (Ham, Chicken Teriyaki: das gleichnamige Extra entfällt, doppelt nur über
+// „Extra Fleisch / Protein“ — gleiche Werte, sonst Doppel-Ergebnisse), laufen je für sich. Jede Rangliste ist exakt → die zusammengeführte auch.
+// o = Optionen wie bei bowlCombos (keep, include, cap, maxExtras, maxPrice, maxMs, maxWork, raw); das Zeitbudget gilt für alle Teile zusammen.
+// Ergebnisse tragen size = Größen-Label des Menüs.
+function subwayCombos(menu, t, mode, p, o) {
+  o = o || {};
+  const keep = o.keep || (() => true), subG = menu.groups.find(g => g.id === "sub");
+  const extraIngs = new Set(menu.groups.flatMap(g => g.options.filter(x => bowlRole(x) === "extra").map(x => x.ing)));
+  const parts = new Map();
+  for (const x of subG ? subG.options : []) {
+    if (x.variant || isShellfish(x) || !keep(x)) continue;
+    const dup = extraIngs.has(x.ing) ? x.ing : null, gm = x.groupMax || {}, key = JSON.stringify(gm) + "|" + (dup || "");
+    if (!parts.has(key)) parts.set(key, { gm, dup, subs: new Set() });
+    parts.get(key).subs.add(x.ing);
+  }
+  const clock = typeof performance !== "undefined" && performance.now ? () => performance.now() : () => Date.now(), t0 = clock();
+  const msMax = o.maxMs == null ? BOWL_MAX_MS : o.maxMs;
+  let out = [], approx = false, conflict = null, missing = null, allMissing = parts.size > 0;
+  for (const pt of parts.values()) {
+    const left = msMax - (clock() - t0);
+    if (!(left > 0) && out.length) { approx = true; break; }
+    const m = Object.keys(pt.gm).length ? Object.assign({}, menu, { groups: menu.groups.map(g => pt.gm[g.id] != null ? Object.assign({}, g, { max: pt.gm[g.id] }) : g) }) : menu;
+    const res = bowlCombos(m, t, mode, p, Object.assign({}, o, { maxMs: Math.max(0, left),
+      keep: x => (bowlRole(x) !== "protein" || pt.subs.has(x.ing)) && !(pt.dup && bowlRole(x) === "extra" && x.ing === pt.dup) && keep(x) }));
+    if (res.approx) approx = true;
+    if (res.conflict) conflict = res.conflict;
+    if (res.missing) missing = missing ? missing.filter(id => res.missing.includes(id)) : res.missing.slice();
+    else allMissing = false;
+    out = out.concat(res);
+  }
+  if (o.raw) out.sort((a, b) => a.rawScore - b.rawScore);
+  else out.sort((a, b) => a.score - b.score || a.rawScore - b.rawScore);
+  out = out.slice(0, o.raw ? 30 : 20);
+  if (!o.raw) for (const r of out) r.size = menu.size;
+  if (!out.length && conflict) return Object.assign([], { conflict });
+  if (!out.length && allMissing && missing && missing.length) return Object.assign([], { missing });
+  if (approx) out.approx = true;
+  return out;
+}
+// Subway optimieren: Größe, Brot- und Sub-Chips, Extras-Chip (st.extra), Schalter („No sauce“/„No cheese“ filtern, „Standard veggies“ setzt die
+// Veggies), Ausschluss-Liste, Pflicht-Zutaten (Käse, Extras, Veggies, Saucen, Seasonings; gehen an den Schaltern vorbei), Preislimit
+function subwayOptimize(t, mode, p, st, ex, r, inc) {
+  const x0 = (st && st.extra) || {}, menu = subwayMenu(x0);
+  const pass = switchPass(r, st);
+  const allowed = id => !(ex && ex.has(id)) && !SUBWAY_BLOCKED.has(id);
+  const inMenu = new Set(menu.groups.flatMap(g => g.options.map(o => o.ing)));
+  const picks = new Set([...(inc || [])].filter(allowed));
+  const force = new Set(switchForce(r, st).filter(id => allowed(id) && inMenu.has(id)));
+  const breads = new Set(x0.breads || []), subs = new Set(x0.subs || []);
+  return subwayCombos(menu, t, mode, p, {
+    cap: 1, maxExtras: x0.maxExtras == null ? 5 : x0.maxExtras, maxPrice: t && t.maxPrice,
+    include: [...new Set([...picks, ...force])],
+    keep: x => allowed(x.ing) && (bowlRole(x) !== "base" || !breads.size || breads.has(x.ing)) && (bowlRole(x) !== "protein" || !subs.size || subs.has(x.ing))
+      && (picks.has(x.ing) || force.has(x.ing) || pass(x)),
+  });
+}
+// Kurzname: Sub („2× …“ mit Extra Fleisch) + Brot + Käse + Extras + Saucen + Seasonings; Veggies stehen im Untertitel und im Detail-Panel
+function subwaySummary(res) {
+  const opts = [...res.parts.map(pt => pt.opt), res.side, res.dip].filter(Boolean);
+  return ["sub", "brot", "kaese", "extras", "saucen", "seasonings"].flatMap(gid => opts.filter(x => x.group === gid).map(x => x.short || x.name)).join(" + ");
+}
+function subwayCard(res, ctx) {
+  const n = gid => res.parts.filter(pt => pt.opt.group === gid).length, pl = (k, one, many) => k + " " + (k === 1 ? one : many);
+  const bits = [subwayMenuOf(res).factor === 2 ? "Footlong" : "15-CM", pl(n("extras"), "extra", "extras"), n("saucen") ? pl(n("saucen"), "sauce", "sauces") : "no sauce",
+    res.side ? "cheese" : "no cheese", pl(n("veggies"), "veggie", "veggies")];
+  return h(ResultCard, { key: res.key, title: subwaySummary(res), sub: bits.join(" · "), n: res.nutrition, price: res.price, selected: ctx.selected, onClick: ctx.onSelect });
+}
+function subwayPanel(sel, ctx) {
+  const menu = subwayMenuOf(sel);
+  return h("div", null,
+    h("div", { style: { fontSize: 11, color: "#999", fontFamily: S.mono, marginBottom: 4 } }, "Size: " + (menu.factor === 2 ? "Footlong — every value ×2 (two 15-cm portions)" : "15-CM")),
+    bowlPanel(menu, sel, ctx));
+}
+// Order Guide in Wolt-Reihenfolge: Artikel (Sub) → Deine Größe → Brot → Zubereitungsart → Käse → Extras (inkl. „Extra Fleisch / Protein“) → Veggies →
+// Saucen → Seasonings. Leere Pflicht-Gruppen des jeweiligen Subs → dessen „ohne …“-Option („ohne Käse“ gibt es nur bei manchen Subs)
+function subwayOrderSteps(sel) {
+  const menu = subwayMenuOf(sel), sub = sel.parts.map(pt => pt.opt).find(x => x.group === "sub");
+  const none = (sub && sub.none) || {};
+  const m = Object.assign({}, menu, { item: sub ? (sub.orderName || sub.name) : menu.item,
+    groups: menu.groups.filter(g => g.id !== "sub").map(g => Object.assign({}, g, { none: none[g.id] || null, min: none[g.id] ? 1 : 0 })) });
+  const steps = bowlOrderSteps(m, sel);
+  if (sub) steps.splice(1, 0, { l: "Deine Größe", v: sub.sizeName });
+  const prep = menu.groups.find(g => g.choices), bi = steps.findIndex(x => x.l === "Brot");
+  if (prep && bi >= 0) steps.splice(bi + 1, 0, { l: prep.name, v: prep.choices.join(" or ") + " (your choice)" });
+  return steps;
+}
+// Such-Index („Add own order“): jeder Baustein je Größe, mit Gruppe und Größe im Namen (ohne Varianten und 0-Werte wie Veggie Delite®)
+function subwaySearchEntries() {
+  const out = [];
+  for (const menu of [SUBWAY.small, SUBWAY.footlong]) for (const g of menu.groups) for (const x of g.options) {
+    if (x.variant || KEYS.every(k => !x[k])) continue;
+    out.push(Object.assign({}, x, { name: x.name + " (" + (g.id === "sub" ? "sub protein" : g.name) + ", " + (menu.factor === 2 ? "Footlong" : "15-CM") + ")" }));
+  }
+  return out;
+}
+// Config-Karten: Größe + Extras-Chip + Hinweis, dann Brot- und Sub-Auswahl (leer = alle; Größenwechsel schließt das Detail-Panel)
+function subwayConfigCard(ctx, note) {
+  const x = (ctx.st && ctx.st.extra) || {}, menu = subwayMenu(x);
+  const set = (patch, clearSel) => ctx.update(st => Object.assign({ extra: { ...(st.extra || {}), ...patch } }, clearSel ? { sel: null } : {}));
+  const pickChips = (key, role, allLabel) => {
+    const chosen = x[key] || [], opts = menu.groups.flatMap(g => g.options.filter(o => bowlRole(o) === role && !o.variant));
+    return h("div", { style: { display: "flex", flexWrap: "wrap", gap: 5 } },
+      h(Chip, { label: allLabel, active: !opts.some(o => chosen.includes(o.ing)), onClick: () => set({ [key]: [] }), small: true }),
+      ...opts.map(o => h(Chip, { key: o.ing, label: (o.short || o.name) + (o.price > 0 && role === "base" ? " +" + bowlEuro(o.price) : ""), active: chosen.includes(o.ing), small: true,
+        onClick: () => set({ [key]: chosen.includes(o.ing) ? chosen.filter(y => y !== o.ing) : [...chosen, o.ing] }) })));
+  };
+  return h("div", null,
+    h("div", { style: CARD },
+      h("div", { style: LBL }, "Size"),
+      h("div", { style: { display: "flex", gap: 5, marginBottom: 12 } },
+        ...SUBWAY_SIZES.map(sz => h(Chip, { key: sz.id, label: sz.label, active: (x.size || "small") === sz.id, onClick: () => set({ size: sz.id }, true) }))),
+      h("div", { style: LBL }, "Max. extras per sub"),
+      h("div", { style: { display: "flex", gap: 5, flexWrap: "wrap", marginBottom: note ? 10 : 0 } },
+        ...[0, 1, 2, 3, 4, 5, 6].map(n => h(Chip, { key: String(n), label: String(n), active: x.maxExtras === n, onClick: () => set({ maxExtras: n }), small: true }))),
+      note && h("div", { style: { fontSize: 10, color: "#666", lineHeight: 1.4 } }, note)),
+    h("div", { style: CARD }, h("div", { style: LBL }, "Bread (pick one or more — optimizer chooses the best)"), pickChips("breads", "base", "All breads")),
+    h("div", { style: CARD }, h("div", { style: LBL }, "Protein sub (pick one or more — optimizer chooses the best)"), pickChips("subs", "protein", "All proteins")));
+}
+// Datenprüfung: beide Menüs gültig, Footlong = 2 × 15-CM je Option, Standard-Veggies vorhanden, Sub-Angaben (Größe, Grenzen, „ohne …“) stimmig
+function subwayValidate() {
+  const P = bowlValidate(SUBWAY, ["small", "footlong"]);
+  const byId = m => new Map(m.groups.flatMap(g => g.options.map(o => [o.id.replace(/^fl_/, ""), o])));
+  const sm = byId(SUBWAY.small), fl = byId(SUBWAY.footlong);
+  if (SUBWAY.small.factor !== 1 || SUBWAY.footlong.factor !== 2) P.push("factor: 15-CM 1, Footlong 2 erwartet");
+  if (sm.size !== fl.size) P.push("15-CM und Footlong haben unterschiedlich viele Optionen");
+  for (const [id, o] of sm) {
+    const y = fl.get(id);
+    if (!y) { P.push("Footlong: Option fehlt: " + id); continue; }
+    for (const k of KEYS) if (Math.abs(y[k] - 2 * o[k]) > 0.011) P.push("Footlong " + id + ": " + k + " ≠ 2 × 15-CM");
+  }
+  for (const m of [SUBWAY.small, SUBWAY.footlong]) {
+    const gids = new Set(m.groups.map(g => g.id)), ings = new Set(m.groups.flatMap(g => g.options.map(o => o.ing)));
+    for (const id of SUBWAY.stdVeggies) if (!ings.has(id)) P.push(m.size + ": Standard-Veggie fehlt: " + id);
+    for (const o of (m.groups.find(g => g.id === "sub") || { options: [] }).options) {
+      if (typeof o.sizeName !== "string" || !o.sizeName) P.push(m.size + ": " + o.id + " ohne sizeName");
+      for (const g of Object.keys(o.groupMax || {}).concat(Object.keys(o.none || {}))) if (!gids.has(g)) P.push(m.size + ": " + o.id + ": unbekannte Gruppe " + g);
+    }
+  }
+  return P;
 }
 
 // ═══ Registry-Hilfsfunktionen (generisch für alle Einträge) ═══
@@ -1469,9 +1892,10 @@ function summarizeResult(r, res) { return (r.kind === "byo" && r.summary) ? r.su
 //   platform  Lieferando / Wolt / Uber Eats                              accurate  true = verifizierte offizielle Daten
 //   maxN      Default „Max. items per order" (5)                         note / footer  optionale Texte (Config-Karte / Fußzeile)
 //   exclusionKey  optional: gemeinsame Ausschluss-Liste mehrerer Einträge (ein Restaurant auf mehreren Plattformen; Default: key)
-//   switches  [{ id, label, def, filter?(item), require?(items), overridesCats?, group?, inAll?, hint? }]
-//     filter = wirkt auf den Pool · require = wirkt aufs Ergebnis („must include X") · overridesCats = „only X"-Modus,
-//     ignoriert die Chips · group = UI-exklusiv · inAll = Wert in All/Accurate (Default: def) · hint = Erklärtext
+//   switches  [{ id, label, def, filter?(item), require?(items), force?:[Zutat-ids], overridesCats?, group?, inAll?, hint? }]
+//     filter = wirkt auf den Pool · require = wirkt aufs Ergebnis („must include X") · force = BYO: diese Zutaten in jeder Bestellung
+//     (Subway „Standard veggies“) · overridesCats = „only X"-Modus, ignoriert die Chips · group = UI-exklusiv · inAll = Wert in All/Accurate
+//     (Default: def) · hint = Erklärtext
 // kind:"byo" — Pflicht-Methoden am Eintrag:
 //   optimize(t, mode, p, st, ex, r) → sortierte Ergebnisse [{items? | key?, nutrition, score, price?, …}], max 20
 //     (isShellfish im eigenen Pool! ex = Set ausgeschlossener ids aus der Ausschluss-Liste; t.maxPrice = Preislimit in € oder null)
@@ -1499,6 +1923,25 @@ const RESTAURANTS = [
     gradient:["#a16207","#422006"], inputHint:"Mix Your Own Bowl bar: 1 base, 1+ protein",
     footer:"Data: dean&david nutrition table (official, per portion, August 2026) · menu & prices: Wolt Frankfurt · 16.09.2026",
     note:m=>"Mix Your Own Bowl bar on Wolt (base price "+bowlEuro(m.basePrice)+"): one base (Jasmin-Duftreis or Quinoa-Vollkornreis) plus Premium Blattsalatmix; every bowl gets at least 1 protein (Chicken, Lachs, Rind, Halloumi, Ziegenkäse, Schafskäse — several portions possible), other toppings once each. Sauce 0–2 portions (2nd +"+bowlEuro(ddExtraPrice(m,"dip"))+"), bread 0–2 slices (2nd +"+bowlEuro(ddExtraPrice(m,"side"))+"). Never suggested (no official values): Pumpkin spice Gewürz, Marinierte Zwiebeln, Sonnenblumenkerne. Fibre is not declared by dean&david (shown as 0)." }),
+  // Subway Frankfurt Zeil (Wolt, „Create Your Own“; Preise wie in der Liste des Users vom 16.09.2026, Skyline Plaza / Nordwestzentrum abweichend).
+  // Daten: py -3 subway-pdf.py "<Nährwert-PDF>" (→ data/subway-naehrwerte.txt) → node subway-crawl.js (→ data/subway-raw.json) → node subway-update.js
+  { key:"subway", name:"Subway (Wolt)", kind:"byo", data:SUBWAY, menu:SUBWAY.small, exclusionKey:"subway",
+    gradient:["#00873e","#0b2e1a"], label:"SUBWAY · ZEIL · WOLT", platform:"Wolt", accurate:true, maxN:5,
+    footer:"Data: Subway Germany nutrition information (official, September 2026, per 15 cm; Footlong ×2) · menu & prices: Wolt Frankfurt Zeil · 16.09.2026",
+    switches:SUBWAY_SWITCHES,
+    initState:() => ({ size:"small", breads:[], subs:[], maxExtras:5 }),
+    optimize:subwayOptimize,
+    renderConfig:ctx => subwayConfigCard(ctx, SUBWAY_NOTE),
+    renderCard:subwayCard,
+    renderPanel:subwayPanel,
+    orderSteps:subwayOrderSteps,
+    searchEntries:subwaySearchEntries,
+    excludables:() => bowlExcludables(SUBWAY.small, SUBWAY_BLOCKED),
+    includables:() => bowlIncludables(SUBWAY.small, SUBWAY_BLOCKED),
+    summary:subwaySummary,
+    panelSubtitle:sel => "Create Your Own · " + (subwayMenuOf(sel).factor === 2 ? "Footlong" : "15-CM") + " · " + bowlEuro(sel.price),
+    inputHint:st => "Create Your Own: 1 sub + 1 bread · " + (subwayMenu(st && st.extra).factor === 2 ? "Footlong" : "15-CM"),
+    validate:subwayValidate },
 ];
 const RESTO_BY_KEY = Object.fromEntries(RESTAURANTS.map(r => [r.key, r]));
 
@@ -1525,7 +1968,8 @@ function validateRegistry(restos) {
       if (typeof s.def !== "boolean") P.push(tag + "Schalter def muss boolean sein: " + s.id);
       if (s.filter && typeof s.filter !== "function") P.push(tag + "filter ist keine Funktion: " + s.id);
       if (s.require && typeof s.require !== "function") P.push(tag + "require ist keine Funktion: " + s.id);
-      if (!s.filter && !s.require && !s.overridesCats) P.push(tag + "Schalter ohne Wirkung: " + s.id);
+      if (s.force && (!Array.isArray(s.force) || s.force.some(id => typeof id !== "string") || r.kind !== "byo")) P.push(tag + "force muss eine Liste von Zutat-ids sein (nur Build-Your-Own): " + s.id);
+      if (!s.filter && !s.require && !s.overridesCats && !s.force) P.push(tag + "Schalter ohne Wirkung: " + s.id);
       if (s.group) {
         const g = groups[s.group] || (groups[s.group] = { def: 0, all: 0 });
         if (s.def) g.def++;
@@ -1877,14 +2321,14 @@ function bowlPanel(menu, sel, ctx) {
     const choice = g.options.some(x => ["dip", "side"].includes(bowlRole(x)));
     const ps = sel.parts.filter(pt => pt.opt.group === g.id);
     for (const x of [sel.side, sel.dip]) if (x && x.group === g.id) ps.push({ opt: x, qty: 1 });
-    if (!ps.length && !choice) continue;
+    if (!ps.length && !(choice || (g.min >= 1 && g.none))) continue;
     rows.push(head(g.id, g.name));
     if (!ps.length) rows.push(h("div", { key: g.id + "_none", style: { fontSize: 12, color: "#777", padding: "4px 0", borderBottom: "1px solid #1f1f1f" } }, g.none || "—"));
     for (const pt of ps) rows.push(row(g.id + "_" + pt.opt.id, pt.opt, pt.qty, bowlEuro((pt.opt.price || 0) * pt.qty)));
   }
   if (sel.price != null) rows.push(h("div", { key: "_price", style: { ...line, borderBottom: "none", marginTop: 6 } },
     h("span", { style: { color: "#e0e0e0", minWidth: 0, flex: 1, fontWeight: 600 } }, "Total price",
-      h("span", { style: { color: "#777", fontWeight: 400, fontSize: 10 } }, "  incl. " + menu.item + " " + bowlEuro(menu.basePrice) + " · " + ((ctx && ctx.R && ctx.R.platform) ? ctx.R.platform + " " : "") + "menu prices, no fees")),
+      h("span", { style: { color: "#777", fontWeight: 400, fontSize: 10 } }, "  " + (menu.basePrice > 0 ? "incl. " + menu.item + " " + bowlEuro(menu.basePrice) + " · " : "") + ((ctx && ctx.R && ctx.R.platform) ? ctx.R.platform + " " : "") + "menu prices, no fees")),
     h("span", { style: { color: "#fff", fontFamily: S.mono, whiteSpace: "nowrap", fontWeight: 600 } }, bowlEuro(sel.price))));
   return h("div", { style: { marginBottom: 16 } }, ...rows);
 }
@@ -1947,7 +2391,7 @@ function App() {
   const inList = R && Array.isArray(incl[exKey]) ? incl[exKey] : []; // Pflicht-Zutaten teilen sich den Schlüssel der Ausschluss-Liste
   const inSet = useMemo(() => new Set(inList), [inList]);
   const includables = useMemo(() => R ? includablesFor(R) : [], [R]);
-  const ingName = id => { const x = R && R.data && Array.isArray(R.data.ingredients) ? R.data.ingredients.find(y => y.id === id) : null; return x ? x.name : id; };
+  const ingName = id => { const e = includables.find(y => y.id === id); if (e) return e.name; const x = R && R.data && Array.isArray(R.data.ingredients) ? R.data.ingredients.find(y => y.id === id) : null; return x ? x.name : id; };
   const excludables = useMemo(() => R ? excludablesFor(R) : [], [R]);
   const updRS = (key, fn) => setRs(prev => prev[key] ? { ...prev, [key]: { ...prev[key], ...fn(prev[key]) } } : prev);
   const isCross = tab === "all" || tab === "accurate";
@@ -2230,7 +2674,7 @@ function App() {
         }),
         activeResults.length===0&&h("div",{style:{fontSize:12,color:"#888",fontFamily:S.mono,padding:"4px 0"}},
           !isCross&&activeResults.missing?"Not on the "+R.platform+" menu: "+activeResults.missing.map(ingName).join(", ")+" — remove it from “Must include” or try another tab."
-            :!isCross&&activeResults.conflict?"Only one of "+activeResults.conflict.map(ingName).join(" / ")+" fits in a bowl — keep one of them in “Must include”."
+            :!isCross&&activeResults.conflict?"These picks don't fit together in one order: "+activeResults.conflict.map(ingName).join(" / ")+" — keep fewer of them in “Must include”."
             :isCross?(targets.maxPrice!=null?"No results within "+bowlEuro(targets.maxPrice)+" — raise the price limit.":"No results.")
             :targets.maxPrice!=null&&R.kind==="byo"?"No results within "+bowlEuro(targets.maxPrice)+" — raise the price limit, relax the switches or remove exclusions"+(inList.length?" or picks.":".")
             :R.kind==="byo"?"No results — relax the switches or remove exclusions"+(inList.length?" or picks.":"."):"No results — turn on more categories, relax the switches or remove exclusions.")

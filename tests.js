@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -192,6 +192,8 @@ const noEff = goodAC(); noEff.switches = [{ id: "s1", label: "S1", def: false }]
 check("validateRegistry: Schalter ohne Wirkung erkannt", T.validateRegistry([noEff]).some(p => p.includes("ohne Wirkung")), true);
 check("validateRegistry: BYO ohne Methoden erkannt", T.validateRegistry([{ ...goodAC(), key: "testbyo", kind: "byo", data: undefined }]).some(p => p.includes("BYO-Methode fehlt")), true);
 check("validateRegistry: meldet Probleme aus r.validate()", T.validateRegistry([{ ...goodAC(), validate: () => ["Datenfehler X"] }]).some(p => p.includes("Datenfehler X")), true);
+check("validateRegistry: force-Schalter nur als Liste von Zutat-ids und nur bei Build-Your-Own", (() => { const a = goodAC(); a.switches = [{ id: "f", label: "F", def: true, force: ["x"] }]; const b = goodAC(); b.switches = [{ id: "f", label: "F", def: true, force: "x" }]; return T.validateRegistry([a]).some(p => /force/.test(p)) && T.validateRegistry([b]).some(p => /force/.test(p)) && !T.validateRegistry([b]).some(p => /ohne Wirkung/.test(p)); })(), true);
+check("switchForce: Zutat-ids der aktiven force-Schalter", T.switchForce({ switches: [{ id: "a", force: ["x", "y"] }, { id: "b", force: ["z"] }, { id: "c", filter: () => true }] }, { sw: { a: true, b: false, c: true } }).join() === "x,y", true);
 
 // ── optimizeAC (generisch, Test-Restaurant) ──
 sect("optimizeAC (Test-Restaurant)");
@@ -393,45 +395,59 @@ function exhaustiveBowl(menu, t, mode, p, o) {
   const all = menu.groups.flatMap(g => g.options.map(x => ({ x, g })));
   const vec = x => T.KEYS.map(k => x[k] || 0);
   const cents = x => Math.round((x.price || 0) * 100);
+  const Z = () => [0, 0, 0, 0, 0, 0, 0, 0];
   const fixed = menu.fixed || [];
   if (fixed.some(x => T.isShellfish(x))) return [];
   const gmax = { base: Infinity, protein: Infinity };
   let emax = Infinity;
-  for (const { x, g } of all) { const r = role(x); if (r in gmax) gmax[r] = Math.min(gmax[r], g.max); else if (r === "extra") emax = Math.min(emax, g.max); }
-  const protIngs = new Set(all.filter(({ x }) => role(x) === "protein").map(({ x }) => x.ing));
-  // Pflicht-Zutaten: Rolle laut Menü (Wolt-Duplikate unter Extras zählen nicht)
+  for (const { x, g } of all) { const r = role(x); if (r in gmax) gmax[r] = Math.min(gmax[r], g.max); else if (r === "extra" && !g.own) emax = Math.min(emax, g.max); }
+  const protIngs = menu.proteinExtras ? new Set() : new Set(all.filter(({ x }) => role(x) === "protein").map(({ x }) => x.ing));
+  // Pflicht-Zutaten: Rolle laut Menü (nur pickRoles; Wolt-Duplikate unter Extras zählen nicht)
   const incRole = new Map();
-  for (const { x } of all) if (inc.has(x.ing) && !(role(x) === "extra" && protIngs.has(x.ing)) && !incRole.has(x.ing)) incRole.set(x.ing, role(x));
+  for (const { x } of all) if (inc.has(x.ing) && (!menu.pickRoles || menu.pickRoles.includes(role(x))) && !(role(x) === "extra" && protIngs.has(x.ing)) && !incRole.has(x.ing)) incRole.set(x.ing, role(x));
   for (const ing of inc) if (!incRole.has(ing)) return [];
+  // Welche Werte den Score ändern können — unabhängig von bowlScoreKeys durch Stören von scoreVec ermittelt
+  let sd = 11;
+  const rr = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+  const matters = T.KEYS.map((_, k) => { for (let i = 0; i < 40; i++) { const n = T.KEYS.map(() => rr() * 300 + 1); const n2 = n.slice(); n2[k] += 0.5 + rr() * 40; if (Math.abs(T.scoreVec(n2, t, mode, p) - T.scoreVec(n, t, mode, p)) > 1e-12) return true; } return false; });
   // fester Anteil: Bestandteile ohne Auswahl + Pflicht-Extras
-  const off = [0, 0, 0, 0, 0, 0, 0, 0];
+  const off = Z();
   let offPc = 0;
   const addOff = x => { const v = vec(x); for (let k = 0; k < 8; k++) off[k] += v[k]; offPc += cents(x); };
   fixed.forEach(addOff);
-  const EA = all.filter(({ x }) => role(x) === "extra" && keep(x) && !protIngs.has(x.ing)).map(({ x }) => x);
+  const EA = all.filter(({ x }) => role(x) === "extra" && keep(x) && !protIngs.has(x.ing));
   const forced = [];
-  for (const ing of inc) if (incRole.get(ing) === "extra") { const x = EA.find(y => y.ing === ing); if (!x) return []; forced.push(x); }
-  forced.forEach(addOff);
+  for (const ing of inc) if (incRole.get(ing) === "extra") { const e = EA.find(y => y.x.ing === ing); if (!e) return []; forced.push(e); }
+  for (const g of menu.groups) if (g.own && forced.filter(e => e.g.id === g.id).length > g.max) return [];
+  forced.forEach(e => addOff(e.x));
   const budget = (o.maxPrice == null ? Infinity : Math.round(o.maxPrice * 100) - Math.round((menu.basePrice || 0) * 100)) - offPc;
   if (budget < 0) return [];
-  // Kern je Portionen-Rolle: je Zutat a ganze (≤ min(maxQty, cap)) + b halbe (≤ 1 neben erlaubter ganzer, sonst ≤ min(maxQty, 2·cap)),
-  // 2a + b ≤ 2·cap; Pflicht-Zutaten der Rolle brauchen a + b ≥ 1
+  // Kern je Portionen-Rolle: je Zutat ganze Optionen (auch Varianten) je ≤ min(maxQty, cap) + halbe (≤ 1 neben erlaubter ganzer, sonst
+  // ≤ min(maxQty, 2·cap)), 2·Σganze + halbe ≤ 2·cap; Pflicht-Zutaten der Rolle brauchen mindestens eine Portion
   const coreCombos = r => {
     const byIng = new Map();
-    for (const { x } of all) if (role(x) === r && keep(x)) { const e = byIng.get(x.ing) || { full: null, half: null }; e[x.half ? "half" : "full"] = x; byIng.set(x.ing, e); }
-    const must = [...incRole].filter(([, rr]) => rr === r).map(([ing]) => ing);
+    for (const { x } of all) if (role(x) === r && keep(x)) { const e = byIng.get(x.ing) || { full: [], half: null }; if (x.half) e.half = x; else e.full.push(x); byIng.set(x.ing, e); }
+    const must = [...incRole].filter(([, rr2]) => rr2 === r).map(([ing]) => ing);
     if (must.some(ing => !byIng.has(ing))) return null;
-    let out = [{ n: [0, 0, 0, 0, 0, 0, 0, 0], c: 0, pc: 0, sat: 0 }];
+    let out = [{ n: Z(), c: 0, pc: 0, sat: 0 }];
     for (const [ing, { full, half }] of byIng) {
-      const aMax = full ? Math.min(full.maxQty || 1, o.cap) : 0;
-      const bMax = half ? Math.min(half.maxQty || 1, full ? 1 : 2 * o.cap) : 0;
+      let fv = [{ q: 0, hu: 0, n: Z(), pc: 0 }];
+      for (const f of full) {
+        const nx = [];
+        for (const s0 of fv) for (let a = 0; a <= Math.min(f.maxQty || 1, o.cap); a++) {
+          if (s0.hu + 2 * a > 2 * o.cap) continue;
+          const v = vec(f);
+          nx.push({ q: s0.q + a, hu: s0.hu + 2 * a, n: s0.n.map((y, k) => y + v[k] * a), pc: s0.pc + cents(f) * a });
+        }
+        fv = nx;
+      }
+      const bMax = half ? Math.min(half.maxQty || 1, full.length ? 1 : 2 * o.cap) : 0;
       const isMust = must.includes(ing), nx = [];
-      for (const s0 of out) for (let a = 0; a <= aMax; a++) for (let b = 0; b <= bMax; b++) {
-        if (2 * a + b > 2 * o.cap || s0.c + a + b > gmax[r]) continue;
-        const n = s0.n.slice();
-        if (a) { const v = vec(full); for (let k = 0; k < 8; k++) n[k] += v[k] * a; }
+      for (const s0 of out) for (const fq of fv) for (let b = 0; b <= bMax; b++) {
+        if (fq.hu + b > 2 * o.cap || s0.c + fq.q + b > gmax[r]) continue;
+        const n = s0.n.map((y, k) => y + fq.n[k]);
         if (b) { const v = vec(half); for (let k = 0; k < 8; k++) n[k] += v[k] * b; }
-        nx.push({ n, c: s0.c + a + b, pc: s0.pc + (a ? cents(full) * a : 0) + (b ? cents(half) * b : 0), sat: s0.sat + (isMust && a + b > 0 ? 1 : 0) });
+        nx.push({ n, c: s0.c + fq.q + b, pc: s0.pc + fq.pc + (b ? cents(half) * b : 0), sat: s0.sat + (isMust && fq.q + b > 0 ? 1 : 0) });
       }
       out = nx;
     }
@@ -442,23 +458,35 @@ function exhaustiveBowl(menu, t, mode, p, o) {
   // Einzelauswahl (dip, side): keine oder eine Option; Pflicht-Zutat → nur deren Varianten
   const choice = r => {
     const opts = all.filter(({ x }) => role(x) === r && keep(x)).map(({ x }) => x);
-    const must = [...incRole].filter(([, rr]) => rr === r).map(([ing]) => ing);
+    const must = [...incRole].filter(([, rr2]) => rr2 === r).map(([ing]) => ing);
     if (must.length > 1) return null;
     if (must.length === 1) { const v = opts.filter(x => x.ing === must[0]); return v.length ? v : null; }
     return [null, ...opts];
   };
   const D = choice("dip"), SD = choice("side");
   if (!D || !SD) return [];
-  const E = EA.filter(x => !inc.has(x.ing) && vec(x).some(v => v > 0)); // wie bowlCombos: Extras ohne Nährwerte zählen nicht
-  const maxE = Math.max(0, Math.min(emax, o.maxExtras == null ? Infinity : o.maxExtras) - forced.length);
-  const es = [];
-  const rec = (i, n, c, pr) => { es.push({ n, pr }); if (c >= maxE) return; for (let j = i; j < E.length; j++) { const v = vec(E[j]); rec(j + 1, n.map((x, k) => x + v[k]), c + 1, pr + cents(E[j])); } };
-  rec(0, [0, 0, 0, 0, 0, 0, 0, 0], 0, 0);
-  const top = [], n = [0, 0, 0, 0, 0, 0, 0, 0];
+  // freie Extras: keine Pflicht-Extras, keine pick-Optionen, nur mit Wirkung auf den Score; Grenzen je Klasse (Extras-Chip bzw. own-Gruppe)
+  const E = EA.filter(e => incRole.get(e.x.ing) !== "extra" && !e.x.pick && vec(e.x).some((v, k) => v > 0 && matters[k]));
+  const maxE = Math.max(0, Math.min(emax, o.maxExtras == null ? Infinity : o.maxExtras) - forced.filter(e => !e.g.own).length);
+  const capOf = key => key === "" ? maxE : menu.groups.find(g => g.id === key).max - forced.filter(e => e.g.id === key).length;
+  const es = [], used = new Map();
+  const rec = (i, n, pr) => {
+    es.push({ n, pr });
+    for (let j = i; j < E.length; j++) {
+      const key = E[j].g.own ? E[j].g.id : "", c = used.get(key) || 0;
+      if (c >= capOf(key)) continue;
+      used.set(key, c + 1);
+      const v = vec(E[j].x);
+      rec(j + 1, n.map((x, k) => x + v[k]), pr + cents(E[j].x));
+      used.set(key, c);
+    }
+  };
+  rec(0, Z(), 0);
+  const top = [], n = Z();
   let thr = Infinity;
-  for (const d of D) for (const sd of SD) {
-    const cv = off.slice(), cpc = (d ? cents(d) : 0) + (sd ? cents(sd) : 0);
-    for (const x of [d, sd]) if (x) { const v = vec(x); for (let k = 0; k < 8; k++) cv[k] += v[k]; }
+  for (const d of D) for (const sd2 of SD) {
+    const cv = off.slice(), cpc = (d ? cents(d) : 0) + (sd2 ? cents(sd2) : 0);
+    for (const x of [d, sd2]) if (x) { const v = vec(x); for (let k = 0; k < 8; k++) cv[k] += v[k]; }
     for (const bn of bc) for (const pn of pc) {
       const cp = bn.pc + pn.pc + cpc;
       if (cp > budget) continue;
@@ -561,6 +589,92 @@ check("bowlIncludables: je Zutat einmal mit Rolle, ohne Varianten, ohne Wolt-Dup
     && b.filter(x => x.id === "huhn").length === 1 && b.find(x => x.id === "huhn").role === "protein" && !b.some(x => x.id === "garnele") && b.find(x => x.id === "reis").name === "reis";
 })(), true);
 check("addInclude: keine Doppelten; ein neuer Dip ersetzt den alten, Extras/Proteine bleiben", (() => { const inc = T.bowlIncludables(TSAL, null); const l1 = T.addInclude(["caesar", "avocado"], "tahini", inc); const l2 = T.addInclude(l1, "avocado", inc); const l3 = T.addInclude(l2, "brot", inc); return l1.join() === "avocado,tahini" && l2.join() === "tahini,avocado" && l3.join() === "tahini,avocado,brot"; })(), true);
+
+// Muster Subway: Sub (protein, genau 1, Variante „Extra Fleisch“), Brot (base, genau 1), Käse (side), Extras (Extras-Chip), Veggies (own + pick),
+// Saucen (own, max 2; Sub s_pb laut groupMax nur 1 — gilt in subwayCombos), Seasonings (own); proteinExtras + pickRoles
+const TSUB = { item: "Test Sub", basePrice: 0, require: { base: true, protein: true }, proteinExtras: true, pickRoles: ["side", "extra"], groups: [
+  { id: "sub", name: "Create Your Own", min: 1, max: 1, none: null, options: [
+    opt("s_huhn", "sub", 4, 13, 1.3, { role: "protein", price: 8.99, sizeName: "s_huhn - 15-CM", none: { kaese: "ohne Käse" } }),
+    opt("s_ham", "sub", 0.7, 5.4, 1, { role: "protein", ing: "ham", price: 7.59, sizeName: "s_ham - 15-CM" }),
+    opt("s_pb", "sub", 8.1, 10, 2.3, { role: "protein", price: 8.99, groupMax: { saucen: 1 }, sizeName: "s_pb - 15-CM" }),
+    opt("s_veg", "sub", 0, 0, 0, { role: "protein", price: 6.49, sizeName: "s_veg - 15-CM" }),
+    opt("s_huhn2", "sub", 8, 26, 2.6, { role: "protein", ing: "s_huhn", variant: true, price: 11.18, orderName: "s_huhn", order: [{ group: "extras", name: "Extra Fleisch / Protein" }] }),
+    opt("s_ham2", "sub", 1.4, 10.8, 2, { role: "protein", ing: "ham", variant: true, price: 9.78, orderName: "s_ham", order: [{ group: "extras", name: "Extra Fleisch / Protein" }] }),
+  ] },
+  { id: "brot", name: "Brot", min: 1, max: 1, none: null, options: [opt("italian", "brot", 36, 7, 2.1, { role: "base", price: 0 }), opt("oat", "brot", 41, 9.5, 2.6, { role: "base", price: 0 }), opt("gf", "brot", 53, 3.3, 6.6, { role: "base", price: 1.49 })] },
+  { id: "zubereitung", name: "Zubereitungsart", min: 1, max: 1, none: null, choices: ["Getoastet", "Ungetoastet"], options: [] },
+  { id: "kaese", name: "Käse", min: 0, max: 1, none: "ohne Käse", options: [opt("scheibe", "kaese", 0.4, 2.3, 3.5, { role: "side", price: 0 }), opt("cheddar", "kaese", 0, 2.8, 3.8, { role: "side", price: 0 })] },
+  { id: "extras", name: "Extras", min: 0, max: 15, none: null, options: [opt("bacon", "extras", 0.2, 3, 2.8, { role: "extra", price: 1.49 }), opt("ham_x", "extras", 0.7, 5.4, 1, { role: "extra", ing: "ham", price: 1.49 }), opt("tuna", "extras", 2.5, 12, 10, { role: "extra", price: 1.49 }), opt("frisch", "extras", 0.5, 1.2, 2.2, { role: "extra", price: 0.89, sauce: true })] },
+  { id: "veggies", name: "Veggies", min: 1, max: 14, none: "ohne Veggies", own: true, options: [opt("tomate", "veggies", 0.8, 0.3, 0.1, { role: "extra", pick: true, price: 0 }), opt("mais", "veggies", 0.8, 0.2, 0.1, { role: "extra", pick: true, price: 0 }), opt("jala", "veggies", 0.1, 0, 0, { role: "extra", pick: true, price: 0 })] },
+  { id: "saucen", name: "Saucen", min: 0, max: 2, none: "ohne Saucen", own: true, options: [opt("chipotle", "saucen", 1.3, 0.1, 6.3, { role: "extra", price: 0 }), opt("onion", "saucen", 5.6, 0.1, 0.1, { role: "extra", price: 0 }), opt("mayo", "saucen", 0.6, 0, 4.9, { role: "extra", price: 0 }), opt("balsamico", "saucen", 0, 0, 0, { role: "extra", price: 0, kcal: 1 })] },
+  { id: "seasonings", name: "Seasonings", min: 0, max: 3, none: null, own: true, options: [opt("roest", "seasonings", 2.9, 0.4, 3, { role: "extra", price: 0 })] },
+] };
+const tSub = tgt(45, 90, 25), oSub = { cap: 1, maxExtras: 3 };
+const inG = (r, gid) => r.parts.filter(pt => pt.opt.group === gid).length;
+const rSub = T.bowlCombos(TSUB, tSub, "macros", {}, oSub);
+check("Muster Subway: genau 1 Sub + 1 Brot, Käse ≤ 1, Saucen ≤ 2 (eigene Grenze), Extras ≤ 3, ohne Pflicht nie Veggies (pick)", rSub.length > 0 && rSub.every(r => cnt(r, "protein") === 1 && cnt(r, "base") === 1 && (r.side ? 1 : 0) <= 1 && inG(r, "saucen") <= 2 && inG(r, "extras") <= 3 && inG(r, "veggies") === 0), true);
+check("eigene Grenze zählt nicht zum Extras-Chip: maxExtras 0 → keine Extras, Saucen trotzdem (Fett-Ziel)", (() => { const r = T.bowlCombos(TSUB, tgt(20, 50, 30), "macros", {}, { cap: 1, maxExtras: 0 }); return r.length > 0 && r.every(x => inG(x, "extras") === 0) && r.some(x => inG(x, "saucen") > 0); })(), true);
+check("pick: Veggies nur als Pflicht-Zutat — dann in jeder Bestellung, ohne Extras-Chip zu belasten", (() => { const r = T.bowlCombos(TSUB, tSub, "macros", {}, { cap: 1, maxExtras: 0, include: ["tomate", "mais"] }); return r.length > 0 && r.every(x => hasIng(x, "tomate") && hasIng(x, "mais") && !hasIng(x, "jala") && inG(x, "extras") === 0); })(), true);
+check("proteinExtras: Ham als Extra auf einem anderen Sub (exakter Treffer s_huhn + italian + ham_x)", (() => { const r0 = T.bowlCombos(TSUB, tgt(13 + 7 + 5.4, 4 + 36 + 0.7, 1.3 + 2.1 + 1), "macros", {}, oSub)[0]; return r0.rawScore < 1e-9 && r0.parts.some(pt => pt.opt.id === "ham_x") && r0.parts.some(pt => pt.opt.id === "s_huhn"); })(), true);
+check("pickRoles: Pflicht „ham“ = das Extra, nicht das Sub; Brot/Sub nicht als Pflicht wählbar", (() => { const r = T.bowlCombos(TSUB, tSub, "macros", {}, { ...oSub, include: ["ham"] }); const inc = T.bowlIncludables(TSUB, null); return r.length > 0 && r.every(x => x.parts.some(pt => pt.opt.id === "ham_x")) && r.some(x => !x.parts.some(pt => T.bowlRole(pt.opt) === "protein" && pt.opt.ing === "ham")) && !inc.some(x => ["base", "protein"].includes(x.role)) && inc.find(x => x.id === "ham").role === "extra" && inc.some(x => x.id === "tomate"); })(), true);
+check("mehr Pflicht-Saucen als die eigene Grenze (3 bei max 2) → [] mit conflict", (() => { const r = T.bowlCombos(TSUB, tSub, "macros", {}, { ...oSub, include: ["chipotle", "onion", "mayo"] }); return r.length === 0 && r.conflict.length === 3; })(), true);
+check("wirkungslose Extras: Balsamico (nur 1 kcal) im Makro-Modus nie, im Kalorien-Modus als exakter Treffer; bowlScoreKeys", (() => {
+  const a = T.bowlCombos(TSUB, tgt(30, 60, 10), "macros", {}, oSub).every(r => !hasIng(r, "balsamico"));
+  const r0 = T.bowlCombos(TSUB, kcalT(4 * 36 + 4 * 7 + 9 * 2.1 + 1), "calories", {}, { cap: 1, maxExtras: 0, keep: x => ["s_veg", "italian", "balsamico"].includes(x.id) })[0];
+  const k1 = T.bowlScoreKeys(tgt(30, 60, 0), "macros", {}).join(), k2 = T.bowlScoreKeys(kcalT(500, { sMax: 2 }), "calories", { hp: true }).join();
+  return a && r0.rawScore < 1e-9 && hasIng(r0, "balsamico") && k1 === "false,false,false,true,false,false,true,false" && k2 === "true,false,false,false,false,false,true,true";
+})(), true);
+check("bowlIndex mit Klassen: Punktzahl = Π Σ C(n,k), jede Teilmenge einmal, Grenzen je Klasse eingehalten", (() => {
+  const mk = (id, ci) => ({ opt: { id: "bi_" + id }, pc: 0, ci, v: [1, 0, 0, 0, 0, 0, 0, 0] });
+  const ex = [mk("a", 0), mk("b", 0), mk("c", 1), mk("d", 1), mk("e", 1), mk("f", 2)];
+  const idx = T.bowlIndex(ex, [1, 2, 1]), masks = Array.from(idx.M.slice(0, idx.N));
+  const ok = masks.every(mask => { const c = [0, 0, 0]; ex.forEach((e, j) => { if ((mask >>> j) & 1) c[e.ci]++; }); return c[0] <= 1 && c[1] <= 2 && c[2] <= 1; });
+  return idx.N === 3 * 7 * 2 && new Set(masks).size === idx.N && ok && T.bowlIndex(ex.map(e => ({ ...e, ci: 0 })), 2).N === 1 + 6 + 15;
+})(), true);
+check("Bestellschritte: „Extra …“-Einträge zuerst, keine Menge bei Gruppen mit max 1, leere Pflicht-/Einzelauswahl-Gruppe → „ohne …“", (() => {
+  const X = id => TSUB.groups.flatMap(g => g.options).find(o => o.id === id);
+  const st1 = T.bowlOrderSteps(TSUB, { parts: [{ opt: X("italian"), qty: 1 }, { opt: X("s_huhn2"), qty: 1 }, { opt: X("bacon"), qty: 1 }], side: null, dip: null });
+  const v = l => (st1.find(x => x.l === l) || {}).v;
+  return v("Brot") === "italian" && v("Create Your Own") === "s_huhn" && v("Extras") === "Extra Fleisch / Protein · bacon" && v("Veggies") === "ohne Veggies" && v("Käse") === "ohne Käse" && v("Saucen") === undefined && v("Zubereitungsart") === undefined;
+})(), true);
+check("bowlValidate: Muster Subway gültig (own-Gruppen mit max < 6 erlaubt); meldet pick außerhalb von Extras und ungültige pickRoles", (() => {
+  const data = { ingredients: [...new Set(TSUB.groups.flatMap(g => g.options.map(o => o.ing)))].map(id => ({ id, name: id, per100: { kcal: 1, fat: 0, sat: 0, carbs: 0, sugars: 0, fibre: 0, protein: 0, salt: 0 } })), sub: TSUB };
+  const P0 = T.bowlValidate(data, ["sub"]);
+  const bad = JSON.parse(JSON.stringify(data));
+  bad.sub.groups[1].options[0].pick = true; bad.sub.pickRoles = ["side", "gibtsnicht"];
+  const P = T.bowlValidate(bad, ["sub"]);
+  return P0.length === 0 && P.some(x => /pick nur bei Extras/.test(x)) && P.some(x => /pickRoles ungültig/.test(x));
+})(), true);
+const subCases = [[tSub, "macros", {}, oSub], [tgt(70, 60, 30), "macros", {}, { cap: 1, maxExtras: 2 }], [kcalT(650), "calories", { hp: true, lf: true }, oSub], [kcalT(450), "calories", {}, oSub],
+  [tgt(30, 80, 20), "macros", {}, { ...oSub, include: ["tomate", "chipotle"] }], [kcalT(700), "calories", { hc: true }, { cap: 1, maxExtras: 2, include: ["ham", "scheibe"] }],
+  [tgt(50, 70, 20, { fibMin: 3 }), "macros", {}, { ...oSub, maxPrice: 12 }], [tgt(40, 60, 15), "macros", {}, { cap: 1, maxExtras: 1, keep: x => x.id !== "onion" }]];
+let exSub = 0;
+for (const [tt, md, pp, oo] of subCases) if (sameTop(rawTop(TSUB, tt, md, pp, oo), exhaustiveBowl(TSUB, tt, md, pp, oo))) exSub++;
+check("Muster Subway: Top 30 = vollständige Durchrechnung (eigene Grenzen, pick, proteinExtras, pickRoles, Pflicht, Preislimit; 8 Fälle)", exSub, subCases.length);
+// Referenz für subwayCombos: jedes Sub einzeln vollständig durchrechnen (Wolt-Grenzen des Subs, gleichnamiges Extra entfällt) und Ranglisten mischen
+function exhaustiveSubway(menu, t, mode, p, o) {
+  const role = x => x.role || x.group;
+  const extraIngs = new Set(menu.groups.flatMap(g => g.options.filter(x => role(x) === "extra").map(x => x.ing)));
+  let top = [];
+  for (const sub of menu.groups.find(g => g.id === "sub").options) {
+    if (sub.variant || (o.keep && !o.keep(sub))) continue;
+    const m = { ...menu, groups: menu.groups.map(g => sub.groupMax && sub.groupMax[g.id] != null ? { ...g, max: sub.groupMax[g.id] } : g) };
+    const keep = x => (role(x) !== "protein" || x.ing === sub.ing) && !(extraIngs.has(sub.ing) && role(x) === "extra" && x.ing === sub.ing) && (!o.keep || o.keep(x));
+    top = top.concat(exhaustiveBowl(m, t, mode, p, { ...o, keep }));
+  }
+  return top.sort((a, b) => a - b).slice(0, 30);
+}
+const subRaw = (menu, tt, md, pp, oo) => T.subwayCombos(menu, tt, md, pp, Object.assign({ maxMs: Infinity }, oo, { raw: true })).map(r => r.rawScore);
+const swCases = [[tSub, "macros", {}, oSub], [tgt(60, 70, 35), "macros", {}, { cap: 1, maxExtras: 2 }], [kcalT(700), "calories", { hp: true }, { ...oSub, include: ["ham"] }], [kcalT(500), "calories", {}, { ...oSub, include: ["tomate"] }], [tgt(35, 75, 30), "macros", {}, { ...oSub, maxPrice: 11 }]];
+let exSW = 0;
+for (const [tt, md, pp, oo] of swCases) if (sameTop(subRaw(TSUB, tt, md, pp, oo), exhaustiveSubway(TSUB, tt, md, pp, oo))) exSW++;
+check("subwayCombos (Muster): Top 30 = Durchrechnung je Sub (Sub-Grenzen, gleichnamiges Extra entfällt; 5 Fälle)", exSW, swCases.length);
+check("subwayCombos: nie Sub + gleichnamiges Extra; Sub mit groupMax saucen 1 höchstens 1 Sauce, andere bis 2; Ergebnisse tragen size", (() => {
+  const r = T.subwayCombos(TSUB, tgt(30, 60, 45), "macros", {}, { cap: 1, maxExtras: 3 }), rp = T.subwayCombos(TSUB, tgt(30, 60, 45), "macros", {}, { cap: 1, maxExtras: 3, keep: x => T.bowlRole(x) !== "protein" || x.ing === "s_pb" });
+  const TS2 = { ...TSUB, size: "15-CM" };
+  return r.length > 0 && r.every(x => !(x.parts.some(pt => pt.opt.id === "s_ham" || pt.opt.id === "s_ham2") && x.parts.some(pt => pt.opt.id === "ham_x"))) && r.some(x => inG(x, "saucen") === 2)
+    && rp.length > 0 && rp.every(x => inG(x, "saucen") <= 1) && T.subwayCombos(TS2, tSub, "macros", {}, oSub).every(x => x.size === "15-CM");
+})(), true);
 
 // ── Compleat: Daten ──
 sect("Compleat: Daten (Shop + Wolt + Uber Eats)");
@@ -832,6 +946,79 @@ let exDD = 0;
 const exDDC = [[DS, tDef, "macros", {}, { cap: 2, maxExtras: 2 }], [DS, kcalT(550), "calories", { hp: true, lf: true }, { cap: 2, maxExtras: 2 }], [DB, tgt(50, 110, 20), "macros", {}, { cap: 2, maxExtras: 2 }], [DS, tgt(40, 30, 45), "macros", {}, { cap: 2, maxExtras: 2, include: ["tahini_lemon", "avocado"] }], [DB, kcalT(900), "calories", { hc: true }, { cap: 1, maxExtras: 2, maxPrice: 16 }]];
 for (const [mn, tt, md, pp, oo] of exDDC) if (sameTop(rawTop(mn, tt, md, pp, oo), exhaustiveBowl(mn, tt, md, pp, oo))) exDD++;
 check("Dean & David: Top 30 = vollständige Durchrechnung (Salat + Bowl, Makro/Kalorien, Pflicht, Preislimit; 5 Fälle)", exDD, exDDC.length);
+
+// ── Subway (Wolt, Create Your Own) ──
+sect("Subway (Wolt, Create Your Own)");
+const SW = T.RESTO_BY_KEY.subway, SWD = T.SUBWAY, SWS = SWD.small, SWF = SWD.footlong;
+const rawSW = U.readJSON(__dirname + "/data/subway-raw.json");
+const updSW = require("./subway-update.js");
+const subG = (menu, gid) => menu.groups.find(g => g.id === gid) || { options: [] };
+const swOpt = (menu, gid, name) => subG(menu, gid).options.find(o => o.name === name);
+const swIng = (menu, gid, ing) => subG(menu, gid).options.find(o => o.ing === ing && !o.variant);
+const STDV = ["salat", "tomaten", "paprika", "zwiebeln", "mais"];
+check("Registry: Subway (Wolt) — BYO, accurate, Listen unter „subway“, Schalter No sauce / No cheese / Standard veggies (alle Default AN)", !!SW && SW.kind === "byo" && SW.accurate === true && SW.platform === "Wolt" && SW.exclusionKey === "subway" && SW.name === "Subway (Wolt)" && SW.switches.map(x => x.id + ":" + x.def).join() === "noSauce:true,noCheese:true,stdVeggies:true" && SW.switches[2].force.join() === STDV.join(), true);
+check("SUBWAY-Block = subway-update.js(data/subway-raw.json) — 15-CM + Footlong (Block aktuell)", (() => { const a = updSW.buildMenu(rawSW, "small"), b = updSW.buildMenu(rawSW, "footlong"); return JSON.stringify(a.groups) === JSON.stringify(SWS.groups) && JSON.stringify(b.groups) === JSON.stringify(SWF.groups) && a.size === SWS.size && b.size === SWF.size && a.factor === 1 && b.factor === 2 && SWD.ingredients.length === rawSW.ingredients.length && SWD.stdVeggies.join() === rawSW._meta.stdVeggies.join(); })(), true);
+const valSW = T.subwayValidate();
+if (valSW.length) console.log(valSW.join("\n"));
+check("subwayValidate ohne Probleme (beide Menüs, Footlong = 2 × 15-CM je Option)", valSW.length, 0);
+check("Datensatz: alle 160 Zeilen der Nährwerttabelle in 15 Abschnitten (auch Getränke, Cookies, Wraps) — im Tracker nur Sub-Bausteine (User 16.09.2026)", rawSW.products.length === 160 && new Set(rawSW.products.map(x => x.section)).size === 15 && ["Getränke", "Cookies", "Wraps", "Salads", "Baked Potato"].every(sec => rawSW.products.some(x => x.section === sec)) && ![SWS, SWF].some(m => m.groups.some(g => g.options.some(o => /Cookie|Pepsi|Wrap|Potato/.test(o.name)))), true);
+check("Subs: 11 Create-Your-Own-Artikel (+ 10 „Extra Fleisch / Protein“-Varianten, nicht bei Veggie Delite®); Italian B.M.T.®, Salami, Tuna raus (User 16.09.2026)", (() => {
+  const subs = subG(SWS, "sub").options, names = subs.filter(o => !o.variant).map(o => o.name);
+  return names.join("|") === "Beef Chili|Chicken Teriyaki|Plant-based Chicken Teriyaki|Chicken Fajita|Chicken Tandoori|Pulled Chicken Breast|Philly Beef & Cheese|BBQ Rib|Ham|Spicy Vegan Patty|Veggie Delite®" && subs.filter(o => o.variant).length === 10 && !subs.some(o => o.variant && o.ing === "veggie_delite")
+    && !subs.some(o => /B\.M\.T|^Salami|^Tuna/.test(o.name)) && rawSW._meta.removed.length === 3 && ["Italian B.M.T.®", "Salami", "Tuna"].every(n => rawSW._meta.removed.some(x => x.startsWith(n + " ")));
+})(), true);
+check("Ohne offizielle Werte nicht im Tracker, aber dokumentiert: BBQ Pulled Pork/Plant, Dölicious, Nacho Chicken Classic, Sour Cream, Pulled Pork/Plant, Meersalz, Pfefferkörner", ["BBQ Pulled Pork", "BBQ Pulled Plant", "Plant-based Dölicious Chicken (V)", "Nacho Chicken Classic", "Sour Cream", "Pulled Pork", "Pulled Plant", "Meersalz", "Pfefferkörner"].every(n => rawSW._meta.noData.some(x => x.includes("„" + n + "“")) && ![SWS, SWF].some(m => m.groups.some(g => g.options.some(o => o.name === n)))) && ["BBQ Pulled Pork", "Dölicious", "Nacho Chicken Classic", "Sour Cream", "Meersalz"].every(n => T.SUBWAY_NOTE.includes(n.replace("Dölicious", "Dölicious Chicken"))), true);
+check("Nie (User 16.09.2026): Extras ohne Extra Käse, Cheddar, Doritos Nacho Cheese, Mozzarella-Emmental-Mix; Käse nur Scheibenkäse, Cheddar, Mozzarella-Emmental-Mix (nie Frischkäse, Vegan Cheese)", [SWS, SWF].every(m => subG(m, "extras").options.map(o => o.name).join("|") === "Bacon|Chicken Teriyaki|Frischkäse|Tuna|Peperoni-Salami|Ham" && subG(m, "kaese").options.map(o => o.name).join("|") === "Scheibenkäse|Cheddar|Mozzarella-Emmental-Mix") && ["Extra Käse", "Doritos Nacho Cheese", "Vegan Cheese"].every(n => rawSW._meta.never.some(x => x.includes("„" + n + "“"))), true);
+check("Preise (Wolt Zeil = Liste des Users): Beef Chili 9,79/16,79 € · Ham 7,59/13,19 € · Veggie Delite® 6,49/11,69 € · Extra Fleisch +2,19/+4,29 € · Glutenfrei +1,49/+2,89 € · Peperoni-Salami 1,69/3,39 € · Saucen 0 €", swOpt(SWS, "sub", "Beef Chili").price === 9.79 && swOpt(SWF, "sub", "Beef Chili").price === 16.79 && swOpt(SWS, "sub", "Ham").price === 7.59 && swOpt(SWF, "sub", "Ham").price === 13.19 && swOpt(SWS, "sub", "Veggie Delite®").price === 6.49 && swOpt(SWF, "sub", "Veggie Delite®").price === 11.69 && swOpt(SWS, "sub", "Ham + Extra Fleisch / Protein").price === 9.78 && swOpt(SWF, "sub", "Ham + Extra Fleisch / Protein").price === 17.48 && swOpt(SWS, "brot", "Glutenfrei").price === 1.49 && swOpt(SWF, "brot", "Glutenfrei").price === 2.89 && swOpt(SWS, "extras", "Peperoni-Salami").price === 1.69 && swOpt(SWF, "extras", "Peperoni-Salami").price === 3.39 && subG(SWS, "saucen").options.every(o => o.price === 0) && rawSW._meta.userPrices === "alle 18 Preise wie in der Liste des Users", true);
+check("Nährwerte je Portion (15-CM) und ×2 (Footlong): Italian 190/380 kcal · Beef Chili 114/228 · Ham 34 (+ Extra Fleisch 68) · Veggie Delite® 0 · Eisbergsalat = Salat 1,5 · Rote Paprika = Paprika 3 · Scheibenkäse 42", swOpt(SWS, "brot", "Italian").kcal === 190 && swOpt(SWF, "brot", "Italian").kcal === 380 && swOpt(SWS, "sub", "Beef Chili").kcal === 114 && swOpt(SWF, "sub", "Beef Chili").kcal === 228 && swOpt(SWS, "sub", "Ham").kcal === 34 && swOpt(SWS, "sub", "Ham + Extra Fleisch / Protein").kcal === 68 && T.KEYS.every(k => swOpt(SWS, "sub", "Veggie Delite®")[k] === 0) && swOpt(SWS, "veggies", "Eisbergsalat").kcal === 1.5 && swOpt(SWS, "veggies", "Eisbergsalat").ing === "salat" && swOpt(SWS, "veggies", "Rote Paprika").kcal === 3 && swOpt(SWS, "kaese", "Scheibenkäse").kcal === 42, true);
+check("Garlic & Herb (Vegan) gesperrt (Portion widerspricht 100 g): im Datensatz, nie im Menü, Auffälligkeit dokumentiert", SWD.ingredients.find(x => x.id === "garlic_herb").blocked === true && T.SUBWAY_BLOCKED.has("garlic_herb") && ![SWS, SWF].some(m => m.groups.some(g => g.options.some(o => o.ing === "garlic_herb"))) && rawSW._meta.anomalies.some(a => /Garlic/.test(a.name)) && rawSW._meta.blocked.length === 1 && subG(SWS, "saucen").options.length === 11, true);
+check("Wolt-Grenzen: Brot + Sub genau 1 · Käse 0–1 · Extras bis 15 (Extras-Chip) · Veggies/Saucen/Seasonings eigene Grenze (Saucen 2 bzw. Footlong 3, Plant-based Chicken Teriyaki Footlong 2) · Veggies nur pick", subG(SWS, "brot").max === 1 && subG(SWS, "sub").max === 1 && subG(SWS, "kaese").max === 1 && subG(SWS, "extras").max === 15 && !subG(SWS, "extras").own && ["veggies", "saucen", "seasonings"].every(g => subG(SWS, g).own && subG(SWF, g).own) && subG(SWS, "saucen").max === 2 && subG(SWF, "saucen").max === 3 && swOpt(SWF, "sub", "Plant-based Chicken Teriyaki").groupMax.saucen === 2 && !swOpt(SWS, "sub", "Plant-based Chicken Teriyaki").groupMax && subG(SWS, "veggies").options.length === 10 && subG(SWS, "veggies").options.every(o => o.pick) && ![SWS, SWF].some(m => m.groups.some(g => g.id !== "veggies" && g.options.some(o => o.pick))), true);
+check("„ohne …“ je Sub laut Wolt: Beef Chili „ohne Käse“, Ham ohne Käse-Option, Chicken Tandoori „ohne Saucen“, BBQ Rib „ohne Seasonings“, alle „ohne Veggies“", swOpt(SWS, "sub", "Beef Chili").none.kaese === "ohne Käse" && !swOpt(SWS, "sub", "Ham").none.kaese && swOpt(SWS, "sub", "Chicken Tandoori").none.saucen === "ohne Saucen" && swOpt(SWS, "sub", "BBQ Rib").none.seasonings === "ohne Seasonings" && subG(SWS, "sub").options.every(o => o.none.veggies === "ohne Veggies"), true);
+check("Frischkäse (Extra) zählt für „No sauce“ (User 16.09.2026); Standard-Veggies = Eisbergsalat, Tomaten, Rote Paprika, Rote Zwiebeln, Mais", swOpt(SWS, "extras", "Frischkäse").sauce === true && subG(SWS, "extras").options.filter(o => o.sauce).length === 1 && STDV.map(id => swIng(SWS, "veggies", id).name).join("|") === "Eisbergsalat|Tomaten|Rote Paprika|Rote Zwiebeln|Mais", true);
+check("_meta: Entscheidungen mit Datum, Annahmen, Filialvergleich (Skyline Plaza + Nordwestzentrum), Auffälligkeiten (Vollkornbrot Salz, Bacon Zucker)", rawSW._meta.decisions.length >= 6 && rawSW._meta.decisions.every(d => /^User 16[.]09[.]2026/.test(d)) && rawSW._meta.assumptions.some(a => /Standard veggies/.test(a)) && /Beef Chili/.test(rawSW._meta.venues["subway-franfurt-skyline-plaza"]) && /Ham/.test(rawSW._meta.venues["subway-frankfurt-nordwestzentrum"]) && rawSW._meta.anomalies.some(a => a.name === "Vollkornbrot") && rawSW._meta.anomalies.some(a => a.name === "Bacon") && /Footlong/.test(rawSW._meta.basis), true);
+const stSW = T.defaultRestoState(SW);
+const swSt = (extra, sw) => ({ ...stSW, extra: { ...stSW.extra, ...(extra || {}) }, sw: { ...stSW.sw, ...(sw || {}) } });
+const runSW = (t, st, ex, inc, mode, p) => T.runOptimize(SW, t, mode || "macros", p || {}, st || stSW, new Set(ex || []), new Set(inc || []));
+const swOpts = r => [...r.parts.map(pt => pt.opt), r.side, r.dip].filter(Boolean);
+const swPrice = r => Math.round(swOpts(r).reduce((a, o) => a + o.price, 0) * 100) / 100;
+const rSW = runSW(tDef);
+check("Defaults: 15-CM, alle Brote und Subs, max. 5 Extras; No sauce, No cheese, Standard veggies AN", stSW.extra.size === "small" && stSW.extra.breads.length === 0 && stSW.extra.subs.length === 0 && stSW.extra.maxExtras === 5 && stSW.sw.noSauce && stSW.sw.noCheese && stSW.sw.stdVeggies, true);
+check("Standard: je 1 Sub + 1 Brot, kein Käse, keine Sauce, kein Frischkäse, genau die 5 Standard-Veggies, Extras ≤ 5, Preis = Σ Optionen, size 15-CM", rSW.length > 0 && rSW.every(r => cntC(r, "protein") === 1 && cntC(r, "base") === 1 && !r.side && inG(r, "saucen") === 0 && !swOpts(r).some(o => o.sauce) && swOpts(r).filter(o => o.group === "veggies").map(o => o.ing).sort().join() === STDV.slice().sort().join() && inG(r, "extras") <= 5 && Math.abs(r.price - swPrice(r)) < 1e-9 && r.size === "15-CM"), true);
+const rSWmany = [tgt(90, 80, 20), tgt(60, 40, 30), tgt(120, 150, 40), tgt(40, 100, 10)].flatMap(tt => runSW(tt, swSt({ maxExtras: 6 })));
+check("nie Sub + gleichnamiges Extra (Ham, Chicken Teriyaki) — doppelt nur über „Extra Fleisch / Protein“; Ham als Extra auf anderen Subs möglich", rSWmany.every(r => { const sub = swOpts(r).find(o => o.group === "sub"); return !swOpts(r).some(o => o.group === "extras" && o.ing === sub.ing); }) && rSWmany.some(r => swOpts(r).some(o => o.group === "extras" && o.ing === "ham")), true);
+check("Footlong: Werte = 2 × dieselbe Zusammenstellung in 15-CM, Footlong-Preise, Untertitel „Footlong“", (() => { const r = runSW(tgt(100, 160, 35), swSt({ size: "footlong" })); const small = new Map(SWS.groups.flatMap(g => g.options.map(o => [o.id, o]))); return r.length > 0 && r.every(x => { const n2 = T.sumN(x.items.map(o => small.get(o.id.replace(/^fl_/, ""))), 2); return x.items.every(o => /^fl_/.test(o.id)) && T.KEYS.every(k => Math.abs(n2[k] - x.nutrition[k]) < 1e-6) && Math.abs(x.price - swPrice(x)) < 1e-9 && x.size === SWF.size; }) && SW.panelSubtitle(r[0]).includes("Footlong"); })(), true);
+check("No sauce AUS: Saucen genutzt (≤ 2 bei 15-CM, ≤ 3 bei Footlong), Frischkäse möglich", (() => { const a = runSW(tgt(40, 80, 40), swSt({}, { noSauce: false })); const b = runSW(tgt(60, 150, 70), swSt({ size: "footlong" }, { noSauce: false })); return a.some(r => inG(r, "saucen") > 0) && a.every(r => inG(r, "saucen") <= 2) && b.some(r => inG(r, "saucen") === 3) && b.every(r => inG(r, "saucen") <= 3); })(), true);
+check("Footlong Plant-based Chicken Teriyaki: höchstens 2 Saucen (Wolt)", (() => { const r = runSW(tgt(60, 150, 70), swSt({ size: "footlong", subs: ["pb_chicken_teriyaki"] }, { noSauce: false })); return r.length > 0 && r.every(x => inG(x, "saucen") <= 2 && swOpts(x).some(o => o.ing === "pb_chicken_teriyaki")) && r.some(x => inG(x, "saucen") === 2); })(), true);
+check("No cheese AUS: höchstens ein Käse (Scheibenkäse, Cheddar oder Mozzarella-Emmental-Mix), wird genutzt, wenn er passt", (() => { const r = runSW(tgt(40, 60, 30), swSt({}, { noCheese: false })); return r.some(x => x.side) && r.every(x => !x.side || ["scheibenkaese", "cheddar", "mozzarella_emmental_mix"].includes(x.side.ing)); })(), true);
+check("Standard veggies AUS → keine Veggies; Pflicht Jalapeños → nur Jalapeños", runSW(tDef, swSt({}, { stdVeggies: false })).every(r => inG(r, "veggies") === 0) && runSW(tDef, swSt({}, { stdVeggies: false }), null, ["jalapenos"]).every(r => swOpts(r).filter(o => o.group === "veggies").map(o => o.ing).join() === "jalapenos"), true);
+check("Brot- und Sub-Chips: nur die gewählten (Italian/Honey Oat · Ham/Chicken Fajita)", (() => { const r = runSW(tDef, swSt({ breads: ["italian", "honey_oat"], subs: ["ham", "chicken_fajita"] })); return r.length > 0 && r.every(x => ["italian", "honey_oat"].includes(swOpts(x).find(o => o.group === "brot").ing) && ["ham", "chicken_fajita"].includes(swOpts(x).find(o => o.group === "sub").ing)); })(), true);
+check("Ausschluss: Tomaten fehlen in den Standard-Veggies; Ham weder als Sub noch als Extra", runSW(tDef, stSW, ["tomaten"]).every(r => swOpts(r).filter(o => o.group === "veggies").length === 4 && !swOpts(r).some(o => o.ing === "tomaten")) && rSWmany.length > 0 && [tgt(90, 80, 20), tgt(40, 60, 12)].every(tt => runSW(tt, swSt({ maxExtras: 6 }), ["ham"]).every(r => !swOpts(r).some(o => o.ing === "ham"))), true);
+check("Pflicht: Chipotle Southwest trotz „No sauce“ in jedem Sub; 3 Saucen bei 15-CM → conflict; Käse-Pflicht trotz „No cheese“", (() => { const a = runSW(tDef, stSW, null, ["chipotle_southwest"]); const b = runSW(tDef, stSW, null, ["chipotle_southwest", "sweet_onion", "ketchup"]); const c = runSW(tDef, stSW, null, ["cheddar"]); return a.length > 0 && a.every(r => swOpts(r).some(o => o.ing === "chipotle_southwest")) && b.length === 0 && b.conflict.length === 3 && c.length > 0 && c.every(r => r.side && r.side.ing === "cheddar"); })(), true);
+check("Preislimit 9 €: Ergebnisse, keines teurer", (() => { const r = runSW({ ...tDef, maxPrice: 9 }); return r.length > 0 && r.every(x => x.price <= 9 + 1e-9); })(), true);
+const X15 = (gid, name) => swOpt(SWS, gid, name);
+const selBC = { parts: [{ opt: X15("brot", "Italian"), qty: 1 }, { opt: X15("sub", "Beef Chili + Extra Fleisch / Protein"), qty: 1 }, { opt: X15("extras", "Bacon"), qty: 1 }, ...STDV.map(id => ({ opt: swIng(SWS, "veggies", id), qty: 1 }))], side: null, dip: null, size: SWS.size, price: 0 };
+check("Order Guide: Beef Chili → Deine Größe → Brot → Zubereitungsart → Käse „ohne Käse“ → Extras (Extra Fleisch zuerst) → Veggies", SW.orderSteps(selBC).map(x => x.l + ": " + x.v).join(" | ") === "Item: Beef Chili | Deine Größe: Beef Chili - 15-CM | Brot: Italian | Zubereitungsart: Getoastet or Ungetoastet (your choice) | Käse: ohne Käse | Extras: Extra Fleisch / Protein · Bacon | Veggies: Eisbergsalat · Tomaten · Rote Paprika · Rote Zwiebeln · Mais", true);
+check("Order Guide Footlong: Ham ohne Käse-Schritt, Chicken Tandoori „Saucen: ohne Saucen“, ohne Veggies „ohne Veggies“", (() => {
+  const XF = (gid, name) => swOpt(SWF, gid, name);
+  const ham = SW.orderSteps({ parts: [{ opt: XF("brot", "Honey Oat"), qty: 1 }, { opt: XF("sub", "Ham"), qty: 1 }], side: null, dip: null, size: SWF.size });
+  const tan = SW.orderSteps({ parts: [{ opt: XF("brot", "Sesam"), qty: 1 }, { opt: XF("sub", "Chicken Tandoori"), qty: 1 }], side: XF("kaese", "Cheddar"), dip: null, size: SWF.size });
+  const v = (st1, l) => (st1.find(x => x.l === l) || {}).v;
+  return v(ham, "Deine Größe") === "Ham - FOOTLONG (30-CM)" && v(ham, "Käse") === undefined && v(ham, "Saucen") === undefined && v(ham, "Veggies") === "ohne Veggies" && v(tan, "Saucen") === "ohne Saucen" && v(tan, "Käse") === "Cheddar";
+})(), true);
+check("Zusammenfassung: Sub zuerst („2× …“ bei Extra Fleisch), dann Brot, Käse, Extras, Saucen, Seasonings; Veggies nicht", T.subwaySummary({ ...selBC, side: X15("kaese", "Cheddar"), parts: [...selBC.parts, { opt: X15("saucen", "Ketchup"), qty: 1 }, { opt: X15("seasonings", "Röstzwiebeln"), qty: 1 }] }) === "2× Beef Chili + Italian + Cheddar + Bacon + Ketchup + Röstzwiebeln" && T.summarizeResult(SW, rSW[0]) === T.subwaySummary(rSW[0]), true);
+check("Suche, Ausschluss, Pflicht: Such-Index je Größe („Italian (Brot, Footlong)“ 380 kcal), ohne Varianten/Garlic/0-Werte; Pflicht ohne Brot/Sub; Ausschluss mit Subs und Broten", (() => {
+  const idx = T.SEARCH_INDEX.filter(x => x.resto === "Subway (Wolt)"), inc = T.includablesFor(SW), ex = T.excludablesFor(SW);
+  return idx.some(x => x.name === "Italian (Brot, 15-CM)" && x.kcal === 190) && idx.some(x => x.name === "Italian (Brot, Footlong)" && x.kcal === 380) && idx.some(x => x.name === "Ham (sub protein, 15-CM)") && !idx.some(x => /Extra Fleisch|Garlic|Veggie Delite/.test(x.name))
+    && !inc.some(x => ["base", "protein"].includes(x.role)) && inc.some(x => x.id === "salat" && x.name === "Eisbergsalat") && inc.find(x => x.id === "ham").role === "extra" && !inc.some(x => x.id === "garlic_herb")
+    && ex.some(x => x.id === "italian") && ex.some(x => x.id === "veggie_delite") && new Set(ex.map(x => x.id)).size === ex.length && !ex.some(x => x.id === "garlic_herb");
+})(), true);
+check("All: Subway mit einem Treffer und Preis", (() => { const a = T.optimizeAll(tDef, "macros", {}, 5, false); return a.filter(r => r._resto === "subway").length === 1 && a.every(r => typeof r.price === "number"); })(), true);
+const swKeep = x => (T.bowlRole(x) !== "protein" || ["ham", "chicken_teriyaki", "pb_chicken_teriyaki", "chicken_fajita", "veggie_delite"].includes(x.ing)) && (T.bowlRole(x) !== "base" || ["italian", "honey_oat"].includes(x.ing)) && (x.group !== "saucen" || ["chipotle_southwest", "sweet_onion", "lite_mayonnaise", "balsamic_vinegar"].includes(x.ing));
+const swExCases = [[SWS, tDef, "macros", {}, { cap: 1, maxExtras: 3, keep: swKeep, include: STDV }], [SWF, tgt(90, 150, 35), "macros", {}, { cap: 1, maxExtras: 3, keep: swKeep, include: STDV }], [SWF, kcalT(1100), "calories", { hp: true, lf: true }, { cap: 1, maxExtras: 2, keep: swKeep }], [SWS, kcalT(550), "calories", {}, { cap: 1, maxExtras: 3, keep: swKeep, include: ["ham", "scheibenkaese"] }], [SWS, tgt(50, 70, 25), "macros", {}, { cap: 1, maxExtras: 3, keep: swKeep, maxPrice: 12 }]];
+let exSWr = 0;
+for (const [mn, tt, md, pp, oo] of swExCases) if (sameTop(subRaw(mn, tt, md, pp, oo), exhaustiveSubway(mn, tt, md, pp, oo))) exSWr++;
+check("Subway exakt: Top 30 = Durchrechnung je Sub (echte Daten, 15-CM + Footlong, Makro/Kalorien, Pflicht, Preislimit; 5 Fälle)", exSWr, swExCases.length);
+check("Laufzeit: Standard (15-CM + Footlong) und Footlong mit Saucen + Käse + 6 Extras bleiben im Zeitbudget (kein approx)", !rSW.approx && !runSW(tgt(120, 170, 45), swSt({ size: "footlong" })).approx && !runSW(tgt(90, 160, 35), swSt({ size: "footlong", maxExtras: 6 }, { noSauce: false, noCheese: false })).approx && !runSW(kcalT(1200), swSt({ size: "footlong", maxExtras: 6 }, { noSauce: false, noCheese: false }), null, null, "calories", { hp: true }).approx, true);
 
 // ── Screenshot-Import-Parser (OCR-Text → verbleibende Makros C/P/F + "Übrig"-kcal) — Fälle aus dem London-Tool ──
 sect("parseMacroScreenshot");

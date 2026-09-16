@@ -1,0 +1,8275 @@
+{
+  "_meta": {
+    "restaurant": "Subway",
+    "fetchedAt": "2026-09-16T10:01:00.871Z",
+    "sources": {
+      "nutrition": {
+        "file": "data/subway-naehrwerte.txt",
+        "pdf": "Kopie von Germany Nutritional Information Full Menu C4 2026.pdf (vom User bereitgestellt, 16.09.2026)",
+        "stand": "Nährwertinformationen September 2026 (Deutschland), PDF erstellt 07.08.2026"
+      },
+      "wolt": {
+        "venue": "subway-frankfurt-zeil",
+        "page": "https://wolt.com/de/deu/frankfurt/restaurant/subway-frankfurt-zeil",
+        "api": "https://consumer-api.wolt.com/consumer-api/consumer-assortment/v1/venues/slug/subway-frankfurt-zeil/assortment?language=de",
+        "category": "Create Your Own"
+      }
+    },
+    "basis": "Offizielle Werte PRO PORTION (15 cm). Footlong = alle Werte ×2 (PDF: „ein Footlong = zwei 15-cm-Portionen“, ausgenommen Salat-Gerichte), auch Käse, Extras, Veggies, Saucen und Seasonings.",
+    "rules": "Ein Sub = genau ein Create-Your-Own-Artikel (Protein-Baustein) + genau ein Brot, Käse 0–1, Extras je 1× (Wolt bis 15), Veggies je 1×, Saucen bis 2 (15-CM) bzw. 3 (Footlong; Plant-based Chicken Teriyaki nur 2), Seasonings bis 3. Zubereitungsart (getoastet/ungetoastet) ohne Einfluss auf die Nährwerte. Preis = Artikelpreis + Größe + Optionen (Glutenfrei, Extras).",
+    "decisions": [
+      "User 16.09.2026: Subway (Wolt) als Tracker aus „Create Your Own“: Sub → Brot → Käse → Extras → Veggies → Saucen → Seasonings; zwei Größen „15-CM“ / „Footlong“ (Footlong = Werte ×2, gilt auch für die Toppings)",
+      "User 16.09.2026: Schalter „No sauce“ (Default AN; blendet auch Frischkäse und Sour Cream bei den Extras aus) und „No cheese“ (Default AN)",
+      "User 16.09.2026: Schalter „Standard veggies“ = Eisbergsalat, Tomaten, Rote Paprika, Rote Zwiebeln, Mais",
+      "User 16.09.2026: Extras nie: Extra Käse, Cheddar, Doritos Nacho Cheese, Mozzarella-Emmental-Mix; Käse nur über die Gruppe „Käse“, dort nie Frischkäse und Vegan Cheese",
+      "User 16.09.2026: Subs „Italian B.M.T.®“, „Salami“ und „Tuna“ raus — die Einzel-Zutaten bleiben (Extras)",
+      "User 16.09.2026: Brot und Sub als Mehrfachauswahl wie im London-Tool („Bread / Protein sub (pick one or more — optimizer chooses the best)“)",
+      "User 16.09.2026: Produkte außerhalb des Sub-Baus (Wraps, Salate, Baked Potatoes, Beilagen, Getränke, Cookies …) nur im Datensatz, nicht im Tracker"
+    ],
+    "assumptions": [
+      "„Standard veggies“ startet AN: Veggies wählt der Optimizer nie selbst (sonst viele fast gleiche Ergebnisse); ohne den Schalter nur die über „Must include“ gewählten Veggies",
+      "„Extra Fleisch / Protein“ = eine weitere Portion des Sub-Bausteins (Tabelle nennt je Zutat nur eine Portion); bei Veggie Delite® nicht angeboten",
+      "Extras Bacon, Chicken Teriyaki, Tuna, Peperoni-Salami, Ham = je eine Portion laut „Einzel-Zutaten“; Frischkäse = Portion laut „Käse“",
+      "Doppeltes Fleisch bei Ham bzw. Chicken Teriyaki nur über „Extra Fleisch / Protein“: das gleichnamige Extra wird bei diesem Sub nicht vorgeschlagen (gleiche Werte → sonst Doppel-Ergebnisse)",
+      "Veggie Delite® = Sub ohne Protein-Baustein (0-Werte) wie im London-Tool"
+    ],
+    "mapping": {
+      "Sub Beef Chili": "Beef Chili",
+      "Sub Chicken Teriyaki": "Chicken Teriyaki",
+      "Sub Plant-based Chicken Teriyaki": "Plant-based Chicken Teriyaki",
+      "Sub Chicken Fajita": "Chicken Fajita",
+      "Sub Chicken Tandoori": "Chicken Tandoori",
+      "Sub Pulled Chicken Breast": "Rotisserie-Style Chicken/Pulled Chicken Breast",
+      "Sub Philly Beef & Cheese": "Philly Beef",
+      "Sub BBQ Rib": "BBQ Rib",
+      "Sub Ham": "Ham",
+      "Sub Spicy Vegan Patty": "Spicy Vegan Patty",
+      "Sub Veggie Delite®": "Veggie Delite® (kein Protein)",
+      "brot: Cheese Oregano": "Cheese Oregano",
+      "brot: Honey Oat": "Honey Oat",
+      "brot: Sesam": "Sesam",
+      "brot: Vollkorn": "Vollkornbrot",
+      "brot: Italian": "Italian",
+      "brot: Glutenfrei": "Glutenfrei",
+      "kaese: Scheibenkäse": "Scheibenkäse",
+      "kaese: Cheddar": "Cheddar",
+      "kaese: Mozzarella-Emmental-Mix": "Mozzarella-Emmental-Mix",
+      "extras: Bacon": "Bacon",
+      "extras: Chicken Teriyaki": "Chicken Teriyaki",
+      "extras: Frischkäse": "Frischkäse",
+      "extras: Tuna": "Tuna (mit Lite Mayonnaise)",
+      "extras: Peperoni-Salami": "Peperoni-Salami",
+      "extras: Ham": "Ham",
+      "veggies: Eisbergsalat": "Salat",
+      "veggies: Rucola": "Rucola",
+      "veggies: Tomaten": "Tomaten",
+      "veggies: Gurken": "Gurken",
+      "veggies: Rote Paprika": "Paprika",
+      "veggies: Rote Zwiebeln": "Zwiebeln",
+      "veggies: Schwarze Oliven": "Oliven",
+      "veggies: Jalapeños": "Jalapeños",
+      "veggies: Mais": "Mais",
+      "veggies: Gewürzgurke": "Gewürzgurken",
+      "saucen: X-spicy Chipotle Southwest": "X-spicy Chipotle Sauce (vegan)",
+      "saucen: Chipotle Southwest": "Chipotle Southwest Sauce",
+      "saucen: Sweet Onion": "Sweet Onion (vegan)",
+      "saucen: Caesar": "Caesar Sauce",
+      "saucen: Joghurt": "Joghurt",
+      "saucen: Lite Mayonnaise": "Lite Mayonnaise",
+      "saucen: Balsamico Essig": "Balsamic Vinegar (vegan)",
+      "saucen: Olivenöl": "Olivenöl (vegan)",
+      "saucen: Honey & Wholegrain Mustard": "Honey & Wholegrain Mustard Sauce",
+      "saucen: Garlic & Herb (Vegan)": "Garlic & Herb (vegan)",
+      "saucen: BBQ Sauce (vegan)": "BBQ Sauce (vegan)",
+      "saucen: Ketchup": "Ketchup",
+      "seasonings: Röstzwiebeln": "Röstzwiebeln"
+    },
+    "stdVeggies": [
+      "salat",
+      "tomaten",
+      "paprika",
+      "zwiebeln",
+      "mais"
+    ],
+    "removed": [
+      "Tuna (8.39 €) — User 16.09.2026: Sub raus (Tuna bleibt als Extra)",
+      "Italian B.M.T.® (8.39 €) — User 16.09.2026: Sub raus (Einzel-Zutaten bleiben für Extras)",
+      "Salami (7.59 €) — User 16.09.2026: Sub raus"
+    ],
+    "noData": [
+      "Sub „BBQ Pulled Pork“ (9.29 €) — kein Einzel-Baustein „Pulled Pork“ in der Tabelle (nur das fertige Sandwich)",
+      "Sub „BBQ Pulled Plant“ (9.29 €) — weder Einzel-Baustein noch Sandwich in der Tabelle",
+      "Sub „Plant-based Dölicious Chicken (V)“ (8.39 €) — „Plant-based Döner-Style Chicken“ steht nicht in der Tabelle (nur als Baked Potato)",
+      "Sub „Nacho Chicken Classic“ (8.19 €) — „Nacho Chicken“ steht nur je Bite (18 g) in der Tabelle; wie viele Bites ein Sub hat, ist nicht angegeben",
+      "Extras: „Sour Cream“ (15-CM 0.89 € / Footlong 1.69 €) — steht nicht in der Tabelle (nur „Sour Cream Baked Potato“)",
+      "Extras: „Pulled Pork“ (15-CM 2.19 € / Footlong 4.29 €) — kein Einzel-Baustein in der Tabelle",
+      "Extras: „Pulled Plant“ (15-CM 2.19 € / Footlong 4.29 €) — nicht in der Tabelle",
+      "Seasonings: „Meersalz“ (15-CM 0 € / Footlong 0 €) — nicht in der Tabelle",
+      "Seasonings: „Pfefferkörner“ (15-CM 0 € / Footlong 0 €) — nicht in der Tabelle"
+    ],
+    "never": [
+      "Käse: „Frischkäse“ (15-CM 0 € / Footlong 0 €) — User 16.09.2026: in der Käse-Gruppe nie",
+      "Käse: „Vegan Cheese“ (15-CM 0 € / Footlong 0 €) — User 16.09.2026: in der Käse-Gruppe nie",
+      "Extras: „Extra Käse“ (15-CM 0.89 € / Footlong 1.69 €) — User 16.09.2026: nie",
+      "Extras: „Cheddar“ (15-CM 0.89 € / Footlong 1.69 €) — User 16.09.2026: nie (Käse nur über die Gruppe „Käse“)",
+      "Extras: „Doritos Nacho Cheese“ (15-CM 0.99 € / Footlong 1.99 €) — User 16.09.2026: nie",
+      "Extras: „Mozzarella-Emmental-Mix“ (15-CM 0.89 € / Footlong 1.69 €) — User 16.09.2026: nie (Käse nur über die Gruppe „Käse“)"
+    ],
+    "blocked": [
+      "Garlic & Herb (vegan): Portion (14 g: 22 kcal, 0,19 g Fett, 4,9 g KH) passt nicht zu je 100 g (570 kcal, 60 g Fett → 80 kcal je 14 g); KH/Zucker je Portion = BBQ Sauce → Portionszeile vermutlich fehlerhaft. Gesperrt bis zur Entscheidung des Users"
+    ],
+    "notInTracker": [
+      "Brot: Weizenwrap",
+      "Käse: Vegan Slices (vegan)",
+      "Zutaten/Toppings: Nachos (Doritos® Nacho Cheese)",
+      "Zutaten/Toppings: Guacamole",
+      "Einzel-Zutaten: Salami",
+      "Einzel-Zutaten: Omelette",
+      "Einzel-Zutaten: Nacho Chicken"
+    ],
+    "userPrices": "alle 18 Preise wie in der Liste des Users",
+    "venues": {
+      "subway-franfurt-skyline-plaza": "Beef Chili 8.74 € (Zeil 9.79 €) · BBQ Pulled Pork 8.11 € (Zeil 9.29 €) · BBQ Pulled Plant 8.1 € (Zeil 9.29 €) · Plant-based Dölicious Chicken (V) 7.36 € (Zeil 8.39 €) · Chicken Teriyaki 8.49 € (Zeil 8.99 €) · Plant-based Chicken Teriyaki 9.49 € (Zeil 8.99 €) · Chicken Fajita 8.89 € (Zeil 8.99 €) · Tuna 9.49 € (Zeil 8.39 €) · Chicken Tandoori 8.79 € (Zeil 8.99 €) · Pulled Chicken Breast 8.89 € (Zeil 9.29 €) · Philly Beef & Cheese 9.49 € (Zeil 9.29 €) · BBQ Rib 9.49 € (Zeil 8.99 €) · Italian B.M.T.® 8.89 € (Zeil 8.39 €) · Salami 5.89 € (Zeil 7.59 €) · Spicy Vegan Patty 9.49 € (Zeil 8.39 €) · Veggie Delite® 6.39 € (Zeil 6.49 €) · Nacho Chicken Classic 6 € (Zeil 8.19 €)",
+      "subway-frankfurt-nordwestzentrum": "Beef Chili 10.19 € (Zeil 9.79 €) · BBQ Pulled Pork 8.49 € (Zeil 9.29 €) · BBQ Pulled Plant 8.49 € (Zeil 9.29 €) · Plant-based Dölicious Chicken (V) 7.36 € (Zeil 8.39 €) · Plant-based Chicken Teriyaki 9.49 € (Zeil 8.99 €) · Tuna 8.09 € (Zeil 8.39 €) · Pulled Chicken Breast 7.79 € (Zeil 9.29 €) · Philly Beef & Cheese 9.49 € (Zeil 9.29 €) · BBQ Rib 8.29 € (Zeil 8.99 €) · Italian B.M.T.® 8.89 € (Zeil 8.39 €) · Ham 6.79 € (Zeil 7.59 €) · Salami 4.5 € (Zeil 7.59 €) · Spicy Vegan Patty 8.19 € (Zeil 8.39 €) · Veggie Delite® 5.89 € (Zeil 6.49 €) · Nacho Chicken Classic 8.79 € (Zeil 8.19 €)"
+    },
+    "anomalies": [
+      {
+        "section": "Sandwich",
+        "name": "Spicy Vegan Patty",
+        "issues": [
+          "je Portion: kcal 301 ≠ 4·C+4·P+9·F = 346",
+          "je 100 g: kcal 127 ≠ 4·C+4·P+9·F = 143"
+        ]
+      },
+      {
+        "section": "Salads",
+        "name": "Spicy Vegan Patty",
+        "issues": [
+          "je Portion: kcal 149 ≠ 4·C+4·P+9·F = 194"
+        ]
+      },
+      {
+        "section": "Getränke",
+        "name": "Pepsi regular",
+        "issues": [
+          "je Portion: kcal 143 ≠ 4·C+4·P+9·F = 315",
+          "je 100 g: kcal 29 ≠ 4·C+4·P+9·F = 63"
+        ]
+      },
+      {
+        "section": "Getränke",
+        "name": "Schwip Schwap",
+        "issues": [
+          "je Portion: kcal 198 ≠ 4·C+4·P+9·F = 441",
+          "je Portion: sugars 0.5 > carbs 0",
+          "je 100 g: kcal 40 ≠ 4·C+4·P+9·F = 88",
+          "je 100 g: sugars 0.1 > carbs 0"
+        ]
+      },
+      {
+        "section": "Getränke",
+        "name": "7UP Zero",
+        "issues": [
+          "je Portion: kcal 98 ≠ 4·C+4·P+9·F = 207",
+          "je 100 g: kcal 20 ≠ 4·C+4·P+9·F = 41"
+        ]
+      },
+      {
+        "section": "Getränke",
+        "name": "Lipton Eistee Peach",
+        "issues": [
+          "je Portion: kcal 67 ≠ 4·C+4·P+9·F = 135"
+        ]
+      },
+      {
+        "section": "Getränke",
+        "name": "Mountain Dew",
+        "issues": [
+          "je Portion: kcal 253 ≠ 4·C+4·P+9·F = 540",
+          "je 100 g: kcal 51 ≠ 4·C+4·P+9·F = 108"
+        ]
+      },
+      {
+        "section": "Getränke",
+        "name": "Capri-Sun Fruit Crush Tropical",
+        "issues": [
+          "je Portion: kcal 58 ≠ 4·C+4·P+9·F = 117",
+          "je 100 g: kcal 29 ≠ 4·C+4·P+9·F = 60"
+        ]
+      },
+      {
+        "section": "Getränke",
+        "name": "BuddyFruits Fruchtmousse",
+        "issues": [
+          "je Portion: kcal 56 ≠ 4·C+4·P+9·F = 115",
+          "je 100 g: kcal 62 ≠ 4·C+4·P+9·F = 125"
+        ]
+      },
+      {
+        "section": "Saucen",
+        "name": "Garlic & Herb (vegan)",
+        "issues": [
+          "je 100 g: sugars 7 > carbs 6.2",
+          "je Portion passt nicht zu je 100 g × 14 g bei kcal (22 statt 79.8), fat (0.19 statt 8.4), sat (0 statt 0.6), carbs (4.9 statt 0.87), sugars (4.2 statt 0.98)"
+        ]
+      },
+      {
+        "section": "Saucen",
+        "name": "Balsamic Vinegar (vegan)",
+        "issues": [
+          "je 100 g: kcal 28 ≠ 4·C+4·P+9·F = 0"
+        ]
+      },
+      {
+        "section": "Zutaten/Toppings",
+        "name": "Guacamole",
+        "issues": [
+          "je Portion: kcal 24 ≠ 4·C+4·P+9·F = 60",
+          "je 100 g: kcal 68 ≠ 4·C+4·P+9·F = 171"
+        ]
+      },
+      {
+        "section": "Einzel-Zutaten",
+        "name": "Bacon",
+        "issues": [
+          "je Portion: sugars 0.3 > carbs 0.2",
+          "je 100 g: sugars 3 > carbs 2.4"
+        ]
+      },
+      {
+        "section": "Brot",
+        "name": "Vollkornbrot",
+        "issues": [
+          "je Portion passt nicht zu je 100 g × 76 g bei salt (1 statt 0.53)"
+        ]
+      },
+      {
+        "section": "Saucen",
+        "name": "Sweet Onion (vegan)",
+        "issues": [
+          "je Portion passt nicht zu je 100 g × 14 g bei carbs (5.6 statt 4.9), sugars (4.8 statt 4.34)"
+        ]
+      }
+    ],
+    "shellfish": "Keine Allergenliste ausgewertet; kein Produkt- oder Zutatenname mit Krebs-/Weichtieren (Tuna = Fisch, erlaubt)",
+    "dislikes": "Koriander/Minze: kein Baustein mit Koriander oder Minze im Namen; Zutatenlisten liegen nicht vor"
+  },
+  "ingredients": [
+    {
+      "id": "italian",
+      "name": "Italian",
+      "pdfName": "Italian",
+      "section": "Brot",
+      "page": 3,
+      "portionG": 70,
+      "kj": {
+        "perPortion": 794,
+        "per100": 1134
+      },
+      "per100": {
+        "kcal": 271,
+        "fat": 3,
+        "sat": 0,
+        "carbs": 51,
+        "sugars": 6,
+        "fibre": 3,
+        "protein": 10,
+        "salt": 0.8
+      },
+      "perPortion": {
+        "kcal": 190,
+        "fat": 2.1,
+        "sat": 0,
+        "carbs": 36,
+        "sugars": 4.2,
+        "fibre": 2.1,
+        "protein": 7,
+        "salt": 0.6
+      }
+    },
+    {
+      "id": "sesam",
+      "name": "Sesam",
+      "pdfName": "Sesam",
+      "section": "Brot",
+      "page": 3,
+      "portionG": 75,
+      "kj": {
+        "perPortion": 782,
+        "per100": 1043
+      },
+      "per100": {
+        "kcal": 249,
+        "fat": 5.3,
+        "sat": 1.3,
+        "carbs": 39,
+        "sugars": 1,
+        "fibre": 2.6,
+        "protein": 11,
+        "salt": 1.3
+      },
+      "perPortion": {
+        "kcal": 187,
+        "fat": 4,
+        "sat": 1,
+        "carbs": 29,
+        "sugars": 1,
+        "fibre": 2,
+        "protein": 8,
+        "salt": 1
+      }
+    },
+    {
+      "id": "cheese_oregano",
+      "name": "Cheese Oregano",
+      "pdfName": "Cheese Oregano",
+      "section": "Brot",
+      "page": 3,
+      "portionG": 81,
+      "kj": {
+        "perPortion": 816,
+        "per100": 1007
+      },
+      "per100": {
+        "kcal": 241,
+        "fat": 4.8,
+        "sat": 2,
+        "carbs": 37,
+        "sugars": 1,
+        "fibre": 2.3,
+        "protein": 11,
+        "salt": 0.9
+      },
+      "perPortion": {
+        "kcal": 195,
+        "fat": 3.9,
+        "sat": 1.6,
+        "carbs": 30,
+        "sugars": 1,
+        "fibre": 1.9,
+        "protein": 9.3,
+        "salt": 0.7
+      }
+    },
+    {
+      "id": "honey_oat",
+      "name": "Honey Oat",
+      "pdfName": "Honey Oat",
+      "section": "Brot",
+      "page": 3,
+      "portionG": 96,
+      "kj": {
+        "perPortion": 983,
+        "per100": 1024
+      },
+      "per100": {
+        "kcal": 245,
+        "fat": 2.7,
+        "sat": 0.5,
+        "carbs": 42,
+        "sugars": 9,
+        "fibre": 5.5,
+        "protein": 10,
+        "salt": 0.5
+      },
+      "perPortion": {
+        "kcal": 235,
+        "fat": 2.6,
+        "sat": 0.5,
+        "carbs": 41,
+        "sugars": 9,
+        "fibre": 5,
+        "protein": 9.5,
+        "salt": 0.5
+      }
+    },
+    {
+      "id": "vollkornbrot",
+      "name": "Vollkornbrot",
+      "pdfName": "Vollkornbrot",
+      "section": "Brot",
+      "page": 3,
+      "portionG": 76,
+      "kj": {
+        "perPortion": 658,
+        "per100": 866
+      },
+      "per100": {
+        "kcal": 207,
+        "fat": 1.1,
+        "sat": 0.2,
+        "carbs": 35,
+        "sugars": 1.8,
+        "fibre": 5.8,
+        "protein": 10,
+        "salt": 0.7
+      },
+      "perPortion": {
+        "kcal": 157,
+        "fat": 0.8,
+        "sat": 0.2,
+        "carbs": 27,
+        "sugars": 1.4,
+        "fibre": 4.4,
+        "protein": 7.5,
+        "salt": 1
+      }
+    },
+    {
+      "id": "weizenwrap",
+      "name": "Weizenwrap",
+      "pdfName": "Weizenwrap",
+      "section": "Brot",
+      "page": 3,
+      "portionG": 95,
+      "kj": {
+        "perPortion": 1153,
+        "per100": 1213
+      },
+      "per100": {
+        "kcal": 290,
+        "fat": 6,
+        "sat": 0.8,
+        "carbs": 50,
+        "sugars": 2.7,
+        "fibre": 4.1,
+        "protein": 7,
+        "salt": 1.3
+      },
+      "perPortion": {
+        "kcal": 276,
+        "fat": 5.7,
+        "sat": 0.8,
+        "carbs": 48,
+        "sugars": 2.6,
+        "fibre": 3.9,
+        "protein": 6.7,
+        "salt": 1.2
+      }
+    },
+    {
+      "id": "glutenfrei",
+      "name": "Glutenfrei",
+      "pdfName": "Glutenfrei",
+      "section": "Brot",
+      "page": 3,
+      "portionG": 110,
+      "kj": {
+        "perPortion": 1229,
+        "per100": 1117
+      },
+      "per100": {
+        "kcal": 267,
+        "fat": 6,
+        "sat": 0.5,
+        "carbs": 48,
+        "sugars": 1.1,
+        "fibre": 3.4,
+        "protein": 3,
+        "salt": 0.9
+      },
+      "perPortion": {
+        "kcal": 294,
+        "fat": 6.6,
+        "sat": 0.6,
+        "carbs": 53,
+        "sugars": 1.2,
+        "fibre": 3.7,
+        "protein": 3.3,
+        "salt": 1
+      }
+    },
+    {
+      "id": "scheibenkaese",
+      "name": "Scheibenkäse",
+      "pdfName": "Scheibenkäse",
+      "section": "Käse",
+      "page": 2,
+      "portionG": 12,
+      "kj": {
+        "perPortion": 177,
+        "per100": 1477
+      },
+      "per100": {
+        "kcal": 353,
+        "fat": 29,
+        "sat": 18,
+        "carbs": 3.5,
+        "sugars": 3.2,
+        "fibre": 0,
+        "protein": 20,
+        "salt": 2.5
+      },
+      "perPortion": {
+        "kcal": 42,
+        "fat": 3.5,
+        "sat": 2.2,
+        "carbs": 0.4,
+        "sugars": 0.4,
+        "fibre": 0,
+        "protein": 2.3,
+        "salt": 0.3
+      }
+    },
+    {
+      "id": "mozzarella_emmental_mix",
+      "name": "Mozzarella-Emmental-Mix",
+      "pdfName": "Mozzarella-Emmental-Mix",
+      "section": "Käse",
+      "page": 2,
+      "portionG": 14,
+      "kj": {
+        "perPortion": 187,
+        "per100": 1339
+      },
+      "per100": {
+        "kcal": 320,
+        "fat": 25,
+        "sat": 16,
+        "carbs": 4.6,
+        "sugars": 0.8,
+        "fibre": 0,
+        "protein": 23,
+        "salt": 1.4
+      },
+      "perPortion": {
+        "kcal": 45,
+        "fat": 3.4,
+        "sat": 2.2,
+        "carbs": 0.6,
+        "sugars": 0.1,
+        "fibre": 0,
+        "protein": 3.2,
+        "salt": 0.2
+      }
+    },
+    {
+      "id": "frischkaese",
+      "name": "Frischkäse",
+      "pdfName": "Frischkäse",
+      "section": "Käse",
+      "page": 2,
+      "portionG": 14,
+      "kj": {
+        "perPortion": 115,
+        "per100": 824
+      },
+      "per100": {
+        "kcal": 197,
+        "fat": 16,
+        "sat": 11,
+        "carbs": 3.9,
+        "sugars": 3.8,
+        "fibre": 0,
+        "protein": 8.7,
+        "salt": 0.8
+      },
+      "perPortion": {
+        "kcal": 28,
+        "fat": 2.2,
+        "sat": 1.5,
+        "carbs": 0.5,
+        "sugars": 0.5,
+        "fibre": 0,
+        "protein": 1.2,
+        "salt": 0.1
+      }
+    },
+    {
+      "id": "cheddar",
+      "name": "Cheddar",
+      "pdfName": "Cheddar",
+      "section": "Käse",
+      "page": 2,
+      "portionG": 11,
+      "kj": {
+        "perPortion": 191,
+        "per100": 1740
+      },
+      "per100": {
+        "kcal": 416,
+        "fat": 35,
+        "sat": 22,
+        "carbs": 0.1,
+        "sugars": 0.1,
+        "fibre": 0,
+        "protein": 25,
+        "salt": 1.9
+      },
+      "perPortion": {
+        "kcal": 46,
+        "fat": 3.8,
+        "sat": 2.3,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 2.8,
+        "salt": 0.2
+      }
+    },
+    {
+      "id": "vegan_slices",
+      "name": "Vegan Slices (vegan)",
+      "pdfName": "Vegan Slices (vegan)",
+      "section": "Käse",
+      "page": 2,
+      "portionG": 10,
+      "kj": {
+        "perPortion": 124,
+        "per100": 1238
+      },
+      "per100": {
+        "kcal": 296,
+        "fat": 24,
+        "sat": 21,
+        "carbs": 19,
+        "sugars": 0.1,
+        "fibre": 0.1,
+        "protein": 0.1,
+        "salt": 1.3
+      },
+      "perPortion": {
+        "kcal": 30,
+        "fat": 2.4,
+        "sat": 2.1,
+        "carbs": 1.9,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0.1
+      }
+    },
+    {
+      "id": "bbq_sauce",
+      "name": "BBQ Sauce (vegan)",
+      "pdfName": "BBQ Sauce (vegan)",
+      "section": "Saucen",
+      "page": 2,
+      "portionG": 14,
+      "kj": {
+        "perPortion": 83.8,
+        "per100": 598
+      },
+      "per100": {
+        "kcal": 153,
+        "fat": 0.5,
+        "sat": 0.1,
+        "carbs": 36,
+        "sugars": 30,
+        "fibre": 2.1,
+        "protein": 0.9,
+        "salt": 2.7
+      },
+      "perPortion": {
+        "kcal": 21,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 4.9,
+        "sugars": 4.2,
+        "fibre": 0.3,
+        "protein": 0.1,
+        "salt": 0.4
+      }
+    },
+    {
+      "id": "caesar_sauce",
+      "name": "Caesar Sauce",
+      "pdfName": "Caesar Sauce",
+      "section": "Saucen",
+      "page": 2,
+      "portionG": 14,
+      "kj": {
+        "perPortion": 210,
+        "per100": 1498
+      },
+      "per100": {
+        "kcal": 357,
+        "fat": 34,
+        "sat": 3.5,
+        "carbs": 8.4,
+        "sugars": 5.1,
+        "fibre": 0,
+        "protein": 2.6,
+        "salt": 2.4
+      },
+      "perPortion": {
+        "kcal": 50,
+        "fat": 4.8,
+        "sat": 0.5,
+        "carbs": 1.2,
+        "sugars": 0.7,
+        "fibre": 0,
+        "protein": 0.4,
+        "salt": 0.3
+      }
+    },
+    {
+      "id": "chipotle_southwest",
+      "name": "Chipotle Southwest Sauce",
+      "pdfName": "Chipotle Southwest Sauce",
+      "section": "Saucen",
+      "page": 2,
+      "portionG": 14,
+      "kj": {
+        "perPortion": 258,
+        "per100": 1841
+      },
+      "per100": {
+        "kcal": 440,
+        "fat": 45,
+        "sat": 3.4,
+        "carbs": 9,
+        "sugars": 5.9,
+        "fibre": 0.5,
+        "protein": 1,
+        "salt": 1.7
+      },
+      "perPortion": {
+        "kcal": 62,
+        "fat": 6.3,
+        "sat": 0.5,
+        "carbs": 1.3,
+        "sugars": 0.8,
+        "fibre": 0,
+        "protein": 0.1,
+        "salt": 0.2
+      }
+    },
+    {
+      "id": "x_spicy_chipotle",
+      "name": "X-spicy Chipotle Sauce (vegan)",
+      "pdfName": "X-spicy Chipotle Sauce (vegan)",
+      "section": "Saucen",
+      "page": 2,
+      "portionG": 14,
+      "kj": {
+        "perPortion": 251,
+        "per100": 1795
+      },
+      "per100": {
+        "kcal": 429,
+        "fat": 44,
+        "sat": 3.4,
+        "carbs": 8,
+        "sugars": 5,
+        "fibre": 0.7,
+        "protein": 1.2,
+        "salt": 1.8
+      },
+      "perPortion": {
+        "kcal": 60,
+        "fat": 6.1,
+        "sat": 0.5,
+        "carbs": 1.1,
+        "sugars": 0.7,
+        "fibre": 0.1,
+        "protein": 0.2,
+        "salt": 0.3
+      }
+    },
+    {
+      "id": "honey_wholegrain_mustard",
+      "name": "Honey & Wholegrain Mustard Sauce",
+      "pdfName": "Honey & Wholegrain Mustard Sauce",
+      "section": "Saucen",
+      "page": 2,
+      "portionG": 14,
+      "kj": {
+        "perPortion": 122,
+        "per100": 870
+      },
+      "per100": {
+        "kcal": 208,
+        "fat": 14,
+        "sat": 0.9,
+        "carbs": 19,
+        "sugars": 17,
+        "fibre": 1.7,
+        "protein": 1.8,
+        "salt": 1.4
+      },
+      "perPortion": {
+        "kcal": 29,
+        "fat": 1.9,
+        "sat": 0.1,
+        "carbs": 2.7,
+        "sugars": 2.3,
+        "fibre": 0.2,
+        "protein": 0.3,
+        "salt": 0.2
+      }
+    },
+    {
+      "id": "lite_mayonnaise",
+      "name": "Lite Mayonnaise",
+      "pdfName": "Lite Mayonnaise",
+      "section": "Saucen",
+      "page": 2,
+      "portionG": 14,
+      "kj": {
+        "perPortion": 194,
+        "per100": 1384
+      },
+      "per100": {
+        "kcal": 329,
+        "fat": 35,
+        "sat": 2.4,
+        "carbs": 4,
+        "sugars": 4,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 1.7
+      },
+      "perPortion": {
+        "kcal": 46,
+        "fat": 4.9,
+        "sat": 0.3,
+        "carbs": 0.6,
+        "sugars": 0.6,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0.2
+      }
+    },
+    {
+      "id": "joghurt",
+      "name": "Joghurt",
+      "pdfName": "Joghurt",
+      "section": "Saucen",
+      "page": 2,
+      "portionG": 14,
+      "kj": {
+        "perPortion": 78,
+        "per100": 560
+      },
+      "per100": {
+        "kcal": 134,
+        "fat": 10,
+        "sat": 0.1,
+        "carbs": 9,
+        "sugars": 4.9,
+        "fibre": 0.2,
+        "protein": 1.2,
+        "salt": 1.7
+      },
+      "perPortion": {
+        "kcal": 18,
+        "fat": 1.4,
+        "sat": 0,
+        "carbs": 1.3,
+        "sugars": 0.6,
+        "fibre": 0,
+        "protein": 0.1,
+        "salt": 0.2
+      }
+    },
+    {
+      "id": "sweet_onion",
+      "name": "Sweet Onion (vegan)",
+      "pdfName": "Sweet Onion (vegan)",
+      "section": "Saucen",
+      "page": 2,
+      "portionG": 14,
+      "kj": {
+        "perPortion": 97,
+        "per100": 648
+      },
+      "per100": {
+        "kcal": 155,
+        "fat": 1.4,
+        "sat": 0.1,
+        "carbs": 35,
+        "sugars": 31,
+        "fibre": 0.5,
+        "protein": 0.5,
+        "salt": 0.7
+      },
+      "perPortion": {
+        "kcal": 23,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 5.6,
+        "sugars": 4.8,
+        "fibre": 0.1,
+        "protein": 0.1,
+        "salt": 0.1
+      }
+    },
+    {
+      "id": "garlic_herb",
+      "name": "Garlic & Herb (vegan)",
+      "pdfName": "Garlic & Herb (vegan)",
+      "section": "Saucen",
+      "page": 2,
+      "portionG": 14,
+      "kj": {
+        "perPortion": 90,
+        "per100": 2384
+      },
+      "per100": {
+        "kcal": 570,
+        "fat": 60,
+        "sat": 4.3,
+        "carbs": 6.2,
+        "sugars": 7,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 1
+      },
+      "perPortion": {
+        "kcal": 22,
+        "fat": 0.19,
+        "sat": 0,
+        "carbs": 4.9,
+        "sugars": 4.2,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0.1
+      },
+      "blocked": true,
+      "blockedReason": "Portion (14 g: 22 kcal, 0,19 g Fett, 4,9 g KH) passt nicht zu je 100 g (570 kcal, 60 g Fett → 80 kcal je 14 g); KH/Zucker je Portion = BBQ Sauce → Portionszeile vermutlich fehlerhaft. Gesperrt bis zur Entscheidung des Users"
+    },
+    {
+      "id": "balsamic_vinegar",
+      "name": "Balsamic Vinegar (vegan)",
+      "pdfName": "Balsamic Vinegar (vegan)",
+      "section": "Saucen",
+      "page": 2,
+      "portionG": 3.5,
+      "kj": {
+        "perPortion": 4.1,
+        "per100": 117
+      },
+      "per100": {
+        "kcal": 28,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 1,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "id": "olivenoel",
+      "name": "Olivenöl (vegan)",
+      "pdfName": "Olivenöl (vegan)",
+      "section": "Saucen",
+      "page": 2,
+      "portionG": 3.5,
+      "kj": {
+        "perPortion": 131,
+        "per100": 3765
+      },
+      "per100": {
+        "kcal": 900,
+        "fat": 100,
+        "sat": 13.3,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 32,
+        "fat": 3.5,
+        "sat": 0.4,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "id": "ketchup",
+      "name": "Ketchup",
+      "pdfName": "Ketchup",
+      "section": "Saucen",
+      "page": 2,
+      "portionG": 14,
+      "kj": {
+        "perPortion": 74,
+        "per100": 531
+      },
+      "per100": {
+        "kcal": 127,
+        "fat": 0.1,
+        "sat": 0.1,
+        "carbs": 29,
+        "sugars": 23,
+        "fibre": 0.8,
+        "protein": 1.2,
+        "salt": 3
+      },
+      "perPortion": {
+        "kcal": 18,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 4,
+        "sugars": 3.2,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0.4
+      }
+    },
+    {
+      "id": "jalapenos",
+      "name": "Jalapeños",
+      "pdfName": "Jalapeños",
+      "section": "Zutaten/Toppings",
+      "page": 2,
+      "portionG": 7,
+      "kj": {
+        "perPortion": 3.2,
+        "per100": 46
+      },
+      "per100": {
+        "kcal": 11,
+        "fat": 0.5,
+        "sat": 0.1,
+        "carbs": 1.6,
+        "sugars": 0.8,
+        "fibre": 1.4,
+        "protein": 0.4,
+        "salt": 4.3
+      },
+      "perPortion": {
+        "kcal": 0.8,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.1,
+        "sugars": 0.1,
+        "fibre": 0.1,
+        "protein": 0,
+        "salt": 0.3
+      }
+    },
+    {
+      "id": "oliven",
+      "name": "Oliven",
+      "pdfName": "Oliven",
+      "section": "Zutaten/Toppings",
+      "page": 2,
+      "portionG": 3,
+      "kj": {
+        "perPortion": 12.2,
+        "per100": 406
+      },
+      "per100": {
+        "kcal": 97,
+        "fat": 9.4,
+        "sat": 1.5,
+        "carbs": 1.1,
+        "sugars": 0.1,
+        "fibre": 3.1,
+        "protein": 1,
+        "salt": 1.9
+      },
+      "perPortion": {
+        "kcal": 2.9,
+        "fat": 0.3,
+        "sat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0.1,
+        "protein": 0,
+        "salt": 0.1
+      }
+    },
+    {
+      "id": "gewuerzgurken",
+      "name": "Gewürzgurken",
+      "pdfName": "Gewürzgurken",
+      "section": "Zutaten/Toppings",
+      "page": 2,
+      "portionG": 7.5,
+      "kj": {
+        "perPortion": 2.8,
+        "per100": 38
+      },
+      "per100": {
+        "kcal": 9,
+        "fat": 0.5,
+        "sat": 0.1,
+        "carbs": 1.37,
+        "sugars": 0.1,
+        "fibre": 1.1,
+        "protein": 0.4,
+        "salt": 2.9
+      },
+      "perPortion": {
+        "kcal": 0.7,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.1,
+        "sugars": 0,
+        "fibre": 0.1,
+        "protein": 0,
+        "salt": 0.2
+      }
+    },
+    {
+      "id": "mais",
+      "name": "Mais",
+      "pdfName": "Mais",
+      "section": "Zutaten/Toppings",
+      "page": 2,
+      "portionG": 7,
+      "kj": {
+        "perPortion": 23,
+        "per100": 335
+      },
+      "per100": {
+        "kcal": 80,
+        "fat": 1.9,
+        "sat": 1,
+        "carbs": 11,
+        "sugars": 5.2,
+        "fibre": 3.8,
+        "protein": 2.9,
+        "salt": 0.4
+      },
+      "perPortion": {
+        "kcal": 5.6,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 0.8,
+        "sugars": 0.4,
+        "fibre": 0.3,
+        "protein": 0.2,
+        "salt": 0
+      }
+    },
+    {
+      "id": "salat",
+      "name": "Salat",
+      "pdfName": "Salat",
+      "section": "Zutaten/Toppings",
+      "page": 2,
+      "portionG": 14,
+      "kj": {
+        "perPortion": 6.4,
+        "per100": 46
+      },
+      "per100": {
+        "kcal": 11,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 1.4,
+        "sugars": 1.4,
+        "fibre": 1.5,
+        "protein": 1.2,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 1.5,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.2,
+        "sugars": 0.2,
+        "fibre": 0.2,
+        "protein": 0.2,
+        "salt": 0
+      }
+    },
+    {
+      "id": "tomaten",
+      "name": "Tomaten",
+      "pdfName": "Tomaten",
+      "section": "Zutaten/Toppings",
+      "page": 2,
+      "portionG": 30,
+      "kj": {
+        "perPortion": 23,
+        "per100": 75
+      },
+      "per100": {
+        "kcal": 18,
+        "fat": 0.2,
+        "sat": 0,
+        "carbs": 2.7,
+        "sugars": 2.6,
+        "fibre": 1.2,
+        "protein": 0.9,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 5.4,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 0.8,
+        "sugars": 0.8,
+        "fibre": 0.4,
+        "protein": 0.3,
+        "salt": 0
+      }
+    },
+    {
+      "id": "gurken",
+      "name": "Gurken",
+      "pdfName": "Gurken",
+      "section": "Zutaten/Toppings",
+      "page": 2,
+      "portionG": 18,
+      "kj": {
+        "perPortion": 11,
+        "per100": 63
+      },
+      "per100": {
+        "kcal": 15,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 3.1,
+        "sugars": 1.7,
+        "fibre": 0.5,
+        "protein": 0.7,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 2.7,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.6,
+        "sugars": 0.3,
+        "fibre": 0.1,
+        "protein": 0.1,
+        "salt": 0
+      }
+    },
+    {
+      "id": "paprika",
+      "name": "Paprika",
+      "pdfName": "Paprika",
+      "section": "Zutaten/Toppings",
+      "page": 2,
+      "portionG": 12,
+      "kj": {
+        "perPortion": 12.6,
+        "per100": 105
+      },
+      "per100": {
+        "kcal": 25,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 4.3,
+        "sugars": 2.3,
+        "fibre": 1.8,
+        "protein": 0.7,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 3,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.5,
+        "sugars": 0.3,
+        "fibre": 0.2,
+        "protein": 0.1,
+        "salt": 0
+      }
+    },
+    {
+      "id": "zwiebeln",
+      "name": "Zwiebeln",
+      "pdfName": "Zwiebeln",
+      "section": "Zutaten/Toppings",
+      "page": 2,
+      "portionG": 7,
+      "kj": {
+        "perPortion": 10.5,
+        "per100": 150
+      },
+      "per100": {
+        "kcal": 36,
+        "fat": 0.2,
+        "sat": 0,
+        "carbs": 7.9,
+        "sugars": 5.6,
+        "fibre": 1.4,
+        "protein": 1.2,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 2.5,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.6,
+        "sugars": 0.4,
+        "fibre": 0.1,
+        "protein": 0.1,
+        "salt": 0
+      }
+    },
+    {
+      "id": "rucola",
+      "name": "Rucola",
+      "pdfName": "Rucola",
+      "section": "Zutaten/Toppings",
+      "page": 2,
+      "portionG": 7,
+      "kj": {
+        "perPortion": 8.2,
+        "per100": 117
+      },
+      "per100": {
+        "kcal": 28,
+        "fat": 0.7,
+        "sat": 0,
+        "carbs": 2.1,
+        "sugars": 0,
+        "fibre": 1.6,
+        "protein": 2.6,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 2,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.1,
+        "sugars": 0,
+        "fibre": 0.1,
+        "protein": 0.2,
+        "salt": 0
+      }
+    },
+    {
+      "id": "nachos",
+      "name": "Nachos (Doritos® Nacho Cheese)",
+      "pdfName": "Nachos (Doritos® Nacho Cheese)",
+      "section": "Zutaten/Toppings",
+      "page": 2,
+      "portionG": 12,
+      "kj": {
+        "perPortion": 250,
+        "per100": 2091
+      },
+      "per100": {
+        "kcal": 499,
+        "fat": 26,
+        "sat": 3.4,
+        "carbs": 58,
+        "sugars": 2.7,
+        "fibre": 5.6,
+        "protein": 6.5,
+        "salt": 1.2
+      },
+      "perPortion": {
+        "kcal": 60,
+        "fat": 3.1,
+        "sat": 0.4,
+        "carbs": 6.9,
+        "sugars": 0.3,
+        "fibre": 0.7,
+        "protein": 0.8,
+        "salt": 0.1
+      }
+    },
+    {
+      "id": "guacamole",
+      "name": "Guacamole",
+      "pdfName": "Guacamole",
+      "section": "Zutaten/Toppings",
+      "page": 2,
+      "portionG": 35,
+      "kj": {
+        "perPortion": 98,
+        "per100": 282
+      },
+      "per100": {
+        "kcal": 68,
+        "fat": 17,
+        "sat": 1,
+        "carbs": 2.5,
+        "sugars": 1.1,
+        "fibre": 1.7,
+        "protein": 1.9,
+        "salt": 0.7
+      },
+      "perPortion": {
+        "kcal": 24,
+        "fat": 6,
+        "sat": 0.3,
+        "carbs": 0.9,
+        "sugars": 0.4,
+        "fibre": 0.6,
+        "protein": 0.7,
+        "salt": 0.2
+      }
+    },
+    {
+      "id": "roestzwiebeln",
+      "name": "Röstzwiebeln",
+      "pdfName": "Röstzwiebeln",
+      "section": "Zutaten/Toppings",
+      "page": 2,
+      "portionG": 7,
+      "kj": {
+        "perPortion": 171,
+        "per100": 2443
+      },
+      "per100": {
+        "kcal": 584,
+        "fat": 43,
+        "sat": 14.3,
+        "carbs": 41.6,
+        "sugars": 8.9,
+        "fibre": 3.6,
+        "protein": 6,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 41,
+        "fat": 3,
+        "sat": 1,
+        "carbs": 2.9,
+        "sugars": 0.6,
+        "fibre": 0.3,
+        "protein": 0.4,
+        "salt": 0
+      }
+    },
+    {
+      "id": "peperoni_salami",
+      "name": "Peperoni-Salami",
+      "pdfName": "Peperoni-Salami",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 18,
+      "kj": {
+        "perPortion": 305,
+        "per100": 1694
+      },
+      "per100": {
+        "kcal": 405,
+        "fat": 35,
+        "sat": 12.2,
+        "carbs": 3.5,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 20,
+        "salt": 4
+      },
+      "perPortion": {
+        "kcal": 73,
+        "fat": 6.3,
+        "sat": 2.2,
+        "carbs": 0.6,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 3.6,
+        "salt": 0.7
+      }
+    },
+    {
+      "id": "salami",
+      "name": "Salami",
+      "pdfName": "Salami",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 18,
+      "kj": {
+        "perPortion": 305,
+        "per100": 1694
+      },
+      "per100": {
+        "kcal": 405,
+        "fat": 35,
+        "sat": 12.7,
+        "carbs": 3.5,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 20,
+        "salt": 3.7
+      },
+      "perPortion": {
+        "kcal": 73,
+        "fat": 6.3,
+        "sat": 2.3,
+        "carbs": 0.6,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 3.6,
+        "salt": 0.7
+      }
+    },
+    {
+      "id": "tuna",
+      "name": "Tuna (mit Lite Mayonnaise)",
+      "pdfName": "Tuna (mit Lite Mayonnaise)",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 74,
+      "kj": {
+        "perPortion": 606,
+        "per100": 819
+      },
+      "per100": {
+        "kcal": 196,
+        "fat": 14,
+        "sat": 1.1,
+        "carbs": 3.3,
+        "sugars": 1.4,
+        "fibre": 0,
+        "protein": 16,
+        "salt": 1.2
+      },
+      "perPortion": {
+        "kcal": 145,
+        "fat": 10,
+        "sat": 0.9,
+        "carbs": 2.5,
+        "sugars": 1,
+        "fibre": 0,
+        "protein": 12,
+        "salt": 0.9
+      }
+    },
+    {
+      "id": "philly_beef",
+      "name": "Philly Beef",
+      "pdfName": "Philly Beef",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 71,
+      "kj": {
+        "perPortion": 359,
+        "per100": 506
+      },
+      "per100": {
+        "kcal": 121,
+        "fat": 2,
+        "sat": 0.5,
+        "carbs": 11,
+        "sugars": 5.5,
+        "fibre": 1,
+        "protein": 14.9,
+        "salt": 1
+      },
+      "perPortion": {
+        "kcal": 86,
+        "fat": 1.4,
+        "sat": 0.4,
+        "carbs": 8,
+        "sugars": 3.9,
+        "fibre": 0.7,
+        "protein": 11,
+        "salt": 0.7
+      }
+    },
+    {
+      "id": "beef_chili",
+      "name": "Beef Chili",
+      "pdfName": "Beef Chili",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 120,
+      "kj": {
+        "perPortion": 479,
+        "per100": 399
+      },
+      "per100": {
+        "kcal": 95,
+        "fat": 2,
+        "sat": 0.6,
+        "carbs": 8,
+        "sugars": 2.6,
+        "fibre": 1.7,
+        "protein": 10,
+        "salt": 1.1
+      },
+      "perPortion": {
+        "kcal": 114,
+        "fat": 2.4,
+        "sat": 0.7,
+        "carbs": 10,
+        "sugars": 3.1,
+        "fibre": 2,
+        "protein": 12,
+        "salt": 1.3
+      }
+    },
+    {
+      "id": "pulled_chicken_breast",
+      "name": "Rotisserie-Style Chicken/Pulled Chicken Breast",
+      "pdfName": "Rotisserie-Style Chicken/Pulled Chicken Breast",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 56,
+      "kj": {
+        "perPortion": 298,
+        "per100": 531
+      },
+      "per100": {
+        "kcal": 127,
+        "fat": 3.5,
+        "sat": 0.5,
+        "carbs": 0.2,
+        "sugars": 0.2,
+        "fibre": 0,
+        "protein": 22,
+        "salt": 0.9
+      },
+      "perPortion": {
+        "kcal": 71,
+        "fat": 2,
+        "sat": 0.3,
+        "carbs": 0.1,
+        "sugars": 0.1,
+        "fibre": 0,
+        "protein": 12,
+        "salt": 0.5
+      }
+    },
+    {
+      "id": "chicken_teriyaki",
+      "name": "Chicken Teriyaki",
+      "pdfName": "Chicken Teriyaki",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 74,
+      "kj": {
+        "perPortion": 339,
+        "per100": 458
+      },
+      "per100": {
+        "kcal": 109,
+        "fat": 1.7,
+        "sat": 0.5,
+        "carbs": 5.4,
+        "sugars": 4,
+        "fibre": 0.13,
+        "protein": 17,
+        "salt": 0.9
+      },
+      "perPortion": {
+        "kcal": 81,
+        "fat": 1.3,
+        "sat": 0.4,
+        "carbs": 4,
+        "sugars": 3,
+        "fibre": 0.1,
+        "protein": 13,
+        "salt": 0.7
+      }
+    },
+    {
+      "id": "chicken_fajita",
+      "name": "Chicken Fajita",
+      "pdfName": "Chicken Fajita",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 56,
+      "kj": {
+        "perPortion": 255,
+        "per100": 456
+      },
+      "per100": {
+        "kcal": 109,
+        "fat": 1,
+        "sat": 0.3,
+        "carbs": 3.2,
+        "sugars": 1.7,
+        "fibre": 0.1,
+        "protein": 22,
+        "salt": 2
+      },
+      "perPortion": {
+        "kcal": 61,
+        "fat": 0.5,
+        "sat": 0.2,
+        "carbs": 1.8,
+        "sugars": 0.9,
+        "fibre": 0.1,
+        "protein": 12,
+        "salt": 1.1
+      }
+    },
+    {
+      "id": "chicken_tandoori",
+      "name": "Chicken Tandoori",
+      "pdfName": "Chicken Tandoori",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 71,
+      "kj": {
+        "perPortion": 374,
+        "per100": 527
+      },
+      "per100": {
+        "kcal": 126,
+        "fat": 2,
+        "sat": 0.5,
+        "carbs": 2.5,
+        "sugars": 1.2,
+        "fibre": 0,
+        "protein": 25,
+        "salt": 0.9
+      },
+      "perPortion": {
+        "kcal": 89,
+        "fat": 1.4,
+        "sat": 0.4,
+        "carbs": 1.8,
+        "sugars": 0.9,
+        "fibre": 0,
+        "protein": 18,
+        "salt": 0.6
+      }
+    },
+    {
+      "id": "ham",
+      "name": "Ham",
+      "pdfName": "Ham",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 28,
+      "kj": {
+        "perPortion": 143,
+        "per100": 510
+      },
+      "per100": {
+        "kcal": 122,
+        "fat": 3.6,
+        "sat": 1.1,
+        "carbs": 2.5,
+        "sugars": 1.4,
+        "fibre": 1,
+        "protein": 19,
+        "salt": 1.6
+      },
+      "perPortion": {
+        "kcal": 34,
+        "fat": 1,
+        "sat": 0.3,
+        "carbs": 0.7,
+        "sugars": 0.4,
+        "fibre": 0.3,
+        "protein": 5.4,
+        "salt": 0.5
+      }
+    },
+    {
+      "id": "bbq_rib",
+      "name": "BBQ Rib",
+      "pdfName": "BBQ Rib",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 72,
+      "kj": {
+        "perPortion": 876,
+        "per100": 1217
+      },
+      "per100": {
+        "kcal": 291,
+        "fat": 24,
+        "sat": 9.1,
+        "carbs": 2,
+        "sugars": 1,
+        "fibre": 1.6,
+        "protein": 16,
+        "salt": 1.5
+      },
+      "perPortion": {
+        "kcal": 209,
+        "fat": 17,
+        "sat": 6.5,
+        "carbs": 1.4,
+        "sugars": 0.7,
+        "fibre": 1.1,
+        "protein": 12,
+        "salt": 1
+      }
+    },
+    {
+      "id": "bacon",
+      "name": "Bacon",
+      "pdfName": "Bacon",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 9,
+      "kj": {
+        "perPortion": 154,
+        "per100": 1711
+      },
+      "per100": {
+        "kcal": 410,
+        "fat": 31,
+        "sat": 11,
+        "carbs": 2.4,
+        "sugars": 3,
+        "fibre": 0,
+        "protein": 33,
+        "salt": 3.6
+      },
+      "perPortion": {
+        "kcal": 37,
+        "fat": 2.8,
+        "sat": 1,
+        "carbs": 0.2,
+        "sugars": 0.3,
+        "fibre": 0,
+        "protein": 3,
+        "salt": 0.3
+      }
+    },
+    {
+      "id": "spicy_vegan_patty",
+      "name": "Spicy Vegan Patty",
+      "pdfName": "Spicy Vegan Patty",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 85,
+      "kj": {
+        "perPortion": 708,
+        "per100": 833
+      },
+      "per100": {
+        "kcal": 199,
+        "fat": 10,
+        "sat": 0.9,
+        "carbs": 12,
+        "sugars": 1.9,
+        "fibre": 3.2,
+        "protein": 13,
+        "salt": 1.3
+      },
+      "perPortion": {
+        "kcal": 169,
+        "fat": 8.8,
+        "sat": 0.8,
+        "carbs": 10.2,
+        "sugars": 1.6,
+        "fibre": 2.7,
+        "protein": 11,
+        "salt": 1.1
+      }
+    },
+    {
+      "id": "pb_chicken_teriyaki",
+      "name": "Plant-based Chicken Teriyaki",
+      "pdfName": "Plant-based Chicken Teriyaki",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 74,
+      "kj": {
+        "perPortion": 418,
+        "per100": 565
+      },
+      "per100": {
+        "kcal": 135,
+        "fat": 3.1,
+        "sat": 0.6,
+        "carbs": 11,
+        "sugars": 3.2,
+        "fibre": 4.7,
+        "protein": 14,
+        "salt": 2.1
+      },
+      "perPortion": {
+        "kcal": 100,
+        "fat": 2.3,
+        "sat": 0.5,
+        "carbs": 8.1,
+        "sugars": 2.4,
+        "fibre": 3.5,
+        "protein": 10,
+        "salt": 1.6
+      }
+    },
+    {
+      "id": "omelette",
+      "name": "Omelette",
+      "pdfName": "Omelette",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 70,
+      "kj": {
+        "perPortion": 363,
+        "per100": 518
+      },
+      "per100": {
+        "kcal": 124,
+        "fat": 6.7,
+        "sat": 2,
+        "carbs": 3.3,
+        "sugars": 1,
+        "fibre": 0.1,
+        "protein": 11,
+        "salt": 1.1
+      },
+      "perPortion": {
+        "kcal": 87,
+        "fat": 4.69,
+        "sat": 1.4,
+        "carbs": 2.3,
+        "sugars": 0.7,
+        "fibre": 0,
+        "protein": 7.8,
+        "salt": 0.8
+      }
+    },
+    {
+      "id": "nacho_chicken",
+      "name": "Nacho Chicken",
+      "pdfName": "Nacho Chicken",
+      "section": "Einzel-Zutaten",
+      "page": 3,
+      "portionG": 18,
+      "kj": {
+        "perPortion": 188,
+        "per100": 987
+      },
+      "per100": {
+        "kcal": 250,
+        "fat": 12,
+        "sat": 1.6,
+        "carbs": 20,
+        "sugars": 0.9,
+        "fibre": 1.4,
+        "protein": 15,
+        "salt": 1.4
+      },
+      "perPortion": {
+        "kcal": 45,
+        "fat": 2.1,
+        "sat": 0.3,
+        "carbs": 3.5,
+        "sugars": 0.2,
+        "fibre": 0,
+        "protein": 2.6,
+        "salt": 0.2
+      }
+    },
+    {
+      "id": "veggie_delite",
+      "name": "Veggie Delite® (kein Protein)",
+      "pdfName": null,
+      "section": "Create Your Own",
+      "note": "Sub ohne Protein-Baustein: 0-Werte (Brot, Käse, Veggies, Saucen werden wie bei jedem Sub gewählt)",
+      "page": null,
+      "portionG": 0,
+      "kj": {
+        "perPortion": 0,
+        "per100": 0
+      },
+      "per100": {
+        "kcal": 0,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 0,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    }
+  ],
+  "products": [
+    {
+      "section": "Sandwich",
+      "name": "Chicken Teriyaki",
+      "page": 1,
+      "weightG": 227,
+      "kj": {
+        "perPortion": 1130,
+        "per100": 498
+      },
+      "perPortion": {
+        "kcal": 270,
+        "fat": 3.3,
+        "sat": 1.4,
+        "carbs": 38,
+        "sugars": 10,
+        "fibre": 3,
+        "protein": 22,
+        "salt": 1.3
+      },
+      "per100": {
+        "kcal": 119,
+        "fat": 1.5,
+        "sat": 0.6,
+        "carbs": 17,
+        "sugars": 4.4,
+        "fibre": 1.3,
+        "protein": 9.5,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Sandwich",
+      "name": "Plant-based Chicken Teriyaki",
+      "page": 1,
+      "weightG": 227,
+      "kj": {
+        "perPortion": 1208,
+        "per100": 532
+      },
+      "perPortion": {
+        "kcal": 289,
+        "fat": 4.3,
+        "sat": 1.5,
+        "carbs": 42,
+        "sugars": 9.4,
+        "fibre": 6.4,
+        "protein": 19,
+        "salt": 2.2
+      },
+      "per100": {
+        "kcal": 127,
+        "fat": 1.9,
+        "sat": 0.6,
+        "carbs": 19,
+        "sugars": 4.1,
+        "fibre": 2.8,
+        "protein": 8.2,
+        "salt": 0.99
+      }
+    },
+    {
+      "section": "Sandwich",
+      "name": "Chicken Fajita",
+      "page": 1,
+      "weightG": 209,
+      "kj": {
+        "perPortion": 1046,
+        "per100": 501
+      },
+      "perPortion": {
+        "kcal": 250,
+        "fat": 2.6,
+        "sat": 1.2,
+        "carbs": 36,
+        "sugars": 8,
+        "fibre": 3,
+        "protein": 21,
+        "salt": 1.8
+      },
+      "per100": {
+        "kcal": 120,
+        "fat": 1.2,
+        "sat": 0.6,
+        "carbs": 17,
+        "sugars": 3.8,
+        "fibre": 1.4,
+        "protein": 9.9,
+        "salt": 0.9
+      }
+    },
+    {
+      "section": "Sandwich",
+      "name": "Rotisserie-Style Chicken/Pulled Chicken Breast",
+      "page": 1,
+      "weightG": 209,
+      "kj": {
+        "perPortion": 1089,
+        "per100": 521
+      },
+      "perPortion": {
+        "kcal": 260,
+        "fat": 4,
+        "sat": 1.2,
+        "carbs": 34,
+        "sugars": 7.1,
+        "fibre": 2.9,
+        "protein": 21,
+        "salt": 1.1
+      },
+      "per100": {
+        "kcal": 125,
+        "fat": 1.9,
+        "sat": 0.6,
+        "carbs": 17,
+        "sugars": 3.4,
+        "fibre": 1.4,
+        "protein": 10,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Sandwich",
+      "name": "Chicken Tandoori",
+      "page": 1,
+      "weightG": 199,
+      "kj": {
+        "perPortion": 1625,
+        "per100": 817
+      },
+      "perPortion": {
+        "kcal": 388,
+        "fat": 14,
+        "sat": 5.9,
+        "carbs": 39,
+        "sugars": 10,
+        "fibre": 2.8,
+        "protein": 26,
+        "salt": 2.3
+      },
+      "per100": {
+        "kcal": 195,
+        "fat": 7.2,
+        "sat": 2.9,
+        "carbs": 20,
+        "sugars": 5.2,
+        "fibre": 1.4,
+        "protein": 13,
+        "salt": 1.1
+      }
+    },
+    {
+      "section": "Sandwich",
+      "name": "Tuna",
+      "page": 1,
+      "weightG": 227,
+      "kj": {
+        "perPortion": 1397,
+        "per100": 615
+      },
+      "perPortion": {
+        "kcal": 334,
+        "fat": 12,
+        "sat": 1.8,
+        "carbs": 37,
+        "sugars": 8,
+        "fibre": 2.9,
+        "protein": 20,
+        "salt": 1.6
+      },
+      "per100": {
+        "kcal": 147,
+        "fat": 5.3,
+        "sat": 0.8,
+        "carbs": 16,
+        "sugars": 3.5,
+        "fibre": 1.3,
+        "protein": 8.9,
+        "salt": 0.7
+      }
+    },
+    {
+      "section": "Sandwich",
+      "name": "Italian B.M.T.",
+      "page": 1,
+      "weightG": 217,
+      "kj": {
+        "perPortion": 1543,
+        "per100": 711
+      },
+      "perPortion": {
+        "kcal": 369,
+        "fat": 16,
+        "sat": 6.4,
+        "carbs": 36,
+        "sugars": 7.6,
+        "fibre": 3.2,
+        "protein": 21,
+        "salt": 2.3
+      },
+      "per100": {
+        "kcal": 170,
+        "fat": 7.2,
+        "sat": 2.9,
+        "carbs": 17,
+        "sugars": 3.5,
+        "fibre": 1.5,
+        "protein": 9.6,
+        "salt": 1.1
+      }
+    },
+    {
+      "section": "Sandwich",
+      "name": "BBQ Rib",
+      "page": 1,
+      "weightG": 217,
+      "kj": {
+        "perPortion": 2049,
+        "per100": 944
+      },
+      "perPortion": {
+        "kcal": 474,
+        "fat": 26,
+        "sat": 11,
+        "carbs": 38,
+        "sugars": 7.8,
+        "fibre": 3.9,
+        "protein": 23,
+        "salt": 2.4
+      },
+      "per100": {
+        "kcal": 219,
+        "fat": 12,
+        "sat": 4.9,
+        "carbs": 17,
+        "sugars": 3.6,
+        "fibre": 1.8,
+        "protein": 10,
+        "salt": 1.1
+      }
+    },
+    {
+      "section": "Sandwich",
+      "name": "Nacho Chicken",
+      "page": 1,
+      "weightG": 233,
+      "kj": {
+        "perPortion": 1702,
+        "per100": 730
+      },
+      "perPortion": {
+        "kcal": 415,
+        "fat": 17,
+        "sat": 4.3,
+        "carbs": 47,
+        "sugars": 8.4,
+        "fibre": 3.6,
+        "protein": 19,
+        "salt": 1.9
+      },
+      "per100": {
+        "kcal": 178,
+        "fat": 7.2,
+        "sat": 1.9,
+        "carbs": 20,
+        "sugars": 3.6,
+        "fibre": 1.6,
+        "protein": 8.1,
+        "salt": 0.8
+      }
+    },
+    {
+      "section": "Sandwich",
+      "name": "Philly Beef & Cheese",
+      "page": 1,
+      "weightG": 221,
+      "kj": {
+        "perPortion": 1277,
+        "per100": 578
+      },
+      "perPortion": {
+        "kcal": 304,
+        "fat": 7.2,
+        "sat": 3.8,
+        "carbs": 39,
+        "sugars": 9.7,
+        "fibre": 3.3,
+        "protein": 20,
+        "salt": 1.7
+      },
+      "per100": {
+        "kcal": 138,
+        "fat": 3.3,
+        "sat": 1.7,
+        "carbs": 18,
+        "sugars": 4.4,
+        "fibre": 1.5,
+        "protein": 9.2,
+        "salt": 0.8
+      }
+    },
+    {
+      "section": "Sandwich",
+      "name": "Beef Chili",
+      "page": 1,
+      "weightG": 241,
+      "kj": {
+        "perPortion": 1524,
+        "per100": 632
+      },
+      "perPortion": {
+        "kcal": 354,
+        "fat": 8,
+        "sat": 3,
+        "carbs": 48,
+        "sugars": 8.6,
+        "fibre": 4.6,
+        "protein": 22,
+        "salt": 2.2
+      },
+      "per100": {
+        "kcal": 147,
+        "fat": 3.3,
+        "sat": 1.2,
+        "carbs": 20,
+        "sugars": 3.6,
+        "fibre": 1.9,
+        "protein": 9.1,
+        "salt": 0.9
+      }
+    },
+    {
+      "section": "Sandwich",
+      "name": "BBQ Pulled Pork",
+      "page": 1,
+      "weightG": 183,
+      "kj": {
+        "perPortion": 1497,
+        "per100": 818
+      },
+      "perPortion": {
+        "kcal": 347,
+        "fat": 7.6,
+        "sat": 3.2,
+        "carbs": 42,
+        "sugars": 8.3,
+        "fibre": 2.8,
+        "protein": 25,
+        "salt": 1.6
+      },
+      "per100": {
+        "kcal": 190,
+        "fat": 4.2,
+        "sat": 1.7,
+        "carbs": 23,
+        "sugars": 4.5,
+        "fibre": 1.5,
+        "protein": 13.7,
+        "salt": 0.9
+      }
+    },
+    {
+      "section": "Sandwich",
+      "name": "Salami",
+      "page": 1,
+      "weightG": 169,
+      "kj": {
+        "perPortion": 1061,
+        "per100": 628
+      },
+      "perPortion": {
+        "kcal": 254,
+        "fat": 7.6,
+        "sat": 3.3,
+        "carbs": 35,
+        "sugars": 7.1,
+        "fibre": 2.9,
+        "protein": 12,
+        "salt": 1.2
+      },
+      "per100": {
+        "kcal": 150,
+        "fat": 4.5,
+        "sat": 1.9,
+        "carbs": 21,
+        "sugars": 4.2,
+        "fibre": 1.7,
+        "protein": 6.9,
+        "salt": 0.7
+      }
+    },
+    {
+      "section": "Sandwich",
+      "name": "Ham",
+      "page": 1,
+      "weightG": 195,
+      "kj": {
+        "perPortion": 1005,
+        "per100": 515
+      },
+      "perPortion": {
+        "kcal": 240,
+        "fat": 3.6,
+        "sat": 1.4,
+        "carbs": 35,
+        "sugars": 7.6,
+        "fibre": 3.3,
+        "protein": 17,
+        "salt": 1.2
+      },
+      "per100": {
+        "kcal": 123,
+        "fat": 1.9,
+        "sat": 0.7,
+        "carbs": 18,
+        "sugars": 3.9,
+        "fibre": 1.7,
+        "protein": 8.6,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Sandwich",
+      "name": "Spicy Vegan Patty",
+      "page": 1,
+      "weightG": 238,
+      "kj": {
+        "perPortion": 1473,
+        "per100": 619
+      },
+      "perPortion": {
+        "kcal": 301,
+        "fat": 9.6,
+        "sat": 1.9,
+        "carbs": 44,
+        "sugars": 9.2,
+        "fibre": 6.5,
+        "protein": 21,
+        "salt": 1.7
+      },
+      "per100": {
+        "kcal": 127,
+        "fat": 4,
+        "sat": 0.8,
+        "carbs": 18,
+        "sugars": 3.9,
+        "fibre": 2.7,
+        "protein": 8.8,
+        "salt": 0.7
+      }
+    },
+    {
+      "section": "Sandwich",
+      "name": "Veggie Delite",
+      "page": 1,
+      "weightG": 165,
+      "kj": {
+        "perPortion": 968,
+        "per100": 586
+      },
+      "perPortion": {
+        "kcal": 231,
+        "fat": 5.5,
+        "sat": 3.1,
+        "carbs": 35,
+        "sugars": 7.4,
+        "fibre": 2.9,
+        "protein": 11,
+        "salt": 0.9
+      },
+      "per100": {
+        "kcal": 140,
+        "fat": 3.3,
+        "sat": 1.9,
+        "carbs": 21,
+        "sugars": 4.5,
+        "fibre": 1.8,
+        "protein": 6.6,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Wraps",
+      "name": "Chicken Teriyaki",
+      "page": 1,
+      "weightG": 250,
+      "kj": {
+        "perPortion": 1555,
+        "per100": 622
+      },
+      "perPortion": {
+        "kcal": 372,
+        "fat": 7.1,
+        "sat": 1.2,
+        "carbs": 54,
+        "sugars": 7.5,
+        "fibre": 5,
+        "protein": 20,
+        "salt": 1.9
+      },
+      "per100": {
+        "kcal": 149,
+        "fat": 2.8,
+        "sat": 0.5,
+        "carbs": 22,
+        "sugars": 3,
+        "fibre": 2,
+        "protein": 8.1,
+        "salt": 0.8
+      }
+    },
+    {
+      "section": "Wraps",
+      "name": "Plant-based Chicken Teriyaki",
+      "page": 1,
+      "weightG": 250,
+      "kj": {
+        "perPortion": 1633,
+        "per100": 653
+      },
+      "perPortion": {
+        "kcal": 391,
+        "fat": 8.1,
+        "sat": 1.3,
+        "carbs": 58,
+        "sugars": 6.9,
+        "fibre": 8.4,
+        "protein": 17,
+        "salt": 2.8
+      },
+      "per100": {
+        "kcal": 156,
+        "fat": 3.2,
+        "sat": 0.5,
+        "carbs": 23,
+        "sugars": 2.8,
+        "fibre": 3.3,
+        "protein": 6.9,
+        "salt": 1.1
+      }
+    },
+    {
+      "section": "Wraps",
+      "name": "Chicken Fajita",
+      "page": 1,
+      "weightG": 232,
+      "kj": {
+        "perPortion": 1471,
+        "per100": 634
+      },
+      "perPortion": {
+        "kcal": 352,
+        "fat": 6.4,
+        "sat": 1,
+        "carbs": 52,
+        "sugars": 5.5,
+        "fibre": 5,
+        "protein": 20,
+        "salt": 2.4
+      },
+      "per100": {
+        "kcal": 152,
+        "fat": 2.8,
+        "sat": 0.4,
+        "carbs": 22,
+        "sugars": 2.4,
+        "fibre": 2.1,
+        "protein": 8.4,
+        "salt": 1
+      }
+    },
+    {
+      "section": "Wraps",
+      "name": "Rotisserie-Style Chicken/Pulled Chicken Breast",
+      "page": 1,
+      "weightG": 232,
+      "kj": {
+        "perPortion": 1514,
+        "per100": 653
+      },
+      "perPortion": {
+        "kcal": 362,
+        "fat": 7.8,
+        "sat": 1.1,
+        "carbs": 50,
+        "sugars": 4.6,
+        "fibre": 4.9,
+        "protein": 20,
+        "salt": 1.7
+      },
+      "per100": {
+        "kcal": 156,
+        "fat": 3.3,
+        "sat": 0.5,
+        "carbs": 22,
+        "sugars": 2,
+        "fibre": 2.1,
+        "protein": 8.5,
+        "salt": 0.7
+      }
+    },
+    {
+      "section": "Wraps",
+      "name": "Chicken Tandoori",
+      "page": 1,
+      "weightG": 258,
+      "kj": {
+        "perPortion": 1974,
+        "per100": 765
+      },
+      "perPortion": {
+        "kcal": 472,
+        "fat": 17,
+        "sat": 3.7,
+        "carbs": 55,
+        "sugars": 7.3,
+        "fibre": 5.2,
+        "protein": 23,
+        "salt": 2.6
+      },
+      "per100": {
+        "kcal": 183,
+        "fat": 6.7,
+        "sat": 1.4,
+        "carbs": 21,
+        "sugars": 2.8,
+        "fibre": 2,
+        "protein": 8.8,
+        "salt": 1
+      }
+    },
+    {
+      "section": "Wraps",
+      "name": "Tuna",
+      "page": 1,
+      "weightG": 250,
+      "kj": {
+        "perPortion": 1822,
+        "per100": 729
+      },
+      "perPortion": {
+        "kcal": 436,
+        "fat": 16,
+        "sat": 1.6,
+        "carbs": 53,
+        "sugars": 5.5,
+        "fibre": 4.9,
+        "protein": 19,
+        "salt": 2.1
+      },
+      "per100": {
+        "kcal": 174,
+        "fat": 6.3,
+        "sat": 0.7,
+        "carbs": 21,
+        "sugars": 2.2,
+        "fibre": 1.9,
+        "protein": 7.6,
+        "salt": 0.9
+      }
+    },
+    {
+      "section": "Wraps",
+      "name": "Italian B.M.T.",
+      "page": 1,
+      "weightG": 236,
+      "kj": {
+        "perPortion": 1900,
+        "per100": 805
+      },
+      "perPortion": {
+        "kcal": 454,
+        "fat": 18,
+        "sat": 5.6,
+        "carbs": 52,
+        "sugars": 5.1,
+        "fibre": 5.2,
+        "protein": 19,
+        "salt": 2.7
+      },
+      "per100": {
+        "kcal": 192,
+        "fat": 7.7,
+        "sat": 2.4,
+        "carbs": 22,
+        "sugars": 2.2,
+        "fibre": 2.2,
+        "protein": 8,
+        "salt": 1.2
+      }
+    },
+    {
+      "section": "Wraps",
+      "name": "BBQ Rib",
+      "page": 1,
+      "weightG": 240,
+      "kj": {
+        "perPortion": 2474,
+        "per100": 1031
+      },
+      "perPortion": {
+        "kcal": 576,
+        "fat": 30,
+        "sat": 10,
+        "carbs": 53,
+        "sugars": 5.3,
+        "fibre": 5.9,
+        "protein": 21,
+        "salt": 3
+      },
+      "per100": {
+        "kcal": 240,
+        "fat": 12,
+        "sat": 4.4,
+        "carbs": 22,
+        "sugars": 2.2,
+        "fibre": 2.4,
+        "protein": 8.9,
+        "salt": 1.2
+      }
+    },
+    {
+      "section": "Wraps",
+      "name": "Nacho Chicken",
+      "page": 1,
+      "weightG": 256,
+      "kj": {
+        "perPortion": 2183,
+        "per100": 853
+      },
+      "perPortion": {
+        "kcal": 530,
+        "fat": 22,
+        "sat": 4.3,
+        "carbs": 62,
+        "sugars": 6.2,
+        "fibre": 5.7,
+        "protein": 18,
+        "salt": 2.5
+      },
+      "per100": {
+        "kcal": 207,
+        "fat": 8.6,
+        "sat": 1.7,
+        "carbs": 24,
+        "sugars": 2.4,
+        "fibre": 2.2,
+        "protein": 6.9,
+        "salt": 1
+      }
+    },
+    {
+      "section": "Wraps",
+      "name": "Philly Beef & Cheese",
+      "page": 1,
+      "weightG": 244,
+      "kj": {
+        "perPortion": 1702,
+        "per100": 697
+      },
+      "perPortion": {
+        "kcal": 406,
+        "fat": 11,
+        "sat": 3.7,
+        "carbs": 55,
+        "sugars": 7.2,
+        "fibre": 5.3,
+        "protein": 19,
+        "salt": 2.2
+      },
+      "per100": {
+        "kcal": 166,
+        "fat": 4.5,
+        "sat": 1.5,
+        "carbs": 23,
+        "sugars": 3,
+        "fibre": 2.2,
+        "protein": 7.9,
+        "salt": 0.9
+      }
+    },
+    {
+      "section": "Wraps",
+      "name": "Beef Chili",
+      "page": 1,
+      "weightG": 266,
+      "kj": {
+        "perPortion": 1839,
+        "per100": 691
+      },
+      "perPortion": {
+        "kcal": 439,
+        "fat": 12,
+        "sat": 3.7,
+        "carbs": 60,
+        "sugars": 7,
+        "fibre": 6.4,
+        "protein": 21,
+        "salt": 2.8
+      },
+      "per100": {
+        "kcal": 165,
+        "fat": 4.5,
+        "sat": 1.4,
+        "carbs": 23,
+        "sugars": 2.6,
+        "fibre": 2.4,
+        "protein": 7.9,
+        "salt": 1.1
+      }
+    },
+    {
+      "section": "Wraps",
+      "name": "Salami",
+      "page": 1,
+      "weightG": 192,
+      "kj": {
+        "perPortion": 1486,
+        "per100": 774
+      },
+      "perPortion": {
+        "kcal": 355,
+        "fat": 11,
+        "sat": 3.1,
+        "carbs": 50,
+        "sugars": 4.6,
+        "fibre": 4.9,
+        "protein": 11,
+        "salt": 1.8
+      },
+      "per100": {
+        "kcal": 185,
+        "fat": 5.9,
+        "sat": 1.6,
+        "carbs": 26,
+        "sugars": 2.4,
+        "fibre": 2.5,
+        "protein": 5.5,
+        "salt": 0.9
+      }
+    },
+    {
+      "section": "Wraps",
+      "name": "Ham",
+      "page": 1,
+      "weightG": 218,
+      "kj": {
+        "perPortion": 1430,
+        "per100": 656
+      },
+      "perPortion": {
+        "kcal": 342,
+        "fat": 7.4,
+        "sat": 1.3,
+        "carbs": 51,
+        "sugars": 5.1,
+        "fibre": 5.3,
+        "protein": 16,
+        "salt": 1.7
+      },
+      "per100": {
+        "kcal": 157,
+        "fat": 3.4,
+        "sat": 0.6,
+        "carbs": 23,
+        "sugars": 2.3,
+        "fibre": 2.4,
+        "protein": 7.1,
+        "salt": 0.8
+      }
+    },
+    {
+      "section": "Wraps",
+      "name": "Spicy Vegan Patty",
+      "page": 1,
+      "weightG": 261,
+      "kj": {
+        "perPortion": 1898,
+        "per100": 727
+      },
+      "perPortion": {
+        "kcal": 403,
+        "fat": 13,
+        "sat": 1.7,
+        "carbs": 60,
+        "sugars": 6.7,
+        "fibre": 8.4,
+        "protein": 20,
+        "salt": 2.2
+      },
+      "per100": {
+        "kcal": 154,
+        "fat": 5.1,
+        "sat": 0.7,
+        "carbs": 23,
+        "sugars": 2.6,
+        "fibre": 3.2,
+        "protein": 7.6,
+        "salt": 0.9
+      }
+    },
+    {
+      "section": "Wraps",
+      "name": "Veggie Delite",
+      "page": 1,
+      "weightG": 188,
+      "kj": {
+        "perPortion": 1393,
+        "per100": 741
+      },
+      "perPortion": {
+        "kcal": 333,
+        "fat": 9.3,
+        "sat": 3,
+        "carbs": 51,
+        "sugars": 4.9,
+        "fibre": 4.9,
+        "protein": 9.7,
+        "salt": 1.5
+      },
+      "per100": {
+        "kcal": 177,
+        "fat": 4.9,
+        "sat": 1.6,
+        "carbs": 27,
+        "sugars": 2.6,
+        "fibre": 2.6,
+        "protein": 5.2,
+        "salt": 0.8
+      }
+    },
+    {
+      "section": "Salads",
+      "name": "Chicken Teriyaki",
+      "page": 1,
+      "weightG": 293,
+      "kj": {
+        "perPortion": 498,
+        "per100": 170
+      },
+      "perPortion": {
+        "kcal": 118,
+        "fat": 1.6,
+        "sat": 0.5,
+        "carbs": 10,
+        "sugars": 7.7,
+        "fibre": 2.9,
+        "protein": 15,
+        "salt": 0.73
+      },
+      "per100": {
+        "kcal": 40,
+        "fat": 0.5,
+        "sat": 0.2,
+        "carbs": 3.4,
+        "sugars": 2.6,
+        "fibre": 1,
+        "protein": 5.2,
+        "salt": 0.3
+      }
+    },
+    {
+      "section": "Salads",
+      "name": "Plant-based Chicken Teriyaki",
+      "page": 1,
+      "weightG": 293,
+      "kj": {
+        "perPortion": 577,
+        "per100": 197
+      },
+      "perPortion": {
+        "kcal": 137,
+        "fat": 2.6,
+        "sat": 0.6,
+        "carbs": 14,
+        "sugars": 7.1,
+        "fibre": 6.3,
+        "protein": 12,
+        "salt": 1.6
+      },
+      "per100": {
+        "kcal": 47,
+        "fat": 0.9,
+        "sat": 0.2,
+        "carbs": 4.8,
+        "sugars": 2.4,
+        "fibre": 2.2,
+        "protein": 4.1,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Salads",
+      "name": "Chicken Fajita",
+      "page": 1,
+      "weightG": 275,
+      "kj": {
+        "perPortion": 414,
+        "per100": 151
+      },
+      "perPortion": {
+        "kcal": 98,
+        "fat": 0.9,
+        "sat": 0.3,
+        "carbs": 7.9,
+        "sugars": 5.7,
+        "fibre": 2.9,
+        "protein": 14,
+        "salt": 1.2
+      },
+      "per100": {
+        "kcal": 36,
+        "fat": 0.3,
+        "sat": 0.1,
+        "carbs": 2.9,
+        "sugars": 2.1,
+        "fibre": 1.1,
+        "protein": 5.2,
+        "salt": 0.4
+      }
+    },
+    {
+      "section": "Salads",
+      "name": "Rotisserie-Style Chicken/Pulled Chicken Breast",
+      "page": 1,
+      "weightG": 290,
+      "kj": {
+        "perPortion": 466,
+        "per100": 161
+      },
+      "perPortion": {
+        "kcal": 109,
+        "fat": 2.2,
+        "sat": 0.4,
+        "carbs": 6.4,
+        "sugars": 5,
+        "fibre": 3,
+        "protein": 15,
+        "salt": 0.5
+      },
+      "per100": {
+        "kcal": 38,
+        "fat": 0.8,
+        "sat": 0.1,
+        "carbs": 2.2,
+        "sugars": 1.7,
+        "fibre": 1,
+        "protein": 5,
+        "salt": 0.2
+      }
+    },
+    {
+      "section": "Salads",
+      "name": "Chicken Tandoori",
+      "page": 1,
+      "weightG": 315,
+      "kj": {
+        "perPortion": 1197,
+        "per100": 380
+      },
+      "perPortion": {
+        "kcal": 285,
+        "fat": 19,
+        "sat": 3.5,
+        "carbs": 12,
+        "sugars": 8,
+        "fibre": 3.2,
+        "protein": 18,
+        "salt": 1.6
+      },
+      "per100": {
+        "kcal": 90,
+        "fat": 5.9,
+        "sat": 1.1,
+        "carbs": 3.7,
+        "sugars": 2.5,
+        "fibre": 1,
+        "protein": 5.6,
+        "salt": 0.5
+      }
+    },
+    {
+      "section": "Salads",
+      "name": "Tuna",
+      "page": 1,
+      "weightG": 293,
+      "kj": {
+        "perPortion": 765,
+        "per100": 261
+      },
+      "perPortion": {
+        "kcal": 182,
+        "fat": 10,
+        "sat": 1,
+        "carbs": 8.5,
+        "sugars": 5.7,
+        "fibre": 2.8,
+        "protein": 14,
+        "salt": 1
+      },
+      "per100": {
+        "kcal": 62,
+        "fat": 3.5,
+        "sat": 0.3,
+        "carbs": 2.9,
+        "sugars": 2,
+        "fibre": 1,
+        "protein": 4.7,
+        "salt": 0.3
+      }
+    },
+    {
+      "section": "Salads",
+      "name": "Italian B.M.T.",
+      "page": 1,
+      "weightG": 279,
+      "kj": {
+        "perPortion": 843,
+        "per100": 302
+      },
+      "perPortion": {
+        "kcal": 200,
+        "fat": 13,
+        "sat": 5,
+        "carbs": 7.5,
+        "sugars": 5.3,
+        "fibre": 3.1,
+        "protein": 14,
+        "salt": 1.6
+      },
+      "per100": {
+        "kcal": 72,
+        "fat": 4.5,
+        "sat": 1.8,
+        "carbs": 2.7,
+        "sugars": 1.9,
+        "fibre": 1.1,
+        "protein": 4.9,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Salads",
+      "name": "BBQ Rib",
+      "page": 1,
+      "weightG": 234,
+      "kj": {
+        "perPortion": 1208,
+        "per100": 516
+      },
+      "perPortion": {
+        "kcal": 271,
+        "fat": 20,
+        "sat": 7.7,
+        "carbs": 7.2,
+        "sugars": 4.1,
+        "fibre": 3.4,
+        "protein": 14,
+        "salt": 1.5
+      },
+      "per100": {
+        "kcal": 116,
+        "fat": 8.8,
+        "sat": 3.3,
+        "carbs": 3.1,
+        "sugars": 1.8,
+        "fibre": 1.5,
+        "protein": 5.8,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Salads",
+      "name": "Nacho Chicken",
+      "page": 1,
+      "weightG": 313,
+      "kj": {
+        "perPortion": 1384,
+        "per100": 442
+      },
+      "perPortion": {
+        "kcal": 337,
+        "fat": 23,
+        "sat": 4.1,
+        "carbs": 20,
+        "sugars": 7.2,
+        "fibre": 3.7,
+        "protein": 13,
+        "salt": 1.5
+      },
+      "per100": {
+        "kcal": 108,
+        "fat": 7.3,
+        "sat": 1.3,
+        "carbs": 6.2,
+        "sugars": 2.3,
+        "fibre": 1.2,
+        "protein": 4,
+        "salt": 0.5
+      }
+    },
+    {
+      "section": "Salads",
+      "name": "Philly Beef & Cheese",
+      "page": 1,
+      "weightG": 287,
+      "kj": {
+        "perPortion": 645,
+        "per100": 225
+      },
+      "perPortion": {
+        "kcal": 152,
+        "fat": 5.4,
+        "sat": 3,
+        "carbs": 11,
+        "sugars": 7.4,
+        "fibre": 3.2,
+        "protein": 14,
+        "salt": 1.1
+      },
+      "per100": {
+        "kcal": 53,
+        "fat": 1.9,
+        "sat": 1,
+        "carbs": 3.9,
+        "sugars": 2.6,
+        "fibre": 1.1,
+        "protein": 4.9,
+        "salt": 0.4
+      }
+    },
+    {
+      "section": "Salads",
+      "name": "Beef Chili",
+      "page": 1,
+      "weightG": 249,
+      "kj": {
+        "perPortion": 738,
+        "per100": 296
+      },
+      "perPortion": {
+        "kcal": 175,
+        "fat": 6,
+        "sat": 3,
+        "carbs": 14,
+        "sugars": 5.8,
+        "fibre": 36,
+        "protein": 16,
+        "salt": 1.6
+      },
+      "per100": {
+        "kcal": 70,
+        "fat": 2.4,
+        "sat": 1.2,
+        "carbs": 5.6,
+        "sugars": 2.3,
+        "fibre": 14,
+        "protein": 6.4,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Salads",
+      "name": "Salami",
+      "page": 1,
+      "weightG": 235,
+      "kj": {
+        "perPortion": 430,
+        "per100": 183
+      },
+      "perPortion": {
+        "kcal": 101,
+        "fat": 5.9,
+        "sat": 2.4,
+        "carbs": 6.4,
+        "sugars": 4.8,
+        "fibre": 2.8,
+        "protein": 5.3,
+        "salt": 0.6
+      },
+      "per100": {
+        "kcal": 43,
+        "fat": 2.5,
+        "sat": 1,
+        "carbs": 2.7,
+        "sugars": 2,
+        "fibre": 1.2,
+        "protein": 2.3,
+        "salt": 0.3
+      }
+    },
+    {
+      "section": "Salads",
+      "name": "Ham",
+      "page": 1,
+      "weightG": 261,
+      "kj": {
+        "perPortion": 373,
+        "per100": 143
+      },
+      "perPortion": {
+        "kcal": 88,
+        "fat": 1.9,
+        "sat": 0.6,
+        "carbs": 7.1,
+        "sugars": 5.3,
+        "fibre": 3.2,
+        "protein": 10,
+        "salt": 0.6
+      },
+      "per100": {
+        "kcal": 34,
+        "fat": 0.7,
+        "sat": 0.2,
+        "carbs": 2.7,
+        "sugars": 2,
+        "fibre": 1.2,
+        "protein": 3.9,
+        "salt": 0.2
+      }
+    },
+    {
+      "section": "Salads",
+      "name": "Spicy Vegan Patty",
+      "page": 1,
+      "weightG": 304,
+      "kj": {
+        "perPortion": 841,
+        "per100": 277
+      },
+      "perPortion": {
+        "kcal": 149,
+        "fat": 7.8,
+        "sat": 1.1,
+        "carbs": 16,
+        "sugars": 6.9,
+        "fibre": 6.4,
+        "protein": 15,
+        "salt": 1.1
+      },
+      "per100": {
+        "kcal": 49,
+        "fat": 2.6,
+        "sat": 0.3,
+        "carbs": 5.1,
+        "sugars": 2.3,
+        "fibre": 2.1,
+        "protein": 4.8,
+        "salt": 0.4
+      }
+    },
+    {
+      "section": "Salads",
+      "name": "Veggie Delite",
+      "page": 1,
+      "weightG": 231,
+      "kj": {
+        "perPortion": 336,
+        "per100": 145
+      },
+      "perPortion": {
+        "kcal": 79,
+        "fat": 3.8,
+        "sat": 2.3,
+        "carbs": 6.5,
+        "sugars": 5.1,
+        "fibre": 2.8,
+        "protein": 4.5,
+        "salt": 0.3
+      },
+      "per100": {
+        "kcal": 34,
+        "fat": 1.6,
+        "sat": 1,
+        "carbs": 2.8,
+        "sugars": 2.2,
+        "fibre": 1.2,
+        "protein": 1.9,
+        "salt": 0.1
+      }
+    },
+    {
+      "section": "\"Unsere Kreationen\" Subs",
+      "name": "The BBQ Master",
+      "page": 1,
+      "weightG": 297,
+      "kj": {
+        "perPortion": 2646,
+        "per100": 891
+      },
+      "perPortion": {
+        "kcal": 622,
+        "fat": 32,
+        "sat": 13,
+        "carbs": 56,
+        "sugars": 22,
+        "fibre": 5.3,
+        "protein": 26,
+        "salt": 4.4
+      },
+      "per100": {
+        "kcal": 209,
+        "fat": 11,
+        "sat": 4.4,
+        "carbs": 19,
+        "sugars": 7.3,
+        "fibre": 1.8,
+        "protein": 8.6,
+        "salt": 1.5
+      }
+    },
+    {
+      "section": "\"Unsere Kreationen\" Subs",
+      "name": "Furious Chicken",
+      "page": 1,
+      "weightG": 270,
+      "kj": {
+        "perPortion": 2231,
+        "per100": 826
+      },
+      "perPortion": {
+        "kcal": 522,
+        "fat": 23,
+        "sat": 5.7,
+        "carbs": 50,
+        "sugars": 7,
+        "fibre": 5.4,
+        "protein": 27,
+        "salt": 3
+      },
+      "per100": {
+        "kcal": 194,
+        "fat": 8.4,
+        "sat": 2.1,
+        "carbs": 19,
+        "sugars": 2.6,
+        "fibre": 2,
+        "protein": 9.9,
+        "salt": 1.1
+      }
+    },
+    {
+      "section": "\"Unsere Kreationen\" Subs",
+      "name": "Fiesta Fajita",
+      "page": 1,
+      "weightG": 255,
+      "kj": {
+        "perPortion": 2218,
+        "per100": 870
+      },
+      "perPortion": {
+        "kcal": 506,
+        "fat": 25,
+        "sat": 5.7,
+        "carbs": 51,
+        "sugars": 8.5,
+        "fibre": 4.9,
+        "protein": 27,
+        "salt": 3.4
+      },
+      "per100": {
+        "kcal": 198,
+        "fat": 9.9,
+        "sat": 2.2,
+        "carbs": 20,
+        "sugars": 3.3,
+        "fibre": 1.9,
+        "protein": 11,
+        "salt": 1.3
+      }
+    },
+    {
+      "section": "\"Unsere Kreationen\" Subs",
+      "name": "Tasty Tandoori",
+      "page": 1,
+      "weightG": 199,
+      "kj": {
+        "perPortion": 1625,
+        "per100": 817
+      },
+      "perPortion": {
+        "kcal": 388,
+        "fat": 14,
+        "sat": 5.9,
+        "carbs": 39,
+        "sugars": 10,
+        "fibre": 2.8,
+        "protein": 26,
+        "salt": 2.3
+      },
+      "per100": {
+        "kcal": 195,
+        "fat": 7.2,
+        "sat": 2.9,
+        "carbs": 20,
+        "sugars": 5.2,
+        "fibre": 1.4,
+        "protein": 13,
+        "salt": 1.1
+      }
+    },
+    {
+      "section": "\"Unsere Kreationen\" Subs",
+      "name": "Beef Texicana",
+      "page": 1,
+      "weightG": 248,
+      "kj": {
+        "perPortion": 1882,
+        "per100": 759
+      },
+      "perPortion": {
+        "kcal": 449,
+        "fat": 20,
+        "sat": 9.4,
+        "carbs": 42,
+        "sugars": 11,
+        "fibre": 3.4,
+        "protein": 27,
+        "salt": 2.7
+      },
+      "per100": {
+        "kcal": 181,
+        "fat": 7.9,
+        "sat": 3.8,
+        "carbs": 17,
+        "sugars": 4.6,
+        "fibre": 1.4,
+        "protein": 11,
+        "salt": 1.1
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Beef Chili Baked Potato",
+      "page": 1,
+      "weightG": 485,
+      "kj": {
+        "perPortion": 2269,
+        "per100": 468
+      },
+      "perPortion": {
+        "kcal": 538,
+        "fat": 19,
+        "sat": 10,
+        "carbs": 63,
+        "sugars": 5.8,
+        "fibre": 10,
+        "protein": 27,
+        "salt": 2.9
+      },
+      "per100": {
+        "kcal": 111,
+        "fat": 3.9,
+        "sat": 2,
+        "carbs": 13,
+        "sugars": 1.2,
+        "fibre": 2.1,
+        "protein": 5.6,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Chicken Fajita Baked Potato",
+      "page": 1,
+      "weightG": 394,
+      "kj": {
+        "perPortion": 2299,
+        "per100": 584
+      },
+      "perPortion": {
+        "kcal": 547,
+        "fat": 24,
+        "sat": 11,
+        "carbs": 54,
+        "sugars": 4.6,
+        "fibre": 7.6,
+        "protein": 27,
+        "salt": 1.8
+      },
+      "per100": {
+        "kcal": 139,
+        "fat": 6.1,
+        "sat": 2.8,
+        "carbs": 14,
+        "sugars": 1.2,
+        "fibre": 1.9,
+        "protein": 6.9,
+        "salt": 0.5
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Nacho Chicken Baked Potato",
+      "page": 1,
+      "weightG": 392,
+      "kj": {
+        "perPortion": 2531,
+        "per100": 646
+      },
+      "perPortion": {
+        "kcal": 610,
+        "fat": 29,
+        "sat": 11,
+        "carbs": 62,
+        "sugars": 3.1,
+        "fibre": 8.3,
+        "protein": 23,
+        "salt": 1.4
+      },
+      "per100": {
+        "kcal": 156,
+        "fat": 7.4,
+        "sat": 2.8,
+        "carbs": 16,
+        "sugars": 0.8,
+        "fibre": 2.1,
+        "protein": 5.9,
+        "salt": 0.4
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Chicken Teriyaki Baked Potato",
+      "page": 1,
+      "weightG": 412,
+      "kj": {
+        "perPortion": 2425,
+        "per100": 589
+      },
+      "perPortion": {
+        "kcal": 577,
+        "fat": 24,
+        "sat": 11,
+        "carbs": 56,
+        "sugars": 6,
+        "fibre": 7.6,
+        "protein": 32,
+        "salt": 1.6
+      },
+      "per100": {
+        "kcal": 140,
+        "fat": 5.8,
+        "sat": 2.7,
+        "carbs": 14,
+        "sugars": 1.5,
+        "fibre": 1.8,
+        "protein": 7.8,
+        "salt": 0.4
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Dölicious Chicken",
+      "page": 1,
+      "weightG": 450,
+      "kj": {
+        "perPortion": 2528,
+        "per100": 562
+      },
+      "perPortion": {
+        "kcal": 634,
+        "fat": 30,
+        "sat": 13,
+        "carbs": 59,
+        "sugars": 4.4,
+        "fibre": 9.1,
+        "protein": 34,
+        "salt": 2.6
+      },
+      "per100": {
+        "kcal": 141,
+        "fat": 6.7,
+        "sat": 2.9,
+        "carbs": 13,
+        "sugars": 1,
+        "fibre": 2,
+        "protein": 7.6,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Rotisserie Style Chicken/Pulled Chicken Breast Baked Potato",
+      "page": 1,
+      "weightG": 394,
+      "kj": {
+        "perPortion": 2297,
+        "per100": 583
+      },
+      "perPortion": {
+        "kcal": 546,
+        "fat": 25,
+        "sat": 11,
+        "carbs": 52,
+        "sugars": 2.7,
+        "fibre": 7.5,
+        "protein": 27,
+        "salt": 1.2
+      },
+      "per100": {
+        "kcal": 139,
+        "fat": 6.3,
+        "sat": 2.8,
+        "carbs": 13,
+        "sugars": 0.7,
+        "fibre": 1.9,
+        "protein": 6.9,
+        "salt": 0.3
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Chicken Tandoori Baked Potato",
+      "page": 1,
+      "weightG": 394,
+      "kj": {
+        "perPortion": 2300,
+        "per100": 584
+      },
+      "perPortion": {
+        "kcal": 547,
+        "fat": 24,
+        "sat": 11,
+        "carbs": 55,
+        "sugars": 4.5,
+        "fibre": 7.8,
+        "protein": 28,
+        "salt": 1.6
+      },
+      "per100": {
+        "kcal": 139,
+        "fat": 6.1,
+        "sat": 2.8,
+        "carbs": 14,
+        "sugars": 1.1,
+        "fibre": 2,
+        "protein": 7.1,
+        "salt": 0.4
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Falafel Baked Potato",
+      "page": 1,
+      "weightG": 383,
+      "kj": {
+        "perPortion": 2471,
+        "per100": 645
+      },
+      "perPortion": {
+        "kcal": 588,
+        "fat": 29,
+        "sat": 11,
+        "carbs": 65,
+        "sugars": 3.3,
+        "fibre": 13,
+        "protein": 18,
+        "salt": 1.3
+      },
+      "per100": {
+        "kcal": 154,
+        "fat": 7.6,
+        "sat": 2.9,
+        "carbs": 17,
+        "sugars": 0.9,
+        "fibre": 3.4,
+        "protein": 4.7,
+        "salt": 0.3
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "BBQ Rib Baked Potato",
+      "page": 1,
+      "weightG": 445,
+      "kj": {
+        "perPortion": 3175,
+        "per100": 713
+      },
+      "perPortion": {
+        "kcal": 756,
+        "fat": 41,
+        "sat": 18,
+        "carbs": 66,
+        "sugars": 26,
+        "fibre": 8.6,
+        "protein": 16,
+        "salt": 1.8
+      },
+      "per100": {
+        "kcal": 170,
+        "fat": 9.2,
+        "sat": 4,
+        "carbs": 15,
+        "sugars": 5.8,
+        "fibre": 1.9,
+        "protein": 3.6,
+        "salt": 0.4
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Philly Beef & Cheese Baked Potato",
+      "page": 1,
+      "weightG": 394,
+      "kj": {
+        "perPortion": 2308,
+        "per100": 586
+      },
+      "perPortion": {
+        "kcal": 547,
+        "fat": 24,
+        "sat": 11,
+        "carbs": 56,
+        "sugars": 4.9,
+        "fibre": 7.9,
+        "protein": 25,
+        "salt": 1.4
+      },
+      "per100": {
+        "kcal": 139,
+        "fat": 6.1,
+        "sat": 2.8,
+        "carbs": 14,
+        "sugars": 1.2,
+        "fibre": 2,
+        "protein": 6.3,
+        "salt": 0.4
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Tuna Baked Potato",
+      "page": 1,
+      "weightG": 412,
+      "kj": {
+        "perPortion": 2605,
+        "per100": 632
+      },
+      "perPortion": {
+        "kcal": 620,
+        "fat": 33,
+        "sat": 11,
+        "carbs": 54,
+        "sugars": 3.6,
+        "fibre": 7.5,
+        "protein": 27,
+        "salt": 1.6
+      },
+      "per100": {
+        "kcal": 150,
+        "fat": 8,
+        "sat": 2.7,
+        "carbs": 13,
+        "sugars": 0.9,
+        "fibre": 1.8,
+        "protein": 6.6,
+        "salt": 0.4
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Salami Baked Potato",
+      "page": 1,
+      "weightG": 356,
+      "kj": {
+        "perPortion": 2303,
+        "per100": 647
+      },
+      "perPortion": {
+        "kcal": 547,
+        "fat": 29,
+        "sat": 13,
+        "carbs": 52,
+        "sugars": 2.7,
+        "fibre": 7.5,
+        "protein": 19,
+        "salt": 1.4
+      },
+      "per100": {
+        "kcal": 154,
+        "fat": 8.1,
+        "sat": 3.7,
+        "carbs": 15,
+        "sugars": 0.8,
+        "fibre": 2.1,
+        "protein": 5.3,
+        "salt": 0.4
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Italian BMT Baked Potato",
+      "page": 1,
+      "weightG": 402,
+      "kj": {
+        "perPortion": 2751,
+        "per100": 684
+      },
+      "perPortion": {
+        "kcal": 654,
+        "fat": 36,
+        "sat": 16,
+        "carbs": 53,
+        "sugars": 3.2,
+        "fibre": 7.8,
+        "protein": 27,
+        "salt": 2.4
+      },
+      "per100": {
+        "kcal": 163,
+        "fat": 9,
+        "sat": 4,
+        "carbs": 13,
+        "sugars": 0.8,
+        "fibre": 1.9,
+        "protein": 6.7,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Ham Baked Potato",
+      "page": 2,
+      "weightG": 380,
+      "kj": {
+        "perPortion": 2213,
+        "per100": 582
+      },
+      "perPortion": {
+        "kcal": 526,
+        "fat": 24,
+        "sat": 11,
+        "carbs": 53,
+        "sugars": 3.2,
+        "fibre": 7.9,
+        "protein": 23,
+        "salt": 1.2
+      },
+      "per100": {
+        "kcal": 138,
+        "fat": 6.3,
+        "sat": 2.9,
+        "carbs": 14,
+        "sugars": 0.8,
+        "fibre": 2.1,
+        "protein": 6.1,
+        "salt": 0.3
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Veggie Delite Baked Potato",
+      "page": 2,
+      "weightG": 419,
+      "kj": {
+        "perPortion": 2061,
+        "per100": 492
+      },
+      "perPortion": {
+        "kcal": 490,
+        "fat": 23,
+        "sat": 10,
+        "carbs": 54,
+        "sugars": 4.6,
+        "fibre": 8.5,
+        "protein": 16,
+        "salt": 0.7
+      },
+      "per100": {
+        "kcal": 117,
+        "fat": 5.5,
+        "sat": 2.4,
+        "carbs": 13,
+        "sugars": 1.1,
+        "fibre": 2,
+        "protein": 3.8,
+        "salt": 0.2
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Plant-based Chicken Teriyaki Baked Potato",
+      "page": 2,
+      "weightG": 412,
+      "kj": {
+        "perPortion": 2416,
+        "per100": 586
+      },
+      "perPortion": {
+        "kcal": 575,
+        "fat": 25,
+        "sat": 11,
+        "carbs": 60,
+        "sugars": 5,
+        "fibre": 11,
+        "protein": 25,
+        "salt": 2.3
+      },
+      "per100": {
+        "kcal": 140,
+        "fat": 6.1,
+        "sat": 2.7,
+        "carbs": 15,
+        "sugars": 1.2,
+        "fibre": 2.7,
+        "protein": 6.1,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Plant-based Dölicious Chicken",
+      "page": 2,
+      "weightG": 450,
+      "kj": {
+        "perPortion": 2490,
+        "per100": 553
+      },
+      "perPortion": {
+        "kcal": 625,
+        "fat": 27,
+        "sat": 12,
+        "carbs": 62,
+        "sugars": 3.8,
+        "fibre": 13,
+        "protein": 33,
+        "salt": 3.3
+      },
+      "per100": {
+        "kcal": 139,
+        "fat": 6,
+        "sat": 2.7,
+        "carbs": 14,
+        "sugars": 0.8,
+        "fibre": 2.9,
+        "protein": 7.3,
+        "salt": 0.7
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Spicy Vegan Patty Baked Potato",
+      "page": 2,
+      "weightG": 423,
+      "kj": {
+        "perPortion": 2681,
+        "per100": 634
+      },
+      "perPortion": {
+        "kcal": 587,
+        "fat": 30,
+        "sat": 11,
+        "carbs": 61,
+        "sugars": 4.8,
+        "fibre": 11,
+        "protein": 28,
+        "salt": 1.7
+      },
+      "per100": {
+        "kcal": 139,
+        "fat": 7.1,
+        "sat": 2.6,
+        "carbs": 14,
+        "sugars": 1.1,
+        "fibre": 2.6,
+        "protein": 6.6,
+        "salt": 0.4
+      }
+    },
+    {
+      "section": "Baked Potato",
+      "name": "Sour Cream Baked Potato",
+      "page": 2,
+      "weightG": 413,
+      "kj": {
+        "perPortion": 2456,
+        "per100": 595
+      },
+      "perPortion": {
+        "kcal": 585,
+        "fat": 31,
+        "sat": 15,
+        "carbs": 55,
+        "sugars": 5.4,
+        "fibre": 7.5,
+        "protein": 22,
+        "salt": 1.5
+      },
+      "per100": {
+        "kcal": 142,
+        "fat": 7.5,
+        "sat": 3.6,
+        "carbs": 13,
+        "sugars": 1.3,
+        "fibre": 1.8,
+        "protein": 5.3,
+        "salt": 0.4
+      }
+    },
+    {
+      "section": "Panini",
+      "name": "Chick'n'Garlic",
+      "page": 2,
+      "weightG": 196,
+      "kj": {
+        "perPortion": 1858,
+        "per100": 948
+      },
+      "perPortion": {
+        "kcal": 444,
+        "fat": 21,
+        "sat": 8.2,
+        "carbs": 35,
+        "sugars": 7.5,
+        "fibre": 2.3,
+        "protein": 27,
+        "salt": 2.2
+      },
+      "per100": {
+        "kcal": 227,
+        "fat": 11,
+        "sat": 4.2,
+        "carbs": 18,
+        "sugars": 3.8,
+        "fibre": 1.2,
+        "protein": 14,
+        "salt": 1.1
+      }
+    },
+    {
+      "section": "Panini",
+      "name": "Philly Supreme",
+      "page": 2,
+      "weightG": 196,
+      "kj": {
+        "perPortion": 1847,
+        "per100": 942
+      },
+      "perPortion": {
+        "kcal": 441,
+        "fat": 20,
+        "sat": 8.6,
+        "carbs": 40,
+        "sugars": 10,
+        "fibre": 2.7,
+        "protein": 25,
+        "salt": 2.5
+      },
+      "per100": {
+        "kcal": 225,
+        "fat": 10,
+        "sat": 4.4,
+        "carbs": 20,
+        "sugars": 5.1,
+        "fibre": 1.4,
+        "protein": 13,
+        "salt": 1.3
+      }
+    },
+    {
+      "section": "Panini",
+      "name": "Smoky Beast",
+      "page": 2,
+      "weightG": 207,
+      "kj": {
+        "perPortion": 1755,
+        "per100": 848
+      },
+      "perPortion": {
+        "kcal": 421,
+        "fat": 16,
+        "sat": 8.1,
+        "carbs": 40,
+        "sugars": 12,
+        "fibre": 2.6,
+        "protein": 29,
+        "salt": 2.5
+      },
+      "per100": {
+        "kcal": 204,
+        "fat": 7.7,
+        "sat": 3.9,
+        "carbs": 19,
+        "sugars": 5.6,
+        "fibre": 1.3,
+        "protein": 14,
+        "salt": 1.2
+      }
+    },
+    {
+      "section": "Footlong Sidekicks",
+      "name": "Peperoni-Salami & Cheese Footlong Dipper",
+      "page": 2,
+      "weightG": 138,
+      "kj": {
+        "perPortion": 1812,
+        "per100": 1313
+      },
+      "perPortion": {
+        "kcal": 433,
+        "fat": 19,
+        "sat": 7.6,
+        "carbs": 49,
+        "sugars": 3.4,
+        "fibre": 3.9,
+        "protein": 15,
+        "salt": 2.5
+      },
+      "per100": {
+        "kcal": 314,
+        "fat": 14,
+        "sat": 5.5,
+        "carbs": 35,
+        "sugars": 2.5,
+        "fibre": 2.8,
+        "protein": 11,
+        "salt": 1.8
+      }
+    },
+    {
+      "section": "Footlong Sidekicks",
+      "name": "Triple Cheese Footlong Dipper",
+      "page": 2,
+      "weightG": 148,
+      "kj": {
+        "perPortion": 1892,
+        "per100": 1279
+      },
+      "perPortion": {
+        "kcal": 453,
+        "fat": 19,
+        "sat": 9.5,
+        "carbs": 49,
+        "sugars": 3.3,
+        "fibre": 3.9,
+        "protein": 18,
+        "salt": 2.1
+      },
+      "per100": {
+        "kcal": 306,
+        "fat": 13,
+        "sat": 6.4,
+        "carbs": 33,
+        "sugars": 2.3,
+        "fibre": 2.6,
+        "protein": 12,
+        "salt": 1.4
+      }
+    },
+    {
+      "section": "Beilagen",
+      "name": "Waffle Fries",
+      "page": 2,
+      "weightG": 100,
+      "kj": {
+        "perPortion": 1085,
+        "per100": 1085
+      },
+      "perPortion": {
+        "kcal": 184,
+        "fat": 8.2,
+        "sat": 1.1,
+        "carbs": 23,
+        "sugars": 0.3,
+        "fibre": 4,
+        "protein": 2.8,
+        "salt": 0.9
+      },
+      "per100": {
+        "kcal": 184,
+        "fat": 8.2,
+        "sat": 1.1,
+        "carbs": 23,
+        "sugars": 0.3,
+        "fibre": 4,
+        "protein": 2.8,
+        "salt": 0.9
+      }
+    },
+    {
+      "section": "Beilagen",
+      "name": "Nacho Chicken Bites",
+      "page": 2,
+      "weightG": 18,
+      "kj": {
+        "perPortion": 188,
+        "per100": 1046
+      },
+      "perPortion": {
+        "kcal": 45,
+        "fat": 2.1,
+        "sat": 0.2,
+        "carbs": 3.5,
+        "sugars": 0.2,
+        "fibre": 0.3,
+        "protein": 2.6,
+        "salt": 0.2
+      },
+      "per100": {
+        "kcal": 250,
+        "fat": 11.8,
+        "sat": 1.6,
+        "carbs": 19.5,
+        "sugars": 0.8,
+        "fibre": 1.4,
+        "protein": 15,
+        "salt": 1.3
+      }
+    },
+    {
+      "section": "Beilagen",
+      "name": "Mozzarella & Cheddar Bites x 5",
+      "page": 2,
+      "weightG": 75,
+      "kj": {
+        "perPortion": 1067,
+        "per100": 1423
+      },
+      "perPortion": {
+        "kcal": 255,
+        "fat": 15,
+        "sat": 6.1,
+        "carbs": 19,
+        "sugars": 1,
+        "fibre": 1.6,
+        "protein": 11,
+        "salt": 1.3
+      },
+      "per100": {
+        "kcal": 340,
+        "fat": 20,
+        "sat": 8.1,
+        "carbs": 25,
+        "sugars": 1.7,
+        "fibre": 2.1,
+        "protein": 15,
+        "salt": 1.7
+      }
+    },
+    {
+      "section": "Beilagen",
+      "name": "Mozzarella & Cheddar Bites x 12",
+      "page": 2,
+      "weightG": 180,
+      "kj": {
+        "perPortion": 2561,
+        "per100": 1423
+      },
+      "perPortion": {
+        "kcal": 612,
+        "fat": 36,
+        "sat": 15,
+        "carbs": 45,
+        "sugars": 3,
+        "fibre": 3.8,
+        "protein": 26,
+        "salt": 3.1
+      },
+      "per100": {
+        "kcal": 340,
+        "fat": 20,
+        "sat": 8.3,
+        "carbs": 25,
+        "sugars": 1.8,
+        "fibre": 2.1,
+        "protein": 14,
+        "salt": 1.7
+      }
+    },
+    {
+      "section": "Beilagen",
+      "name": "Coleslaw regular",
+      "page": 2,
+      "weightG": 40,
+      "kj": {
+        "perPortion": 249,
+        "per100": 623
+      },
+      "perPortion": {
+        "kcal": 60,
+        "fat": 5.2,
+        "sat": 0.4,
+        "carbs": 2.4,
+        "sugars": 2.1,
+        "fibre": 0.8,
+        "protein": 0.4,
+        "salt": 0.23
+      },
+      "per100": {
+        "kcal": 150,
+        "fat": 13,
+        "sat": 1,
+        "carbs": 6,
+        "sugars": 5.3,
+        "fibre": 2,
+        "protein": 1,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Beilagen",
+      "name": "Coleslaw Large",
+      "page": 2,
+      "weightG": 80,
+      "kj": {
+        "perPortion": 499,
+        "per100": 624
+      },
+      "perPortion": {
+        "kcal": 119,
+        "fat": 10,
+        "sat": 0.8,
+        "carbs": 4.8,
+        "sugars": 4.2,
+        "fibre": 1.6,
+        "protein": 0.8,
+        "salt": 0.46
+      },
+      "per100": {
+        "kcal": 149,
+        "fat": 12.5,
+        "sat": 1,
+        "carbs": 6,
+        "sugars": 5.3,
+        "fibre": 2,
+        "protein": 1,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Beilagen",
+      "name": "Lay’s Chips Salted",
+      "page": 2,
+      "weightG": 28,
+      "kj": {
+        "perPortion": 620,
+        "per100": 2256
+      },
+      "perPortion": {
+        "kcal": 148,
+        "fat": 9.4,
+        "sat": 0.7,
+        "carbs": 14,
+        "sugars": 0.1,
+        "fibre": 1.2,
+        "protein": 1.7,
+        "salt": 0.4
+      },
+      "per100": {
+        "kcal": 539,
+        "fat": 34,
+        "sat": 2.7,
+        "carbs": 52,
+        "sugars": 0.3,
+        "fibre": 4.4,
+        "protein": 6.1,
+        "salt": 1.3
+      }
+    },
+    {
+      "section": "Beilagen",
+      "name": "Lay’s Chips Paprika",
+      "page": 2,
+      "weightG": 28,
+      "kj": {
+        "perPortion": 609,
+        "per100": 2215
+      },
+      "perPortion": {
+        "kcal": 146,
+        "fat": 8.8,
+        "sat": 0.7,
+        "carbs": 14,
+        "sugars": 0.7,
+        "fibre": 1.3,
+        "protein": 1.7,
+        "salt": 0.4
+      },
+      "per100": {
+        "kcal": 529,
+        "fat": 32,
+        "sat": 2.7,
+        "carbs": 52,
+        "sugars": 2.4,
+        "fibre": 4.6,
+        "protein": 6.1,
+        "salt": 1.4
+      }
+    },
+    {
+      "section": "Beilagen",
+      "name": "Doritos Nacho Cheese",
+      "page": 2,
+      "weightG": 44,
+      "kj": {
+        "perPortion": 920,
+        "per100": 2091
+      },
+      "perPortion": {
+        "kcal": 220,
+        "fat": 11,
+        "sat": 1.5,
+        "carbs": 26,
+        "sugars": 1.2,
+        "fibre": 2.5,
+        "protein": 2.9,
+        "salt": 0.5
+      },
+      "per100": {
+        "kcal": 500,
+        "fat": 26,
+        "sat": 3.4,
+        "carbs": 58,
+        "sugars": 2.7,
+        "fibre": 5.6,
+        "protein": 6.5,
+        "salt": 1.2
+      }
+    },
+    {
+      "section": "Beilagen",
+      "name": "Doritos Sweet Chili Pepper",
+      "page": 2,
+      "weightG": 44,
+      "kj": {
+        "perPortion": 918,
+        "per100": 2086
+      },
+      "perPortion": {
+        "kcal": 219,
+        "fat": 11,
+        "sat": 1.4,
+        "carbs": 26,
+        "sugars": 2.3,
+        "fibre": 2.5,
+        "protein": 2.9,
+        "salt": 0.5
+      },
+      "per100": {
+        "kcal": 499,
+        "fat": 25,
+        "sat": 3.1,
+        "carbs": 59,
+        "sugars": 5.2,
+        "fibre": 5.7,
+        "protein": 6.5,
+        "salt": 1.1
+      }
+    },
+    {
+      "section": "Getränke",
+      "name": "Pepsi regular",
+      "page": 2,
+      "weightG": 500,
+      "kj": {
+        "perPortion": 599,
+        "per100": 120
+      },
+      "perPortion": {
+        "kcal": 143,
+        "fat": 35,
+        "sat": 35,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 29,
+        "fat": 7,
+        "sat": 7,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Getränke",
+      "name": "Pepsi Zero Zucker",
+      "page": 2,
+      "weightG": 500,
+      "kj": {
+        "perPortion": 10,
+        "per100": 2
+      },
+      "perPortion": {
+        "kcal": 2,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0.2,
+        "protein": 0,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 0,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Getränke",
+      "name": "Schwip Schwap",
+      "page": 2,
+      "weightG": 500,
+      "kj": {
+        "perPortion": 828,
+        "per100": 166
+      },
+      "perPortion": {
+        "kcal": 198,
+        "fat": 49,
+        "sat": 48,
+        "carbs": 0,
+        "sugars": 0.5,
+        "fibre": 0.1,
+        "protein": 0,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 40,
+        "fat": 9.8,
+        "sat": 9.7,
+        "carbs": 0,
+        "sugars": 0.1,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Getränke",
+      "name": "Schwip Schwap Zero",
+      "page": 2,
+      "weightG": 500,
+      "kj": {
+        "perPortion": 30,
+        "per100": 6
+      },
+      "perPortion": {
+        "kcal": 7,
+        "fat": 1.5,
+        "sat": 1.5,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0.1,
+        "protein": 0,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 1,
+        "fat": 0.3,
+        "sat": 0.3,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Getränke",
+      "name": "7UP Zero",
+      "page": 2,
+      "weightG": 500,
+      "kj": {
+        "perPortion": 409,
+        "per100": 82
+      },
+      "perPortion": {
+        "kcal": 98,
+        "fat": 23,
+        "sat": 23,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0.2,
+        "protein": 0,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 20,
+        "fat": 4.6,
+        "sat": 4.6,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Getränke",
+      "name": "Schwip Schwap Zero Orange",
+      "page": 2,
+      "weightG": 500,
+      "kj": {
+        "perPortion": 25,
+        "per100": 5
+      },
+      "perPortion": {
+        "kcal": 6,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 1,
+        "sugars": 1,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 1.2,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Getränke",
+      "name": "Lipton Eistee Peach",
+      "page": 2,
+      "weightG": 500,
+      "kj": {
+        "perPortion": 279,
+        "per100": 56
+      },
+      "perPortion": {
+        "kcal": 67,
+        "fat": 15,
+        "sat": 15,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0.15
+      },
+      "per100": {
+        "kcal": 13,
+        "fat": 3.1,
+        "sat": 3,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Getränke",
+      "name": "Lipton Eistee Lemon",
+      "page": 2,
+      "weightG": 500,
+      "kj": {
+        "perPortion": 274,
+        "per100": 55
+      },
+      "perPortion": {
+        "kcal": 66,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 15,
+        "sugars": 15,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0.15
+      },
+      "per100": {
+        "kcal": 13,
+        "fat": 3.1,
+        "sat": 3,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Getränke",
+      "name": "Adelholzener Classic Flasche",
+      "page": 2,
+      "weightG": 500,
+      "kj": {
+        "perPortion": 0,
+        "per100": 0
+      },
+      "perPortion": {
+        "kcal": 0,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 0,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Getränke",
+      "name": "Adelholzener Naturell Flasche",
+      "page": 2,
+      "weightG": 500,
+      "kj": {
+        "perPortion": 0,
+        "per100": 0
+      },
+      "perPortion": {
+        "kcal": 0,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 0,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Getränke",
+      "name": "Mountain Dew",
+      "page": 2,
+      "weightG": 500,
+      "kj": {
+        "perPortion": 1058,
+        "per100": 212
+      },
+      "perPortion": {
+        "kcal": 253,
+        "fat": 60,
+        "sat": 60,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 51,
+        "fat": 12,
+        "sat": 12,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Getränke",
+      "name": "Capri-Sun Fruit Crush Tropical",
+      "page": 2,
+      "weightG": 200,
+      "kj": {
+        "perPortion": 244,
+        "per100": 122
+      },
+      "perPortion": {
+        "kcal": 58,
+        "fat": 13,
+        "sat": 13,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 29,
+        "fat": 6.7,
+        "sat": 6.7,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Getränke",
+      "name": "BuddyFruits Fruchtmousse",
+      "page": 2,
+      "weightG": 90,
+      "kj": {
+        "perPortion": 233,
+        "per100": 259
+      },
+      "perPortion": {
+        "kcal": 56,
+        "fat": 12,
+        "sat": 11,
+        "carbs": 1.7,
+        "sugars": 0.5,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 62,
+        "fat": 13,
+        "sat": 12,
+        "carbs": 1.9,
+        "sugars": 0.6,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Saucen",
+      "name": "BBQ Sauce (vegan)",
+      "page": 2,
+      "weightG": 14,
+      "kj": {
+        "perPortion": 83.8,
+        "per100": 598
+      },
+      "perPortion": {
+        "kcal": 21,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 4.9,
+        "sugars": 4.2,
+        "fibre": 0.3,
+        "protein": 0.1,
+        "salt": 0.4
+      },
+      "per100": {
+        "kcal": 153,
+        "fat": 0.5,
+        "sat": 0.1,
+        "carbs": 36,
+        "sugars": 30,
+        "fibre": 2.1,
+        "protein": 0.9,
+        "salt": 2.7
+      }
+    },
+    {
+      "section": "Saucen",
+      "name": "Caesar Sauce",
+      "page": 2,
+      "weightG": 14,
+      "kj": {
+        "perPortion": 210,
+        "per100": 1498
+      },
+      "perPortion": {
+        "kcal": 50,
+        "fat": 4.8,
+        "sat": 0.5,
+        "carbs": 1.2,
+        "sugars": 0.7,
+        "fibre": 0,
+        "protein": 0.4,
+        "salt": 0.3
+      },
+      "per100": {
+        "kcal": 357,
+        "fat": 34,
+        "sat": 3.5,
+        "carbs": 8.4,
+        "sugars": 5.1,
+        "fibre": 0,
+        "protein": 2.6,
+        "salt": 2.4
+      }
+    },
+    {
+      "section": "Saucen",
+      "name": "Chipotle Southwest Sauce",
+      "page": 2,
+      "weightG": 14,
+      "kj": {
+        "perPortion": 258,
+        "per100": 1841
+      },
+      "perPortion": {
+        "kcal": 62,
+        "fat": 6.3,
+        "sat": 0.5,
+        "carbs": 1.3,
+        "sugars": 0.8,
+        "fibre": 0,
+        "protein": 0.1,
+        "salt": 0.2
+      },
+      "per100": {
+        "kcal": 440,
+        "fat": 45,
+        "sat": 3.4,
+        "carbs": 9,
+        "sugars": 5.9,
+        "fibre": 0.5,
+        "protein": 1,
+        "salt": 1.7
+      }
+    },
+    {
+      "section": "Saucen",
+      "name": "X-spicy Chipotle Sauce (vegan)",
+      "page": 2,
+      "weightG": 14,
+      "kj": {
+        "perPortion": 251,
+        "per100": 1795
+      },
+      "perPortion": {
+        "kcal": 60,
+        "fat": 6.1,
+        "sat": 0.5,
+        "carbs": 1.1,
+        "sugars": 0.7,
+        "fibre": 0.1,
+        "protein": 0.2,
+        "salt": 0.3
+      },
+      "per100": {
+        "kcal": 429,
+        "fat": 44,
+        "sat": 3.4,
+        "carbs": 8,
+        "sugars": 5,
+        "fibre": 0.7,
+        "protein": 1.2,
+        "salt": 1.8
+      }
+    },
+    {
+      "section": "Saucen",
+      "name": "Honey & Wholegrain Mustard Sauce",
+      "page": 2,
+      "weightG": 14,
+      "kj": {
+        "perPortion": 122,
+        "per100": 870
+      },
+      "perPortion": {
+        "kcal": 29,
+        "fat": 1.9,
+        "sat": 0.1,
+        "carbs": 2.7,
+        "sugars": 2.3,
+        "fibre": 0.2,
+        "protein": 0.3,
+        "salt": 0.2
+      },
+      "per100": {
+        "kcal": 208,
+        "fat": 14,
+        "sat": 0.9,
+        "carbs": 19,
+        "sugars": 17,
+        "fibre": 1.7,
+        "protein": 1.8,
+        "salt": 1.4
+      }
+    },
+    {
+      "section": "Saucen",
+      "name": "Lite Mayonnaise",
+      "page": 2,
+      "weightG": 14,
+      "kj": {
+        "perPortion": 194,
+        "per100": 1384
+      },
+      "perPortion": {
+        "kcal": 46,
+        "fat": 4.9,
+        "sat": 0.3,
+        "carbs": 0.6,
+        "sugars": 0.6,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0.2
+      },
+      "per100": {
+        "kcal": 329,
+        "fat": 35,
+        "sat": 2.4,
+        "carbs": 4,
+        "sugars": 4,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 1.7
+      }
+    },
+    {
+      "section": "Saucen",
+      "name": "Joghurt",
+      "page": 2,
+      "weightG": 14,
+      "kj": {
+        "perPortion": 78,
+        "per100": 560
+      },
+      "perPortion": {
+        "kcal": 18,
+        "fat": 1.4,
+        "sat": 0,
+        "carbs": 1.3,
+        "sugars": 0.6,
+        "fibre": 0,
+        "protein": 0.1,
+        "salt": 0.2
+      },
+      "per100": {
+        "kcal": 134,
+        "fat": 10,
+        "sat": 0.1,
+        "carbs": 9,
+        "sugars": 4.9,
+        "fibre": 0.2,
+        "protein": 1.2,
+        "salt": 1.7
+      }
+    },
+    {
+      "section": "Saucen",
+      "name": "Sweet Onion (vegan)",
+      "page": 2,
+      "weightG": 14,
+      "kj": {
+        "perPortion": 97,
+        "per100": 648
+      },
+      "perPortion": {
+        "kcal": 23,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 5.6,
+        "sugars": 4.8,
+        "fibre": 0.1,
+        "protein": 0.1,
+        "salt": 0.1
+      },
+      "per100": {
+        "kcal": 155,
+        "fat": 1.4,
+        "sat": 0.1,
+        "carbs": 35,
+        "sugars": 31,
+        "fibre": 0.5,
+        "protein": 0.5,
+        "salt": 0.7
+      }
+    },
+    {
+      "section": "Saucen",
+      "name": "Garlic & Herb (vegan)",
+      "page": 2,
+      "weightG": 14,
+      "kj": {
+        "perPortion": 90,
+        "per100": 2384
+      },
+      "perPortion": {
+        "kcal": 22,
+        "fat": 0.19,
+        "sat": 0,
+        "carbs": 4.9,
+        "sugars": 4.2,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0.1
+      },
+      "per100": {
+        "kcal": 570,
+        "fat": 60,
+        "sat": 4.3,
+        "carbs": 6.2,
+        "sugars": 7,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 1
+      }
+    },
+    {
+      "section": "Saucen",
+      "name": "Balsamic Vinegar (vegan)",
+      "page": 2,
+      "weightG": 3.5,
+      "kj": {
+        "perPortion": 4.1,
+        "per100": 117
+      },
+      "perPortion": {
+        "kcal": 1,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 28,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Saucen",
+      "name": "Olivenöl (vegan)",
+      "page": 2,
+      "weightG": 3.5,
+      "kj": {
+        "perPortion": 131,
+        "per100": 3765
+      },
+      "perPortion": {
+        "kcal": 32,
+        "fat": 3.5,
+        "sat": 0.4,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 900,
+        "fat": 100,
+        "sat": 13.3,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Saucen",
+      "name": "Ketchup",
+      "page": 2,
+      "weightG": 14,
+      "kj": {
+        "perPortion": 74,
+        "per100": 531
+      },
+      "perPortion": {
+        "kcal": 18,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 4,
+        "sugars": 3.2,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0.4
+      },
+      "per100": {
+        "kcal": 127,
+        "fat": 0.1,
+        "sat": 0.1,
+        "carbs": 29,
+        "sugars": 23,
+        "fibre": 0.8,
+        "protein": 1.2,
+        "salt": 3
+      }
+    },
+    {
+      "section": "Cookies",
+      "name": "Double Chocolate Cookie (vegan)",
+      "page": 2,
+      "weightG": 45,
+      "kj": {
+        "perPortion": 876,
+        "per100": 1946
+      },
+      "perPortion": {
+        "kcal": 209,
+        "fat": 9.5,
+        "sat": 5.4,
+        "carbs": 27,
+        "sugars": 18,
+        "fibre": 0.5,
+        "protein": 2.3,
+        "salt": 0.4
+      },
+      "per100": {
+        "kcal": 465,
+        "fat": 21,
+        "sat": 12,
+        "carbs": 60,
+        "sugars": 39,
+        "fibre": 1.2,
+        "protein": 5.1,
+        "salt": 1
+      }
+    },
+    {
+      "section": "Cookies",
+      "name": "Chocolate Chunk Cookie",
+      "page": 2,
+      "weightG": 45,
+      "kj": {
+        "perPortion": 896,
+        "per100": 1992
+      },
+      "perPortion": {
+        "kcal": 214,
+        "fat": 10,
+        "sat": 5.1,
+        "carbs": 28,
+        "sugars": 16,
+        "fibre": 1.2,
+        "protein": 2.3,
+        "salt": 0.3
+      },
+      "per100": {
+        "kcal": 476,
+        "fat": 23,
+        "sat": 11,
+        "carbs": 62,
+        "sugars": 35,
+        "fibre": 2.7,
+        "protein": 5,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Cookies",
+      "name": "Chocolate Chip mit Rainbow Candy Cookie",
+      "page": 2,
+      "weightG": 45,
+      "kj": {
+        "perPortion": 894,
+        "per100": 1987
+      },
+      "perPortion": {
+        "kcal": 214,
+        "fat": 9.8,
+        "sat": 5,
+        "carbs": 28,
+        "sugars": 18,
+        "fibre": 1.5,
+        "protein": 2.2,
+        "salt": 0.1
+      },
+      "per100": {
+        "kcal": 475,
+        "fat": 22,
+        "sat": 11,
+        "carbs": 63,
+        "sugars": 40,
+        "fibre": 3.4,
+        "protein": 4.9,
+        "salt": 0.3
+      }
+    },
+    {
+      "section": "Cookies",
+      "name": "White Chip Macadamia Nut Cookie",
+      "page": 2,
+      "weightG": 45,
+      "kj": {
+        "perPortion": 900,
+        "per100": 2000
+      },
+      "perPortion": {
+        "kcal": 215,
+        "fat": 10,
+        "sat": 5.1,
+        "carbs": 27,
+        "sugars": 16,
+        "fibre": 0.5,
+        "protein": 2.3,
+        "salt": 0.4
+      },
+      "per100": {
+        "kcal": 478,
+        "fat": 23,
+        "sat": 11,
+        "carbs": 61,
+        "sugars": 36,
+        "fibre": 1.2,
+        "protein": 5.2,
+        "salt": 0.9
+      }
+    },
+    {
+      "section": "Cookies",
+      "name": "Raspberry Cheesecake Cookie",
+      "page": 2,
+      "weightG": 45,
+      "kj": {
+        "perPortion": 871,
+        "per100": 1936
+      },
+      "perPortion": {
+        "kcal": 208,
+        "fat": 9.6,
+        "sat": 5.4,
+        "carbs": 27,
+        "sugars": 16,
+        "fibre": 0.2,
+        "protein": 2.5,
+        "salt": 0.3
+      },
+      "per100": {
+        "kcal": 463,
+        "fat": 21,
+        "sat": 12,
+        "carbs": 61,
+        "sugars": 36,
+        "fibre": 0.5,
+        "protein": 5.5,
+        "salt": 0.7
+      }
+    },
+    {
+      "section": "Cookies",
+      "name": "Mini Chocolate Chip Cookies with Caramel Dip",
+      "page": 2,
+      "weightG": 126,
+      "kj": {
+        "perPortion": 1792,
+        "per100": 1423
+      },
+      "perPortion": {
+        "kcal": 532,
+        "fat": 21,
+        "sat": 11,
+        "carbs": 79,
+        "sugars": 48,
+        "fibre": 2.6,
+        "protein": 4.8,
+        "salt": 0.8
+      },
+      "per100": {
+        "kcal": 422,
+        "fat": 17,
+        "sat": 8.5,
+        "carbs": 63,
+        "sugars": 38,
+        "fibre": 2.1,
+        "protein": 3.8,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Cookies",
+      "name": "Pumpkin Spiced Cookie",
+      "page": 2,
+      "weightG": 45,
+      "kj": {
+        "perPortion": 813,
+        "per100": 1807
+      },
+      "perPortion": {
+        "kcal": 194,
+        "fat": 8.3,
+        "sat": 4,
+        "carbs": 26.9,
+        "sugars": 16.6,
+        "fibre": 1.1,
+        "protein": 2.29,
+        "salt": 0.2
+      },
+      "per100": {
+        "kcal": 431,
+        "fat": 18.4,
+        "sat": 8.9,
+        "carbs": 60,
+        "sugars": 37,
+        "fibre": 2.4,
+        "protein": 5.1,
+        "salt": 0.5
+      }
+    },
+    {
+      "section": "Cookies",
+      "name": "Matcha & White Chocolate Chip Cookie",
+      "page": 2,
+      "weightG": 45,
+      "kj": {
+        "perPortion": 807,
+        "per100": 1793
+      },
+      "perPortion": {
+        "kcal": 193,
+        "fat": 7.9,
+        "sat": 4.2,
+        "carbs": 27.4,
+        "sugars": 16,
+        "fibre": 0.85,
+        "protein": 2.4,
+        "salt": 0.3
+      },
+      "per100": {
+        "kcal": 429,
+        "fat": 17.6,
+        "sat": 9.3,
+        "carbs": 61,
+        "sugars": 36,
+        "fibre": 1.9,
+        "protein": 5.3,
+        "salt": 0.6
+      }
+    },
+    {
+      "section": "Cookies",
+      "name": "Brookie Cookie Cup",
+      "page": 2,
+      "weightG": 56,
+      "kj": {
+        "perPortion": 896,
+        "per100": 1600
+      },
+      "perPortion": {
+        "kcal": 266,
+        "fat": 13,
+        "sat": 6.2,
+        "carbs": 28,
+        "sugars": 20,
+        "fibre": 1.4,
+        "protein": 2.7,
+        "salt": 13.5
+      },
+      "per100": {
+        "kcal": 475,
+        "fat": 23.2,
+        "sat": 11.1,
+        "carbs": 50,
+        "sugars": 36,
+        "fibre": 2.5,
+        "protein": 4.8,
+        "salt": 24.1
+      }
+    },
+    {
+      "section": "Käse",
+      "name": "Scheibenkäse",
+      "page": 2,
+      "weightG": 12,
+      "kj": {
+        "perPortion": 177,
+        "per100": 1477
+      },
+      "perPortion": {
+        "kcal": 42,
+        "fat": 3.5,
+        "sat": 2.2,
+        "carbs": 0.4,
+        "sugars": 0.4,
+        "fibre": 0,
+        "protein": 2.3,
+        "salt": 0.3
+      },
+      "per100": {
+        "kcal": 353,
+        "fat": 29,
+        "sat": 18,
+        "carbs": 3.5,
+        "sugars": 3.2,
+        "fibre": 0,
+        "protein": 20,
+        "salt": 2.5
+      }
+    },
+    {
+      "section": "Käse",
+      "name": "Mozzarella-Emmental-Mix",
+      "page": 2,
+      "weightG": 14,
+      "kj": {
+        "perPortion": 187,
+        "per100": 1339
+      },
+      "perPortion": {
+        "kcal": 45,
+        "fat": 3.4,
+        "sat": 2.2,
+        "carbs": 0.6,
+        "sugars": 0.1,
+        "fibre": 0,
+        "protein": 3.2,
+        "salt": 0.2
+      },
+      "per100": {
+        "kcal": 320,
+        "fat": 25,
+        "sat": 16,
+        "carbs": 4.6,
+        "sugars": 0.8,
+        "fibre": 0,
+        "protein": 23,
+        "salt": 1.4
+      }
+    },
+    {
+      "section": "Käse",
+      "name": "Frischkäse",
+      "page": 2,
+      "weightG": 14,
+      "kj": {
+        "perPortion": 115,
+        "per100": 824
+      },
+      "perPortion": {
+        "kcal": 28,
+        "fat": 2.2,
+        "sat": 1.5,
+        "carbs": 0.5,
+        "sugars": 0.5,
+        "fibre": 0,
+        "protein": 1.2,
+        "salt": 0.1
+      },
+      "per100": {
+        "kcal": 197,
+        "fat": 16,
+        "sat": 11,
+        "carbs": 3.9,
+        "sugars": 3.8,
+        "fibre": 0,
+        "protein": 8.7,
+        "salt": 0.8
+      }
+    },
+    {
+      "section": "Käse",
+      "name": "Cheddar",
+      "page": 2,
+      "weightG": 11,
+      "kj": {
+        "perPortion": 191,
+        "per100": 1740
+      },
+      "perPortion": {
+        "kcal": 46,
+        "fat": 3.8,
+        "sat": 2.3,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 2.8,
+        "salt": 0.2
+      },
+      "per100": {
+        "kcal": 416,
+        "fat": 35,
+        "sat": 22,
+        "carbs": 0.1,
+        "sugars": 0.1,
+        "fibre": 0,
+        "protein": 25,
+        "salt": 1.9
+      }
+    },
+    {
+      "section": "Käse",
+      "name": "Vegan Slices (vegan)",
+      "page": 2,
+      "weightG": 10,
+      "kj": {
+        "perPortion": 124,
+        "per100": 1238
+      },
+      "perPortion": {
+        "kcal": 30,
+        "fat": 2.4,
+        "sat": 2.1,
+        "carbs": 1.9,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0.1
+      },
+      "per100": {
+        "kcal": 296,
+        "fat": 24,
+        "sat": 21,
+        "carbs": 19,
+        "sugars": 0.1,
+        "fibre": 0.1,
+        "protein": 0.1,
+        "salt": 1.3
+      }
+    },
+    {
+      "section": "Zutaten/Toppings",
+      "name": "Jalapeños",
+      "page": 2,
+      "weightG": 7,
+      "kj": {
+        "perPortion": 3.2,
+        "per100": 46
+      },
+      "perPortion": {
+        "kcal": 0.8,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.1,
+        "sugars": 0.1,
+        "fibre": 0.1,
+        "protein": 0,
+        "salt": 0.3
+      },
+      "per100": {
+        "kcal": 11,
+        "fat": 0.5,
+        "sat": 0.1,
+        "carbs": 1.6,
+        "sugars": 0.8,
+        "fibre": 1.4,
+        "protein": 0.4,
+        "salt": 4.3
+      }
+    },
+    {
+      "section": "Zutaten/Toppings",
+      "name": "Oliven",
+      "page": 2,
+      "weightG": 3,
+      "kj": {
+        "perPortion": 12.2,
+        "per100": 406
+      },
+      "perPortion": {
+        "kcal": 2.9,
+        "fat": 0.3,
+        "sat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0.1,
+        "protein": 0,
+        "salt": 0.1
+      },
+      "per100": {
+        "kcal": 97,
+        "fat": 9.4,
+        "sat": 1.5,
+        "carbs": 1.1,
+        "sugars": 0.1,
+        "fibre": 3.1,
+        "protein": 1,
+        "salt": 1.9
+      }
+    },
+    {
+      "section": "Zutaten/Toppings",
+      "name": "Gewürzgurken",
+      "page": 2,
+      "weightG": 7.5,
+      "kj": {
+        "perPortion": 2.8,
+        "per100": 38
+      },
+      "perPortion": {
+        "kcal": 0.7,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.1,
+        "sugars": 0,
+        "fibre": 0.1,
+        "protein": 0,
+        "salt": 0.2
+      },
+      "per100": {
+        "kcal": 9,
+        "fat": 0.5,
+        "sat": 0.1,
+        "carbs": 1.37,
+        "sugars": 0.1,
+        "fibre": 1.1,
+        "protein": 0.4,
+        "salt": 2.9
+      }
+    },
+    {
+      "section": "Zutaten/Toppings",
+      "name": "Mais",
+      "page": 2,
+      "weightG": 7,
+      "kj": {
+        "perPortion": 23,
+        "per100": 335
+      },
+      "perPortion": {
+        "kcal": 5.6,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 0.8,
+        "sugars": 0.4,
+        "fibre": 0.3,
+        "protein": 0.2,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 80,
+        "fat": 1.9,
+        "sat": 1,
+        "carbs": 11,
+        "sugars": 5.2,
+        "fibre": 3.8,
+        "protein": 2.9,
+        "salt": 0.4
+      }
+    },
+    {
+      "section": "Zutaten/Toppings",
+      "name": "Salat",
+      "page": 2,
+      "weightG": 14,
+      "kj": {
+        "perPortion": 6.4,
+        "per100": 46
+      },
+      "perPortion": {
+        "kcal": 1.5,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.2,
+        "sugars": 0.2,
+        "fibre": 0.2,
+        "protein": 0.2,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 11,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 1.4,
+        "sugars": 1.4,
+        "fibre": 1.5,
+        "protein": 1.2,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Zutaten/Toppings",
+      "name": "Tomaten",
+      "page": 2,
+      "weightG": 30,
+      "kj": {
+        "perPortion": 23,
+        "per100": 75
+      },
+      "perPortion": {
+        "kcal": 5.4,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 0.8,
+        "sugars": 0.8,
+        "fibre": 0.4,
+        "protein": 0.3,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 18,
+        "fat": 0.2,
+        "sat": 0,
+        "carbs": 2.7,
+        "sugars": 2.6,
+        "fibre": 1.2,
+        "protein": 0.9,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Zutaten/Toppings",
+      "name": "Gurken",
+      "page": 2,
+      "weightG": 18,
+      "kj": {
+        "perPortion": 11,
+        "per100": 63
+      },
+      "perPortion": {
+        "kcal": 2.7,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.6,
+        "sugars": 0.3,
+        "fibre": 0.1,
+        "protein": 0.1,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 15,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 3.1,
+        "sugars": 1.7,
+        "fibre": 0.5,
+        "protein": 0.7,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Zutaten/Toppings",
+      "name": "Paprika",
+      "page": 2,
+      "weightG": 12,
+      "kj": {
+        "perPortion": 12.6,
+        "per100": 105
+      },
+      "perPortion": {
+        "kcal": 3,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.5,
+        "sugars": 0.3,
+        "fibre": 0.2,
+        "protein": 0.1,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 25,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 4.3,
+        "sugars": 2.3,
+        "fibre": 1.8,
+        "protein": 0.7,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Zutaten/Toppings",
+      "name": "Zwiebeln",
+      "page": 2,
+      "weightG": 7,
+      "kj": {
+        "perPortion": 10.5,
+        "per100": 150
+      },
+      "perPortion": {
+        "kcal": 2.5,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.6,
+        "sugars": 0.4,
+        "fibre": 0.1,
+        "protein": 0.1,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 36,
+        "fat": 0.2,
+        "sat": 0,
+        "carbs": 7.9,
+        "sugars": 5.6,
+        "fibre": 1.4,
+        "protein": 1.2,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Zutaten/Toppings",
+      "name": "Rucola",
+      "page": 2,
+      "weightG": 7,
+      "kj": {
+        "perPortion": 8.2,
+        "per100": 117
+      },
+      "perPortion": {
+        "kcal": 2,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 0.1,
+        "sugars": 0,
+        "fibre": 0.1,
+        "protein": 0.2,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 28,
+        "fat": 0.7,
+        "sat": 0,
+        "carbs": 2.1,
+        "sugars": 0,
+        "fibre": 1.6,
+        "protein": 2.6,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Zutaten/Toppings",
+      "name": "Nachos (Doritos® Nacho Cheese)",
+      "page": 2,
+      "weightG": 12,
+      "kj": {
+        "perPortion": 250,
+        "per100": 2091
+      },
+      "perPortion": {
+        "kcal": 60,
+        "fat": 3.1,
+        "sat": 0.4,
+        "carbs": 6.9,
+        "sugars": 0.3,
+        "fibre": 0.7,
+        "protein": 0.8,
+        "salt": 0.1
+      },
+      "per100": {
+        "kcal": 499,
+        "fat": 26,
+        "sat": 3.4,
+        "carbs": 58,
+        "sugars": 2.7,
+        "fibre": 5.6,
+        "protein": 6.5,
+        "salt": 1.2
+      }
+    },
+    {
+      "section": "Zutaten/Toppings",
+      "name": "Guacamole",
+      "page": 2,
+      "weightG": 35,
+      "kj": {
+        "perPortion": 98,
+        "per100": 282
+      },
+      "perPortion": {
+        "kcal": 24,
+        "fat": 6,
+        "sat": 0.3,
+        "carbs": 0.9,
+        "sugars": 0.4,
+        "fibre": 0.6,
+        "protein": 0.7,
+        "salt": 0.2
+      },
+      "per100": {
+        "kcal": 68,
+        "fat": 17,
+        "sat": 1,
+        "carbs": 2.5,
+        "sugars": 1.1,
+        "fibre": 1.7,
+        "protein": 1.9,
+        "salt": 0.7
+      }
+    },
+    {
+      "section": "Zutaten/Toppings",
+      "name": "Röstzwiebeln",
+      "page": 2,
+      "weightG": 7,
+      "kj": {
+        "perPortion": 171,
+        "per100": 2443
+      },
+      "perPortion": {
+        "kcal": 41,
+        "fat": 3,
+        "sat": 1,
+        "carbs": 2.9,
+        "sugars": 0.6,
+        "fibre": 0.3,
+        "protein": 0.4,
+        "salt": 0
+      },
+      "per100": {
+        "kcal": 584,
+        "fat": 43,
+        "sat": 14.3,
+        "carbs": 41.6,
+        "sugars": 8.9,
+        "fibre": 3.6,
+        "protein": 6,
+        "salt": 0
+      }
+    },
+    {
+      "section": "Brot",
+      "name": "Italian",
+      "page": 3,
+      "weightG": 70,
+      "kj": {
+        "perPortion": 794,
+        "per100": 1134
+      },
+      "perPortion": {
+        "kcal": 190,
+        "fat": 2.1,
+        "sat": 0,
+        "carbs": 36,
+        "sugars": 4.2,
+        "fibre": 2.1,
+        "protein": 7,
+        "salt": 0.6
+      },
+      "per100": {
+        "kcal": 271,
+        "fat": 3,
+        "sat": 0,
+        "carbs": 51,
+        "sugars": 6,
+        "fibre": 3,
+        "protein": 10,
+        "salt": 0.8
+      }
+    },
+    {
+      "section": "Brot",
+      "name": "Sesam",
+      "page": 3,
+      "weightG": 75,
+      "kj": {
+        "perPortion": 782,
+        "per100": 1043
+      },
+      "perPortion": {
+        "kcal": 187,
+        "fat": 4,
+        "sat": 1,
+        "carbs": 29,
+        "sugars": 1,
+        "fibre": 2,
+        "protein": 8,
+        "salt": 1
+      },
+      "per100": {
+        "kcal": 249,
+        "fat": 5.3,
+        "sat": 1.3,
+        "carbs": 39,
+        "sugars": 1,
+        "fibre": 2.6,
+        "protein": 11,
+        "salt": 1.3
+      }
+    },
+    {
+      "section": "Brot",
+      "name": "Cheese Oregano",
+      "page": 3,
+      "weightG": 81,
+      "kj": {
+        "perPortion": 816,
+        "per100": 1007
+      },
+      "perPortion": {
+        "kcal": 195,
+        "fat": 3.9,
+        "sat": 1.6,
+        "carbs": 30,
+        "sugars": 1,
+        "fibre": 1.9,
+        "protein": 9.3,
+        "salt": 0.7
+      },
+      "per100": {
+        "kcal": 241,
+        "fat": 4.8,
+        "sat": 2,
+        "carbs": 37,
+        "sugars": 1,
+        "fibre": 2.3,
+        "protein": 11,
+        "salt": 0.9
+      }
+    },
+    {
+      "section": "Brot",
+      "name": "Honey Oat",
+      "page": 3,
+      "weightG": 96,
+      "kj": {
+        "perPortion": 983,
+        "per100": 1024
+      },
+      "perPortion": {
+        "kcal": 235,
+        "fat": 2.6,
+        "sat": 0.5,
+        "carbs": 41,
+        "sugars": 9,
+        "fibre": 5,
+        "protein": 9.5,
+        "salt": 0.5
+      },
+      "per100": {
+        "kcal": 245,
+        "fat": 2.7,
+        "sat": 0.5,
+        "carbs": 42,
+        "sugars": 9,
+        "fibre": 5.5,
+        "protein": 10,
+        "salt": 0.5
+      }
+    },
+    {
+      "section": "Brot",
+      "name": "Vollkornbrot",
+      "page": 3,
+      "weightG": 76,
+      "kj": {
+        "perPortion": 658,
+        "per100": 866
+      },
+      "perPortion": {
+        "kcal": 157,
+        "fat": 0.8,
+        "sat": 0.2,
+        "carbs": 27,
+        "sugars": 1.4,
+        "fibre": 4.4,
+        "protein": 7.5,
+        "salt": 1
+      },
+      "per100": {
+        "kcal": 207,
+        "fat": 1.1,
+        "sat": 0.2,
+        "carbs": 35,
+        "sugars": 1.8,
+        "fibre": 5.8,
+        "protein": 10,
+        "salt": 0.7
+      }
+    },
+    {
+      "section": "Brot",
+      "name": "Weizenwrap",
+      "page": 3,
+      "weightG": 95,
+      "kj": {
+        "perPortion": 1153,
+        "per100": 1213
+      },
+      "perPortion": {
+        "kcal": 276,
+        "fat": 5.7,
+        "sat": 0.8,
+        "carbs": 48,
+        "sugars": 2.6,
+        "fibre": 3.9,
+        "protein": 6.7,
+        "salt": 1.2
+      },
+      "per100": {
+        "kcal": 290,
+        "fat": 6,
+        "sat": 0.8,
+        "carbs": 50,
+        "sugars": 2.7,
+        "fibre": 4.1,
+        "protein": 7,
+        "salt": 1.3
+      }
+    },
+    {
+      "section": "Brot",
+      "name": "Glutenfrei",
+      "page": 3,
+      "weightG": 110,
+      "kj": {
+        "perPortion": 1229,
+        "per100": 1117
+      },
+      "perPortion": {
+        "kcal": 294,
+        "fat": 6.6,
+        "sat": 0.6,
+        "carbs": 53,
+        "sugars": 1.2,
+        "fibre": 3.7,
+        "protein": 3.3,
+        "salt": 1
+      },
+      "per100": {
+        "kcal": 267,
+        "fat": 6,
+        "sat": 0.5,
+        "carbs": 48,
+        "sugars": 1.1,
+        "fibre": 3.4,
+        "protein": 3,
+        "salt": 0.9
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "Peperoni-Salami",
+      "page": 3,
+      "weightG": 18,
+      "kj": {
+        "perPortion": 305,
+        "per100": 1694
+      },
+      "perPortion": {
+        "kcal": 73,
+        "fat": 6.3,
+        "sat": 2.2,
+        "carbs": 0.6,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 3.6,
+        "salt": 0.7
+      },
+      "per100": {
+        "kcal": 405,
+        "fat": 35,
+        "sat": 12.2,
+        "carbs": 3.5,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 20,
+        "salt": 4
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "Salami",
+      "page": 3,
+      "weightG": 18,
+      "kj": {
+        "perPortion": 305,
+        "per100": 1694
+      },
+      "perPortion": {
+        "kcal": 73,
+        "fat": 6.3,
+        "sat": 2.3,
+        "carbs": 0.6,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 3.6,
+        "salt": 0.7
+      },
+      "per100": {
+        "kcal": 405,
+        "fat": 35,
+        "sat": 12.7,
+        "carbs": 3.5,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 20,
+        "salt": 3.7
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "Tuna (mit Lite Mayonnaise)",
+      "page": 3,
+      "weightG": 74,
+      "kj": {
+        "perPortion": 606,
+        "per100": 819
+      },
+      "perPortion": {
+        "kcal": 145,
+        "fat": 10,
+        "sat": 0.9,
+        "carbs": 2.5,
+        "sugars": 1,
+        "fibre": 0,
+        "protein": 12,
+        "salt": 0.9
+      },
+      "per100": {
+        "kcal": 196,
+        "fat": 14,
+        "sat": 1.1,
+        "carbs": 3.3,
+        "sugars": 1.4,
+        "fibre": 0,
+        "protein": 16,
+        "salt": 1.2
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "Philly Beef",
+      "page": 3,
+      "weightG": 71,
+      "kj": {
+        "perPortion": 359,
+        "per100": 506
+      },
+      "perPortion": {
+        "kcal": 86,
+        "fat": 1.4,
+        "sat": 0.4,
+        "carbs": 8,
+        "sugars": 3.9,
+        "fibre": 0.7,
+        "protein": 11,
+        "salt": 0.7
+      },
+      "per100": {
+        "kcal": 121,
+        "fat": 2,
+        "sat": 0.5,
+        "carbs": 11,
+        "sugars": 5.5,
+        "fibre": 1,
+        "protein": 14.9,
+        "salt": 1
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "Beef Chili",
+      "page": 3,
+      "weightG": 120,
+      "kj": {
+        "perPortion": 479,
+        "per100": 399
+      },
+      "perPortion": {
+        "kcal": 114,
+        "fat": 2.4,
+        "sat": 0.7,
+        "carbs": 10,
+        "sugars": 3.1,
+        "fibre": 2,
+        "protein": 12,
+        "salt": 1.3
+      },
+      "per100": {
+        "kcal": 95,
+        "fat": 2,
+        "sat": 0.6,
+        "carbs": 8,
+        "sugars": 2.6,
+        "fibre": 1.7,
+        "protein": 10,
+        "salt": 1.1
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "Rotisserie-Style Chicken/Pulled Chicken Breast",
+      "page": 3,
+      "weightG": 56,
+      "kj": {
+        "perPortion": 298,
+        "per100": 531
+      },
+      "perPortion": {
+        "kcal": 71,
+        "fat": 2,
+        "sat": 0.3,
+        "carbs": 0.1,
+        "sugars": 0.1,
+        "fibre": 0,
+        "protein": 12,
+        "salt": 0.5
+      },
+      "per100": {
+        "kcal": 127,
+        "fat": 3.5,
+        "sat": 0.5,
+        "carbs": 0.2,
+        "sugars": 0.2,
+        "fibre": 0,
+        "protein": 22,
+        "salt": 0.9
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "Chicken Teriyaki",
+      "page": 3,
+      "weightG": 74,
+      "kj": {
+        "perPortion": 339,
+        "per100": 458
+      },
+      "perPortion": {
+        "kcal": 81,
+        "fat": 1.3,
+        "sat": 0.4,
+        "carbs": 4,
+        "sugars": 3,
+        "fibre": 0.1,
+        "protein": 13,
+        "salt": 0.7
+      },
+      "per100": {
+        "kcal": 109,
+        "fat": 1.7,
+        "sat": 0.5,
+        "carbs": 5.4,
+        "sugars": 4,
+        "fibre": 0.13,
+        "protein": 17,
+        "salt": 0.9
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "Chicken Fajita",
+      "page": 3,
+      "weightG": 56,
+      "kj": {
+        "perPortion": 255,
+        "per100": 456
+      },
+      "perPortion": {
+        "kcal": 61,
+        "fat": 0.5,
+        "sat": 0.2,
+        "carbs": 1.8,
+        "sugars": 0.9,
+        "fibre": 0.1,
+        "protein": 12,
+        "salt": 1.1
+      },
+      "per100": {
+        "kcal": 109,
+        "fat": 1,
+        "sat": 0.3,
+        "carbs": 3.2,
+        "sugars": 1.7,
+        "fibre": 0.1,
+        "protein": 22,
+        "salt": 2
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "Chicken Tandoori",
+      "page": 3,
+      "weightG": 71,
+      "kj": {
+        "perPortion": 374,
+        "per100": 527
+      },
+      "perPortion": {
+        "kcal": 89,
+        "fat": 1.4,
+        "sat": 0.4,
+        "carbs": 1.8,
+        "sugars": 0.9,
+        "fibre": 0,
+        "protein": 18,
+        "salt": 0.6
+      },
+      "per100": {
+        "kcal": 126,
+        "fat": 2,
+        "sat": 0.5,
+        "carbs": 2.5,
+        "sugars": 1.2,
+        "fibre": 0,
+        "protein": 25,
+        "salt": 0.9
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "Ham",
+      "page": 3,
+      "weightG": 28,
+      "kj": {
+        "perPortion": 143,
+        "per100": 510
+      },
+      "perPortion": {
+        "kcal": 34,
+        "fat": 1,
+        "sat": 0.3,
+        "carbs": 0.7,
+        "sugars": 0.4,
+        "fibre": 0.3,
+        "protein": 5.4,
+        "salt": 0.5
+      },
+      "per100": {
+        "kcal": 122,
+        "fat": 3.6,
+        "sat": 1.1,
+        "carbs": 2.5,
+        "sugars": 1.4,
+        "fibre": 1,
+        "protein": 19,
+        "salt": 1.6
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "BBQ Rib",
+      "page": 3,
+      "weightG": 72,
+      "kj": {
+        "perPortion": 876,
+        "per100": 1217
+      },
+      "perPortion": {
+        "kcal": 209,
+        "fat": 17,
+        "sat": 6.5,
+        "carbs": 1.4,
+        "sugars": 0.7,
+        "fibre": 1.1,
+        "protein": 12,
+        "salt": 1
+      },
+      "per100": {
+        "kcal": 291,
+        "fat": 24,
+        "sat": 9.1,
+        "carbs": 2,
+        "sugars": 1,
+        "fibre": 1.6,
+        "protein": 16,
+        "salt": 1.5
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "Bacon",
+      "page": 3,
+      "weightG": 9,
+      "kj": {
+        "perPortion": 154,
+        "per100": 1711
+      },
+      "perPortion": {
+        "kcal": 37,
+        "fat": 2.8,
+        "sat": 1,
+        "carbs": 0.2,
+        "sugars": 0.3,
+        "fibre": 0,
+        "protein": 3,
+        "salt": 0.3
+      },
+      "per100": {
+        "kcal": 410,
+        "fat": 31,
+        "sat": 11,
+        "carbs": 2.4,
+        "sugars": 3,
+        "fibre": 0,
+        "protein": 33,
+        "salt": 3.6
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "Spicy Vegan Patty",
+      "page": 3,
+      "weightG": 85,
+      "kj": {
+        "perPortion": 708,
+        "per100": 833
+      },
+      "perPortion": {
+        "kcal": 169,
+        "fat": 8.8,
+        "sat": 0.8,
+        "carbs": 10.2,
+        "sugars": 1.6,
+        "fibre": 2.7,
+        "protein": 11,
+        "salt": 1.1
+      },
+      "per100": {
+        "kcal": 199,
+        "fat": 10,
+        "sat": 0.9,
+        "carbs": 12,
+        "sugars": 1.9,
+        "fibre": 3.2,
+        "protein": 13,
+        "salt": 1.3
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "Plant-based Chicken Teriyaki",
+      "page": 3,
+      "weightG": 74,
+      "kj": {
+        "perPortion": 418,
+        "per100": 565
+      },
+      "perPortion": {
+        "kcal": 100,
+        "fat": 2.3,
+        "sat": 0.5,
+        "carbs": 8.1,
+        "sugars": 2.4,
+        "fibre": 3.5,
+        "protein": 10,
+        "salt": 1.6
+      },
+      "per100": {
+        "kcal": 135,
+        "fat": 3.1,
+        "sat": 0.6,
+        "carbs": 11,
+        "sugars": 3.2,
+        "fibre": 4.7,
+        "protein": 14,
+        "salt": 2.1
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "Omelette",
+      "page": 3,
+      "weightG": 70,
+      "kj": {
+        "perPortion": 363,
+        "per100": 518
+      },
+      "perPortion": {
+        "kcal": 87,
+        "fat": 4.69,
+        "sat": 1.4,
+        "carbs": 2.3,
+        "sugars": 0.7,
+        "fibre": 0,
+        "protein": 7.8,
+        "salt": 0.8
+      },
+      "per100": {
+        "kcal": 124,
+        "fat": 6.7,
+        "sat": 2,
+        "carbs": 3.3,
+        "sugars": 1,
+        "fibre": 0.1,
+        "protein": 11,
+        "salt": 1.1
+      }
+    },
+    {
+      "section": "Einzel-Zutaten",
+      "name": "Nacho Chicken",
+      "page": 3,
+      "weightG": 18,
+      "kj": {
+        "perPortion": 188,
+        "per100": 987
+      },
+      "perPortion": {
+        "kcal": 45,
+        "fat": 2.1,
+        "sat": 0.3,
+        "carbs": 3.5,
+        "sugars": 0.2,
+        "fibre": 0,
+        "protein": 2.6,
+        "salt": 0.2
+      },
+      "per100": {
+        "kcal": 250,
+        "fat": 12,
+        "sat": 1.6,
+        "carbs": 20,
+        "sugars": 0.9,
+        "fibre": 1.4,
+        "protein": 15,
+        "salt": 1.4
+      }
+    }
+  ],
+  "wolt": {
+    "venue": "subway-frankfurt-zeil",
+    "page": "https://wolt.com/de/deu/frankfurt/restaurant/subway-frankfurt-zeil",
+    "category": "Create Your Own",
+    "small": {
+      "label": "15-CM",
+      "factor": 1,
+      "subs": [
+        {
+          "name": "Beef Chili",
+          "ingredient": "beef_chili",
+          "itemPrice": 9.79,
+          "sizeName": "Beef Chili - 15-CM",
+          "sizePrice": 0,
+          "price": 9.79,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 2.19
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 2,
+            "seasonings": 3
+          },
+          "none": {
+            "kaese": "ohne Käse",
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "Chicken Teriyaki",
+          "ingredient": "chicken_teriyaki",
+          "itemPrice": 8.99,
+          "sizeName": "Chicken Teriyaki - 15-CM",
+          "sizePrice": 0,
+          "price": 8.99,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 2.19
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 0,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 2,
+            "seasonings": 3
+          },
+          "none": {
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "Plant-based Chicken Teriyaki",
+          "ingredient": "pb_chicken_teriyaki",
+          "itemPrice": 8.99,
+          "sizeName": "Plant-based Chicken Teriyaki - 15-CM",
+          "sizePrice": 0,
+          "price": 8.99,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 2.19
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 0,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 2,
+            "seasonings": 3
+          },
+          "none": {
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "Chicken Fajita",
+          "ingredient": "chicken_fajita",
+          "itemPrice": 8.99,
+          "sizeName": "Chicken Fajita - 15-CM",
+          "sizePrice": 0,
+          "price": 8.99,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 2.19
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 0,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 2,
+            "seasonings": 3
+          },
+          "none": {
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "Chicken Tandoori",
+          "ingredient": "chicken_tandoori",
+          "itemPrice": 8.99,
+          "sizeName": "Chicken Tandoori - 15-CM",
+          "sizePrice": 0,
+          "price": 8.99,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 2.19
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 1,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 2,
+            "seasonings": 3
+          },
+          "none": {
+            "kaese": "ohne Käse",
+            "veggies": "ohne Veggies",
+            "saucen": "ohne Saucen"
+          }
+        },
+        {
+          "name": "Pulled Chicken Breast",
+          "ingredient": "pulled_chicken_breast",
+          "itemPrice": 9.29,
+          "sizeName": "Pulled Chicken Breast - 15-CM",
+          "sizePrice": 0,
+          "price": 9.29,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 2.19
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 0,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 2,
+            "seasonings": 3
+          },
+          "none": {
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "Philly Beef & Cheese",
+          "ingredient": "philly_beef",
+          "itemPrice": 9.29,
+          "sizeName": "Philly Beef & Cheese - 15-CM",
+          "sizePrice": 0,
+          "price": 9.29,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 2.19
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 2,
+            "seasonings": 3
+          },
+          "none": {
+            "kaese": "ohne Käse",
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "BBQ Rib",
+          "ingredient": "bbq_rib",
+          "itemPrice": 8.99,
+          "sizeName": "BBQ Rib - 15-CM",
+          "sizePrice": 0,
+          "price": 8.99,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 2.19
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 1
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 2,
+            "seasonings": 3
+          },
+          "none": {
+            "kaese": "ohne Käse",
+            "veggies": "ohne Veggies",
+            "seasonings": "ohne Seasonings"
+          }
+        },
+        {
+          "name": "Ham",
+          "ingredient": "ham",
+          "itemPrice": 7.59,
+          "sizeName": "Ham - 15-CM",
+          "sizePrice": 0,
+          "price": 7.59,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 2.19
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 0,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 2,
+            "seasonings": 3
+          },
+          "none": {
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "Spicy Vegan Patty",
+          "ingredient": "spicy_vegan_patty",
+          "itemPrice": 8.39,
+          "sizeName": "Spicy Vegan Patty - 15-CM",
+          "sizePrice": 0,
+          "price": 8.39,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 2.19
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 0,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 2,
+            "seasonings": 3
+          },
+          "none": {
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "Veggie Delite®",
+          "ingredient": "veggie_delite",
+          "itemPrice": 6.49,
+          "sizeName": "Veggie Delite® - 15-CM",
+          "sizePrice": 0,
+          "price": 6.49,
+          "extraProtein": null,
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 2,
+            "seasonings": 3
+          },
+          "none": {
+            "kaese": "ohne Käse",
+            "veggies": "ohne Veggies"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "id": "brot",
+          "name": "Brot",
+          "kind": "base",
+          "own": false,
+          "pick": false,
+          "none": null,
+          "options": [
+            {
+              "name": "Cheese Oregano",
+              "ingredient": "cheese_oregano",
+              "role": "base",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Honey Oat",
+              "ingredient": "honey_oat",
+              "role": "base",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Sesam",
+              "ingredient": "sesam",
+              "role": "base",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Vollkorn",
+              "ingredient": "vollkornbrot",
+              "role": "base",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Italian",
+              "ingredient": "italian",
+              "role": "base",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Glutenfrei",
+              "ingredient": "glutenfrei",
+              "role": "base",
+              "maxQty": 1,
+              "price": 1.49
+            }
+          ],
+          "min": 1,
+          "max": 1
+        },
+        {
+          "id": "zubereitung",
+          "name": "Zubereitungsart",
+          "kind": "prep",
+          "own": false,
+          "pick": false,
+          "none": null,
+          "options": [],
+          "choices": [
+            "Getoastet",
+            "Ungetoastet"
+          ],
+          "min": 1,
+          "max": 1
+        },
+        {
+          "id": "kaese",
+          "name": "Käse",
+          "kind": "side",
+          "own": false,
+          "pick": false,
+          "none": "ohne Käse",
+          "options": [
+            {
+              "name": "Scheibenkäse",
+              "ingredient": "scheibenkaese",
+              "role": "side",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Cheddar",
+              "ingredient": "cheddar",
+              "role": "side",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Mozzarella-Emmental-Mix",
+              "ingredient": "mozzarella_emmental_mix",
+              "role": "side",
+              "maxQty": 1,
+              "price": 0
+            }
+          ],
+          "min": 0,
+          "max": 1
+        },
+        {
+          "id": "extras",
+          "name": "Extras",
+          "kind": "extra",
+          "own": false,
+          "pick": false,
+          "none": null,
+          "options": [
+            {
+              "name": "Bacon",
+              "ingredient": "bacon",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 1.49
+            },
+            {
+              "name": "Chicken Teriyaki",
+              "ingredient": "chicken_teriyaki",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 1.49
+            },
+            {
+              "name": "Frischkäse",
+              "ingredient": "frischkaese",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0.89,
+              "sauce": true
+            },
+            {
+              "name": "Tuna",
+              "ingredient": "tuna",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 1.49
+            },
+            {
+              "name": "Peperoni-Salami",
+              "ingredient": "peperoni_salami",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 1.69
+            },
+            {
+              "name": "Ham",
+              "ingredient": "ham",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 1.49
+            }
+          ],
+          "min": 0,
+          "max": 15
+        },
+        {
+          "id": "veggies",
+          "name": "Veggies",
+          "kind": "extra",
+          "own": true,
+          "pick": true,
+          "none": "ohne Veggies",
+          "options": [
+            {
+              "name": "Eisbergsalat",
+              "ingredient": "salat",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Rucola",
+              "ingredient": "rucola",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Tomaten",
+              "ingredient": "tomaten",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Gurken",
+              "ingredient": "gurken",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Rote Paprika",
+              "ingredient": "paprika",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Rote Zwiebeln",
+              "ingredient": "zwiebeln",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Schwarze Oliven",
+              "ingredient": "oliven",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Jalapeños",
+              "ingredient": "jalapenos",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Mais",
+              "ingredient": "mais",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Gewürzgurke",
+              "ingredient": "gewuerzgurken",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            }
+          ],
+          "min": 1,
+          "max": 14
+        },
+        {
+          "id": "saucen",
+          "name": "Saucen",
+          "kind": "extra",
+          "own": true,
+          "pick": false,
+          "none": "ohne Saucen",
+          "options": [
+            {
+              "name": "X-spicy Chipotle Southwest",
+              "ingredient": "x_spicy_chipotle",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Chipotle Southwest",
+              "ingredient": "chipotle_southwest",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Sweet Onion",
+              "ingredient": "sweet_onion",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Caesar",
+              "ingredient": "caesar_sauce",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Joghurt",
+              "ingredient": "joghurt",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Lite Mayonnaise",
+              "ingredient": "lite_mayonnaise",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Balsamico Essig",
+              "ingredient": "balsamic_vinegar",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Olivenöl",
+              "ingredient": "olivenoel",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Honey & Wholegrain Mustard",
+              "ingredient": "honey_wholegrain_mustard",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Garlic & Herb (Vegan)",
+              "ingredient": "garlic_herb",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "BBQ Sauce (vegan)",
+              "ingredient": "bbq_sauce",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Ketchup",
+              "ingredient": "ketchup",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            }
+          ],
+          "min": 0,
+          "max": 2
+        },
+        {
+          "id": "seasonings",
+          "name": "Seasonings",
+          "kind": "extra",
+          "own": true,
+          "pick": false,
+          "none": "ohne Seasonings",
+          "options": [
+            {
+              "name": "Röstzwiebeln",
+              "ingredient": "roestzwiebeln",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            }
+          ],
+          "min": 0,
+          "max": 3
+        }
+      ]
+    },
+    "footlong": {
+      "label": "FOOTLONG (30-CM)",
+      "factor": 2,
+      "subs": [
+        {
+          "name": "Beef Chili",
+          "ingredient": "beef_chili",
+          "itemPrice": 9.79,
+          "sizeName": "Beef Chili - FOOTLONG (30-CM)",
+          "sizePrice": 7,
+          "price": 16.79,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 4.29
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 3,
+            "seasonings": 3
+          },
+          "none": {
+            "kaese": "ohne Käse",
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "Chicken Teriyaki",
+          "ingredient": "chicken_teriyaki",
+          "itemPrice": 8.99,
+          "sizeName": "Chicken Teriyaki - FOOTLONG (30-CM)",
+          "sizePrice": 6.7,
+          "price": 15.69,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 4.29
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 0,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 3,
+            "seasonings": 3
+          },
+          "none": {
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "Plant-based Chicken Teriyaki",
+          "ingredient": "pb_chicken_teriyaki",
+          "itemPrice": 8.99,
+          "sizeName": "Plant-based Chicken Teriyaki - FOOTLONG (30-CM)",
+          "sizePrice": 6.7,
+          "price": 15.69,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 4.29
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 0,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 2,
+            "seasonings": 3
+          },
+          "none": {
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "Chicken Fajita",
+          "ingredient": "chicken_fajita",
+          "itemPrice": 8.99,
+          "sizeName": "Chicken Fajita - FOOTLONG (30-CM)",
+          "sizePrice": 6.7,
+          "price": 15.69,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 4.29
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 0,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 3,
+            "seasonings": 3
+          },
+          "none": {
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "Chicken Tandoori",
+          "ingredient": "chicken_tandoori",
+          "itemPrice": 8.99,
+          "sizeName": "Chicken Tandoori - FOOTLONG (30-CM)",
+          "sizePrice": 6.7,
+          "price": 15.69,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 4.29
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 1,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 3,
+            "seasonings": 3
+          },
+          "none": {
+            "kaese": "ohne Käse",
+            "veggies": "ohne Veggies",
+            "saucen": "ohne Saucen"
+          }
+        },
+        {
+          "name": "Pulled Chicken Breast",
+          "ingredient": "pulled_chicken_breast",
+          "itemPrice": 9.29,
+          "sizeName": "Pulled Chicken Breast - FOOTLONG (30-CM)",
+          "sizePrice": 6.7,
+          "price": 15.99,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 4.29
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 0,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 3,
+            "seasonings": 3
+          },
+          "none": {
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "Philly Beef & Cheese",
+          "ingredient": "philly_beef",
+          "itemPrice": 9.29,
+          "sizeName": "Philly Beef & Cheese - FOOTLONG (30-CM)",
+          "sizePrice": 6.7,
+          "price": 15.99,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 4.29
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 3,
+            "seasonings": 3
+          },
+          "none": {
+            "kaese": "ohne Käse",
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "BBQ Rib",
+          "ingredient": "bbq_rib",
+          "itemPrice": 8.99,
+          "sizeName": "BBQ Rib - FOOTLONG (30-CM)",
+          "sizePrice": 6.7,
+          "price": 15.69,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 4.29
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 1
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 3,
+            "seasonings": 3
+          },
+          "none": {
+            "kaese": "ohne Käse",
+            "veggies": "ohne Veggies",
+            "seasonings": "ohne Seasonings"
+          }
+        },
+        {
+          "name": "Ham",
+          "ingredient": "ham",
+          "itemPrice": 7.59,
+          "sizeName": "Ham - FOOTLONG (30-CM)",
+          "sizePrice": 5.6,
+          "price": 13.19,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 4.29
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 0,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 3,
+            "seasonings": 3
+          },
+          "none": {
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "Spicy Vegan Patty",
+          "ingredient": "spicy_vegan_patty",
+          "itemPrice": 8.39,
+          "sizeName": "Spicy Vegan Patty - FOOTLONG (30-CM)",
+          "sizePrice": 6.5,
+          "price": 14.89,
+          "extraProtein": {
+            "name": "Extra Fleisch / Protein",
+            "price": 4.29
+          },
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 0,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 3,
+            "seasonings": 3
+          },
+          "none": {
+            "veggies": "ohne Veggies"
+          }
+        },
+        {
+          "name": "Veggie Delite®",
+          "ingredient": "veggie_delite",
+          "itemPrice": 6.49,
+          "sizeName": "Veggie Delite® - FOOTLONG (30-CM)",
+          "sizePrice": 5.2,
+          "price": 11.69,
+          "extraProtein": null,
+          "groupMin": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 0,
+            "veggies": 1,
+            "saucen": 0,
+            "seasonings": 0
+          },
+          "groupMax": {
+            "brot": 1,
+            "zubereitung": 1,
+            "kaese": 1,
+            "extras": 15,
+            "veggies": 14,
+            "saucen": 3,
+            "seasonings": 3
+          },
+          "none": {
+            "kaese": "ohne Käse",
+            "veggies": "ohne Veggies"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "id": "brot",
+          "name": "Brot",
+          "kind": "base",
+          "own": false,
+          "pick": false,
+          "none": null,
+          "options": [
+            {
+              "name": "Cheese Oregano",
+              "ingredient": "cheese_oregano",
+              "role": "base",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Honey Oat",
+              "ingredient": "honey_oat",
+              "role": "base",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Sesam",
+              "ingredient": "sesam",
+              "role": "base",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Vollkorn",
+              "ingredient": "vollkornbrot",
+              "role": "base",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Italian",
+              "ingredient": "italian",
+              "role": "base",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Glutenfrei",
+              "ingredient": "glutenfrei",
+              "role": "base",
+              "maxQty": 1,
+              "price": 2.89
+            }
+          ],
+          "min": 1,
+          "max": 1
+        },
+        {
+          "id": "zubereitung",
+          "name": "Zubereitungsart",
+          "kind": "prep",
+          "own": false,
+          "pick": false,
+          "none": null,
+          "options": [],
+          "choices": [
+            "Getoastet",
+            "Ungetoastet"
+          ],
+          "min": 1,
+          "max": 1
+        },
+        {
+          "id": "kaese",
+          "name": "Käse",
+          "kind": "side",
+          "own": false,
+          "pick": false,
+          "none": "ohne Käse",
+          "options": [
+            {
+              "name": "Scheibenkäse",
+              "ingredient": "scheibenkaese",
+              "role": "side",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Cheddar",
+              "ingredient": "cheddar",
+              "role": "side",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Mozzarella-Emmental-Mix",
+              "ingredient": "mozzarella_emmental_mix",
+              "role": "side",
+              "maxQty": 1,
+              "price": 0
+            }
+          ],
+          "min": 0,
+          "max": 1
+        },
+        {
+          "id": "extras",
+          "name": "Extras",
+          "kind": "extra",
+          "own": false,
+          "pick": false,
+          "none": null,
+          "options": [
+            {
+              "name": "Bacon",
+              "ingredient": "bacon",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 2.89
+            },
+            {
+              "name": "Chicken Teriyaki",
+              "ingredient": "chicken_teriyaki",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 2.89
+            },
+            {
+              "name": "Frischkäse",
+              "ingredient": "frischkaese",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 1.69,
+              "sauce": true
+            },
+            {
+              "name": "Tuna",
+              "ingredient": "tuna",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 2.89
+            },
+            {
+              "name": "Peperoni-Salami",
+              "ingredient": "peperoni_salami",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 3.39
+            },
+            {
+              "name": "Ham",
+              "ingredient": "ham",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 2.89
+            }
+          ],
+          "min": 0,
+          "max": 15
+        },
+        {
+          "id": "veggies",
+          "name": "Veggies",
+          "kind": "extra",
+          "own": true,
+          "pick": true,
+          "none": "ohne Veggies",
+          "options": [
+            {
+              "name": "Eisbergsalat",
+              "ingredient": "salat",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Rucola",
+              "ingredient": "rucola",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Tomaten",
+              "ingredient": "tomaten",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Gurken",
+              "ingredient": "gurken",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Rote Paprika",
+              "ingredient": "paprika",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Rote Zwiebeln",
+              "ingredient": "zwiebeln",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Schwarze Oliven",
+              "ingredient": "oliven",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Jalapeños",
+              "ingredient": "jalapenos",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Mais",
+              "ingredient": "mais",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            },
+            {
+              "name": "Gewürzgurke",
+              "ingredient": "gewuerzgurken",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0,
+              "pick": true
+            }
+          ],
+          "min": 1,
+          "max": 14
+        },
+        {
+          "id": "saucen",
+          "name": "Saucen",
+          "kind": "extra",
+          "own": true,
+          "pick": false,
+          "none": "ohne Saucen",
+          "options": [
+            {
+              "name": "X-spicy Chipotle Southwest",
+              "ingredient": "x_spicy_chipotle",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Chipotle Southwest",
+              "ingredient": "chipotle_southwest",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Sweet Onion",
+              "ingredient": "sweet_onion",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Caesar",
+              "ingredient": "caesar_sauce",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Joghurt",
+              "ingredient": "joghurt",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Lite Mayonnaise",
+              "ingredient": "lite_mayonnaise",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Balsamico Essig",
+              "ingredient": "balsamic_vinegar",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Olivenöl",
+              "ingredient": "olivenoel",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Honey & Wholegrain Mustard",
+              "ingredient": "honey_wholegrain_mustard",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Garlic & Herb (Vegan)",
+              "ingredient": "garlic_herb",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "BBQ Sauce (vegan)",
+              "ingredient": "bbq_sauce",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            },
+            {
+              "name": "Ketchup",
+              "ingredient": "ketchup",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            }
+          ],
+          "min": 0,
+          "max": 3
+        },
+        {
+          "id": "seasonings",
+          "name": "Seasonings",
+          "kind": "extra",
+          "own": true,
+          "pick": false,
+          "none": "ohne Seasonings",
+          "options": [
+            {
+              "name": "Röstzwiebeln",
+              "ingredient": "roestzwiebeln",
+              "role": "extra",
+              "maxQty": 1,
+              "price": 0
+            }
+          ],
+          "min": 0,
+          "max": 3
+        }
+      ]
+    }
+  }
+}
