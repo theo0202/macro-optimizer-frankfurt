@@ -1,0 +1,2978 @@
+{
+  "_meta": {
+    "restaurant": "Die gruene Kaffeebohne",
+    "fetchedAt": "2026-09-17T05:23:07.790Z",
+    "sources": {
+      "wolt": {
+        "venue": "die-gruene-kaffeebohne",
+        "name": "Die gruene Kaffeebohne (Frankfurt, Hanauer Landstraße 115)",
+        "page": "https://wolt.com/de/deu/frankfurt/restaurant/die-gruene-kaffeebohne",
+        "api": "https://consumer-api.wolt.com/consumer-api/consumer-assortment/v1/venues/slug/die-gruene-kaffeebohne/assortment?language=de",
+        "categories": [
+          "LOW CARB BOWLS",
+          "BALANCE BOWLS",
+          "HIGH PROTEIN BOWLS",
+          "FRÜHSTÜCK"
+        ],
+        "skippedCategories": {
+          "BESTECK": "kein Produkt („Benötigst du Besteck?“)",
+          "FRUIT BOWLS": "User 17.09.2026: weglassen",
+          "MATCHA & CO": "User 17.09.2026: weglassen",
+          "EIERSPEISEN": "User 17.09.2026: weglassen",
+          "HEISSGETRÄNKE": "User 17.09.2026: weglassen",
+          "ALKOHOLFREIE GETRÄNKE": "User 17.09.2026: weglassen"
+        }
+      }
+    },
+    "basis": "Offizielle Werte aus den Wolt-Produktbeschreibungen der Kaffeebohne, jeweils für die empfohlene Auswahl (Hähnchen, bei Bowls Basmati Reis); Protein- und Kohlenhydrat-Optionen ändern sie um die in der Option angegebenen Werte. Angegeben sind nur kcal, Kohlenhydrate, Eiweiß und Fett — gesättigte Fettsäuren, Zucker, Ballaststoffe und Salz stehen als 0 im Tracker. Der Pflicht-Dip hat keine Werte und zählt nicht mit.",
+    "notDeclared": [
+      "sat",
+      "sugars",
+      "fibre",
+      "salt"
+    ],
+    "decisions": [
+      "User 17.09.2026: Die gruene Kaffeebohne (Wolt) als Tracker; Nährwerte, Bestelloptionen und deren Auswirkungen aus den Produkten",
+      "User 17.09.2026: FRUIT BOWLS, MATCHA & CO, FRÜHSTÜCK (außer Lachs Bagel 36 g Protein und Green Power Bagel 29 g Protein), EIERSPEISEN, HEIßGETRÄNKE, ALKOHOLFREIE GETRÄNKE weglassen",
+      "User 17.09.2026: Dips haben keine Werte → nie mitzählen; Wolt verlangt einen Dip, der Order Guide sagt: beliebig wählen und weglassen"
+    ],
+    "dips": [
+      "Mango Chili",
+      "French",
+      "Honig Senf",
+      "Italian",
+      "Parmesan"
+    ],
+    "blocked": [
+      "Lean Super Salad 38 g Protein – Low Carb — Fett 167,7 g ist bei 409 kcal unmöglich (4·KH + 4·E + 9·F = 1703 kcal; mit Compleats Zutaten wären es 16,7 g) — nicht still korrigiert",
+      "Spicy Protein Salad 24 g Protein - Low Carb — Werte laut Beschreibung für Rinderhack (mager) bzw. Planted Hack — bei Wolt wählbar sind nur Hähnchen, vegane Hühnchen und vegane Hackbällchen (Standard Hähnchen), deren Änderungen sich auf Hähnchen beziehen",
+      "Vital Boost Bowl 35 g Protein — 605 kcal passen weder zu 1870 kJ (= 447 kcal) noch zu den Makros (410 kcal); die Werte gelten für 125 g Quinoa, bei Wolt ist Basmati Reis (250g) vorausgewählt und Quinoa nur als 250 g wählbar",
+      "Classic Bowl 39 g Protein — Makros (42 g Eiweiß, 47 g KH, 22 g Fett) passen nicht zu 250 g Reis und zum Namen; 605 kcal und 39 g Eiweiß ergeben sich aus Classic Salad + Reis-Option (dann 77 g KH, 14 g Fett) — nicht still korrigiert",
+      "Spicy Protein Bowl 31 g Protein — Werte laut Beschreibung für Rinderhack (mager) bzw. Planted Hack — bei Wolt wählbar sind nur Hähnchen, vegane Hühnchen und vegane Hackbällchen (Standard Hähnchen), deren Änderungen sich auf Hähnchen beziehen",
+      "Spicy Protein Bowl 45 g Protein — Werte laut Beschreibung für 200 g Rinderhack (mager) bzw. 160 g Planted Hack — bei Wolt wählbar sind nur Hähnchen, vegane Hühnchen und vegane Hackbällchen (Standard Hähnchen 200g), deren Änderungen sich auf Hähnchen beziehen"
+    ],
+    "skipped": [
+      "BESTECK (1 Artikel) — kein Produkt („Benötigst du Besteck?“)",
+      "FRUIT BOWLS 🍊 (1 Artikel) — User 17.09.2026: weglassen",
+      "MATCHA & CO 🍌 (6 Artikel) — User 17.09.2026: weglassen",
+      "Frühstücksteller (10.5 €, Bagels) — User 17.09.2026: Frühstück weglassen",
+      "Vegetarisches Frühstück (17.9 €, Bagels) — User 17.09.2026: Frühstück weglassen",
+      "Wangari-Frühstück (19.9 €, Bagels) — User 17.09.2026: Frühstück weglassen",
+      "Ostend-Frühstück (19.9 €, Bagels) — User 17.09.2026: Frühstück weglassen",
+      "EIERSPEISEN 🥚 (2 Artikel) — User 17.09.2026: weglassen",
+      "HEIßGETRÄNKE ☕ (12 Artikel) — User 17.09.2026: weglassen",
+      "ALKOHOLFREIE GETRÄNKE 🥤 (3 Artikel) — User 17.09.2026: weglassen"
+    ],
+    "anomalies": [
+      {
+        "name": "Vital Boost Salad 32 g Protein - Low Carb",
+        "issues": [
+          "kcal 375 ≠ 4·C+4·P+9·F = 300"
+        ]
+      },
+      {
+        "name": "Lean Super Salad 38 g Protein – Low Carb",
+        "issues": [
+          "kcal 409 ≠ 4·C+4·P+9·F = 1703"
+        ]
+      },
+      {
+        "name": "Garden Crunch Salad 28 g Protein - Low Carb",
+        "issues": [
+          "kcal 348 ≠ 4·C+4·P+9·F = 295"
+        ]
+      },
+      {
+        "name": "Jungle Power Salad 35 g Protein - Low Carb",
+        "issues": [
+          "kcal 384 ≠ 4·C+4·P+9·F = 338"
+        ]
+      },
+      {
+        "name": "Classic Salad 33 g Protein - Low Carb",
+        "issues": [
+          "kcal 333 ≠ 4·C+4·P+9·F = 291"
+        ]
+      },
+      {
+        "name": "Gym Junkie Salad 44 g Protein - Low Carb",
+        "issues": [
+          "kcal 527 ≠ 4·C+4·P+9·F = 468"
+        ]
+      },
+      {
+        "name": "Spicy Protein Salad 24 g Protein - Low Carb",
+        "issues": [
+          "Beschreibung nennt Rinderhack, Wolt bietet Hähnchen 100g / vegane Hühnchen (100g) / vegane Hackbällchen (100g) (Standard Hähnchen 100g)"
+        ]
+      },
+      {
+        "name": "Muscle Boost Salad 41 g Protein - Low Carb",
+        "issues": [
+          "kcal 441 ≠ 4·C+4·P+9·F = 393"
+        ]
+      },
+      {
+        "name": "Vital Boost Bowl 35 g Protein",
+        "issues": [
+          "kcal 605 ≠ 4·C+4·P+9·F = 410",
+          "605 kcal ≠ 1870 kJ (= 447 kcal)",
+          "Beschreibung nennt Quinoa, bei Wolt ist Basmati Reis (250g) vorausgewählt"
+        ]
+      },
+      {
+        "name": "Classic Bowl 39 g Protein",
+        "issues": [
+          "Name nennt 39 g Protein, Nährwerte 42 g"
+        ]
+      },
+      {
+        "name": "Spicy Protein Bowl 31 g Protein",
+        "issues": [
+          "Beschreibung nennt Rinderhack, Wolt bietet Hähnchen 100g / vegane Hühnchen (100g) / vegane Hackbällchen (100g) (Standard Hähnchen 100g)"
+        ]
+      },
+      {
+        "name": "Shape Bowl 62 g Protein",
+        "issues": [
+          "Name nennt 62 g Protein, Nährwerte 59.5 g"
+        ]
+      },
+      {
+        "name": "Spicy Protein Bowl 45 g Protein",
+        "issues": [
+          "Beschreibung nennt Rinderhack, Wolt bietet Hähnchen 200g / vegane Hünchen (200g) / vegane Hackbällchen (200g) (Standard Hähnchen 200g)"
+        ]
+      }
+    ],
+    "compleatCheck": [
+      "vegane Hühnchen (100g) statt Hähnchen 100g: Wolt 31/-6.4/0.1/5.4 · Compleat 31/-6.4/0.16/5.3 → gleich",
+      "vegane Hackbällchen (100g) statt Hähnchen 100g: Wolt 29/-5.5/5.4/1.9 · Compleat 29/-5.5/5.4/1.8 → gleich",
+      "Salat Mix (80g) Low Carb statt Basmati Reis (250g): Wolt -272/-6.4/-68.3/-0.5 · Compleat -316.4/-6.3/-68.32/-0.51 → abweichend",
+      "Bunter Bio Quinoa (250g) statt Basmati Reis (250g): Wolt -70/1.2/-27.5/3.8 · Compleat -200/-3/-48.75/1.5 → abweichend",
+      "Süßkartoffel (250g) statt Basmati Reis (250g): Wolt -47/-3.5/-12/0.8 · Compleat -47.5/-3.5/-12/0.75 → gleich",
+      "vegane Hünchen (200g) statt Hähnchen 200g: Wolt 62/-12.9/0.3/10.6 · Compleat 62/-12.8/0.32/10.6 → gleich",
+      "vegane Hackbällchen (200g) statt Hähnchen 200g: Wolt 58/-11/10.8/3.6 · Compleat 58/-11/10.8/3.6 → gleich"
+    ],
+    "shellfish": "keine Allergenangabe mit Krebs-/Weichtieren; kein Gericht mit Krebs-/Weichtier-Begriff (Räucherlachs = Fisch, erlaubt)",
+    "dislikes": "keine Beschreibung nennt Koriander oder Minze (Dip-Zutaten unbekannt)"
+  },
+  "wolt": {
+    "venue": "die-gruene-kaffeebohne",
+    "page": "https://wolt.com/de/deu/frankfurt/restaurant/die-gruene-kaffeebohne",
+    "cats": [
+      {
+        "id": "lowcarb",
+        "name": "Low Carb Bowls",
+        "on": true
+      },
+      {
+        "id": "balance",
+        "name": "Balance Bowls",
+        "on": true
+      },
+      {
+        "id": "highprotein",
+        "name": "High Protein Bowls",
+        "on": true
+      },
+      {
+        "id": "bagels",
+        "name": "Bagels",
+        "on": true
+      }
+    ],
+    "products": [
+      {
+        "name": "Vital Boost Salad 32 g Protein - Low Carb",
+        "cat": "lowcarb",
+        "price": 14.9,
+        "description": "Kohlenhydrate: / 80 g Salatmix / Vitamine: / 20 g Babyspinat / 100 g Brokkoli / 50 g Karotten / 50 g Rotkraut / 50 g Mango / 35 g Avocado / Topping: / 15 g Granatapfelkerne / Nährwerte: / Protein 31,5 g | Fett 7,8 g | Kohlenhydrate 26 g | Kalorien 375 kcal / 1569 kJ / Allergene: Soja",
+        "nutrition": {
+          "protein": 31.5,
+          "fat": 7.8,
+          "carbs": 26,
+          "kcal": 375
+        },
+        "kJ": 1569,
+        "basis": null,
+        "groups": [
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 100g",
+                "name": "Hähnchen 100g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hühnchen (100g) (-6,4 g Protein, +0,1 KH, +5,4 g Fett, +31 kcal, +130kJ)",
+                "name": "vegane Hühnchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": 0.1,
+                  "fat": 5.4,
+                  "kcal": 31,
+                  "kJ": 130
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (100g) (-5,5 g Protein, +5,4 KH, +1,9 g Fett, +29 kcal, +122kJ)",
+                "name": "vegane Hackbällchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -5.5,
+                  "carbs": 5.4,
+                  "fat": 1.9,
+                  "kcal": 29,
+                  "kJ": 122
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          }
+        ],
+        "nameProtein": 32
+      },
+      {
+        "name": "Lean Super Salad 38 g Protein – Low Carb",
+        "cat": "lowcarb",
+        "price": 14.9,
+        "description": "Kohlenhydrate: / 80 g Salatmix / Protein: / 50 g Feta / Vitamine: / 100 g Brokkoli / 100 g Gemüsemix (z. B. Zucchini, Paprika, Karotten) / Topping: / 3 g Schwarzer Sesam / Nährwerte: / Protein 38,4 g | Fett 167,7 g | Kohlenhydrate 10 g | Kalorien 409 kcal / 1711 kJ / Bei empfohlenem Hühnchen / Allergene: nicht genannt",
+        "nutrition": {
+          "protein": 38.4,
+          "fat": 167.7,
+          "carbs": 10,
+          "kcal": 409
+        },
+        "kJ": 1711,
+        "basis": "Hühnchen",
+        "groups": [
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          },
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 100g",
+                "name": "Hähnchen 100g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hühnchen (100g) (-6,4 g Protein, +0,1 KH, +5,4 g Fett, +31 kcal, +130kJ)",
+                "name": "vegane Hühnchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": 0.1,
+                  "fat": 5.4,
+                  "kcal": 31,
+                  "kJ": 130
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (100g) (-5,5 g Protein, +5,4 KH, +1,9 g Fett, +29 kcal, +122kJ)",
+                "name": "vegane Hackbällchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -5.5,
+                  "carbs": 5.4,
+                  "fat": 1.9,
+                  "kcal": 29,
+                  "kJ": 122
+                }
+              }
+            ]
+          }
+        ],
+        "nameProtein": 38,
+        "blocked": "Fett 167,7 g ist bei 409 kcal unmöglich (4·KH + 4·E + 9·F = 1703 kcal; mit Compleats Zutaten wären es 16,7 g) — nicht still korrigiert"
+      },
+      {
+        "name": "Garden Crunch Salad 28 g Protein - Low Carb",
+        "cat": "lowcarb",
+        "price": 12.9,
+        "description": "Kohlenhydrate: / 80 g Salatmix / Proteine: / 100 g Hühnchen / Vitamine: / 50 g Gurke / 50 g Rotkraut / 50 g Karotten / 15 g Granatapfelkerne / 20 g Röstzwiebeln / Nährwerte: / Protein 27,5 g | Fett 12 g | Kohlenhydrate 19,2 g | Kalorien 348 kcal / 1456 kJ / Allergene: Gluten (Röstzwiebeln)",
+        "nutrition": {
+          "protein": 27.5,
+          "fat": 12,
+          "carbs": 19.2,
+          "kcal": 348
+        },
+        "kJ": 1456,
+        "basis": null,
+        "groups": [
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 100g",
+                "name": "Hähnchen 100g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hühnchen (100g) (-6,4 g Protein, +0,1 KH, +5,4 g Fett, +31 kcal, +130kJ)",
+                "name": "vegane Hühnchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": 0.1,
+                  "fat": 5.4,
+                  "kcal": 31,
+                  "kJ": 130
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (100g) (-5,5 g Protein, +5,4 KH, +1,9 g Fett, +29 kcal, +122kJ)",
+                "name": "vegane Hackbällchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -5.5,
+                  "carbs": 5.4,
+                  "fat": 1.9,
+                  "kcal": 29,
+                  "kJ": 122
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          }
+        ],
+        "nameProtein": 28
+      },
+      {
+        "name": "Jungle Power Salad 35 g Protein - Low Carb",
+        "cat": "lowcarb",
+        "price": 14.9,
+        "description": "Kohlenhydrate: / 80 g Salatmix / Protein: / 59 g Feta / Vitamine: / 20 g Babyspinat, 70 g Mango / Topping: / 15 g Granatapfelkerne / Nährwerte: / Protein 35 g | Fett 14,9 g | Kohlenhydrate 16,0 g | Kalorien 384 kcal 1607 kJ / Bei Empfohlenem Hühnchen / Allergene: Soja (Planted), Erdnüsse",
+        "nutrition": {
+          "protein": 35,
+          "fat": 14.9,
+          "carbs": 16,
+          "kcal": 384
+        },
+        "kJ": 1607,
+        "basis": "Hühnchen",
+        "groups": [
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 100g",
+                "name": "Hähnchen 100g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hühnchen (100g) (-6,4 g Protein, +0,1 KH, +5,4 g Fett, +31 kcal, +130kJ)",
+                "name": "vegane Hühnchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": 0.1,
+                  "fat": 5.4,
+                  "kcal": 31,
+                  "kJ": 130
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (100g) (-5,5 g Protein, +5,4 KH, +1,9 g Fett, +29 kcal, +122kJ)",
+                "name": "vegane Hackbällchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -5.5,
+                  "carbs": 5.4,
+                  "fat": 1.9,
+                  "kcal": 29,
+                  "kJ": 122
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          }
+        ],
+        "nameProtein": 35
+      },
+      {
+        "name": "Classic Salad 33 g Protein - Low Carb",
+        "cat": "lowcarb",
+        "price": 11.9,
+        "description": "Kohlenhydrate: / 80 g Salatmix / Protein: / 100 g Hähnchen oder 80 g Planted / Vitamine: / 100 g Brokkoli / Topping: / 20 g Erdnüsse / Nährwerte: / Protein 33 g | Fett 13,7 g | Kohlenhydrate 8,9 g | Kalorien 333 kcal 1393 kJ / / Bei Empfohlenem Hühnchen / Allergene: Soja (Planted), Erdnüsse",
+        "nutrition": {
+          "protein": 33,
+          "fat": 13.7,
+          "carbs": 8.9,
+          "kcal": 333
+        },
+        "kJ": 1393,
+        "basis": "Hühnchen",
+        "groups": [
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 100g",
+                "name": "Hähnchen 100g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hühnchen (100g) (-6,4 g Protein, +0,1 KH, +5,4 g Fett, +31 kcal, +130kJ)",
+                "name": "vegane Hühnchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": 0.1,
+                  "fat": 5.4,
+                  "kcal": 31,
+                  "kJ": 130
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (100g) (-5,5 g Protein, +5,4 KH, +1,9 g Fett, +29 kcal, +122kJ)",
+                "name": "vegane Hackbällchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -5.5,
+                  "carbs": 5.4,
+                  "fat": 1.9,
+                  "kcal": 29,
+                  "kJ": 122
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          }
+        ],
+        "nameProtein": 33
+      },
+      {
+        "name": "Gym Junkie Salad 44 g Protein - Low Carb",
+        "cat": "lowcarb",
+        "price": 14.9,
+        "description": "Protein: / 50 g Feta / Vitamine: / 100 g Erbsen 50 g Tomaten / Topping: / 20 g Erdnüsse / Nährwerte: / Protein 44,0 g | Fett 25,6 g | Kohlenhydrate 15,4 g | Kalorien 527 kcal 2205 kJ / Bei Empfohlenem Hühnchen / Allergene: Erdnüsse",
+        "nutrition": {
+          "protein": 44,
+          "fat": 25.6,
+          "carbs": 15.4,
+          "kcal": 527
+        },
+        "kJ": 2205,
+        "basis": "Hühnchen",
+        "groups": [
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          },
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 100g",
+                "name": "Hähnchen 100g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hühnchen (100g) (-6,4 g Protein, +0,1 KH, +5,4 g Fett, +31 kcal, +130kJ)",
+                "name": "vegane Hühnchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": 0.1,
+                  "fat": 5.4,
+                  "kcal": 31,
+                  "kJ": 130
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (100g) (-5,5 g Protein, +5,4 KH, +1,9 g Fett, +29 kcal, +122kJ)",
+                "name": "vegane Hackbällchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -5.5,
+                  "carbs": 5.4,
+                  "fat": 1.9,
+                  "kcal": 29,
+                  "kJ": 122
+                }
+              }
+            ]
+          }
+        ],
+        "nameProtein": 44
+      },
+      {
+        "name": "Spicy Protein Salad 24 g Protein - Low Carb",
+        "cat": "lowcarb",
+        "price": 14.9,
+        "description": "Kohlenhydrate: / 80 g Salat / Protein: / 100 g Rinderhack (mager) oder 80 g Planted Hack / Vitamine: / 20 g Babyspinat, 50 g Tomaten / Topping: / 20 g Röstzwiebeln oder 20 g Grand Padang / Nährwerte: / Protein 24,2 g | Fett 29,0 g | Kohlenhydrate 21,6 g | Kalorien 492 kcal 2059 kJ / Allergene: Soja (Planted), Erdnüsse",
+        "nutrition": {
+          "protein": 24.2,
+          "fat": 29,
+          "carbs": 21.6,
+          "kcal": 492
+        },
+        "kJ": 2059,
+        "basis": null,
+        "groups": [
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          },
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 100g",
+                "name": "Hähnchen 100g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hühnchen (100g) (-6,4 g Protein, +0,1 KH, +5,4 g Fett, +31 kcal, +130kJ)",
+                "name": "vegane Hühnchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": 0.1,
+                  "fat": 5.4,
+                  "kcal": 31,
+                  "kJ": 130
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (100g) (-5,5 g Protein, +5,4 KH, +1,9 g Fett, +29 kcal, +122kJ)",
+                "name": "vegane Hackbällchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -5.5,
+                  "carbs": 5.4,
+                  "fat": 1.9,
+                  "kcal": 29,
+                  "kJ": 122
+                }
+              }
+            ]
+          }
+        ],
+        "nameProtein": 24,
+        "blocked": "Werte laut Beschreibung für Rinderhack (mager) bzw. Planted Hack — bei Wolt wählbar sind nur Hähnchen, vegane Hühnchen und vegane Hackbällchen (Standard Hähnchen), deren Änderungen sich auf Hähnchen beziehen"
+      },
+      {
+        "name": "Muscle Boost Salad 41 g Protein - Low Carb",
+        "cat": "lowcarb",
+        "price": 14.9,
+        "description": "Kohlenhydrate: / 80 g Salatmix / Protein: / 50 g gekochtes Ei / Vitamine: / 100 g Brokkoli, 50 g Karotten, 50 g Rotkraut / Topping: / 20 g Erdnüsse / Nährwerte: / Protein 41 g | Fett 19,4 g | Kohlenhydrate 13,7 g | Kalorien 441 kcal 1845 kJ / Bei Empfohlenem Hühnchen / Allergene: Erdnüsse",
+        "nutrition": {
+          "protein": 41,
+          "fat": 19.4,
+          "carbs": 13.7,
+          "kcal": 441
+        },
+        "kJ": 1845,
+        "basis": "Hühnchen",
+        "groups": [
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 100g",
+                "name": "Hähnchen 100g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hühnchen (100g) (-6,4 g Protein, +0,1 KH, +5,4 g Fett, +31 kcal, +130kJ)",
+                "name": "vegane Hühnchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": 0.1,
+                  "fat": 5.4,
+                  "kcal": 31,
+                  "kJ": 130
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (100g) (-5,5 g Protein, +5,4 KH, +1,9 g Fett, +29 kcal, +122kJ)",
+                "name": "vegane Hackbällchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -5.5,
+                  "carbs": 5.4,
+                  "fat": 1.9,
+                  "kcal": 29,
+                  "kJ": 122
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          }
+        ],
+        "nameProtein": 41
+      },
+      {
+        "name": "Vital Boost Bowl 35 g Protein",
+        "cat": "balance",
+        "price": 14.9,
+        "description": "Kohlenhydrate: / 125 g Quinoa / Protein: / 100 g Hähnchen / Vitamine: / 100 g Brokkoli / 50 g Karotten / 50 g Rotkraut / 50 g Mango / 20 g Babyspinat / 35 g Avocado / Topping: / 20 g Granatapfelkerne / Nährwerte: / Protein 35 g | Fett 9,8 g | Kohlenhydrate 45,5 g | Kalorien 605 kcal 1870kJ / Allergene: Soja (Planted), Sesam (je nach Dressing)",
+        "nutrition": {
+          "protein": 35,
+          "fat": 9.8,
+          "carbs": 45.5,
+          "kcal": 605
+        },
+        "kJ": 1870,
+        "basis": null,
+        "groups": [
+          {
+            "kind": "carbs",
+            "name": "Wähle deine Kohlenhydrate?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Basmati Reis (250g)",
+                "name": "Basmati Reis (250g)",
+                "price": 0,
+                "default": true,
+                "choice": "basmati_reis",
+                "short": "Basmati Reis"
+              },
+              {
+                "wolt": "Salat Mix (80g) Low Carb (-6,4 g Protein, -68,3 KH, -0,5 g Fett, -272 kcal, -1138kJ)",
+                "name": "Salat Mix (80g) Low Carb",
+                "price": 0,
+                "default": false,
+                "choice": "salat_mix",
+                "short": "Salat Mix",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": -68.3,
+                  "fat": -0.5,
+                  "kcal": -272,
+                  "kJ": -1138
+                }
+              },
+              {
+                "wolt": "Bunter Bio Quinoa (250g) (+1,2 g Protein, -27,5 KH, +3,8 g Fett, -70 kcal, -293kJ)",
+                "name": "Bunter Bio Quinoa (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "bunter_bio_quinoa",
+                "short": "Bunter Bio Quinoa",
+                "delta": {
+                  "protein": 1.2,
+                  "carbs": -27.5,
+                  "fat": 3.8,
+                  "kcal": -70,
+                  "kJ": -293
+                }
+              },
+              {
+                "wolt": "Süßkartoffel (250g) (-3,5 g Protein, -12,0 KH, +0,8 g Fett, -47 kcal, -196kJ)",
+                "name": "Süßkartoffel (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "suesskartoffel",
+                "short": "Süßkartoffel",
+                "delta": {
+                  "protein": -3.5,
+                  "carbs": -12,
+                  "fat": 0.8,
+                  "kcal": -47,
+                  "kJ": -196
+                }
+              }
+            ]
+          },
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 100g",
+                "name": "Hähnchen 100g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hühnchen (100g) (-6,4 g Protein, +0,1 KH, +5,4 g Fett, +31 kcal, +130kJ)",
+                "name": "vegane Hühnchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": 0.1,
+                  "fat": 5.4,
+                  "kcal": 31,
+                  "kJ": 130
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (100g) (-5,5 g Protein, +5,4 KH, +1,9 g Fett, +29 kcal, +122kJ)",
+                "name": "vegane Hackbällchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -5.5,
+                  "carbs": 5.4,
+                  "fat": 1.9,
+                  "kcal": 29,
+                  "kJ": 122
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          }
+        ],
+        "nameProtein": 35,
+        "blocked": "605 kcal passen weder zu 1870 kJ (= 447 kcal) noch zu den Makros (410 kcal); die Werte gelten für 125 g Quinoa, bei Wolt ist Basmati Reis (250g) vorausgewählt und Quinoa nur als 250 g wählbar"
+      },
+      {
+        "name": "Muscle Boost Bowl 47 g Protein",
+        "cat": "balance",
+        "price": 14.9,
+        "description": "Kohlenhydrate: / 250 g Basmati Reis / Protein: / 50 g gekochtes Ei / Vitamine: / 100 g Brokkoli, 50 g Karotten, 50 g Rotkraut / Topping: / 20 g Erdnüsse / Nährwerte: / Protein 47 g | Fetti 22 g | Kohlenhydrate 82 g | Kalorien 713 kcal 2983 kJ / Bei Empfohlenem Hühnchen mit Reis / Allergene: Erdnüsse",
+        "nutrition": {
+          "protein": 47,
+          "fat": 22,
+          "carbs": 82,
+          "kcal": 713
+        },
+        "kJ": 2983,
+        "basis": "Hühnchen mit Reis",
+        "groups": [
+          {
+            "kind": "carbs",
+            "name": "Wähle deine Kohlenhydrate?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Basmati Reis (250g)",
+                "name": "Basmati Reis (250g)",
+                "price": 0,
+                "default": true,
+                "choice": "basmati_reis",
+                "short": "Basmati Reis"
+              },
+              {
+                "wolt": "Salat Mix (80g) Low Carb (-6,4 g Protein, -68,3 KH, -0,5 g Fett, -272 kcal, -1138kJ)",
+                "name": "Salat Mix (80g) Low Carb",
+                "price": 0,
+                "default": false,
+                "choice": "salat_mix",
+                "short": "Salat Mix",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": -68.3,
+                  "fat": -0.5,
+                  "kcal": -272,
+                  "kJ": -1138
+                }
+              },
+              {
+                "wolt": "Bunter Bio Quinoa (250g) (+1,2 g Protein, -27,5 KH, +3,8 g Fett, -70 kcal, -293kJ)",
+                "name": "Bunter Bio Quinoa (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "bunter_bio_quinoa",
+                "short": "Bunter Bio Quinoa",
+                "delta": {
+                  "protein": 1.2,
+                  "carbs": -27.5,
+                  "fat": 3.8,
+                  "kcal": -70,
+                  "kJ": -293
+                }
+              },
+              {
+                "wolt": "Süßkartoffel (250g) (-3,5 g Protein, -12,0 KH, +0,8 g Fett, -47 kcal, -196kJ)",
+                "name": "Süßkartoffel (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "suesskartoffel",
+                "short": "Süßkartoffel",
+                "delta": {
+                  "protein": -3.5,
+                  "carbs": -12,
+                  "fat": 0.8,
+                  "kcal": -47,
+                  "kJ": -196
+                }
+              }
+            ]
+          },
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 100g",
+                "name": "Hähnchen 100g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hühnchen (100g) (-6,4 g Protein, +0,1 KH, +5,4 g Fett, +31 kcal, +130kJ)",
+                "name": "vegane Hühnchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": 0.1,
+                  "fat": 5.4,
+                  "kcal": 31,
+                  "kJ": 130
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (100g) (-5,5 g Protein, +5,4 KH, +1,9 g Fett, +29 kcal, +122kJ)",
+                "name": "vegane Hackbällchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -5.5,
+                  "carbs": 5.4,
+                  "fat": 1.9,
+                  "kcal": 29,
+                  "kJ": 122
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          }
+        ],
+        "nameProtein": 47
+      },
+      {
+        "name": "Jungle Power Bowl 42 g Protein",
+        "cat": "balance",
+        "price": 14.9,
+        "description": "Kohlenhydrate: / 250 g Basmati Reis / Protein: / 59 g Feta / Vitamine: / 20 g Babyspinat, 70 g Mango / Topping: / 15 g Granatapfelkerne / Nährwerte: / Protein 42 g | Fett 15,4 g | Kohlenhydrate 84,3 g | Kalorien 656 kcal 2745 kJ / Bei Empfohlenem Hühnchen mit Reis / Allergene: Soja (Planted), Erdnüsse",
+        "nutrition": {
+          "protein": 42,
+          "fat": 15.4,
+          "carbs": 84.3,
+          "kcal": 656
+        },
+        "kJ": 2745,
+        "basis": "Hühnchen mit Reis",
+        "groups": [
+          {
+            "kind": "carbs",
+            "name": "Wähle deine Kohlenhydrate?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Basmati Reis (250g)",
+                "name": "Basmati Reis (250g)",
+                "price": 0,
+                "default": true,
+                "choice": "basmati_reis",
+                "short": "Basmati Reis"
+              },
+              {
+                "wolt": "Salat Mix (80g) Low Carb (-6,4 g Protein, -68,3 KH, -0,5 g Fett, -272 kcal, -1138kJ)",
+                "name": "Salat Mix (80g) Low Carb",
+                "price": 0,
+                "default": false,
+                "choice": "salat_mix",
+                "short": "Salat Mix",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": -68.3,
+                  "fat": -0.5,
+                  "kcal": -272,
+                  "kJ": -1138
+                }
+              },
+              {
+                "wolt": "Bunter Bio Quinoa (250g) (+1,2 g Protein, -27,5 KH, +3,8 g Fett, -70 kcal, -293kJ)",
+                "name": "Bunter Bio Quinoa (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "bunter_bio_quinoa",
+                "short": "Bunter Bio Quinoa",
+                "delta": {
+                  "protein": 1.2,
+                  "carbs": -27.5,
+                  "fat": 3.8,
+                  "kcal": -70,
+                  "kJ": -293
+                }
+              },
+              {
+                "wolt": "Süßkartoffel (250g) (-3,5 g Protein, -12,0 KH, +0,8 g Fett, -47 kcal, -196kJ)",
+                "name": "Süßkartoffel (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "suesskartoffel",
+                "short": "Süßkartoffel",
+                "delta": {
+                  "protein": -3.5,
+                  "carbs": -12,
+                  "fat": 0.8,
+                  "kcal": -47,
+                  "kJ": -196
+                }
+              }
+            ]
+          },
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 100g",
+                "name": "Hähnchen 100g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hühnchen (100g) (-6,4 g Protein, +0,1 KH, +5,4 g Fett, +31 kcal, +130kJ)",
+                "name": "vegane Hühnchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": 0.1,
+                  "fat": 5.4,
+                  "kcal": 31,
+                  "kJ": 130
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (100g) (-5,5 g Protein, +5,4 KH, +1,9 g Fett, +29 kcal, +122kJ)",
+                "name": "vegane Hackbällchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -5.5,
+                  "carbs": 5.4,
+                  "fat": 1.9,
+                  "kcal": 29,
+                  "kJ": 122
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          }
+        ],
+        "nameProtein": 42
+      },
+      {
+        "name": "Shape Bowl 36 g Protein",
+        "cat": "balance",
+        "price": 13.9,
+        "description": "Kohlenhydrate: / 250 g Reis / Vitamine: / 50 g Karotten / 50 g Rotkraut / 50 g Gurke / 50 g Mais / 50 g Erbsen / Nährwerte: / Protein 36,4 g | Fett 4,3 g | Kohlenhydrate 87 g | Kalorien 562 kcal / 2351 kJ / Bei Empfohlenem Hühnchen mit Reis / Allergene: Soja",
+        "nutrition": {
+          "protein": 36.4,
+          "fat": 4.3,
+          "carbs": 87,
+          "kcal": 562
+        },
+        "kJ": 2351,
+        "basis": "Hühnchen mit Reis",
+        "groups": [
+          {
+            "kind": "carbs",
+            "name": "Wähle deine Kohlenhydrate?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Basmati Reis (250g)",
+                "name": "Basmati Reis (250g)",
+                "price": 0,
+                "default": true,
+                "choice": "basmati_reis",
+                "short": "Basmati Reis"
+              },
+              {
+                "wolt": "Salat Mix (80g) Low Carb (-6,4 g Protein, -68,3 KH, -0,5 g Fett, -272 kcal, -1138kJ)",
+                "name": "Salat Mix (80g) Low Carb",
+                "price": 0,
+                "default": false,
+                "choice": "salat_mix",
+                "short": "Salat Mix",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": -68.3,
+                  "fat": -0.5,
+                  "kcal": -272,
+                  "kJ": -1138
+                }
+              },
+              {
+                "wolt": "Bunter Bio Quinoa (250g) (+1,2 g Protein, -27,5 KH, +3,8 g Fett, -70 kcal, -293kJ)",
+                "name": "Bunter Bio Quinoa (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "bunter_bio_quinoa",
+                "short": "Bunter Bio Quinoa",
+                "delta": {
+                  "protein": 1.2,
+                  "carbs": -27.5,
+                  "fat": 3.8,
+                  "kcal": -70,
+                  "kJ": -293
+                }
+              },
+              {
+                "wolt": "Süßkartoffel (250g) (-3,5 g Protein, -12,0 KH, +0,8 g Fett, -47 kcal, -196kJ)",
+                "name": "Süßkartoffel (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "suesskartoffel",
+                "short": "Süßkartoffel",
+                "delta": {
+                  "protein": -3.5,
+                  "carbs": -12,
+                  "fat": 0.8,
+                  "kcal": -47,
+                  "kJ": -196
+                }
+              }
+            ]
+          },
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 100g",
+                "name": "Hähnchen 100g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hühnchen (100g) (-6,4 g Protein, +0,1 KH, +5,4 g Fett, +31 kcal, +130kJ)",
+                "name": "vegane Hühnchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": 0.1,
+                  "fat": 5.4,
+                  "kcal": 31,
+                  "kJ": 130
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (100g) (-5,5 g Protein, +5,4 KH, +1,9 g Fett, +29 kcal, +122kJ)",
+                "name": "vegane Hackbällchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -5.5,
+                  "carbs": 5.4,
+                  "fat": 1.9,
+                  "kcal": 29,
+                  "kJ": 122
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          }
+        ],
+        "nameProtein": 36
+      },
+      {
+        "name": "Classic Bowl 39 g Protein",
+        "cat": "balance",
+        "price": 11.9,
+        "description": "Kohlenhydrate: / 250 g Basmati Reis / Protein: / 100 g Hähnchen oder 80 g Planted / Vitamine: / 100 g Brokkoli / Topping: / 20 g Erdnüsse / Nährwerte: / Protein 42 g | Fett 22 g | Kohlenhydrate 47 g | Kalorien 605 kcal / Bei Empfohlenem Hühnchen mit Reis / Allergene: Soja (Planted), Erdnüsse",
+        "nutrition": {
+          "protein": 42,
+          "fat": 22,
+          "carbs": 47,
+          "kcal": 605
+        },
+        "kJ": null,
+        "basis": "Hühnchen mit Reis",
+        "groups": [
+          {
+            "kind": "carbs",
+            "name": "Wähle deine Kohlenhydrate?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Basmati Reis (250g)",
+                "name": "Basmati Reis (250g)",
+                "price": 0,
+                "default": true,
+                "choice": "basmati_reis",
+                "short": "Basmati Reis"
+              },
+              {
+                "wolt": "Salat Mix (80g) Low Carb (-6,4 g Protein, -68,3 KH, -0,5 g Fett, -272 kcal, -1138kJ)",
+                "name": "Salat Mix (80g) Low Carb",
+                "price": 0,
+                "default": false,
+                "choice": "salat_mix",
+                "short": "Salat Mix",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": -68.3,
+                  "fat": -0.5,
+                  "kcal": -272,
+                  "kJ": -1138
+                }
+              },
+              {
+                "wolt": "Bunter Bio Quinoa (250g) (+1,2 g Protein, -27,5 KH, +3,8 g Fett, -70 kcal, -293kJ)",
+                "name": "Bunter Bio Quinoa (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "bunter_bio_quinoa",
+                "short": "Bunter Bio Quinoa",
+                "delta": {
+                  "protein": 1.2,
+                  "carbs": -27.5,
+                  "fat": 3.8,
+                  "kcal": -70,
+                  "kJ": -293
+                }
+              },
+              {
+                "wolt": "Süßkartoffel (250g) (-3,5 g Protein, -12,0 KH, +0,8 g Fett, -47 kcal, -196kJ)",
+                "name": "Süßkartoffel (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "suesskartoffel",
+                "short": "Süßkartoffel",
+                "delta": {
+                  "protein": -3.5,
+                  "carbs": -12,
+                  "fat": 0.8,
+                  "kcal": -47,
+                  "kJ": -196
+                }
+              }
+            ]
+          },
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 100g",
+                "name": "Hähnchen 100g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hühnchen (100g) (-6,4 g Protein, +0,1 KH, +5,4 g Fett, +31 kcal, +130kJ)",
+                "name": "vegane Hühnchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": 0.1,
+                  "fat": 5.4,
+                  "kcal": 31,
+                  "kJ": 130
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (100g) (-5,5 g Protein, +5,4 KH, +1,9 g Fett, +29 kcal, +122kJ)",
+                "name": "vegane Hackbällchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -5.5,
+                  "carbs": 5.4,
+                  "fat": 1.9,
+                  "kcal": 29,
+                  "kJ": 122
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          }
+        ],
+        "nameProtein": 39,
+        "blocked": "Makros (42 g Eiweiß, 47 g KH, 22 g Fett) passen nicht zu 250 g Reis und zum Namen; 605 kcal und 39 g Eiweiß ergeben sich aus Classic Salad + Reis-Option (dann 77 g KH, 14 g Fett) — nicht still korrigiert"
+      },
+      {
+        "name": "Spicy Protein Bowl 31 g Protein",
+        "cat": "balance",
+        "price": 14.9,
+        "description": "Kohlenhydrate: / 250 g Basmati Reis / Protein: / 100g Rinderhack (mager) oder 80 g Planted Hack / Vitamine: / 20 g Babyspinat, 50 g Tomaten / Topping: / 20 g Röstzwiebeln oder 20 g Grand Padang / Nährwerte: / Protein 31 g | Fett 29,5 g | Kohlenhydrate 89,9 g | Kalorien 764 kcal 3197kJ / Allergene: Soja (Planted), Erdnüsse",
+        "nutrition": {
+          "protein": 31,
+          "fat": 29.5,
+          "carbs": 89.9,
+          "kcal": 764
+        },
+        "kJ": 3197,
+        "basis": null,
+        "groups": [
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 100g",
+                "name": "Hähnchen 100g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hühnchen (100g) (-6,4 g Protein, +0,1 KH, +5,4 g Fett, +31 kcal, +130kJ)",
+                "name": "vegane Hühnchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": 0.1,
+                  "fat": 5.4,
+                  "kcal": 31,
+                  "kJ": 130
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (100g) (-5,5 g Protein, +5,4 KH, +1,9 g Fett, +29 kcal, +122kJ)",
+                "name": "vegane Hackbällchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -5.5,
+                  "carbs": 5.4,
+                  "fat": 1.9,
+                  "kcal": 29,
+                  "kJ": 122
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          },
+          {
+            "kind": "carbs",
+            "name": "Wähle deine Kohlenhydrate?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Basmati Reis (250g)",
+                "name": "Basmati Reis (250g)",
+                "price": 0,
+                "default": true,
+                "choice": "basmati_reis",
+                "short": "Basmati Reis"
+              },
+              {
+                "wolt": "Salat Mix (80g) Low Carb (-6,4 g Protein, -68,3 KH, -0,5 g Fett, -272 kcal, -1138kJ)",
+                "name": "Salat Mix (80g) Low Carb",
+                "price": 0,
+                "default": false,
+                "choice": "salat_mix",
+                "short": "Salat Mix",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": -68.3,
+                  "fat": -0.5,
+                  "kcal": -272,
+                  "kJ": -1138
+                }
+              },
+              {
+                "wolt": "Bunter Bio Quinoa (250g) (+1,2 g Protein, -27,5 KH, +3,8 g Fett, -70 kcal, -293kJ)",
+                "name": "Bunter Bio Quinoa (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "bunter_bio_quinoa",
+                "short": "Bunter Bio Quinoa",
+                "delta": {
+                  "protein": 1.2,
+                  "carbs": -27.5,
+                  "fat": 3.8,
+                  "kcal": -70,
+                  "kJ": -293
+                }
+              },
+              {
+                "wolt": "Süßkartoffel (250g) (-3,5 g Protein, -12,0 KH, +0,8 g Fett, -47 kcal, -196kJ)",
+                "name": "Süßkartoffel (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "suesskartoffel",
+                "short": "Süßkartoffel",
+                "delta": {
+                  "protein": -3.5,
+                  "carbs": -12,
+                  "fat": 0.8,
+                  "kcal": -47,
+                  "kJ": -196
+                }
+              }
+            ]
+          }
+        ],
+        "nameProtein": 31,
+        "blocked": "Werte laut Beschreibung für Rinderhack (mager) bzw. Planted Hack — bei Wolt wählbar sind nur Hähnchen, vegane Hühnchen und vegane Hackbällchen (Standard Hähnchen), deren Änderungen sich auf Hähnchen beziehen"
+      },
+      {
+        "name": "Gym Junkie Bowl 50 g Protein",
+        "cat": "balance",
+        "price": 14.9,
+        "description": "Protein: / 50 g Feta / Vitamine: / 100 g Erbsen 50 g Tomaten / Topping: / 20 g Erdnüsse / Nährwerte: / Protein 50,3 g | Fett 26,1 g | Kohlenhydrate 83,7 g | Kalorien 799 kcal 3343 kJ / Bei Empfohlenem Hühnchen mit Reis / Allergene: Erdnüsse",
+        "nutrition": {
+          "protein": 50.3,
+          "fat": 26.1,
+          "carbs": 83.7,
+          "kcal": 799
+        },
+        "kJ": 3343,
+        "basis": "Hühnchen mit Reis",
+        "groups": [
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 100g",
+                "name": "Hähnchen 100g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hühnchen (100g) (-6,4 g Protein, +0,1 KH, +5,4 g Fett, +31 kcal, +130kJ)",
+                "name": "vegane Hühnchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": 0.1,
+                  "fat": 5.4,
+                  "kcal": 31,
+                  "kJ": 130
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (100g) (-5,5 g Protein, +5,4 KH, +1,9 g Fett, +29 kcal, +122kJ)",
+                "name": "vegane Hackbällchen (100g)",
+                "price": 0,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -5.5,
+                  "carbs": 5.4,
+                  "fat": 1.9,
+                  "kcal": 29,
+                  "kJ": 122
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          },
+          {
+            "kind": "carbs",
+            "name": "Wähle deine Kohlenhydrate?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Basmati Reis (250g)",
+                "name": "Basmati Reis (250g)",
+                "price": 0,
+                "default": true,
+                "choice": "basmati_reis",
+                "short": "Basmati Reis"
+              },
+              {
+                "wolt": "Salat Mix (80g) Low Carb (-6,4 g Protein, -68,3 KH, -0,5 g Fett, -272 kcal, -1138kJ)",
+                "name": "Salat Mix (80g) Low Carb",
+                "price": 0,
+                "default": false,
+                "choice": "salat_mix",
+                "short": "Salat Mix",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": -68.3,
+                  "fat": -0.5,
+                  "kcal": -272,
+                  "kJ": -1138
+                }
+              },
+              {
+                "wolt": "Bunter Bio Quinoa (250g) (+1,2 g Protein, -27,5 KH, +3,8 g Fett, -70 kcal, -293kJ)",
+                "name": "Bunter Bio Quinoa (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "bunter_bio_quinoa",
+                "short": "Bunter Bio Quinoa",
+                "delta": {
+                  "protein": 1.2,
+                  "carbs": -27.5,
+                  "fat": 3.8,
+                  "kcal": -70,
+                  "kJ": -293
+                }
+              },
+              {
+                "wolt": "Süßkartoffel (250g) (-3,5 g Protein, -12,0 KH, +0,8 g Fett, -47 kcal, -196kJ)",
+                "name": "Süßkartoffel (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "suesskartoffel",
+                "short": "Süßkartoffel",
+                "delta": {
+                  "protein": -3.5,
+                  "carbs": -12,
+                  "fat": 0.8,
+                  "kcal": -47,
+                  "kJ": -196
+                }
+              }
+            ]
+          }
+        ],
+        "nameProtein": 50
+      },
+      {
+        "name": "Gym Junkie Bowl 73 g Protein",
+        "cat": "highprotein",
+        "price": 16.9,
+        "description": "Protein: / 50 g Feta / Vitamine: / 100 g Erbsen 50 g Tomaten / Topping: / 20 g Erdnüsse / Nährwerte: / Protein 73,5 g | Fett 28,9 g | Kohlenhydrate 85,3 g | Kalorien 924 kcal 3866kJ / Bei Empfohlenem Hühnchen mit Reis / Allergene: Erdnüsse",
+        "nutrition": {
+          "protein": 73.5,
+          "fat": 28.9,
+          "carbs": 85.3,
+          "kcal": 924
+        },
+        "kJ": 3866,
+        "basis": "Hühnchen mit Reis",
+        "groups": [
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 200g",
+                "name": "Hähnchen 200g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hünchen (200g) (-12,9 g Protein, +0,3 KH, +10,6 g Fett, +62 kcal, +259kJ)",
+                "name": "vegane Hünchen (200g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -12.9,
+                  "carbs": 0.3,
+                  "fat": 10.6,
+                  "kcal": 62,
+                  "kJ": 259
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (200g) (-11,0 g Protein, +10,8 KH, +3,6 g Fett, +58 kcal, +240kJ)",
+                "name": "vegane Hackbällchen (200g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -11,
+                  "carbs": 10.8,
+                  "fat": 3.6,
+                  "kcal": 58,
+                  "kJ": 240
+                }
+              }
+            ]
+          },
+          {
+            "kind": "carbs",
+            "name": "Wähle deine Kohlenhydrate?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Basmati Reis (250g)",
+                "name": "Basmati Reis (250g)",
+                "price": 0,
+                "default": true,
+                "choice": "basmati_reis",
+                "short": "Basmati Reis"
+              },
+              {
+                "wolt": "Salat Mix (80g) Low Carb (-6,4 g Protein, -68,3 KH, -0,5 g Fett, -272 kcal, -1138kJ)",
+                "name": "Salat Mix (80g) Low Carb",
+                "price": 0,
+                "default": false,
+                "choice": "salat_mix",
+                "short": "Salat Mix",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": -68.3,
+                  "fat": -0.5,
+                  "kcal": -272,
+                  "kJ": -1138
+                }
+              },
+              {
+                "wolt": "Bunter Bio Quinoa (250g) (+1,2 g Protein, -27,5 KH, +3,8 g Fett, -70 kcal, -293kJ)",
+                "name": "Bunter Bio Quinoa (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "bunter_bio_quinoa",
+                "short": "Bunter Bio Quinoa",
+                "delta": {
+                  "protein": 1.2,
+                  "carbs": -27.5,
+                  "fat": 3.8,
+                  "kcal": -70,
+                  "kJ": -293
+                }
+              },
+              {
+                "wolt": "Süßkartoffel (250g) (-3,5 g Protein, -12,0 KH, +0,8 g Fett, -47 kcal, -196kJ)",
+                "name": "Süßkartoffel (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "suesskartoffel",
+                "short": "Süßkartoffel",
+                "delta": {
+                  "protein": -3.5,
+                  "carbs": -12,
+                  "fat": 0.8,
+                  "kcal": -47,
+                  "kJ": -196
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          }
+        ],
+        "nameProtein": 73
+      },
+      {
+        "name": "Shape Bowl 62 g Protein",
+        "cat": "highprotein",
+        "price": 14.9,
+        "description": "Kohlenhydrate: / 250 g Reis / Vitamine: / 50 g Karotten / 50 g Rotkraut / 50 g Gurke / 50 g Mais / 50 g Erbsen / Nährwerte: / Protein 59,5 g | Fett 7,0 g | Kohlenhydrate 88,6 g | Kalorien 687 kcal / 2874 kJ / Bei Empfohlenem Hühnchen mit Reis / Allergene: Soja",
+        "nutrition": {
+          "protein": 59.5,
+          "fat": 7,
+          "carbs": 88.6,
+          "kcal": 687
+        },
+        "kJ": 2874,
+        "basis": "Hühnchen mit Reis",
+        "groups": [
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 200g",
+                "name": "Hähnchen 200g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hünchen (200g) (-12,9 g Protein, +0,3 KH, +10,6 g Fett, +62 kcal, +259kJ)",
+                "name": "vegane Hünchen (200g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -12.9,
+                  "carbs": 0.3,
+                  "fat": 10.6,
+                  "kcal": 62,
+                  "kJ": 259
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (200g) (-11,0 g Protein, +10,8 KH, +3,6 g Fett, +58 kcal, +240kJ)",
+                "name": "vegane Hackbällchen (200g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -11,
+                  "carbs": 10.8,
+                  "fat": 3.6,
+                  "kcal": 58,
+                  "kJ": 240
+                }
+              }
+            ]
+          },
+          {
+            "kind": "carbs",
+            "name": "Wähle deine Kohlenhydrate?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Basmati Reis (250g)",
+                "name": "Basmati Reis (250g)",
+                "price": 0,
+                "default": true,
+                "choice": "basmati_reis",
+                "short": "Basmati Reis"
+              },
+              {
+                "wolt": "Salat Mix (80g) Low Carb (-6,4 g Protein, -68,3 KH, -0,5 g Fett, -272 kcal, -1138kJ)",
+                "name": "Salat Mix (80g) Low Carb",
+                "price": 0,
+                "default": false,
+                "choice": "salat_mix",
+                "short": "Salat Mix",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": -68.3,
+                  "fat": -0.5,
+                  "kcal": -272,
+                  "kJ": -1138
+                }
+              },
+              {
+                "wolt": "Bunter Bio Quinoa (250g) (+1,2 g Protein, -27,5 KH, +3,8 g Fett, -70 kcal, -293kJ)",
+                "name": "Bunter Bio Quinoa (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "bunter_bio_quinoa",
+                "short": "Bunter Bio Quinoa",
+                "delta": {
+                  "protein": 1.2,
+                  "carbs": -27.5,
+                  "fat": 3.8,
+                  "kcal": -70,
+                  "kJ": -293
+                }
+              },
+              {
+                "wolt": "Süßkartoffel (250g) (-3,5 g Protein, -12,0 KH, +0,8 g Fett, -47 kcal, -196kJ)",
+                "name": "Süßkartoffel (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "suesskartoffel",
+                "short": "Süßkartoffel",
+                "delta": {
+                  "protein": -3.5,
+                  "carbs": -12,
+                  "fat": 0.8,
+                  "kcal": -47,
+                  "kJ": -196
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          }
+        ],
+        "nameProtein": 62
+      },
+      {
+        "name": "Muscle Boost Bowl 70 g Protein",
+        "cat": "highprotein",
+        "price": 16.9,
+        "description": "Kohlenhydrate: / 250 g Basmati Reis / Protein: / 50 g gekochtes Ei / Vitamine: / 100 g Brokkoli, 50 g Karotten, 50 g Rotkraut / Topping: / 20 g Erdnüsse / Nährwerte: / Protein 70,5 g | Fetti 22,6 g | Kohlenhydrate 83,6 g | Kalorien 838 kcal 3506 kJ / Bei Empfohlenem Hühnchen mit Reis / Allergene: Erdnüsse",
+        "nutrition": {
+          "protein": 70.5,
+          "fat": 22.6,
+          "carbs": 83.6,
+          "kcal": 838
+        },
+        "kJ": 3506,
+        "basis": "Hühnchen mit Reis",
+        "groups": [
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 200g",
+                "name": "Hähnchen 200g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hünchen (200g) (-12,9 g Protein, +0,3 KH, +10,6 g Fett, +62 kcal, +259kJ)",
+                "name": "vegane Hünchen (200g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -12.9,
+                  "carbs": 0.3,
+                  "fat": 10.6,
+                  "kcal": 62,
+                  "kJ": 259
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (200g) (-11,0 g Protein, +10,8 KH, +3,6 g Fett, +58 kcal, +240kJ)",
+                "name": "vegane Hackbällchen (200g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -11,
+                  "carbs": 10.8,
+                  "fat": 3.6,
+                  "kcal": 58,
+                  "kJ": 240
+                }
+              }
+            ]
+          },
+          {
+            "kind": "carbs",
+            "name": "Wähle deine Kohlenhydrate?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Basmati Reis (250g)",
+                "name": "Basmati Reis (250g)",
+                "price": 0,
+                "default": true,
+                "choice": "basmati_reis",
+                "short": "Basmati Reis"
+              },
+              {
+                "wolt": "Salat Mix (80g) Low Carb (-6,4 g Protein, -68,3 KH, -0,5 g Fett, -272 kcal, -1138kJ)",
+                "name": "Salat Mix (80g) Low Carb",
+                "price": 0,
+                "default": false,
+                "choice": "salat_mix",
+                "short": "Salat Mix",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": -68.3,
+                  "fat": -0.5,
+                  "kcal": -272,
+                  "kJ": -1138
+                }
+              },
+              {
+                "wolt": "Bunter Bio Quinoa (250g) (+1,2 g Protein, -27,5 KH, +3,8 g Fett, -70 kcal, -293kJ)",
+                "name": "Bunter Bio Quinoa (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "bunter_bio_quinoa",
+                "short": "Bunter Bio Quinoa",
+                "delta": {
+                  "protein": 1.2,
+                  "carbs": -27.5,
+                  "fat": 3.8,
+                  "kcal": -70,
+                  "kJ": -293
+                }
+              },
+              {
+                "wolt": "Süßkartoffel (250g) (-3,5 g Protein, -12,0 KH, +0,8 g Fett, -47 kcal, -196kJ)",
+                "name": "Süßkartoffel (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "suesskartoffel",
+                "short": "Süßkartoffel",
+                "delta": {
+                  "protein": -3.5,
+                  "carbs": -12,
+                  "fat": 0.8,
+                  "kcal": -47,
+                  "kJ": -196
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          }
+        ],
+        "nameProtein": 70
+      },
+      {
+        "name": "Spicy Protein Bowl 45 g Protein",
+        "cat": "highprotein",
+        "price": 15.9,
+        "description": "Kohlenhydrate: / 250 g Basmati Reis / Protein: / 200 Rinderhack (mager) oder 160 g Planted Hack / Vitamine: / 20 g Babyspinat, 50 g Tomaten / Topping: / 20 g Röstzwiebeln oder 20 g Grand Padang / Nährwerte: / Protein 44,5 g | Fett 43,5 g | Kohlenhydrate 99,9 g | Kalorien 986 kcal 4125kJ / Allergene: Soja (Planted), Erdnüsse",
+        "nutrition": {
+          "protein": 44.5,
+          "fat": 43.5,
+          "carbs": 99.9,
+          "kcal": 986
+        },
+        "kJ": 4125,
+        "basis": null,
+        "groups": [
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 200g",
+                "name": "Hähnchen 200g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hünchen (200g) (-12,9 g Protein, +0,3 KH, +10,6 g Fett, +62 kcal, +259kJ)",
+                "name": "vegane Hünchen (200g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -12.9,
+                  "carbs": 0.3,
+                  "fat": 10.6,
+                  "kcal": 62,
+                  "kJ": 259
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (200g) (-11,0 g Protein, +10,8 KH, +3,6 g Fett, +58 kcal, +240kJ)",
+                "name": "vegane Hackbällchen (200g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -11,
+                  "carbs": 10.8,
+                  "fat": 3.6,
+                  "kcal": 58,
+                  "kJ": 240
+                }
+              }
+            ]
+          },
+          {
+            "kind": "carbs",
+            "name": "Wähle deine Kohlenhydrate?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Basmati Reis (250g)",
+                "name": "Basmati Reis (250g)",
+                "price": 0,
+                "default": true,
+                "choice": "basmati_reis",
+                "short": "Basmati Reis"
+              },
+              {
+                "wolt": "Salat Mix (80g) Low Carb (-6,4 g Protein, -68,3 KH, -0,5 g Fett, -272 kcal, -1138kJ)",
+                "name": "Salat Mix (80g) Low Carb",
+                "price": 0,
+                "default": false,
+                "choice": "salat_mix",
+                "short": "Salat Mix",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": -68.3,
+                  "fat": -0.5,
+                  "kcal": -272,
+                  "kJ": -1138
+                }
+              },
+              {
+                "wolt": "Bunter Bio Quinoa (250g) (+1,2 g Protein, -27,5 KH, +3,8 g Fett, -70 kcal, -293kJ)",
+                "name": "Bunter Bio Quinoa (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "bunter_bio_quinoa",
+                "short": "Bunter Bio Quinoa",
+                "delta": {
+                  "protein": 1.2,
+                  "carbs": -27.5,
+                  "fat": 3.8,
+                  "kcal": -70,
+                  "kJ": -293
+                }
+              },
+              {
+                "wolt": "Süßkartoffel (250g) (-3,5 g Protein, -12,0 KH, +0,8 g Fett, -47 kcal, -196kJ)",
+                "name": "Süßkartoffel (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "suesskartoffel",
+                "short": "Süßkartoffel",
+                "delta": {
+                  "protein": -3.5,
+                  "carbs": -12,
+                  "fat": 0.8,
+                  "kcal": -47,
+                  "kJ": -196
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          }
+        ],
+        "nameProtein": 45,
+        "blocked": "Werte laut Beschreibung für 200 g Rinderhack (mager) bzw. 160 g Planted Hack — bei Wolt wählbar sind nur Hähnchen, vegane Hühnchen und vegane Hackbällchen (Standard Hähnchen 200g), deren Änderungen sich auf Hähnchen beziehen"
+      },
+      {
+        "name": "Jungle Power Bowl 64 g Protein",
+        "cat": "highprotein",
+        "price": 16.9,
+        "description": "Kohlenhydrate: / 250 g Basmati Reis / Protein: / 50 g Feta / Vitamine: / 20 g Babyspinat, 70 g Mango / Topping: / 15 g Granatapfel / Nährwerte: / Protein 64 g | Fett 18,1 g | Kohlenhydrate 85,9 g | Kalorien 781 kcal 3268 kJ / Bei Empfohlenem Hühnchen mit Reis / Allergene: Soja (Planted)",
+        "nutrition": {
+          "protein": 64,
+          "fat": 18.1,
+          "carbs": 85.9,
+          "kcal": 781
+        },
+        "kJ": 3268,
+        "basis": "Hühnchen mit Reis",
+        "groups": [
+          {
+            "kind": "protein",
+            "name": "Wähle deine Proteine aus?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Hähnchen 200g",
+                "name": "Hähnchen 200g",
+                "price": 0,
+                "default": true,
+                "choice": "haehnchen",
+                "short": "Hähnchen"
+              },
+              {
+                "wolt": "vegane Hünchen (200g) (-12,9 g Protein, +0,3 KH, +10,6 g Fett, +62 kcal, +259kJ)",
+                "name": "vegane Hünchen (200g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "vegane_huehnchen",
+                "short": "vegane Hühnchen",
+                "delta": {
+                  "protein": -12.9,
+                  "carbs": 0.3,
+                  "fat": 10.6,
+                  "kcal": 62,
+                  "kJ": 259
+                }
+              },
+              {
+                "wolt": "vegane Hackbällchen (200g) (-11,0 g Protein, +10,8 KH, +3,6 g Fett, +58 kcal, +240kJ)",
+                "name": "vegane Hackbällchen (200g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "vegane_hackbaellchen",
+                "short": "vegane Hackbällchen",
+                "delta": {
+                  "protein": -11,
+                  "carbs": 10.8,
+                  "fat": 3.6,
+                  "kcal": 58,
+                  "kJ": 240
+                }
+              }
+            ]
+          },
+          {
+            "kind": "carbs",
+            "name": "Wähle deine Kohlenhydrate?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Basmati Reis (250g)",
+                "name": "Basmati Reis (250g)",
+                "price": 0,
+                "default": true,
+                "choice": "basmati_reis",
+                "short": "Basmati Reis"
+              },
+              {
+                "wolt": "Salat Mix (80g) Low Carb (-6,4 g Protein, -68,3 KH, -0,5 g Fett, -272 kcal, -1138kJ)",
+                "name": "Salat Mix (80g) Low Carb",
+                "price": 0,
+                "default": false,
+                "choice": "salat_mix",
+                "short": "Salat Mix",
+                "delta": {
+                  "protein": -6.4,
+                  "carbs": -68.3,
+                  "fat": -0.5,
+                  "kcal": -272,
+                  "kJ": -1138
+                }
+              },
+              {
+                "wolt": "Bunter Bio Quinoa (250g) (+1,2 g Protein, -27,5 KH, +3,8 g Fett, -70 kcal, -293kJ)",
+                "name": "Bunter Bio Quinoa (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "bunter_bio_quinoa",
+                "short": "Bunter Bio Quinoa",
+                "delta": {
+                  "protein": 1.2,
+                  "carbs": -27.5,
+                  "fat": 3.8,
+                  "kcal": -70,
+                  "kJ": -293
+                }
+              },
+              {
+                "wolt": "Süßkartoffel (250g) (-3,5 g Protein, -12,0 KH, +0,8 g Fett, -47 kcal, -196kJ)",
+                "name": "Süßkartoffel (250g)",
+                "price": 2.5,
+                "default": false,
+                "choice": "suesskartoffel",
+                "short": "Süßkartoffel",
+                "delta": {
+                  "protein": -3.5,
+                  "carbs": -12,
+                  "fat": 0.8,
+                  "kcal": -47,
+                  "kJ": -196
+                }
+              }
+            ]
+          },
+          {
+            "kind": "dip",
+            "name": "Wähle dein Dip?",
+            "min": 1,
+            "max": 1,
+            "options": [
+              {
+                "wolt": "Mango Chili",
+                "name": "Mango Chili",
+                "price": 0,
+                "default": true
+              },
+              {
+                "wolt": "French",
+                "name": "French",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Honig Senf",
+                "name": "Honig Senf",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Italian",
+                "name": "Italian",
+                "price": 0,
+                "default": false
+              },
+              {
+                "wolt": "Parmesan",
+                "name": "Parmesan",
+                "price": 0,
+                "default": false
+              }
+            ]
+          }
+        ],
+        "nameProtein": 64
+      },
+      {
+        "name": "Lachs Bagel 36 g Protein",
+        "cat": "bagels",
+        "price": 9.5,
+        "description": "Unser Fit-Favorite: Low-Carb-Bagel mit Räucherlachs, Avocado & cremigen Frischkäse. Getoppt mit Babyspinat, frischer Zitrone und Sesam - reich an Protein, gesundem Fett und frischem Geschmack / Nährwerte: / Protein 36 g | Fett 30 g | Kohlenhydrate 8 g | Kalorien 460 kcal / 1925 kJ",
+        "nutrition": {
+          "protein": 36,
+          "fat": 30,
+          "carbs": 8,
+          "kcal": 460
+        },
+        "kJ": 1925,
+        "basis": null,
+        "groups": [],
+        "nameProtein": 36
+      },
+      {
+        "name": "Green Power Bagel 29 g Protein",
+        "cat": "bagels",
+        "price": 9.5,
+        "description": "Pflanzlicher Power pur: Low-Carb-Bagel mit Hummus, Avocado, Spinat und knackigem Gemüse. Reich an pflanzlichem Eiweiß, gesunden Fetten und Geschmack - dein Protein-Boost ohne Kompromisse. / Nährwerte: / Protein 29 g | Fett 30 g | Kohlenhydrate 12 g | Kalorien 470 kcal / 1965 kJ",
+        "nutrition": {
+          "protein": 29,
+          "fat": 30,
+          "carbs": 12,
+          "kcal": 470
+        },
+        "kJ": 1965,
+        "basis": null,
+        "groups": [],
+        "nameProtein": 29
+      }
+    ]
+  }
+}
