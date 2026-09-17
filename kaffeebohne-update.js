@@ -23,7 +23,9 @@ function buildData(raw) {
     if (p.blocked) continue;
     if (!catIds.has(p.cat)) throw new Error("Unbekannte Kategorie bei " + p.name + ": " + p.cat);
     // Varianten-id und -name immer Protein → Kohlenhydrate (Wolt ordnet die Gruppen je Gericht verschieden); Order Guide in Wolt-Reihenfolge
-    const valueGroups = p.groups.filter(g => g.kind !== "dip").sort((a, b) => KIND_ORDER.indexOf(a.kind) - KIND_ORDER.indexOf(b.kind));
+    // gesperrte Optionen (User 17.09.2026: Salat Mix) fallen weg, die Standard-Option bleibt immer
+    const valueGroups = p.groups.filter(g => g.kind !== "dip").sort((a, b) => KIND_ORDER.indexOf(a.kind) - KIND_ORDER.indexOf(b.kind))
+      .map(g => Object.assign({}, g, { options: g.options.filter(o => !o.blocked || o.default) }));
     for (const g of valueGroups) for (const o of g.options) if (!seenChoice.has(o.choice)) { seenChoice.add(o.choice); choices.push({ id: o.choice, name: o.short, group: CHOICE_GROUP[g.kind] }); }
     // Kartesisches Produkt der Options-Gruppen
     let combos = [[]];
@@ -54,12 +56,13 @@ function buildData(raw) {
         item.choices = combo.map(o => o.choice);
         item.orderName = p.name;
       }
-      const note = p.groups.map(g => g.name + ": " + (g.kind === "dip" ? DIP_NOTE : combo.find(o => g.options.includes(o)).name));
+      const note = p.groups.map(g => g.name + ": " + (g.kind === "dip" ? DIP_NOTE : combo.find(o => g.options.some(x => x.wolt === o.wolt)).name));
       if (note.length) item.orderNote = note.join(" · ");
       items.push(item);
     }
   }
-  return { cats, choices, items };
+  // Kategorien ohne Gericht (User 17.09.2026: alle Low-Carb-Salate gesperrt) erscheinen nicht als Chip
+  return { cats: cats.filter(c => items.some(x => x.cat === c.id)), choices, items };
 }
 
 function blockLines(raw) {

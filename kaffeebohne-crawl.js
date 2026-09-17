@@ -51,8 +51,18 @@ const BLOCKED = {
   "Classic Bowl 39 g Protein": "Makros (42 g Eiweiß, 47 g KH, 22 g Fett) passen nicht zu 250 g Reis und zum Namen; 605 kcal und 39 g Eiweiß ergeben sich aus Classic Salad + Reis-Option (dann 77 g KH, 14 g Fett) — nicht still korrigiert",
   "Spicy Protein Salad 24 g Protein - Low Carb": "Werte laut Beschreibung für Rinderhack (mager) bzw. Planted Hack — bei Wolt wählbar sind nur Hähnchen, vegane Hühnchen und vegane Hackbällchen (Standard Hähnchen), deren Änderungen sich auf Hähnchen beziehen",
   "Spicy Protein Bowl 31 g Protein": "Werte laut Beschreibung für Rinderhack (mager) bzw. Planted Hack — bei Wolt wählbar sind nur Hähnchen, vegane Hühnchen und vegane Hackbällchen (Standard Hähnchen), deren Änderungen sich auf Hähnchen beziehen",
+  // User 17.09.2026: Low-Carb-Salate mit ~44 kcal zu viel nicht drinlassen
+  "Vital Boost Salad 32 g Protein - Low Carb": "User 17.09.2026: gesperrt — kcal ~44 über der Summe der Makros (Salatmix mit ~58 statt ~14 kcal gerechnet; Eiweiß/KH/Fett stimmen mit Compleats Zutaten)",
+  "Garden Crunch Salad 28 g Protein - Low Carb": "User 17.09.2026: gesperrt — kcal ~44 über der Summe der Makros (Salatmix mit ~58 statt ~14 kcal gerechnet; Eiweiß/KH/Fett stimmen mit Compleats Zutaten)",
+  "Jungle Power Salad 35 g Protein - Low Carb": "User 17.09.2026: gesperrt — kcal ~44 über der Summe der Makros (Salatmix mit ~58 statt ~14 kcal gerechnet; Eiweiß/KH/Fett stimmen mit Compleats Zutaten)",
+  "Classic Salad 33 g Protein - Low Carb": "User 17.09.2026: gesperrt — kcal ~44 über der Summe der Makros (Salatmix mit ~58 statt ~14 kcal gerechnet; Eiweiß/KH/Fett stimmen mit Compleats Zutaten)",
+  "Gym Junkie Salad 44 g Protein - Low Carb": "User 17.09.2026: gesperrt — kcal ~44 über der Summe der Makros (Salatmix mit ~58 statt ~14 kcal gerechnet; Eiweiß/KH/Fett stimmen mit Compleats Zutaten)",
+  "Muscle Boost Salad 41 g Protein - Low Carb": "User 17.09.2026: gesperrt — kcal ~44 über der Summe der Makros (Salatmix mit ~58 statt ~14 kcal gerechnet; Eiweiß/KH/Fett stimmen mit Compleats Zutaten)",
   "Spicy Protein Bowl 45 g Protein": "Werte laut Beschreibung für 200 g Rinderhack (mager) bzw. 160 g Planted Hack — bei Wolt wählbar sind nur Hähnchen, vegane Hühnchen und vegane Hackbällchen (Standard Hähnchen 200g), deren Änderungen sich auf Hähnchen beziehen",
 };
+// Gesperrte Optionen (Varianten mit ihnen fallen weg): Salat Mix hat denselben kcal-Fehler wie die Low-Carb-Salate (Wolt −272 kcal statt
+// Compleat −316 bei gleichen Makros) → konsequent wie die Salate (Ableitung aus der User-Entscheidung 17.09.2026, dem User genannt)
+const BLOCKED_OPTIONS = { "Salat Mix (80g) Low Carb": "gesperrt wie die Low-Carb-Salate (User 17.09.2026): Änderung −272 kcal statt −316 kcal laut Compleats Zutaten bei gleichen Makros" };
 const SHELLFISH_RE = /garnele|shrimp|scampi|gambas|prawn|krabbe|krebs|hummer|langust|muschel|auster|tintenfisch|calamar|sepia|oktopus|pulpo|meeresfr/i;
 const DISLIKE_RE = /koriander|cilantro|minze|\bmint/i;
 
@@ -118,6 +128,7 @@ async function main() {
           const ch = CHOICES[po.name];
           if (!ch) { problems.push("„" + name + "“: unbekannte Option „" + po.name + "“ (CHOICES ergänzen)"); continue; }
           o.choice = ch[0]; o.short = ch[1];
+          if (BLOCKED_OPTIONS[po.name]) o.blocked = BLOCKED_OPTIONS[po.name];
           if (isDefault) { if (po.delta) problems.push("„" + name + "“: Standard-Option „" + po.name + "“ mit Änderungsangabe"); if (o.price) problems.push("„" + name + "“: Standard-Option „" + po.name + "“ kostet extra"); }
           else if (!po.delta) { problems.push("„" + name + "“: Option „" + po.name + "“ ohne Nährwert-Änderung"); continue; }
           else {
@@ -148,6 +159,7 @@ async function main() {
   }
   if (unknownCats.length) problems.push("Wolt: unbekannte Kategorie(n) " + unknownCats.map(c => "„" + c + "“").join(", ") + " (WOLT_CATEGORIES oder SKIPPED_WOLT_CATEGORIES ergänzen)");
   for (const n of Object.keys(BLOCKED)) if (!products.some(p => p.name === n)) problems.push("BLOCKED: Produkt „" + n + "“ fehlt");
+  for (const n of Object.keys(BLOCKED_OPTIONS)) if (!products.some(p => p.groups.some(g => g.options.some(o => o.name === n)))) problems.push("BLOCKED_OPTIONS: Option „" + n + "“ fehlt");
   for (const [k, def] of Object.entries(WOLT_CATEGORIES)) for (const n of def.only || []) if (!products.some(p => p.name === n)) problems.push("WOLT_CATEGORIES." + k + ": Produkt „" + n + "“ fehlt");
   // Gleiche Option = gleiche Änderung in allen Gerichten
   const deltaByOption = new Map();
@@ -187,9 +199,12 @@ async function main() {
         "User 17.09.2026: Die gruene Kaffeebohne (Wolt) als Tracker; Nährwerte, Bestelloptionen und deren Auswirkungen aus den Produkten",
         "User 17.09.2026: FRUIT BOWLS, MATCHA & CO, FRÜHSTÜCK (außer Lachs Bagel 36 g Protein und Green Power Bagel 29 g Protein), EIERSPEISEN, HEIßGETRÄNKE, ALKOHOLFREIE GETRÄNKE weglassen",
         "User 17.09.2026: Dips haben keine Werte → nie mitzählen; Wolt verlangt einen Dip, der Order Guide sagt: beliebig wählen und weglassen",
+        "User 17.09.2026: die 6 wegen widersprüchlicher Werte gesperrten Gerichte bleiben gesperrt",
+        "User 17.09.2026: Low-Carb-Salate mit ~44 kcal zu viel nicht drinlassen (gesperrt; ebenso die Option „Salat Mix“ mit demselben Fehler)",
       ],
       dips: [...dips],
       blocked: products.filter(p => p.blocked).map(p => p.name + " — " + p.blocked),
+      blockedOptions: Object.entries(BLOCKED_OPTIONS).map(([n, r]) => n + " — " + r),
       skipped, anomalies, compleatCheck,
       shellfish: shellfish.length ? shellfish : "keine Allergenangabe mit Krebs-/Weichtieren; kein Gericht mit Krebs-/Weichtier-Begriff (Räucherlachs = Fisch, erlaubt)",
       dislikes: dislikes.length ? dislikes : "keine Beschreibung nennt Koriander oder Minze (Dip-Zutaten unbekannt)",
