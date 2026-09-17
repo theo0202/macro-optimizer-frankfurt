@@ -1,0 +1,2027 @@
+{
+ "_info": [
+  "Anzeige des Konfigurators auf stadtsalat.de/frankfurt (Lieferung Frankfurt), am 17.09.2026 im Browser durch Klicken abgelesen (nichts bestellt): Block „Nährwerte pro Portion (X g)“ + kcal + Preis.",
+  "variants: jedes Gericht der Wolt-Liste des Users (außer SWEET POTATO SNACK, kein Konfigurator) mit jedem Protein, das der Konfigurator anbietet (Klick auf das Protein); dressing = Standard-Dressing laut URL.",
+  "doubleUp: Holy Greek je Protein mit „Double up!“ (= eine Extra-Portion desselben Proteins, URL-Parameter addons).",
+  "extras: Holy Greek Pulled Chicken + jede der 23 Wolt-„Extra Zutaten“ einmal (x1) und zweimal (x2, Plus-Knopf), danach zurück auf 0 (back).",
+  "dressings: ein Dressing ändert die Anzeige nicht (Hinweis der Seite: „Angabe bezieht sich auf das konfigurierte Produkt ohne Dressings, Extras und entfernte Produkte“ — Add-ons aus „Proteine“ und „Addons“ ändern die Anzeige dagegen, siehe extras/doubleUp); geprüft mit Holy Greek planted.pulled + 1×/2× Caesar: Nährwerte unverändert, Preis 17,45 → 19,45 → 21,45 €.",
+  "Rundung der Anzeige: Gewicht gerundet, kcal abgeschnitten (578,49 → 578; 682,99 → 682), übrige Werte 2 Dezimalen."
+ ],
+ "capturedAt": "2026-09-17",
+ "fields": [
+  "weight",
+  "kcal",
+  "fat",
+  "sat",
+  "carbs",
+  "sugars",
+  "fibre",
+  "protein",
+  "salt",
+  "price"
+ ],
+ "variants": [
+  {
+   "dish": "Holy Greek",
+   "protein": "MushRoots Protein-Bällchen",
+   "product": "holy-greek-mush-roots",
+   "dressing": "gaea-bio-olivenol",
+   "shown": [
+    481,
+    535,
+    27.97,
+    11.25,
+    39.43,
+    7.04,
+    8.06,
+    31.14,
+    3.51,
+    17.65
+   ]
+  },
+  {
+   "dish": "Holy Greek",
+   "protein": "Bio-Steak",
+   "product": "holy-greek-steak",
+   "dressing": "gaea-bio-olivenol",
+   "shown": [
+    506,
+    520,
+    24.93,
+    12.2,
+    36.28,
+    6.66,
+    6.01,
+    37.1,
+    2.96,
+    20.35
+   ]
+  },
+  {
+   "dish": "Holy Greek",
+   "protein": "Bio-Tofu",
+   "product": "holy-greek-tofu",
+   "dressing": "gaea-bio-olivenol",
+   "shown": [
+    496,
+    508,
+    30.45,
+    11.35,
+    37.69,
+    7.28,
+    6.27,
+    19.33,
+    4.35,
+    16.75
+   ]
+  },
+  {
+   "dish": "Holy Greek",
+   "protein": "Pulled-Bio-Chicken",
+   "product": "holy-greek-pulled-chicken",
+   "dressing": "gaea-bio-olivenol",
+   "shown": [
+    506,
+    578,
+    26.86,
+    10.99,
+    39.85,
+    8.99,
+    6.21,
+    38.46,
+    5.3,
+    18.55
+   ]
+  },
+  {
+   "dish": "Holy Greek",
+   "protein": "Bio-Hähnchen",
+   "product": "holy-greek-chicken",
+   "dressing": "gaea-bio-olivenol",
+   "shown": [
+    496,
+    510,
+    25.72,
+    11.3,
+    37.78,
+    7.21,
+    5.95,
+    36.83,
+    3.93,
+    18.85
+   ]
+  },
+  {
+   "dish": "Holy Greek",
+   "protein": "planted.pulled",
+   "product": "holy-greek-planted",
+   "dressing": "gaea-bio-olivenol",
+   "shown": [
+    506,
+    561,
+    28.95,
+    11.37,
+    40.19,
+    8.19,
+    9.29,
+    33.5,
+    4.71,
+    17.45
+   ]
+  },
+  {
+   "dish": "Harvest Time",
+   "protein": "Pulled-Bio-Chicken",
+   "product": "harvest-time-pulled-chicken",
+   "dressing": "balsamico",
+   "shown": [
+    450,
+    664,
+    29.78,
+    10.95,
+    54.88,
+    12.64,
+    7.06,
+    39.92,
+    5.11,
+    16.85
+   ]
+  },
+  {
+   "dish": "Harvest Time",
+   "protein": "Bio-Hähnchen",
+   "product": "harvest-bowl-summer-2021",
+   "dressing": "balsamico",
+   "shown": [
+    440,
+    596,
+    28.64,
+    11.26,
+    52.81,
+    10.86,
+    6.81,
+    38.29,
+    3.74,
+    17.15
+   ]
+  },
+  {
+   "dish": "Harvest Time",
+   "protein": "planted.pulled",
+   "product": "harvest-time-planted",
+   "dressing": "balsamico",
+   "shown": [
+    450,
+    647,
+    31.86,
+    11.34,
+    55.22,
+    11.84,
+    10.14,
+    34.96,
+    4.52,
+    15.75
+   ]
+  },
+  {
+   "dish": "Harvest Time",
+   "protein": "MushRoots Protein-Bällchen",
+   "product": "harvest-time-veggie",
+   "dressing": "balsamico",
+   "shown": [
+    445,
+    629,
+    31.01,
+    11.22,
+    55.1,
+    11.28,
+    9.18,
+    32.74,
+    3.32,
+    15.85
+   ]
+  },
+  {
+   "dish": "Harvest Time",
+   "protein": "Bio-Steak",
+   "product": "harvest-time-steak",
+   "dressing": "balsamico",
+   "shown": [
+    450,
+    606,
+    27.85,
+    12.16,
+    51.3,
+    10.3,
+    6.86,
+    38.56,
+    2.77,
+    18.65
+   ]
+  },
+  {
+   "dish": "Harvest Time",
+   "protein": "Bio-Tofu",
+   "product": "veggie-harvest-time",
+   "dressing": "balsamico",
+   "shown": [
+    440,
+    594,
+    33.36,
+    11.32,
+    52.72,
+    10.93,
+    7.12,
+    20.79,
+    4.16,
+    14.95
+   ]
+  },
+  {
+   "dish": "Protein Fit",
+   "protein": "Pulled-Bio-Chicken",
+   "product": "protein-fit-pulled-chicken",
+   "dressing": "gurken-tahini",
+   "shown": [
+    512,
+    808,
+    36.08,
+    4.25,
+    65.35,
+    14.28,
+    13.62,
+    44.29,
+    9.61,
+    18.05
+   ]
+  },
+  {
+   "dish": "Protein Fit",
+   "protein": "Bio-Hähnchen",
+   "product": "protein-fit",
+   "dressing": "gurken-tahini",
+   "shown": [
+    502,
+    740,
+    34.94,
+    4.56,
+    63.27,
+    12.5,
+    13.37,
+    42.66,
+    8.24,
+    18.35
+   ]
+  },
+  {
+   "dish": "Protein Fit",
+   "protein": "planted.pulled",
+   "product": "vegan-fit-planted",
+   "dressing": "gurken-tahini",
+   "shown": [
+    512,
+    792,
+    38.17,
+    4.64,
+    65.68,
+    13.48,
+    16.7,
+    39.33,
+    9.02,
+    16.95
+   ]
+  },
+  {
+   "dish": "Protein Fit",
+   "protein": "MushRoots Protein-Bällchen",
+   "product": "protein-fit-mush-roots",
+   "dressing": "gurken-tahini",
+   "shown": [
+    507,
+    773,
+    37.31,
+    4.52,
+    65.56,
+    12.92,
+    15.74,
+    37.11,
+    7.82,
+    17.05
+   ]
+  },
+  {
+   "dish": "Protein Fit",
+   "protein": "Bio-Steak",
+   "product": "protein-fit-steak",
+   "dressing": "gurken-tahini",
+   "shown": [
+    512,
+    750,
+    34.15,
+    5.46,
+    61.77,
+    11.94,
+    13.42,
+    42.93,
+    7.26,
+    19.85
+   ]
+  },
+  {
+   "dish": "Protein Fit",
+   "protein": "Bio-Tofu",
+   "product": "vegan-fit-bowl",
+   "dressing": "gurken-tahini",
+   "shown": [
+    502,
+    738,
+    39.67,
+    4.62,
+    63.18,
+    12.57,
+    13.68,
+    25.16,
+    8.66,
+    16.25
+   ]
+  },
+  {
+   "dish": "Mexican Taco",
+   "protein": "Pulled-Bio-Chicken",
+   "product": "mexican-taco-chicken",
+   "dressing": "chipotle",
+   "shown": [
+    540,
+    659,
+    21.66,
+    2.19,
+    69.37,
+    9.79,
+    11.33,
+    37.92,
+    6.55,
+    17.25
+   ]
+  },
+  {
+   "dish": "Mexican Taco",
+   "protein": "Bio-Hähnchen",
+   "product": "mexican-taco-chicken-3",
+   "dressing": "chipotle",
+   "shown": [
+    530,
+    591,
+    20.52,
+    2.5,
+    67.3,
+    8.01,
+    11.08,
+    36.29,
+    5.18,
+    17.65
+   ]
+  },
+  {
+   "dish": "Mexican Taco",
+   "protein": "planted.pulled",
+   "product": "mexican-taco-planted",
+   "dressing": "chipotle",
+   "shown": [
+    540,
+    642,
+    23.75,
+    2.58,
+    69.71,
+    8.99,
+    14.41,
+    32.96,
+    5.96,
+    16.25
+   ]
+  },
+  {
+   "dish": "Mexican Taco",
+   "protein": "MushRoots Protein-Bällchen",
+   "product": "mexican-taco-mush-roots",
+   "dressing": "chipotle",
+   "shown": [
+    535,
+    623,
+    22.89,
+    2.46,
+    69.59,
+    8.44,
+    13.45,
+    30.74,
+    4.77,
+    16.35
+   ]
+  },
+  {
+   "dish": "Mexican Taco",
+   "protein": "Bio-Steak",
+   "product": "mexican-taco-steak",
+   "dressing": "chipotle",
+   "shown": [
+    540,
+    601,
+    19.73,
+    3.4,
+    65.8,
+    7.46,
+    11.13,
+    36.56,
+    4.21,
+    19.05
+   ]
+  },
+  {
+   "dish": "Mexican Taco",
+   "protein": "Bio-Tofu",
+   "product": "mexican-taco-bowl-summer-2021",
+   "dressing": "chipotle",
+   "shown": [
+    530,
+    589,
+    25.25,
+    2.56,
+    67.21,
+    8.08,
+    11.39,
+    18.79,
+    5.6,
+    15.45
+   ]
+  },
+  {
+   "dish": "Caesar's Classic",
+   "protein": "Pulled-Bio-Chicken",
+   "product": "caesars-classic-pulled-chicken",
+   "dressing": "caesar-classic",
+   "shown": [
+    367,
+    340,
+    12.02,
+    3.45,
+    16.63,
+    6.36,
+    3.46,
+    33.03,
+    3.44,
+    17.25
+   ]
+  },
+  {
+   "dish": "Caesar's Classic",
+   "protein": "Bio-Hähnchen",
+   "product": "emperors-classic",
+   "dressing": "caesar-classic",
+   "shown": [
+    357,
+    272,
+    10.89,
+    3.76,
+    14.55,
+    4.58,
+    3.2,
+    31.4,
+    2.07,
+    17.65
+   ]
+  },
+  {
+   "dish": "Caesar's Classic",
+   "protein": "planted.pulled",
+   "product": "emperors-classic-planted",
+   "dressing": "caesar-classic",
+   "shown": [
+    367,
+    323,
+    14.11,
+    3.83,
+    16.96,
+    5.56,
+    6.54,
+    28.07,
+    2.85,
+    16.25
+   ]
+  },
+  {
+   "dish": "Caesar's Classic",
+   "protein": "MushRoots Protein-Bällchen",
+   "product": "caesars-classic-mush-roots",
+   "dressing": "caesar-classic",
+   "shown": [
+    362,
+    304,
+    13.26,
+    3.71,
+    16.84,
+    5.01,
+    5.57,
+    25.85,
+    1.65,
+    16.35
+   ]
+  },
+  {
+   "dish": "Caesar's Classic",
+   "protein": "Bio-Steak",
+   "product": "caesar-s-classic-steak",
+   "dressing": "caesar-classic",
+   "shown": [
+    367,
+    282,
+    10.09,
+    4.66,
+    13.05,
+    4.03,
+    3.26,
+    31.67,
+    1.09,
+    19.05
+   ]
+  },
+  {
+   "dish": "Caesar's Classic",
+   "protein": "Bio-Tofu",
+   "product": "caesars-classic-tofu",
+   "dressing": "caesar-classic",
+   "shown": [
+    357,
+    270,
+    15.61,
+    3.81,
+    14.46,
+    4.65,
+    3.52,
+    13.9,
+    2.49,
+    15.45
+   ]
+  },
+  {
+   "dish": "Green Power",
+   "protein": "Pulled-Bio-Chicken",
+   "product": "green-power-pulled-chicken",
+   "dressing": "chipotle",
+   "shown": [
+    480,
+    565,
+    17.57,
+    1.58,
+    59.56,
+    10.76,
+    8.52,
+    34.73,
+    6.49,
+    15.15
+   ]
+  },
+  {
+   "dish": "Green Power",
+   "protein": "Bio-Hähnchen",
+   "product": "green-power-chicken",
+   "dressing": "chipotle",
+   "shown": [
+    470,
+    497,
+    16.43,
+    1.89,
+    57.49,
+    8.98,
+    8.26,
+    33.1,
+    5.12,
+    15.45
+   ]
+  },
+  {
+   "dish": "Green Power",
+   "protein": "planted.pulled",
+   "product": "green-power-planted",
+   "dressing": "chipotle",
+   "shown": [
+    480,
+    548,
+    19.65,
+    1.97,
+    59.9,
+    9.96,
+    11.6,
+    29.77,
+    5.9,
+    14.05
+   ]
+  },
+  {
+   "dish": "Green Power",
+   "protein": "MushRoots Protein-Bällchen",
+   "product": "green-power-mush-roots",
+   "dressing": "chipotle",
+   "shown": [
+    475,
+    530,
+    18.8,
+    1.85,
+    59.78,
+    9.41,
+    10.63,
+    27.55,
+    4.7,
+    14.15
+   ]
+  },
+  {
+   "dish": "Green Power",
+   "protein": "Bio-Steak",
+   "product": "green-power-steak",
+   "dressing": "chipotle",
+   "shown": [
+    480,
+    507,
+    15.64,
+    2.79,
+    55.99,
+    8.43,
+    8.32,
+    33.37,
+    4.14,
+    16.95
+   ]
+  },
+  {
+   "dish": "Green Power",
+   "protein": "Bio-Tofu",
+   "product": "green-power-tofu",
+   "dressing": "chipotle",
+   "shown": [
+    470,
+    495,
+    21.15,
+    1.95,
+    57.4,
+    9.05,
+    8.58,
+    15.6,
+    5.54,
+    13.35
+   ]
+  },
+  {
+   "dish": "CAESAR PROTEIN PLATE",
+   "protein": "Pulled-Bio-Chicken",
+   "product": "caesar-protein-plate-pulled-chicken",
+   "dressing": "caesar-classic",
+   "shown": [
+    475,
+    912,
+    48.51,
+    4.26,
+    52.06,
+    10.53,
+    6.09,
+    55.35,
+    7.93,
+    18.35
+   ]
+  },
+  {
+   "dish": "CAESAR PROTEIN PLATE",
+   "protein": "planted.pulled",
+   "product": "caesar-protein-plate-planted",
+   "dressing": "caesar-classic",
+   "shown": [
+    475,
+    879,
+    52.69,
+    5.03,
+    52.73,
+    8.93,
+    12.25,
+    45.43,
+    6.75,
+    17.25
+   ]
+  },
+  {
+   "dish": "CAESAR PROTEIN PLATE",
+   "protein": "MushRoots Protein-Bällchen",
+   "product": "caesar-protein-plate-mushroots",
+   "dressing": "caesar-classic",
+   "shown": [
+    465,
+    841,
+    50.98,
+    4.79,
+    52.49,
+    7.82,
+    10.32,
+    40.99,
+    4.36,
+    17.45
+   ]
+  },
+  {
+   "dish": "Ranch Protein Plate",
+   "protein": "Pulled-Bio-Chicken",
+   "product": "ranch-protein-plate-pulled-chicken",
+   "dressing": "joghurt-tahin",
+   "shown": [
+    460,
+    822,
+    39.09,
+    3.57,
+    46.88,
+    7.42,
+    6.22,
+    57.56,
+    8.54,
+    18.65
+   ]
+  },
+  {
+   "dish": "Ranch Protein Plate",
+   "protein": "planted.pulled",
+   "product": "ranch-protein-plate-planted",
+   "dressing": "joghurt-tahin",
+   "shown": [
+    460,
+    789,
+    43.27,
+    4.34,
+    47.55,
+    5.82,
+    12.38,
+    47.64,
+    7.36,
+    16.85
+   ]
+  },
+  {
+   "dish": "Omega Protein Plate",
+   "protein": null,
+   "product": "omega-protein-plate",
+   "dressing": "chili-limetten-pesto",
+   "shown": [
+    462,
+    692,
+    42.81,
+    5.61,
+    40.28,
+    2.9,
+    10.46,
+    38.63,
+    3.19,
+    22.05
+   ]
+  },
+  {
+   "dish": "Peachy Feta",
+   "protein": null,
+   "product": "peachy-feta",
+   "dressing": "joghurt-tahin",
+   "shown": [
+    497,
+    581,
+    24.46,
+    10.35,
+    65.08,
+    14.82,
+    10.68,
+    21.56,
+    4.87,
+    17.35
+   ]
+  },
+  {
+   "dish": "Peachy Burrata",
+   "protein": null,
+   "product": "peachy-burrata",
+   "dressing": "joghurt-tahin",
+   "shown": [
+    543,
+    605,
+    32.82,
+    16.25,
+    46.99,
+    12.52,
+    7.24,
+    27.45,
+    3.62,
+    20.35
+   ]
+  },
+  {
+   "dish": "Fresh Kick",
+   "protein": null,
+   "product": "fresh-kick",
+   "dressing": "chili-limetten-pesto",
+   "shown": [
+    530,
+    612,
+    43.18,
+    12.3,
+    38.58,
+    5.31,
+    7.46,
+    17.02,
+    2.87,
+    17.35
+   ]
+  },
+  {
+   "dish": "Metabolic Balance",
+   "protein": null,
+   "product": "longevity-secret",
+   "dressing": "gaea-bio-olivenol",
+   "shown": [
+    492,
+    569,
+    38.15,
+    3.28,
+    35.09,
+    11.94,
+    18.47,
+    18.2,
+    3.25,
+    17.35
+   ]
+  },
+  {
+   "dish": "Falafel Crush",
+   "protein": null,
+   "product": "falafel-crush",
+   "dressing": "classic-vinaigrette",
+   "shown": [
+    460,
+    816,
+    56.25,
+    5.41,
+    59.33,
+    10.38,
+    10.46,
+    16.03,
+    5.13,
+    12.85
+   ]
+  },
+  {
+   "dish": "Feel Good",
+   "protein": null,
+   "product": "feelgood",
+   "dressing": "classic-vinaigrette",
+   "shown": [
+    383,
+    600,
+    42.21,
+    12.07,
+    38.17,
+    8.86,
+    8.51,
+    16.73,
+    1.13,
+    15.25
+   ]
+  },
+  {
+   "dish": "Falafel Protein Plate",
+   "protein": null,
+   "product": "falafel-protein-plate",
+   "dressing": "gurken-tahini",
+   "shown": [
+    464,
+    773,
+    49.82,
+    6.16,
+    58.31,
+    8.6,
+    11.69,
+    21.28,
+    6.24,
+    16.35
+   ]
+  }
+ ],
+ "doubleUp": [
+  {
+   "product": "holy-greek-mush-roots",
+   "protein": "MushRoots Protein-Bällchen",
+   "addon": "mush-roots-veggie-balls",
+   "shown": [
+    556,
+    672,
+    33.6,
+    11.85,
+    43.63,
+    8.17,
+    10.54,
+    47.64,
+    4.64,
+    21.64
+   ],
+   "back": [
+    481,
+    535,
+    27.97,
+    11.25,
+    39.43,
+    7.04,
+    8.06,
+    31.14,
+    3.51,
+    17.65
+   ]
+  },
+  {
+   "product": "holy-greek-steak",
+   "protein": "Bio-Steak",
+   "addon": "bio-steak",
+   "shown": [
+    586,
+    634,
+    27.39,
+    13.74,
+    36.69,
+    6.8,
+    6.17,
+    59.42,
+    3.53,
+    25.84
+   ],
+   "back": [
+    506,
+    520,
+    24.93,
+    12.2,
+    36.28,
+    6.66,
+    6.01,
+    37.1,
+    2.96,
+    20.35
+   ]
+  },
+  {
+   "product": "holy-greek-tofu",
+   "protein": "Bio-Tofu",
+   "addon": "gerosteter-tofu",
+   "shown": [
+    566,
+    611,
+    38.43,
+    12.05,
+    39.51,
+    8.05,
+    6.69,
+    23.88,
+    6.31,
+    19.74
+   ],
+   "back": [
+    496,
+    508,
+    30.45,
+    11.35,
+    37.69,
+    7.28,
+    6.27,
+    19.33,
+    4.35,
+    16.75
+   ]
+  },
+  {
+   "product": "holy-greek-pulled-chicken",
+   "protein": "Pulled-Bio-Chicken",
+   "addon": "bio-hahnchen-kebap",
+   "shown": [
+    586,
+    751,
+    31.25,
+    11.33,
+    43.83,
+    11.47,
+    6.57,
+    62.14,
+    8.21,
+    23.04
+   ],
+   "back": [
+    506,
+    578,
+    26.86,
+    10.99,
+    39.85,
+    8.99,
+    6.21,
+    38.46,
+    5.3,
+    18.55
+   ]
+  },
+  {
+   "product": "holy-greek-chicken",
+   "protein": "Bio-Hähnchen",
+   "addon": "hahnchen-bio",
+   "shown": [
+    566,
+    614,
+    28.98,
+    11.94,
+    39.69,
+    7.91,
+    6.06,
+    58.88,
+    5.47,
+    23.84
+   ],
+   "back": [
+    496,
+    510,
+    25.72,
+    11.3,
+    37.78,
+    7.21,
+    5.95,
+    36.83,
+    3.93,
+    18.85
+   ]
+  },
+  {
+   "product": "holy-greek-planted",
+   "protein": "planted.pulled",
+   "addon": "planted-chicken",
+   "shown": [
+    586,
+    717,
+    35.43,
+    12.09,
+    44.51,
+    9.87,
+    12.73,
+    52.22,
+    7.03,
+    21.44
+   ],
+   "back": [
+    506,
+    561,
+    28.95,
+    11.37,
+    40.19,
+    8.19,
+    9.29,
+    33.5,
+    4.71,
+    17.45
+   ]
+  }
+ ],
+ "extras": {
+  "base": "holy-greek-pulled-chicken",
+  "items": [
+   {
+    "wolt": "Bio-Lachsfilet",
+    "addon": "lachs",
+    "x1": [
+     626,
+     845,
+     45.76,
+     14.53,
+     40.14,
+     9.15,
+     6.39,
+     65.96,
+     6.67,
+     25.04
+    ],
+    "x2": [
+     746,
+     1111,
+     64.66,
+     18.07,
+     40.43,
+     9.31,
+     6.57,
+     93.46,
+     8.04,
+     31.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Avocado",
+    "addon": "avocado",
+    "x1": [
+     576,
+     733,
+     43.31,
+     12.25,
+     40.13,
+     9.2,
+     9.71,
+     39.79,
+     5.3,
+     21.04
+    ],
+    "x2": [
+     646,
+     887,
+     59.76,
+     13.51,
+     40.41,
+     9.41,
+     13.21,
+     41.12,
+     5.3,
+     23.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Bio Beluga-Linse",
+    "addon": "beluga-linsen-1",
+    "x1": [
+     566,
+     640,
+     27.16,
+     11.05,
+     48.43,
+     9.77,
+     9.57,
+     43.08,
+     6.08,
+     19.54
+    ],
+    "x2": [
+     626,
+     702,
+     27.46,
+     11.11,
+     57.01,
+     10.55,
+     12.93,
+     47.7,
+     6.86,
+     20.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Bio-Burrata",
+    "addon": "burrata",
+    "x1": [
+     631,
+     843,
+     48.11,
+     25.99,
+     40.85,
+     9.99,
+     6.21,
+     55.96,
+     5.68,
+     23.54
+    ],
+    "x2": [
+     756,
+     1108,
+     69.36,
+     40.99,
+     41.85,
+     10.99,
+     6.21,
+     73.46,
+     6.06,
+     28.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Bio-Feta",
+    "addon": "schafskase",
+    "x1": [
+     556,
+     735,
+     40.36,
+     20.49,
+     40.45,
+     9.09,
+     6.21,
+     46.96,
+     6.15,
+     21.04
+    ],
+    "x2": [
+     606,
+     892,
+     53.86,
+     29.99,
+     41.05,
+     9.19,
+     6.21,
+     55.46,
+     7,
+     23.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Bio-Hähnchen",
+    "addon": "hahnchen-bio",
+    "x1": [
+     576,
+     682,
+     30.12,
+     11.63,
+     41.76,
+     9.69,
+     6.32,
+     60.51,
+     6.84,
+     23.54
+    ],
+    "x2": [
+     646,
+     787,
+     33.38,
+     12.27,
+     43.67,
+     10.39,
+     6.43,
+     82.56,
+     8.38,
+     28.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Bio-Steak",
+    "addon": "bio-steak",
+    "x1": [
+     586,
+     693,
+     29.32,
+     12.53,
+     40.26,
+     9.13,
+     6.37,
+     60.78,
+     5.87,
+     24.04
+    ],
+    "x2": [
+     666,
+     807,
+     31.78,
+     14.07,
+     40.67,
+     9.27,
+     6.53,
+     83.1,
+     6.44,
+     29.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Bio-Tofu",
+    "addon": "gerosteter-tofu",
+    "x1": [
+     576,
+     681,
+     34.84,
+     11.69,
+     41.67,
+     9.76,
+     6.63,
+     43.01,
+     7.26,
+     21.54
+    ],
+    "x2": [
+     646,
+     784,
+     42.82,
+     12.39,
+     43.49,
+     10.53,
+     7.05,
+     47.56,
+     9.22,
+     24.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Brokkoli",
+    "addon": "brokkoli",
+    "x1": [
+     566,
+     639,
+     31.67,
+     11.37,
+     43.17,
+     9.84,
+     7.87,
+     40,
+     6.04,
+     20.04
+    ],
+    "x2": [
+     626,
+     699,
+     36.48,
+     11.75,
+     46.49,
+     10.69,
+     9.53,
+     41.54,
+     6.78,
+     21.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Erbsen-Guacamole",
+    "addon": "erbsen-guacamole",
+    "x1": [
+     546,
+     629,
+     30,
+     11.25,
+     42.85,
+     10.09,
+     7.64,
+     40.31,
+     5.97,
+     20.04
+    ],
+    "x2": [
+     586,
+     680,
+     33.14,
+     11.51,
+     45.85,
+     11.19,
+     9.07,
+     42.16,
+     6.64,
+     21.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Falafel",
+    "addon": "falafel",
+    "x1": [
+     596,
+     747,
+     38.88,
+     12.12,
+     49.71,
+     10.95,
+     8.73,
+     42.84,
+     7.25,
+     21.04
+    ],
+    "x2": [
+     686,
+     916,
+     50.9,
+     13.25,
+     59.57,
+     12.91,
+     11.25,
+     47.22,
+     9.2,
+     23.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Gurke",
+    "addon": "gurke",
+    "x1": [
+     566,
+     585,
+     26.98,
+     10.99,
+     40.93,
+     9.89,
+     6.63,
+     38.82,
+     5.3,
+     19.04
+    ],
+    "x2": [
+     626,
+     592,
+     27.1,
+     10.99,
+     42.01,
+     10.79,
+     7.05,
+     39.18,
+     5.3,
+     19.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Hummus",
+    "addon": "hummus",
+    "x1": [
+     546,
+     676,
+     34.62,
+     12.17,
+     43.52,
+     9.67,
+     7.65,
+     41.46,
+     6.21,
+     20.04
+    ],
+    "x2": [
+     586,
+     774,
+     42.38,
+     13.35,
+     47.19,
+     10.35,
+     9.09,
+     44.46,
+     7.12,
+     21.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Karotten-Lax",
+    "addon": "smoky-carrot",
+    "x1": [
+     556,
+     620,
+     29.38,
+     11.3,
+     42.47,
+     11.46,
+     7.69,
+     38.94,
+     6.57,
+     19.54
+    ],
+    "x2": [
+     606,
+     662,
+     31.9,
+     11.61,
+     45.09,
+     13.93,
+     9.17,
+     39.42,
+     7.84,
+     20.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Kichererbse",
+    "addon": "kichererbsen",
+    "x1": [
+     586,
+     676,
+     30.58,
+     11.29,
+     50.35,
+     11.33,
+     8.74,
+     42.64,
+     6.93,
+     19.54
+    ],
+    "x2": [
+     666,
+     774,
+     34.3,
+     11.59,
+     60.85,
+     13.67,
+     11.27,
+     46.82,
+     8.56,
+     20.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Mais-Salsa",
+    "addon": "mais-salsa",
+    "x1": [
+     566,
+     620,
+     29,
+     11.24,
+     43.86,
+     11.16,
+     6.28,
+     39.58,
+     5.5,
+     19.54
+    ],
+    "x2": [
+     626,
+     662,
+     31.14,
+     11.49,
+     47.87,
+     13.33,
+     6.35,
+     40.7,
+     5.7,
+     20.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "MushRoots Protein-Bällchen",
+    "addon": "mush-roots-veggie-balls",
+    "x1": [
+     581,
+     715,
+     32.49,
+     11.59,
+     44.05,
+     10.12,
+     8.69,
+     54.96,
+     6.43,
+     22.54
+    ],
+    "x2": [
+     656,
+     852,
+     38.12,
+     12.19,
+     48.25,
+     11.25,
+     11.17,
+     71.46,
+     7.56,
+     26.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Pico de Gallo",
+    "addon": "pico-de-gallo",
+    "x1": [
+     576,
+     626,
+     30.79,
+     11.54,
+     41.96,
+     9.3,
+     6.41,
+     39.2,
+     6.12,
+     20.04
+    ],
+    "x2": [
+     646,
+     675,
+     34.72,
+     12.09,
+     44.07,
+     9.61,
+     6.61,
+     39.94,
+     6.94,
+     21.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "planted.pulled",
+    "addon": "planted-chicken",
+    "x1": [
+     586,
+     734,
+     33.34,
+     11.71,
+     44.17,
+     10.67,
+     9.65,
+     57.18,
+     7.62,
+     22.54
+    ],
+    "x2": [
+     666,
+     890,
+     39.82,
+     12.43,
+     48.49,
+     12.35,
+     13.09,
+     75.9,
+     9.94,
+     26.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Pulled-Bio-Chicken",
+    "addon": "bio-hahnchen-kebap",
+    "x1": [
+     586,
+     751,
+     31.25,
+     11.33,
+     43.83,
+     11.47,
+     6.57,
+     62.14,
+     8.21,
+     23.04
+    ],
+    "x2": [
+     666,
+     923,
+     35.64,
+     11.67,
+     47.81,
+     13.95,
+     6.93,
+     85.82,
+     11.12,
+     27.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Süßkartoffel",
+    "addon": "sweet-potato",
+    "x1": [
+     576,
+     669,
+     30.82,
+     11.27,
+     52.84,
+     11.73,
+     8.23,
+     39.51,
+     6.26,
+     20.54
+    ],
+    "x2": [
+     646,
+     760,
+     34.78,
+     11.55,
+     65.83,
+     14.47,
+     10.25,
+     40.56,
+     7.22,
+     22.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Tomate",
+    "addon": "datteltomate",
+    "x1": [
+     566,
+     587,
+     26.92,
+     10.99,
+     41.53,
+     10.49,
+     6.81,
+     38.94,
+     5.3,
+     20.04
+    ],
+    "x2": [
+     626,
+     596,
+     26.98,
+     10.99,
+     43.21,
+     11.99,
+     7.41,
+     39.42,
+     5.3,
+     21.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   },
+   {
+    "wolt": "Wurzelgemüse",
+    "addon": "wurzelgemuese-1",
+    "x1": [
+     556,
+     604,
+     28.05,
+     11.07,
+     42.98,
+     11.94,
+     7.53,
+     39.12,
+     5.43,
+     19.54
+    ],
+    "x2": [
+     606,
+     630,
+     29.24,
+     11.15,
+     46.11,
+     14.89,
+     8.85,
+     39.78,
+     5.56,
+     20.53
+    ],
+    "back": [
+     506,
+     578,
+     26.86,
+     10.99,
+     39.85,
+     8.99,
+     6.21,
+     38.46,
+     5.3,
+     18.55
+    ]
+   }
+  ]
+ },
+ "dressings": {
+  "product": "holy-greek-planted",
+  "dressing": "caesar-classic",
+  "shown": [
+   506,
+   561,
+   28.95,
+   11.37,
+   40.19,
+   8.19,
+   9.29,
+   33.5,
+   4.71,
+   17.45
+  ],
+  "x1Price": 19.45,
+  "x2Price": 21.45,
+  "valuesUnchanged": true
+ }
+}
