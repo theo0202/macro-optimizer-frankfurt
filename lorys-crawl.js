@@ -31,7 +31,11 @@ const NOTES = {
   "Süßkartoffelpommes": "Website-Name „Süßkartoffel Pommes inkl. Dip“ — die Werte enthalten laut Website einen Dip; Wolt nennt keinen Dip (Artikel ohne Dip-Auswahl)",
 };
 // Gesperrt: bleibt im Datensatz, kommt nicht in den Tracker (lorys-update.js lässt es weg)
-const BLOCKED = { "Spicy Gurkensalat": "User 16.09.2026: gesperrt — 101 kcal passen nicht zu 23 g Fett (4·KH + 4·E + 9·F = 259 kcal)" };
+const BLOCKED = {
+  "Spicy Gurkensalat": "User 16.09.2026: gesperrt — 101 kcal passen nicht zu 23 g Fett (4·KH + 4·E + 9·F = 259 kcal)",
+  "Hausgemachter Hummus": "User 17.09.2026: gesperrt — 532 kcal passen nicht zu 35 g KH, 43 g Eiweiß, 38 g Fett (4·KH + 4·E + 9·F = 654 kcal)",
+  "Bulking Beef Burger": "User 17.09.2026: gesperrt — 1650 kcal passen nicht zu 44 g KH, 133 g Eiweiß, 78 g Fett (4·KH + 4·E + 9·F = 1410 kcal); die Wolt-Beschreibung nennt 1147 kcal / 84 g Eiweiß",
+};
 const SHELLFISH_RE = /garnele|shrimp|scampi|gambas|prawn|krabbe|krebs|hummer|langust|muschel|auster|jakobsmuschel|tintenfisch|calamar|sepia|oktopus|pulpo|meeresfr/i;
 const DISLIKE_RE = /koriander|cilantro|minze|\bmint/i;
 
@@ -169,6 +173,7 @@ async function main() {
         "User 16.09.2026: Plattform Wolt (LORYS GYMFOOD) — Namen, Verfügbarkeit, Preise",
         "User 16.09.2026: Breakfast und Shakes ignorieren",
         "User 16.09.2026: Spicy Gurkensalat sperren (Werte widersprechen sich)",
+        "User 17.09.2026: Hausgemachter Hummus und Bulking Beef Burger sperren (Werte widersprechen sich)",
       ],
       checks: [
         "Wolt-UI 16.09.2026: optionale Gruppen mit Standard-Option sind nicht vorbelegt — Plant Based Protein Bowl „Zur Bestellung hinzufügen 12,90 €“ ohne Halloumi (+4,00 €), Pure Beef Burger ohne Bio-Spiegelei/Ketchup",

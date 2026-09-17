@@ -1,7 +1,7 @@
 {
   "_meta": {
     "restaurant": "Lorys Gymfood",
-    "fetchedAt": "2026-09-16T13:27:59.017Z",
+    "fetchedAt": "2026-09-17T05:13:46.652Z",
     "sources": {
       "nutrition": {
         "site": "https://www.lorys-gymfood.de/menu?location=Berliner+Stra%C3%9Fe",
@@ -46,7 +46,8 @@
       "User 16.09.2026: Lorys Gymfood als Tracker, Nährwerte aller Produkte von lorys-gymfood.de (Standort Berliner Straße); die Werte gelten für die Standard-Auswahl (z.B. High Protein Chicken Bowl mit Sesam-Miso-Sauce)",
       "User 16.09.2026: Plattform Wolt (LORYS GYMFOOD) — Namen, Verfügbarkeit, Preise",
       "User 16.09.2026: Breakfast und Shakes ignorieren",
-      "User 16.09.2026: Spicy Gurkensalat sperren (Werte widersprechen sich)"
+      "User 16.09.2026: Spicy Gurkensalat sperren (Werte widersprechen sich)",
+      "User 17.09.2026: Hausgemachter Hummus und Bulking Beef Burger sperren (Werte widersprechen sich)"
     ],
     "checks": [
       "Wolt-UI 16.09.2026: optionale Gruppen mit Standard-Option sind nicht vorbelegt — Plant Based Protein Bowl „Zur Bestellung hinzufügen 12,90 €“ ohne Halloumi (+4,00 €), Pure Beef Burger ohne Bio-Spiegelei/Ketchup"
@@ -60,7 +61,9 @@
       "Süßkartoffelpommes: Website-Name „Süßkartoffel Pommes inkl. Dip“ — die Werte enthalten laut Website einen Dip; Wolt nennt keinen Dip (Artikel ohne Dip-Auswahl)"
     ],
     "blocked": [
-      "Spicy Gurkensalat — User 16.09.2026: gesperrt — 101 kcal passen nicht zu 23 g Fett (4·KH + 4·E + 9·F = 259 kcal)"
+      "Bulking Beef Burger — User 17.09.2026: gesperrt — 1650 kcal passen nicht zu 44 g KH, 133 g Eiweiß, 78 g Fett (4·KH + 4·E + 9·F = 1410 kcal); die Wolt-Beschreibung nennt 1147 kcal / 84 g Eiweiß",
+      "Spicy Gurkensalat — User 16.09.2026: gesperrt — 101 kcal passen nicht zu 23 g Fett (4·KH + 4·E + 9·F = 259 kcal)",
+      "Hausgemachter Hummus — User 17.09.2026: gesperrt — 532 kcal passen nicht zu 35 g KH, 43 g Eiweiß, 38 g Fett (4·KH + 4·E + 9·F = 654 kcal)"
     ],
     "skipped": [
       "Website: SHAKES (4 Produkte) — Shakes (User 16.09.2026: ignorieren)",
@@ -643,7 +646,8 @@
           "Burger Toppings [0–999]: Bio-Spiegelei +1.50 €, Cheddar-Käse +1.00 €, Burger Patty +4.00 €, Avocado +2.00 €, Halloumi +4.00 €, • Jalapenos +1.00 €",
           "Extra Dips & Saucen [0–999]: Ketchup +0.50 €, Mayo | vegane Mayo +0.50 €, Chili Mayo +0.50 €, Lorys Sesam-Miso-Sauce +0.50 €, Teriyaki Sauce +0.50 €, • Burger Soße +0.50 €"
         ],
-        "woltDescription": "100 Prozent Rindfleisch 400g, Brioche Bun aus der Brotfabrik Cavus, Salat, double Cheddar Cheese, eingelegte Zwiebeln, Spiegelei, Lorys Burger Sauce kcal: 1147 Kh: 44 E: 84 F: 78"
+        "woltDescription": "100 Prozent Rindfleisch 400g, Brioche Bun aus der Brotfabrik Cavus, Salat, double Cheddar Cheese, eingelegte Zwiebeln, Spiegelei, Lorys Burger Sauce kcal: 1147 Kh: 44 E: 84 F: 78",
+        "blocked": "User 17.09.2026: gesperrt — 1650 kcal passen nicht zu 44 g KH, 133 g Eiweiß, 78 g Fett (4·KH + 4·E + 9·F = 1410 kcal); die Wolt-Beschreibung nennt 1147 kcal / 84 g Eiweiß"
       },
       {
         "name": "Crispy Chicken Burger",
@@ -767,7 +771,8 @@
         "sitePrice": 4.5,
         "required": [],
         "optional": [],
-        "woltDescription": "Hausgemachter Hummus"
+        "woltDescription": "Hausgemachter Hummus",
+        "blocked": "User 17.09.2026: gesperrt — 532 kcal passen nicht zu 35 g KH, 43 g Eiweiß, 38 g Fett (4·KH + 4·E + 9·F = 654 kcal)"
       },
       {
         "name": "Gegrillter Halloumi Käse",

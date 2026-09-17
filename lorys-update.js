@@ -20,7 +20,7 @@ function buildData(raw) {
   const catIds = new Set(cats.map(c => c.id));
   const notDeclared = new Set(raw._meta.notDeclared || []);
   const used = new Set();
-  // Gesperrte Gerichte (User 16.09.2026: Spicy Gurkensalat) bleiben im Datensatz, aber nicht im Tracker
+  // Gesperrte Gerichte (User 16./17.09.2026: Spicy Gurkensalat, Hausgemachter Hummus, Bulking Beef Burger) bleiben im Datensatz, aber nicht im Tracker
   const items = raw.wolt.items.filter(w => !w.blocked).map(w => {
     const p = bySite[w.siteId];
     if (!p) throw new Error("Website-Produkt fehlt: " + w.siteName + " (" + w.siteId + ")");
