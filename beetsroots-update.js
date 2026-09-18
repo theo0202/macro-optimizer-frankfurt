@@ -6,7 +6,8 @@
 // · Grilled Wraps (dressing:"fixed"): die Sauce steckt im Wrap → ein Item mit Werten inkl. Dressing, in beiden Schalterstellungen
 // · Gerichte ohne Dressing (dressing:"none"): ein Item, in beiden Schalterstellungen
 // product/productName = Gericht (eine Zeile in Ausschluss- und Pflicht-Liste je Gericht), orderName = Wolt-Name, orderNote = Dressing-Hinweis für den Order Guide.
-// Nicht angegebene Werte (Ballaststoffe) = 0. Gerichte ohne vollständige Nährwerte fehlen im Block.
+// Nicht angegebene Werte (Ballaststoffe) = 0. Gerichte ohne vollständige Nährwerte und gesperrte Gerichte (_meta.blocked) fehlen im Block,
+// Kategorien ohne Gericht ebenfalls (wie bei der Kaffeebohne).
 "use strict";
 const path = require("path");
 const U = require("./update-lib.js");
@@ -17,11 +18,12 @@ const lit = o => JSON.stringify(o).replace(/"([A-Za-z_][A-Za-z0-9_]*)":/g, "$1:"
 const kcalTxt = n => Math.round(n) + " kcal";
 
 function buildData(raw) {
-  const cats = raw.wolt.cats.map(c => ({ id: c.id, name: c.name, on: true }));
-  const catIds = new Set(cats.map(c => c.id));
+  const allCats = raw.wolt.cats.map(c => ({ id: c.id, name: c.name, on: true }));
+  const catIds = new Set(allCats.map(c => c.id));
   const items = [], used = new Set();
   for (const d of raw.dishes) {
     if (d.noData) continue; // ohne vollständige offizielle Werte (siehe _meta.noData)
+    if (d.blocked) continue; // gesperrt: kcal passen nicht zu den Makros (siehe _meta.blocked)
     if (d.shellfish) continue; // Schalentier (User 13.09.2026) — der Crawl meldet keins
     if (!catIds.has(d.cat)) throw new Error("Unbekannte Kategorie bei " + d.name + ": " + d.cat);
     const slug = U.slugId(d.name);
@@ -47,6 +49,7 @@ function buildData(raw) {
       add(slug, d.name, "out", "don't eat the dressing/sauce (" + kcalTxt(U.round(Number(String(d.dressingInfo).match(/(\d+(?:[.,]\d+)?)/)[1].replace(",", ".")), 0)) + ") — these values don't include it");
     } else add(slug, d.name, "none", null);
   }
+  const cats = allCats.filter(c => items.some(x => x.cat === c.id)); // Kategorie ohne Gericht → kein Chip
   return { cats, items };
 }
 
@@ -74,5 +77,5 @@ if (require.main === module) {
   console.log(new Set(data.items.map(x => x.product || x.id)).size + " Gerichte, " + data.items.length + " Items → index.html (" + KEY + "-Block): " +
     data.cats.map(c => c.name + " " + data.items.filter(x => x.cat === c.id).length).join(", "));
   console.log("Dressing: " + n("out") + "× ohne (Schalter AN), " + n("in") + "× mit (Schalter AUS), " + n("fixed") + "× fest im Wrap, " + n("none") + "× ohne Dressing");
-  console.log("Nicht im Block: " + (raw._meta.noData.join(" · ") || "keine") + " · Auffälligkeiten: " + raw._meta.anomalies.length);
+  console.log("Nicht im Block: " + raw._meta.blocked.length + " gesperrt, ohne Werte: " + (raw._meta.noData.join(" · ") || "keine") + " · Auffälligkeiten: " + raw._meta.anomalies.length);
 }

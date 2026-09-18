@@ -33,6 +33,21 @@ const SKIPPED_CATS = {
 };
 // Wolt-Optionsgruppen: Extras ohne eigene Nährwerte → der Tracker nutzt sie nicht (wie Lorys-Add-ons)
 const OPTION_GROUPS = ["Choose Extras", "Choose Vegan Extras"];
+// Gesperrt (User 18.09.2026): die Gerichte bleiben mit Grund im Datensatz, fehlen aber im Tracker — ihre kcal passen nicht zu den Makros.
+// Die fehlenden Ballaststoffe erklären das nicht: sie zählen mit 2 kcal/g zusätzlich und vergrößern die Lücke, statt sie zu schließen
+const BLOCKED = {
+  "Vegan Chicken Thai Rice Bowl": "User 18.09.2026: gesperrt — 700 kcal passen nicht zu 193 g KH, 38 g Eiweiß, 42 g Fett (4·KH + 4·E + 9·F = 1302 kcal, -46 %)",
+  "Thai Rice Bowl": "User 18.09.2026: gesperrt — 532 kcal passen nicht zu 124 g KH, 23 g Eiweiß, 23 g Fett (4·KH + 4·E + 9·F = 795 kcal, -33 %)",
+  "Chicken Thai Rice Bowl": "User 18.09.2026: gesperrt — 635 kcal passen nicht zu 126 g KH, 40 g Eiweiß, 26 g Fett (4·KH + 4·E + 9·F = 898 kcal, -29 %)",
+  "Grilled Pita Bread": "User 18.09.2026: gesperrt — 201 kcal passen nicht zu 58,7 g KH, 7 g Eiweiß, 1,12 g Fett (4·KH + 4·E + 9·F = 273 kcal, -26 %)",
+  "Spicy Sweet Potatoes": "User 18.09.2026: gesperrt — 196 kcal passen nicht zu 39 g KH, 7 g Eiweiß, 8 g Fett (4·KH + 4·E + 9·F = 256 kcal, -23 %)",
+  "Sesame Chicken Noodle Bowl": "User 18.09.2026: gesperrt — 627 kcal passen nicht zu 79 g KH, 33 g Eiweiß, 38 g Fett (4·KH + 4·E + 9·F = 790 kcal, -21 %)",
+  "Vegan Chocolate Brownie": "User 18.09.2026: gesperrt — 260 kcal passen nicht zu 41 g KH, 3 g Eiweiß, 17 g Fett (4·KH + 4·E + 9·F = 329 kcal, -21 %)",
+  "Vegan Sesame Chicken Noodle Bowl": "User 18.09.2026: gesperrt — 692 kcal passen nicht zu 80 g KH, 31 g Eiweiß, 47 g Fett (4·KH + 4·E + 9·F = 867 kcal, -20 %)",
+  "Thai Lentil Soup": "User 18.09.2026: gesperrt — 575 kcal passen nicht zu 51 g KH, 9 g Eiweiß, 28 g Fett (4·KH + 4·E + 9·F = 492 kcal, +17 %)",
+  "Gourmet Carrot Cake": "User 18.09.2026: gesperrt — 283 kcal passen nicht zu 45 g KH, 3 g Eiweiß, 14 g Fett (4·KH + 4·E + 9·F = 318 kcal, -11 %)",
+  "Crunchy Hummus Protein Bowl": "User 18.09.2026: gesperrt — 478 kcal passen nicht zu 42 g KH, 29 g Eiweiß, 27 g Fett (4·KH + 4·E + 9·F = 527 kcal, -9 %)",
+};
 // Gerichte, deren Dressing im Gericht steckt und immer mitgegessen wird (User 18.09.2026: Grilled Wraps)
 const DRESSING_FIXED_CAT = "wraps";
 // Koriander/Minze (User 13.09.2026): als wählbare Komponente nie vorschlagen — bei beets&roots sind sie feste Zutaten fertiger Gerichte
@@ -196,6 +211,7 @@ async function main() {
         const issues = U.checkItem({ ...values, fibre: 0 });
         if (issues.length) anomalies.push({ name, issues });
       }
+      if (BLOCKED[name]) dish.blocked = BLOCKED[name];
       const text = name + " " + desc + " " + (dressing ? dressing.name : "");
       if (/koriander|cilantro/i.test(text)) coriander.push(name);
       if (/minze|mint\b/i.test(text)) mint.push(name);
@@ -227,6 +243,7 @@ async function main() {
       }
     }
   }
+  for (const n of Object.keys(BLOCKED)) if (!dishes.some(d => d.name === n)) problems.push("BLOCKED: Gericht „" + n + "“ steht nicht auf der Wolt-Karte");
   const refOnly = Object.keys(siteRef.dishes || {}).filter(n => !seen.has(n));
   if (refOnly.length) infos.push("Nur im „i“-Fenster-Abgleich, nicht bei Wolt: " + refOnly.join(", "));
   if (siteDiffs.length) problems.push("Abweichungen zum „i“-Fenster: " + siteDiffs.join(" | "));
@@ -256,6 +273,7 @@ async function main() {
       optionGroups: [...optionGroups.values()],
       skippedCategories: skipped,
       noData,
+      blocked: dishes.filter(d => d.blocked).map(d => d.name + " (" + CAT_NAMES[d.cat] + ") — " + d.blocked),
       anomalies,
       coriander: [...new Set(coriander)],
       mint: [...new Set(mint)],
@@ -274,6 +292,7 @@ async function main() {
     console.log("  " + name + " (" + list.length + "): " + list.map(d => d.name + " " + d.price.toFixed(2) + " €" + (d.noData ? " [ohne Werte]" : " " + Math.round(d.values.kcal) + " kcal") + (d.dressing ? " +" + d.dressing.name + " " + d.dressing.portionKcal + " kcal" : d.dressingNote ? " (Dressing?)" : "")).join(" · "));
   }
   console.log("Kontrolle „i“-Fenster: " + dishes.length + " Gerichte, " + siteDiffs.length + " Abweichungen");
+  console.log("Gesperrt (" + out._meta.blocked.length + "):\n  " + out._meta.blocked.join("\n  "));
   console.log("Ohne vollständige Werte: " + (noData.length ? noData.join(" · ") : "keine"));
   console.log("Dressing über die Beschreibung bestimmt (" + fromDesc.length + "): " + (fromDesc.join(" · ") || "keine"));
   console.log("Dressing nicht bezifferbar: " + (dishes.filter(d => d.dressingNote).map(d => d.name + " — " + d.dressingNote).join(" · ") || "keine"));

@@ -1354,13 +1354,13 @@ const updBR = require("./beetsroots-update.js");
 const brItem = id => BRD.items.find(x => x.id === id);
 const brOf = name => BRD.items.filter(x => (x.productName || x.name) === name);
 const brRaw = name => rawBR.dishes.find(d => d.name === name);
-check("Registry: beets&roots (Wolt) — à la carte, accurate, Schalter No dressing/No soups/No desserts alle AN", !!BR && BR.kind === "ac" && BR.accurate === true && BR.platform === "Wolt" && BR.switches.map(x => x.id + ":" + x.def).join() === "noDressing:true,noSoups:true,noDesserts:true" && typeof BR.switches[0].filter === "function" && typeof BR.switches[0].allow === "function", true);
+check("Registry: beets&roots (Wolt) — à la carte, accurate, Schalter No dressing + No desserts AN; „No soups“ entfällt mit der Kategorie (einzige Suppe gesperrt)", !!BR && BR.kind === "ac" && BR.accurate === true && BR.platform === "Wolt" && BR.switches.map(x => x.id + ":" + x.def).join() === "noDressing:true,noDesserts:true" && typeof BR.switches[0].filter === "function" && typeof BR.switches[0].allow === "function" && BR.switches[1].filter({ cat: "desserts" }) === false && BR.switches[1].filter({ cat: "sides" }) === true, true);
 check("BEETSROOTS-Block = beetsroots-update.js(data/beetsroots-raw.json) (Block aktuell)", (() => { const d = updBR.buildData(rawBR); return JSON.stringify(d.cats) === JSON.stringify(BRD.cats) && JSON.stringify(d.items) === JSON.stringify(BRD.items); })(), true);
-check("Kategorien wie bei Wolt (User 18.09.2026): Bowls, Fresh Salads, Grilled Wraps, Hot Soups, Sides, Desserts — alle Chips an; Getränke und Smoothies nicht im Tracker", BRD.cats.map(c => c.id + ":" + c.name + ":" + c.on).join("|") === "bowls:Bowls:true|salads:Fresh Salads:true|wraps:Grilled Wraps:true|soups:Hot Soups:true|sides:Sides:true|desserts:Desserts:true" && rawBR._meta.skippedCategories.length === 3 && rawBR._meta.skippedCategories.every(x => /Getränke|Smoothies/.test(x)), true);
-check("46 Wolt-Gerichte, davon 45 im Tracker (Burrito Chicken Bowl ohne vollständige Werte) mit 67 Items; je Gericht ein Eintrag in Ausschluss- und Pflicht-Liste", rawBR.dishes.length === 46 && new Set(BRD.items.map(x => x.product || x.id)).size === 45 && BRD.items.length === 67 && rawBR._meta.noData.length === 1 && /^Burrito Chicken Bowl/.test(rawBR._meta.noData[0]) && !BRD.items.some(x => /^Burrito Chicken Bowl/.test(x.name)) && T.excludablesFor(BR).length === 45 && T.includablesFor(BR).length === 45, true);
-check("Werte je Gericht = „i“-Fenster der Website (ohne Dressing), alle 45 Gerichte; Ballaststoffe nicht angegeben → 0", (() => {
+check("Kategorien wie bei Wolt (User 18.09.2026), Chips alle an — ohne „Hot Soups“ (die einzige Suppe ist gesperrt); Getränke und Smoothies nicht im Tracker", BRD.cats.map(c => c.id + ":" + c.name + ":" + c.on).join("|") === "bowls:Bowls:true|salads:Fresh Salads:true|wraps:Grilled Wraps:true|sides:Sides:true|desserts:Desserts:true" && rawBR.wolt.cats.length === 6 && !BRD.items.some(x => x.cat === "soups") && rawBR._meta.skippedCategories.length === 3 && rawBR._meta.skippedCategories.every(x => /Getränke|Smoothies/.test(x)), true);
+check("46 Wolt-Gerichte, davon 34 im Tracker (1 ohne vollständige Werte, 11 gesperrt) mit 54 Items; je Gericht ein Eintrag in Ausschluss- und Pflicht-Liste", rawBR.dishes.length === 46 && new Set(BRD.items.map(x => x.product || x.id)).size === 34 && BRD.items.length === 54 && rawBR._meta.noData.length === 1 && /^Burrito Chicken Bowl/.test(rawBR._meta.noData[0]) && !BRD.items.some(x => /^Burrito Chicken Bowl/.test(x.name)) && T.excludablesFor(BR).length === 34 && T.includablesFor(BR).length === 34, true);
+check("Werte je Gericht = „i“-Fenster der Website (ohne Dressing), alle 34 Gerichte im Tracker; Ballaststoffe nicht angegeben → 0", (() => {
   const order = ["kcal", "fat", "sat", "carbs", "sugars", "protein", "salt"];
-  return BRD.items.every(x => x.fibre === 0) && rawBR.dishes.filter(d => !d.noData).every(d => {
+  return BRD.items.every(x => x.fibre === 0) && rawBR.dishes.filter(d => !d.noData && !d.blocked).every(d => {
     const ref = siteBR.dishes[d.name], base = BRD.items.find(x => (x.productName || x.name) === d.name && x.dressing !== "in");
     if (!ref || !base) return false;
     return order.every((k, i) => {
@@ -1386,31 +1386,46 @@ check("Sauce aus kcal und Werten je 100 g hochgerechnet, auch ohne verknüpftes 
     n.dressing.name === "Chia Dressing" && n.dressing.portionKcal === 81 && n.dressing.per100.kcal === 415 && Math.abs(n.dressing.grams - 19.52) < 0.01 &&
     a.dressing.name === "Basilikum Cashew Dressing" && Math.abs(a.dressing.grams - 15.03) < 0.01 && sp.dressing.name === "Spicy Mayo" && Math.abs(sp.dressing.grams - 19.87) < 0.01 &&
     out.kcal === 229 && inn.kcal === 310 && Math.abs(inn.fat - 21.03) < 0.011 && Math.abs(inn.carbs - 10.71) < 0.011 && Math.abs(inn.protein - 17.33) < 0.011 && Math.abs(inn.salt - 1.51) < 0.011 &&
-    rawBR.dishes.filter(d => d.dressing && d.dressing.via === "Dressing-Produkt des Gerichts").length === 28 && BRD.items.filter(x => x.dressing === "in").length === 22;
+    rawBR.dishes.filter(d => d.dressing && d.dressing.via === "Dressing-Produkt des Gerichts").length === 28 && BRD.items.filter(x => x.dressing === "in").length === 20 && brOf("Spicy Sweet Potatoes").length === 0;
 })(), true);
 check("Dressing nicht bezifferbar (zwei Saucen, nur eine gemeinsame kcal-Zahl): nur „ohne Dressing“ — Harissa Double Chicken Bowl, beide Sesame Chicken Noodle Bowls, Harissa Chicken Side", (() => {
   const names = rawBR.dishes.filter(d => d.dressingNote).map(d => d.name);
   return names.length === 4 && names.join("|") === "Harissa Double Chicken Bowl|Sesame Chicken Noodle Bowl|Vegan Sesame Chicken Noodle Bowl|Harissa Chicken Side" &&
     rawBR.dishes.filter(d => d.dressingNote).every(d => /mehrere (Dressings|Saucen)/.test(d.dressingNote)) &&
-    names.every(n => brOf(n).length === 1 && brOf(n)[0].dressing === "out" && /don't eat the dressing\/sauce/.test(brOf(n)[0].orderNote));
+    names.filter(n => !rawBR.dishes.find(d => d.name === n).blocked).join("|") === "Harissa Double Chicken Bowl|Harissa Chicken Side" &&
+    names.filter(n => !rawBR.dishes.find(d => d.name === n).blocked).every(n => brOf(n).length === 1 && brOf(n)[0].dressing === "out" && /don't eat the dressing\/sauce/.test(brOf(n)[0].orderNote));
 })(), true);
-check("Preise = Wolt (Levante 16,45 € · Caesar Chicken Wrap 11,45 € · Gourmet Carrot Cake 3,50 € ohne Rabattaktion); Website ist meist 2,00 € günstiger", brItem("levante_chicken_bowl__no_dressing").price === 16.45 && brItem("caesar_chicken_wrap").price === 11.45 && brItem("gourmet_carrot_cake").price === 3.5 && rawBR.dishes.every(d => d.price > 0) && brRaw("Levante Chicken Bowl").websitePrice === 14.45, true);
+check("Preise = Wolt (Levante 16,45 € · Caesar Chicken Wrap 11,45 € · Vegan Banana Bread 3,50 €); Website ist meist 2,00 € günstiger", brItem("levante_chicken_bowl__no_dressing").price === 16.45 && brItem("caesar_chicken_wrap").price === 11.45 && brItem("vegan_banana_bread").price === 3.5 && rawBR.dishes.every(d => d.price > 0) && brRaw("Levante Chicken Bowl").websitePrice === 14.45, true);
 check("Kontrolle gegen die abgelesenen „i“-Fenster: 46 Gerichte geprüft, keine Abweichung; Quelle und Datum dokumentiert", rawBR._meta.siteControl.checked === 46 && rawBR._meta.siteControl.diffs.length === 0 && rawBR._meta.siteControl.capturedAt === "2026-09-18" && Object.keys(siteBR.dishes).length === 46, true);
 check("_meta: Entscheidungen User 18.09.2026, Wolt-Extras ohne Werte nur dokumentiert, kein Schalentier, Koriander/Minze-Listen", rawBR._meta.decisions.length === 5 && rawBR._meta.decisions.every(d => /^User 18[.]09[.]2026/.test(d)) && rawBR._meta.optionGroups.map(g => g.name).join() === "Choose Extras,Choose Vegan Extras" && rawBR._meta.optionGroups[0].options.length === 7 && typeof rawBR._meta.shellfish === "string" && rawBR._meta.coriander.length === 15 && rawBR._meta.mint.length === 6 && rawBR._meta.mint.includes("Levante Chicken Bowl"), true);
+check("Gesperrt (User 18.09.2026): genau die 11 Gerichte mit kcal ≠ 4·C+4·P+9·F, mit Grund im Datensatz und ohne Item im Block; Ballaststoffe erklären die Lücke nicht (2 kcal/g kämen obendrauf)", (() => {
+  const blocked = rawBR.dishes.filter(d => d.blocked);
+  const names = blocked.map(d => d.name).sort().join("|");
+  const soll = ["Chicken Thai Rice Bowl", "Crunchy Hummus Protein Bowl", "Gourmet Carrot Cake", "Grilled Pita Bread", "Sesame Chicken Noodle Bowl", "Spicy Sweet Potatoes", "Thai Lentil Soup", "Thai Rice Bowl", "Vegan Chicken Thai Rice Bowl", "Vegan Chocolate Brownie", "Vegan Sesame Chicken Noodle Bowl"].join("|");
+  return blocked.length === 11 && names === soll && rawBR._meta.blocked.length === 11 &&
+    blocked.every(d => /^User 18[.]09[.]2026: gesperrt — .* \(4·KH [+] 4·E [+] 9·F = \d+ kcal, [-+]\d+ %\)$/.test(d.blocked)) &&
+    blocked.every(d => rawBR._meta.anomalies.some(a => a.name === d.name)) &&
+    blocked.every(d => brOf(d.name).length === 0 && !T.excludablesFor(BR).some(x => x.name === d.name) && !T.includablesFor(BR).some(x => x.name === d.name)) &&
+    // gesperrt ist genau das, was die Plausibilitaetspruefung meldet (Toleranz max(15 kcal, 10 %)); Ballaststoffe wuerden die Luecke vergroessern
+    rawBR.dishes.filter(d => !d.noData).every(d => {
+      const calc = 4 * d.values.carbs + 4 * d.values.protein + 9 * d.values.fat;
+      return (Math.abs(d.values.kcal - calc) > Math.max(15, 0.1 * d.values.kcal)) === !!d.blocked;
+    });
+})(), true);
 check("Auffälligkeiten dokumentiert (11, nicht korrigiert): kcal ≠ 4·C+4·P+9·F bei den Thai-Rice-Bowls, Sesame Noodle Bowls, Thai Lentil Soup u.a.", rawBR._meta.anomalies.length === 11 && ["Thai Rice Bowl", "Chicken Thai Rice Bowl", "Vegan Chicken Thai Rice Bowl", "Sesame Chicken Noodle Bowl", "Thai Lentil Soup"].every(n => rawBR._meta.anomalies.some(a => a.name === n && /4·C\+4·P\+9·F/.test(a.issues[0]))), true);
 const stBR = T.defaultRestoState(BR);
 const brSt = (sw, cats) => ({ ...stBR, sw: { ...stBR.sw, ...(sw || {}) }, cats: { ...stBR.cats, ...(cats || {}) } });
 const runBR = (t, st, ex, inc, mode, p) => T.runOptimize(BR, t, mode || "macros", p || {}, st || stBR, new Set(ex || []), new Set(inc || []));
 const rBR = runBR(tDef);
-check("Standard (alle drei Schalter AN): nur Gerichte ohne Dressing bzw. Wraps/dressinglose Gerichte, keine Suppen, keine Desserts, Preis = Σ", rBR.length > 0 && rBR.every(r => r.items.every(x => x.dressing !== "in" && x.cat !== "soups" && x.cat !== "desserts") && Math.abs(r.price - Math.round(r.items.reduce((a, x) => a + x.price * 100, 0)) / 100) < 1e-9), true);
+check("Standard (beide Schalter AN): nur Gerichte ohne Dressing bzw. Wraps/dressinglose Gerichte, keine Desserts, kein gesperrtes Gericht, Preis = Σ", rBR.length > 0 && rBR.every(r => r.items.every(x => x.dressing !== "in" && x.cat !== "desserts" && !rawBR.dishes.some(d => d.blocked && d.name === (x.productName || x.name))) && Math.abs(r.price - Math.round(r.items.reduce((a, x) => a + x.price * 100, 0)) / 100) < 1e-9), true);
 check("„No dressing“ AUS: nur Items mit Dressing (bzw. Wraps/ohne Dressing), nie die „ohne Dressing“-Variante; Gerichte ohne bezifferbares Dressing fallen weg", (() => {
   const r = runBR(tDef, brSt({ noDressing: false }));
   return r.length > 0 && r.every(x => x.items.every(y => y.dressing !== "out")) && !r.some(x => x.items.some(y => rawBR.dishes.some(d => d.dressingNote && (y.productName || y.name) === d.name)));
 })(), true);
-check("„No soups“/„No desserts“ AUS: Suppe und Desserts wieder wählbar", (() => {
-  const r = runBR(tgt(20, 50, 25), brSt({ noSoups: false, noDesserts: false }));
-  const pool = T.RESTAURANTS && r.flatMap(x => x.items.map(y => y.cat));
-  return r.length > 0 && runBR(tgt(10, 45, 15), brSt({ noDesserts: false })).some(x => x.items.some(y => y.cat === "desserts")) && runBR(tgt(9, 51, 28), brSt({ noSoups: false })).some(x => x.items.some(y => y.cat === "soups"));
+check("„No desserts“ AUS: Desserts wieder wählbar; Suppen gibt es gar nicht mehr (Kategorie und Schalter entfallen)", (() => {
+  const st = T.defaultRestoState(BR);
+  return runBR(tgt(10, 45, 15), brSt({ noDesserts: false })).some(x => x.items.some(y => y.cat === "desserts")) &&
+    !("noSoups" in st.sw) && !("soups" in st.cats) && !BRD.items.some(x => x.cat === "soups");
 })(), true);
 check("Kategorie-Chips: ohne „Bowls“ keine Bowl in den Ergebnissen", runBR(tDef, brSt({}, { bowls: false })).every(r => r.items.every(x => x.cat !== "bowls")), true);
 check("Order Guide: „don't eat the …“ ohne Dressing, „included in these values“ mit Dressing, „inside the wrap“ beim Wrap, kein Zusatz ohne Dressing", (() => {
@@ -1418,10 +1433,10 @@ check("Order Guide: „don't eat the …“ ohne Dressing, „included in these 
   const a = steps({ items: [brItem("levante_chicken_bowl__no_dressing")] });
   const b = steps({ items: [brItem("levante_chicken_bowl__with_dressing")] });
   const c = steps({ items: [brItem("caesar_chicken_wrap")] });
-  const d = steps({ items: [brItem("thai_rice_bowl")] });
+  const d = steps({ items: [brItem("grilled_focaccia")] });
   return a === "1× Levante Chicken Bowl — don't eat the Tahini dressing (210 kcal) — these values don't include it" &&
     b === "1× Levante Chicken Bowl — with the Tahini dressing (210 kcal) — included in these values" &&
-    c === "1× Caesar Chicken Wrap — Caesar Dressing (vegan) (116 kcal) is inside the wrap — included in these values" && d === "1× Thai Rice Bowl";
+    c === "1× Caesar Chicken Wrap — Caesar Dressing (vegan) (116 kcal) is inside the wrap — included in these values" && d === "1× Grilled Focaccia";
 })(), true);
 check("Must include / Exclude gelten fürs Gericht (beide Dressing-Varianten): Pflicht Levante Chicken Bowl in jeder Bestellung, Ausschluss blendet beide Varianten aus", (() => {
   const inc = runBR(tDef, stBR, null, ["levante_chicken_bowl"]);

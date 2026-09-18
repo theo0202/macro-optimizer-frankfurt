@@ -1,7 +1,7 @@
 {
   "_meta": {
     "source": "Wolt-API beetsroots-frankfurt (https://wolt.com/de/deu/frankfurt/restaurant/beetsroots-frankfurt) + Vorbestell-Shop von beets&roots (https://www.beetsandroots.de/preorder/menu/frankfurt-kaiserstrasse, commercetools-Projekt „preorder“, Filiale Frankfurt Kaiserstraße)",
-    "fetchedAt": "2026-09-18T06:31:17.198Z",
+    "fetchedAt": "2026-09-18T07:58:36.964Z",
     "basis": "Offizielle Werte je Portion laut „i“-Fenster der Website — **ohne Dressing** (Fußnote „*ohne Dressing“). Ballaststoffe nennt beets&roots nicht → 0. Dressing: Werte je 100 g der Sauce + kcal der Portion → Portionsgramm = kcal / (kcal je 100 g) × 100. Die Sauce steht entweder als Produkt am Gericht oder namentlich in der Beschreibung",
     "rules": [
       "Wolt: jedes Gericht ein eigener Artikel; Preis = Wolt-Menüpreis (die Website ist meist 2,00 € günstiger)",
@@ -65,6 +65,19 @@
     ],
     "noData": [
       "Burrito Chicken Bowl (Bowls, 16.95 €) — Website nennt nur kcal, protein — es fehlen fat, sat, carbs, sugars, salt"
+    ],
+    "blocked": [
+      "Sesame Chicken Noodle Bowl (Bowls) — User 18.09.2026: gesperrt — 627 kcal passen nicht zu 79 g KH, 33 g Eiweiß, 38 g Fett (4·KH + 4·E + 9·F = 790 kcal, -21 %)",
+      "Vegan Sesame Chicken Noodle Bowl (Bowls) — User 18.09.2026: gesperrt — 692 kcal passen nicht zu 80 g KH, 31 g Eiweiß, 47 g Fett (4·KH + 4·E + 9·F = 867 kcal, -20 %)",
+      "Thai Rice Bowl (Bowls) — User 18.09.2026: gesperrt — 532 kcal passen nicht zu 124 g KH, 23 g Eiweiß, 23 g Fett (4·KH + 4·E + 9·F = 795 kcal, -33 %)",
+      "Chicken Thai Rice Bowl (Bowls) — User 18.09.2026: gesperrt — 635 kcal passen nicht zu 126 g KH, 40 g Eiweiß, 26 g Fett (4·KH + 4·E + 9·F = 898 kcal, -29 %)",
+      "Vegan Chicken Thai Rice Bowl (Bowls) — User 18.09.2026: gesperrt — 700 kcal passen nicht zu 193 g KH, 38 g Eiweiß, 42 g Fett (4·KH + 4·E + 9·F = 1302 kcal, -46 %)",
+      "Crunchy Hummus Protein Bowl (Bowls) — User 18.09.2026: gesperrt — 478 kcal passen nicht zu 42 g KH, 29 g Eiweiß, 27 g Fett (4·KH + 4·E + 9·F = 527 kcal, -9 %)",
+      "Thai Lentil Soup (Hot Soups) — User 18.09.2026: gesperrt — 575 kcal passen nicht zu 51 g KH, 9 g Eiweiß, 28 g Fett (4·KH + 4·E + 9·F = 492 kcal, +17 %)",
+      "Spicy Sweet Potatoes (Sides) — User 18.09.2026: gesperrt — 196 kcal passen nicht zu 39 g KH, 7 g Eiweiß, 8 g Fett (4·KH + 4·E + 9·F = 256 kcal, -23 %)",
+      "Grilled Pita Bread (Sides) — User 18.09.2026: gesperrt — 201 kcal passen nicht zu 58,7 g KH, 7 g Eiweiß, 1,12 g Fett (4·KH + 4·E + 9·F = 273 kcal, -26 %)",
+      "Gourmet Carrot Cake (Desserts) — User 18.09.2026: gesperrt — 283 kcal passen nicht zu 45 g KH, 3 g Eiweiß, 14 g Fett (4·KH + 4·E + 9·F = 318 kcal, -11 %)",
+      "Vegan Chocolate Brownie (Desserts) — User 18.09.2026: gesperrt — 260 kcal passen nicht zu 41 g KH, 3 g Eiweiß, 17 g Fett (4·KH + 4·E + 9·F = 329 kcal, -21 %)"
     ],
     "anomalies": [
       {
@@ -333,7 +346,8 @@
       "dressingNote": "mehrere Dressings (Scharfe Kokosnuss Sauce + Spicy Mayo) — die Website nennt nur die kcal der Portion zusammen, die Aufteilung ist unbekannt",
       "dressingInfo": "338kcal; enthält Gluten, Soja, Sulfite, Sesam",
       "allergens": "Gluten, Soja, Sesam, Sulfite",
-      "dressingFixed": false
+      "dressingFixed": false,
+      "blocked": "User 18.09.2026: gesperrt — 627 kcal passen nicht zu 79 g KH, 33 g Eiweiß, 38 g Fett (4·KH + 4·E + 9·F = 790 kcal, -21 %)"
     },
     {
       "name": "Vegan Sesame Chicken Noodle Bowl",
@@ -356,7 +370,8 @@
       "dressingNote": "mehrere Dressings (Scharfe Kokosnuss Sauce + Spicy Mayo) — die Website nennt nur die kcal der Portion zusammen, die Aufteilung ist unbekannt",
       "dressingInfo": "338kcal; enthält Gluten, Soja, Sesam, Sulphite",
       "allergens": "Gluten, Soja, Senf, Sesam, Sulfite",
-      "dressingFixed": false
+      "dressingFixed": false,
+      "blocked": "User 18.09.2026: gesperrt — 692 kcal passen nicht zu 80 g KH, 31 g Eiweiß, 47 g Fett (4·KH + 4·E + 9·F = 867 kcal, -20 %)"
     },
     {
       "name": "Avocado Bowl",
@@ -523,7 +538,8 @@
       "dressingNote": null,
       "dressingInfo": null,
       "allergens": "Gluten, Erdnüsse, Soja",
-      "dressingFixed": false
+      "dressingFixed": false,
+      "blocked": "User 18.09.2026: gesperrt — 532 kcal passen nicht zu 124 g KH, 23 g Eiweiß, 23 g Fett (4·KH + 4·E + 9·F = 795 kcal, -33 %)"
     },
     {
       "name": "Chicken Thai Rice Bowl",
@@ -546,7 +562,8 @@
       "dressingNote": null,
       "dressingInfo": null,
       "allergens": "Gluten, Erdn�sse, Soja",
-      "dressingFixed": false
+      "dressingFixed": false,
+      "blocked": "User 18.09.2026: gesperrt — 635 kcal passen nicht zu 126 g KH, 40 g Eiweiß, 26 g Fett (4·KH + 4·E + 9·F = 898 kcal, -29 %)"
     },
     {
       "name": "Vegan Chicken Thai Rice Bowl",
@@ -569,7 +586,8 @@
       "dressingNote": null,
       "dressingInfo": null,
       "allergens": "Gluten, Erdn�sse, Soja, Senf",
-      "dressingFixed": false
+      "dressingFixed": false,
+      "blocked": "User 18.09.2026: gesperrt — 700 kcal passen nicht zu 193 g KH, 38 g Eiweiß, 42 g Fett (4·KH + 4·E + 9·F = 1302 kcal, -46 %)"
     },
     {
       "name": "Umami Tofu Bowl",
@@ -1001,7 +1019,8 @@
       "dressingNote": null,
       "dressingInfo": "4kcal; frei von allergene",
       "allergens": "Sesam, Sulfite, Schälenfrüchte",
-      "dressingFixed": false
+      "dressingFixed": false,
+      "blocked": "User 18.09.2026: gesperrt — 478 kcal passen nicht zu 42 g KH, 29 g Eiweiß, 27 g Fett (4·KH + 4·E + 9·F = 527 kcal, -9 %)"
     },
     {
       "name": "Japanese Salmon Bowl",
@@ -1692,7 +1711,8 @@
       "dressingNote": null,
       "dressingInfo": null,
       "allergens": "Gluten, Erdn�sse, Soja",
-      "dressingFixed": false
+      "dressingFixed": false,
+      "blocked": "User 18.09.2026: gesperrt — 575 kcal passen nicht zu 51 g KH, 9 g Eiweiß, 28 g Fett (4·KH + 4·E + 9·F = 492 kcal, +17 %)"
     },
     {
       "name": "Harissa Chicken Side",
@@ -1859,7 +1879,8 @@
       "dressingNote": null,
       "dressingInfo": "90kcal; enthält Gluten, Soja, Sulfite",
       "allergens": "Keine allergen",
-      "dressingFixed": false
+      "dressingFixed": false,
+      "blocked": "User 18.09.2026: gesperrt — 196 kcal passen nicht zu 39 g KH, 7 g Eiweiß, 8 g Fett (4·KH + 4·E + 9·F = 256 kcal, -23 %)"
     },
     {
       "name": "Grilled Focaccia",
@@ -1905,7 +1926,8 @@
       "dressingNote": null,
       "dressingInfo": null,
       "allergens": "Gluten",
-      "dressingFixed": false
+      "dressingFixed": false,
+      "blocked": "User 18.09.2026: gesperrt — 201 kcal passen nicht zu 58,7 g KH, 7 g Eiweiß, 1,12 g Fett (4·KH + 4·E + 9·F = 273 kcal, -26 %)"
     },
     {
       "name": "Chocolate Chip Cookie",
@@ -1974,7 +1996,8 @@
       "dressingNote": null,
       "dressingInfo": null,
       "allergens": "Gluten, Laktose, Eier, Schalenfrüchte, Soja",
-      "dressingFixed": false
+      "dressingFixed": false,
+      "blocked": "User 18.09.2026: gesperrt — 283 kcal passen nicht zu 45 g KH, 3 g Eiweiß, 14 g Fett (4·KH + 4·E + 9·F = 318 kcal, -11 %)"
     },
     {
       "name": "Vegan Banana Bread",
@@ -2020,7 +2043,8 @@
       "dressingNote": null,
       "dressingInfo": null,
       "allergens": "Gluten, Lupinen",
-      "dressingFixed": false
+      "dressingFixed": false,
+      "blocked": "User 18.09.2026: gesperrt — 260 kcal passen nicht zu 41 g KH, 3 g Eiweiß, 17 g Fett (4·KH + 4·E + 9·F = 329 kcal, -21 %)"
     }
   ]
 }
