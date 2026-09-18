@@ -1357,7 +1357,7 @@ const brRaw = name => rawBR.dishes.find(d => d.name === name);
 check("Registry: beets&roots (Wolt) — à la carte, accurate, Schalter No dressing/No soups/No desserts alle AN", !!BR && BR.kind === "ac" && BR.accurate === true && BR.platform === "Wolt" && BR.switches.map(x => x.id + ":" + x.def).join() === "noDressing:true,noSoups:true,noDesserts:true" && typeof BR.switches[0].filter === "function" && typeof BR.switches[0].allow === "function", true);
 check("BEETSROOTS-Block = beetsroots-update.js(data/beetsroots-raw.json) (Block aktuell)", (() => { const d = updBR.buildData(rawBR); return JSON.stringify(d.cats) === JSON.stringify(BRD.cats) && JSON.stringify(d.items) === JSON.stringify(BRD.items); })(), true);
 check("Kategorien wie bei Wolt (User 18.09.2026): Bowls, Fresh Salads, Grilled Wraps, Hot Soups, Sides, Desserts — alle Chips an; Getränke und Smoothies nicht im Tracker", BRD.cats.map(c => c.id + ":" + c.name + ":" + c.on).join("|") === "bowls:Bowls:true|salads:Fresh Salads:true|wraps:Grilled Wraps:true|soups:Hot Soups:true|sides:Sides:true|desserts:Desserts:true" && rawBR._meta.skippedCategories.length === 3 && rawBR._meta.skippedCategories.every(x => /Getränke|Smoothies/.test(x)), true);
-check("46 Wolt-Gerichte, davon 45 im Tracker (Burrito Chicken Bowl ohne vollständige Werte) mit 64 Items; je Gericht ein Eintrag in Ausschluss- und Pflicht-Liste", rawBR.dishes.length === 46 && new Set(BRD.items.map(x => x.product || x.id)).size === 45 && BRD.items.length === 64 && rawBR._meta.noData.length === 1 && /^Burrito Chicken Bowl/.test(rawBR._meta.noData[0]) && !BRD.items.some(x => /^Burrito Chicken Bowl/.test(x.name)) && T.excludablesFor(BR).length === 45 && T.includablesFor(BR).length === 45, true);
+check("46 Wolt-Gerichte, davon 45 im Tracker (Burrito Chicken Bowl ohne vollständige Werte) mit 67 Items; je Gericht ein Eintrag in Ausschluss- und Pflicht-Liste", rawBR.dishes.length === 46 && new Set(BRD.items.map(x => x.product || x.id)).size === 45 && BRD.items.length === 67 && rawBR._meta.noData.length === 1 && /^Burrito Chicken Bowl/.test(rawBR._meta.noData[0]) && !BRD.items.some(x => /^Burrito Chicken Bowl/.test(x.name)) && T.excludablesFor(BR).length === 45 && T.includablesFor(BR).length === 45, true);
 check("Werte je Gericht = „i“-Fenster der Website (ohne Dressing), alle 45 Gerichte; Ballaststoffe nicht angegeben → 0", (() => {
   const order = ["kcal", "fat", "sat", "carbs", "sugars", "protein", "salt"];
   return BRD.items.every(x => x.fibre === 0) && rawBR.dishes.filter(d => !d.noData).every(d => {
@@ -1371,7 +1371,7 @@ check("Werte je Gericht = „i“-Fenster der Website (ohne Dressing), alle 45 G
   });
 })(), true);
 check("Dressing-Portion aus der Website gerechnet: kcal der Portion / (kcal je 100 g) × 100 — Levante Chicken Bowl 210 kcal ÷ 275 = 76,36 g Tahini dressing → mit Dressing 848 kcal / 43,56 F / 62,72 KH / 44,57 E", (() => {
-  const d = brRaw("Levante Chicken Bowl"), out = brItem("levante_chicken_bowl__ohne_dressing"), inn = brItem("levante_chicken_bowl__mit_dressing");
+  const d = brRaw("Levante Chicken Bowl"), out = brItem("levante_chicken_bowl__no_dressing"), inn = brItem("levante_chicken_bowl__with_dressing");
   return d.dressing.name === "Tahini dressing" && d.dressing.portionKcal === 210 && Math.abs(d.dressing.grams - 76.36) < 0.01 && Math.abs(d.dressing.values.fat - 17.56) < 0.02 &&
     out.kcal === 638 && out.fat === 26 && out.protein === 38 && inn.kcal === 848 && Math.abs(inn.fat - 43.56) < 0.011 && Math.abs(inn.carbs - 62.72) < 0.011 && Math.abs(inn.protein - 44.57) < 0.011 && inn.price === out.price;
 })(), true);
@@ -1379,14 +1379,24 @@ check("Grilled Wraps: Sauce steckt im Wrap → ein Item mit Dressing (Caesar Chi
   const w = brItem("caesar_chicken_wrap"), d = brRaw("Caesar Chicken Wrap");
   return w.dressing === "fixed" && brOf("Caesar Chicken Wrap").length === 1 && w.kcal === 588 && Math.abs(w.protein - (30 + d.dressing.values.protein)) < 0.011 && /inside the wrap/.test(w.orderNote) && rawBR.dishes.filter(x => x.cat === "wraps").every(x => x.dressingFixed && x.dressing);
 })(), true);
-check("Dressing nicht bezifferbar (mehrere Dressings bzw. ohne verknüpftes Produkt): nur „ohne Dressing“ — Harissa Double Chicken Bowl, beide Sesame Chicken Noodle Bowls, 4 Sides", (() => {
+check("Sauce aus kcal und Werten je 100 g hochgerechnet, auch ohne verknüpftes Dressing-Produkt (User 18.09.2026): 3 Sides über die Beschreibung — Nordic Salmon Side 81 kcal ÷ 415 = 19,52 g Chia Dressing → 310 kcal / 21,03 F / 17,33 E", (() => {
+  const fd = rawBR._meta.dressingFromDescription, n = brRaw("Nordic Salmon Side"), inn = brItem("nordic_salmon_side__with_dressing"), out = brItem("nordic_salmon_side__no_dressing");
+  const a = brRaw("Avocado Bean Side"), sp = brRaw("Spicy Sweet Potatoes");
+  return fd.length === 3 && [n, a, sp].every(d => d.dressing && d.dressing.via === "in der Beschreibung genannt" && d.description.includes(d.dressing.name)) &&
+    n.dressing.name === "Chia Dressing" && n.dressing.portionKcal === 81 && n.dressing.per100.kcal === 415 && Math.abs(n.dressing.grams - 19.52) < 0.01 &&
+    a.dressing.name === "Basilikum Cashew Dressing" && Math.abs(a.dressing.grams - 15.03) < 0.01 && sp.dressing.name === "Spicy Mayo" && Math.abs(sp.dressing.grams - 19.87) < 0.01 &&
+    out.kcal === 229 && inn.kcal === 310 && Math.abs(inn.fat - 21.03) < 0.011 && Math.abs(inn.carbs - 10.71) < 0.011 && Math.abs(inn.protein - 17.33) < 0.011 && Math.abs(inn.salt - 1.51) < 0.011 &&
+    rawBR.dishes.filter(d => d.dressing && d.dressing.via === "Dressing-Produkt des Gerichts").length === 28 && BRD.items.filter(x => x.dressing === "in").length === 22;
+})(), true);
+check("Dressing nicht bezifferbar (zwei Saucen, nur eine gemeinsame kcal-Zahl): nur „ohne Dressing“ — Harissa Double Chicken Bowl, beide Sesame Chicken Noodle Bowls, Harissa Chicken Side", (() => {
   const names = rawBR.dishes.filter(d => d.dressingNote).map(d => d.name);
-  return names.length === 7 && names.includes("Harissa Double Chicken Bowl") && names.includes("Sesame Chicken Noodle Bowl") && names.includes("Spicy Sweet Potatoes") &&
+  return names.length === 4 && names.join("|") === "Harissa Double Chicken Bowl|Sesame Chicken Noodle Bowl|Vegan Sesame Chicken Noodle Bowl|Harissa Chicken Side" &&
+    rawBR.dishes.filter(d => d.dressingNote).every(d => /mehrere (Dressings|Saucen)/.test(d.dressingNote)) &&
     names.every(n => brOf(n).length === 1 && brOf(n)[0].dressing === "out" && /don't eat the dressing\/sauce/.test(brOf(n)[0].orderNote));
 })(), true);
-check("Preise = Wolt (Levante 16,45 € · Caesar Chicken Wrap 11,45 € · Gourmet Carrot Cake 3,50 € ohne Rabattaktion); Website ist meist 2,00 € günstiger", brItem("levante_chicken_bowl__ohne_dressing").price === 16.45 && brItem("caesar_chicken_wrap").price === 11.45 && brItem("gourmet_carrot_cake").price === 3.5 && rawBR.dishes.every(d => d.price > 0) && brRaw("Levante Chicken Bowl").websitePrice === 14.45, true);
+check("Preise = Wolt (Levante 16,45 € · Caesar Chicken Wrap 11,45 € · Gourmet Carrot Cake 3,50 € ohne Rabattaktion); Website ist meist 2,00 € günstiger", brItem("levante_chicken_bowl__no_dressing").price === 16.45 && brItem("caesar_chicken_wrap").price === 11.45 && brItem("gourmet_carrot_cake").price === 3.5 && rawBR.dishes.every(d => d.price > 0) && brRaw("Levante Chicken Bowl").websitePrice === 14.45, true);
 check("Kontrolle gegen die abgelesenen „i“-Fenster: 46 Gerichte geprüft, keine Abweichung; Quelle und Datum dokumentiert", rawBR._meta.siteControl.checked === 46 && rawBR._meta.siteControl.diffs.length === 0 && rawBR._meta.siteControl.capturedAt === "2026-09-18" && Object.keys(siteBR.dishes).length === 46, true);
-check("_meta: Entscheidungen User 18.09.2026, Wolt-Extras ohne Werte nur dokumentiert, kein Schalentier, Koriander/Minze-Listen", rawBR._meta.decisions.length === 4 && rawBR._meta.decisions.every(d => /^User 18[.]09[.]2026/.test(d)) && rawBR._meta.optionGroups.map(g => g.name).join() === "Choose Extras,Choose Vegan Extras" && rawBR._meta.optionGroups[0].options.length === 7 && typeof rawBR._meta.shellfish === "string" && rawBR._meta.coriander.length === 15 && rawBR._meta.mint.length === 6 && rawBR._meta.mint.includes("Levante Chicken Bowl"), true);
+check("_meta: Entscheidungen User 18.09.2026, Wolt-Extras ohne Werte nur dokumentiert, kein Schalentier, Koriander/Minze-Listen", rawBR._meta.decisions.length === 5 && rawBR._meta.decisions.every(d => /^User 18[.]09[.]2026/.test(d)) && rawBR._meta.optionGroups.map(g => g.name).join() === "Choose Extras,Choose Vegan Extras" && rawBR._meta.optionGroups[0].options.length === 7 && typeof rawBR._meta.shellfish === "string" && rawBR._meta.coriander.length === 15 && rawBR._meta.mint.length === 6 && rawBR._meta.mint.includes("Levante Chicken Bowl"), true);
 check("Auffälligkeiten dokumentiert (11, nicht korrigiert): kcal ≠ 4·C+4·P+9·F bei den Thai-Rice-Bowls, Sesame Noodle Bowls, Thai Lentil Soup u.a.", rawBR._meta.anomalies.length === 11 && ["Thai Rice Bowl", "Chicken Thai Rice Bowl", "Vegan Chicken Thai Rice Bowl", "Sesame Chicken Noodle Bowl", "Thai Lentil Soup"].every(n => rawBR._meta.anomalies.some(a => a.name === n && /4·C\+4·P\+9·F/.test(a.issues[0]))), true);
 const stBR = T.defaultRestoState(BR);
 const brSt = (sw, cats) => ({ ...stBR, sw: { ...stBR.sw, ...(sw || {}) }, cats: { ...stBR.cats, ...(cats || {}) } });
@@ -1405,8 +1415,8 @@ check("„No soups“/„No desserts“ AUS: Suppe und Desserts wieder wählbar"
 check("Kategorie-Chips: ohne „Bowls“ keine Bowl in den Ergebnissen", runBR(tDef, brSt({}, { bowls: false })).every(r => r.items.every(x => x.cat !== "bowls")), true);
 check("Order Guide: „don't eat the …“ ohne Dressing, „included in these values“ mit Dressing, „inside the wrap“ beim Wrap, kein Zusatz ohne Dressing", (() => {
   const steps = sel => T.orderStepsFor(BR, sel).map(x => x.l + " " + x.v).join(" | ");
-  const a = steps({ items: [brItem("levante_chicken_bowl__ohne_dressing")] });
-  const b = steps({ items: [brItem("levante_chicken_bowl__mit_dressing")] });
+  const a = steps({ items: [brItem("levante_chicken_bowl__no_dressing")] });
+  const b = steps({ items: [brItem("levante_chicken_bowl__with_dressing")] });
   const c = steps({ items: [brItem("caesar_chicken_wrap")] });
   const d = steps({ items: [brItem("thai_rice_bowl")] });
   return a === "1× Levante Chicken Bowl — don't eat the Tahini dressing (210 kcal) — these values don't include it" &&

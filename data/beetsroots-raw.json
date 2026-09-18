@@ -1,8 +1,8 @@
 {
   "_meta": {
     "source": "Wolt-API beetsroots-frankfurt (https://wolt.com/de/deu/frankfurt/restaurant/beetsroots-frankfurt) + Vorbestell-Shop von beets&roots (https://www.beetsandroots.de/preorder/menu/frankfurt-kaiserstrasse, commercetools-Projekt „preorder“, Filiale Frankfurt Kaiserstraße)",
-    "fetchedAt": "2026-09-18T06:11:05.531Z",
-    "basis": "Offizielle Werte je Portion laut „i“-Fenster der Website — **ohne Dressing** (Fußnote „*ohne Dressing“). Ballaststoffe nennt beets&roots nicht → 0. Dressing: Werte je 100 g des verknüpften Dressings + kcal der Portion → Portionsgramm = kcal / (kcal je 100 g) × 100",
+    "fetchedAt": "2026-09-18T06:31:17.198Z",
+    "basis": "Offizielle Werte je Portion laut „i“-Fenster der Website — **ohne Dressing** (Fußnote „*ohne Dressing“). Ballaststoffe nennt beets&roots nicht → 0. Dressing: Werte je 100 g der Sauce + kcal der Portion → Portionsgramm = kcal / (kcal je 100 g) × 100. Die Sauce steht entweder als Produkt am Gericht oder namentlich in der Beschreibung",
     "rules": [
       "Wolt: jedes Gericht ein eigener Artikel; Preis = Wolt-Menüpreis (die Website ist meist 2,00 € günstiger)",
       "Keine Nährwerte je Zutat und keine Custom Bowl → nur die Standard-Zusammenstellung der Gerichte (User 18.09.2026)",
@@ -13,12 +13,18 @@
       "User 18.09.2026: beets&roots (Wolt, Kaiserstraße) als Tracker mit den Wolt-Kategorien Bowls, Fresh Salads, Grilled Wraps, Hot Soups, Sides, Desserts; Getränke und Smoothies ignorieren",
       "User 18.09.2026: Nährwerte einzeln über das „i“-Symbol der Website ziehen (erledigt: data/beetsroots-website.json, alle 46 Gerichte)",
       "User 18.09.2026: Schalter „No dressing“, „No soups“ und „No desserts“ per Default AN; der Order Guide sagt „don't eat the dressing“, wo die Werte es nicht enthalten",
-      "User 18.09.2026: bei den Grilled Wraps gehört die Sauce zum Wrap und wird mitgerechnet"
+      "User 18.09.2026: bei den Grilled Wraps gehört die Sauce zum Wrap und wird mitgerechnet",
+      "User 18.09.2026: die Sauce lässt sich aus ihren kcal und ihren Werten je 100 g hochrechnen — nennt die Beschreibung genau eine Sauce des Shops, gilt sie auch ohne verknüpftes Dressing-Produkt"
     ],
     "store": {
       "name": "Frankfurt Kaiserstraße",
       "id": "859ae05c-4136-42e8-94cb-daf76d6645ce"
     },
+    "dressingFromDescription": [
+      "Avocado Bean Side: Basilikum Cashew Dressing — 55 kcal / 366 kcal je 100 g = 15.03 g",
+      "Nordic Salmon Side: Chia Dressing — 81 kcal / 415 kcal je 100 g = 19.52 g",
+      "Spicy Sweet Potatoes: Spicy Mayo — 90 kcal / 453 kcal je 100 g = 19.87 g"
+    ],
     "siteControl": {
       "file": "data/beetsroots-website.json",
       "capturedAt": "2026-09-18",
@@ -250,7 +256,8 @@
           "protein": 6.57,
           "salt": 1.68
         },
-        "info": "210kcal; enthält Sesam"
+        "info": "210kcal; enthält Sesam",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "210kcal; enthält Sesam",
@@ -297,7 +304,8 @@
           "protein": 6.57,
           "salt": 1.68
         },
-        "info": "210kcal, enthält Sesam"
+        "info": "210kcal, enthält Sesam",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "210kcal, enthält Sesam",
@@ -390,7 +398,8 @@
           "protein": 0.23,
           "salt": 1.53
         },
-        "info": "266kcal, enthält Soja, Sulfite"
+        "info": "266kcal, enthält Soja, Sulfite",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "266kcal, enthält Soja, Sulfite",
@@ -437,7 +446,8 @@
           "protein": 0.23,
           "salt": 1.53
         },
-        "info": "266kcal, enthält Soja, Sulfite"
+        "info": "266kcal, enthält Soja, Sulfite",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "266kcal, enthält Soja, Sulfite",
@@ -484,7 +494,8 @@
           "protein": 0.23,
           "salt": 1.53
         },
-        "info": "266kcal; enthält Soja, Sulfite"
+        "info": "266kcal; enthält Soja, Sulfite",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "266kcal; enthält Soja, Sulfite",
@@ -600,7 +611,8 @@
           "protein": 0.9,
           "salt": 0.9
         },
-        "info": "330kcal; enthält Soja"
+        "info": "330kcal; enthält Soja",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "330kcal; enthält Soja",
@@ -647,7 +659,8 @@
           "protein": 1.11,
           "salt": 1.69
         },
-        "info": "270kcal, enthält Soja, Senf, Sulfite"
+        "info": "270kcal, enthält Soja, Senf, Sulfite",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "270kcal, enthält Soja, Senf, Sulfite",
@@ -694,7 +707,8 @@
           "protein": 1.25,
           "salt": 1.9
         },
-        "info": "304kcal, enthält Soja, Senf, Sulfite"
+        "info": "304kcal, enthält Soja, Senf, Sulfite",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "304kcal, enthält Soja, Senf, Sulfite",
@@ -741,7 +755,8 @@
           "protein": 1.25,
           "salt": 1.9
         },
-        "info": "304kcal, enthält Soja, Senf, Sulfite"
+        "info": "304kcal, enthält Soja, Senf, Sulfite",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "304kcal, enthält Soja, Senf, Sulfite",
@@ -788,7 +803,8 @@
           "protein": 1.25,
           "salt": 1.9
         },
-        "info": "304kcal; enthält Senf, Soja, Sulfite"
+        "info": "304kcal; enthält Senf, Soja, Sulfite",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "304kcal; enthält Senf, Soja, Sulfite",
@@ -835,7 +851,8 @@
           "protein": 1.25,
           "salt": 1.9
         },
-        "info": "304kcal; enthält Senf, Soja, Sulfite"
+        "info": "304kcal; enthält Senf, Soja, Sulfite",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "304kcal; enthält Senf, Soja, Sulfite",
@@ -882,7 +899,8 @@
           "protein": 0.68,
           "salt": 3.38
         },
-        "info": "218kcal, enthält Gluten, Soja, Sesam"
+        "info": "218kcal, enthält Gluten, Soja, Sesam",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "218kcal, enthält Gluten, Soja, Sesam",
@@ -929,7 +947,8 @@
           "protein": 0.68,
           "salt": 3.38
         },
-        "info": "218kcal, enthält Gluten, Soja, Sesam"
+        "info": "218kcal, enthält Gluten, Soja, Sesam",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "218kcal, enthält Gluten, Soja, Sesam",
@@ -976,7 +995,8 @@
           "protein": 0.06,
           "salt": 0
         },
-        "info": "4kcal; frei von allergene"
+        "info": "4kcal; frei von allergene",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "4kcal; frei von allergene",
@@ -1023,7 +1043,8 @@
           "protein": 1.04,
           "salt": 2.98
         },
-        "info": "338kcal, enthält Gluten, Soja, Sulfite"
+        "info": "338kcal, enthält Gluten, Soja, Sulfite",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "338kcal, enthält Gluten, Soja, Sulfite",
@@ -1065,7 +1086,8 @@
           "protein": 3.52,
           "salt": 2.77
         },
-        "info": "274kcal; enthält Schalenfrüchte"
+        "info": "274kcal; enthält Schalenfrüchte",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "274kcal; enthält Schalenfrüchte",
@@ -1113,7 +1135,8 @@
           "protein": 3.52,
           "salt": 2.77
         },
-        "info": "274kcal; enthält Schalenfrüchte"
+        "info": "274kcal; enthält Schalenfrüchte",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "274kcal; enthält Schalenfrüchte",
@@ -1160,7 +1183,8 @@
           "protein": 3.52,
           "salt": 2.77
         },
-        "info": "274kcal, enthält Schalenfrüchte"
+        "info": "274kcal, enthält Schalenfrüchte",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "274kcal, enthält Schalenfrüchte",
@@ -1207,7 +1231,8 @@
           "protein": 4.05,
           "salt": 1.73
         },
-        "info": "289kcal, enthält Gluten, Soja, Schälenfrüchte, Senf"
+        "info": "289kcal, enthält Gluten, Soja, Schälenfrüchte, Senf",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "289kcal, enthält Gluten, Soja, Schälenfrüchte, Senf",
@@ -1254,7 +1279,8 @@
           "protein": 4.05,
           "salt": 1.73
         },
-        "info": "289kcal, enthält Gluten, Soja, Schalenfrüchte, Senf"
+        "info": "289kcal, enthält Gluten, Soja, Schalenfrüchte, Senf",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "289kcal, enthält Gluten, Soja, Schalenfrüchte, Senf",
@@ -1301,7 +1327,8 @@
           "protein": 0.48,
           "salt": 0.57
         },
-        "info": "50kcal; enthält Gluten, Soja"
+        "info": "50kcal; enthält Gluten, Soja",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "50kcal; enthält Gluten, Soja",
@@ -1348,7 +1375,8 @@
           "protein": 1.63,
           "salt": 0.69
         },
-        "info": "116kcal, enthält Gluten, Soja, Schälenfrüchte, Senf"
+        "info": "116kcal, enthält Gluten, Soja, Schälenfrüchte, Senf",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "116kcal, enthält Gluten, Soja, Schälenfrüchte, Senf",
@@ -1395,7 +1423,8 @@
           "protein": 1.63,
           "salt": 0.69
         },
-        "info": "116kcal, enthält Gluten, Soja, Schälenfrüchte, Senf"
+        "info": "116kcal, enthält Gluten, Soja, Schälenfrüchte, Senf",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "116kcal, enthält Gluten, Soja, Schälenfrüchte, Senf",
@@ -1442,7 +1471,8 @@
           "protein": 0.27,
           "salt": 1.35
         },
-        "info": "87kcal; enthält Gluten, Soja, Sesam"
+        "info": "87kcal; enthält Gluten, Soja, Sesam",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "87kcal; enthält Gluten, Soja, Sesam",
@@ -1489,7 +1519,8 @@
           "protein": 0.27,
           "salt": 1.35
         },
-        "info": "87kcal; enthält Gluten, Soja, Sesam"
+        "info": "87kcal; enthält Gluten, Soja, Sesam",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "87kcal; enthält Gluten, Soja, Sesam",
@@ -1536,7 +1567,8 @@
           "protein": 0.47,
           "salt": 0.56
         },
-        "info": "49kcal, enthält Gluten, Soja"
+        "info": "49kcal, enthält Gluten, Soja",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "49kcal, enthält Gluten, Soja",
@@ -1583,7 +1615,8 @@
           "protein": 1.41,
           "salt": 1.11
         },
-        "info": "110 kcal; enthält Schalenfrüchte"
+        "info": "110 kcal; enthält Schalenfrüchte",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "110 kcal; enthält Schalenfrüchte",
@@ -1630,7 +1663,8 @@
           "protein": 0.09,
           "salt": 0.62
         },
-        "info": "107kcal; enthält Soja, Sulfite"
+        "info": "107kcal; enthält Soja, Sulfite",
+        "via": "Dressing-Produkt des Gerichts"
       },
       "dressingNote": null,
       "dressingInfo": "107kcal; enthält Soja, Sulfite",
@@ -1678,7 +1712,7 @@
       },
       "fibreNotDeclared": true,
       "dressing": null,
-      "dressingNote": "kein Dressing-Produkt verknüpft — nur die kcal der Portion (36kcal; enthält Gluten, Soja, Laktose)",
+      "dressingNote": "mehrere Saucen laut Beschreibung (Kräuter Joghurt Dressing + beets&roots Hot Sauce) — die Website nennt nur die kcal der Portion zusammen (36kcal; enthält Gluten, Soja, Laktose), die Aufteilung ist unbekannt",
       "dressingInfo": "36kcal; enthält Gluten, Soja, Laktose",
       "allergens": "Gluten, Soja, Laktose",
       "dressingFixed": false
@@ -1700,8 +1734,33 @@
         "salt": 1
       },
       "fibreNotDeclared": true,
-      "dressing": null,
-      "dressingNote": "kein Dressing-Produkt verknüpft — nur die kcal der Portion (55kcal, enthält Schalenfrüchte)",
+      "dressing": {
+        "name": "Basilikum Cashew Dressing",
+        "product": "basil-cashew-dressing",
+        "per100": {
+          "kcal": 366,
+          "fat": 30,
+          "sat": 3.5,
+          "carbs": 17,
+          "sugars": 13,
+          "protein": 4.7,
+          "salt": 3.7
+        },
+        "portionKcal": 55,
+        "grams": 15.03,
+        "values": {
+          "kcal": 55,
+          "fat": 4.51,
+          "sat": 0.53,
+          "carbs": 2.56,
+          "sugars": 1.95,
+          "protein": 0.71,
+          "salt": 0.56
+        },
+        "info": "55kcal, enthält Schalenfrüchte",
+        "via": "in der Beschreibung genannt"
+      },
+      "dressingNote": null,
       "dressingInfo": "55kcal, enthält Schalenfrüchte",
       "allergens": "Soja, Senf",
       "dressingFixed": false
@@ -1723,8 +1782,33 @@
         "salt": 1
       },
       "fibreNotDeclared": true,
-      "dressing": null,
-      "dressingNote": "kein Dressing-Produkt verknüpft — nur die kcal der Portion (81kcal, enthält Senf)",
+      "dressing": {
+        "name": "Chia Dressing",
+        "product": "chia-dressing",
+        "per100": {
+          "kcal": 415,
+          "fat": 36,
+          "sat": 2.8,
+          "carbs": 19,
+          "sugars": 18,
+          "protein": 1.7,
+          "salt": 2.6
+        },
+        "portionKcal": 81,
+        "grams": 19.52,
+        "values": {
+          "kcal": 81,
+          "fat": 7.03,
+          "sat": 0.55,
+          "carbs": 3.71,
+          "sugars": 3.51,
+          "protein": 0.33,
+          "salt": 0.51
+        },
+        "info": "81kcal, enthält Senf",
+        "via": "in der Beschreibung genannt"
+      },
+      "dressingNote": null,
       "dressingInfo": "81kcal, enthält Senf",
       "allergens": "Eier, Fisch, Soja, Sesam",
       "dressingFixed": false
@@ -1746,8 +1830,33 @@
         "salt": 1
       },
       "fibreNotDeclared": true,
-      "dressing": null,
-      "dressingNote": "kein Dressing-Produkt verknüpft — nur die kcal der Portion (90kcal; enthält Gluten, Soja, Sulfite)",
+      "dressing": {
+        "name": "Spicy Mayo",
+        "product": "spicy-mayo-50",
+        "per100": {
+          "kcal": 453,
+          "fat": 46,
+          "sat": 3.3,
+          "carbs": 8.6,
+          "sugars": 7.8,
+          "protein": 1.4,
+          "salt": 4
+        },
+        "portionKcal": 90,
+        "grams": 19.87,
+        "values": {
+          "kcal": 90,
+          "fat": 9.14,
+          "sat": 0.66,
+          "carbs": 1.71,
+          "sugars": 1.55,
+          "protein": 0.28,
+          "salt": 0.79
+        },
+        "info": "90kcal; enthält Gluten, Soja, Sulfite",
+        "via": "in der Beschreibung genannt"
+      },
+      "dressingNote": null,
       "dressingInfo": "90kcal; enthält Gluten, Soja, Sulfite",
       "allergens": "Keine allergen",
       "dressingFixed": false

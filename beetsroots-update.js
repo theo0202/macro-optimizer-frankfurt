@@ -40,8 +40,8 @@ function buildData(raw) {
       if (!d.dressing) throw new Error(d.name + ": Wrap ohne bezifferbares Dressing (" + (d.dressingNote || "?") + ")");
       add(slug, d.name, "fixed", d.dressing.name + " (" + kcalTxt(d.dressing.portionKcal) + ") is inside the wrap — included in these values");
     } else if (d.dressing) {
-      add(slug + "__ohne_dressing", d.name, "out", "don't eat the " + d.dressing.name + " (" + kcalTxt(d.dressing.portionKcal) + ") — these values don't include it");
-      add(slug + "__mit_dressing", d.name + " (mit " + d.dressing.name + ")", "in", "with the " + d.dressing.name + " (" + kcalTxt(d.dressing.portionKcal) + ") — included in these values");
+      add(slug + "__no_dressing", d.name, "out", "don't eat the " + d.dressing.name + " (" + kcalTxt(d.dressing.portionKcal) + ") — these values don't include it");
+      add(slug + "__with_dressing", d.name + " (with " + d.dressing.name + ")", "in", "with the " + d.dressing.name + " (" + kcalTxt(d.dressing.portionKcal) + ") — included in these values");
     } else if (d.dressingInfo) {
       // Dressing/Sauce laut Website vorhanden, aber nicht bezifferbar (mehrere Dressings oder ohne verknüpftes Produkt)
       add(slug, d.name, "out", "don't eat the dressing/sauce (" + kcalTxt(U.round(Number(String(d.dressingInfo).match(/(\d+(?:[.,]\d+)?)/)[1].replace(",", ".")), 0)) + ") — these values don't include it");

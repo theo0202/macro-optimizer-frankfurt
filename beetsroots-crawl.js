@@ -108,6 +108,10 @@ async function main() {
   const nutriProducts = products.filter(p => at(p, "nrgAmount") !== undefined && !/^catering-/.test(slugOf(p)));
   const byName = new Map();
   for (const p of nutriProducts) { const k = lower(p.name["de-DE"] || ""); if (!byName.has(k)) byName.set(k, []); byName.get(k).push(p); }
+  // Saucen/Dressings des Shops mit vollständigen Werten je 100 g — Verzeichnis für Gerichte ohne verknüpftes Dressing-Produkt
+  const D_NUT = [["kcal", "energyAmount"], ["fat", "fatAmount"], ["sat", "satFatAmount"], ["carbs", "carbAmount"], ["sugars", "sugarAmount"], ["protein", "proteinAmount"], ["salt", "saltAmount"]];
+  const per100Of = p => { const o = {}; for (const [k, attr] of D_NUT) { const v = at(p, attr); const n = v == null || v === "" ? NaN : Number(String(v).replace(",", ".")); if (!isFinite(n)) return null; o[k] = n; } return o.kcal > 0 ? o : null; };
+  const SAUCES = products.filter(p => ((at(p, "type") || {}).key === "DRESSING")).map(p => ({ name: normName(p.name["de-DE"] || ""), product: slugOf(p), per100: per100Of(p) })).filter(x => x.name && x.per100);
 
   // ── Wolt ──
   const assort = await get(WOLT_API(WOLT_SLUG), WOLT_HEADERS, true);
@@ -118,7 +122,7 @@ async function main() {
 
   const siteRef = U.readJSON(SITE_FILE);
   const NUT = [["kcal", "nrgAmount"], ["fat", "fatAmount"], ["sat", "satFatAmount"], ["carbs", "carbAmount"], ["sugars", "sugarAmount"], ["protein", "proteinAmount"], ["salt", "saltAmount"]];
-  const dishes = [], noData = [], seen = new Set(), skipped = [], optionGroups = new Map(), coriander = [], mint = [], siteDiffs = [];
+  const dishes = [], noData = [], seen = new Set(), skipped = [], optionGroups = new Map(), coriander = [], mint = [], siteDiffs = [], fromDesc = [];
 
   for (const c of assort.categories || []) {
     const cname = normName(c.name);
@@ -156,21 +160,28 @@ async function main() {
       const dressKcal = dressInfo ? parseKcal(dressInfo, where + " dressingInfo", problems) : null;
       const dressProducts = dressRefs.map(r => byId.get(r.id)).filter(Boolean);
       let dressing = null, dressingNote = null;
+      // Portion des Dressings: die Website nennt die kcal der Portion und die Werte je 100 g → Gramm = kcal / (kcal je 100 g) × 100
+      const mkDressing = (dn, prod, per100, via) => {
+        const grams = U.round(dressKcal / per100.kcal * 100, 2);
+        const vals = Object.fromEntries(D_NUT.map(([k]) => [k, U.round(per100[k] * grams / 100, 2)]));
+        vals.kcal = dressKcal;
+        if (grams < 3 || grams > 200) problems.push(where + ": Dressing „" + dn + "“ ergäbe " + grams + " g (" + dressKcal + " kcal / " + per100.kcal + " je 100 g) — unplausible Portion");
+        return { name: dn, product: prod, per100, portionKcal: dressKcal, grams, values: vals, info: dressInfo, via };
+      };
       if (dressProducts.length === 1 && dressKcal != null) {
-        const dp = dressProducts[0];
-        const per100 = {};
-        const dNut = [["kcal", "energyAmount"], ["fat", "fatAmount"], ["sat", "satFatAmount"], ["carbs", "carbAmount"], ["sugars", "sugarAmount"], ["protein", "proteinAmount"], ["salt", "saltAmount"]];
-        let ok = true;
-        for (const [k, attr] of dNut) { const v = parseNum(at(dp, attr), where + " Dressing " + attr, problems); if (v == null) ok = false; else per100[k] = v; }
-        if (ok && per100.kcal > 0) {
-          // Portion des Dressings: die Website nennt die kcal der Portion und die Werte je 100 g → Gramm = kcal / (kcal je 100 g) × 100
-          const grams = U.round(dressKcal / per100.kcal * 100, 2);
-          const vals = Object.fromEntries(dNut.map(([k]) => [k, U.round(per100[k] * grams / 100, 2)]));
-          vals.kcal = dressKcal;
-          dressing = { name: normName(dp.name["de-DE"]), product: slugOf(dp), per100, portionKcal: dressKcal, grams, values: vals, info: dressInfo };
-        } else dressingNote = "Dressing-Werte je 100 g unvollständig";
+        const dp = dressProducts[0], dname = normName(dp.name["de-DE"]), per100 = per100Of(dp);
+        if (per100) dressing = mkDressing(dname, slugOf(dp), per100, "Dressing-Produkt des Gerichts");
+        else { problems.push(where + ": Dressing „" + dname + "“ ohne vollständige Werte je 100 g"); dressingNote = "Dressing-Werte je 100 g unvollständig"; }
       } else if (dressProducts.length > 1) dressingNote = "mehrere Dressings (" + dressProducts.map(x => normName(x.name["de-DE"])).join(" + ") + ") — die Website nennt nur die kcal der Portion zusammen, die Aufteilung ist unbekannt";
-      else if (dressInfo) dressingNote = "kein Dressing-Produkt verknüpft — nur die kcal der Portion (" + dressInfo + ")";
+      else if (dressKcal != null) {
+        // Kein Dressing-Produkt verknüpft: nennt die Beschreibung genau eine Sauce des Shops, gelten deren offizielle Werte je 100 g (User 18.09.2026)
+        const hits = SAUCES.filter(x => lower(desc).includes(lower(x.name)));
+        if (hits.length === 1) {
+          dressing = mkDressing(hits[0].name, hits[0].product, hits[0].per100, "in der Beschreibung genannt");
+          fromDesc.push(name + ": " + hits[0].name + " — " + dressKcal + " kcal / " + hits[0].per100.kcal + " kcal je 100 g = " + dressing.grams + " g");
+        } else if (hits.length > 1) dressingNote = "mehrere Saucen laut Beschreibung (" + hits.map(x => x.name).join(" + ") + ") — die Website nennt nur die kcal der Portion zusammen (" + dressInfo + "), die Aufteilung ist unbekannt";
+        else dressingNote = "kein Dressing-Produkt verknüpft und keine bekannte Sauce in der Beschreibung — nur die kcal der Portion (" + dressInfo + ")";
+      } else if (dressInfo) dressingNote = "kein Dressing-Produkt verknüpft — nur die kcal der Portion (" + dressInfo + ")";
 
       const allergens = ((at(p, "allergene") || [])[0] || {})["de-DE"] || "";
       const dish = {
@@ -225,7 +236,7 @@ async function main() {
       source: "Wolt-API " + WOLT_SLUG + " (" + WOLT_PAGE + ") + Vorbestell-Shop von beets&roots (" + SITE_MENU + ", commercetools-Projekt „" + cfg.projectKey + "“, Filiale " + STORE_NAME + ")",
       fetchedAt,
       basis: "Offizielle Werte je Portion laut „i“-Fenster der Website — **ohne Dressing** (Fußnote „*ohne Dressing“). Ballaststoffe nennt beets&roots nicht → 0. " +
-        "Dressing: Werte je 100 g des verknüpften Dressings + kcal der Portion → Portionsgramm = kcal / (kcal je 100 g) × 100",
+        "Dressing: Werte je 100 g der Sauce + kcal der Portion → Portionsgramm = kcal / (kcal je 100 g) × 100. Die Sauce steht entweder als Produkt am Gericht oder namentlich in der Beschreibung",
       rules: [
         "Wolt: jedes Gericht ein eigener Artikel; Preis = Wolt-Menüpreis (die Website ist meist 2,00 € günstiger)",
         "Keine Nährwerte je Zutat und keine Custom Bowl → nur die Standard-Zusammenstellung der Gerichte (User 18.09.2026)",
@@ -237,8 +248,10 @@ async function main() {
         "User 18.09.2026: Nährwerte einzeln über das „i“-Symbol der Website ziehen (erledigt: data/beetsroots-website.json, alle 46 Gerichte)",
         "User 18.09.2026: Schalter „No dressing“, „No soups“ und „No desserts“ per Default AN; der Order Guide sagt „don't eat the dressing“, wo die Werte es nicht enthalten",
         "User 18.09.2026: bei den Grilled Wraps gehört die Sauce zum Wrap und wird mitgerechnet",
+        "User 18.09.2026: die Sauce lässt sich aus ihren kcal und ihren Werten je 100 g hochrechnen — nennt die Beschreibung genau eine Sauce des Shops, gilt sie auch ohne verknüpftes Dressing-Produkt",
       ],
       store: { name: STORE_NAME, id: STORE_ID },
+      dressingFromDescription: fromDesc,
       siteControl: { file: "data/beetsroots-website.json", capturedAt: siteRef.capturedAt, checked: dishes.length, diffs: siteDiffs },
       optionGroups: [...optionGroups.values()],
       skippedCategories: skipped,
@@ -262,6 +275,7 @@ async function main() {
   }
   console.log("Kontrolle „i“-Fenster: " + dishes.length + " Gerichte, " + siteDiffs.length + " Abweichungen");
   console.log("Ohne vollständige Werte: " + (noData.length ? noData.join(" · ") : "keine"));
+  console.log("Dressing über die Beschreibung bestimmt (" + fromDesc.length + "): " + (fromDesc.join(" · ") || "keine"));
   console.log("Dressing nicht bezifferbar: " + (dishes.filter(d => d.dressingNote).map(d => d.name + " — " + d.dressingNote).join(" · ") || "keine"));
   console.log("Koriander: " + out._meta.coriander.join(", ") + "\nMinze: " + out._meta.mint.join(", "));
   console.log("Schalentier: " + (Array.isArray(out._meta.shellfish) ? out._meta.shellfish.join(", ") : out._meta.shellfish));
