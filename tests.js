@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -1344,6 +1344,87 @@ for (const [tt, md, pp, st, inc, ex, me] of ssCases) {
 }
 check("Stadtsalat exakt: Top 30 = vollständige Durchrechnung (Dressing an/aus, Kalorien-Modus, Pflicht-Extras enthalten/nicht, Ausschluss, Preislimit, Pflicht-Gericht; 6 Fälle)", exSS, ssCases.length);
 check("Laufzeit: Standard, 6 Extras mit Dressings und Kalorien-Modus im Zeitbudget (kein approx)", !rSS.approx && !runSS(tgt(120, 170, 60), ssSt({ maxExtras: 6 }, { noDressing: false })).approx && !runSS(kcalT(1400), ssSt({ maxExtras: 6 }, { noDressing: false }), null, null, "calories", { hp: true }).approx, true);
+
+// ── beets&roots (Wolt, Kaiserstraße): à la carte mit Kategorien und Dressing-Schalter ──
+sect("beets&roots (Wolt, à la carte)");
+const BR = T.RESTO_BY_KEY.beetsroots, BRD = T.BEETSROOTS;
+const rawBR = U.readJSON(__dirname + "/data/beetsroots-raw.json");
+const siteBR = U.readJSON(__dirname + "/data/beetsroots-website.json");
+const updBR = require("./beetsroots-update.js");
+const brItem = id => BRD.items.find(x => x.id === id);
+const brOf = name => BRD.items.filter(x => (x.productName || x.name) === name);
+const brRaw = name => rawBR.dishes.find(d => d.name === name);
+check("Registry: beets&roots (Wolt) — à la carte, accurate, Schalter No dressing/No soups/No desserts alle AN", !!BR && BR.kind === "ac" && BR.accurate === true && BR.platform === "Wolt" && BR.switches.map(x => x.id + ":" + x.def).join() === "noDressing:true,noSoups:true,noDesserts:true" && typeof BR.switches[0].filter === "function" && typeof BR.switches[0].allow === "function", true);
+check("BEETSROOTS-Block = beetsroots-update.js(data/beetsroots-raw.json) (Block aktuell)", (() => { const d = updBR.buildData(rawBR); return JSON.stringify(d.cats) === JSON.stringify(BRD.cats) && JSON.stringify(d.items) === JSON.stringify(BRD.items); })(), true);
+check("Kategorien wie bei Wolt (User 18.09.2026): Bowls, Fresh Salads, Grilled Wraps, Hot Soups, Sides, Desserts — alle Chips an; Getränke und Smoothies nicht im Tracker", BRD.cats.map(c => c.id + ":" + c.name + ":" + c.on).join("|") === "bowls:Bowls:true|salads:Fresh Salads:true|wraps:Grilled Wraps:true|soups:Hot Soups:true|sides:Sides:true|desserts:Desserts:true" && rawBR._meta.skippedCategories.length === 3 && rawBR._meta.skippedCategories.every(x => /Getränke|Smoothies/.test(x)), true);
+check("46 Wolt-Gerichte, davon 45 im Tracker (Burrito Chicken Bowl ohne vollständige Werte) mit 64 Items; je Gericht ein Eintrag in Ausschluss- und Pflicht-Liste", rawBR.dishes.length === 46 && new Set(BRD.items.map(x => x.product || x.id)).size === 45 && BRD.items.length === 64 && rawBR._meta.noData.length === 1 && /^Burrito Chicken Bowl/.test(rawBR._meta.noData[0]) && !BRD.items.some(x => /^Burrito Chicken Bowl/.test(x.name)) && T.excludablesFor(BR).length === 45 && T.includablesFor(BR).length === 45, true);
+check("Werte je Gericht = „i“-Fenster der Website (ohne Dressing), alle 45 Gerichte; Ballaststoffe nicht angegeben → 0", (() => {
+  const order = ["kcal", "fat", "sat", "carbs", "sugars", "protein", "salt"];
+  return BRD.items.every(x => x.fibre === 0) && rawBR.dishes.filter(d => !d.noData).every(d => {
+    const ref = siteBR.dishes[d.name], base = BRD.items.find(x => (x.productName || x.name) === d.name && x.dressing !== "in");
+    if (!ref || !base) return false;
+    return order.every((k, i) => {
+      const num = Number(String(ref.values[i]).split("/")[0].replace(/[^\d.]/g, ""));
+      const val = d.dressingFixed ? U.round(num + d.dressing.values[k], 2) : num;
+      return Math.abs(base[k] - val) < 0.011;
+    });
+  });
+})(), true);
+check("Dressing-Portion aus der Website gerechnet: kcal der Portion / (kcal je 100 g) × 100 — Levante Chicken Bowl 210 kcal ÷ 275 = 76,36 g Tahini dressing → mit Dressing 848 kcal / 43,56 F / 62,72 KH / 44,57 E", (() => {
+  const d = brRaw("Levante Chicken Bowl"), out = brItem("levante_chicken_bowl__ohne_dressing"), inn = brItem("levante_chicken_bowl__mit_dressing");
+  return d.dressing.name === "Tahini dressing" && d.dressing.portionKcal === 210 && Math.abs(d.dressing.grams - 76.36) < 0.01 && Math.abs(d.dressing.values.fat - 17.56) < 0.02 &&
+    out.kcal === 638 && out.fat === 26 && out.protein === 38 && inn.kcal === 848 && Math.abs(inn.fat - 43.56) < 0.011 && Math.abs(inn.carbs - 62.72) < 0.011 && Math.abs(inn.protein - 44.57) < 0.011 && inn.price === out.price;
+})(), true);
+check("Grilled Wraps: Sauce steckt im Wrap → ein Item mit Dressing (Caesar Chicken Wrap 472 + 116 = 588 kcal), Order Guide sagt „inside the wrap“", (() => {
+  const w = brItem("caesar_chicken_wrap"), d = brRaw("Caesar Chicken Wrap");
+  return w.dressing === "fixed" && brOf("Caesar Chicken Wrap").length === 1 && w.kcal === 588 && Math.abs(w.protein - (30 + d.dressing.values.protein)) < 0.011 && /inside the wrap/.test(w.orderNote) && rawBR.dishes.filter(x => x.cat === "wraps").every(x => x.dressingFixed && x.dressing);
+})(), true);
+check("Dressing nicht bezifferbar (mehrere Dressings bzw. ohne verknüpftes Produkt): nur „ohne Dressing“ — Harissa Double Chicken Bowl, beide Sesame Chicken Noodle Bowls, 4 Sides", (() => {
+  const names = rawBR.dishes.filter(d => d.dressingNote).map(d => d.name);
+  return names.length === 7 && names.includes("Harissa Double Chicken Bowl") && names.includes("Sesame Chicken Noodle Bowl") && names.includes("Spicy Sweet Potatoes") &&
+    names.every(n => brOf(n).length === 1 && brOf(n)[0].dressing === "out" && /don't eat the dressing\/sauce/.test(brOf(n)[0].orderNote));
+})(), true);
+check("Preise = Wolt (Levante 16,45 € · Caesar Chicken Wrap 11,45 € · Gourmet Carrot Cake 3,50 € ohne Rabattaktion); Website ist meist 2,00 € günstiger", brItem("levante_chicken_bowl__ohne_dressing").price === 16.45 && brItem("caesar_chicken_wrap").price === 11.45 && brItem("gourmet_carrot_cake").price === 3.5 && rawBR.dishes.every(d => d.price > 0) && brRaw("Levante Chicken Bowl").websitePrice === 14.45, true);
+check("Kontrolle gegen die abgelesenen „i“-Fenster: 46 Gerichte geprüft, keine Abweichung; Quelle und Datum dokumentiert", rawBR._meta.siteControl.checked === 46 && rawBR._meta.siteControl.diffs.length === 0 && rawBR._meta.siteControl.capturedAt === "2026-09-18" && Object.keys(siteBR.dishes).length === 46, true);
+check("_meta: Entscheidungen User 18.09.2026, Wolt-Extras ohne Werte nur dokumentiert, kein Schalentier, Koriander/Minze-Listen", rawBR._meta.decisions.length === 4 && rawBR._meta.decisions.every(d => /^User 18[.]09[.]2026/.test(d)) && rawBR._meta.optionGroups.map(g => g.name).join() === "Choose Extras,Choose Vegan Extras" && rawBR._meta.optionGroups[0].options.length === 7 && typeof rawBR._meta.shellfish === "string" && rawBR._meta.coriander.length === 15 && rawBR._meta.mint.length === 6 && rawBR._meta.mint.includes("Levante Chicken Bowl"), true);
+check("Auffälligkeiten dokumentiert (11, nicht korrigiert): kcal ≠ 4·C+4·P+9·F bei den Thai-Rice-Bowls, Sesame Noodle Bowls, Thai Lentil Soup u.a.", rawBR._meta.anomalies.length === 11 && ["Thai Rice Bowl", "Chicken Thai Rice Bowl", "Vegan Chicken Thai Rice Bowl", "Sesame Chicken Noodle Bowl", "Thai Lentil Soup"].every(n => rawBR._meta.anomalies.some(a => a.name === n && /4·C\+4·P\+9·F/.test(a.issues[0]))), true);
+const stBR = T.defaultRestoState(BR);
+const brSt = (sw, cats) => ({ ...stBR, sw: { ...stBR.sw, ...(sw || {}) }, cats: { ...stBR.cats, ...(cats || {}) } });
+const runBR = (t, st, ex, inc, mode, p) => T.runOptimize(BR, t, mode || "macros", p || {}, st || stBR, new Set(ex || []), new Set(inc || []));
+const rBR = runBR(tDef);
+check("Standard (alle drei Schalter AN): nur Gerichte ohne Dressing bzw. Wraps/dressinglose Gerichte, keine Suppen, keine Desserts, Preis = Σ", rBR.length > 0 && rBR.every(r => r.items.every(x => x.dressing !== "in" && x.cat !== "soups" && x.cat !== "desserts") && Math.abs(r.price - Math.round(r.items.reduce((a, x) => a + x.price * 100, 0)) / 100) < 1e-9), true);
+check("„No dressing“ AUS: nur Items mit Dressing (bzw. Wraps/ohne Dressing), nie die „ohne Dressing“-Variante; Gerichte ohne bezifferbares Dressing fallen weg", (() => {
+  const r = runBR(tDef, brSt({ noDressing: false }));
+  return r.length > 0 && r.every(x => x.items.every(y => y.dressing !== "out")) && !r.some(x => x.items.some(y => rawBR.dishes.some(d => d.dressingNote && (y.productName || y.name) === d.name)));
+})(), true);
+check("„No soups“/„No desserts“ AUS: Suppe und Desserts wieder wählbar", (() => {
+  const r = runBR(tgt(20, 50, 25), brSt({ noSoups: false, noDesserts: false }));
+  const pool = T.RESTAURANTS && r.flatMap(x => x.items.map(y => y.cat));
+  return r.length > 0 && runBR(tgt(10, 45, 15), brSt({ noDesserts: false })).some(x => x.items.some(y => y.cat === "desserts")) && runBR(tgt(9, 51, 28), brSt({ noSoups: false })).some(x => x.items.some(y => y.cat === "soups"));
+})(), true);
+check("Kategorie-Chips: ohne „Bowls“ keine Bowl in den Ergebnissen", runBR(tDef, brSt({}, { bowls: false })).every(r => r.items.every(x => x.cat !== "bowls")), true);
+check("Order Guide: „don't eat the …“ ohne Dressing, „included in these values“ mit Dressing, „inside the wrap“ beim Wrap, kein Zusatz ohne Dressing", (() => {
+  const steps = sel => T.orderStepsFor(BR, sel).map(x => x.l + " " + x.v).join(" | ");
+  const a = steps({ items: [brItem("levante_chicken_bowl__ohne_dressing")] });
+  const b = steps({ items: [brItem("levante_chicken_bowl__mit_dressing")] });
+  const c = steps({ items: [brItem("caesar_chicken_wrap")] });
+  const d = steps({ items: [brItem("thai_rice_bowl")] });
+  return a === "1× Levante Chicken Bowl — don't eat the Tahini dressing (210 kcal) — these values don't include it" &&
+    b === "1× Levante Chicken Bowl — with the Tahini dressing (210 kcal) — included in these values" &&
+    c === "1× Caesar Chicken Wrap — Caesar Dressing (vegan) (116 kcal) is inside the wrap — included in these values" && d === "1× Thai Rice Bowl";
+})(), true);
+check("Must include / Exclude gelten fürs Gericht (beide Dressing-Varianten): Pflicht Levante Chicken Bowl in jeder Bestellung, Ausschluss blendet beide Varianten aus", (() => {
+  const inc = runBR(tDef, stBR, null, ["levante_chicken_bowl"]);
+  const ex = runBR(tDef, stBR, ["caesar_chicken_salad", "levante_chicken_bowl"]);
+  return inc.length > 0 && inc.every(r => r.items.some(x => (x.productName || x.name) === "Levante Chicken Bowl")) &&
+    ex.length > 0 && ex.every(r => r.items.every(x => !["Caesar Chicken Salad", "Levante Chicken Bowl"].includes(x.productName || x.name)));
+})(), true);
+check("Preislimit 20 €: Ergebnisse, keines teurer; Suche und All-Tab kennen beets&roots", (() => {
+  const r = runBR({ ...tDef, maxPrice: 20 });
+  const all = T.optimizeAll(tDef, "macros", {}, 5, false);
+  return r.length > 0 && r.every(x => x.price <= 20 + 1e-9) && T.SEARCH_INDEX.some(x => x.resto === "beets&roots (Wolt)" && x.name === "Levante Chicken Bowl" && x.kcal === 638) &&
+    all.filter(x => x._resto === "beetsroots").length === 1;
+})(), true);
 
 // ── Screenshot-Import-Parser (OCR-Text → verbleibende Makros C/P/F + "Übrig"-kcal) — Fälle aus dem London-Tool ──
 sect("parseMacroScreenshot");

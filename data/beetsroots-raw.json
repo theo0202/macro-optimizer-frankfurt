@@ -1,0 +1,1917 @@
+{
+  "_meta": {
+    "source": "Wolt-API beetsroots-frankfurt (https://wolt.com/de/deu/frankfurt/restaurant/beetsroots-frankfurt) + Vorbestell-Shop von beets&roots (https://www.beetsandroots.de/preorder/menu/frankfurt-kaiserstrasse, commercetools-Projekt „preorder“, Filiale Frankfurt Kaiserstraße)",
+    "fetchedAt": "2026-09-18T06:11:05.531Z",
+    "basis": "Offizielle Werte je Portion laut „i“-Fenster der Website — **ohne Dressing** (Fußnote „*ohne Dressing“). Ballaststoffe nennt beets&roots nicht → 0. Dressing: Werte je 100 g des verknüpften Dressings + kcal der Portion → Portionsgramm = kcal / (kcal je 100 g) × 100",
+    "rules": [
+      "Wolt: jedes Gericht ein eigener Artikel; Preis = Wolt-Menüpreis (die Website ist meist 2,00 € günstiger)",
+      "Keine Nährwerte je Zutat und keine Custom Bowl → nur die Standard-Zusammenstellung der Gerichte (User 18.09.2026)",
+      "Optionsgruppen „Choose Extras“ / „Choose Vegan Extras“ haben keine Nährwerte → der Tracker nutzt sie nicht",
+      "Grilled Wraps: Sauce/Dressing steckt im Wrap und wird immer mitgegessen → ihre Werte enthalten das Dressing"
+    ],
+    "decisions": [
+      "User 18.09.2026: beets&roots (Wolt, Kaiserstraße) als Tracker mit den Wolt-Kategorien Bowls, Fresh Salads, Grilled Wraps, Hot Soups, Sides, Desserts; Getränke und Smoothies ignorieren",
+      "User 18.09.2026: Nährwerte einzeln über das „i“-Symbol der Website ziehen (erledigt: data/beetsroots-website.json, alle 46 Gerichte)",
+      "User 18.09.2026: Schalter „No dressing“, „No soups“ und „No desserts“ per Default AN; der Order Guide sagt „don't eat the dressing“, wo die Werte es nicht enthalten",
+      "User 18.09.2026: bei den Grilled Wraps gehört die Sauce zum Wrap und wird mitgerechnet"
+    ],
+    "store": {
+      "name": "Frankfurt Kaiserstraße",
+      "id": "859ae05c-4136-42e8-94cb-daf76d6645ce"
+    },
+    "siteControl": {
+      "file": "data/beetsroots-website.json",
+      "capturedAt": "2026-09-18",
+      "checked": 46,
+      "diffs": []
+    },
+    "optionGroups": [
+      {
+        "name": "Choose Extras",
+        "max": 7,
+        "options": [
+          "mit grilled pita +2.45 €",
+          "mit Edamame-Erbsen-Mix +2.5 €",
+          "mit Avocado +3.45 €",
+          "mit Planted.chicken (Erbsenprotein) +4.25 €",
+          "mit Ei +2 €",
+          "mit geröstetes Hähnchen +4.25 €",
+          "mit gezupfter Lachs +4.75 €"
+        ]
+      },
+      {
+        "name": "Choose Vegan Extras",
+        "max": 6,
+        "options": [
+          "mit grilled pita +2.45 €",
+          "mit Avocado +3.45 €",
+          "mit Brokkoli +2.95 €",
+          "mit geröstete Paprika +2.45 €",
+          "mit Süßkartoffeln +2.95 €",
+          "mit Planted.chicken (Erbsenprotein) +4.25 €"
+        ]
+      }
+    ],
+    "skippedCategories": [
+      "Smoothies & Shakes — Smoothies und Shakes (User 18.09.2026: Getränke ignorieren)",
+      "Non-Alcoholic Drinks — Getränke (User 18.09.2026)",
+      "Alcoholic Drinks — Getränke (User 18.09.2026)"
+    ],
+    "noData": [
+      "Burrito Chicken Bowl (Bowls, 16.95 €) — Website nennt nur kcal, protein — es fehlen fat, sat, carbs, sugars, salt"
+    ],
+    "anomalies": [
+      {
+        "name": "Sesame Chicken Noodle Bowl",
+        "issues": [
+          "kcal 627 ≠ 4·C+4·P+9·F = 790"
+        ]
+      },
+      {
+        "name": "Vegan Sesame Chicken Noodle Bowl",
+        "issues": [
+          "kcal 692 ≠ 4·C+4·P+9·F = 867"
+        ]
+      },
+      {
+        "name": "Thai Rice Bowl",
+        "issues": [
+          "kcal 532 ≠ 4·C+4·P+9·F = 795"
+        ]
+      },
+      {
+        "name": "Chicken Thai Rice Bowl",
+        "issues": [
+          "kcal 635 ≠ 4·C+4·P+9·F = 898"
+        ]
+      },
+      {
+        "name": "Vegan Chicken Thai Rice Bowl",
+        "issues": [
+          "kcal 700 ≠ 4·C+4·P+9·F = 1302"
+        ]
+      },
+      {
+        "name": "Crunchy Hummus Protein Bowl",
+        "issues": [
+          "kcal 478 ≠ 4·C+4·P+9·F = 527"
+        ]
+      },
+      {
+        "name": "Thai Lentil Soup",
+        "issues": [
+          "kcal 575 ≠ 4·C+4·P+9·F = 492"
+        ]
+      },
+      {
+        "name": "Spicy Sweet Potatoes",
+        "issues": [
+          "kcal 196 ≠ 4·C+4·P+9·F = 256"
+        ]
+      },
+      {
+        "name": "Grilled Pita Bread",
+        "issues": [
+          "kcal 201 ≠ 4·C+4·P+9·F = 273"
+        ]
+      },
+      {
+        "name": "Gourmet Carrot Cake",
+        "issues": [
+          "kcal 283 ≠ 4·C+4·P+9·F = 318"
+        ]
+      },
+      {
+        "name": "Vegan Chocolate Brownie",
+        "issues": [
+          "kcal 260 ≠ 4·C+4·P+9·F = 329"
+        ]
+      }
+    ],
+    "coriander": [
+      "Sesame Chicken Noodle Bowl",
+      "Vegan Sesame Chicken Noodle Bowl",
+      "Avocado Bowl",
+      "Avocado Chicken Bowl",
+      "Vegan Avocado Chicken Bowl",
+      "Thai Rice Bowl",
+      "Chicken Thai Rice Bowl",
+      "Vegan Chicken Thai Rice Bowl",
+      "Crunchy Thai Chicken Bowl",
+      "Vegan Crunchy Thai Chicken Bowl",
+      "Japanese Salmon Bowl",
+      "Burrito Chicken Bowl",
+      "Vegan Burrito Chicken Bowl",
+      "Thai Lentil Soup",
+      "Spicy Sweet Potatoes"
+    ],
+    "mint": [
+      "Harissa Double Chicken Bowl",
+      "Levante Chicken Bowl",
+      "Vegan Levante Chicken Bowl",
+      "Harissa Chicken Wrap",
+      "Crunchy Hummus Protein Wrap",
+      "Harissa Chicken Side"
+    ],
+    "shellfish": "kein Gericht mit Krebs- oder Weichtieren (Lachs = Fisch, „Schalenfrüchte“ = Nüsse)",
+    "infos": []
+  },
+  "wolt": {
+    "slug": "beetsroots-frankfurt",
+    "page": "https://wolt.com/de/deu/frankfurt/restaurant/beetsroots-frankfurt",
+    "cats": [
+      {
+        "id": "bowls",
+        "name": "Bowls"
+      },
+      {
+        "id": "salads",
+        "name": "Fresh Salads"
+      },
+      {
+        "id": "wraps",
+        "name": "Grilled Wraps"
+      },
+      {
+        "id": "soups",
+        "name": "Hot Soups"
+      },
+      {
+        "id": "sides",
+        "name": "Sides"
+      },
+      {
+        "id": "desserts",
+        "name": "Desserts"
+      }
+    ]
+  },
+  "dishes": [
+    {
+      "name": "Harissa Double Chicken Bowl",
+      "cat": "bowls",
+      "price": 18.65,
+      "description": "doppelte Menge Harissa-Chicken, Quinoa, geröstete Kichererbsen, eingelegte rote Zwiebeln, Gurken, Minze, beets&roots Hot Sauce, Kräuter Joghurt Dressing",
+      "website": "harissa-double-chicken-bowl",
+      "websitePrice": 16.65,
+      "values": {
+        "kcal": 633,
+        "fat": 19,
+        "sat": 2,
+        "carbs": 58,
+        "sugars": 11,
+        "protein": 46,
+        "salt": 6
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": "mehrere Dressings (Kräuter Joghurt Dressing + beets&roots Hot Sauce) — die Website nennt nur die kcal der Portion zusammen, die Aufteilung ist unbekannt",
+      "dressingInfo": "132kcal; enthält Gluten, Soja",
+      "allergens": "Laktose",
+      "dressingFixed": false
+    },
+    {
+      "name": "Levante Chicken Bowl",
+      "cat": "bowls",
+      "price": 16.45,
+      "description": "geröstetes Hähnchen, warmer Cous-Cous, geröstete Miso-Eggplant, geröstete Paprika, Babyspinat, Granatapfelkerne, Minze, Tahini Dressing (vegan)",
+      "website": "levante-chicken-bowl",
+      "websitePrice": 14.45,
+      "values": {
+        "kcal": 638,
+        "fat": 26,
+        "sat": 4,
+        "carbs": 56,
+        "sugars": 9,
+        "protein": 38,
+        "salt": 5
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Tahini dressing",
+        "product": "tahini-dressing-100",
+        "per100": {
+          "kcal": 275,
+          "fat": 23,
+          "sat": 4,
+          "carbs": 8.8,
+          "sugars": 4.6,
+          "protein": 8.6,
+          "salt": 2.2
+        },
+        "portionKcal": 210,
+        "grams": 76.36,
+        "values": {
+          "kcal": 210,
+          "fat": 17.56,
+          "sat": 3.05,
+          "carbs": 6.72,
+          "sugars": 3.51,
+          "protein": 6.57,
+          "salt": 1.68
+        },
+        "info": "210kcal; enthält Sesam"
+      },
+      "dressingNote": null,
+      "dressingInfo": "210kcal; enthält Sesam",
+      "allergens": "Gluten, Soja",
+      "dressingFixed": false
+    },
+    {
+      "name": "Vegan Levante Chicken Bowl",
+      "cat": "bowls",
+      "price": 16.45,
+      "description": "planted.chicken (Erbsenprotein), warmer Cous-Cous, geröstete Miso-Eggplant, geröstete Paprika, Babyspinat, Granatapfelkerne, Minze, Tahini Dressing (vegan)",
+      "website": "vegan-levante-chicken-bowl",
+      "websitePrice": 14.45,
+      "values": {
+        "kcal": 704,
+        "fat": 35,
+        "sat": 4,
+        "carbs": 57,
+        "sugars": 9,
+        "protein": 35,
+        "salt": 5
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Tahini dressing",
+        "product": "tahini-dressing-100",
+        "per100": {
+          "kcal": 275,
+          "fat": 23,
+          "sat": 4,
+          "carbs": 8.8,
+          "sugars": 4.6,
+          "protein": 8.6,
+          "salt": 2.2
+        },
+        "portionKcal": 210,
+        "grams": 76.36,
+        "values": {
+          "kcal": 210,
+          "fat": 17.56,
+          "sat": 3.05,
+          "carbs": 6.72,
+          "sugars": 3.51,
+          "protein": 6.57,
+          "salt": 1.68
+        },
+        "info": "210kcal, enthält Sesam"
+      },
+      "dressingNote": null,
+      "dressingInfo": "210kcal, enthält Sesam",
+      "allergens": "Gluten, Senf, Soja",
+      "dressingFixed": false
+    },
+    {
+      "name": "Sesame Chicken Noodle Bowl",
+      "cat": "bowls",
+      "price": 16.95,
+      "description": "geröstetes Hähnchen, Udon Nudeln, Süßkartoffeln, Edamame-Erbsen-Mix, Sesam, Koriander, Spicy Mayo, scharfe Kokosnuss Sauce",
+      "website": "sesam-chk-noodle-bowl",
+      "websitePrice": 14.95,
+      "values": {
+        "kcal": 627,
+        "fat": 38,
+        "sat": 15,
+        "carbs": 79,
+        "sugars": 14,
+        "protein": 33,
+        "salt": 4
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": "mehrere Dressings (Scharfe Kokosnuss Sauce + Spicy Mayo) — die Website nennt nur die kcal der Portion zusammen, die Aufteilung ist unbekannt",
+      "dressingInfo": "338kcal; enthält Gluten, Soja, Sulfite, Sesam",
+      "allergens": "Gluten, Soja, Sesam, Sulfite",
+      "dressingFixed": false
+    },
+    {
+      "name": "Vegan Sesame Chicken Noodle Bowl",
+      "cat": "bowls",
+      "price": 16.95,
+      "description": "planted.chicken (Erbsenprotein), Udon Nudeln, Süßkartoffeln, Edamame-Erbsen-Mix, Sesam, Koriander, Spicy Mayo, scharfe Kokosnuss Sauce",
+      "website": "veg-sesam-chk-noodle-bowl",
+      "websitePrice": 14.95,
+      "values": {
+        "kcal": 692,
+        "fat": 47,
+        "sat": 15,
+        "carbs": 80,
+        "sugars": 14,
+        "protein": 31,
+        "salt": 4
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": "mehrere Dressings (Scharfe Kokosnuss Sauce + Spicy Mayo) — die Website nennt nur die kcal der Portion zusammen, die Aufteilung ist unbekannt",
+      "dressingInfo": "338kcal; enthält Gluten, Soja, Sesam, Sulphite",
+      "allergens": "Gluten, Soja, Senf, Sesam, Sulfite",
+      "dressingFixed": false
+    },
+    {
+      "name": "Avocado Bowl",
+      "cat": "bowls",
+      "price": 14.95,
+      "description": "Avocado, Belugalinsen, geröstete Kichererbsen, Süßkartoffeln, Babyspinat, Mandel Crunch, Granatapfelkerne, Koriander, Yuzu Zitronen Dressing (vegan)",
+      "website": "avocado-bowl",
+      "websitePrice": 12.95,
+      "values": {
+        "kcal": 616,
+        "fat": 26,
+        "sat": 4,
+        "carbs": 72,
+        "sugars": 11,
+        "protein": 27,
+        "salt": 2
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Yuzu Zitronen Dressing",
+        "product": "yuzu-dressing-50",
+        "per100": {
+          "kcal": 348,
+          "fat": 34,
+          "sat": 2.6,
+          "carbs": 9.4,
+          "sugars": 9,
+          "protein": 0.3,
+          "salt": 2
+        },
+        "portionKcal": 266,
+        "grams": 76.44,
+        "values": {
+          "kcal": 266,
+          "fat": 25.99,
+          "sat": 1.99,
+          "carbs": 7.19,
+          "sugars": 6.88,
+          "protein": 0.23,
+          "salt": 1.53
+        },
+        "info": "266kcal, enthält Soja, Sulfite"
+      },
+      "dressingNote": null,
+      "dressingInfo": "266kcal, enthält Soja, Sulfite",
+      "allergens": "Schalenfruchte, Sesam, Sulfite",
+      "dressingFixed": false
+    },
+    {
+      "name": "Avocado Chicken Bowl",
+      "cat": "bowls",
+      "price": 16.95,
+      "description": "geröstetes Hähnchen, Avocado, Belugalinsen, geröstete Kichererbsen, Süßkartoffeln, Babyspinat, Mandel Crunch, Granatapfelkerne, Koriander, Yuzu Zitronen Dressing (vegan)",
+      "website": "avocado-chicken-bowl",
+      "websitePrice": 14.95,
+      "values": {
+        "kcal": 719,
+        "fat": 28,
+        "sat": 4,
+        "carbs": 73,
+        "sugars": 11,
+        "protein": 45,
+        "salt": 3
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Yuzu Zitronen Dressing",
+        "product": "yuzu-dressing-50",
+        "per100": {
+          "kcal": 348,
+          "fat": 34,
+          "sat": 2.6,
+          "carbs": 9.4,
+          "sugars": 9,
+          "protein": 0.3,
+          "salt": 2
+        },
+        "portionKcal": 266,
+        "grams": 76.44,
+        "values": {
+          "kcal": 266,
+          "fat": 25.99,
+          "sat": 1.99,
+          "carbs": 7.19,
+          "sugars": 6.88,
+          "protein": 0.23,
+          "salt": 1.53
+        },
+        "info": "266kcal, enthält Soja, Sulfite"
+      },
+      "dressingNote": null,
+      "dressingInfo": "266kcal, enthält Soja, Sulfite",
+      "allergens": "Schalenfrüchte, Sesam, Sulfite",
+      "dressingFixed": false
+    },
+    {
+      "name": "Vegan Avocado Chicken Bowl",
+      "cat": "bowls",
+      "price": 16.95,
+      "description": "planted.chicken (Erbsenprotein), Avocado, Belugalinsen, geröstete Kichererbsen, Süßkartoffeln, Babyspinat, Mandel Crunch, Granatapfelkerne, Koriander, Yuzu Zitronen Dressing (vegan)",
+      "website": "avocado-vegan-chicken-bowl",
+      "websitePrice": 14.95,
+      "values": {
+        "kcal": 784,
+        "fat": 37,
+        "sat": 5,
+        "carbs": 74,
+        "sugars": 11,
+        "protein": 42,
+        "salt": 3
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Yuzu Zitronen Dressing",
+        "product": "yuzu-dressing-50",
+        "per100": {
+          "kcal": 348,
+          "fat": 34,
+          "sat": 2.6,
+          "carbs": 9.4,
+          "sugars": 9,
+          "protein": 0.3,
+          "salt": 2
+        },
+        "portionKcal": 266,
+        "grams": 76.44,
+        "values": {
+          "kcal": 266,
+          "fat": 25.99,
+          "sat": 1.99,
+          "carbs": 7.19,
+          "sugars": 6.88,
+          "protein": 0.23,
+          "salt": 1.53
+        },
+        "info": "266kcal; enthält Soja, Sulfite"
+      },
+      "dressingNote": null,
+      "dressingInfo": "266kcal; enthält Soja, Sulfite",
+      "allergens": "Schalenfrüchte, Senf, Sesam, Sulfite",
+      "dressingFixed": false
+    },
+    {
+      "name": "Thai Rice Bowl",
+      "cat": "bowls",
+      "price": 14.45,
+      "description": "rotes Thai Lentil Curry, Reis, geröstete Paprika, Rotkohl, Koriander, Erdnüsse, Röstzwiebeln",
+      "website": "thai-rice-bowl",
+      "websitePrice": 12.45,
+      "values": {
+        "kcal": 532,
+        "fat": 23,
+        "sat": 13,
+        "carbs": 124,
+        "sugars": 25,
+        "protein": 23,
+        "salt": 5
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": null,
+      "dressingInfo": null,
+      "allergens": "Gluten, Erdnüsse, Soja",
+      "dressingFixed": false
+    },
+    {
+      "name": "Chicken Thai Rice Bowl",
+      "cat": "bowls",
+      "price": 16.95,
+      "description": "geröstetes Hähnchen, rotes Thai Lentil Curry, Reis, geröstete Paprika, Rotkohl, Koriander, Erdnüsse, Röstzwiebeln",
+      "website": "chicken-thai-rice-bowl",
+      "websitePrice": 14.95,
+      "values": {
+        "kcal": 635,
+        "fat": 26,
+        "sat": 14,
+        "carbs": 126,
+        "sugars": 26,
+        "protein": 40,
+        "salt": 7
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": null,
+      "dressingInfo": null,
+      "allergens": "Gluten, Erdn�sse, Soja",
+      "dressingFixed": false
+    },
+    {
+      "name": "Vegan Chicken Thai Rice Bowl",
+      "cat": "bowls",
+      "price": 16.95,
+      "description": "planted.chicken (Erbsenprotein), rotes Thai Lentil Curry, Reis, geröstete Paprika, Rotkohl, Koriander, Erdnüsse, Röstzwiebeln",
+      "website": "vegan-chicken-thai-rice-bowl",
+      "websitePrice": 14.95,
+      "values": {
+        "kcal": 700,
+        "fat": 42,
+        "sat": 7,
+        "carbs": 193,
+        "sugars": 62,
+        "protein": 38,
+        "salt": 14
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": null,
+      "dressingInfo": null,
+      "allergens": "Gluten, Erdn�sse, Soja, Senf",
+      "dressingFixed": false
+    },
+    {
+      "name": "Umami Tofu Bowl",
+      "cat": "bowls",
+      "price": 14.65,
+      "description": "Reis, Teriyaki-Tofu, geröstete Miso-Eggplant, Edamame-Erbsen-Mix, Erdnüsse, Sesam, Lemon-Ginger Dressing",
+      "website": "umami-tofu-bowl",
+      "websitePrice": 12.65,
+      "values": {
+        "kcal": 888,
+        "fat": 34,
+        "sat": 5.4,
+        "carbs": 102,
+        "sugars": 15,
+        "protein": 33,
+        "salt": 3.3
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Lemon-Ginger Dressing",
+        "product": "lemon-ginger-dressing",
+        "per100": {
+          "kcal": 440,
+          "fat": 45,
+          "sat": 3.3,
+          "carbs": 6.8,
+          "sugars": 5.8,
+          "protein": 1.2,
+          "salt": 1.2
+        },
+        "portionKcal": 330,
+        "grams": 75,
+        "values": {
+          "kcal": 330,
+          "fat": 33.75,
+          "sat": 2.48,
+          "carbs": 5.1,
+          "sugars": 4.35,
+          "protein": 0.9,
+          "salt": 0.9
+        },
+        "info": "330kcal; enthält Soja"
+      },
+      "dressingNote": null,
+      "dressingInfo": "330kcal; enthält Soja",
+      "allergens": "Gluten, Erdnüsse, Soja, Sesam, Sulfite",
+      "dressingFixed": false
+    },
+    {
+      "name": "Protein Bowl",
+      "cat": "bowls",
+      "price": 14.45,
+      "description": "Ei, Quinoa, Edamame-Erbsen-Mix, Süßkartoffeln, Brokkoli, Mandel Crunch, Granatapfelkerne, Chia Dressing",
+      "website": "protein-bowl",
+      "websitePrice": 12.45,
+      "values": {
+        "kcal": 655,
+        "fat": 22,
+        "sat": 3,
+        "carbs": 73,
+        "sugars": 18,
+        "protein": 32,
+        "salt": 2
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Chia Dressing",
+        "product": "chia-dressing",
+        "per100": {
+          "kcal": 415,
+          "fat": 36,
+          "sat": 2.8,
+          "carbs": 19,
+          "sugars": 18,
+          "protein": 1.7,
+          "salt": 2.6
+        },
+        "portionKcal": 270,
+        "grams": 65.06,
+        "values": {
+          "kcal": 270,
+          "fat": 23.42,
+          "sat": 1.82,
+          "carbs": 12.36,
+          "sugars": 11.71,
+          "protein": 1.11,
+          "salt": 1.69
+        },
+        "info": "270kcal, enthält Soja, Senf, Sulfite"
+      },
+      "dressingNote": null,
+      "dressingInfo": "270kcal, enthält Soja, Senf, Sulfite",
+      "allergens": "Eier, Soja, Schalenfrüchte, Sesam",
+      "dressingFixed": false
+    },
+    {
+      "name": "Protein Chicken Bowl",
+      "cat": "bowls",
+      "price": 16.95,
+      "description": "geröstetes Hähnchen, Ei, Quinoa, Edamame-Erbsen-Mix, Süßkartoffeln, Brokkoli, Mandel Crunch, Granatapfelkerne, Chia Dressing",
+      "website": "protein-chicken-bowl",
+      "websitePrice": 14.95,
+      "values": {
+        "kcal": 758,
+        "fat": 31,
+        "sat": 6,
+        "carbs": 74,
+        "sugars": 19,
+        "protein": 50,
+        "salt": 3
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Chia Dressing",
+        "product": "chia-dressing",
+        "per100": {
+          "kcal": 415,
+          "fat": 36,
+          "sat": 2.8,
+          "carbs": 19,
+          "sugars": 18,
+          "protein": 1.7,
+          "salt": 2.6
+        },
+        "portionKcal": 304,
+        "grams": 73.25,
+        "values": {
+          "kcal": 304,
+          "fat": 26.37,
+          "sat": 2.05,
+          "carbs": 13.92,
+          "sugars": 13.19,
+          "protein": 1.25,
+          "salt": 1.9
+        },
+        "info": "304kcal, enthält Soja, Senf, Sulfite"
+      },
+      "dressingNote": null,
+      "dressingInfo": "304kcal, enthält Soja, Senf, Sulfite",
+      "allergens": "Eier, Soja, Schalenfrüchte, Sesam",
+      "dressingFixed": false
+    },
+    {
+      "name": "Veggie Protein Chicken Bowl",
+      "cat": "bowls",
+      "price": 16.95,
+      "description": "planted.chicken (Erbsenprotein), Ei, Quinoa, Edamame-Erbsen-Mix, Süßkartoffeln, Brokkoli, Mandel Crunch, Granatapfelkerne, Chia Dressing",
+      "website": "protein-vegan-chicken-bowl",
+      "websitePrice": 14.95,
+      "values": {
+        "kcal": 823,
+        "fat": 40,
+        "sat": 6,
+        "carbs": 75,
+        "sugars": 19,
+        "protein": 47,
+        "salt": 4
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Chia Dressing",
+        "product": "chia-dressing",
+        "per100": {
+          "kcal": 415,
+          "fat": 36,
+          "sat": 2.8,
+          "carbs": 19,
+          "sugars": 18,
+          "protein": 1.7,
+          "salt": 2.6
+        },
+        "portionKcal": 304,
+        "grams": 73.25,
+        "values": {
+          "kcal": 304,
+          "fat": 26.37,
+          "sat": 2.05,
+          "carbs": 13.92,
+          "sugars": 13.19,
+          "protein": 1.25,
+          "salt": 1.9
+        },
+        "info": "304kcal, enthält Soja, Senf, Sulfite"
+      },
+      "dressingNote": null,
+      "dressingInfo": "304kcal, enthält Soja, Senf, Sulfite",
+      "allergens": "Eier, Soja, Schalenfrüchte, Senf, Sesam",
+      "dressingFixed": false
+    },
+    {
+      "name": "Double Protein Chicken Bowl",
+      "cat": "bowls",
+      "price": 17.95,
+      "description": "double portion roasted chicken, egg, quinoa, edamame-peas-mix, sweet potatoes, broccoli, almond crunch, pomegranates, chia dressing",
+      "website": "double-protein-chicken-bowl",
+      "websitePrice": 15.95,
+      "values": {
+        "kcal": 863,
+        "fat": 31,
+        "sat": 5.1,
+        "carbs": 67,
+        "sugars": 16,
+        "protein": 67,
+        "salt": 4.3
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Chia Dressing",
+        "product": "chia-dressing",
+        "per100": {
+          "kcal": 415,
+          "fat": 36,
+          "sat": 2.8,
+          "carbs": 19,
+          "sugars": 18,
+          "protein": 1.7,
+          "salt": 2.6
+        },
+        "portionKcal": 304,
+        "grams": 73.25,
+        "values": {
+          "kcal": 304,
+          "fat": 26.37,
+          "sat": 2.05,
+          "carbs": 13.92,
+          "sugars": 13.19,
+          "protein": 1.25,
+          "salt": 1.9
+        },
+        "info": "304kcal; enthält Senf, Soja, Sulfite"
+      },
+      "dressingNote": null,
+      "dressingInfo": "304kcal; enthält Senf, Soja, Sulfite",
+      "allergens": "Eier, Soja, Schalenfrüchte, Sesam",
+      "dressingFixed": false
+    },
+    {
+      "name": "Veggie Double Protein Chicken Bowl",
+      "cat": "bowls",
+      "price": 17.95,
+      "description": "doppelte Menge planted.chicken (Erbsenprotein), Ei, Quinoa, Edamame-Erbsen-Mix, Süßkartoffeln, Brokkoli, Mandel Crunch, Granatapfelkerne, Chia Dressing",
+      "website": "veggie-double-protein-chicken-bowl",
+      "websitePrice": 15.95,
+      "values": {
+        "kcal": 994,
+        "fat": 46,
+        "sat": 5.9,
+        "carbs": 67,
+        "sugars": 16,
+        "protein": 63,
+        "salt": 4.8
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Chia Dressing",
+        "product": "chia-dressing",
+        "per100": {
+          "kcal": 415,
+          "fat": 36,
+          "sat": 2.8,
+          "carbs": 19,
+          "sugars": 18,
+          "protein": 1.7,
+          "salt": 2.6
+        },
+        "portionKcal": 304,
+        "grams": 73.25,
+        "values": {
+          "kcal": 304,
+          "fat": 26.37,
+          "sat": 2.05,
+          "carbs": 13.92,
+          "sugars": 13.19,
+          "protein": 1.25,
+          "salt": 1.9
+        },
+        "info": "304kcal; enthält Senf, Soja, Sulfite"
+      },
+      "dressingNote": null,
+      "dressingInfo": "304kcal; enthält Senf, Soja, Sulfite",
+      "allergens": "Eier, Soja, Schalenfrüchte, Senf, Sesam",
+      "dressingFixed": false
+    },
+    {
+      "name": "Crunchy Thai Chicken Bowl",
+      "cat": "bowls",
+      "price": 15.95,
+      "description": "geröstetes Hähnchen, Rotkohl, Karotten, Gurken, Reis, Koriander, Erdnüsse, Zitronengras Dressing (vegan)",
+      "website": "crunchy-thai-chicken-bowl",
+      "websitePrice": 13.95,
+      "values": {
+        "kcal": 379,
+        "fat": 6,
+        "sat": 1,
+        "carbs": 59,
+        "sugars": 18,
+        "protein": 27,
+        "salt": 4
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Zitronengras Dressing (vegan)",
+        "product": "thai-dressing-5",
+        "per100": {
+          "kcal": 290,
+          "fat": 26,
+          "sat": 2.3,
+          "carbs": 13,
+          "sugars": 13,
+          "protein": 0.9,
+          "salt": 4.5
+        },
+        "portionKcal": 218,
+        "grams": 75.17,
+        "values": {
+          "kcal": 218,
+          "fat": 19.54,
+          "sat": 1.73,
+          "carbs": 9.77,
+          "sugars": 9.77,
+          "protein": 0.68,
+          "salt": 3.38
+        },
+        "info": "218kcal, enthält Gluten, Soja, Sesam"
+      },
+      "dressingNote": null,
+      "dressingInfo": "218kcal, enthält Gluten, Soja, Sesam",
+      "allergens": "Erdnüsse",
+      "dressingFixed": false
+    },
+    {
+      "name": "Vegan Crunchy Thai Chicken Bowl",
+      "cat": "bowls",
+      "price": 15.95,
+      "description": "planted.chicken (Erbsenprotein), Rotkohl, Karotten, Gurken, Reis, Koriander, Erdnüsse, Zitronengras Dressing (vegan)",
+      "website": "crunchy-thai-vegan-chicken-bowl",
+      "websitePrice": 13.95,
+      "values": {
+        "kcal": 473,
+        "fat": 17,
+        "sat": 2,
+        "carbs": 60,
+        "sugars": 18,
+        "protein": 25,
+        "salt": 4
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Zitronengras Dressing (vegan)",
+        "product": "thai-dressing-5",
+        "per100": {
+          "kcal": 290,
+          "fat": 26,
+          "sat": 2.3,
+          "carbs": 13,
+          "sugars": 13,
+          "protein": 0.9,
+          "salt": 4.5
+        },
+        "portionKcal": 218,
+        "grams": 75.17,
+        "values": {
+          "kcal": 218,
+          "fat": 19.54,
+          "sat": 1.73,
+          "carbs": 9.77,
+          "sugars": 9.77,
+          "protein": 0.68,
+          "salt": 3.38
+        },
+        "info": "218kcal, enthält Gluten, Soja, Sesam"
+      },
+      "dressingNote": null,
+      "dressingInfo": "218kcal, enthält Gluten, Soja, Sesam",
+      "allergens": "Erdnüsse, Senf",
+      "dressingFixed": false
+    },
+    {
+      "name": "Crunchy Hummus Protein Bowl",
+      "cat": "bowls",
+      "price": 13.65,
+      "description": "geröstete Kichererbsen, Belugalinsen, Rotkohl, Gurken, Mandel Crunch, Hummus, Olivenöl Zitronen Dressing",
+      "website": "crunchy-hummus-protein-bowl",
+      "websitePrice": 11.65,
+      "values": {
+        "kcal": 478,
+        "fat": 27,
+        "sat": 3,
+        "carbs": 42,
+        "sugars": 6,
+        "protein": 29,
+        "salt": 3
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Olivenöl Zitronen Dressing",
+        "product": "olivenl-zitronen-dressing",
+        "per100": {
+          "kcal": 7,
+          "fat": 0.1,
+          "sat": 0,
+          "carbs": 0.5,
+          "sugars": 0.5,
+          "protein": 0.1,
+          "salt": 0
+        },
+        "portionKcal": 4,
+        "grams": 57.14,
+        "values": {
+          "kcal": 4,
+          "fat": 0.06,
+          "sat": 0,
+          "carbs": 0.29,
+          "sugars": 0.29,
+          "protein": 0.06,
+          "salt": 0
+        },
+        "info": "4kcal; frei von allergene"
+      },
+      "dressingNote": null,
+      "dressingInfo": "4kcal; frei von allergene",
+      "allergens": "Sesam, Sulfite, Schälenfrüchte",
+      "dressingFixed": false
+    },
+    {
+      "name": "Japanese Salmon Bowl",
+      "cat": "bowls",
+      "price": 16.95,
+      "description": "gezupfter Lachs, Reis, Avocado, Edamame-Erbsen-Mix, Gurken, Granatapfelkerne, Koriander, Spicy Mayo",
+      "website": "japanese-salmon-bowl",
+      "websitePrice": 14.95,
+      "values": {
+        "kcal": 772,
+        "fat": 24,
+        "sat": 6,
+        "carbs": 102,
+        "sugars": 16,
+        "protein": 32,
+        "salt": 5
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Spicy Mayo",
+        "product": "spicy-mayo-50",
+        "per100": {
+          "kcal": 453,
+          "fat": 46,
+          "sat": 3.3,
+          "carbs": 8.6,
+          "sugars": 7.8,
+          "protein": 1.4,
+          "salt": 4
+        },
+        "portionKcal": 338,
+        "grams": 74.61,
+        "values": {
+          "kcal": 338,
+          "fat": 34.32,
+          "sat": 2.46,
+          "carbs": 6.42,
+          "sugars": 5.82,
+          "protein": 1.04,
+          "salt": 2.98
+        },
+        "info": "338kcal, enthält Gluten, Soja, Sulfite"
+      },
+      "dressingNote": null,
+      "dressingInfo": "338kcal, enthält Gluten, Soja, Sulfite",
+      "allergens": "Fisch, Soja, Sesam",
+      "dressingFixed": false
+    },
+    {
+      "name": "Burrito Chicken Bowl",
+      "cat": "bowls",
+      "price": 16.95,
+      "description": "geröstetes Hähnchen, Chipotle Bohnen, Süßkartoffeln, Rotkohl, Gurken, Salatmix, Nachos, Koriander, Basilikum Cashew Dressing",
+      "website": "burrito-chicken-bowl",
+      "websitePrice": 14.95,
+      "values": {
+        "kcal": 522,
+        "protein": 33
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Basilikum Cashew Dressing",
+        "product": "basil-cashew-dressing",
+        "per100": {
+          "kcal": 366,
+          "fat": 30,
+          "sat": 3.5,
+          "carbs": 17,
+          "sugars": 13,
+          "protein": 4.7,
+          "salt": 3.7
+        },
+        "portionKcal": 274,
+        "grams": 74.86,
+        "values": {
+          "kcal": 274,
+          "fat": 22.46,
+          "sat": 2.62,
+          "carbs": 12.73,
+          "sugars": 9.73,
+          "protein": 3.52,
+          "salt": 2.77
+        },
+        "info": "274kcal; enthält Schalenfrüchte"
+      },
+      "dressingNote": null,
+      "dressingInfo": "274kcal; enthält Schalenfrüchte",
+      "allergens": "Senf",
+      "dressingFixed": false,
+      "noData": "Website nennt nur kcal, protein — es fehlen fat, sat, carbs, sugars, salt"
+    },
+    {
+      "name": "Vegan Burrito Chicken Bowl",
+      "cat": "bowls",
+      "price": 16.95,
+      "description": "planted.chicken (Erbsenprotein), Chipotle Bohnen, Süßkartoffeln, Rotkohl, Gurken, Salatmix, Nachos, Koriander, Basilikum Cashew Dressing",
+      "website": "vegan-burrito-chicken-bowl",
+      "websitePrice": 14.95,
+      "values": {
+        "kcal": 587,
+        "fat": 26,
+        "sat": 2,
+        "carbs": 62,
+        "sugars": 19,
+        "protein": 30,
+        "salt": 3
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Basilikum Cashew Dressing",
+        "product": "basil-cashew-dressing",
+        "per100": {
+          "kcal": 366,
+          "fat": 30,
+          "sat": 3.5,
+          "carbs": 17,
+          "sugars": 13,
+          "protein": 4.7,
+          "salt": 3.7
+        },
+        "portionKcal": 274,
+        "grams": 74.86,
+        "values": {
+          "kcal": 274,
+          "fat": 22.46,
+          "sat": 2.62,
+          "carbs": 12.73,
+          "sugars": 9.73,
+          "protein": 3.52,
+          "salt": 2.77
+        },
+        "info": "274kcal; enthält Schalenfrüchte"
+      },
+      "dressingNote": null,
+      "dressingInfo": "274kcal; enthält Schalenfrüchte",
+      "allergens": "Senf",
+      "dressingFixed": false
+    },
+    {
+      "name": "Avocado & Feta Salad",
+      "cat": "salads",
+      "price": 13.95,
+      "description": "Avocado, Feta, halbgetrocknete Tomaten, Gurken, Salatmix, Sesam Mix mit Tomatenflocken, Basilikum Cashew Dressing",
+      "website": "avo-feta-salad",
+      "websitePrice": 11.95,
+      "values": {
+        "kcal": 315,
+        "fat": 21,
+        "sat": 7,
+        "carbs": 15,
+        "sugars": 9,
+        "protein": 16,
+        "salt": 1
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Basilikum Cashew Dressing",
+        "product": "basil-cashew-dressing",
+        "per100": {
+          "kcal": 366,
+          "fat": 30,
+          "sat": 3.5,
+          "carbs": 17,
+          "sugars": 13,
+          "protein": 4.7,
+          "salt": 3.7
+        },
+        "portionKcal": 274,
+        "grams": 74.86,
+        "values": {
+          "kcal": 274,
+          "fat": 22.46,
+          "sat": 2.62,
+          "carbs": 12.73,
+          "sugars": 9.73,
+          "protein": 3.52,
+          "salt": 2.77
+        },
+        "info": "274kcal, enthält Schalenfrüchte"
+      },
+      "dressingNote": null,
+      "dressingInfo": "274kcal, enthält Schalenfrüchte",
+      "allergens": "Laktose, Sesam",
+      "dressingFixed": false
+    },
+    {
+      "name": "Caesar Chicken Salad",
+      "cat": "salads",
+      "price": 14.45,
+      "description": "geröstetes Hähnchen, halbgetrocknete Tomaten, Radieschen, Salatmix, Parmesan Chips, Caesar Dressing (vegan)",
+      "website": "caesar-chicken-salad",
+      "websitePrice": 12.45,
+      "values": {
+        "kcal": 212,
+        "fat": 5,
+        "sat": 1,
+        "carbs": 14,
+        "sugars": 8,
+        "protein": 28,
+        "salt": 1
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Caesar Dressing (vegan)",
+        "product": "caesar-dressing",
+        "per100": {
+          "kcal": 385,
+          "fat": 35,
+          "sat": 3.4,
+          "carbs": 9.8,
+          "sugars": 5,
+          "protein": 5.4,
+          "salt": 2.3
+        },
+        "portionKcal": 289,
+        "grams": 75.06,
+        "values": {
+          "kcal": 289,
+          "fat": 26.27,
+          "sat": 2.55,
+          "carbs": 7.36,
+          "sugars": 3.75,
+          "protein": 4.05,
+          "salt": 1.73
+        },
+        "info": "289kcal, enthält Gluten, Soja, Schälenfrüchte, Senf"
+      },
+      "dressingNote": null,
+      "dressingInfo": "289kcal, enthält Gluten, Soja, Schälenfrüchte, Senf",
+      "allergens": "Laktose",
+      "dressingFixed": false
+    },
+    {
+      "name": "Veggie Caesar Chicken Salad",
+      "cat": "salads",
+      "price": 14.45,
+      "description": "planted.chicken (Erbsenprotein), halbgetrocknete Tomaten, Radieschen, Salatmix, Parmesan Chips, Caesar Dressing (vegan)",
+      "website": "caesar-vegan-chicken-salad",
+      "websitePrice": 12.45,
+      "values": {
+        "kcal": 277,
+        "fat": 12,
+        "sat": 2,
+        "carbs": 15,
+        "sugars": 8,
+        "protein": 26,
+        "salt": 1
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Caesar Dressing (vegan)",
+        "product": "caesar-dressing",
+        "per100": {
+          "kcal": 385,
+          "fat": 35,
+          "sat": 3.4,
+          "carbs": 9.8,
+          "sugars": 5,
+          "protein": 5.4,
+          "salt": 2.3
+        },
+        "portionKcal": 289,
+        "grams": 75.06,
+        "values": {
+          "kcal": 289,
+          "fat": 26.27,
+          "sat": 2.55,
+          "carbs": 7.36,
+          "sugars": 3.75,
+          "protein": 4.05,
+          "salt": 1.73
+        },
+        "info": "289kcal, enthält Gluten, Soja, Schalenfrüchte, Senf"
+      },
+      "dressingNote": null,
+      "dressingInfo": "289kcal, enthält Gluten, Soja, Schalenfrüchte, Senf",
+      "allergens": "Laktose, Senf",
+      "dressingFixed": false
+    },
+    {
+      "name": "Harissa Chicken Wrap",
+      "cat": "wraps",
+      "price": 11.65,
+      "description": "Harissa-Chicken, eingelegte rote Zwiebeln, Gurken, Salatmix, Minze, Wrap, beets&roots Hot Sauce",
+      "website": "harissa-chicken-wrap",
+      "websitePrice": 9.65,
+      "values": {
+        "kcal": 466,
+        "fat": 12,
+        "sat": 2,
+        "carbs": 64,
+        "sugars": 11,
+        "protein": 25,
+        "salt": 4
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "beets&roots Hot Sauce",
+        "product": "beetsroots-hot-sauce",
+        "per100": {
+          "kcal": 166,
+          "fat": 12,
+          "sat": 1.6,
+          "carbs": 12,
+          "sugars": 9.6,
+          "protein": 1.6,
+          "salt": 1.9
+        },
+        "portionKcal": 50,
+        "grams": 30.12,
+        "values": {
+          "kcal": 50,
+          "fat": 3.61,
+          "sat": 0.48,
+          "carbs": 3.61,
+          "sugars": 2.89,
+          "protein": 0.48,
+          "salt": 0.57
+        },
+        "info": "50kcal; enthält Gluten, Soja"
+      },
+      "dressingNote": null,
+      "dressingInfo": "50kcal; enthält Gluten, Soja",
+      "allergens": "Gluten, Laktose",
+      "dressingFixed": true
+    },
+    {
+      "name": "Caesar Chicken Wrap",
+      "cat": "wraps",
+      "price": 11.45,
+      "description": "geröstetes Hähnchen, eingelegte rote Zwiebeln, Salatmix, Wrap, Caesar Dressing (vegan)",
+      "website": "caesar-chicken-wrap",
+      "websitePrice": 9.45,
+      "values": {
+        "kcal": 472,
+        "fat": 9,
+        "sat": 3,
+        "carbs": 61,
+        "sugars": 10,
+        "protein": 30,
+        "salt": 4
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Caesar Dressing (vegan)",
+        "product": "caesar-dressing",
+        "per100": {
+          "kcal": 385,
+          "fat": 35,
+          "sat": 3.4,
+          "carbs": 9.8,
+          "sugars": 5,
+          "protein": 5.4,
+          "salt": 2.3
+        },
+        "portionKcal": 116,
+        "grams": 30.13,
+        "values": {
+          "kcal": 116,
+          "fat": 10.55,
+          "sat": 1.02,
+          "carbs": 2.95,
+          "sugars": 1.51,
+          "protein": 1.63,
+          "salt": 0.69
+        },
+        "info": "116kcal, enthält Gluten, Soja, Schälenfrüchte, Senf"
+      },
+      "dressingNote": null,
+      "dressingInfo": "116kcal, enthält Gluten, Soja, Schälenfrüchte, Senf",
+      "allergens": "Gluten",
+      "dressingFixed": true
+    },
+    {
+      "name": "Vegan Caesar Chicken Wrap",
+      "cat": "wraps",
+      "price": 11.45,
+      "description": "planted.chicken (Erbsenprotein), eingelegte rote Zwiebeln, Salatmix, Wrap, Caesar Dressing (vegan)",
+      "website": "caesar-veggie-chicken-wrap",
+      "websitePrice": 9.45,
+      "values": {
+        "kcal": 537,
+        "fat": 18,
+        "sat": 4,
+        "carbs": 62,
+        "sugars": 10,
+        "protein": 28,
+        "salt": 5
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Caesar Dressing (vegan)",
+        "product": "caesar-dressing",
+        "per100": {
+          "kcal": 385,
+          "fat": 35,
+          "sat": 3.4,
+          "carbs": 9.8,
+          "sugars": 5,
+          "protein": 5.4,
+          "salt": 2.3
+        },
+        "portionKcal": 116,
+        "grams": 30.13,
+        "values": {
+          "kcal": 116,
+          "fat": 10.55,
+          "sat": 1.02,
+          "carbs": 2.95,
+          "sugars": 1.51,
+          "protein": 1.63,
+          "salt": 0.69
+        },
+        "info": "116kcal, enthält Gluten, Soja, Schälenfrüchte, Senf"
+      },
+      "dressingNote": null,
+      "dressingInfo": "116kcal, enthält Gluten, Soja, Schälenfrüchte, Senf",
+      "allergens": "Gluten, Senf",
+      "dressingFixed": true
+    },
+    {
+      "name": "Sweet Chili Chicken Wrap",
+      "cat": "wraps",
+      "price": 11.45,
+      "description": "geröstetes Hähnchen, Karotten, Gurken, Rotkohl, Salatmix, Erdnüsse, Wrap, Zitronengras Dressing (vegan)",
+      "website": "sweet-chili-wrap",
+      "websitePrice": 9.45,
+      "values": {
+        "kcal": 508,
+        "fat": 15,
+        "sat": 4,
+        "carbs": 55,
+        "sugars": 6,
+        "protein": 31,
+        "salt": 4
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Zitronengras Dressing (vegan)",
+        "product": "thai-dressing-5",
+        "per100": {
+          "kcal": 290,
+          "fat": 26,
+          "sat": 2.3,
+          "carbs": 13,
+          "sugars": 13,
+          "protein": 0.9,
+          "salt": 4.5
+        },
+        "portionKcal": 87,
+        "grams": 30,
+        "values": {
+          "kcal": 87,
+          "fat": 7.8,
+          "sat": 0.69,
+          "carbs": 3.9,
+          "sugars": 3.9,
+          "protein": 0.27,
+          "salt": 1.35
+        },
+        "info": "87kcal; enthält Gluten, Soja, Sesam"
+      },
+      "dressingNote": null,
+      "dressingInfo": "87kcal; enthält Gluten, Soja, Sesam",
+      "allergens": "Gluten, Erdnüsse",
+      "dressingFixed": true
+    },
+    {
+      "name": "Vegan Sweet Chili Chicken Wrap",
+      "cat": "wraps",
+      "price": 11.45,
+      "description": "planted.chicken (Erbsenprotein), Karotten, Gurken, Rotkohl, Salatmix, Erdnüsse, Wrap, Zitronengras Dressing (vegan)",
+      "website": "vegan-sweet-chili-wrap",
+      "websitePrice": 9.45,
+      "values": {
+        "kcal": 573,
+        "fat": 24,
+        "sat": 4,
+        "carbs": 56,
+        "sugars": 6,
+        "protein": 29,
+        "salt": 4
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Zitronengras Dressing (vegan)",
+        "product": "thai-dressing-5",
+        "per100": {
+          "kcal": 290,
+          "fat": 26,
+          "sat": 2.3,
+          "carbs": 13,
+          "sugars": 13,
+          "protein": 0.9,
+          "salt": 4.5
+        },
+        "portionKcal": 87,
+        "grams": 30,
+        "values": {
+          "kcal": 87,
+          "fat": 7.8,
+          "sat": 0.69,
+          "carbs": 3.9,
+          "sugars": 3.9,
+          "protein": 0.27,
+          "salt": 1.35
+        },
+        "info": "87kcal; enthält Gluten, Soja, Sesam"
+      },
+      "dressingNote": null,
+      "dressingInfo": "87kcal; enthält Gluten, Soja, Sesam",
+      "allergens": "Gluten, Erdnüsse, Senf",
+      "dressingFixed": true
+    },
+    {
+      "name": "Mexican Wrap",
+      "cat": "wraps",
+      "price": 10.95,
+      "description": "Chipotle Bohnen, Cheddar, Rotkohl, Salatmix, Wrap, beets&roots Hot Sauce",
+      "website": "mexican-wrap",
+      "websitePrice": 8.95,
+      "values": {
+        "kcal": 601,
+        "fat": 32,
+        "sat": 11,
+        "carbs": 64,
+        "sugars": 10,
+        "protein": 26,
+        "salt": 5
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "beets&roots Hot Sauce",
+        "product": "beetsroots-hot-sauce",
+        "per100": {
+          "kcal": 166,
+          "fat": 12,
+          "sat": 1.6,
+          "carbs": 12,
+          "sugars": 9.6,
+          "protein": 1.6,
+          "salt": 1.9
+        },
+        "portionKcal": 49,
+        "grams": 29.52,
+        "values": {
+          "kcal": 49,
+          "fat": 3.54,
+          "sat": 0.47,
+          "carbs": 3.54,
+          "sugars": 2.83,
+          "protein": 0.47,
+          "salt": 0.56
+        },
+        "info": "49kcal, enthält Gluten, Soja"
+      },
+      "dressingNote": null,
+      "dressingInfo": "49kcal, enthält Gluten, Soja",
+      "allergens": "Gluten, Soja, Laktose, Senf",
+      "dressingFixed": true
+    },
+    {
+      "name": "Salmon Wrap",
+      "cat": "wraps",
+      "price": 11.95,
+      "description": "gezupfter Lachs, Gurken, Salatmix, Wrap, Basilikum Cashew Dressing",
+      "website": "salmon-wrap",
+      "websitePrice": 9.95,
+      "values": {
+        "kcal": 507,
+        "fat": 18,
+        "sat": 5,
+        "carbs": 50,
+        "sugars": 2,
+        "protein": 26,
+        "salt": 4
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Basilikum Cashew Dressing",
+        "product": "basil-cashew-dressing",
+        "per100": {
+          "kcal": 366,
+          "fat": 30,
+          "sat": 3.5,
+          "carbs": 17,
+          "sugars": 13,
+          "protein": 4.7,
+          "salt": 3.7
+        },
+        "portionKcal": 110,
+        "grams": 30.05,
+        "values": {
+          "kcal": 110,
+          "fat": 9.02,
+          "sat": 1.05,
+          "carbs": 5.11,
+          "sugars": 3.91,
+          "protein": 1.41,
+          "salt": 1.11
+        },
+        "info": "110 kcal; enthält Schalenfrüchte"
+      },
+      "dressingNote": null,
+      "dressingInfo": "110 kcal; enthält Schalenfrüchte",
+      "allergens": "Gluten, Fisch",
+      "dressingFixed": true
+    },
+    {
+      "name": "Crunchy Hummus Protein Wrap",
+      "cat": "wraps",
+      "price": 10.65,
+      "description": "geröstete Kichererbsen, Homemade Hummus, Rotkohl, Salatmix, Minze, Wrap, Yuzu Zitronen Dressing (vegan)",
+      "website": "crunchy-hummus-wrap",
+      "websitePrice": 8.65,
+      "values": {
+        "kcal": 602,
+        "fat": 19,
+        "sat": 2.8,
+        "carbs": 79,
+        "sugars": 6,
+        "protein": 22,
+        "salt": 4.2
+      },
+      "fibreNotDeclared": true,
+      "dressing": {
+        "name": "Yuzu Zitronen Dressing",
+        "product": "yuzu-dressing-50",
+        "per100": {
+          "kcal": 348,
+          "fat": 34,
+          "sat": 2.6,
+          "carbs": 9.4,
+          "sugars": 9,
+          "protein": 0.3,
+          "salt": 2
+        },
+        "portionKcal": 107,
+        "grams": 30.75,
+        "values": {
+          "kcal": 107,
+          "fat": 10.46,
+          "sat": 0.8,
+          "carbs": 2.89,
+          "sugars": 2.77,
+          "protein": 0.09,
+          "salt": 0.62
+        },
+        "info": "107kcal; enthält Soja, Sulfite"
+      },
+      "dressingNote": null,
+      "dressingInfo": "107kcal; enthält Soja, Sulfite",
+      "allergens": "Gluten, Sesame",
+      "dressingFixed": true
+    },
+    {
+      "name": "Thai Lentil Soup",
+      "cat": "soups",
+      "price": 9.95,
+      "description": "rotes Thai Lentil Curry, Erdnüsse, Koriander",
+      "website": "thai-lentil-soup",
+      "websitePrice": 7.95,
+      "values": {
+        "kcal": 575,
+        "fat": 28,
+        "sat": 22,
+        "carbs": 51,
+        "sugars": 20,
+        "protein": 9,
+        "salt": 5
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": null,
+      "dressingInfo": null,
+      "allergens": "Gluten, Erdn�sse, Soja",
+      "dressingFixed": false
+    },
+    {
+      "name": "Harissa Chicken Side",
+      "cat": "sides",
+      "price": 4.95,
+      "description": "Harissa-Chicken, Quinoa, eingelegte rote Zwiebeln, Gurken, Minze, beets&roots Hot Sauce, Kräuter Joghurt Dressing",
+      "website": "harissa-chicken-side",
+      "websitePrice": 4.95,
+      "values": {
+        "kcal": 290,
+        "fat": 8,
+        "sat": 1,
+        "carbs": 36,
+        "sugars": 8,
+        "protein": 13,
+        "salt": 2
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": "kein Dressing-Produkt verknüpft — nur die kcal der Portion (36kcal; enthält Gluten, Soja, Laktose)",
+      "dressingInfo": "36kcal; enthält Gluten, Soja, Laktose",
+      "allergens": "Gluten, Soja, Laktose",
+      "dressingFixed": false
+    },
+    {
+      "name": "Avocado Bean Side",
+      "cat": "sides",
+      "price": 3.95,
+      "description": "Chipotle Bohnen, Avocado, geröstete Paprika, Basilikum Cashew Dressing",
+      "website": "avocado-bean-side",
+      "websitePrice": 3.95,
+      "values": {
+        "kcal": 162,
+        "fat": 8,
+        "sat": 1,
+        "carbs": 13,
+        "sugars": 7,
+        "protein": 8,
+        "salt": 1
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": "kein Dressing-Produkt verknüpft — nur die kcal der Portion (55kcal, enthält Schalenfrüchte)",
+      "dressingInfo": "55kcal, enthält Schalenfrüchte",
+      "allergens": "Soja, Senf",
+      "dressingFixed": false
+    },
+    {
+      "name": "Nordic Salmon Side",
+      "cat": "sides",
+      "price": 4.5,
+      "description": "gezupfter Lachs, Edamame-Erbsen-Mix, Ei, Chia Dressing",
+      "website": "nordic-salmon-side",
+      "websitePrice": 4.5,
+      "values": {
+        "kcal": 229,
+        "fat": 14,
+        "sat": 3,
+        "carbs": 7,
+        "sugars": 1,
+        "protein": 17,
+        "salt": 1
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": "kein Dressing-Produkt verknüpft — nur die kcal der Portion (81kcal, enthält Senf)",
+      "dressingInfo": "81kcal, enthält Senf",
+      "allergens": "Eier, Fisch, Soja, Sesam",
+      "dressingFixed": false
+    },
+    {
+      "name": "Spicy Sweet Potatoes",
+      "cat": "sides",
+      "price": 3.95,
+      "description": "Süßkartoffeln, Granatapfelkerne, Koriander, Limette, Spicy Mayo",
+      "website": "spicy-sweetpotatoes-side",
+      "websitePrice": 3.95,
+      "values": {
+        "kcal": 196,
+        "fat": 8,
+        "sat": 1,
+        "carbs": 39,
+        "sugars": 9,
+        "protein": 7,
+        "salt": 1
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": "kein Dressing-Produkt verknüpft — nur die kcal der Portion (90kcal; enthält Gluten, Soja, Sulfite)",
+      "dressingInfo": "90kcal; enthält Gluten, Soja, Sulfite",
+      "allergens": "Keine allergen",
+      "dressingFixed": false
+    },
+    {
+      "name": "Grilled Focaccia",
+      "cat": "sides",
+      "price": 2.4,
+      "description": "gegrilltes Focaccia",
+      "website": "grilled-focaccia-side",
+      "websitePrice": 2.4,
+      "values": {
+        "kcal": 295,
+        "fat": 6.7,
+        "sat": 1.1,
+        "carbs": 48,
+        "sugars": 2.5,
+        "protein": 8.2,
+        "salt": 2
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": null,
+      "dressingInfo": null,
+      "allergens": "Gluten",
+      "dressingFixed": false
+    },
+    {
+      "name": "Grilled Pita Bread",
+      "cat": "sides",
+      "price": 1.95,
+      "description": "Gegrilltes Pita",
+      "website": "grilled-pita-bread-side",
+      "websitePrice": null,
+      "values": {
+        "kcal": 201,
+        "fat": 1.12,
+        "sat": 0.1,
+        "carbs": 58.7,
+        "sugars": 1.7,
+        "protein": 7,
+        "salt": 0.7
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": null,
+      "dressingInfo": null,
+      "allergens": "Gluten",
+      "dressingFixed": false
+    },
+    {
+      "name": "Chocolate Chip Cookie",
+      "cat": "desserts",
+      "price": 3,
+      "description": "Cookie mit Milchschokoladenstückchen",
+      "website": "double-choc-cookie",
+      "websitePrice": 3,
+      "values": {
+        "kcal": 351,
+        "fat": 17.9,
+        "sat": 8.9,
+        "carbs": 42.9,
+        "sugars": 27.3,
+        "protein": 4,
+        "salt": 0.5
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": null,
+      "dressingInfo": null,
+      "allergens": "Gluten, Laktose, Soja",
+      "dressingFixed": false
+    },
+    {
+      "name": "Triple-Choc Cookie",
+      "cat": "desserts",
+      "price": 3,
+      "description": "Cookie mit Schokoladenstückchen aus dunkler, weißer und Milchschokolade",
+      "website": "triple-choc-cookie",
+      "websitePrice": 3,
+      "values": {
+        "kcal": 347,
+        "fat": 17.4,
+        "sat": 9.1,
+        "carbs": 42.9,
+        "sugars": 30.5,
+        "protein": 4,
+        "salt": 0.5
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": null,
+      "dressingInfo": null,
+      "allergens": "Gluten, Laktose, Soja",
+      "dressingFixed": false
+    },
+    {
+      "name": "Gourmet Carrot Cake",
+      "cat": "desserts",
+      "price": 3.5,
+      "description": "saftiger Carrot Cake mit Cream Cheese Frosting und Walnüssen",
+      "website": "carrot-cake",
+      "websitePrice": null,
+      "values": {
+        "kcal": 283,
+        "fat": 14,
+        "sat": 4,
+        "carbs": 45,
+        "sugars": 29,
+        "protein": 3,
+        "salt": 1
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": null,
+      "dressingInfo": null,
+      "allergens": "Gluten, Laktose, Eier, Schalenfrüchte, Soja",
+      "dressingFixed": false
+    },
+    {
+      "name": "Vegan Banana Bread",
+      "cat": "desserts",
+      "price": 3.5,
+      "description": "klassisches, veganes Bananenbrot aus reifen Bananen",
+      "website": "banana-bread-vegan",
+      "websitePrice": 3.5,
+      "values": {
+        "kcal": 230,
+        "fat": 9,
+        "sat": 1,
+        "carbs": 37,
+        "sugars": 17,
+        "protein": 2,
+        "salt": 1
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": null,
+      "dressingInfo": null,
+      "allergens": "Gluten",
+      "dressingFixed": false
+    },
+    {
+      "name": "Vegan Chocolate Brownie",
+      "cat": "desserts",
+      "price": 3.5,
+      "description": "saftiger, veganer Schoko-Brownie",
+      "website": "brownie-vegan",
+      "websitePrice": 3.5,
+      "values": {
+        "kcal": 260,
+        "fat": 17,
+        "sat": 9,
+        "carbs": 41,
+        "sugars": 27,
+        "protein": 3,
+        "salt": 0
+      },
+      "fibreNotDeclared": true,
+      "dressing": null,
+      "dressingNote": null,
+      "dressingInfo": null,
+      "allergens": "Gluten, Lupinen",
+      "dressingFixed": false
+    }
+  ]
+}
