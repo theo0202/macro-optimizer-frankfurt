@@ -1268,6 +1268,89 @@ const EDEKA = {
 };
 // __EDEKA_DATA_END__
 
+// __PREPMYMEAL_DATA_START__ (generiert via: node prepmymeal-update.js aus data/prepmymeal-raw.json — nicht von Hand editieren)
+// Quelle: prepmymeal.com, Collection „ready2go-gerichte-de“ (= Gerichtsauswahl der Meal-Box) · Werte je 100 g × ganze Packung · Stand 2026-09-19
+// Die Gerichte hängen am Schalter „Include PrepMyMeal“ und werden nie von selbst vorgeschlagen (pick) — siehe prepmymeal-update.js
+const PREPMYMEAL = {
+  cats: [{id:"prep",name:"PrepMyMeal (frozen)",on:true}],
+  items: [
+    {id:"pmm_protein_pizza_spicy_beef_salami",name:"Protein Pizza Spicy Beef Salami 420 g",brand:"prepmymeal",cat:"prep",g:420,pack:420,p100:{kcal:203,fat:4.8,sat:2,carbs:24,sugars:4.2,fibre:3.7,protein:14,salt:1.45},price:10.49,url:"https://prepmymeal.com/products/protein-pizza-spicy-beef-salami",prep:true,pick:true,frozen:true},
+    {id:"pmm_high_protein_acai_bowl_3_packungen_ausverkauft",name:"High Protein Açaí Bowl (3 Packungen) (ausverkauft) 250 g",brand:"prepmymeal",cat:"prep",g:250,pack:250,p100:{kcal:140.9,fat:2.7,sat:0.8,carbs:22.4,sugars:10,fibre:3.8,protein:8,salt:0},price:12.48,url:"https://prepmymeal.com/products/high-protein-acai-bowl-3-packungen-ausverkauft",prep:true,pick:true,frozen:true},
+    {id:"pmm_gebratener_reis_in_erdnusssauce_xl_2_portionen",name:"Gebratener Reis in Erdnusssauce (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:117,fat:4.2,sat:1.2,carbs:10.9,sugars:1.2,fibre:1,protein:8.5,salt:0.82},price:12.48,url:"https://prepmymeal.com/products/gebratener-reis-in-erdnusssauce",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_asia_nudeln_in_erdnusssauce_xl_2_portionen",name:"Asia Nudeln in Erdnusssauce (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:114,fat:4.8,sat:1.3,carbs:8.4,sugars:1.5,fibre:1.5,protein:8.7,salt:0.66},price:12.48,url:"https://prepmymeal.com/products/asia-nudeln-in-erdnusssauce",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_paella_xl_2_portionen",name:"Paella (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:98,fat:2.9,sat:0.6,carbs:9,sugars:2.3,fibre:0,protein:8,salt:0.88},price:12.48,url:"https://prepmymeal.com/products/paella-xl",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_vegane_protein_pasta_bolognese_xl_2_portionen",name:"Vegane Protein Pasta Bolognese (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:110,fat:1.4,sat:0.2,carbs:15,sugars:2.6,fibre:0,protein:8.2,salt:0.8},price:12.48,url:"https://prepmymeal.com/products/protein-penne-mit-veggie-bolognese-xl-2-portionen",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_haehnchen_bowl_buffalo_style_xl_2_portionen",name:"Hähnchen Bowl Buffalo-Style (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:92,fat:2.2,sat:1.4,carbs:8.6,sugars:2.4,fibre:2.5,protein:8.2,salt:0.79},price:12.48,url:"https://prepmymeal.com/products/hahnchen-bowl-buffalo-style-xl-2-portionen",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_bratkartoffeln_mit_haehnchen_xl_2_portionen",name:"Bratkartoffeln mit Hähnchen (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:82,fat:1.5,sat:0.4,carbs:8,sugars:1.6,fibre:1.4,protein:8.5,salt:0.87},price:12.48,url:"https://prepmymeal.com/products/bratkartoffeln-mit-hahnchen-xl-2-portionen",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_kaesespaetzle_mit_haehnchen_xl_2_portionen",name:"Käsespätzle mit Hähnchen (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:138,fat:4.1,sat:2.7,carbs:14,sugars:0.8,fibre:2.5,protein:10.9,salt:0.83},price:12.48,url:"https://prepmymeal.com/products/kasespatzle-mit-hahnchen",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_protein_pasta_all_alfredo_xl_2_portionen",name:"Protein Pasta All'Alfredo (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:116,fat:1.9,sat:1.1,carbs:12,sugars:0.7,fibre:1.6,protein:12,salt:0.74},price:12.48,url:"https://prepmymeal.com/products/protein-pasta-a-la-alfredo-xl-2-portionen",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_protein_pasta_al_salmone_xl_2_portionen",name:"Protein Pasta al Salmone (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:113,fat:1.5,sat:0.8,carbs:14.6,sugars:1.9,fibre:1.3,protein:9.4,salt:0.84},price:12.48,url:"https://prepmymeal.com/products/athletes-line-hahnchen-reis-gruner-spargel-2",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_chili_con_carne_xl_2_portionen",name:"Chili con carne (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:120,fat:4.6,sat:2,carbs:11,sugars:1.8,fibre:2.9,protein:7.1,salt:0.83},price:12.48,url:"https://prepmymeal.com/products/chili-con-carne-xl-2-portionen-3",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_butter_chicken_xl_2_portionen",name:"Butter Chicken (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:125,fat:3.8,sat:2,carbs:13.2,sugars:1.2,fibre:0.7,protein:9,salt:0.79},price:12.48,url:"https://prepmymeal.com/products/butter-chicken-xl-2-portionen",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_haehnchen_fajita_bowl_xl_2_portionen",name:"Hähnchen Fajita Bowl (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:110,fat:2.1,sat:0.5,carbs:11.5,sugars:1.3,fibre:2,protein:10.9,salt:1.01},price:12.48,url:"https://prepmymeal.com/products/hahnchen-fajita-bowl-1000g",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_noodles_asian_style_xl_2_portionen",name:"Noodles Asian Style (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:102,fat:2.3,sat:0.5,carbs:9.6,sugars:1.5,fibre:1.9,protein:9.6,salt:0.95},price:12.48,url:"https://prepmymeal.com/products/noodles-asian-style-1",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_protein_pasta_bolognese_xl_2_portionen",name:"Protein Pasta Bolognese (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:126,fat:3.2,sat:1.4,carbs:15,sugars:1.9,fibre:1.4,protein:8.6,salt:0.74},price:12.48,url:"https://prepmymeal.com/products/protein-pasta-bolognese-xl-2-portionen",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_seelachs_reis_gemuese_xl_2_portionen",name:"Seelachs, Reis & Gemüse (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:79,fat:2.5,sat:1.6,carbs:7.2,sugars:1.5,fibre:1.1,protein:6.4,salt:0.77},price:12.48,url:"https://prepmymeal.com/products/alaska-seelachs-mit-reis-und-gemusemix",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_red_thai_curry_xl_2_portionen",name:"Red Thai Curry (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:111,fat:4.1,sat:2.9,carbs:9.4,sugars:1.6,fibre:1.05,protein:8.6,salt:0.64},price:12.48,url:"https://prepmymeal.com/products/red-thai-curry",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_protein_pasta_mit_frischkaesesosse_xl_2_portionen",name:"Protein Pasta mit Frischkäsesoße (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:118,fat:3.8,sat:2,carbs:14,sugars:1.9,fibre:1.53,protein:6.3,salt:0.85},price:12.48,url:"https://prepmymeal.com/products/protein-pasta-mit-paprika-frischkasesauce",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_haehnchen_bowl_thai_xl_2_portionen",name:"Hähnchen Bowl Thai (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:66,fat:1.3,sat:0.3,carbs:2.5,sugars:1.6,fibre:2,protein:10,salt:0.77},price:12.48,url:"https://prepmymeal.com/products/hahnchen-bowl-thai-style-1000g-2-portionen",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_haehnchen_reis_brokkoli_xl_2_portionen",name:"Hähnchen, Reis, Brokkoli (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:91,fat:0.9,sat:0.4,carbs:11.8,sugars:1.2,fibre:0.95,protein:8.3,salt:0.69},price:12.48,url:"https://prepmymeal.com/products/hahnchen-reis-borkkoli-xl-2-portionen",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_suesskartoffel_haehnchen_bowl_xl_2_portionen",name:"Süßkartoffel Hähnchen Bowl (XL, 2 Portionen) 1000 g",brand:"prepmymeal",cat:"prep",g:1000,pack:1000,p100:{kcal:81,fat:1.7,sat:0.4,carbs:7.2,sugars:2.3,fibre:0,protein:8.2,salt:0.79},price:12.48,url:"https://prepmymeal.com/products/susskartoffel-hahnchen-bowl-xl-2-portionen",prep:true,pick:true,frozen:true,portions:2},
+    {id:"pmm_protein_pizza_chicken_peppers",name:"Protein Pizza Chicken & Peppers 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:177,fat:2.9,sat:1.2,carbs:24,sugars:2.4,fibre:1.6,protein:13,salt:1.43},price:10.49,url:"https://prepmymeal.com/products/protein-pizza-chicken-peppers",prep:true,pick:true,frozen:true},
+    {id:"pmm_pizza_tonno_cipolla",name:"Pizza Tonno & Cipolla 520 g",brand:"prepmymeal",cat:"prep",g:520,pack:520,p100:{kcal:177,fat:2.4,sat:1,carbs:27,sugars:2.5,fibre:1.5,protein:11,salt:1.63},price:10.49,url:"https://prepmymeal.com/products/protein-pizza-tonno-cipolla",prep:true,pick:true,frozen:true},
+    {id:"pmm_protein_pizza_margherita",name:"Protein Pizza Margherita 390 g",brand:"prepmymeal",cat:"prep",g:390,pack:390,p100:{kcal:201,fat:3,sat:1.2,carbs:29,sugars:2.4,fibre:3.1,protein:13,salt:1.56},price:9.49,url:"https://prepmymeal.com/products/protein-pizza-margharita",prep:true,pick:true,frozen:true},
+    {id:"pmm_athletes_line_haehnchen_reis_brokkoli",name:"Athletes Line: Hähnchen Reis Brokkoli 450 g",brand:"prepmymeal",cat:"prep",g:450,pack:450,p100:{kcal:121,fat:0.8,sat:0.2,carbs:19,sugars:0.4,fibre:1.2,protein:9.1,salt:0.3},price:10.49,url:"https://prepmymeal.com/products/athletes-line-hahnchen-reis-brokkoli",prep:true,pick:true,frozen:true},
+    {id:"pmm_tikka_masala",name:"Tikka Masala 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:126,fat:4.3,sat:2.2,carbs:12,sugars:1.7,fibre:2,protein:9.2,salt:1},price:10.49,url:"https://prepmymeal.com/products/tikka-masala",prep:true,pick:true,frozen:true},
+    {id:"pmm_athletes_line_x_alex_kukla",name:"Athletes Line x Alex Kukla 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:77,fat:2.1,sat:0.6,carbs:4.6,sugars:1.9,fibre:0.6,protein:9.6,salt:0.5},price:12.49,url:"https://prepmymeal.com/products/athletes-line-rinderstreifen-susskartoffel-zucchini-paprika",prep:true,pick:true,frozen:true},
+    {id:"pmm_athletes_line_x_urs_kalecinski",name:"Athletes Line x Urs Kalecinski 450 g",brand:"prepmymeal",cat:"prep",g:450,pack:450,p100:{kcal:120,fat:1.5,sat:0.3,carbs:14,sugars:0.4,fibre:1.1,protein:12,salt:0.4},price:12.49,url:"https://prepmymeal.com/products/athlete-line-x-urs-phat-krapho",prep:true,pick:true,frozen:true},
+    {id:"pmm_protein_penne_mit_veggie_bolognese",name:"Protein Penne mit Veggie Bolognese 460 g",brand:"prepmymeal",cat:"prep",g:460,pack:460,p100:{kcal:134,fat:3.9,sat:1.3,carbs:15,sugars:2.7,fibre:2.6,protein:8.3,salt:1},price:10.49,url:"https://prepmymeal.com/products/protein-penne-mit-veggie-bolognese",prep:true,pick:true,frozen:true},
+    {id:"pmm_protein_pasta_alla_panna",name:"Protein Pasta alla Panna 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:129,fat:3.2,sat:1.3,carbs:14,sugars:1.3,fibre:1.1,protein:11,salt:0.7},price:10.49,url:"https://prepmymeal.com/products/protein-pasta-tartufo",prep:true,pick:true,frozen:true},
+    {id:"pmm_asia_nudeln_mit_rindfleisch",name:"Asia Nudeln mit Rindfleisch 480 g",brand:"prepmymeal",cat:"prep",g:480,pack:480,p100:{kcal:121,fat:3.9,sat:0.7,carbs:14,sugars:2.3,fibre:0,protein:6.7,salt:0.95},price:10.49,url:"https://prepmymeal.com/products/asia-nudeln-mit-rindfleisch",prep:true,pick:true,frozen:true},
+    {id:"pmm_philly_cheese_beef_bowl",name:"Philly Cheese & Beef Bowl 450 g",brand:"prepmymeal",cat:"prep",g:450,pack:450,p100:{kcal:118,fat:6,sat:2.7,carbs:7.6,sugars:1.8,fibre:0,protein:7.7,salt:0.85},price:10.49,url:"https://prepmymeal.com/products/philly-cheese-beef-bowl",prep:true,pick:true,frozen:true},
+    {id:"pmm_haehnchen_nach_doener_art",name:"Hähnchen nach Döner-Art 510 g",brand:"prepmymeal",cat:"prep",g:510,pack:510,p100:{kcal:117,fat:4,sat:2.2,carbs:11,sugars:2.3,fibre:0,protein:9.1,salt:0.94},price:10.49,url:"https://prepmymeal.com/products/hahnchen-auf-doner-art",prep:true,pick:true,frozen:true},
+    {id:"pmm_protein_penne_mit_bolognese",name:"Protein Penne mit Bolognese 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:111,fat:2.3,sat:0.6,carbs:14,sugars:1.8,fibre:0,protein:7.5,salt:1},price:10.49,url:"https://prepmymeal.com/products/rinderbolognese",prep:true,pick:true,frozen:true},
+    {id:"pmm_linguine_aglio_e_olio",name:"Linguine Aglio e Olio 470 g",brand:"prepmymeal",cat:"prep",g:470,pack:470,p100:{kcal:147,fat:3.4,sat:0.6,carbs:19,sugars:1.7,fibre:0,protein:9.5,salt:0.7},price:10.49,url:"https://prepmymeal.com/products/linguine-aglio-e-olio",prep:true,pick:true,frozen:true},
+    {id:"pmm_gnocchi_mit_lachs",name:"Gnocchi mit Lachs 480 g",brand:"prepmymeal",cat:"prep",g:480,pack:480,p100:{kcal:136,fat:6,sat:1.8,carbs:12,sugars:3.5,fibre:0,protein:7.5,salt:1.1},price:10.49,url:"https://prepmymeal.com/products/gnocchi-mit-lachs",prep:true,pick:true,frozen:true},
+    {id:"pmm_reisnudeln_in_kokossauce",name:"Reisnudeln in Kokossauce 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:121,fat:5,sat:3.5,carbs:9.9,sugars:1.9,fibre:0,protein:8.9,salt:0.75},price:10.49,url:"https://prepmymeal.com/products/hahnchen-mit-reisnudeln-und-gemuse-in-kokossauce",prep:true,pick:true,frozen:true},
+    {id:"pmm_athletes_line_rinderstreifen",name:"Athletes Line: Rinderstreifen 450 g",brand:"prepmymeal",cat:"prep",g:450,pack:450,p100:{kcal:107,fat:2,sat:0.7,carbs:9.6,sugars:1,fibre:0,protein:11,salt:0.33},price:12.49,url:"https://prepmymeal.com/products/athletes-line-rinderstreifen-reis-grune-bohnen-paprika",prep:true,pick:true,frozen:true},
+    {id:"pmm_lasagne",name:"Lasagne 440 g",brand:"prepmymeal",cat:"prep",g:440,pack:440,p100:{kcal:137,fat:6.6,sat:2.7,carbs:10,sugars:1.9,fibre:0,protein:10,salt:1},price:10.49,url:"https://prepmymeal.com/products/rindfleisch-lasagne",prep:true,pick:true,frozen:true},
+    {id:"pmm_gemuese_lasagne",name:"Gemüse Lasagne 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:129,fat:3.8,sat:1.4,carbs:16,sugars:2.3,fibre:0,protein:6.8,salt:0.59},price:10.49,url:"https://prepmymeal.com/products/gemuse-lasagne",prep:true,pick:true,frozen:true},
+    {id:"pmm_burrito_bowl",name:"Burrito Bowl 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:125,fat:3.6,sat:1.7,carbs:14,sugars:1.2,fibre:0,protein:9,salt:1.1},price:10.49,url:"https://prepmymeal.com/products/burrito-bowl",prep:true,pick:true,frozen:true},
+    {id:"pmm_mac_cheese_mit_haehnchen",name:"Mac & Cheese mit Hähnchen 475 g",brand:"prepmymeal",cat:"prep",g:475,pack:475,p100:{kcal:159,fat:6.8,sat:4.1,carbs:15,sugars:1.2,fibre:0,protein:9.2,salt:0.7},price:10.49,url:"https://prepmymeal.com/products/mac-cheese-mit-hahnchen",prep:true,pick:true,frozen:true},
+    {id:"pmm_haehnchen_reis_brokkoli",name:"Hähnchen, Reis, Brokkoli 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:119,fat:2.8,sat:1.2,carbs:15,sugars:1.2,fibre:0,protein:7.7,salt:0.49},price:10.49,url:"https://prepmymeal.com/products/hahnchen-mit-joghurtsauce",prep:true,pick:true,frozen:true},
+    {id:"pmm_suesskartoffel_haehnchen_bowl",name:"Süßkartoffel Hähnchen Bowl 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:104,fat:3.4,sat:0.9,carbs:7.6,sugars:3,fibre:0,protein:9.7,salt:0.8},price:10.49,url:"https://prepmymeal.com/products/susskartoffel-hahnchen-bowl",prep:true,pick:true,frozen:true},
+    {id:"pmm_spaetzle_mit_rinderstreifen",name:"Spätzle mit Rinderstreifen 460 g",brand:"prepmymeal",cat:"prep",g:460,pack:460,p100:{kcal:132,fat:5.1,sat:1.5,carbs:14,sugars:0.9,fibre:0,protein:7.6,salt:1},price:10.49,url:"https://prepmymeal.com/products/copy-of-hahnchen-mit-lemongrassosse",prep:true,pick:true,frozen:true},
+    {id:"pmm_satay_seelachs",name:"Satay Seelachs 450 g",brand:"prepmymeal",cat:"prep",g:450,pack:450,p100:{kcal:133,fat:4.7,sat:1.6,carbs:12,sugars:1.4,fibre:0,protein:10,salt:0.75},price:10.49,url:"https://prepmymeal.com/products/satay-seelachs",prep:true,pick:true,frozen:true},
+    {id:"pmm_chili_nudeln_asiatischer_art",name:"Chili Nudeln asiatischer Art 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:121,fat:2.8,sat:0.5,carbs:14,sugars:2.2,fibre:0,protein:8.5,salt:0.74},price:10.49,url:"https://prepmymeal.com/products/chili-nudeln",prep:true,pick:true,frozen:true},
+    {id:"pmm_lachs_mit_kuerbis_pueree",name:"Lachs mit Kürbis-Püree 400 g",brand:"prepmymeal",cat:"prep",g:400,pack:400,p100:{kcal:180,fat:13,sat:4.4,carbs:5.8,sugars:1.2,fibre:0,protein:9.1,salt:0.58},price:10.49,url:"https://prepmymeal.com/products/lachs-mit-kurbis-puree",prep:true,pick:true,frozen:true},
+    {id:"pmm_gai_pad_med_mamuang_mit_reis",name:"Gai Pad Med Mamuang mit Reis 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:124,fat:3.8,sat:0.7,carbs:13,sugars:1.3,fibre:0,protein:8.6,salt:0.94},price:10.49,url:"https://prepmymeal.com/products/gai-pad-med-mamuang-mit-reis",prep:true,pick:true,frozen:true},
+    {id:"pmm_planted_gruenes_curry",name:"Planted Grünes Curry 460 g",brand:"prepmymeal",cat:"prep",g:460,pack:460,p100:{kcal:145,fat:7,sat:3.3,carbs:13,sugars:1.4,fibre:0,protein:6.5,salt:0.68},price:10.49,url:"https://prepmymeal.com/products/planted-grunes-curry",prep:true,pick:true,frozen:true},
+    {id:"pmm_protein_fusilli_mit_zitronengras_sauce",name:"Protein Fusilli mit Zitronengras-Sauce 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:134,fat:3,sat:1.4,carbs:19,sugars:1.5,fibre:0,protein:6.7,salt:0.95},price:10.49,url:"https://prepmymeal.com/products/rote-linsenpasta",prep:true,pick:true,frozen:true},
+    {id:"pmm_haehnchen_mit_hummus",name:"Hähnchen mit Hummus 490 g",brand:"prepmymeal",cat:"prep",g:490,pack:490,p100:{kcal:145,fat:9.1,sat:3.6,carbs:4.5,sugars:1.9,fibre:0,protein:10,salt:0.8},price:10.49,url:"https://prepmymeal.com/products/hahnchen-mit-blumenkohl-hummus",prep:true,pick:true,frozen:true},
+    {id:"pmm_lachs_reis_gruene_bohnen",name:"Lachs, Reis, grüne Bohnen 430 g",brand:"prepmymeal",cat:"prep",g:430,pack:430,p100:{kcal:153,fat:7.6,sat:1.2,carbs:12,sugars:0.2,fibre:0,protein:8.2,salt:0.51},price:12.49,url:"https://prepmymeal.com/products/lachs-reis-grune-bohnen-1",prep:true,pick:true,frozen:true},
+    {id:"pmm_rumpsteak_mit_rosmarinkartoffeln",name:"Rumpsteak mit Rosmarinkartoffeln 445 g",brand:"prepmymeal",cat:"prep",g:445,pack:445,p100:{kcal:136,fat:6.7,sat:2.5,carbs:8.9,sugars:1,fibre:0,protein:8.1,salt:0.59},price:18.49,url:"https://prepmymeal.com/products/rumpsteak-mit-rosmarinkartoffeln",prep:true,pick:true,frozen:true},
+    {id:"pmm_reisnudeln_mit_haehnchen",name:"Reisnudeln mit Hähnchen 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:144,fat:5.3,sat:1.7,carbs:14,sugars:2,fibre:0,protein:9.4,salt:0.9},price:10.49,url:"https://prepmymeal.com/products/reisnudeln-mit-hahnchen",prep:true,pick:true,frozen:true},
+    {id:"pmm_cheeseburger_bowl",name:"Cheeseburger Bowl 470 g",brand:"prepmymeal",cat:"prep",g:470,pack:470,p100:{kcal:118,fat:7.2,sat:3.4,carbs:4.3,sugars:2.8,fibre:0,protein:8.2,salt:0.92},price:10.49,url:"https://prepmymeal.com/products/cheeseburger-bowl",prep:true,pick:true,frozen:true},
+    {id:"pmm_chili_con_carne",name:"Chili con Carne 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:72,fat:3.1,sat:0.7,carbs:5.1,sugars:2.3,fibre:0,protein:4.9,salt:0.84},price:10.49,url:"https://prepmymeal.com/products/chili-con-carne",prep:true,pick:true,frozen:true},
+    {id:"pmm_haehnchen_im_kokosmantel",name:"Hähnchen im Kokosmantel 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:93,fat:2.9,sat:1.3,carbs:6.9,sugars:2.1,fibre:0,protein:8.9,salt:0.74},price:10.49,url:"https://prepmymeal.com/products/hahnchen-im-kokosmantel-1",prep:true,pick:true,frozen:true},
+    {id:"pmm_kokos_chili_mit_lemongrassosse",name:"Kokos-Chili mit Lemongrassoße 440 g",brand:"prepmymeal",cat:"prep",g:440,pack:440,p100:{kcal:139,fat:5.2,sat:2.5,carbs:12,sugars:0.7,fibre:0,protein:11,salt:0.4},price:10.49,url:"https://prepmymeal.com/products/kokos-chili-lemongrassosse-mit-hahnchenbrust",prep:true,pick:true,frozen:true},
+    {id:"pmm_haehnchen_mit_gemuese_und_kaese",name:"Hähnchen mit Gemüse und Käse 400 g",brand:"prepmymeal",cat:"prep",g:400,pack:400,p100:{kcal:126,fat:5.4,sat:1.7,carbs:4.8,sugars:2.4,fibre:0,protein:14,salt:1.1},price:10.49,url:"https://prepmymeal.com/products/hahnchen-mit-gemuse-und-weisskase",prep:true,pick:true,frozen:true},
+    {id:"pmm_kokos_curry_mit_linsen_und_gemuese",name:"Kokos-Curry mit Linsen und Gemüse 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:122,fat:4.6,sat:2.1,carbs:12,sugars:1.6,fibre:2.5,protein:6.6,salt:0.7},price:10.49,url:"https://prepmymeal.com/products/hahnchen-kokos-kichererbsen-eintopf",prep:true,pick:true,frozen:true},
+    {id:"pmm_thai_pa_naeng_mit_haehnchenbrust",name:"Thai Pa Naeng mit Hähnchenbrust 440 g",brand:"prepmymeal",cat:"prep",g:440,pack:440,p100:{kcal:102,fat:3.1,sat:2.1,carbs:7.1,sugars:1.1,fibre:0,protein:11,salt:0.6},price:10.49,url:"https://prepmymeal.com/products/lachs-blumenkohl-grune-bohnen",prep:true,pick:true,frozen:true},
+    {id:"pmm_haehnchen_mit_kaese_ueberbacken",name:"Hähnchen mit Käse überbacken 400 g",brand:"prepmymeal",cat:"prep",g:400,pack:400,p100:{kcal:122,fat:5.8,sat:2.9,carbs:4.4,sugars:1.6,fibre:0,protein:13,salt:0.65},price:10.49,url:"https://prepmymeal.com/products/hahnchen-mit-pilzragout-und-kase-uberbacken",prep:true,pick:true,frozen:true},
+    {id:"pmm_gelbes_curry_mit_haehnchenbrust",name:"Gelbes Curry mit Hähnchenbrust 440 g",brand:"prepmymeal",cat:"prep",g:440,pack:440,p100:{kcal:127,fat:7,sat:3.4,carbs:4.9,sugars:1.1,fibre:0,protein:10,salt:0.9},price:10.49,url:"https://prepmymeal.com/products/gelbes-curry-mit-hahnchenbrust",prep:true,pick:true,frozen:true},
+    {id:"pmm_rotes_haehnchen_curry",name:"Rotes Hähnchen Curry 410 g",brand:"prepmymeal",cat:"prep",g:410,pack:410,p100:{kcal:151,fat:9.3,sat:4.5,carbs:3.8,sugars:1.6,fibre:0,protein:12,salt:0.82},price:10.49,url:"https://prepmymeal.com/products/rotes-hahnchen-curry",prep:true,pick:true,frozen:true},
+    {id:"pmm_veganes_biryani",name:"Veganes Biryani 500 g",brand:"prepmymeal",cat:"prep",g:500,pack:500,p100:{kcal:119,fat:3.6,sat:1,carbs:18,sugars:1.8,fibre:0,protein:2.8,salt:0.73},price:10.49,url:"https://prepmymeal.com/products/veganes-biryani",prep:true,pick:true,frozen:true},
+    {id:"pmm_kichererbsen_masala",name:"Kichererbsen-Masala 400 g",brand:"prepmymeal",cat:"prep",g:400,pack:400,p100:{kcal:101,fat:3.6,sat:0.7,carbs:12,sugars:1.3,fibre:0,protein:3.1,salt:0.6},price:10.49,url:"https://prepmymeal.com/products/indisches-kichererbsenmasala",prep:true,pick:true,frozen:true},
+    {id:"pmm_haehnchenbrust_mit_pilzrahmsosse",name:"Hähnchenbrust mit Pilzrahmsoße 460 g",brand:"prepmymeal",cat:"prep",g:460,pack:460,p100:{kcal:105,fat:4.8,sat:2.7,carbs:5.3,sugars:2,fibre:0,protein:9.4,salt:0.82},price:10.49,url:"https://prepmymeal.com/products/hahnchenbrust-mit-pilzrahmsosse-neu",prep:true,pick:true,frozen:true},
+    {id:"pmm_rindfleisch_mit_kartoffeln",name:"Rindfleisch mit Kartoffeln 460 g",brand:"prepmymeal",cat:"prep",g:460,pack:460,p100:{kcal:124,fat:7.2,sat:2.5,carbs:5.8,sugars:2.6,fibre:0,protein:8.3,salt:0.88},price:10.49,url:"https://prepmymeal.com/products/rindfleisch-mit-kartoffeln-und-weisskohl",prep:true,pick:true,frozen:true},
+    {id:"pmm_veganes_masala",name:"Veganes Masala 490 g",brand:"prepmymeal",cat:"prep",g:490,pack:490,p100:{kcal:175,fat:8.7,sat:3.7,carbs:17,sugars:2.2,fibre:0,protein:4.8,salt:0.77},price:10.49,url:"https://prepmymeal.com/products/veganes-kichererbsen-masala",prep:true,pick:true,frozen:true},
+    {id:"pmm_veganes_kuerbis_curry",name:"Veganes Kürbis-Curry 450 g",brand:"prepmymeal",cat:"prep",g:450,pack:450,p100:{kcal:173,fat:10,sat:4.5,carbs:14,sugars:2.1,fibre:0,protein:4.9,salt:0.89},price:10.49,url:"https://prepmymeal.com/products/veganes-kurbis-curry",prep:true,pick:true,frozen:true},
+    {id:"pmm_omelette_mit_pilzrahmsosse",name:"Omelette mit Pilzrahmsoße 330 g",brand:"prepmymeal",cat:"prep",g:330,pack:330,p100:{kcal:137,fat:9.7,sat:2.8,carbs:5.1,sugars:1.6,fibre:0,protein:6.8,salt:0.81},price:10.49,url:"https://prepmymeal.com/products/omelette-mit-champignon-rahmsosse",prep:true,pick:true,frozen:true},
+  ],
+};
+// __PREPMYMEAL_DATA_END__
+
 // __MEALS_DATA_START__ (generiert via: node meals-update.js aus data/meals.json + data/edeka-raw.json — nicht von Hand editieren)
 // Quelle: data/meals.json (vom User bestätigte Kombinationen) × data/edeka-raw.json — Schnappschuss der Werte vom 2026-09-19,
 // damit die Gerichte unabhängig vom Onlineshop bleiben. Aktualisieren: node meals-update.js
@@ -3161,12 +3244,21 @@ function summarizeResult(r, res) { return (r.kind === "byo" && r.summary) ? r.su
 //   „Build around your own picks“ sperrt Produkte als feste Basis (baseItems), „Must include“ wirkt genauso.
 // · Track basket: kein Optimizer, sondern ein Warenkorb (Suche → Menge/Gramm ändern) mit Summe gegen die Ziele.
 // Beides teilt sich Katalog, Kategorie-Chips, Schalter, Ausschluss- und Pflicht-Liste.
-const EDEKA_BY_ID = Object.fromEntries(EDEKA.items.map(x => [x.id, x]));
+// Der Tab führt zwei Kataloge zusammen: die Produkte des Marktes und die PrepMyMeal-Gerichte, die es dort zu kaufen gibt.
+// PrepMyMeal hängt am Schalter „Include PrepMyMeal“ (prep) und wird nie von selbst vorgeschlagen (pick) — User 19.09.2026
+const EDEKA_ALL = { cats: EDEKA.cats.concat(PREPMYMEAL.cats), items: EDEKA.items.concat(PREPMYMEAL.items) };
+const EDEKA_BY_ID = Object.fromEntries(EDEKA_ALL.items.map(x => [x.id, x]));
+const edekaPrepOn = st => !!((st && st.sw) || {}).prepMyMeal;
+// Was der Tab gerade kennt: ohne den Schalter gibt es die PrepMyMeal-Gerichte nirgends (Suche, Pool, Picks, Warenkorb)
+const edekaCatalog = st => EDEKA_ALL.items.filter(x => !x.prep || edekaPrepOn(st));
+const edekaCats = st => EDEKA_ALL.cats.filter(c => c.id !== "prep" || edekaPrepOn(st));
 const EDEKA_LS = LS.edeka;                                    // localStorage: { picks:[{id,g,qty}], basket:[{id,g,qty}] }
-const EDEKA_NOTE = "Official values per 100 g from the product pages of the EDEKA Graf online shop. Every product counts as the whole pack — for tins that is the drained weight (Abtropfgewicht). Every gram figure can be changed in the basket and in your picks. Prices are the online-shop prices of this store — in the shop they can differ. Three fresh items publish no nutrition (raw vegetables need none): the carrot noodles use the values of the shop’s own carrot sticks, zucchini noodles and mini cucumbers those of USDA FoodData Central — each product says where its values come from.";
+const EDEKA_NOTE = "Official values per 100 g from the product pages of the EDEKA Graf online shop. Every product counts as the whole pack — for tins that is the drained weight (Abtropfgewicht). Every gram figure can be changed in the basket and in your picks. Prices are the online-shop prices of this store — in the shop they can differ. Three fresh items publish no nutrition (raw vegetables need none): the carrot noodles use the values of the shop’s own carrot sticks, zucchini noodles and mini cucumbers those of USDA FoodData Central — each product says where its values come from. Leave the search box empty to browse everything in the categories you have switched on.";
 const EDEKA_SWITCHES = [
-  { id:"noFrozen", label:"No frozen food", def:true, filter:x => !x.frozen,          // User 19.09.2026: Default AN
-    hint:"Leaves out anything the product page stores at −18 °C. None of the products in this list is frozen today — the switch is here for later additions." },
+  { id:"noFrozen", label:"No frozen food", def:true, filter:x => !x.frozen || x.prep,   // User 19.09.2026: Default AN
+    hint:"Leaves out anything the product page stores at −18 °C. PrepMyMeal meals are frozen too, but they have their own switch below." },
+  { id:"prepMyMeal", label:"Include PrepMyMeal", def:false, allow:x => x.prep,          // User 19.09.2026: Default AUS
+    hint:"Off: the PrepMyMeal meals sold at this store are hidden everywhere. On: they show up in the product search — in the basket you can add any of them, and in Build order they only enter an order when you lock one in yourself under “Build around your own picks” (🔒). The optimizer never suggests them on its own." },
 ];
 
 const edekaG = g => (Math.round(g * 10) / 10) + " g";
@@ -3194,11 +3286,19 @@ function edekaLoad() {
 function edekaSave(ext) { lsSet(EDEKA_LS, { picks: ext.picks || [], basket: ext.basket || [] }); }
 const edekaR1 = x => Math.round(x * 10) / 10;
 
-// Produkt-Suche im Tab (umlaut-tolerant über Name + Marke), nach Kürze sortiert
-function edekaSearch(query, limit) {
+// Produkt-Suche im Tab (umlaut-tolerant über Name + Marke), nach Kürze sortiert.
+// Ohne Suchbegriff listet sie alle Produkte der aktiven Kategorien — zum Stöbern (User 19.09.2026)
+function edekaSearch(query, limit, st) {
   const q = String(query || "").trim();
-  if (!q) return [];
-  return EDEKA.items.filter(x => matchesQuery(x.name + " " + (x.brand || ""), q))
+  const pool = edekaCatalog(st);
+  if (!q) {
+    const cats = (st && st.cats) || {};
+    const order = EDEKA_ALL.cats.map(c => c.id);
+    return pool.filter(x => cats[x.cat])
+      .sort((a, b) => (order.indexOf(a.cat) - order.indexOf(b.cat)) || a.name.localeCompare(b.name, "de"))
+      .slice(0, limit || 200);
+  }
+  return pool.filter(x => matchesQuery(x.name + " " + (x.brand || ""), q))
     .sort((a, b) => a.name.length - b.name.length).slice(0, limit || 30);
 }
 
@@ -3206,17 +3306,20 @@ function edekaOptimize(t, mode, p, st, ex, r, inc) {
   const ext = st.extra || {}, sw = st.sw || {}, cats = st.cats || {};
   const active = (r.switches || []).filter(s => sw[s.id]);
   // Gesperrte Picks und Pflicht-Produkte sind die feste Basis; Pflicht-Produkte, die schon gepickt sind, zählen einmal
-  const pickIds = new Set(edekaEntries(ext.picks).map(e => e.id).filter(id => !ex.has(id)));
-  const base = edekaItemsOf(edekaEntries(ext.picks).filter(e => !ex.has(e.id)), { locked: true });
+  const known = new Set(edekaCatalog(st).map(x => x.id));         // ohne den Schalter gibt es die PrepMyMeal-Gerichte nicht
+  const picks = edekaEntries(ext.picks).filter(e => !ex.has(e.id) && known.has(e.id));
+  const pickIds = new Set(picks.map(e => e.id));
+  const base = edekaItemsOf(picks, { locked: true });
   const missing = [];
   for (const id of inc || []) {
     if (ex.has(id) || pickIds.has(id)) continue;
     const it = EDEKA_BY_ID[id];
-    if (!it || isShellfish(it)) { missing.push(id); continue; }
+    if (!it || isShellfish(it) || !known.has(id)) { missing.push(id); continue; }
     base.push(edekaScale(it, it.g, { must: true }));
   }
   if (missing.length) return Object.assign([], { missing });
-  let pool = EDEKA.items.filter(x => cats[x.cat] && !ex.has(x.id) && !pickIds.has(x.id) && !isShellfish(x));
+  // pick-Produkte (PrepMyMeal) schlägt der Optimizer nie von selbst vor — sie kommen nur über „🔒 Lock in“ in eine Bestellung
+  let pool = edekaCatalog(st).filter(x => cats[x.cat] && !ex.has(x.id) && !pickIds.has(x.id) && !isShellfish(x) && !x.pick);
   for (const s of active) if (s.filter) pool = pool.filter(s.filter);
   for (const s of r.switches || []) if (s.allow && !sw[s.id]) pool = pool.filter(x => !s.allow(x));
   const maxN = st.maxN || r.maxN || 5;
@@ -3238,9 +3341,15 @@ function edekaConfigCard(ctx) {
     h("div", { style:{ display:"flex", gap:8, marginBottom:12 } },
       h("button", { onClick:() => edekaSetExt(ctx, { mode:"build" }), style:EDEKA_BTN(!track) }, "🎯 Build order"),
       h("button", { onClick:() => edekaSetExt(ctx, { mode:"track" }), style:EDEKA_BTN(track) }, "🛒 Track basket")),
-    h("div", { style:LBL }, "Categories"),
+    h("div", { style:{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:8 } },
+      h("div", { style:{ ...LBL, marginBottom:0 } }, "Categories"),
+      h("div", { style:{ display:"flex", gap:10 } },
+        h("button", { onClick:() => ctx.update(() => ({ cats:Object.fromEntries(edekaCats(st).map(c => [c.id, true])) })),
+          style:{ background:"none", border:"none", color:"#777", fontSize:11, cursor:"pointer", fontFamily:S.mono, textDecoration:"underline", padding:0 } }, "All"),
+        h("button", { onClick:() => ctx.update(() => ({ cats:Object.fromEntries(EDEKA_ALL.cats.map(c => [c.id, false])) })),
+          style:{ background:"none", border:"none", color:"#777", fontSize:11, cursor:"pointer", fontFamily:S.mono, textDecoration:"underline", padding:0 } }, "None"))),
     h("div", { style:{ display:"flex", flexWrap:"wrap", gap:5, marginBottom:12 } },
-      ...EDEKA.cats.map(c => h(Chip, { key:c.id, label:c.name, active:!!st.cats[c.id],
+      ...edekaCats(st).map(c => h(Chip, { key:c.id, label:c.name, active:!!st.cats[c.id],
         onClick:() => ctx.update(s => ({ cats:{ ...s.cats, [c.id]: !s.cats[c.id] } })) }))),
     !track && h("div", { style:LBL }, "Max. products per order"),
     !track && h("div", { style:{ display:"flex", gap:5, marginBottom:10 } },
@@ -3251,7 +3360,7 @@ function edekaConfigCard(ctx) {
 }
 const edekaSummary = res => (res.items || []).map(x => x.name).join(" + ");
 function edekaCard(res, ctx) {
-  const cats = [...new Set((res.items || []).map(x => (EDEKA.cats.find(c => c.id === x.cat) || {}).name || x.cat))];
+  const cats = [...new Set((res.items || []).map(x => (EDEKA_ALL.cats.find(c => c.id === x.cat) || {}).name || x.cat))];
   return h(ResultCard, { title:edekaSummary(res), sub:res.items.length + (res.items.length === 1 ? " product · " : " products · ") + cats.join(" · "),
     n:res.nutrition, price:res.price, selected:ctx.selected, onClick:ctx.onSelect });
 }
@@ -3274,21 +3383,23 @@ function edekaPanel(sel, ctx) {
   );
 }
 function edekaOrderSteps(sel) {
-  return (sel.items || []).map(x => ({ l:(EDEKA.cats.find(c => c.id === x.cat) || {}).name || x.cat,
+  return (sel.items || []).map(x => ({ l:(EDEKA_ALL.cats.find(c => c.id === x.cat) || {}).name || x.cat,
     v:(x.locked ? "🔒 " : x.must ? "★ " : "") + edekaName(x) }));
 }
-const edekaSearchEntries = () => EDEKA.items.map(x => Object.assign({ id:x.id, name:x.name + " (" + edekaG(x.g) + ")", cat:x.cat }, edekaScale(x, x.g)));
-const edekaListEntries = () => EDEKA.items.map(x => ({ id:x.id, name:x.name, group:(EDEKA.cats.find(c => c.id === x.cat) || {}).name || x.cat }));
+// Such-Index von „Add own order“: alle Produkte des Tabs inkl. der PrepMyMeal-Gerichte (dort trackt man von Hand, ohne Optimizer)
+const edekaSearchEntries = () => EDEKA_ALL.items.map(x => Object.assign({ id:x.id, cat:x.cat }, edekaScale(x, x.g)));
+// Ausschluss- und Pflicht-Liste bleiben beim Sortiment des Marktes — PrepMyMeal kommt über „🔒 Lock in“ in die Bestellung
+const edekaListEntries = () => EDEKA.items.map(x => ({ id:x.id, name:x.name, group:(EDEKA_ALL.cats.find(c => c.id === x.cat) || {}).name || x.cat }));
 const edekaIncludables = () => edekaListEntries().map(x => Object.assign({ role:"item" }, x));
 function edekaValidate() {
   const P = [], ids = new Set();
-  for (const x of EDEKA.items) {
+  for (const x of EDEKA_ALL.items) {
     if (ids.has(x.id)) P.push("EDEKA: Produkt-id doppelt: " + x.id);
     ids.add(x.id);
     if (!(x.g > 0)) P.push("EDEKA: " + x.name + " ohne Menge");
     if (typeof x.price !== "number") P.push("EDEKA: " + x.name + " ohne Preis");
     if (!x.url) P.push("EDEKA: " + x.name + " ohne Produktseite");
-    if (!EDEKA.cats.some(c => c.id === x.cat)) P.push("EDEKA: " + x.name + " in unbekannter Kategorie " + x.cat);
+    if (!EDEKA_ALL.cats.some(c => c.id === x.cat)) P.push("EDEKA: " + x.name + " in unbekannter Kategorie " + x.cat);
     for (const k of KEYS) if (typeof x.p100[k] !== "number" || !isFinite(x.p100[k]) || x.p100[k] < 0) P.push("EDEKA: " + x.name + " hat keinen gültigen Wert für " + k);
   }
   return P;
@@ -3318,13 +3429,13 @@ function edekaBasketList(ctx, key) {
        h("span", { key:"q", style:{ fontSize:13, fontFamily:S.mono, color:"#fff", minWidth:18, textAlign:"center" } }, e.qty || 1),
        edekaStepBtn("+", () => setList(l => l.map((x, j) => j === i ? { ...x, qty:(x.qty || 1) + 1 } : x))),
        edekaStepBtn("✕", () => setList(l => l.filter((x, j) => j !== i)), true)],
-      Math.round(sc.kcal * (e.qty || 1)) + " kcal · P " + edekaR1(sc.protein * (e.qty || 1)) + " · C " + edekaR1(sc.carbs * (e.qty || 1)) + " · F " + edekaR1(sc.fat * (e.qty || 1)) + " · " + bowlEuro(it.price * (e.qty || 1)) + (it.drained ? " · drained weight" : "") + (it.ref ? " · values: " + it.ref : "")));
+      Math.round(sc.kcal * (e.qty || 1)) + " kcal · P " + edekaR1(sc.protein * (e.qty || 1)) + " · C " + edekaR1(sc.carbs * (e.qty || 1)) + " · F " + edekaR1(sc.fat * (e.qty || 1)) + " · " + bowlEuro(it.price * (e.qty || 1)) + (it.drained ? " · drained weight" : "") + (it.portions > 1 ? " · " + it.portions + " portions" : "") + (it.ref ? " · values: " + it.ref : "")));
   });
 }
 function edekaExtra(ctx) {
   const { st, tg } = ctx, ext = st.extra || {}, track = edekaMode(st) === "track";
   const key = track ? "basket" : "picks", list = edekaEntries(ext[key]);
-  const hits = edekaSearch(ext.q, 24);
+  const hits = edekaSearch(ext.q, (ext.q || "").trim() ? 24 : 200, st);
   const add = it => edekaSetExt(ctx, { [key]:[...list, { id:it.id, g:it.g, qty:1 }], q:"" });
   const total = edekaTotal(list);
   const price = list.reduce((s, e) => s + (EDEKA_BY_ID[e.id].price || 0) * (e.qty || 1), 0);
@@ -3335,13 +3446,13 @@ function edekaExtra(ctx) {
             : "Lock in products you want today: every suggestion below keeps them and only fills the rest of your target. They count towards “Max. products”."),
     h("input", { type:"text", value:ext.q || "", onChange:e => edekaSetExt(ctx, { q:e.target.value }), placeholder:track ? "Search a product to add…" : "Search products to lock in…",
       style:{ width:"100%", boxSizing:"border-box", background:"#151515", border:"1px solid #2a2a2a", borderRadius:10, padding:"11px 14px", color:"#fff", fontSize:14, fontFamily:S.font, outline:"none", marginBottom:10 } }),
-    (ext.q || "").trim() && h("div", { style:{ display:"flex", flexDirection:"column", gap:6, marginBottom:14 } },
-      hits.length === 0 ? h("div", { style:{ fontSize:12, color:"#666", fontFamily:S.mono } }, "No matches.")
+    h("div", { style:{ display:"flex", flexDirection:"column", gap:6, marginBottom:14 } },
+      hits.length === 0 ? h("div", { style:{ fontSize:12, color:"#666", fontFamily:S.mono } }, (ext.q || "").trim() ? "No matches." : "No categories switched on.")
         : hits.map((it, i) => {
           const sc = edekaScale(it, it.g);
           return h("div", { key:i }, edekaRow(it,
             h("button", { onClick:() => add(it), style:{ background:S.green, border:"none", color:"#fff", borderRadius:8, padding:"7px 12px", fontSize:12, fontWeight:700, cursor:"pointer", fontFamily:S.font } }, track ? "+ Add" : "🔒 Lock in"),
-            edekaG(it.g) + " · " + Math.round(sc.kcal) + " kcal · P " + edekaR1(sc.protein) + " · " + bowlEuro(it.price) + (it.drained ? " · drained weight" : "") + (it.ref ? " · values: " + it.ref : "")));
+            edekaG(it.g) + " · " + Math.round(sc.kcal) + " kcal · P " + edekaR1(sc.protein) + " · " + bowlEuro(it.price) + (it.drained ? " · drained weight" : "") + (it.portions > 1 ? " · " + it.portions + " portions per pack" : "") + (it.ref ? " · values: " + it.ref : "")));
         })),
     h("div", { style:{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:8 } },
       h("div", { style:LBL }, (track ? "My basket" : "Your picks") + (list.length ? " · " + list.reduce((s, e) => s + (e.qty || 1), 0) + (list.reduce((s, e) => s + (e.qty || 1), 0) === 1 ? " product" : " products") : "")),
@@ -3544,7 +3655,7 @@ const RESTAURANTS = [
   // EDEKA Graf, Frankfurt (In-Store; User 19.09.2026). Daten: node edeka-crawl.js (Produktseiten des Onlineshops → data/edeka-raw.json) → node edeka-update.js.
   // Supermarkt statt Restaurant: zwei Modi (Build order / Track basket, siehe EDEKA-Sektion), Mengen in Gramm, eigene Picks sperrbar.
   // skipAll = nicht in All/Accurate (dort werden Restaurant-Bestellungen verglichen), guideLabel = Einkaufsliste statt Order Guide
-  { key:"edeka", name:"Edeka Graf (In-Store)", kind:"byo", data:EDEKA, gradient:["#0055a5","#012a52"], label:"EDEKA GRAF · FRANKFURT · IN-STORE", platform:"In-Store", accurate:true, maxN:5,
+  { key:"edeka", name:"Edeka Graf (In-Store)", kind:"byo", data:EDEKA_ALL, gradient:["#0055a5","#012a52"], label:"EDEKA GRAF · FRANKFURT · IN-STORE", platform:"In-Store", accurate:true, maxN:5,
     skipAll:true, guideLabel:"🛒 Shopping list (EDEKA Graf)", switches:EDEKA_SWITCHES,
     initState:edekaLoad, hideResults:st => edekaMode(st) === "track",
     optimize:edekaOptimize, renderConfig:edekaConfigCard, renderExtra:edekaExtra, renderCard:edekaCard, renderPanel:edekaPanel,
