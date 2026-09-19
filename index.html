@@ -1268,6 +1268,36 @@ const EDEKA = {
 };
 // __EDEKA_DATA_END__
 
+// __MEALS_DATA_START__ (generiert via: node meals-update.js aus data/meals.json — nicht von Hand editieren)
+// Quelle: data/meals.json (vom User bestätigte Kombinationen) — Produkte und Nährwerte kommen aus dem Edeka-Tab
+const MEALS = {
+  cats: [
+    {id:"warm",name:"Warm",on:true},
+    {id:"cold",name:"Cold",on:true},
+  ],
+  meals: [
+    {id:"m1",name:"Grain mix with spring quark & edamame",cat:"cold",container:true,items:[{id:"alnatura_bio_schnelle_mischung_gerste_kichererbsen_linsen_250_g"},{id:"edeka_herzstuecke_edamame_dampfgegart_140_g"},{id:"milram_fruehlingsquark_activ_14_fett_185_g"}]},
+    {id:"m1a",name:"Grain mix with skyr & carrots",cat:"cold",container:true,items:[{id:"alnatura_bio_schnelle_mischung_gerste_kichererbsen_linsen_250_g"},{id:"edeka_herzstuecke_high_protein_skyr_natur_350_g"},{id:"bonduelle_moehrchen_zart_extra_fein_400_g"}]},
+    {id:"m1b",name:"Grain mix with quark & peas",cat:"cold",container:true,items:[{id:"alnatura_bio_schnelle_mischung_gerste_kichererbsen_linsen_250_g"},{id:"gut_guenstig_speisequark_magerstufe_250g_250_g"},{id:"bonduelle_junge_erbsen_feine_auslese_200_g"}]},
+    {id:"m1c",name:"Basmati with edamame & skyr",cat:"warm",container:true,items:[{id:"ben_s_original_express_basmatireis_220_g"},{id:"edeka_herzstuecke_edamame_dampfgegart_140_g"},{id:"edeka_herzstuecke_high_protein_skyr_natur_350_g"}]},
+    {id:"m2",name:"Chicken with Mexican rice & sweetcorn",cat:"warm",container:true,items:[{id:"bernard_matthews_oldenburg_haehnchen_filetstreifen_125_g"},{id:"ben_s_original_express_mexikanisch_mit_quinoa_bohnen_bowl_reis_220_g"},{id:"bonduelle_goldmais_bunter_mix_400_g"}]},
+    {id:"m3",name:"Chicken with cube salad & bulgur salad",cat:"cold",container:false,items:[{id:"edeka_herzstuecke_haehnchenbrust_filetstuecke_pikant_150_g"},{id:"edeka_herzstuecke_cube_salat_vegan_175_g"},{id:"gut_guenstig_roter_bulgursalat_mit_suesskartoffel_200_g"}]},
+    {id:"m4",name:"Chicken, chicken gyoza & white beans",cat:"warm",container:true,items:[{id:"edeka_herzstuecke_haehnchenbrust_filetstuecke_pikant_150_g"},{id:"edeka_herzstuecke_gyoza_haehnchen_150_g"},{id:"bonduelle_weisse_bohnen_400_g"}]},
+    {id:"m5",name:"Chicken, veggie gyoza & white beans",cat:"warm",container:true,items:[{id:"edeka_herzstuecke_haehnchenbrust_filetstuecke_pikant_150_g"},{id:"edeka_herzstuecke_gyoza_gemuese_150_g"},{id:"bonduelle_weisse_bohnen_400_g"}]},
+    {id:"m6",name:"Pulled BBQ, chicken gyoza & white beans",cat:"warm",container:true,items:[{id:"planted_pulled_bbq_160_g"},{id:"edeka_herzstuecke_gyoza_haehnchen_150_g"},{id:"bonduelle_weisse_bohnen_400_g"}]},
+    {id:"m7",name:"Like Döner with basmati & herb quark",cat:"warm",container:true,items:[{id:"like_like_doener_180_g"},{id:"ben_s_original_express_basmatireis_220_g"},{id:"gut_guenstig_kraeuterquark_leicht_200g"}]},
+    {id:"m8",name:"Like Grilled Chicken with Mediterranean rice & peas",cat:"warm",container:true,items:[{id:"like_like_grilled_chicken_180_g"},{id:"ben_s_original_express_mediterran_220_g"},{id:"bonduelle_junge_erbsen_feine_auslese_200_g"}]},
+    {id:"m9",name:"Like Gyros with basmati & peas",cat:"warm",container:true,items:[{id:"like_like_gyros_180_g"},{id:"reis_fit_express_basmati_reis_250_g"},{id:"bonduelle_junge_erbsen_feine_auslese_200_g"}]},
+    {id:"m10",name:"Chicken with quinoa-bulgur mix & peas and carrots",cat:"warm",container:true,items:[{id:"edeka_herzstuecke_haehnchenbrust_filetstueck_klassik_150_g"},{id:"alnatura_bio_schnelle_mischung_roter_quinoa_bulgur_langkornreis_250_g"},{id:"bonduelle_erbsen_mit_moehrchen_feine_auslese_200_g"}]},
+    {id:"m11",name:"Like Hack with basmati & zucchini noodles",cat:"warm",container:true,items:[{id:"like_like_hack_180_g"},{id:"reis_fit_express_basmati_reis_250_g"},{id:"edeka_herzstuecke_gemuesenudeln_zucchini_250_g"}]},
+    {id:"m12",name:"Skyr, herb bulgur salad & mini cucumbers",cat:"cold",container:false,items:[{id:"arla_skyr_natur_0_2_fett_450_g"},{id:"gut_guenstig_bulgursalat_mit_kraeutern_200_g"},{id:"edeka_herzstuecke_minigurken_klasse_i_230g"}]},
+    {id:"m13",name:"Skyr, herb bulgur salad & green beans",cat:"cold",container:false,items:[{id:"arla_skyr_natur_0_2_fett_450_g"},{id:"gut_guenstig_bulgursalat_mit_kraeutern_200_g"},{id:"gut_guenstig_junge_prinzessbohnen_400_g"}]},
+    {id:"m14",name:"Protein quark, kidney beans & chicken sandwich",cat:"cold",container:false,items:[{id:"schwarzwaldmilch_protein_quark_creme_0_2_fett_250_g"},{id:"bonduelle_kidney_bohnen_400_g"},{id:"edeka_herzstuecke_sandwich_sweet_chili_chicken_175_g"}]},
+    {id:"m16",name:"Skyr, oat rolls & chicken breast slices",cat:"cold",container:false,items:[{id:"exquisa_milder_skyr_natur_laktosefrei_375_g"},{id:"poensgen_haferbroetchen_glutenfrei_2x75_g"},{id:"gut_guenstig_haehnchenbrust_100_g"}]},
+  ],
+};
+// __MEALS_DATA_END__
+
 // ═══ Kern-Helper (inhaltlich identisch zum London-Tool) ═══
 const KEYS = ["kcal","fat","sat","carbs","sugars","fibre","protein","salt"];
 
@@ -3048,7 +3078,7 @@ function summarizeResult(r, res) { return (r.kind === "byo" && r.summary) ? r.su
 //   renderConfig(ctx) · renderCard(res, ctx) · renderPanel(sel, ctx) · orderSteps(sel) → [{l, v}] · searchEntries() → Items
 //   optional: summary(res), panelSubtitle(sel), inputHint(st), initState() → st.extra, excludables() → [{id, name, group}],
 //   renderExtra(ctx) = eigener Block über der Ergebnisliste (Supermarkt: Picks bzw. Warenkorb), hideResults(st) = Ergebnisliste + Panel aus,
-//   skipAll = nicht in All/Accurate, guideLabel = eigener Titel statt „Order guide (<platform>)“,
+//   skipAll = nicht in All/Accurate, guideLabel = eigener Titel statt „Order guide (<platform>)“, showAll = alle Ergebnisse zeigen (statt der besten 8),
 //   validate() → Liste von Datenproblemen (von validateRegistry geprüft), menu = Bowl-Menü (bowlCombos)
 // ═══ EDEKA Graf (In-Store): Supermarkt-Tab mit „Build order“ und „Track basket“ (User 19.09.2026) ═══
 // Muster: der Waitrose-Tab des London-Tools. Jedes Produkt trägt seine Werte je 100 g und eine Menge in Gramm
@@ -3252,6 +3282,80 @@ function edekaExtra(ctx) {
   );
 }
 
+// ═══ Pre-selected meals: feste Kombinationen aus Edeka-Produkten (User 19.09.2026) ═══
+// Muster: der gleichnamige Tab im London-Tool — kein Optimizer, sondern eine kuratierte Liste, die nach Passung zum
+// aktuellen Ziel sortiert wird. Die Produkte und ihre Werte kommen aus dem Edeka-Tab (edekaScale), die Liste aus
+// data/meals.json (→ node meals-update.js). Je Gericht steht dran, ob man dafür eine Schüssel braucht.
+const MEALS_NOTE = "Ready-made combinations of at most three products from the EDEKA Graf tab — values and prices come straight from those products. The list is sorted by how well a meal fits your current target, so the best match is on top. “Container needed” means something has to be heated or tipped out of a pouch (express rice, grain mix, gyoza); without it you can eat everything out of its own pack or put it on the roll.";
+const mealContainer = m => (m.container ? "Container needed" : "No container needed");
+const mealContainerWhy = m => (m.container
+  ? "Heat the rice, grain mix or gyoza and mix it in a bowl."
+  : "Eat it straight from the pots, trays and tins — the cold cuts go on the roll.");
+
+// Ein Gericht → die skalierten Edeka-Produkte (dieselbe Rechnung wie im Supermarkt-Tab)
+function mealItems(meal) {
+  return meal.items.map(x => {
+    const it = EDEKA_BY_ID[x.id];
+    if (!it) throw new Error("Pre-selected meals: unbekanntes Produkt " + x.id);
+    return edekaScale(it, x.g != null ? x.g : it.g);
+  });
+}
+function mealsOptimize(t, mode, p, st) {
+  const cats = (st && st.cats) || {};
+  const out = [];
+  for (const m of MEALS.meals) {
+    if (!cats[m.cat]) continue;
+    const items = mealItems(m);
+    if (items.some(isShellfish)) continue;                       // Schalentier-Regel gilt überall
+    const nutrition = sumN(items, 1);
+    const price = Math.round(items.reduce((s, x) => s + x.price * 100, 0)) / 100;
+    out.push({ key: m.id, meal: m, items, nutrition, price, score: score(nutrition, t, mode, p) });
+  }
+  return out.sort((a, b) => a.score - b.score);
+}
+function mealsConfigCard(ctx) {
+  const { st } = ctx;
+  return h("div", { style:CARD },
+    h("div", { style:LBL }, "Meals"),
+    h("div", { style:{ display:"flex", flexWrap:"wrap", gap:5, marginBottom:12 } },
+      ...MEALS.cats.map(c => h(Chip, { key:c.id, label:c.name, active:!!st.cats[c.id],
+        onClick:() => ctx.update(s => ({ cats:{ ...s.cats, [c.id]: !s.cats[c.id] } })) }))),
+    h("div", { style:{ fontSize:10, color:"#666", lineHeight:1.4 } }, MEALS_NOTE)
+  );
+}
+const mealsSummary = res => res.meal.name;
+const mealsSubtitle = sel => (MEALS.cats.find(c => c.id === sel.meal.cat) || {}).name + " · " + sel.items.length + " products · " + mealContainer(sel.meal);
+function mealsCard(res, ctx) {
+  return h(ResultCard, { title:res.meal.name,
+    sub:(MEALS.cats.find(c => c.id === res.meal.cat) || {}).name + " · " + mealContainer(res.meal) + " · " + res.items.map(x => x.name.replace(/\s*\([^)]*\)\s*$/, "")).join(" + "),
+    n:res.nutrition, price:res.price, selected:ctx.selected, onClick:ctx.onSelect });
+}
+function mealsPanel(sel, ctx) {
+  return h("div", null,
+    h("div", { style:{ background:sel.meal.container ? "rgba(251,191,36,0.08)" : "rgba(74,222,128,0.08)", border:"1px solid " + (sel.meal.container ? "#5a4a1a" : "#1f4a2e"),
+      borderRadius:9, padding:"8px 11px", marginBottom:12, fontSize:11, color:sel.meal.container ? "#e5c07b" : "#86efac", lineHeight:1.45 } },
+      h("span", { style:{ fontWeight:700 } }, (sel.meal.container ? "🥣 " : "📦 ") + mealContainer(sel.meal)), " — " + mealContainerWhy(sel.meal)),
+    edekaPanel(sel, ctx)
+  );
+}
+const mealsOrderSteps = sel => edekaOrderSteps(sel).concat([{ l:"Container", v:mealContainer(sel.meal) + " — " + mealContainerWhy(sel.meal) }]);
+const mealsSearchEntries = () => MEALS.meals.map(m => {
+  const n = sumN(mealItems(m), 1);
+  return Object.assign({ id:m.id, name:m.name + " (meal)", cat:m.cat }, n);
+});
+function mealsValidate() {
+  const P = [], ids = new Set();
+  for (const m of MEALS.meals) {
+    if (ids.has(m.id)) P.push("MEALS: Gericht-id doppelt: " + m.id);
+    ids.add(m.id);
+    if (!MEALS.cats.some(c => c.id === m.cat)) P.push("MEALS: " + m.id + " in unbekannter Gruppe " + m.cat);
+    if (!m.items.length || m.items.length > 3) P.push("MEALS: " + m.id + " hat " + m.items.length + " Produkte (erlaubt 1–3)");
+    for (const x of m.items) if (!EDEKA_BY_ID[x.id]) P.push("MEALS: " + m.id + " nennt das unbekannte Produkt " + x.id);
+    if (typeof m.container !== "boolean") P.push("MEALS: " + m.id + " ohne Behälter-Hinweis");
+  }
+  return P;
+}
+
 const RESTAURANTS = [
   // Compleat — Frankfurt Nordend (Glauburgstraße 5), je Plattform ein Eintrag (compleatEntry). Daten: node compleat-crawl.js (offizieller
   // Onlineshop + Wolt-API + Uber-Eats-Erfassung data/compleat-ubereats-menu.json → data/compleat-raw.json) → node compleat-update.js
@@ -3378,6 +3482,15 @@ const RESTAURANTS = [
     inputHint:() => "EDEKA Graf: build a basket",
     validate:edekaValidate,
     footer:"Data: product pages of the EDEKA Graf online shop (graf-ffm.edeka.shop) — values per 100 g, tins counted at drained weight · 19.09.2026" },
+  // Pre-selected meals (User 19.09.2026): kuratierte Kombis aus höchstens drei Edeka-Produkten, kein Optimizer.
+  // Liste: data/meals.json → node meals-update.js. Werte und Preise kommen aus den Edeka-Produkten, showAll zeigt alle Gerichte
+  { key:"meals", name:"Pre-selected meals", kind:"byo", data:MEALS, gradient:["#b45309","#7c2d12"], label:"PRE-SELECTED MEALS · EDEKA GRAF", platform:"In-Store", accurate:true, maxN:3,
+    skipAll:true, showAll:true, guideLabel:"🛒 Shopping list (EDEKA Graf)",
+    optimize:mealsOptimize, renderConfig:mealsConfigCard, renderCard:mealsCard, renderPanel:mealsPanel,
+    orderSteps:mealsOrderSteps, searchEntries:mealsSearchEntries, summary:mealsSummary, panelSubtitle:mealsSubtitle,
+    inputHint:() => "Pre-selected meals: best match first",
+    validate:mealsValidate,
+    footer:"Pre-selected meals from the EDEKA Graf tab — at most three products each, sorted by fit to your target · 19.09.2026" },
 ];
 const RESTO_BY_KEY = Object.fromEntries(RESTAURANTS.map(r => [r.key, r]));
 
@@ -4120,7 +4233,7 @@ function App() {
         "Search stopped early: these settings allow too many combinations to check every bowl in time. The bowls below are good, but maybe not the exact best. For an exact result, lower “Max. portions” or “Max. extras”, or turn on “No dip”."),
       // Ergebnisliste: 20 berechnet, 8 angezeigt
       tab!=="search"&&!crossEmpty&&!hideRes&&(isCross||R)&&h("div",{style:{display:"flex",flexDirection:"column",gap:8,marginBottom:20}},
-        ...sortResults(activeResults,effSort,sortTgts).slice(0,8).map((r,i)=>{
+        ...sortResults(activeResults,effSort,sortTgts).slice(0,(R&&R.showAll)?999:8).map((r,i)=>{
           if(isCross){
             const rr=RESTO_BY_KEY[r._resto];
             return h(ResultCard,{key:i,badge:rr?rr.name:r._resto,title:rr?summarizeResult(rr,r):"",n:r.nutrition,price:r.price,onClick:()=>selectAcross(r),hint:"tap → details"});

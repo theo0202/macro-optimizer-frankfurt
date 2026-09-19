@@ -1,0 +1,84 @@
+{
+  "_meta": {
+    "source": "Kuratierte Mahlzeiten aus Produkten des Edeka-Graf-Tabs (data/edeka-raw.json). Werte rechnet die App aus den Produktdaten — hier stehen nur Zusammenstellung, Name, warm/kalt und der Behälter-Hinweis",
+    "decided": "User 19.09.2026: maximal 3 Zutaten je Gericht, Zielbereich 600–800 kcal · 55–100 g Kohlenhydrate · 5–20 g Fett · 45–70 g Eiweiß. Der User hat die Liste bestätigt (alle Vorschläge außer zwei)",
+    "origin": "„user“ = Idee des Users, „claude“ = vorgeschlagen und vom User übernommen, „fix“ = fettärmere Variante der ersten User-Idee",
+    "container": "User 19.09.2026: je Gericht steht dran, ob realistisch eine Schüssel nötig ist. „needed“ = etwas muss erhitzt oder aus einem Beutel umgefüllt werden (Express-Reis, Körnermischung, Gyoza). „not needed“ = alles lässt sich aus Becher, Schale, Dose oder Packung essen bzw. aufs Brot legen",
+    "note": "Die Mengen sind die Standardmengen des Trackers (ganze Packung, bei Konserven das Abtropfgewicht). Abweichende Gramm stehen als \"g\" am Produkt",
+    "targets": { "kcal": [600, 800], "carbs": [55, 100], "fat": [5, 20], "protein": [45, 70] }
+  },
+  "meals": [
+    {
+      "id": "m1", "name": "Grain mix with spring quark & edamame", "temp": "cold", "container": true, "origin": "user",
+      "items": ["Alnatura Bio Schnelle Mischung Gerste, Kichererbsen, Linsen 250 g", "EDEKA Herzstücke Edamame Dampfgegart 140 g", "MILRAM Frühlingsquark Activ 14 % Fett 185 g"]
+    },
+    {
+      "id": "m1a", "name": "Grain mix with skyr & carrots", "temp": "cold", "container": true, "origin": "fix",
+      "items": ["Alnatura Bio Schnelle Mischung Gerste, Kichererbsen, Linsen 250 g", "EDEKA Herzstücke High Protein Skyr Natur 350 g", "Bonduelle Möhrchen zart & extra fein 400 g"]
+    },
+    {
+      "id": "m1b", "name": "Grain mix with quark & peas", "temp": "cold", "container": true, "origin": "fix",
+      "items": ["Alnatura Bio Schnelle Mischung Gerste, Kichererbsen, Linsen 250 g", "GUT&GÜNSTIG Speisequark Magerstufe 250g 250 g", "Bonduelle Junge Erbsen feine Auslese 200 g"]
+    },
+    {
+      "id": "m1c", "name": "Basmati with edamame & skyr", "temp": "warm", "container": true, "origin": "fix",
+      "items": ["Ben's Original Express Basmatireis 220 g", "EDEKA Herzstücke Edamame Dampfgegart 140 g", "EDEKA Herzstücke High Protein Skyr Natur 350 g"]
+    },
+    {
+      "id": "m2", "name": "Chicken with Mexican rice & sweetcorn", "temp": "warm", "container": true, "origin": "user",
+      "items": ["Bernard Matthews Oldenburg Hähnchen-Filetstreifen 125 g", "Ben's Original Express Mexikanisch mit Quinoa & Bohnen Bowl-Reis 220 g", "Bonduelle Goldmais Bunter Mix 400 g"]
+    },
+    {
+      "id": "m3", "name": "Chicken with cube salad & bulgur salad", "temp": "cold", "container": false, "origin": "user",
+      "items": ["EDEKA Herzstücke Hähnchenbrust-Filetstücke Pikant 150 g", "EDEKA Herzstücke Cube Salat Vegan 175 g", "GUT&GÜNSTIG Roter Bulgursalat mit Süßkartoffel 200 g"]
+    },
+    {
+      "id": "m4", "name": "Chicken, chicken gyoza & white beans", "temp": "warm", "container": true, "origin": "user",
+      "items": ["EDEKA Herzstücke Hähnchenbrust-Filetstücke Pikant 150 g", "EDEKA Herzstücke Gyoza Hähnchen 150 g", "Bonduelle Weiße Bohnen 400 g"]
+    },
+    {
+      "id": "m5", "name": "Chicken, veggie gyoza & white beans", "temp": "warm", "container": true, "origin": "user",
+      "items": ["EDEKA Herzstücke Hähnchenbrust-Filetstücke Pikant 150 g", "EDEKA Herzstücke Gyoza Gemüse 150 g", "Bonduelle Weiße Bohnen 400 g"]
+    },
+    {
+      "id": "m6", "name": "Pulled BBQ, chicken gyoza & white beans", "temp": "warm", "container": true, "origin": "user",
+      "items": ["planted. Pulled BBQ 160 g", "EDEKA Herzstücke Gyoza Hähnchen 150 g", "Bonduelle Weiße Bohnen 400 g"]
+    },
+    {
+      "id": "m7", "name": "Like Döner with basmati & herb quark", "temp": "warm", "container": true, "origin": "user",
+      "items": ["LIKE Like Döner 180 g", "Ben's Original Express Basmatireis 220 g", "GUT&GÜNSTIG Kräuterquark leicht 200g"]
+    },
+    {
+      "id": "m8", "name": "Like Grilled Chicken with Mediterranean rice & peas", "temp": "warm", "container": true, "origin": "claude",
+      "items": ["LIKE Like Grilled Chicken 180 g", "Ben's Original Express Mediterran 220 g", "Bonduelle Junge Erbsen feine Auslese 200 g"]
+    },
+    {
+      "id": "m9", "name": "Like Gyros with basmati & peas", "temp": "warm", "container": true, "origin": "claude",
+      "items": ["LIKE Like Gyros 180 g", "reis-fit Express Basmati-Reis 250 g", "Bonduelle Junge Erbsen feine Auslese 200 g"]
+    },
+    {
+      "id": "m10", "name": "Chicken with quinoa-bulgur mix & peas and carrots", "temp": "warm", "container": true, "origin": "claude",
+      "items": ["EDEKA Herzstücke Hähnchenbrust-Filetstück Klassik 150 g", "Alnatura Bio Schnelle Mischung Roter Quinoa, Bulgur, Langkornreis 250 g", "Bonduelle Erbsen mit Möhrchen feine Auslese 200 g"]
+    },
+    {
+      "id": "m11", "name": "Like Hack with basmati & zucchini noodles", "temp": "warm", "container": true, "origin": "claude",
+      "items": ["LIKE Like Hack 180 g", "reis-fit Express Basmati-Reis 250 g", "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g"]
+    },
+    {
+      "id": "m12", "name": "Skyr, herb bulgur salad & mini cucumbers", "temp": "cold", "container": false, "origin": "claude",
+      "items": ["Arla SKYR Natur 0,2 % Fett 450 g", "GUT&GÜNSTIG Bulgursalat mit Kräutern 200 g", "EDEKA Herzstücke Minigurken Klasse I 230g"]
+    },
+    {
+      "id": "m13", "name": "Skyr, herb bulgur salad & green beans", "temp": "cold", "container": false, "origin": "claude",
+      "items": ["Arla SKYR Natur 0,2 % Fett 450 g", "GUT&GÜNSTIG Bulgursalat mit Kräutern 200 g", "GUT&GÜNSTIG Junge Prinzessbohnen 400 g"]
+    },
+    {
+      "id": "m14", "name": "Protein quark, kidney beans & chicken sandwich", "temp": "cold", "container": false, "origin": "claude",
+      "items": ["Schwarzwaldmilch Protein Quark Creme 0,2 % Fett 250 g", "Bonduelle Kidney Bohnen 400 g", "EDEKA Herzstücke Sandwich Sweet Chili Chicken 175 g"]
+    },
+    {
+      "id": "m16", "name": "Skyr, oat rolls & chicken breast slices", "temp": "cold", "container": false, "origin": "claude",
+      "items": ["Exquisa Milder Skyr Natur laktosefrei 375 g", "Poensgen Haferbrötchen glutenfrei 2x75 g", "GUT&GÜNSTIG Hähnchenbrust 100 g"]
+    }
+  ]
+}

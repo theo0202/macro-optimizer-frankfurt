@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, EDEKA, edekaScale, edekaSearch, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, EDEKA, edekaScale, edekaSearch, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, MEALS, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -347,7 +347,7 @@ check("Accurate: nur accurate:true", rAccT.length === 1 && rAccT[0]._resto === "
 const inAll = T.RESTAURANTS.filter(r => !r.skipAll);
 const accReal = inAll.filter(r => r.accurate).map(r => r.key).sort().join(",");
 check("Accurate (echte Registry): genau die accurate-Restaurants ohne skipAll", T.optimizeAll(tgt(65, 85, 20), "macros", {}, 5, true).map(r => r._resto).sort().join(",") === accReal, true);
-check("All (echte Registry): 1 Treffer je Restaurant; skipAll (Supermarkt) bleibt draußen", T.optimizeAll(tgt(65, 85, 20), "macros", {}, 5, false).length === inAll.length && inAll.length === T.RESTAURANTS.length - 1 && !T.optimizeAll(tgt(65, 85, 20), "macros", {}, 5, false).some(r => r._resto === "edeka"), true);
+check("All (echte Registry): 1 Treffer je Restaurant; skipAll (Supermarkt + Pre-selected meals) bleibt draußen", T.optimizeAll(tgt(65, 85, 20), "macros", {}, 5, false).length === inAll.length && inAll.length === T.RESTAURANTS.length - 2 && !T.optimizeAll(tgt(65, 85, 20), "macros", {}, 5, false).some(r => r._resto === "edeka" || r._resto === "meals"), true);
 
 // ── SEARCH_INDEX / searchItems / matchesQuery ──
 sect("SEARCH_INDEX / searchItems / matchesQuery");
@@ -1564,6 +1564,53 @@ check("_meta: Quelle, Rechenbasis, Entscheidungen vom 19.09.2026, keine Auffäll
   rawED._meta.decisions.every(d => /^User 19[.]09[.]2026/.test(d)) && rawED._meta.anomalies.length === 1 && rawED._meta.anomalies[0].name === "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g" &&
   typeof rawED._meta.shellfish === "string" && typeof rawED._meta.coriander === "string" && typeof rawED._meta.frozen === "string" &&
   rawED._meta.noFibre.length === 36 && EDD.items.filter(x => x.p100.fibre === 0).length >= 36, true);
+
+// ── Pre-selected meals: kuratierte Kombis aus Edeka-Produkten ──
+sect("Pre-selected meals (Edeka Graf)");
+const ME = T.RESTO_BY_KEY.meals, MED = T.MEALS;
+const rawME = U.readJSON(__dirname + "/data/meals.json");
+const updME = require("./meals-update.js");
+const meal = id => MED.meals.find(m => m.id === id);
+const mealRes = (t, st) => T.runOptimize(ME, t || tDef, "macros", {}, st || T.defaultRestoState(ME), new Set(), new Set());
+check("Registry: Pre-selected meals — eigener Tab (byo), nicht in All/Accurate, zeigt alle Gerichte, Einkaufsliste wie im Supermarkt",
+  !!ME && ME.kind === "byo" && ME.platform === "In-Store" && ME.skipAll === true && ME.showAll === true &&
+  ME.guideLabel === "🛒 Shopping list (EDEKA Graf)" && !ME.switches && typeof ME.optimize === "function" && T.mealsValidate().length === 0, true);
+check("MEALS-Block = meals-update.js(data/meals.json + data/edeka-raw.json) (Block aktuell)",
+  JSON.stringify(updME.buildData(rawME, rawED)) === JSON.stringify({ cats: MED.cats, meals: MED.meals }), true);
+check("18 Gerichte (User 19.09.2026: seine 7 Ideen, 3 fettärmere Varianten, 8 Vorschläge), je höchstens 3 Produkte aus dem Edeka-Tab, Gruppen Warm/Cold",
+  MED.meals.length === 18 && MED.meals.every(m => m.items.length >= 1 && m.items.length <= 3 && m.items.every(x => !!T.EDEKA.items.find(p => p.id === x.id))) &&
+  MED.cats.map(c => c.id + ":" + c.on).join() === "warm:true,cold:true" && MED.meals.filter(m => m.cat === "warm").length === 10 &&
+  new Set(MED.meals.map(m => m.id)).size === 18, true);
+check("Behälter-Hinweis je Gericht (User 19.09.2026): 13× „Container needed“ (Reis, Körnermischung, Gyoza), 5× nicht — Skyr mit Brötchen und Aufschnitt braucht keine Schüssel",
+  MED.meals.filter(m => m.container).length === 13 && MED.meals.filter(m => !m.container).length === 5 &&
+  meal("m16").container === false && meal("m12").container === false && meal("m3").container === false &&
+  meal("m2").container === true && meal("m4").container === true, true);
+check("Werte = Summe der Edeka-Produkte: „Chicken, chicken gyoza & white beans“ 633 kcal / C 64,2 / P 62,3 / F 9,7 für 6,67 €", (() => {
+  const r = mealRes().find(x => x.key === "m4");
+  return !!r && Math.abs(r.nutrition.kcal - 632.8) < 0.15 && Math.abs(r.nutrition.carbs - 64.2) < 0.15 && Math.abs(r.nutrition.protein - 62.3) < 0.15 &&
+    Math.abs(r.nutrition.fat - 9.7) < 0.15 && Math.abs(r.price - 6.67) < 1e-9 && r.items.length === 3;
+})(), true);
+check("Alle Gerichte treffen die Zielbereiche des Users (600–800 kcal · 55–100 g KH · 5–20 g Fett · 45–70 g Eiweiß) — außer seiner ersten Idee mit 24,6 g Fett", (() => {
+  const t = rawME._meta.targets, out = mealRes().map(r => ({ id: r.key, miss: Object.entries(t).filter(([k, [lo, hi]]) => r.nutrition[k] < lo || r.nutrition[k] > hi).map(([k]) => k) }));
+  const bad = out.filter(x => x.miss.length);
+  return out.length === 18 && bad.length === 1 && bad[0].id === "m1" && bad[0].miss.join() === "fat";
+})(), true);
+check("Sortierung nach Passung zum Ziel, alle 18 Gerichte sichtbar (showAll), Kategorie-Chips filtern warm/kalt", (() => {
+  const all = mealRes(), sorted = all.every((r, i) => i === 0 || all[i - 1].score <= r.score);
+  const st = T.defaultRestoState(ME);
+  const coldOnly = mealRes(tDef, { ...st, cats: { warm: false, cold: true } });
+  return all.length === 18 && sorted && coldOnly.length === 8 && coldOnly.every(r => r.meal.cat === "cold");
+})(), true);
+check("Einkaufsliste: je Produkt eine Zeile mit Kategorie, zuletzt der Behälter-Hinweis", (() => {
+  const sel = mealRes().find(x => x.key === "m16"), steps = T.orderStepsFor(ME, sel);
+  const sel2 = mealRes().find(x => x.key === "m2"), steps2 = T.orderStepsFor(ME, sel2);
+  return steps.length === 4 && steps[3].l === "Container" && /^No container needed — Eat it straight/.test(steps[3].v) &&
+    steps[0].v === "Exquisa Milder Skyr Natur laktosefrei 375 g" && steps2.length === 4 && /^Container needed — Heat/.test(steps2[3].v);
+})(), true);
+check("Nicht in All/Accurate, aber als Gericht im Such-Index von „Add own order“", (() => {
+  const all = T.optimizeAll(tDef, "macros", {}, 5, false);
+  return !all.some(r => r._resto === "meals") && T.SEARCH_INDEX.some(x => x.resto === "Pre-selected meals" && /Skyr, oat rolls & chicken breast slices \(meal\)/.test(x.name) && Math.abs(x.kcal - 685.5) < 0.15);
+})(), true);
 
 // ── Screenshot-Import-Parser (OCR-Text → verbleibende Makros C/P/F + "Übrig"-kcal) — Fälle aus dem London-Tool ──
 sect("parseMacroScreenshot");
