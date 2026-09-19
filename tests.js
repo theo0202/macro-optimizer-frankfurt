@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, EDEKA, edekaScale, edekaSearch, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -174,7 +174,7 @@ if (regProblems.length) console.log(regProblems.join("\n"));
 check("validateRegistry(RESTAURANTS) ohne Probleme", regProblems.length, 0);
 check("keys eindeutig", new Set(T.RESTAURANTS.map(r => r.key)).size === T.RESTAURANTS.length, true);
 check("RESTO_BY_KEY deckt alle ab", T.RESTAURANTS.every(r => T.RESTO_BY_KEY[r.key] === r), true);
-check("Plattform je Restaurant: Lieferando / Wolt / Uber Eats", T.RESTAURANTS.every(r => ["Lieferando", "Wolt", "Uber Eats"].includes(r.platform)), true);
+check("Plattform je Eintrag: Lieferando / Wolt / Uber Eats — oder In-Store (Supermarkt)", T.RESTAURANTS.every(r => ["Lieferando", "Wolt", "Uber Eats", "In-Store"].includes(r.platform)), true);
 const goodAC = () => ({ key: "testac", name: "Test AC", kind: "ac", gradient: ["#000", "#111"], label: "TEST", platform: "Wolt", accurate: true, maxN: 5,
   data: { cats: [{ id: "k1", name: "K1", on: true }], items: [it("i1", "k1", 10, 10, 1)] }, switches: [] });
 check("validateRegistry: gültiger Test-Eintrag ok", T.validateRegistry([goodAC()]).length, 0);
@@ -344,9 +344,10 @@ check("All: Max-Items-Chip wird durchgereicht (1 → Singles)", T.optimizeAll(tT
 check("All: Ausschluss-Listen je Restaurant gelten auch hier", T.optimizeAll(tTR, "macros", {}, 5, false, [TR, TR2], { testr: ["m1"] }).find(r => r._resto === "testr").items.every(x => x.id !== "m1") && ids(T.optimizeAll(tTR, "macros", {}, 5, false, [TR, TR2], { testr: ["m1"] }).find(r => r._resto === "testr2")) === "m1", true);
 const rAccT = T.optimizeAll(tTR, "macros", {}, 5, true, cross);
 check("Accurate: nur accurate:true", rAccT.length === 1 && rAccT[0]._resto === "testr", true);
-const accReal = T.RESTAURANTS.filter(r => r.accurate).map(r => r.key).sort().join(",");
-check("Accurate (echte Registry): genau die accurate-Restaurants", T.optimizeAll(tgt(65, 85, 20), "macros", {}, 5, true).map(r => r._resto).sort().join(",") === accReal, true);
-check("All (echte Registry): 1 Treffer je Restaurant", T.optimizeAll(tgt(65, 85, 20), "macros", {}, 5, false).length === T.RESTAURANTS.length, true);
+const inAll = T.RESTAURANTS.filter(r => !r.skipAll);
+const accReal = inAll.filter(r => r.accurate).map(r => r.key).sort().join(",");
+check("Accurate (echte Registry): genau die accurate-Restaurants ohne skipAll", T.optimizeAll(tgt(65, 85, 20), "macros", {}, 5, true).map(r => r._resto).sort().join(",") === accReal, true);
+check("All (echte Registry): 1 Treffer je Restaurant; skipAll (Supermarkt) bleibt draußen", T.optimizeAll(tgt(65, 85, 20), "macros", {}, 5, false).length === inAll.length && inAll.length === T.RESTAURANTS.length - 1 && !T.optimizeAll(tgt(65, 85, 20), "macros", {}, 5, false).some(r => r._resto === "edeka"), true);
 
 // ── SEARCH_INDEX / searchItems / matchesQuery ──
 sect("SEARCH_INDEX / searchItems / matchesQuery");
@@ -1450,6 +1451,108 @@ check("Preislimit 20 €: Ergebnisse, keines teurer; Suche und All-Tab kennen be
   return r.length > 0 && r.every(x => x.price <= 20 + 1e-9) && T.SEARCH_INDEX.some(x => x.resto === "beets&roots (Wolt)" && x.name === "Levante Chicken Bowl" && x.kcal === 638) &&
     all.filter(x => x._resto === "beetsroots").length === 1;
 })(), true);
+
+// ── EDEKA Graf (In-Store): Supermarkt-Tab mit Build order + Track basket ──
+sect("EDEKA Graf (In-Store, Supermarkt)");
+const ED = T.RESTO_BY_KEY.edeka, EDD = T.EDEKA;
+const rawED = U.readJSON(__dirname + "/data/edeka-raw.json");
+const updED = require("./edeka-update.js");
+const edItem = id => EDD.items.find(x => x.id === id);
+const edRaw = name => rawED.items.find(x => x.name === name);
+check("Registry: Edeka Graf (In-Store) — eigener Supermarkt-Tab (byo), accurate, nicht in All/Accurate, Einkaufsliste statt Order Guide, Schalter „No frozen food“ AN",
+  !!ED && ED.kind === "byo" && ED.platform === "In-Store" && ED.accurate === true && ED.skipAll === true && ED.guideLabel === "🛒 Shopping list (EDEKA Graf)" &&
+  ED.switches.map(x => x.id + ":" + x.def).join() === "noFrozen:true" && typeof ED.hideResults === "function" && typeof ED.renderExtra === "function" && typeof ED.initState === "function", true);
+check("EDEKA-Block = edeka-update.js(data/edeka-raw.json) (Block aktuell)", (() => {
+  const d = updED.buildData(rawED);
+  return JSON.stringify(d.cats) === JSON.stringify(EDD.cats) && JSON.stringify(d.items) === JSON.stringify(EDD.items);
+})(), true);
+check("73 Produkte der User-Liste, 70 im Tracker (3 ohne veröffentlichte Nährwerte), 14 Kategorien wie vom User gruppiert, alle Chips an",
+  rawED.items.length === 73 && EDD.items.length === 70 && rawED._meta.noData.length === 3 && rawED._meta.noData.every(x => /Gemüsenudeln|Minigurken/.test(x)) &&
+  EDD.cats.length === 14 && EDD.cats.every(c => c.on === true) && EDD.cats[0].id === "carbs" && EDD.cats[13].id === "coldcuts" &&
+  T.excludablesFor(ED).length === 70 && T.includablesFor(ED).length === 70, true);
+check("Jedes Produkt: Werte je 100 g, Menge, Packungsmenge, Preis und Produktseite (Link zum Anklicken); validate meldet nichts",
+  EDD.items.every(x => x.g > 0 && x.pack > 0 && typeof x.price === "number" && /^https:\/\/graf-ffm\.edeka\.shop\//.test(x.url) && x.brand &&
+    T.KEYS.every(k => typeof x.p100[k] === "number" && isFinite(x.p100[k]) && x.p100[k] >= 0)) && T.edekaValidate().length === 0, true);
+check("Konserven zählen das Abtropfgewicht (User 19.09.2026): 17 Produkte, Bonduelle Kidney Bohnen 250 g von 400 g → 92 kcal je 100 g = 230 kcal / 18 g Eiweiß", (() => {
+  const raw = edRaw("Bonduelle Kidney Bohnen 400 g"), it = edItem(U.slugId("Bonduelle Kidney Bohnen 400 g")), sc = T.edekaScale(it, it.g);
+  return EDD.items.filter(x => x.drained).length === 17 && raw.drainedG === 250 && raw.packG === 400 && it.g === 250 && it.pack === 400 && it.p100.kcal === 92 &&
+    Math.abs(sc.kcal - 230) < 0.05 && Math.abs(sc.protein - 18) < 0.05 && Math.abs(sc.carbs - 27.5) < 0.05 && /\(250 g drained\)$/.test(sc.name);
+})(), true);
+check("Große Becher und Brötchen-Packs zählen eine Portion (kuratiert), der Name nennt die Menge nur bei Abweichung", (() => {
+  const skyr = edItem(U.slugId("GUT&GÜNSTIG Skyr Natur 500 g")), roll = edItem(U.slugId("Poensgen Körnerbrötchen glutenfrei 2x75 g")), rice = edItem(U.slugId("Ben's Original Express Basmatireis 220 g"));
+  return skyr.g === 250 && skyr.pack === 500 && roll.g === 75 && roll.pack === 150 && rice.g === 220 && rice.pack === 220 &&
+    /\(250 g\)$/.test(T.edekaScale(skyr, skyr.g).name) && T.edekaScale(rice, rice.g).name === rice.name;
+})(), true);
+check("edekaScale: Werte je 100 g × Gramm (1 Dezimale); ungültige Gramm → Menge des Produkts", (() => {
+  const it = edItem(U.slugId("Bonduelle Kidney Bohnen 400 g"));
+  const half = T.edekaScale(it, 125), bad = T.edekaScale(it, 0), txt = T.edekaScale(it, "abc");
+  return Math.abs(half.kcal - 115) < 0.05 && Math.abs(half.protein - 9) < 0.05 && bad.g === it.g && txt.g === it.g && half.price === it.price;
+})(), true);
+check("Warenkorb/Picks: Menge vervielfacht die Zeile, Summe über sumN; unbekannte Einträge fallen weg", (() => {
+  const id = U.slugId("Bonduelle Kidney Bohnen 400 g");
+  const one = T.edekaTotal([{ id, g: 250, qty: 1 }]), two = T.edekaTotal([{ id, g: 250, qty: 2 }]);
+  return Math.abs(one.kcal - 230) < 0.05 && Math.abs(two.kcal - 460) < 0.05 && Math.abs(two.protein - 36) < 0.05 &&
+    T.edekaItemsOf([{ id: "gibtsnicht", g: 100, qty: 1 }]).length === 0;
+})(), true);
+check("Produktsuche im Tab: umlaut-tolerant über Name und Marke, kürzester Name zuerst", (() => {
+  const a = T.edekaSearch("kidney"), b = T.edekaSearch("guenstig skyr"), c = T.edekaSearch("bonduelle erbsen");
+  return a.length >= 3 && a.every(x => /kidney/i.test(x.name)) && b.some(x => x.name === "GUT&GÜNSTIG Skyr Natur 500 g") &&
+    c.every(x => /Bonduelle/.test(x.name) && /erbsen/i.test(x.name)) && T.edekaSearch("").length === 0;
+})(), true);
+const edSt = T.defaultRestoState(ED);
+const edState = (extra, cats, sw) => ({ ...edSt, extra: { ...edSt.extra, ...(extra || {}) }, cats: { ...edSt.cats, ...(cats || {}) }, sw: { ...edSt.sw, ...(sw || {}) } });
+const runED = (t, st, ex, inc) => T.runOptimize(ED, t, "macros", {}, st || edSt, new Set(ex || []), new Set(inc || []));
+const rED = runED(tDef);
+check("Build order: Vorschläge aus dem Katalog, höchstens „Max. products“, Preis = Summe der Packungspreise", rED.length > 0 &&
+  rED.every(r => r.items.length <= 5 && r.items.every(x => !!edItem(x.id)) && Math.abs(r.price - Math.round(r.items.reduce((s, x) => s + x.price * 100, 0)) / 100) < 1e-9), true);
+check("Kategorie-Chips und Ausschluss wirken; „Max. products“ 2 begrenzt die Bestellung", (() => {
+  const noSkyr = runED(tDef, edState(null, { skyr: false }));
+  const ex = runED(tDef, edSt, [U.slugId("Bonduelle Kidney Bohnen 400 g")]);
+  const two = runED(tDef, { ...edSt, maxN: 2 });
+  return noSkyr.every(r => r.items.every(x => x.cat !== "skyr")) && ex.every(r => r.items.every(x => x.id !== U.slugId("Bonduelle Kidney Bohnen 400 g"))) &&
+    two.length > 0 && two.every(r => r.items.length <= 2);
+})(), true);
+check("Must include: das Produkt steckt in jeder Bestellung (★) und zählt zu „Max. products“", (() => {
+  const id = U.slugId("EDEKA Herzstücke Gyoza Hähnchen 150 g");
+  const r = runED(tDef, { ...edSt, maxN: 3 }, null, [id]);
+  return r.length > 0 && r.every(x => x.items.some(y => y.id === id && y.must) && x.items.length <= 3) &&
+    runED(tDef, edSt, [id], [id]).length > 0;
+})(), true);
+check("Build around your own picks: gesperrte Produkte sind feste Basis (🔒), mit ihrem Gramm, und zählen zu „Max. products“", (() => {
+  const id = U.slugId("Bonduelle Kidney Bohnen 400 g");
+  const st = edState({ picks: [{ id, g: 125, qty: 1 }] });
+  const r = runED(tDef, { ...st, maxN: 3 });
+  const locked = r[0].items.find(x => x.id === id);
+  return r.length > 0 && r.every(x => x.items.filter(y => y.id === id).length === 1 && x.items.length <= 3) &&
+    locked.locked === true && Math.abs(locked.kcal - 115) < 0.05;
+})(), true);
+check("Ausgeschlossene Picks fallen weg; Preislimit gilt auch mit Picks", (() => {
+  const id = U.slugId("Bonduelle Kidney Bohnen 400 g");
+  const st = edState({ picks: [{ id, g: 250, qty: 1 }] });
+  const exd = runED(tDef, st, [id]);
+  const cap = runED({ ...tDef, maxPrice: 6 }, st);
+  return exd.every(r => r.items.every(x => x.id !== id)) && cap.length > 0 && cap.every(r => r.price <= 6 + 1e-9);
+})(), true);
+check("Track basket: kein Optimizer (hideResults), Modus im State, Warenkorb und Picks werden gespeichert", (() => {
+  const track = edState({ mode: "track" });
+  return ED.hideResults(track) === true && ED.hideResults(edSt) === false && T.edekaMode(track) === "track" && T.edekaMode(edSt) === "build" &&
+    JSON.stringify(Object.keys(T.edekaLoad()).sort()) === JSON.stringify(["basket", "mode", "picks", "q"]);
+})(), true);
+check("Einkaufsliste statt Order Guide: je Produkt Kategorie + Name (Marke steht schon im Namen), 🔒 für Picks", (() => {
+  const it = edItem(U.slugId("Bonduelle Kidney Bohnen 400 g"));
+  const steps = T.orderStepsFor(ED, { items: [T.edekaScale(it, it.g), Object.assign(T.edekaScale(it, 125), { locked: true })] });
+  return steps.length === 2 && steps[0].l === "Beans & chickpeas (tins)" && steps[0].v === "Bonduelle Kidney Bohnen 400 g (250 g drained)" &&
+    steps[1].v === "🔒 Bonduelle Kidney Bohnen 400 g (125 g drained)";
+})(), true);
+check("Supermarkt bleibt aus All/Accurate heraus, steht aber im Such-Index von „Add own order“", (() => {
+  const all = T.optimizeAll(tDef, "macros", {}, 5, false);
+  return !all.some(r => r._resto === "edeka") && T.SEARCH_INDEX.some(x => x.resto === "Edeka Graf (In-Store)" && /Kidney Bohnen/.test(x.name) && Math.abs(x.kcal - 230) < 0.05);
+})(), true);
+check("_meta: Quelle, Rechenbasis, Entscheidungen vom 19.09.2026, keine Auffälligkeiten, kein Schalentier/Koriander/Tiefkühl, 36 Produkte ohne Ballaststoff-Angabe",
+  /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && rawED._meta.decisions.length === 4 &&
+  rawED._meta.decisions.every(d => /^User 19[.]09[.]2026/.test(d)) && rawED._meta.anomalies.length === 0 &&
+  typeof rawED._meta.shellfish === "string" && typeof rawED._meta.coriander === "string" && typeof rawED._meta.frozen === "string" &&
+  rawED._meta.noFibre.length === 36 && EDD.items.filter(x => x.p100.fibre === 0).length >= 36, true);
 
 // ── Screenshot-Import-Parser (OCR-Text → verbleibende Makros C/P/F + "Übrig"-kcal) — Fälle aus dem London-Tool ──
 sect("parseMacroScreenshot");
