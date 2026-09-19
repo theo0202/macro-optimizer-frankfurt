@@ -1581,10 +1581,24 @@ check("18 Gerichte (User 19.09.2026: seine 7 Ideen, 3 fettärmere Varianten, 8 V
   MED.meals.length === 18 && MED.meals.every(m => m.items.length >= 1 && m.items.length <= 3 && m.items.every(x => !!T.EDEKA.items.find(p => p.id === x.id))) &&
   MED.cats.map(c => c.id + ":" + c.on).join() === "warm:true,cold:true" && MED.meals.filter(m => m.cat === "warm").length === 10 &&
   new Set(MED.meals.map(m => m.id)).size === 18, true);
-check("Behälter-Hinweis je Gericht (User 19.09.2026): 13× „Container needed“ (Reis, Körnermischung, Gyoza), 5× nicht — Skyr mit Brötchen und Aufschnitt braucht keine Schüssel",
-  MED.meals.filter(m => m.container).length === 13 && MED.meals.filter(m => !m.container).length === 5 &&
-  meal("m16").container === false && meal("m12").container === false && meal("m3").container === false &&
-  meal("m2").container === true && meal("m4").container === true, true);
+check("Behälter-Hinweis wird aus den Produkten abgeleitet (User 19.09.2026: Konserve abtropfen zählt auch): 15× nötig, 3× nicht", (() => {
+  const needs = m => m.items.some(x => x.drained) || m.items.some(x => x.cat === "carbs" || x.cat === "gyoza");
+  return MED.meals.filter(m => m.container).length === 15 && MED.meals.filter(m => !m.container).length === 3 &&
+    MED.meals.every(m => m.container === needs(m)) &&
+    // ohne Schüssel: Salate, Becher, Brötchen mit Aufschnitt · mit Schüssel: Dose (m13/m14), Reis (m2), Gyoza (m4)
+    meal("m3").container === false && meal("m12").container === false && meal("m16").container === false &&
+    meal("m13").container === true && meal("m14").container === true && meal("m2").container === true && meal("m4").container === true &&
+    /drain the tin/.test(meal("m13").why) && /Heat the rice/.test(meal("m2").why) && /out of its own pot/.test(meal("m16").why);
+})(), true);
+check("Der Block ist ein Schnappschuss (User 19.09.2026): jedes Produkt trägt Name, Menge, Preis, Link und alle acht Werte im Block — die Gerichte hängen nicht am Edeka-Katalog", (() => {
+  const items = MED.meals.flatMap(m => m.items);
+  return /^\d{4}-\d{2}-\d{2}$/.test(MED.updated) && items.length === 54 &&
+    items.every(x => x.name && x.brand && x.cat && x.g > 0 && typeof x.price === "number" && /^https:/.test(x.url) && T.KEYS.every(k => typeof x[k] === "number")) &&
+    T.mealItems(meal("m4")) === meal("m4").items &&
+    // Werte = die des Edeka-Produkts bei dieser Menge
+    (() => { const x = meal("m4").items.find(y => y.drained), p = T.EDEKA.items.find(y => y.id === x.id);
+      return Math.abs(x.kcal - p.p100.kcal * p.g / 100) < 0.06 && x.g === p.g; })();
+})(), true);
 check("Werte = Summe der Edeka-Produkte: „Chicken, chicken gyoza & white beans“ 633 kcal / C 64,2 / P 62,3 / F 9,7 für 6,67 €", (() => {
   const r = mealRes().find(x => x.key === "m4");
   return !!r && Math.abs(r.nutrition.kcal - 632.8) < 0.15 && Math.abs(r.nutrition.carbs - 64.2) < 0.15 && Math.abs(r.nutrition.protein - 62.3) < 0.15 &&
@@ -1604,8 +1618,8 @@ check("Sortierung nach Passung zum Ziel, alle 18 Gerichte sichtbar (showAll), Ka
 check("Einkaufsliste: je Produkt eine Zeile mit Kategorie, zuletzt der Behälter-Hinweis", (() => {
   const sel = mealRes().find(x => x.key === "m16"), steps = T.orderStepsFor(ME, sel);
   const sel2 = mealRes().find(x => x.key === "m2"), steps2 = T.orderStepsFor(ME, sel2);
-  return steps.length === 4 && steps[3].l === "Container" && /^No container needed — Eat it straight/.test(steps[3].v) &&
-    steps[0].v === "Exquisa Milder Skyr Natur laktosefrei 375 g" && steps2.length === 4 && /^Container needed — Heat/.test(steps2[3].v);
+  return steps.length === 4 && steps[3].l === "Container" && /^No container needed — Everything can be eaten/.test(steps[3].v) &&
+    steps[0].v === "Exquisa Milder Skyr Natur laktosefrei 375 g" && steps2.length === 4 && /^Container needed — Heat the rice/.test(steps2[3].v);
 })(), true);
 check("Nicht in All/Accurate, aber als Gericht im Such-Index von „Add own order“", (() => {
   const all = T.optimizeAll(tDef, "macros", {}, 5, false);
