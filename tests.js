@@ -1466,10 +1466,19 @@ check("EDEKA-Block = edeka-update.js(data/edeka-raw.json) (Block aktuell)", (() 
   const d = updED.buildData(rawED);
   return JSON.stringify(d.cats) === JSON.stringify(EDD.cats) && JSON.stringify(d.items) === JSON.stringify(EDD.items);
 })(), true);
-check("73 Produkte der User-Liste, 70 im Tracker (3 ohne veröffentlichte Nährwerte), 14 Kategorien wie vom User gruppiert, alle Chips an",
-  rawED.items.length === 73 && EDD.items.length === 70 && rawED._meta.noData.length === 3 && rawED._meta.noData.every(x => /Gemüsenudeln|Minigurken/.test(x)) &&
+check("Alle 73 Produkte der User-Liste im Tracker, 14 Kategorien wie vom User gruppiert, alle Chips an",
+  rawED.items.length === 73 && EDD.items.length === 73 && rawED._meta.noData.length === 0 &&
   EDD.cats.length === 14 && EDD.cats.every(c => c.on === true) && EDD.cats[0].id === "carbs" && EDD.cats[13].id === "coldcuts" &&
-  T.excludablesFor(ED).length === 70 && T.includablesFor(ED).length === 70, true);
+  T.excludablesFor(ED).length === 73 && T.includablesFor(ED).length === 73, true);
+check("Gemüse ohne Nährwertangabe bekommt die Werte des jeweiligen Gemüses (User 19.09.2026) — Karottennudeln = Karottenstifte desselben Shops, Zucchini und Gurke aus der USDA-Referenz; Quelle steht am Produkt", (() => {
+  const noodleC = edItem(U.slugId("EDEKA Herzstücke Gemüsenudeln Karotte 250 g")), sticks = edItem(U.slugId("EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g"));
+  const zuc = edItem(U.slugId("EDEKA Herzstücke Gemüsenudeln Zucchini 250 g")), cuc = edItem(U.slugId("EDEKA Herzstücke Minigurken Klasse I 230g"));
+  const refs = Object.keys(rawED._meta.referenceValues);
+  return refs.length === 3 && JSON.stringify(noodleC.p100) === JSON.stringify(sticks.p100) && /Karottenstifte/.test(noodleC.ref) &&
+    zuc.p100.kcal === 17 && zuc.p100.carbs === 2.11 && zuc.p100.protein === 1.21 && /USDA/.test(zuc.ref) &&
+    cuc.p100.kcal === 15 && cuc.p100.carbs === 3.13 && /USDA/.test(cuc.ref) &&
+    EDD.items.filter(x => x.ref).length === 3 && Math.abs(T.edekaScale(zuc, zuc.g).kcal - 42.5) < 0.05;
+})(), true);
 check("Jedes Produkt: Werte je 100 g, Menge, Packungsmenge, Preis und Produktseite (Link zum Anklicken); validate meldet nichts",
   EDD.items.every(x => x.g > 0 && x.pack > 0 && typeof x.price === "number" && /^https:\/\/graf-ffm\.edeka\.shop\//.test(x.url) && x.brand &&
     T.KEYS.every(k => typeof x.p100[k] === "number" && isFinite(x.p100[k]) && x.p100[k] >= 0)) && T.edekaValidate().length === 0, true);
@@ -1478,10 +1487,12 @@ check("Konserven zählen das Abtropfgewicht (User 19.09.2026): 17 Produkte, Bond
   return EDD.items.filter(x => x.drained).length === 17 && raw.drainedG === 250 && raw.packG === 400 && it.g === 250 && it.pack === 400 && it.p100.kcal === 92 &&
     Math.abs(sc.kcal - 230) < 0.05 && Math.abs(sc.protein - 18) < 0.05 && Math.abs(sc.carbs - 27.5) < 0.05 && /\(250 g drained\)$/.test(sc.name);
 })(), true);
-check("Große Becher und Brötchen-Packs zählen eine Portion (kuratiert), der Name nennt die Menge nur bei Abweichung", (() => {
-  const skyr = edItem(U.slugId("GUT&GÜNSTIG Skyr Natur 500 g")), roll = edItem(U.slugId("Poensgen Körnerbrötchen glutenfrei 2x75 g")), rice = edItem(U.slugId("Ben's Original Express Basmatireis 220 g"));
-  return skyr.g === 250 && skyr.pack === 500 && roll.g === 75 && roll.pack === 150 && rice.g === 220 && rice.pack === 220 &&
-    /\(250 g\)$/.test(T.edekaScale(skyr, skyr.g).name) && T.edekaScale(rice, rice.g).name === rice.name;
+check("Immer die ganze Packung (User 19.09.2026): 500-g-Becher, Brötchen-Pack und Brot zählen komplett; nur Konserven weichen ab (Abtropfgewicht)", (() => {
+  const skyr = edItem(U.slugId("GUT&GÜNSTIG Skyr Natur 500 g")), roll = edItem(U.slugId("Poensgen Körnerbrötchen glutenfrei 2x75 g"));
+  const bread = edItem(U.slugId("Mestemacher Westfälischer Pumpernickel 250 g")), rice = edItem(U.slugId("Ben's Original Express Basmatireis 220 g"));
+  return skyr.g === 500 && roll.g === 150 && bread.g === 250 && rice.g === 220 &&
+    EDD.items.every(x => x.drained ? x.g < x.pack : x.g === x.pack) &&
+    T.edekaScale(skyr, skyr.g).name === skyr.name && Math.abs(T.edekaScale(skyr, skyr.g).kcal - skyr.p100.kcal * 5) < 0.05;
 })(), true);
 check("edekaScale: Werte je 100 g × Gramm (1 Dezimale); ungültige Gramm → Menge des Produkts", (() => {
   const it = edItem(U.slugId("Bonduelle Kidney Bohnen 400 g"));
@@ -1549,8 +1560,8 @@ check("Supermarkt bleibt aus All/Accurate heraus, steht aber im Such-Index von �
   return !all.some(r => r._resto === "edeka") && T.SEARCH_INDEX.some(x => x.resto === "Edeka Graf (In-Store)" && /Kidney Bohnen/.test(x.name) && Math.abs(x.kcal - 230) < 0.05);
 })(), true);
 check("_meta: Quelle, Rechenbasis, Entscheidungen vom 19.09.2026, keine Auffälligkeiten, kein Schalentier/Koriander/Tiefkühl, 36 Produkte ohne Ballaststoff-Angabe",
-  /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && rawED._meta.decisions.length === 4 &&
-  rawED._meta.decisions.every(d => /^User 19[.]09[.]2026/.test(d)) && rawED._meta.anomalies.length === 0 &&
+  /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && rawED._meta.decisions.length === 6 &&
+  rawED._meta.decisions.every(d => /^User 19[.]09[.]2026/.test(d)) && rawED._meta.anomalies.length === 1 && rawED._meta.anomalies[0].name === "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g" &&
   typeof rawED._meta.shellfish === "string" && typeof rawED._meta.coriander === "string" && typeof rawED._meta.frozen === "string" &&
   rawED._meta.noFibre.length === 36 && EDD.items.filter(x => x.p100.fibre === 0).length >= 36, true);
 

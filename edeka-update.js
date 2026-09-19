@@ -23,6 +23,8 @@ function buildData(raw) {
     const o = { id, name: p.name, brand: p.brand, cat: p.cat, g: U.round(p.portionG, 1), pack: U.round(p.packG, 1), p100, price: p.price, url: p.url };
     if (p.frozen) o.frozen = true;       // Schalter „No frozen food“
     if (p.drainedG != null) o.drained = true;
+    // Werte aus einer Referenzquelle (drei Gemüse ohne Nährwertangabe) — Kurzform für den Hinweis im Tracker
+    if (p.valuesFrom) o.ref = p.valuesFrom.split(" — ")[0].replace(/,.*$/, "");
     o.note = p.portionNote;
     items.push(o);
   }

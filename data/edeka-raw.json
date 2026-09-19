@@ -1,8 +1,8 @@
 {
   "_meta": {
     "source": "Produktseiten des EDEKA-Graf-Onlineshops https://graf-ffm.edeka.shop (EDEKA Graf, Frankfurt am Main): Name, Preis, Artikelnummer, Nährwerte je 100 g, Abtropfgewicht, Allergene, Zutaten",
-    "fetchedAt": "2026-09-19T06:22:45.892Z",
-    "basis": "Offizielle Werte **je 100 g** laut Produktseite × Menge. **Bei Konserven ist die Menge das Abtropfgewicht** (User 19.09.2026), sonst die Packungsmenge laut Produktname bzw. eine kuratierte Portion (PORTIONS). Ballaststoffe sind freiwillig → fehlen sie, steht 0",
+    "fetchedAt": "2026-09-19T08:54:39.805Z",
+    "basis": "Offizielle Werte **je 100 g** laut Produktseite × Menge. Die Menge ist **immer die ganze Packung** (User 19.09.2026) — bei Konserven das **Abtropfgewicht**. Ballaststoffe sind freiwillig → fehlen sie, steht 0. Drei Produkte ohne Nährwertangabe bekommen Referenzwerte (FALLBACK, Quelle je Produkt in _meta.referenceValues)",
     "rules": [
       "Nur Produkte, die der Markt im Onlineshop führt; Namen exakt wie dort",
       "Der Tracker rechnet mit Gramm: jedes Produkt startet mit seiner Portion, das Gramm ist im Warenkorb änderbar",
@@ -12,6 +12,8 @@
       "User 19.09.2026: Supermarkt-Tracker „Edeka Graf (In-Store)“ nach dem Muster des Waitrose-Tabs im London-Tool (Build order + Track basket, Kategorien, Max products, eigene Picks sperren, Must include / Exclude)",
       "User 19.09.2026: Schalter „No frozen food“ (Default AN) — aktuell trägt kein Produkt der Liste einen Tiefkühl-Hinweis",
       "User 19.09.2026: falls relevant immer das Abtropfgewicht rechnen",
+      "User 19.09.2026: immer die ganze Packung rechnen (auch 500-g-Becher und Brötchen-Packs)",
+      "User 19.09.2026: Gemüse ohne Nährwertangabe bekommt die Werte des jeweiligen Gemüses (gleiches Shop-Produkt bzw. USDA-Referenz), Quelle je Produkt dokumentiert",
       "User 19.09.2026: jedes Produkt verlinkt seine Produktseite (Bild + Wiederfinden im Laden)"
     ],
     "store": "EDEKA Graf, Frankfurt am Main",
@@ -74,15 +76,10 @@
         "name": "Chicken breast slices"
       }
     ],
-    "portions": {
-      "GUT&GÜNSTIG Speisequark Magerstufe 500g 500 g": "250 g — 500-g-Becher; eine Portion = 250 g wie beim 250-g-Becher",
-      "Arla SKYR Natur 0,2 % Fett 450 g": "225 g — 450-g-Becher; eine Portion = 225 g",
-      "GUT&GÜNSTIG Skyr Natur 500 g": "250 g — 500-g-Becher; eine Portion = 250 g",
-      "LAC Speisequark mager 500 g": "250 g — 500-g-Becher; eine Portion = 250 g",
-      "Mestemacher Westfälischer Pumpernickel 250 g": "125 g — Packung = 250 g Scheibenbrot; eine Portion = 125 g (ca. 3 Scheiben)",
-      "Poensgen Körnerbrötchen glutenfrei 2x75 g": "75 g — Packung = 2 Brötchen à 75 g; eine Portion = 1 Brötchen",
-      "Poensgen Haferbrötchen glutenfrei 2x75 g": "75 g — Packung = 2 Brötchen à 75 g; eine Portion = 1 Brötchen",
-      "EDEKA Herzstücke glutenfreie Weltmeisterbrötchen 240 g": "80 g — Packung = 240 g (3 Brötchen); eine Portion = 1 Brötchen"
+    "referenceValues": {
+      "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g": "USDA FoodData Central, SR Legacy #169291 „Squash, summer, zucchini, includes skin, raw“ (rohe Zucchini mit Schale)",
+      "EDEKA Herzstücke Gemüsenudeln Karotte 250 g": "EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g — dieselbe Ware (Zutaten: Karotten, geschält, roh), offizielle Werte des Shops",
+      "EDEKA Herzstücke Minigurken Klasse I 230g": "USDA FoodData Central, SR Legacy #168409 „Cucumber, with peel, raw“ (rohe Gurke mit Schale)"
     },
     "drained": {
       "Bonduelle Weiße Bohnen 400 g": "250 g von 400 g",
@@ -103,11 +100,7 @@
       "Bonduelle Erbsen mit Möhrchen feine Auslese 200 g": "130 g von 200 g",
       "Bonduelle Goldmais Bunter Mix 400 g": "265 g von 400 g"
     },
-    "noData": [
-      "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g (Fresh vegetables, 2.39 €) — die Produktseite nennt keine Nährwerte (unverarbeitetes Gemüse ist von der Kennzeichnungspflicht ausgenommen)",
-      "EDEKA Herzstücke Gemüsenudeln Karotte 250 g (Fresh vegetables, 2.39 €) — die Produktseite nennt keine Nährwerte (unverarbeitetes Gemüse ist von der Kennzeichnungspflicht ausgenommen)",
-      "EDEKA Herzstücke Minigurken Klasse I 230g (Fresh vegetables, 2.49 €) — die Produktseite nennt keine Nährwerte (unverarbeitetes Gemüse ist von der Kennzeichnungspflicht ausgenommen)"
-    ],
+    "noData": [],
     "noFibre": [
       "Bernard Matthews Oldenburg Hähnchen-Filetstreifen 125 g",
       "Bernard Matthews Oldenburg Puten-Filetstreifen 125 g",
@@ -149,7 +142,14 @@
     "frozen": "kein Produkt mit Tiefkühl-Hinweis",
     "shellfish": "kein Produkt mit Krebs- oder Weichtieren (Lachs = Fisch, erlaubt)",
     "coriander": "kein Produkt mit Koriander oder Minze in Name, Bezeichnung oder Zutaten",
-    "anomalies": [],
+    "anomalies": [
+      {
+        "name": "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g",
+        "issues": [
+          "sugars 2.5 > carbs 2.11"
+        ]
+      }
+    ],
     "infos": []
   },
   "cats": [
@@ -239,7 +239,7 @@
       "cat": "carbs",
       "brand": "Alnatura",
       "portionG": 250,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Alnatura Bio Schnelle Mischung Roter Quinoa, Bulgur, Langkornreis 250 g",
@@ -269,7 +269,7 @@
       "cat": "carbs",
       "brand": "Alnatura",
       "portionG": 250,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Ben's Original Express Mexikanisch mit Quinoa & Bohnen Bowl-Reis 220 g",
@@ -299,7 +299,7 @@
       "cat": "carbs",
       "brand": "Ben's Original",
       "portionG": 220,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Ben's Original Express Mediterran 220 g",
@@ -329,7 +329,7 @@
       "cat": "carbs",
       "brand": "Ben's Original",
       "portionG": 220,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "reis-fit Express Basmati-Reis 250 g",
@@ -359,7 +359,7 @@
       "cat": "carbs",
       "brand": "reis-fit",
       "portionG": 250,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Ben's Original Express Basmatireis 220 g",
@@ -389,7 +389,7 @@
       "cat": "carbs",
       "brand": "Ben's Original",
       "portionG": 220,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Bernard Matthews Oldenburg Hähnchen-Filetstreifen 125 g",
@@ -419,7 +419,7 @@
       "cat": "chicken",
       "brand": "Bernard Matthews Oldenburg",
       "portionG": 125,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Bernard Matthews Oldenburg Puten-Filetstreifen 125 g",
@@ -449,7 +449,7 @@
       "cat": "chicken",
       "brand": "Bernard Matthews Oldenburg",
       "portionG": 125,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "EDEKA Herzstücke Hähnchenbrust-Filetstücke Pikant 150 g",
@@ -479,7 +479,7 @@
       "cat": "chicken",
       "brand": "EDEKA Herzstücke",
       "portionG": 150,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "EDEKA Herzstücke Hähnchenbrust-Filetstück Klassik 150 g",
@@ -509,7 +509,7 @@
       "cat": "chicken",
       "brand": "EDEKA Herzstücke",
       "portionG": 150,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "GERVAIS Hütten Käse Original 200 g",
@@ -539,7 +539,7 @@
       "cat": "cottage",
       "brand": "GERVAIS",
       "portionG": 200,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Exquisa Körnige Frischkäsezubereitung Fitline 0,3 % 200 g",
@@ -569,7 +569,7 @@
       "cat": "cottage",
       "brand": "Exquisa",
       "portionG": 200,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "GUT&GÜNSTIG Körniger Frischkäse Leicht 200 g",
@@ -599,7 +599,7 @@
       "cat": "cottage",
       "brand": "GUT&GÜNSTIG",
       "portionG": 200,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Taifun Bio Räuchertofu Mandel-Sesam 200 g",
@@ -629,7 +629,7 @@
       "cat": "vegan",
       "brand": "Taifun",
       "portionG": 200,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "LIKE Like Grilled Chicken 180 g",
@@ -659,7 +659,7 @@
       "cat": "vegan",
       "brand": "LIKE",
       "portionG": 180,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "LIKE Like Hack 180 g",
@@ -689,7 +689,7 @@
       "cat": "vegan",
       "brand": "LIKE",
       "portionG": 180,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Bioasia Tofu 200 g",
@@ -719,7 +719,7 @@
       "cat": "vegan",
       "brand": "Bioasia",
       "portionG": 200,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Like MEAT Like Chicken 180 g",
@@ -749,7 +749,7 @@
       "cat": "vegan",
       "brand": "Like MEAT",
       "portionG": 180,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "LIKE Like Gyros 180 g",
@@ -779,7 +779,7 @@
       "cat": "vegan",
       "brand": "LIKE",
       "portionG": 180,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "LIKE Like Döner 180 g",
@@ -809,7 +809,7 @@
       "cat": "vegan",
       "brand": "LIKE",
       "portionG": 180,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "planted. Pulled BBQ 160 g",
@@ -839,7 +839,7 @@
       "cat": "vegan",
       "brand": "planted",
       "portionG": 160,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Alnatura Bio Tofu natur haltbar 200 g",
@@ -869,7 +869,7 @@
       "cat": "vegan",
       "brand": "Alnatura",
       "portionG": 200,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Schwarzwaldmilch Protein Quark Creme 0,2 % Fett 250 g",
@@ -899,7 +899,7 @@
       "cat": "skyr",
       "brand": "Schwarzwaldmilch",
       "portionG": 250,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Andechser Natur Bio Speisequarkzubereitung 0 % Fett 250 g",
@@ -929,7 +929,7 @@
       "cat": "skyr",
       "brand": "Andechser Natur",
       "portionG": 250,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "GUT&GÜNSTIG Speisequark Magerstufe 250g 250 g",
@@ -959,7 +959,7 @@
       "cat": "skyr",
       "brand": "GUT&GÜNSTIG",
       "portionG": 250,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "GUT&GÜNSTIG Speisequark Magerstufe 500g 500 g",
@@ -988,8 +988,8 @@
       "company": "EDEKA ZENTRALE Stiftung & Co. KG D-22291 Hamburg",
       "cat": "skyr",
       "brand": "GUT&GÜNSTIG",
-      "portionG": 250,
-      "portionNote": "500-g-Becher; eine Portion = 250 g wie beim 250-g-Becher"
+      "portionG": 500,
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Arla SKYR Natur 0,2 % Fett 450 g",
@@ -1018,8 +1018,8 @@
       "company": "Arla Foods Deutschland GmbH Wahlerstr. 2, 40472 Düsseldorf",
       "cat": "skyr",
       "brand": "Arla",
-      "portionG": 225,
-      "portionNote": "450-g-Becher; eine Portion = 225 g"
+      "portionG": 450,
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "GUT&GÜNSTIG Skyr Natur 500 g",
@@ -1048,8 +1048,8 @@
       "company": "EDEKA ZENTRALE Stiftung & Co. KG D-22291 Hamburg",
       "cat": "skyr",
       "brand": "GUT&GÜNSTIG",
-      "portionG": 250,
-      "portionNote": "500-g-Becher; eine Portion = 250 g"
+      "portionG": 500,
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "EDEKA Herzstücke High Protein Skyr Natur 350 g",
@@ -1079,7 +1079,7 @@
       "cat": "skyr",
       "brand": "EDEKA Herzstücke",
       "portionG": 350,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Exquisa Milder Skyr Natur laktosefrei 375 g",
@@ -1109,7 +1109,7 @@
       "cat": "skyr",
       "brand": "Exquisa",
       "portionG": 375,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "LAC Speisequark mager 500 g",
@@ -1138,8 +1138,8 @@
       "company": "SCHWARZWALDMILCH GmbH FREIBURG Haslacher Str. 12, 79115 Freiburg",
       "cat": "skyr",
       "brand": "LAC",
-      "portionG": 250,
-      "portionNote": "500-g-Becher; eine Portion = 250 g"
+      "portionG": 500,
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "LAC Speisequark Magerstufe 250 g",
@@ -1169,7 +1169,7 @@
       "cat": "skyr",
       "brand": "LAC",
       "portionG": 250,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "GUT&GÜNSTIG Kräuterquark leicht 200g",
@@ -1199,7 +1199,7 @@
       "cat": "herbquark",
       "brand": "GUT&GÜNSTIG",
       "portionG": 200,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "MILRAM Frühlingsquark Activ 14 % Fett 185 g",
@@ -1229,7 +1229,7 @@
       "cat": "herbquark",
       "brand": "MILRAM",
       "portionG": 185,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Bonduelle Weiße Bohnen 400 g",
@@ -1259,7 +1259,7 @@
       "cat": "beans",
       "brand": "Bonduelle",
       "portionG": 250,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "Bonduelle Kidney Bohnen 400 g",
@@ -1289,7 +1289,7 @@
       "cat": "beans",
       "brand": "Bonduelle",
       "portionG": 250,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "GUT&GÜNSTIG Kidneybohnen 400 g",
@@ -1319,7 +1319,7 @@
       "cat": "beans",
       "brand": "GUT&GÜNSTIG",
       "portionG": 255,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "Bonduelle Kichererbsen 310 g",
@@ -1349,7 +1349,7 @@
       "cat": "beans",
       "brand": "Bonduelle",
       "portionG": 265,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "Rapunzel Bio Kichererbsen 400 g",
@@ -1379,7 +1379,7 @@
       "cat": "beans",
       "brand": "Rapunzel",
       "portionG": 240,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "Rapunzel Bio Rote Kidney Bohnen 400 g",
@@ -1409,7 +1409,7 @@
       "cat": "beans",
       "brand": "Rapunzel",
       "portionG": 240,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "ITA-SAN Edamame Sojabohnen 400 g",
@@ -1439,7 +1439,7 @@
       "cat": "veg_tins",
       "brand": "ITA-SAN",
       "portionG": 230,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "Bonduelle Junge Erbsen feine Auslese 200 g",
@@ -1469,7 +1469,7 @@
       "cat": "veg_tins",
       "brand": "Bonduelle",
       "portionG": 140,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "Bonduelle Erbsen mit Möhrchen dampfgegart 305 g",
@@ -1499,7 +1499,7 @@
       "cat": "veg_tins",
       "brand": "Bonduelle",
       "portionG": 265,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "GUT&GÜNSTIG Junge Möhrchen extra fein 400 g",
@@ -1529,7 +1529,7 @@
       "cat": "veg_tins",
       "brand": "GUT&GÜNSTIG",
       "portionG": 265,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "EDEKA Herzstücke Edamame Dampfgegart 140 g",
@@ -1559,7 +1559,7 @@
       "cat": "veg_tins",
       "brand": "EDEKA Herzstücke",
       "portionG": 130,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "GUT&GÜNSTIG Junge Erbsen mit Möhrchen extra fein 800 g",
@@ -1589,7 +1589,7 @@
       "cat": "veg_tins",
       "brand": "GUT&GÜNSTIG",
       "portionG": 530,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "GUT&GÜNSTIG Junge Prinzessbohnen 400 g",
@@ -1619,7 +1619,7 @@
       "cat": "veg_tins",
       "brand": "GUT&GÜNSTIG",
       "portionG": 220,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "Bonduelle Möhrchen zart & extra fein 400 g",
@@ -1649,7 +1649,7 @@
       "cat": "veg_tins",
       "brand": "Bonduelle",
       "portionG": 265,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "Bonduelle Junge Erbsen feine Auslese 400 g",
@@ -1679,7 +1679,7 @@
       "cat": "veg_tins",
       "brand": "Bonduelle",
       "portionG": 280,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "Bonduelle Erbsen mit Möhrchen feine Auslese 200 g",
@@ -1709,7 +1709,7 @@
       "cat": "veg_tins",
       "brand": "Bonduelle",
       "portionG": 130,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "Bonduelle Goldmais Bunter Mix 400 g",
@@ -1739,7 +1739,7 @@
       "cat": "veg_tins",
       "brand": "Bonduelle",
       "portionG": 265,
-      "portionNote": "Abtropfgewicht laut Produktseite"
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
     {
       "name": "EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g",
@@ -1769,7 +1769,7 @@
       "cat": "fresh_veg",
       "brand": "EDEKA Herzstücke",
       "portionG": 250,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g",
@@ -1777,20 +1777,20 @@
       "sku": "4349834009",
       "price": 2.39,
       "per100": {
-        "kcal": 0,
-        "fat": 0,
-        "sat": 0,
-        "carbs": 0,
-        "sugars": 0,
-        "fibre": 0,
-        "protein": 0,
-        "salt": 0
+        "kcal": 17,
+        "fat": 0.32,
+        "sat": 0.08,
+        "carbs": 2.11,
+        "sugars": 2.5,
+        "fibre": 1,
+        "protein": 1.21,
+        "salt": 0.02
       },
       "basis": "",
-      "noData": "die Produktseite nennt keine Nährwerte (unverarbeitetes Gemüse ist von der Kennzeichnungspflicht ausgenommen)",
+      "noData": null,
       "packG": 250,
       "drainedG": null,
-      "fibreDeclared": false,
+      "fibreDeclared": true,
       "allergens": null,
       "ingredients": "Zutaten: Zucchini Kann Spuren von Sellerie enthalten.",
       "legal": "Zucchini, in Streifen, roh",
@@ -1799,7 +1799,8 @@
       "cat": "fresh_veg",
       "brand": "EDEKA Herzstücke",
       "portionG": 250,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname",
+      "valuesFrom": "USDA FoodData Central, SR Legacy #169291 „Squash, summer, zucchini, includes skin, raw“ (rohe Zucchini mit Schale)"
     },
     {
       "name": "EDEKA Herzstücke Gemüsenudeln Karotte 250 g",
@@ -1807,20 +1808,20 @@
       "sku": "4349839004",
       "price": 2.39,
       "per100": {
-        "kcal": 0,
-        "fat": 0,
-        "sat": 0,
-        "carbs": 0,
-        "sugars": 0,
-        "fibre": 0,
-        "protein": 0,
-        "salt": 0
+        "kcal": 38,
+        "fat": 0.2,
+        "sat": 0.1,
+        "carbs": 6.8,
+        "sugars": 6.4,
+        "fibre": 3.1,
+        "protein": 0.8,
+        "salt": 0.06
       },
       "basis": "",
-      "noData": "die Produktseite nennt keine Nährwerte (unverarbeitetes Gemüse ist von der Kennzeichnungspflicht ausgenommen)",
+      "noData": null,
       "packG": 250,
       "drainedG": null,
-      "fibreDeclared": false,
+      "fibreDeclared": true,
       "allergens": null,
       "ingredients": "Zutaten: Karotten, geschält, roh Kann Spuren von Sellerie enthalten.",
       "legal": "Karotten, in Streifen, roh",
@@ -1829,7 +1830,8 @@
       "cat": "fresh_veg",
       "brand": "EDEKA Herzstücke",
       "portionG": 250,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname",
+      "valuesFrom": "EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g — dieselbe Ware (Zutaten: Karotten, geschält, roh), offizielle Werte des Shops"
     },
     {
       "name": "EDEKA Herzstücke Minigurken Klasse I 230g",
@@ -1837,20 +1839,20 @@
       "sku": "81127218",
       "price": 2.49,
       "per100": {
-        "kcal": 0,
-        "fat": 0,
-        "sat": 0,
-        "carbs": 0,
-        "sugars": 0,
-        "fibre": 0,
-        "protein": 0,
-        "salt": 0
+        "kcal": 15,
+        "fat": 0.11,
+        "sat": 0.04,
+        "carbs": 3.13,
+        "sugars": 1.67,
+        "fibre": 0.5,
+        "protein": 0.65,
+        "salt": 0.01
       },
       "basis": "",
-      "noData": "die Produktseite nennt keine Nährwerte (unverarbeitetes Gemüse ist von der Kennzeichnungspflicht ausgenommen)",
+      "noData": null,
       "packG": 230,
       "drainedG": null,
-      "fibreDeclared": false,
+      "fibreDeclared": true,
       "allergens": null,
       "ingredients": null,
       "legal": "Minigurken",
@@ -1859,7 +1861,8 @@
       "cat": "fresh_veg",
       "brand": "EDEKA Herzstücke",
       "portionG": 230,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname",
+      "valuesFrom": "USDA FoodData Central, SR Legacy #168409 „Cucumber, with peel, raw“ (rohe Gurke mit Schale)"
     },
     {
       "name": "EDEKA Herzstücke Gyoza Hähnchen 150 g",
@@ -1889,7 +1892,7 @@
       "cat": "gyoza",
       "brand": "EDEKA Herzstücke",
       "portionG": 150,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "EDEKA Herzstücke Gyoza Gemüse 150 g",
@@ -1919,7 +1922,7 @@
       "cat": "gyoza",
       "brand": "EDEKA Herzstücke",
       "portionG": 150,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "GUT&GÜNSTIG Roter Bulgursalat mit Süßkartoffel 200 g",
@@ -1949,7 +1952,7 @@
       "cat": "salads",
       "brand": "GUT&GÜNSTIG",
       "portionG": 200,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "GUT&GÜNSTIG Bulgursalat mit Kräutern 200 g",
@@ -1979,7 +1982,7 @@
       "cat": "salads",
       "brand": "GUT&GÜNSTIG",
       "portionG": 200,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "EDEKA Herzstücke Cube Salat Vegan 175 g",
@@ -2009,7 +2012,7 @@
       "cat": "salads",
       "brand": "EDEKA Herzstücke",
       "portionG": 175,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "EDEKA Herzstücke Sandwich Sweet Chili Chicken 175 g",
@@ -2039,7 +2042,7 @@
       "cat": "sandwiches",
       "brand": "EDEKA Herzstücke",
       "portionG": 175,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "EDEKA Herzstücke Sandwich Lachs 175 g",
@@ -2069,7 +2072,7 @@
       "cat": "sandwiches",
       "brand": "EDEKA Herzstücke",
       "portionG": 175,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "EDEKA Herzstücke Sandwich Farmerschinken & Mozzarella 175 g",
@@ -2099,7 +2102,7 @@
       "cat": "sandwiches",
       "brand": "EDEKA Herzstücke",
       "portionG": 175,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Mestemacher Westfälischer Pumpernickel 250 g",
@@ -2128,8 +2131,8 @@
       "company": "Mestemacher GmbH Postfach 2451 - 33254 Gütersloh",
       "cat": "bread",
       "brand": "Mestemacher",
-      "portionG": 125,
-      "portionNote": "Packung = 250 g Scheibenbrot; eine Portion = 125 g (ca. 3 Scheiben)"
+      "portionG": 250,
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Poensgen Körnerbrötchen glutenfrei 2x75 g",
@@ -2158,8 +2161,8 @@
       "company": "Poensgen Brot GmbH Drwißer Straße 38, 52249 Eschweiler",
       "cat": "bread",
       "brand": "Poensgen",
-      "portionG": 75,
-      "portionNote": "Packung = 2 Brötchen à 75 g; eine Portion = 1 Brötchen"
+      "portionG": 150,
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Poensgen Haferbrötchen glutenfrei 2x75 g",
@@ -2188,8 +2191,8 @@
       "company": "Poensgen Brot GmbH Dürwißer Straße 38, 52249 Eschweiler",
       "cat": "bread",
       "brand": "Poensgen",
-      "portionG": 75,
-      "portionNote": "Packung = 2 Brötchen à 75 g; eine Portion = 1 Brötchen"
+      "portionG": 150,
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "EDEKA Herzstücke glutenfreie Weltmeisterbrötchen 240 g",
@@ -2218,8 +2221,8 @@
       "company": "EDEKA ZENTRALE Stiftung & Co. KG D-22291 Hamburg",
       "cat": "bread",
       "brand": "EDEKA Herzstücke",
-      "portionG": 80,
-      "portionNote": "Packung = 240 g (3 Brötchen); eine Portion = 1 Brötchen"
+      "portionG": 240,
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "GUT&GÜNSTIG Hähnchenbrust 100 g",
@@ -2249,7 +2252,7 @@
       "cat": "coldcuts",
       "brand": "GUT&GÜNSTIG",
       "portionG": 100,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "GUT&GÜNSTIG Hähnchenbrustfilet 150 g",
@@ -2279,7 +2282,7 @@
       "cat": "coldcuts",
       "brand": "GUT&GÜNSTIG",
       "portionG": 150,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Herta Finesse Hähnchenbrust ofengebacken 100 g",
@@ -2309,7 +2312,7 @@
       "cat": "coldcuts",
       "brand": "Herta Finesse",
       "portionG": 100,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "Herta Finesse Hähnchenbrust feinwürzig 100 g",
@@ -2339,7 +2342,7 @@
       "cat": "coldcuts",
       "brand": "Herta Finesse",
       "portionG": 100,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "GUT&GÜNSTIG Hähnchenbrust-Filetroulade 150 g",
@@ -2369,7 +2372,7 @@
       "cat": "coldcuts",
       "brand": "GUT&GÜNSTIG",
       "portionG": 150,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     },
     {
       "name": "EDEKA Herzstücke Hähnchenbrust ofengebacken 100 g",
@@ -2399,7 +2402,7 @@
       "cat": "coldcuts",
       "brand": "EDEKA Herzstücke",
       "portionG": 100,
-      "portionNote": "Packungsmenge laut Produktname"
+      "portionNote": "ganze Packung laut Produktname"
     }
   ]
 }

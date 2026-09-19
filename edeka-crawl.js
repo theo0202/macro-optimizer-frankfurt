@@ -128,18 +128,23 @@ const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Ben's Original", "Bernar
   "EDEKA Herzstücke", "Exquisa", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC", "Like MEAT", "LIKE", "Mestemacher",
   "MILRAM", "planted", "Poensgen", "Rapunzel", "reis-fit", "Schwarzwaldmilch", "Taifun"];
 
-// Produkte, deren Packung mehrere Portionen enthält → im Tracker zählt eine Portion (Gramm frei änderbar).
-// Wert = Gramm je Portion + Begründung; alles andere zählt die ganze Packung (bzw. das Abtropfgewicht).
-const PORTIONS = {
-  "Mestemacher Westfälischer Pumpernickel 250 g": [125, "Packung = 250 g Scheibenbrot; eine Portion = 125 g (ca. 3 Scheiben)"],
-  "Poensgen Körnerbrötchen glutenfrei 2x75 g": [75, "Packung = 2 Brötchen à 75 g; eine Portion = 1 Brötchen"],
-  "Poensgen Haferbrötchen glutenfrei 2x75 g": [75, "Packung = 2 Brötchen à 75 g; eine Portion = 1 Brötchen"],
-  "EDEKA Herzstücke glutenfreie Weltmeisterbrötchen 240 g": [80, "Packung = 240 g (3 Brötchen); eine Portion = 1 Brötchen"],
-  "GUT&GÜNSTIG Speisequark Magerstufe 500g 500 g": [250, "500-g-Becher; eine Portion = 250 g wie beim 250-g-Becher"],
-  "GUT&GÜNSTIG Skyr Natur 500 g": [250, "500-g-Becher; eine Portion = 250 g"],
-  "LAC Speisequark mager 500 g": [250, "500-g-Becher; eine Portion = 250 g"],
-  "Arla SKYR Natur 0,2 % Fett 450 g": [225, "450-g-Becher; eine Portion = 225 g"],
-  "GUT&GÜNSTIG Junge Erbsen mit Möhrchen extra fein 800 g": [null, "800-g-Dose: Abtropfgewicht laut Seite"],
+// Produkte, deren Seite keine Nährwerte nennt (unverarbeitetes Obst/Gemüse braucht keine Kennzeichnung) — User 19.09.2026:
+// „nimm doch einfach jeweils die Nährwerte des jeweiligen Gemüses“. Quelle je Produkt benannt, nichts geschätzt:
+//   · `like` = ein Produkt DIESES Shops mit derselben Ware und offiziellen Werten
+//   · `per100` = USDA FoodData Central (staatliche Referenzdatenbank), Kohlenhydrate „by difference“ minus Ballaststoffe (EU-Konvention), Salz = Natrium × 2,5
+const FALLBACK = {
+  "EDEKA Herzstücke Gemüsenudeln Karotte 250 g": {
+    like: "EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g",
+    from: "EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g — dieselbe Ware (Zutaten: Karotten, geschält, roh), offizielle Werte des Shops",
+  },
+  "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g": {
+    per100: { kcal: 17, fat: 0.32, sat: 0.08, carbs: 2.11, sugars: 2.5, fibre: 1, protein: 1.21, salt: 0.02 },
+    from: "USDA FoodData Central, SR Legacy #169291 „Squash, summer, zucchini, includes skin, raw“ (rohe Zucchini mit Schale)",
+  },
+  "EDEKA Herzstücke Minigurken Klasse I 230g": {
+    per100: { kcal: 15, fat: 0.11, sat: 0.04, carbs: 3.13, sugars: 1.67, fibre: 0.5, protein: 0.65, salt: 0.01 },
+    from: "USDA FoodData Central, SR Legacy #168409 „Cucumber, with peel, raw“ (rohe Gurke mit Schale)",
+  },
 };
 
 // Produkte ohne Ballaststoff-Angabe sind erlaubt (LMIV: freiwillig) → 0 und in _meta dokumentiert
@@ -266,12 +271,27 @@ async function main() {
     d.brand = BRANDS.filter(b => d.name.toLowerCase().startsWith(b.toLowerCase())).sort((a, b) => b.length - a.length)[0] || null;
     if (!d.brand) problems.push(d.name + ": Marke nicht erkannt (BRANDS ergänzen)");
 
-    // Menge im Tracker: Abtropfgewicht (Konserve) > kuratierte Portion > Packung laut Name
-    const por = PORTIONS[d.name];
-    d.portionG = d.drainedG != null ? d.drainedG : por && por[0] != null ? por[0] : d.packG;
-    d.portionNote = d.drainedG != null ? "Abtropfgewicht laut Produktseite" : por ? por[1] : "Packungsmenge laut Produktname";
+    // Menge im Tracker (User 19.09.2026: IMMER die ganze Packung): Abtropfgewicht der Konserve, sonst die Packungsmenge laut Name
+    d.portionG = d.drainedG != null ? d.drainedG : d.packG;
+    d.portionNote = d.drainedG != null ? "Abtropfgewicht laut Produktseite (ganze Dose)" : "ganze Packung laut Produktname";
     if (!d.noData && !(d.portionG > 0)) problems.push(d.name + ": keine Menge bestimmbar");
 
+    // Keine Werte auf der Seite → Referenzwerte laut FALLBACK (Quelle wird am Produkt vermerkt)
+    if (d.noData && FALLBACK[d.name]) {
+      const fb = FALLBACK[d.name];
+      let per = fb.per100;
+      if (fb.like) {
+        const src = items.find(x => x.name === fb.like);
+        if (!src) { problems.push(d.name + ": Referenzprodukt „" + fb.like + "“ steht nicht (davor) in PRODUCTS"); }
+        else per = src.per100;
+      }
+      if (per) {
+        d.per100 = { ...per };
+        d.valuesFrom = fb.from;
+        d.noData = null;
+        d.fibreDeclared = true;
+      }
+    }
     if (d.noData) noData.push(d.name + " (" + (CATS.find(c => c.id === cat) || {}).name + ", " + (d.price == null ? "?" : d.price.toFixed(2)) + " €) — " + d.noData);
     if (!d.noData && !d.fibreDeclared) noFibre.push(d.name);
     const text = d.name + " " + (d.legal || "") + " " + (d.ingredients || "");
@@ -289,7 +309,7 @@ async function main() {
     _meta: {
       source: "Produktseiten des EDEKA-Graf-Onlineshops " + SHOP + " (" + STORE + "): Name, Preis, Artikelnummer, Nährwerte je 100 g, Abtropfgewicht, Allergene, Zutaten",
       fetchedAt,
-      basis: "Offizielle Werte **je 100 g** laut Produktseite × Menge. **Bei Konserven ist die Menge das Abtropfgewicht** (User 19.09.2026), sonst die Packungsmenge laut Produktname bzw. eine kuratierte Portion (PORTIONS). Ballaststoffe sind freiwillig → fehlen sie, steht 0",
+      basis: "Offizielle Werte **je 100 g** laut Produktseite × Menge. Die Menge ist **immer die ganze Packung** (User 19.09.2026) — bei Konserven das **Abtropfgewicht**. Ballaststoffe sind freiwillig → fehlen sie, steht 0. Drei Produkte ohne Nährwertangabe bekommen Referenzwerte (FALLBACK, Quelle je Produkt in _meta.referenceValues)",
       rules: [
         "Nur Produkte, die der Markt im Onlineshop führt; Namen exakt wie dort",
         "Der Tracker rechnet mit Gramm: jedes Produkt startet mit seiner Portion, das Gramm ist im Warenkorb änderbar",
@@ -299,12 +319,14 @@ async function main() {
         "User 19.09.2026: Supermarkt-Tracker „Edeka Graf (In-Store)“ nach dem Muster des Waitrose-Tabs im London-Tool (Build order + Track basket, Kategorien, Max products, eigene Picks sperren, Must include / Exclude)",
         "User 19.09.2026: Schalter „No frozen food“ (Default AN) — aktuell trägt kein Produkt der Liste einen Tiefkühl-Hinweis",
         "User 19.09.2026: falls relevant immer das Abtropfgewicht rechnen",
+        "User 19.09.2026: immer die ganze Packung rechnen (auch 500-g-Becher und Brötchen-Packs)",
+        "User 19.09.2026: Gemüse ohne Nährwertangabe bekommt die Werte des jeweiligen Gemüses (gleiches Shop-Produkt bzw. USDA-Referenz), Quelle je Produkt dokumentiert",
         "User 19.09.2026: jedes Produkt verlinkt seine Produktseite (Bild + Wiederfinden im Laden)",
       ],
       store: STORE,
       shop: SHOP,
       cats: CATS,
-      portions: Object.fromEntries(items.filter(x => x.drainedG == null && PORTIONS[x.name]).map(x => [x.name, x.portionG + " g — " + x.portionNote])),
+      referenceValues: Object.fromEntries(items.filter(x => x.valuesFrom).map(x => [x.name, x.valuesFrom])),
       drained: Object.fromEntries(items.filter(x => x.drainedG != null).map(x => [x.name, x.drainedG + " g von " + x.packG + " g"])),
       noData,
       noFibre,
@@ -326,7 +348,7 @@ async function main() {
     console.log("  " + c.name + " (" + list.length + "): " + list.map(x => x.name + " " + x.portionG + " g · " + Math.round(x.per100.kcal * x.portionG / 100) + " kcal · " + x.price.toFixed(2) + " €").join(" · "));
   }
   console.log("Abtropfgewicht genutzt (" + Object.keys(out._meta.drained).length + "): " + Object.entries(out._meta.drained).map(([k, v]) => k + " " + v).join(" · "));
-  console.log("Portionen kuratiert (" + Object.keys(out._meta.portions).length + "): " + Object.keys(out._meta.portions).join(" · "));
+  console.log("Referenzwerte (" + Object.keys(out._meta.referenceValues).length + "):\n  " + Object.entries(out._meta.referenceValues).map(([k, v]) => k + " ← " + v).join("\n  "));
   console.log("Ohne Nährwerte auf der Seite (" + noData.length + "): " + (noData.join(" · ") || "keine"));
   console.log("Ohne Ballaststoff-Angabe (" + noFibre.length + "): " + (noFibre.join(" · ") || "keine"));
   console.log("Tiefkühl: " + (Array.isArray(out._meta.frozen) ? out._meta.frozen.join(" · ") : out._meta.frozen));
