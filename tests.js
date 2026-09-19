@@ -1466,10 +1466,12 @@ check("EDEKA-Block = edeka-update.js(data/edeka-raw.json) (Block aktuell)", (() 
   const d = updED.buildData(rawED);
   return JSON.stringify(d.cats) === JSON.stringify(EDD.cats) && JSON.stringify(d.items) === JSON.stringify(EDD.items);
 })(), true);
-check("Alle 73 Produkte der User-Liste im Tracker, 14 Kategorien wie vom User gruppiert, alle Chips an",
-  rawED.items.length === 73 && EDD.items.length === 73 && rawED._meta.noData.length === 0 &&
-  EDD.cats.length === 14 && EDD.cats.every(c => c.on === true) && EDD.cats[0].id === "carbs" && EDD.cats[13].id === "coldcuts" &&
-  T.excludablesFor(ED).length === 73 && T.includablesFor(ED).length === 73, true);
+check("Alle 89 Produkte der User-Liste im Tracker, 17 Kategorien wie vom User gruppiert (19.09.2026 dazu: Protein puddings & desserts 10, Maultaschen 2, Waffles 4), alle Chips an",
+  rawED.items.length === 89 && EDD.items.length === 89 && rawED._meta.noData.length === 0 &&
+  EDD.cats.length === 17 && EDD.cats.every(c => c.on === true) && EDD.cats[0].id === "carbs" && EDD.cats[16].id === "waffles" &&
+  EDD.items.filter(x => x.cat === "desserts").length === 10 && EDD.items.filter(x => x.cat === "maultaschen").length === 2 &&
+  EDD.items.filter(x => x.cat === "waffles").length === 4 &&
+  T.excludablesFor(ED).length === 89 && T.includablesFor(ED).length === 89, true);
 check("Gemüse ohne Nährwertangabe bekommt die Werte des jeweiligen Gemüses (User 19.09.2026) — Karottennudeln = Karottenstifte desselben Shops, Zucchini und Gurke aus der USDA-Referenz; Quelle steht am Produkt", (() => {
   const noodleC = edItem(U.slugId("EDEKA Herzstücke Gemüsenudeln Karotte 250 g")), sticks = edItem(U.slugId("EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g"));
   const zuc = edItem(U.slugId("EDEKA Herzstücke Gemüsenudeln Zucchini 250 g")), cuc = edItem(U.slugId("EDEKA Herzstücke Minigurken Klasse I 230g"));
@@ -1493,6 +1495,16 @@ check("Immer die ganze Packung (User 19.09.2026): 500-g-Becher, Brötchen-Pack u
   return skyr.g === 500 && roll.g === 150 && bread.g === 250 && rice.g === 220 &&
     EDD.items.every(x => x.drained ? x.g < x.pack : x.g === x.pack) &&
     T.edekaScale(skyr, skyr.g).name === skyr.name && Math.abs(T.edekaScale(skyr, skyr.g).kcal - skyr.p100.kcal * 5) < 0.05;
+})(), true);
+check("Neu am 19.09.2026: Protein-Desserts, Maultaschen und Waffeln — ganze Packung, Werte der Produktseite; „Cyclamat“ ist kein Schalentier (enthält nur „clam“)", (() => {
+  const pud = edItem(U.slugId("Ehrmann High Protein Chocolate Pudding 200 g")), mt = edItem(U.slugId("Bürger Protein-Maultaschen 300 g"));
+  const waf = edItem(U.slugId("EDEKA Bio High Protein Linsen-Waffeln 90 g")), reis = edItem(U.slugId("müller Milchreis High Protein Klassik 180 g"));
+  const sp = T.edekaScale(pud, pud.g), sm = T.edekaScale(mt, mt.g), sw = T.edekaScale(waf, waf.g);
+  return Math.abs(sp.kcal - 152) < 0.05 && Math.abs(sp.protein - 20) < 0.05 && pud.g === 200 && pud.price === 0.99 &&
+    Math.abs(sm.kcal - 594) < 0.05 && Math.abs(sm.protein - 30) < 0.05 && Math.abs(sm.carbs - 75) < 0.05 && mt.g === 300 &&
+    Math.abs(sw.kcal - 340.2) < 0.05 && Math.abs(sw.protein - 22.5) < 0.05 && waf.g === 90 &&
+    !!reis && !reis.shellfish && !T.isShellfish(reis) && /Cyclamat/.test(edRaw("müller Milchreis High Protein Klassik 180 g").ingredients) &&
+    !Array.isArray(rawED._meta.shellfish);
 })(), true);
 check("edekaScale: Werte je 100 g × Gramm (1 Dezimale); ungültige Gramm → Menge des Produkts", (() => {
   const it = edItem(U.slugId("Bonduelle Kidney Bohnen 400 g"));
@@ -1559,11 +1571,11 @@ check("Supermarkt bleibt aus All/Accurate heraus, steht aber im Such-Index von �
   const all = T.optimizeAll(tDef, "macros", {}, 5, false);
   return !all.some(r => r._resto === "edeka") && T.SEARCH_INDEX.some(x => x.resto === "Edeka Graf (In-Store)" && /Kidney Bohnen/.test(x.name) && Math.abs(x.kcal - 230) < 0.05);
 })(), true);
-check("_meta: Quelle, Rechenbasis, Entscheidungen vom 19.09.2026, keine Auffälligkeiten, kein Schalentier/Koriander/Tiefkühl, 36 Produkte ohne Ballaststoff-Angabe",
+check("_meta: Quelle, Rechenbasis, Entscheidungen vom 19.09.2026, keine Auffälligkeiten, kein Schalentier/Koriander/Tiefkühl, 45 Produkte ohne Ballaststoff-Angabe",
   /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && rawED._meta.decisions.length === 6 &&
   rawED._meta.decisions.every(d => /^User 19[.]09[.]2026/.test(d)) && rawED._meta.anomalies.length === 1 && rawED._meta.anomalies[0].name === "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g" &&
   typeof rawED._meta.shellfish === "string" && typeof rawED._meta.coriander === "string" && typeof rawED._meta.frozen === "string" &&
-  rawED._meta.noFibre.length === 36 && EDD.items.filter(x => x.p100.fibre === 0).length >= 36, true);
+  rawED._meta.noFibre.length === 45 && EDD.items.filter(x => x.p100.fibre === 0).length >= 45, true);
 
 // ── PrepMyMeal: die Tiefkühl-Gerichte, die es bei Edeka Graf gibt (Schalter „Include PrepMyMeal“) ──
 sect("PrepMyMeal (im Edeka-Tab)");
@@ -1604,13 +1616,13 @@ check("Schalter AUS (Default, User 19.09.2026): die Gerichte gibt es im Tab nirg
   const off = pmmSt(false), b = pmmItem("Burrito Bowl");
   const must = runED(tDef, off, null, [b.id]);
   return T.edekaCats(off).length === T.EDEKA.cats.length && !T.edekaCats(off).some(c => c.id === "prep") &&
-    T.edekaCatalog(off).length === 73 && T.edekaSearch("burrito", 30, off).length === 0 && !T.edekaSearch("", 300, off).some(x => x.prep) &&
+    T.edekaCatalog(off).length === 89 && T.edekaSearch("burrito", 30, off).length === 0 && !T.edekaSearch("", 300, off).some(x => x.prep) &&
     runED(tDef, off).every(r => r.items.every(x => !x.prep)) && must.length === 0 && (must.missing || []).length === 1;
 })(), true);
 check("Schalter AN: Kategorie-Chip und Suche zeigen die Gerichte, der Optimizer schlägt sie aber nie von selbst vor (pick)", (() => {
   const on = pmmSt(true);
   const hits = T.edekaSearch("burrito", 30, on);
-  return T.edekaCats(on).length === T.EDEKA.cats.length + 1 && T.edekaCatalog(on).length === 146 &&
+  return T.edekaCats(on).length === T.EDEKA.cats.length + 1 && T.edekaCatalog(on).length === 162 &&
     hits.length === 1 && hits[0].prep === true && hits[0].name === "Burrito Bowl 500 g" &&
     runED(tDef, on).length > 0 && runED(tDef, on).every(r => r.items.every(x => !x.prep)) &&
     runED(tgt(120, 150, 40), on).every(r => r.items.every(x => !x.prep)) &&
@@ -1648,15 +1660,15 @@ check("Stöbern ohne Suchbegriff (User 19.09.2026): alle Produkte der aktiven Ka
   const all = T.edekaSearch("", 300, pmmSt(false)), withPrep = T.edekaSearch("", 300, pmmSt(true));
   const order = T.EDEKA.cats.concat(PMM.cats).map(c => c.id);
   return cottage.length === 3 && cottage.every(x => x.cat === "cottage") && prep.length === 73 && prep.every(x => x.prep) &&
-    all.length === 73 && withPrep.length === 146 && withPrep.every((x, i, a) => i === 0 || order.indexOf(a[i - 1].cat) <= order.indexOf(x.cat)) &&
+    all.length === 89 && withPrep.length === 162 && withPrep.every((x, i, a) => i === 0 || order.indexOf(a[i - 1].cat) <= order.indexOf(x.cat)) &&
     T.edekaSearch("", 300, pmmSt(true, Object.fromEntries(order.map(id => [id, false])))).length === 0 &&
     T.edekaSearch("", 5, pmmSt(true)).length === 5;
 })(), true);
 check("Ausschluss- und Pflicht-Liste bleiben beim Sortiment des Marktes (die Gerichte kommen über „Lock in“ rein); „Add own order“ findet sie trotzdem", (() => {
   const idx = T.SEARCH_INDEX.filter(x => x.resto === "Edeka Graf (In-Store)");
-  return T.excludablesFor(ED).length === 73 && T.includablesFor(ED).length === 73 &&
+  return T.excludablesFor(ED).length === 89 && T.includablesFor(ED).length === 89 &&
     !T.excludablesFor(ED).concat(T.includablesFor(ED)).some(x => x.id.indexOf("pmm_") === 0) &&
-    idx.length === 146 && idx.some(x => x.name === "Burrito Bowl 500 g" && Math.abs(x.kcal - 625) < 0.05) &&
+    idx.length === 162 && idx.some(x => x.name === "Burrito Bowl 500 g" && Math.abs(x.kcal - 625) < 0.05) &&
     idx.some(x => x.name === "Bonduelle Kidney Bohnen 400 g (250 g drained)") &&
     T.searchItems("burrito bowl").some(x => x.resto === "Edeka Graf (In-Store)");
 })(), true);

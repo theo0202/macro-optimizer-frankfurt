@@ -22,14 +22,17 @@ const CATS = [
   { id: "vegan", name: "Vegan protein & tofu" },
   { id: "skyr", name: "Skyr & quark" },
   { id: "herbquark", name: "Herb quark" },
+  { id: "desserts", name: "Protein puddings & desserts" },
   { id: "beans", name: "Beans & chickpeas (tins)" },
   { id: "veg_tins", name: "Edamame, peas & veg (tins)" },
   { id: "fresh_veg", name: "Fresh vegetables" },
   { id: "gyoza", name: "Gyoza" },
+  { id: "maultaschen", name: "Maultaschen" },
   { id: "salads", name: "Fresh salads" },
   { id: "sandwiches", name: "Sandwiches" },
   { id: "bread", name: "Bread & rolls" },
   { id: "coldcuts", name: "Chicken breast slices" },
+  { id: "waffles", name: "Waffles" },
 ];
 
 // Produktliste des Users (19.09.2026). Pfad = Produktseite ohne Such-Parameter.
@@ -98,9 +101,23 @@ const PRODUCTS = [
   ["fresh_veg", "/Obst-Gemuese-EDEKA/EDEKA-Herzstuecke-Gemuesenudeln-Zucchini-250-g.html"],
   ["fresh_veg", "/Obst-Gemuese-EDEKA/EDEKA-Herzstuecke-Gemuesenudeln-Karotte-250-g.html"],
   ["fresh_veg", "/Obst-Gemuese-EDEKA/Gemuese/Gurken/EDEKA-Herzstuecke-Minigurken-Klasse-I-230g.html"],
+  // 6b. Süße Quarkspeisen / Protein-Desserts (User 19.09.2026)
+  ["desserts", "/Angebote/Kuehlprodukte/Ehrmann-High-Protein-Chocolate-Pudding-200-g.html"],
+  ["desserts", "/Kuehlprodukte-EDEKA/Joghurt-Desserts-Snacks/Dessert/mueller-Milchreis-High-Protein-Schoko-180-g.html"],
+  ["desserts", "/Kuehlprodukte-EDEKA/Joghurt-Desserts-Snacks/Dessert/mueller-Milchreis-High-Protein-Klassik-180-g.html"],
+  ["desserts", "/Kuehlprodukte-EDEKA/Joghurt-Desserts-Snacks/Dessert/mueller-High-Protein-Pudding-Schoko-200-g.html"],
+  ["desserts", "/Kuehlprodukte-EDEKA/Joghurt-Desserts-Snacks/Dessert/Ehrmann-High-Protein-Chocolate-Mousse-200-g.html"],
+  ["desserts", "/Kuehlprodukte-EDEKA/Joghurt-Desserts-Snacks/Dessert/mueller-Milchreis-High-Protein-Zimt-180-g.html"],
+  ["desserts", "/Angebote/Kuehlprodukte/Ehrmann-High-Protein-Joghurt-Chocballs-Classic-200-g.html"],
+  ["desserts", "/Kuehlprodukte-EDEKA/Joghurt-Desserts-Snacks/Dessert/EDEKA-Herzstuecke-High-Protein-Triple-Dessert-Pudding-200-g.html"],
+  ["desserts", "/Angebote/Kuehlprodukte/Ehrmann-High-Protein-Pudding-Schokolade-mit-Topping-200-g.html"],
+  ["desserts", "/Angebote/Kuehlprodukte/Ehrmann-High-Protein-Pudding-mit-Double-Choc-mit-Topping-200-g.html"],
   // 10. Gyoza
   ["gyoza", "/Kuehlprodukte-EDEKA/Convenience/Pasta-Schupfnudeln-Kartoffeln/EDEKA-Herzstuecke-Gyoza-Haehnchen-150-g.html"],
   ["gyoza", "/Kuehlprodukte-EDEKA/Convenience/Pasta-Schupfnudeln-Kartoffeln/EDEKA-Herzstuecke-Gyoza-Gemuese-150-g.html"],
+  // 10b. Maultaschen (User 19.09.2026)
+  ["maultaschen", "/Kuehlprodukte-EDEKA/Convenience/Pasta-Schupfnudeln-Kartoffeln/Buerger-Maultaschen-mit-Haehnchenfleisch-300-g.html"],
+  ["maultaschen", "/Kuehlprodukte-EDEKA/Convenience/Pasta-Schupfnudeln-Kartoffeln/Buerger-Protein-Maultaschen-300-g.html"],
   // 11. Frische Salate (der Cube Salat stand beim User in „Gyoza“ und hier — er ist ein Salat)
   ["salads", "/Kuehlprodukte-EDEKA/Convenience/Salate-to-go/GUT-GUeNSTIG-Roter-Bulgursalat-mit-Suesskartoffel-200-g.html"],
   ["salads", "/Kuehlprodukte-EDEKA/Convenience/Salate-to-go/GUT-GUeNSTIG-Bulgursalat-mit-Kraeutern-200-g.html"],
@@ -121,12 +138,18 @@ const PRODUCTS = [
   ["coldcuts", "/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Salami-Schinken/Herta-Finesse-Haehnchenbrust-feinwuerzig-100-g.html"],
   ["coldcuts", "/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Salami-Schinken/GUT-GUeNSTIG-Haehnchenbrust-Filetroulade-150-g-EDEKA.html"],
   ["coldcuts", "/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Salami-Schinken/EDEKA-Herzstuecke-Haehnchenbrust-ofengebacken-100-g.html"],
+  // 15. Waffeln (User 19.09.2026)
+  ["waffles", "/Suesswaren-Gebaeck-EDEKA/Knabberartikel/Popcorn-Puffreis/EDEKA-Bio-High-Protein-Linsen-Waffeln-90-g.html"],
+  ["waffles", "/Suesswaren-Gebaeck-EDEKA/Knabberartikel/Popcorn-Puffreis/EDEKA-Bio-High-Protein-Kichererbsen-Waffel-100-g.html"],
+  ["waffles", "/Suesswaren-Gebaeck-EDEKA/Knabberartikel/Popcorn-Puffreis/Alnatura-Bio-Dinkel-Waffeln-natur-100-g.html"],
+  ["waffles", "/Suesswaren-Gebaeck-EDEKA/Knabberartikel/Popcorn-Puffreis/Alnatura-Bio-Kichererbsenwaffeln-100-g.html"],
 ];
 
 // Marken (längster Treffer am Namensanfang gewinnt) — für „Marke · Produkt“ in der Einkaufsliste
 const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle",
-  "EDEKA Herzstücke", "Exquisa", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC", "Like MEAT", "LIKE", "Mestemacher",
-  "MILRAM", "planted", "Poensgen", "Rapunzel", "reis-fit", "Schwarzwaldmilch", "Taifun"];
+  "Bürger", "EDEKA Bio", "EDEKA Herzstücke", "Ehrmann", "Exquisa", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
+  "Like MEAT", "LIKE", "Mestemacher", "MILRAM", "müller", "Müller", "planted", "Poensgen", "Rapunzel", "reis-fit",
+  "Schwarzwaldmilch", "Taifun"];
 
 // Produkte, deren Seite keine Nährwerte nennt (unverarbeitetes Obst/Gemüse braucht keine Kennzeichnung) — User 19.09.2026:
 // „nimm doch einfach jeweils die Nährwerte des jeweiligen Gemüses“. Quelle je Produkt benannt, nichts geschätzt:
@@ -152,6 +175,9 @@ const NO_FIBRE_OK = true;
 
 const SHELLFISH_RE = /garnele|shrimp|scampi|gambas|prawn|krabbe|crab|krebs|hummer|lobster|langust|crayfish|muschel|mussel|clam|auster|oyster|scallop|tintenfisch|calamar|squid|sepia|oktopus|octopus|pulpo|meeresfr|surimi/i;
 const SHELLFISH_ALLERGEN_RE = /krebstier|weichtier/i;
+// Wortteile, die vor dem Schalentier-Test entfernt werden (wie SHELLFISH_SAFE in der App). Das Süßungsmittel
+// „Cyclamat“ enthält „clam“ (Venusmuschel), „Austernpilz“ enthält „Auster“ — beides sind keine Schalentiere
+const SHELLFISH_SAFE = [/(natrium-?)?cyclamat/gi, /austernpilz(e|en)?/gi, /austern-?pilz/gi, /austernseitling(e)?/gi, /oyster mushroom/gi, /muschelnudel(n)?/gi, /muschelpasta/gi];
 const HERB_RE = /koriander|cilantro|minze|\bmint\b/i;
 // Tiefkühl erkennt man am Aufbewahrungshinweis („bei -18 °C“) — Schalter „No frozen food“
 const FROZEN_RE = /-\s?18\s?°|tiefgefroren|tiefkühl|gefrierfach/i;
@@ -294,7 +320,8 @@ async function main() {
     }
     if (d.noData) noData.push(d.name + " (" + (CATS.find(c => c.id === cat) || {}).name + ", " + (d.price == null ? "?" : d.price.toFixed(2)) + " €) — " + d.noData);
     if (!d.noData && !d.fibreDeclared) noFibre.push(d.name);
-    const text = d.name + " " + (d.legal || "") + " " + (d.ingredients || "");
+    let text = d.name + " " + (d.legal || "") + " " + (d.ingredients || "");
+    for (const re of SHELLFISH_SAFE) text = text.replace(re, " ");
     if (SHELLFISH_RE.test(text) || SHELLFISH_ALLERGEN_RE.test(d.allergens || "")) { d.shellfish = true; shellfish.push(d.name); }
     if (HERB_RE.test(text)) { d.herbs = (text.match(HERB_RE) || [])[0]; coriander.push(d.name + " (" + d.herbs + ")"); }
     if (FROZEN_RE.test(d.storage || "")) { d.frozen = true; frozen.push(d.name); }

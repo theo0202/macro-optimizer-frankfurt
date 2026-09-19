@@ -20,7 +20,7 @@ const H = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit
 // Schalentier (User-Allergie 13.09.2026) — Gerichte damit kommen nicht in den Tracker
 const SHELLFISH_RE = /garnele|shrimp|scampi|gambas|prawn|krabbe|crab|krebstier|hummer|langust|crayfish|muschel|mussel|clam|auster|oyster|jakobsmuschel|scallop|tintenfisch|calamar|squid|sepia|oktopus|octopus|pulpo|meeresfr|weichtier|surimi/i;
 // Wortteile, die vor dem Schalentier-Test entfernt werden (wie SHELLFISH_SAFE in der App): Austernpilz ist ein Pilz
-const SHELLFISH_SAFE = [/austernpilz(e|en)?/gi, /austern-?pilz/gi, /austernseitling(e)?/gi, /oyster mushroom/gi, /muschelnudel(n)?/gi, /muschelpasta/gi];
+const SHELLFISH_SAFE = [/(natrium-?)?cyclamat/gi, /austernpilz(e|en)?/gi, /austern-?pilz/gi, /austernseitling(e)?/gi, /oyster mushroom/gi, /muschelnudel(n)?/gi, /muschelpasta/gi];
 // Koriander/Minze (User 13.09.2026): nicht sperren, aber melden
 const HERB_RE = /koriander|cilantro|minze|\bmint\b/i;
 
