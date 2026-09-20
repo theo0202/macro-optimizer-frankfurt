@@ -23,8 +23,11 @@ function buildData(raw) {
     const o = { id, name: p.name, brand: p.brand, cat: p.cat, g: U.round(p.portionG, 1), pack: U.round(p.packG, 1), p100, price: p.price, url: p.url };
     if (p.frozen) o.frozen = true;       // Schalter „No frozen food“
     if (p.drainedG != null) o.drained = true;
-    // Werte aus einer Referenzquelle (drei Gemüse ohne Nährwertangabe) — Kurzform für den Hinweis im Tracker
-    if (p.valuesFrom) o.ref = p.valuesFrom.split(" — ")[0].replace(/,.*$/, "");
+    // Woher die Werte kommen — Kurzform für den Hinweis im Tracker („values: …“)
+    if (p.manufacturerUrl) o.ref = (p.manufacturerUrl.match(/^https?:\/\/(?:www\.)?([^/]+)/) || [])[1] + " (manufacturer)";
+    else if (p.valuesFrom) o.ref = p.valuesFrom.split(" — ")[0].replace(/,.*$/, "");
+    // Produkt, das dieser Markt nicht führt: der Preis ist eine gekennzeichnete Annahme (User 20.09.2026)
+    if (p.priceNote) o.priceNote = p.priceNote;
     o.note = p.portionNote;
     items.push(o);
   }

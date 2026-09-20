@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, MEALS, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, MEALS, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -1466,12 +1466,13 @@ check("EDEKA-Block = edeka-update.js(data/edeka-raw.json) (Block aktuell)", (() 
   const d = updED.buildData(rawED);
   return JSON.stringify(d.cats) === JSON.stringify(EDD.cats) && JSON.stringify(d.items) === JSON.stringify(EDD.items);
 })(), true);
-check("Alle 89 Produkte der User-Liste im Tracker, 17 Kategorien wie vom User gruppiert (19.09.2026 dazu: Protein puddings & desserts 10, Maultaschen 2, Waffles 4), alle Chips an",
-  rawED.items.length === 89 && EDD.items.length === 89 && rawED._meta.noData.length === 0 &&
-  EDD.cats.length === 17 && EDD.cats.every(c => c.on === true) && EDD.cats[0].id === "carbs" && EDD.cats[16].id === "waffles" &&
+check("Alle 95 Produkte der User-Liste im Tracker, 18 Kategorien wie vom User gruppiert (20.09.2026 dazu: Frozen ready meals 6), alle Chips an",
+  rawED.items.length === 95 && EDD.items.length === 95 && rawED._meta.noData.length === 0 &&
+  EDD.cats.length === 18 && EDD.cats.every(c => c.on === true) && EDD.cats[0].id === "carbs" && EDD.cats[17].id === "waffles" &&
+  EDD.items.filter(x => x.cat === "tkmeals").length === 6 &&
   EDD.items.filter(x => x.cat === "desserts").length === 10 && EDD.items.filter(x => x.cat === "maultaschen").length === 2 &&
   EDD.items.filter(x => x.cat === "waffles").length === 4 &&
-  T.excludablesFor(ED).length === 89 && T.includablesFor(ED).length === 89, true);
+  T.excludablesFor(ED).length === 95 && T.includablesFor(ED).length === 95, true);
 check("Gemüse ohne Nährwertangabe bekommt die Werte des jeweiligen Gemüses (User 19.09.2026) — Karottennudeln = Karottenstifte desselben Shops, Zucchini und Gurke aus der USDA-Referenz; Quelle steht am Produkt", (() => {
   const noodleC = edItem(U.slugId("EDEKA Herzstücke Gemüsenudeln Karotte 250 g")), sticks = edItem(U.slugId("EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g"));
   const zuc = edItem(U.slugId("EDEKA Herzstücke Gemüsenudeln Zucchini 250 g")), cuc = edItem(U.slugId("EDEKA Herzstücke Minigurken Klasse I 230g"));
@@ -1479,10 +1480,11 @@ check("Gemüse ohne Nährwertangabe bekommt die Werte des jeweiligen Gemüses (U
   return refs.length === 3 && JSON.stringify(noodleC.p100) === JSON.stringify(sticks.p100) && /Karottenstifte/.test(noodleC.ref) &&
     zuc.p100.kcal === 17 && zuc.p100.carbs === 2.11 && zuc.p100.protein === 1.21 && /USDA/.test(zuc.ref) &&
     cuc.p100.kcal === 15 && cuc.p100.carbs === 3.13 && /USDA/.test(cuc.ref) &&
-    EDD.items.filter(x => x.ref).length === 3 && Math.abs(T.edekaScale(zuc, zuc.g).kcal - 42.5) < 0.05;
+    EDD.items.filter(x => x.ref).length === 9 && EDD.items.filter(x => /USDA|Karottenstifte/.test(x.ref || "")).length === 3 &&
+    Math.abs(T.edekaScale(zuc, zuc.g).kcal - 42.5) < 0.05;
 })(), true);
 check("Jedes Produkt: Werte je 100 g, Menge, Packungsmenge, Preis und Produktseite (Link zum Anklicken); validate meldet nichts",
-  EDD.items.every(x => x.g > 0 && x.pack > 0 && typeof x.price === "number" && /^https:\/\/graf-ffm\.edeka\.shop\//.test(x.url) && x.brand &&
+  EDD.items.every(x => x.g > 0 && x.pack > 0 && typeof x.price === "number" && /^https:\/\/(graf-ffm\.edeka\.shop|www\.frosta\.de)\//.test(x.url) && x.brand &&
     T.KEYS.every(k => typeof x.p100[k] === "number" && isFinite(x.p100[k]) && x.p100[k] >= 0)) && T.edekaValidate().length === 0, true);
 check("Konserven zählen das Abtropfgewicht (User 19.09.2026): 17 Produkte, Bonduelle Kidney Bohnen 250 g von 400 g → 92 kcal je 100 g = 230 kcal / 18 g Eiweiß", (() => {
   const raw = edRaw("Bonduelle Kidney Bohnen 400 g"), it = edItem(U.slugId("Bonduelle Kidney Bohnen 400 g")), sc = T.edekaScale(it, it.g);
@@ -1497,10 +1499,10 @@ check("Immer die ganze Packung (User 19.09.2026): 500-g-Becher, Brötchen-Pack u
     T.edekaScale(skyr, skyr.g).name === skyr.name && Math.abs(T.edekaScale(skyr, skyr.g).kcal - skyr.p100.kcal * 5) < 0.05;
 })(), true);
 check("Neu am 19.09.2026: Protein-Desserts, Maultaschen und Waffeln — ganze Packung, Werte der Produktseite; „Cyclamat“ ist kein Schalentier (enthält nur „clam“)", (() => {
-  const pud = edItem(U.slugId("Ehrmann High Protein Chocolate Pudding 200 g")), mt = edItem(U.slugId("Bürger Protein-Maultaschen 300 g"));
+  const pud = edItem(U.slugId("Ehrmann High Protein Chocolate Pudding 200 g")), mt = edItem(U.slugId("Bürger Protein-Maultaschen 300 g"));   // Preise wechseln (Angebote) → gegen die Rohdaten prüfen
   const waf = edItem(U.slugId("EDEKA Bio High Protein Linsen-Waffeln 90 g")), reis = edItem(U.slugId("müller Milchreis High Protein Klassik 180 g"));
   const sp = T.edekaScale(pud, pud.g), sm = T.edekaScale(mt, mt.g), sw = T.edekaScale(waf, waf.g);
-  return Math.abs(sp.kcal - 152) < 0.05 && Math.abs(sp.protein - 20) < 0.05 && pud.g === 200 && pud.price === 0.99 &&
+  return Math.abs(sp.kcal - 152) < 0.05 && Math.abs(sp.protein - 20) < 0.05 && pud.g === 200 && pud.price === edRaw("Ehrmann High Protein Chocolate Pudding 200 g").price &&
     Math.abs(sm.kcal - 594) < 0.05 && Math.abs(sm.protein - 30) < 0.05 && Math.abs(sm.carbs - 75) < 0.05 && mt.g === 300 &&
     Math.abs(sw.kcal - 340.2) < 0.05 && Math.abs(sw.protein - 22.5) < 0.05 && waf.g === 90 &&
     !!reis && !reis.shellfish && !T.isShellfish(reis) && /Cyclamat/.test(edRaw("müller Milchreis High Protein Klassik 180 g").ingredients) &&
@@ -1571,11 +1573,61 @@ check("Supermarkt bleibt aus All/Accurate heraus, steht aber im Such-Index von �
   const all = T.optimizeAll(tDef, "macros", {}, 5, false);
   return !all.some(r => r._resto === "edeka") && T.SEARCH_INDEX.some(x => x.resto === "Edeka Graf (In-Store)" && /Kidney Bohnen/.test(x.name) && Math.abs(x.kcal - 230) < 0.05);
 })(), true);
+check("TK-Fertiggerichte (User 20.09.2026): 6 FRoSTA-Gerichte mit den Werten der verlinkten Herstellerseiten, Preis und Packung vom Markt, alle als Tiefkühl markiert", (() => {
+  const ids = ["FRoSTA Hähnchen Geschnetzeltes 500 g", "FRoSTA Hähnchen Curry 500 g", "FRoSTA Nasi Goreng 500 g", "FRoSTA Bami Goreng 500 g", "FRoSTA Hähnchen Paella 500 g", "FRoSTA High Protein Hähnchen mit Reis & Brokkoli 500 g"];
+  const items = ids.map(n => edItem(U.slugId(n)));
+  const curry = edItem(U.slugId("FRoSTA Hähnchen Curry 500 g")), hp = edItem(U.slugId("FRoSTA High Protein Hähnchen mit Reis & Brokkoli 500 g"));
+  const sc = T.edekaScale(hp, hp.g), sCurry = T.edekaScale(curry, curry.g);
+  return items.every(x => !!x && x.cat === "tkmeals" && x.frozen === true && x.g === 500 && x.brand === "FRoSTA" && x.ref === "frosta.de (manufacturer)") &&
+    // Werte = Herstellerseite (der Shop nennt beim Curry 104 kcal je 100 g, frosta.de 97)
+    curry.p100.kcal === 97 && Math.abs(sCurry.kcal - 485) < 0.05 && Math.abs(sCurry.protein - 26) < 0.05 &&
+    Math.abs(sc.kcal - 620) < 0.05 && Math.abs(sc.protein - 61.5) < 0.05 && Math.abs(sc.carbs - 50) < 0.05 &&
+    rawED._meta.manufacturerDiffs.length === 2 && rawED._meta.manufacturerDiffs.every(d => /FRoSTA/.test(d.name)) &&
+    Object.keys(rawED._meta.manufacturer).length === 6;
+})(), true);
+check("Die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker; stattdessen die Hähnchen Paella ohne Krebs-/Weichtiere. Das Gericht ohne Shop-Listung trägt seinen Preis als Annahme", (() => {
+  const nit = rawED._meta.notInTracker;
+  const hp = rawED.items.find(x => x.name === "FRoSTA High Protein Hähnchen mit Reis & Brokkoli 500 g");
+  const paella = edItem(U.slugId("FRoSTA Hähnchen Paella 500 g"));
+  return nit.length === 1 && nit[0].name === "FRoSTA ASC Paella 450 g" && /GARNELEN/.test(nit[0].reason) &&
+    !EDD.items.some(x => /ASC Paella/.test(x.name)) && !!paella && !paella.shellfish && !T.isShellfish(paella) &&
+    hp.notInStore === true && /price assumed/.test(hp.priceNote) && Object.keys(rawED._meta.notInStore).length === 1 &&
+    /assumed/.test(edItem(U.slugId("FRoSTA High Protein Hähnchen mit Reis & Brokkoli 500 g")).priceNote) &&
+    // Koriander steckt fest in vier der Gerichte (Abneigung, kein Ausschluss) → gemeldet
+    rawED._meta.coriander.filter(x => /FRoSTA/.test(x)).length === 4;
+})(), true);
+check("✎ Label correction (User 20.09.2026): korrigierte Werte gelten überall im Tab, sind als „edited“ markiert und lassen sich zurücksetzen", (() => {
+  const id = U.slugId("FRoSTA Bami Goreng 500 g"), base = edItem(id);
+  T.edekaSaveFix(id, { ...Object.fromEntries(T.KEYS.map(k => [k, String(base.p100[k])])), protein: "9.5", kcal: "120", g: "450", price: "5.49" });
+  const fixed = T.edekaById(id), sc = T.edekaScale(fixed, fixed.g);
+  const inCat = T.edekaCatalog({ ...edSt, sw:{ ...edSt.sw, noFrozen:false } }).find(x => x.id === id);
+  const basket = T.edekaTotal([{ id, g:450, qty:1 }]);
+  const saved = T.edekaFixes()[id];
+  const ok = fixed.p100.protein === 9.5 && fixed.p100.kcal === 120 && fixed.g === 450 && fixed.price === 5.49 && !!fixed.fixed &&
+    fixed.p100.carbs === base.p100.carbs && Math.abs(sc.protein - 42.8) < 0.05 && Math.abs(sc.kcal - 540) < 0.05 &&
+    !!inCat && inCat.p100.protein === 9.5 && Math.abs(basket.protein - 42.8) < 0.05 &&
+    JSON.stringify(Object.keys(saved.p100).sort()) === JSON.stringify(["kcal", "protein"]) && saved.at.length === 10 && saved.at.split("-").length === 3 &&
+    // der Datenblock selbst bleibt unangetastet, ebenso der Such-Index von „Add own order“
+    T.EDEKA.items.find(x => x.id === id).p100.protein === base.p100.protein &&
+    T.SEARCH_INDEX.some(x => x.name === "FRoSTA Bami Goreng 500 g" && Math.abs(x.protein - 33.5) < 0.05);
+  T.edekaClearFix(id);
+  const back = T.edekaById(id);
+  return ok && !back.fixed && back.p100.protein === base.p100.protein && back.g === base.g && back.price === base.price &&
+    Object.keys(T.edekaFixes()).length === 0;
+})(), true);
+check("Label correction: gleiche Werte wie offiziell speichern nichts, der Schlüssel liegt unter „fra_edeka_fix“", (() => {
+  const id = U.slugId("Bonduelle Kidney Bohnen 400 g"), base = edItem(id);
+  T.edekaSaveFix(id, { ...Object.fromEntries(T.KEYS.map(k => [k, String(base.p100[k])])), g:String(base.g), price:String(base.price) });
+  const none = Object.keys(T.edekaFixes()).length === 0;
+  T.edekaSaveFix(id, { ...Object.fromEntries(T.KEYS.map(k => [k, ""])), g:"", price:"" });   // leere Felder ändern nichts
+  const stillNone = Object.keys(T.edekaFixes()).length === 0;
+  return none && stillNone && T.LS.edekaFix === "edeka_fix" && T.LS_PREFIX === "fra_";
+})(), true);
 check("_meta: Quelle, Rechenbasis, Entscheidungen vom 19.09.2026, keine Auffälligkeiten, kein Schalentier/Koriander/Tiefkühl, 45 Produkte ohne Ballaststoff-Angabe",
-  /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && rawED._meta.decisions.length === 6 &&
-  rawED._meta.decisions.every(d => /^User 19[.]09[.]2026/.test(d)) && rawED._meta.anomalies.length === 1 && rawED._meta.anomalies[0].name === "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g" &&
-  typeof rawED._meta.shellfish === "string" && typeof rawED._meta.coriander === "string" && typeof rawED._meta.frozen === "string" &&
-  rawED._meta.noFibre.length === 45 && EDD.items.filter(x => x.p100.fibre === 0).length >= 45, true);
+  /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && rawED._meta.decisions.length === 8 &&
+  rawED._meta.decisions.every(d => /^User (19|20)[.]09[.]2026/.test(d)) && rawED._meta.anomalies.length === 1 && rawED._meta.anomalies[0].name === "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g" &&
+  typeof rawED._meta.shellfish === "string" && Array.isArray(rawED._meta.coriander) && Array.isArray(rawED._meta.frozen) && rawED._meta.frozen.length === 6 &&
+  rawED._meta.noFibre.length === 45 && EDD.items.filter(x => x.p100.fibre === 0).length >= 45 && EDD.items.length === 95, true);
 
 // ── PrepMyMeal: die Tiefkühl-Gerichte, die es bei Edeka Graf gibt (Schalter „Include PrepMyMeal“) ──
 sect("PrepMyMeal (im Edeka-Tab)");
@@ -1608,7 +1660,7 @@ check("Werte = die Nährwerttabelle jeder Produktseite, gegen alle 73 Kacheln de
 check("Beispiele: Burrito Bowl 500 g = 625 kcal / 45 g Eiweiß / 10,49 € · Lasagne 440 g = 602,8 kcal (Kachel 603) · Paella (XL, 2 Portionen) 1000 g = 980 kcal; 20 XL-Gerichte tragen „2 Portionen“", (() => {
   const b = pmmItem("Burrito Bowl"), l = pmmItem("Lasagne"), xl = pmmItem("Paella (XL");
   const sb = T.edekaScale(b, b.g), sl = T.edekaScale(l, l.g), sx = T.edekaScale(xl, xl.g);
-  return b.g === 500 && Math.abs(sb.kcal - 625) < 0.05 && Math.abs(sb.protein - 45) < 0.05 && b.price === 10.49 && sb.name === b.name &&
+  return b.g === 500 && Math.abs(sb.kcal - 625) < 0.05 && Math.abs(sb.protein - 45) < 0.05 && b.price === rawPMM.meals.find(m => m.name === "Burrito Bowl").price && sb.name === b.name &&
     l.g === 440 && Math.abs(sl.kcal - 602.8) < 0.05 && xl.g === 1000 && xl.portions === 2 && Math.abs(sx.kcal - 980) < 0.05 &&
     PMM.items.filter(x => x.portions === 2).length === 20;
 })(), true);
@@ -1616,13 +1668,13 @@ check("Schalter AUS (Default, User 19.09.2026): die Gerichte gibt es im Tab nirg
   const off = pmmSt(false), b = pmmItem("Burrito Bowl");
   const must = runED(tDef, off, null, [b.id]);
   return T.edekaCats(off).length === T.EDEKA.cats.length && !T.edekaCats(off).some(c => c.id === "prep") &&
-    T.edekaCatalog(off).length === 89 && T.edekaSearch("burrito", 30, off).length === 0 && !T.edekaSearch("", 300, off).some(x => x.prep) &&
+    T.edekaCatalog(off).length === 95 && T.edekaSearch("burrito", 30, off).length === 0 && !T.edekaSearch("", 300, off).some(x => x.prep) &&
     runED(tDef, off).every(r => r.items.every(x => !x.prep)) && must.length === 0 && (must.missing || []).length === 1;
 })(), true);
 check("Schalter AN: Kategorie-Chip und Suche zeigen die Gerichte, der Optimizer schlägt sie aber nie von selbst vor (pick)", (() => {
   const on = pmmSt(true);
   const hits = T.edekaSearch("burrito", 30, on);
-  return T.edekaCats(on).length === T.EDEKA.cats.length + 1 && T.edekaCatalog(on).length === 162 &&
+  return T.edekaCats(on).length === T.EDEKA.cats.length + 1 && T.edekaCatalog(on).length === 168 &&
     hits.length === 1 && hits[0].prep === true && hits[0].name === "Burrito Bowl 500 g" &&
     runED(tDef, on).length > 0 && runED(tDef, on).every(r => r.items.every(x => !x.prep)) &&
     runED(tgt(120, 150, 40), on).every(r => r.items.every(x => !x.prep)) &&
@@ -1660,15 +1712,15 @@ check("Stöbern ohne Suchbegriff (User 19.09.2026): alle Produkte der aktiven Ka
   const all = T.edekaSearch("", 300, pmmSt(false)), withPrep = T.edekaSearch("", 300, pmmSt(true));
   const order = T.EDEKA.cats.concat(PMM.cats).map(c => c.id);
   return cottage.length === 3 && cottage.every(x => x.cat === "cottage") && prep.length === 73 && prep.every(x => x.prep) &&
-    all.length === 89 && withPrep.length === 162 && withPrep.every((x, i, a) => i === 0 || order.indexOf(a[i - 1].cat) <= order.indexOf(x.cat)) &&
+    all.length === 95 && withPrep.length === 168 && withPrep.every((x, i, a) => i === 0 || order.indexOf(a[i - 1].cat) <= order.indexOf(x.cat)) &&
     T.edekaSearch("", 300, pmmSt(true, Object.fromEntries(order.map(id => [id, false])))).length === 0 &&
     T.edekaSearch("", 5, pmmSt(true)).length === 5;
 })(), true);
 check("Ausschluss- und Pflicht-Liste bleiben beim Sortiment des Marktes (die Gerichte kommen über „Lock in“ rein); „Add own order“ findet sie trotzdem", (() => {
   const idx = T.SEARCH_INDEX.filter(x => x.resto === "Edeka Graf (In-Store)");
-  return T.excludablesFor(ED).length === 89 && T.includablesFor(ED).length === 89 &&
+  return T.excludablesFor(ED).length === 95 && T.includablesFor(ED).length === 95 &&
     !T.excludablesFor(ED).concat(T.includablesFor(ED)).some(x => x.id.indexOf("pmm_") === 0) &&
-    idx.length === 162 && idx.some(x => x.name === "Burrito Bowl 500 g" && Math.abs(x.kcal - 625) < 0.05) &&
+    idx.length === 168 && idx.some(x => x.name === "Burrito Bowl 500 g" && Math.abs(x.kcal - 625) < 0.05) &&
     idx.some(x => x.name === "Bonduelle Kidney Bohnen 400 g (250 g drained)") &&
     T.searchItems("burrito bowl").some(x => x.resto === "Edeka Graf (In-Store)");
 })(), true);
@@ -1719,10 +1771,10 @@ check("Der Block ist ein Schnappschuss (User 19.09.2026): jedes Produkt trägt N
     (() => { const x = meal("m4").items.find(y => y.drained), p = T.EDEKA.items.find(y => y.id === x.id);
       return Math.abs(x.kcal - p.p100.kcal * p.g / 100) < 0.06 && x.g === p.g; })();
 })(), true);
-check("Werte = Summe der Edeka-Produkte: „Chicken, chicken gyoza & white beans“ 633 kcal / C 64,2 / P 62,3 / F 9,7 für 6,67 €", (() => {
+check("Werte = Summe der Edeka-Produkte: „Chicken, chicken gyoza & white beans“ 633 kcal / C 64,2 / P 62,3 / F 9,7 (Preis = Summe der Packungspreise)", (() => {
   const r = mealRes().find(x => x.key === "m4");
   return !!r && Math.abs(r.nutrition.kcal - 632.8) < 0.15 && Math.abs(r.nutrition.carbs - 64.2) < 0.15 && Math.abs(r.nutrition.protein - 62.3) < 0.15 &&
-    Math.abs(r.nutrition.fat - 9.7) < 0.15 && Math.abs(r.price - 6.67) < 1e-9 && r.items.length === 3;
+    Math.abs(r.nutrition.fat - 9.7) < 0.15 && Math.abs(r.price - r.items.reduce((s, x) => s + x.price, 0)) < 1e-9 && r.items.length === 3;
 })(), true);
 check("Alle Gerichte treffen die Zielbereiche des Users (600–800 kcal · 55–100 g KH · 5–20 g Fett · 45–70 g Eiweiß) — außer seiner ersten Idee mit 24,6 g Fett", (() => {
   const t = rawME._meta.targets, out = mealRes().map(r => ({ id: r.key, miss: Object.entries(t).filter(([k, [lo, hi]]) => r.nutrition[k] < lo || r.nutrition[k] > hi).map(([k]) => k) }));

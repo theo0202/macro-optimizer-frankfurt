@@ -1,7 +1,7 @@
 {
   "_meta": {
     "source": "Produktseiten des EDEKA-Graf-Onlineshops https://graf-ffm.edeka.shop (EDEKA Graf, Frankfurt am Main): Name, Preis, Artikelnummer, Nährwerte je 100 g, Abtropfgewicht, Allergene, Zutaten",
-    "fetchedAt": "2026-09-19T13:42:25.950Z",
+    "fetchedAt": "2026-09-20T14:53:52.304Z",
     "basis": "Offizielle Werte **je 100 g** laut Produktseite × Menge. Die Menge ist **immer die ganze Packung** (User 19.09.2026) — bei Konserven das **Abtropfgewicht**. Ballaststoffe sind freiwillig → fehlen sie, steht 0. Drei Produkte ohne Nährwertangabe bekommen Referenzwerte (FALLBACK, Quelle je Produkt in _meta.referenceValues)",
     "rules": [
       "Nur Produkte, die der Markt im Onlineshop führt; Namen exakt wie dort",
@@ -14,7 +14,9 @@
       "User 19.09.2026: falls relevant immer das Abtropfgewicht rechnen",
       "User 19.09.2026: immer die ganze Packung rechnen (auch 500-g-Becher und Brötchen-Packs)",
       "User 19.09.2026: Gemüse ohne Nährwertangabe bekommt die Werte des jeweiligen Gemüses (gleiches Shop-Produkt bzw. USDA-Referenz), Quelle je Produkt dokumentiert",
-      "User 19.09.2026: jedes Produkt verlinkt seine Produktseite (Bild + Wiederfinden im Laden)"
+      "User 19.09.2026: jedes Produkt verlinkt seine Produktseite (Bild + Wiederfinden im Laden)",
+      "User 20.09.2026: TK-Fertiggerichte von FRoSTA als eigene Kategorie; Nährwerte von den verlinkten Herstellerseiten (frosta.de), Preis und Packung vom Markt",
+      "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere"
     ],
     "store": "EDEKA Graf, Frankfurt am Main",
     "shop": "https://graf-ffm.edeka.shop",
@@ -68,6 +70,10 @@
         "name": "Maultaschen"
       },
       {
+        "id": "tkmeals",
+        "name": "Frozen ready meals"
+      },
+      {
         "id": "salads",
         "name": "Fresh salads"
       },
@@ -93,6 +99,49 @@
       "EDEKA Herzstücke Gemüsenudeln Karotte 250 g": "EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g — dieselbe Ware (Zutaten: Karotten, geschält, roh), offizielle Werte des Shops",
       "EDEKA Herzstücke Minigurken Klasse I 230g": "USDA FoodData Central, SR Legacy #168409 „Cucumber, with peel, raw“ (rohe Gurke mit Schale)"
     },
+    "manufacturer": {
+      "FRoSTA Hähnchen Geschnetzeltes 500 g": "https://www.frosta.de/produkte/schnelle-gerichte/haehnchen-geschnetzeltes/",
+      "FRoSTA Hähnchen Curry 500 g": "https://www.frosta.de/produkte/schnelle-gerichte/haehnchen-curry/",
+      "FRoSTA Nasi Goreng 500 g": "https://www.frosta.de/produkte/schnelle-gerichte/nasi-goreng/",
+      "FRoSTA Bami Goreng 500 g": "https://www.frosta.de/produkte/schnelle-gerichte/bami-goreng/",
+      "FRoSTA Hähnchen Paella 500 g": "https://www.frosta.de/produkte/schnelle-gerichte/haehnchen-paella/",
+      "FRoSTA High Protein Hähnchen mit Reis & Brokkoli 500 g": "https://www.frosta.de/produkte/schnelle-gerichte/high-protein-haehnchen-mit-reis-brokkoli/"
+    },
+    "manufacturerDiffs": [
+      {
+        "name": "FRoSTA Hähnchen Curry 500 g",
+        "diffs": [
+          "kcal Shop 104 ≠ Hersteller 97",
+          "fat Shop 2.2 ≠ Hersteller 2.1",
+          "carbs Shop 15.1 ≠ Hersteller 13.5",
+          "sugars Shop 3.4 ≠ Hersteller 3.1",
+          "fibre Shop 1.4 ≠ Hersteller 1.7",
+          "salt Shop 0.71 ≠ Hersteller 0.79"
+        ],
+        "note": "der Tracker rechnet mit den Werten der Herstellerseite"
+      },
+      {
+        "name": "FRoSTA Nasi Goreng 500 g",
+        "diffs": [
+          "kcal Shop 102 ≠ Hersteller 99",
+          "fat Shop 2.2 ≠ Hersteller 2.3",
+          "carbs Shop 13.5 ≠ Hersteller 12.7",
+          "sugars Shop 2.5 ≠ Hersteller 1.9",
+          "salt Shop 1.12 ≠ Hersteller 0.9"
+        ],
+        "note": "der Tracker rechnet mit den Werten der Herstellerseite"
+      }
+    ],
+    "notInStore": {
+      "FRoSTA High Protein Hähnchen mit Reis & Brokkoli 500 g": "not sold in this store — price assumed from the 4,79 € the market charges for every other FRoSTA ready meal"
+    },
+    "notInTracker": [
+      {
+        "name": "FRoSTA ASC Paella 450 g",
+        "url": "https://www.frosta.de/produkte/schnelle-gerichte/paella/",
+        "reason": "enthält laut Zutatenverzeichnis Krustentierfond mit GARNELEN → Krebstier (Allergie des Users, 13.09.2026). Statt ihrer ist die FRoSTA Hähnchen Paella 500 g im Tracker, die keine Krebs-/Weichtiere enthält"
+      }
+    ],
     "drained": {
       "Bonduelle Weiße Bohnen 400 g": "250 g von 400 g",
       "Bonduelle Kidney Bohnen 400 g": "250 g von 400 g",
@@ -160,9 +209,21 @@
       "GUT&GÜNSTIG Hähnchenbrust-Filetroulade 150 g",
       "EDEKA Herzstücke Hähnchenbrust ofengebacken 100 g"
     ],
-    "frozen": "kein Produkt mit Tiefkühl-Hinweis",
+    "frozen": [
+      "FRoSTA Hähnchen Geschnetzeltes 500 g",
+      "FRoSTA Hähnchen Curry 500 g",
+      "FRoSTA Nasi Goreng 500 g",
+      "FRoSTA Bami Goreng 500 g",
+      "FRoSTA Hähnchen Paella 500 g",
+      "FRoSTA High Protein Hähnchen mit Reis & Brokkoli 500 g"
+    ],
     "shellfish": "kein Produkt mit Krebs- oder Weichtieren (Lachs = Fisch, erlaubt)",
-    "coriander": "kein Produkt mit Koriander oder Minze in Name, Bezeichnung oder Zutaten",
+    "coriander": [
+      "FRoSTA Hähnchen Curry 500 g (Koriander)",
+      "FRoSTA Nasi Goreng 500 g (Koriander)",
+      "FRoSTA Bami Goreng 500 g (Koriander)",
+      "FRoSTA High Protein Hähnchen mit Reis & Brokkoli 500 g (Koriander)"
+    ],
     "anomalies": [
       {
         "name": "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g",
@@ -221,6 +282,10 @@
     {
       "id": "maultaschen",
       "name": "Maultaschen"
+    },
+    {
+      "id": "tkmeals",
+      "name": "Frozen ready meals"
     },
     {
       "id": "salads",
@@ -368,7 +433,7 @@
       "name": "reis-fit Express Basmati-Reis 250 g",
       "url": "https://graf-ffm.edeka.shop/Angebote/Nahrungsmittel/Fertiggerichte-Beilagen/Reis/reis-fit-Express-Basmati-Reis-250-g.html",
       "sku": "4280351001",
-      "price": 1.29,
+      "price": 1.99,
       "per100": {
         "kcal": 153,
         "fat": 2.2,
@@ -1118,7 +1183,7 @@
       "name": "Exquisa Milder Skyr Natur laktosefrei 375 g",
       "url": "https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Eier-Kaese-Molkereiprodukte/Quark-Quarkerzeugnisse/Exquisa-Milder-Skyr-Natur-laktosefrei-375-g.html",
       "sku": "4989903006",
-      "price": 2.29,
+      "price": 1.49,
       "per100": {
         "kcal": 52,
         "fat": 0.2,
@@ -1268,7 +1333,7 @@
       "name": "Bonduelle Weiße Bohnen 400 g",
       "url": "https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Weisse-Bohnen-400-g.html",
       "sku": "129235004",
-      "price": 1.99,
+      "price": 1.11,
       "per100": {
         "kcal": 89.3,
         "fat": 0.7,
@@ -1298,7 +1363,7 @@
       "name": "Bonduelle Kidney Bohnen 400 g",
       "url": "https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Kidney-Bohnen-400-g.html",
       "sku": "129250003",
-      "price": 1.99,
+      "price": 1.11,
       "per100": {
         "kcal": 92,
         "fat": 0.8,
@@ -1358,7 +1423,7 @@
       "name": "Bonduelle Kichererbsen 310 g",
       "url": "https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Kichererbsen-310-g.html",
       "sku": "1477955000",
-      "price": 1.89,
+      "price": 1.11,
       "per100": {
         "kcal": 119,
         "fat": 2.2,
@@ -1901,7 +1966,7 @@
       "name": "Ehrmann High Protein Chocolate Pudding 200 g",
       "url": "https://graf-ffm.edeka.shop/Angebote/Kuehlprodukte/Ehrmann-High-Protein-Chocolate-Pudding-200-g.html",
       "sku": "3789910003",
-      "price": 0.99,
+      "price": 1.49,
       "per100": {
         "kcal": 76,
         "fat": 1.5,
@@ -2081,7 +2146,7 @@
       "name": "Ehrmann High Protein Joghurt Chocballs Classic 200 g",
       "url": "https://graf-ffm.edeka.shop/Angebote/Kuehlprodukte/Ehrmann-High-Protein-Joghurt-Chocballs-Classic-200-g.html",
       "sku": "6649036006",
-      "price": 0.99,
+      "price": 1.79,
       "per100": {
         "kcal": 77,
         "fat": 2.2,
@@ -2141,7 +2206,7 @@
       "name": "Ehrmann High Protein Pudding Schokolade mit Topping 200 g",
       "url": "https://graf-ffm.edeka.shop/Angebote/Kuehlprodukte/Ehrmann-High-Protein-Pudding-Schokolade-mit-Topping-200-g.html",
       "sku": "4805856004",
-      "price": 0.99,
+      "price": 1.49,
       "per100": {
         "kcal": 82,
         "fat": 2.4,
@@ -2171,7 +2236,7 @@
       "name": "Ehrmann High Protein Pudding mit Double Choc mit Topping 200 g",
       "url": "https://graf-ffm.edeka.shop/Angebote/Kuehlprodukte/Ehrmann-High-Protein-Pudding-mit-Double-Choc-mit-Topping-200-g.html",
       "sku": "5717202000",
-      "price": 0.99,
+      "price": 1.49,
       "per100": {
         "kcal": 81,
         "fat": 2.3,
@@ -2316,6 +2381,179 @@
       "brand": "Bürger",
       "portionG": 300,
       "portionNote": "ganze Packung laut Produktname"
+    },
+    {
+      "name": "FRoSTA Hähnchen Geschnetzeltes 500 g",
+      "url": "https://graf-ffm.edeka.shop/Tiefkuehl-EDEKA/Fertiggerichte-TK/Nudel-Reisgerichte-TK/FRoSTA-Haehnchen-Geschnetzeltes-500-g.html",
+      "sku": "870150005",
+      "price": 4.79,
+      "per100": {
+        "kcal": 102,
+        "fat": 2.7,
+        "sat": 1.2,
+        "carbs": 12.3,
+        "sugars": 0.9,
+        "fibre": 1.5,
+        "protein": 6.4,
+        "salt": 0.89
+      },
+      "basis": "je 100 g (unzubereitet)",
+      "noData": null,
+      "packG": 500,
+      "drainedG": null,
+      "fibreDeclared": true,
+      "allergens": "Codierte Allergenangaben nicht verwenden, Allergene sind aus dem Zutatenverzeichnis zu ermitteln",
+      "ingredients": "gegarte Bandnudeln (32%) (Wasser, HARTWEIZENGRIESS) Wasser marinierte, gegarte Hähnchenbrust (13%) (Hähnchenbrust (für AT: Hühnerbrust), Salz, Sojaöl, Dextrose) Romanobohnen Champignons Stockschwämmchen Zwiebeln Sahne (4%) (für AT: RAHM) Mehlschwitze ( WEIZENMEHL , Sonnenblumenöl ) Salz Tomatenmark (für AT: 28% doppelt konzentriert) Rinderfond (Wasser, konzentrierter Rinderjus, Rindfleisch, Kalbsknochen, Salz, Rinderfett, Karotten, Zwiebeln, Lauch, Knoblauch) Knoblauch eingelegter grüner Pfeffer (grüner Pfeffer, Wasser, Salz, Kokosblütenessig) gemahlene Paprika Karamellzuckersirup (Zucker, Wasser)",
+      "legal": "Herzhaftes Nudelgericht mit marinierter, gegarter Hähnchenbrust in einer Rahmsauce (24%). Tiefgefroren.",
+      "storage": "** -Fach (-12°C): 3 Wochen *** -Fach (-18°C): mindestens haltbar bis: siehe Aufdruck Nach dem Auftauen nicht wieder einfrieren.",
+      "company": "FRoSTA Tiefkühlkost GmbH Postfach 29 03 64, DE 27533 Bremerhaven",
+      "cat": "tkmeals",
+      "brand": "FRoSTA",
+      "portionG": 500,
+      "portionNote": "ganze Packung laut Produktname",
+      "valuesFrom": "offizielle Herstellerseite https://www.frosta.de/produkte/schnelle-gerichte/haehnchen-geschnetzeltes/",
+      "manufacturerUrl": "https://www.frosta.de/produkte/schnelle-gerichte/haehnchen-geschnetzeltes/",
+      "traces": "Kann Spuren enthalten von Gerste, Roggen, Hafer, Krebstieren, Eiern, Fisch, Soja, Sellerie, Senf und Weichtieren Nährwerte Energie 430 kJ / 102 kcal Fett 2,7 g davon gesättigte Fettsäuren 1,2 g Kohlenhydrate 12,3 g davon Zuck",
+      "frozen": true
+    },
+    {
+      "name": "FRoSTA Hähnchen Curry 500 g",
+      "url": "https://graf-ffm.edeka.shop/Tiefkuehl-EDEKA/Fertiggerichte-TK/Nudel-Reisgerichte-TK/FRoSTA-Haehnchen-Curry-500-g.html",
+      "sku": "870146006",
+      "price": 4.79,
+      "per100": {
+        "kcal": 97,
+        "fat": 2.1,
+        "sat": 0.4,
+        "carbs": 13.5,
+        "sugars": 3.1,
+        "fibre": 1.7,
+        "protein": 5.2,
+        "salt": 0.79
+      },
+      "basis": "je 100 g (unzubereitet)",
+      "noData": null,
+      "packG": 500,
+      "drainedG": null,
+      "fibreDeclared": true,
+      "allergens": "Codierte Allergenangaben nicht verwenden, Allergene sind aus dem Zutatenverzeichnis zu ermitteln",
+      "ingredients": "gegarter Reis (37%) (Wasser, Reis, Salz) marinierte, gegarte Hähnchenbrust (13%) (Hähnchenbrust (für AT: Hühnerbrust), Salz, Sojaöl, Dextrose) Zucchini rote Paprika Zuckerschoten Mango Apfel Ananas Wasserkastanien gegarter Wildreis (2%) (Wasser, Wildreis, Salz) Wasser Sonnenblumenöl Curry (Kurkuma, Koriander , Cayennepfeffer , Kreuzkümmel, SENFSAAT, Fenchel , Bockshornkleesamen ) Salz",
+      "legal": "Reisgericht nach indischer Art mit marinierter, gegarter Hähnchenbrust. Tiefgefroren.",
+      "storage": "**-Fach (-12°C): 3 Wochen ***-Fach (-18°C): mindestens haltbar bis: siehe Aufdruck Nach dem Auftauen nicht wieder einfrieren.",
+      "company": "FRoSTA Tiefkühlkost GmbH Postfach 29 03 64, DE 27533 Bremerhaven",
+      "cat": "tkmeals",
+      "brand": "FRoSTA",
+      "portionG": 500,
+      "portionNote": "ganze Packung laut Produktname",
+      "valuesFrom": "offizielle Herstellerseite https://www.frosta.de/produkte/schnelle-gerichte/haehnchen-curry/",
+      "manufacturerUrl": "https://www.frosta.de/produkte/schnelle-gerichte/haehnchen-curry/",
+      "traces": "Kann Spuren enthalten von Weizen, Gerste, Roggen, Hafer, Krebstieren, Eiern, Fisch, Soja, Milch, Sellerie und Weichtieren Nährwerte Energie 409 kJ / 97 kcal Fett 2,1 g davon gesättigte Fettsäuren 0,4 g Kohlenhydrate 13,5 g da",
+      "herbs": "Koriander",
+      "frozen": true
+    },
+    {
+      "name": "FRoSTA Nasi Goreng 500 g",
+      "url": "https://graf-ffm.edeka.shop/Tiefkuehl-EDEKA/Fertiggerichte-TK/Nudel-Reisgerichte-TK/FRoSTA-Nasi-Goreng-500-g.html",
+      "sku": "870139008",
+      "price": 4.79,
+      "per100": {
+        "kcal": 99,
+        "fat": 2.3,
+        "sat": 0.7,
+        "carbs": 12.7,
+        "sugars": 1.9,
+        "fibre": 1.7,
+        "protein": 6.1,
+        "salt": 0.9
+      },
+      "basis": "je 100 g (unzubereitet)",
+      "noData": null,
+      "packG": 500,
+      "drainedG": null,
+      "fibreDeclared": true,
+      "allergens": "Codierte Allergenangaben nicht verwenden, Allergene sind aus dem Zutatenverzeichnis zu ermitteln",
+      "ingredients": "gegarter Basmatireis (36%) (Wasser, Basmatireis) marinierte, gegarte Hähnchenbrust (14%) (Hähnchenbrust (für AT: Hühnerbrust), Salz, Sojaöl, Dextrose) Erbsen Karotten Lauch Zwiebeln Mungobohnenkeime Wirsing Bambussprossen Sojasauce (Wasser, SOJABOHNEN, WEIZEN, Salz) Sonnenblumenöl Salz Curry (Kurkuma, Kreuzkümmel, Koriander , Cayennepfeffer , Fenchel , Bockshornkleesamen ) Zucker Kokosflocken Knoblauch",
+      "legal": "Reisgericht nach indonesischer Art mit marinierter, gegarter Hähnchenbrust. Tiefgefroren.",
+      "storage": "**-Fach (-12°C): 3 Wochen ***-Fach (-18°C): mindestens haltbar bis: siehe Aufdruck Nach dem Auftauen nicht wieder einfrieren.",
+      "company": "FRoSTA Tiefkühlkost GmbH Postfach 29 03 64, DE 27533 Bremerhaven",
+      "cat": "tkmeals",
+      "brand": "FRoSTA",
+      "portionG": 500,
+      "portionNote": "ganze Packung laut Produktname",
+      "valuesFrom": "offizielle Herstellerseite https://www.frosta.de/produkte/schnelle-gerichte/nasi-goreng/",
+      "manufacturerUrl": "https://www.frosta.de/produkte/schnelle-gerichte/nasi-goreng/",
+      "traces": "Kann Spuren enthalten von Gerste, Roggen, Hafer, Krebstieren, Eiern, Fisch, Milch, Sellerie, Senf und Weichtieren Nährwerte Energie 419 kJ / 99 kcal Fett 2,3 g davon gesättigte Fettsäuren 0,7 g Kohlenhydrate 12,7 g davon Zuck",
+      "herbs": "Koriander",
+      "frozen": true
+    },
+    {
+      "name": "FRoSTA Bami Goreng 500 g",
+      "url": "https://graf-ffm.edeka.shop/Tiefkuehl-EDEKA/Fertiggerichte-TK/Nudel-Reisgerichte-TK/FRoSTA-Bami-Goreng-500-g.html",
+      "sku": "870141001",
+      "price": 4.79,
+      "per100": {
+        "kcal": 100,
+        "fat": 2,
+        "sat": 0.3,
+        "carbs": 12.8,
+        "sugars": 1.3,
+        "fibre": 1.8,
+        "protein": 6.7,
+        "salt": 0.94
+      },
+      "basis": "je 100 g (unzubereitet)",
+      "noData": null,
+      "packG": 500,
+      "drainedG": null,
+      "fibreDeclared": true,
+      "allergens": "Codierte Allergenangaben nicht verwenden, Allergene sind aus dem Zutatenverzeichnis zu ermitteln",
+      "ingredients": "gegarte Bandnudeln (35%) (Wasser, HARTWEIZENGRIESS) marinierte, gegarte Hähnchenbrust (13%) (Hähnchenbrust (für AT: Hühnerbrust), Salz, Sojaöl, Dextrose) rote Paprika Champignons grüne Paprika Bambussprossen Zwiebeln Zuckermais Sojasauce (Wasser, SOJABOHNEN, WEIZEN, Salz) Frühlingszwiebeln Mu-Err-Pilze Sonnenblumenöl Salz Knoblauch Sambal (Wasser, Tomatenmark (für AT: 36% dreifach konzentriert), Salz , gemahlene Paprika, Branntweinessig (für AT: Weingeistessig), Chilies, Cayennepfeffer ) Koriander gemahlene Paprika Kreuzkümmel schwarzer Pfeffer Cayennepfeffer",
+      "legal": "Nudelgericht nach indonesischer Art mit marinierter, gegarter Hähnchenbrust. Tiefgefroren.",
+      "storage": "**-Fach (-12°C): 3 Wochen ***-Fach (-18°C): mindestens haltbar bis: siehe Aufdruck Nach dem Auftauen nicht wieder einfrieren.",
+      "company": "FRoSTA Tiefkühlkost GmbH Postfach 29 03 64, DE 27533 Bremerhaven",
+      "cat": "tkmeals",
+      "brand": "FRoSTA",
+      "portionG": 500,
+      "portionNote": "ganze Packung laut Produktname",
+      "valuesFrom": "offizielle Herstellerseite https://www.frosta.de/produkte/schnelle-gerichte/bami-goreng/",
+      "manufacturerUrl": "https://www.frosta.de/produkte/schnelle-gerichte/bami-goreng/",
+      "traces": "Kann Spuren enthalten von Gerste, Roggen, Hafer, Krebstieren, Eiern",
+      "herbs": "Koriander",
+      "frozen": true
+    },
+    {
+      "name": "FRoSTA Hähnchen Paella 500 g",
+      "url": "https://graf-ffm.edeka.shop/Tiefkuehl-EDEKA/Fertiggerichte-TK/Nudel-Reisgerichte-TK/FRoSTA-Haehnchen-Paella-500-g.html",
+      "sku": "1627914002",
+      "price": 4.79,
+      "per100": {
+        "kcal": 116,
+        "fat": 4.8,
+        "sat": 1.3,
+        "carbs": 11.6,
+        "sugars": 2.4,
+        "fibre": 1.5,
+        "protein": 5.9,
+        "salt": 1.19
+      },
+      "basis": "je 100 g (unzubereitet)",
+      "noData": null,
+      "packG": 500,
+      "drainedG": null,
+      "fibreDeclared": true,
+      "allergens": "Codierte Allergenangaben nicht verwenden, Allergene sind aus dem Zutatenverzeichnis zu ermitteln",
+      "ingredients": "gegarter Reis (37%) (Wasser, Reis, Salz, Kurkuma) marinierte, gegarte Hähnchenbrust (15%) (Hähnchenbrust (für AT: Hühnerbrust), Salz, Sojaöl, Dextrose) Erbsen rote Paprika Tomaten Zwiebeln Prinzessbohnen (für AT: Fisolen) Wasser Hühnerfett Salz Tomatenmark (für AT: 28% doppelt konzentriert) gemahlene Paprika Gemüsefond (Karotten, Zwiebeln, Lauch, Salz, Wasser, natives Olivenöl extra) Zucker Basilikum natives Olivenöl extra Sonnenblumenöl Thymian Knoblauch schwarzer Pfeffer",
+      "legal": "Reisgericht nach spanischer Art mit marinierter, gegarter Hähnchenbrust. Tiefgefroren.",
+      "storage": "** -Fach (-12°C): 3 Wochen *** -Fach (-18°C): mindestens haltbar bis: siehe Aufdruck Nach dem Auftauen nicht wieder einfrieren.",
+      "company": "FRoSTA Tiefkühlkost GmbH Postfach 29 03 64, DE 27533 Bremerhaven",
+      "cat": "tkmeals",
+      "brand": "FRoSTA",
+      "portionG": 500,
+      "portionNote": "ganze Packung laut Produktname",
+      "valuesFrom": "offizielle Herstellerseite https://www.frosta.de/produkte/schnelle-gerichte/haehnchen-paella/",
+      "manufacturerUrl": "https://www.frosta.de/produkte/schnelle-gerichte/haehnchen-paella/",
+      "traces": "Kann Spuren enthalten von Weizen, Gerste, Roggen, Hafer, Krebstieren, Eiern, Fisch, Soja, Milch, Sellerie, Senf und Weichtieren Nährwerte Energie 487 kJ / 116 kcal Fett 4,8 g davon gesättigte Fettsäuren 1,3 g Kohlenhydrate 11",
+      "frozen": true
     },
     {
       "name": "GUT&GÜNSTIG Roter Bulgursalat mit Süßkartoffel 200 g",
@@ -2877,7 +3115,7 @@
       "packG": 100,
       "drainedG": null,
       "fibreDeclared": true,
-      "allergens": "Glutenhaltige Getreide sowie daraus hergestellte Erzeugnisse Dinkel sowie daraus hergestellte Erzeugnisse Weizen sowie daraus hergestellte Erzeugnisse",
+      "allergens": "Weizen sowie daraus hergestellte Erzeugnisse Dinkel sowie daraus hergestellte Erzeugnisse Glutenhaltige Getreide sowie daraus hergestellte Erzeugnisse",
       "ingredients": "Zutaten: DINKELVOLLKORN*¹ *aus biologischer Landwirtschaft ¹Dinkel ist eine WEIZENART",
       "legal": "Bio Dinkel-Waffeln, natur",
       "storage": "Bitte trocken lagern. Angebrochene Packung gut verschließen.",
@@ -2916,6 +3154,43 @@
       "brand": "Alnatura",
       "portionG": 100,
       "portionNote": "ganze Packung laut Produktname"
+    },
+    {
+      "name": "FRoSTA High Protein Hähnchen mit Reis & Brokkoli 500 g",
+      "url": "https://www.frosta.de/produkte/schnelle-gerichte/high-protein-haehnchen-mit-reis-brokkoli/",
+      "sku": null,
+      "price": 4.79,
+      "per100": {
+        "kcal": 124,
+        "fat": 3.7,
+        "sat": 3,
+        "carbs": 10,
+        "sugars": 1.3,
+        "fibre": 0.9,
+        "protein": 12.3,
+        "salt": 1
+      },
+      "basis": "je 100 g Packungsinhalt (Herstellerseite)",
+      "noData": null,
+      "packG": 500,
+      "drainedG": null,
+      "portionG": 500,
+      "portionNote": "ganze Packung laut Herstellerseite",
+      "fibreDeclared": true,
+      "allergens": null,
+      "ingredients": "marinierte, gegarte Hähnchenbrust (33%) (Hähnchenbrust (für AT: Hühnerbrust), Salz, Sojaöl, Dextrose) gegarter Reis (28) (Wasser, Reis, Salz ) Karotten Brokkoli (9%) Sahne (7%) (für AT: RAHM) Wasser gegarter Wildreis (3%) (Wasser, Wildreis, Salz) Kokosnussmilch (Kokosnuss, Wasser) Reisstärke Schnittlauch Salz kandierter Ingwer (Ingwer, Zucker, Wasser) Kartoffelstärke Knoblauch Koriander schwarzer Pfeffer",
+      "traces": "Kann Spuren enthalten von Weizen, Gerste, Roggen, Hafer, Krebstieren, Eiern, Fisch, Soja, Sellerie, Senf und Weichtieren Nährwerte Energie 523 kJ / 124 kcal Fett 3,7 g davon gesättigte Fettsäuren 3 g Kohlenhydrate 10 g davon ",
+      "legal": null,
+      "storage": null,
+      "company": null,
+      "cat": "tkmeals",
+      "brand": "FRoSTA",
+      "frozen": true,
+      "valuesFrom": "offizielle Herstellerseite https://www.frosta.de/produkte/schnelle-gerichte/high-protein-haehnchen-mit-reis-brokkoli/",
+      "manufacturerUrl": "https://www.frosta.de/produkte/schnelle-gerichte/high-protein-haehnchen-mit-reis-brokkoli/",
+      "priceNote": "not sold in this store — price assumed from the 4,79 € the market charges for every other FRoSTA ready meal",
+      "notInStore": true,
+      "herbs": "Koriander"
     }
   ]
 }

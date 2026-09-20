@@ -28,6 +28,7 @@ const CATS = [
   { id: "fresh_veg", name: "Fresh vegetables" },
   { id: "gyoza", name: "Gyoza" },
   { id: "maultaschen", name: "Maultaschen" },
+  { id: "tkmeals", name: "Frozen ready meals" },
   { id: "salads", name: "Fresh salads" },
   { id: "sandwiches", name: "Sandwiches" },
   { id: "bread", name: "Bread & rolls" },
@@ -118,6 +119,12 @@ const PRODUCTS = [
   // 10b. Maultaschen (User 19.09.2026)
   ["maultaschen", "/Kuehlprodukte-EDEKA/Convenience/Pasta-Schupfnudeln-Kartoffeln/Buerger-Maultaschen-mit-Haehnchenfleisch-300-g.html"],
   ["maultaschen", "/Kuehlprodukte-EDEKA/Convenience/Pasta-Schupfnudeln-Kartoffeln/Buerger-Protein-Maultaschen-300-g.html"],
+  // 10c. TK-Fertiggerichte (User 20.09.2026, FRoSTA — Nährwerte von der Herstellerseite, siehe MANUFACTURER)
+  ["tkmeals", "/Tiefkuehl-EDEKA/Fertiggerichte-TK/Nudel-Reisgerichte-TK/FRoSTA-Haehnchen-Geschnetzeltes-500-g.html"],
+  ["tkmeals", "/Tiefkuehl-EDEKA/Fertiggerichte-TK/Nudel-Reisgerichte-TK/FRoSTA-Haehnchen-Curry-500-g.html"],
+  ["tkmeals", "/Tiefkuehl-EDEKA/Fertiggerichte-TK/Nudel-Reisgerichte-TK/FRoSTA-Nasi-Goreng-500-g.html"],
+  ["tkmeals", "/Tiefkuehl-EDEKA/Fertiggerichte-TK/Nudel-Reisgerichte-TK/FRoSTA-Bami-Goreng-500-g.html"],
+  ["tkmeals", "/Tiefkuehl-EDEKA/Fertiggerichte-TK/Nudel-Reisgerichte-TK/FRoSTA-Haehnchen-Paella-500-g.html"],
   // 11. Frische Salate (der Cube Salat stand beim User in „Gyoza“ und hier — er ist ein Salat)
   ["salads", "/Kuehlprodukte-EDEKA/Convenience/Salate-to-go/GUT-GUeNSTIG-Roter-Bulgursalat-mit-Suesskartoffel-200-g.html"],
   ["salads", "/Kuehlprodukte-EDEKA/Convenience/Salate-to-go/GUT-GUeNSTIG-Bulgursalat-mit-Kraeutern-200-g.html"],
@@ -147,9 +154,34 @@ const PRODUCTS = [
 
 // Marken (längster Treffer am Namensanfang gewinnt) — für „Marke · Produkt“ in der Einkaufsliste
 const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle",
-  "Bürger", "EDEKA Bio", "EDEKA Herzstücke", "Ehrmann", "Exquisa", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
+  "Bürger", "EDEKA Bio", "EDEKA Herzstücke", "Ehrmann", "FRoSTA", "Exquisa", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
   "Like MEAT", "LIKE", "Mestemacher", "MILRAM", "müller", "Müller", "planted", "Poensgen", "Rapunzel", "reis-fit",
   "Schwarzwaldmilch", "Taifun"];
+
+// Nährwerte von der offiziellen **Herstellerseite** statt vom Shop (User 20.09.2026: er hat die FRoSTA-Seiten verlinkt).
+// Der Hersteller kennt die aktuelle Rezeptur; der Shop-Datensatz hängt teils hinterher. Preis, Packung und der Tiefkühl-
+// Hinweis kommen weiter vom Markt, jede Abweichung steht in `_meta.manufacturerDiffs`.
+const MANUFACTURER = {
+  "FRoSTA Hähnchen Geschnetzeltes 500 g": "https://www.frosta.de/produkte/schnelle-gerichte/haehnchen-geschnetzeltes/",
+  "FRoSTA Hähnchen Curry 500 g": "https://www.frosta.de/produkte/schnelle-gerichte/haehnchen-curry/",
+  "FRoSTA Nasi Goreng 500 g": "https://www.frosta.de/produkte/schnelle-gerichte/nasi-goreng/",
+  "FRoSTA Bami Goreng 500 g": "https://www.frosta.de/produkte/schnelle-gerichte/bami-goreng/",
+  "FRoSTA Hähnchen Paella 500 g": "https://www.frosta.de/produkte/schnelle-gerichte/haehnchen-paella/",
+};
+
+// Gerichte, die dieser Markt (noch) nicht listet: alles von der Herstellerseite, Preis ausdrücklich als Annahme markiert
+const MANUFACTURER_ONLY = [
+  { cat: "tkmeals", name: "FRoSTA High Protein Hähnchen mit Reis & Brokkoli 500 g", brand: "FRoSTA",
+    url: "https://www.frosta.de/produkte/schnelle-gerichte/high-protein-haehnchen-mit-reis-brokkoli/",
+    price: 4.79, priceNote: "not sold in this store — price assumed from the 4,79 € the market charges for every other FRoSTA ready meal",
+    frozen: true },
+];
+
+// Vom User verlinkt, aber nicht im Tracker (mit Grund) — steht in `_meta.notInTracker`
+const NOT_IN_TRACKER = [
+  { name: "FRoSTA ASC Paella 450 g", url: "https://www.frosta.de/produkte/schnelle-gerichte/paella/",
+    reason: "enthält laut Zutatenverzeichnis Krustentierfond mit GARNELEN → Krebstier (Allergie des Users, 13.09.2026). Statt ihrer ist die FRoSTA Hähnchen Paella 500 g im Tracker, die keine Krebs-/Weichtiere enthält" },
+];
 
 // Produkte, deren Seite keine Nährwerte nennt (unverarbeitetes Obst/Gemüse braucht keine Kennzeichnung) — User 19.09.2026:
 // „nimm doch einfach jeweils die Nährwerte des jeweiligen Gemüses“. Quelle je Produkt benannt, nichts geschätzt:
@@ -223,6 +255,22 @@ const NUTRIENTS = [
   ["salt", /^Salz in g$/],
 ];
 
+// Nährwerttabelle einer FRoSTA-Produktseite (Werte je 100 g Packungsinhalt) + Packungsgröße + Zutaten ohne Spuren-Hinweis
+function parseManufacturer(html, url, problems) {
+  const txt = html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&nbsp;/g, " ").replace(/\s+/g, " ");
+  const m = txt.match(/Energie ([\d.,]+) kJ \/ ([\d.,]+) kcal Fett ([\d.,]+) g davon ges[^\d]*([\d.,]+) g Kohlenhydrate ([\d.,]+) g davon Zucker ([\d.,]+) g Ballaststoffe ([\d.,]+) g Eiwei[^\d]*([\d.,]+) g Salz ([\d.,]+) g/);
+  if (!m) { problems.push(url + ": Nährwerttabelle der Herstellerseite nicht lesbar"); return null; }
+  const v = i => U.parseNum(m[i], url);
+  const per100 = { kcal: v(2), fat: v(3), sat: v(4), carbs: v(5), sugars: v(6), fibre: v(7), protein: v(8), salt: v(9) };
+  const name = ((html.match(/<title>([^<]*)<\/title>/) || [])[1] || "").replace(/\s*[|-]\s*FRoSTA.*$/i, "").replace(/&amp;/g, "&").trim();
+  const packG = (txt.match(/Packungsgröße[^\d]{0,40}(\d{3,4})\s?g/) || [])[1];
+  // Zutaten bis zum Spuren-Hinweis („Kann Spuren enthalten von …“ zählt laut Regel NICHT als enthalten)
+  const zi = txt.search(/Alle Zutaten/), di = txt.search(/Kann Spuren enthalten|Distributor:/);
+  const ingredients = zi >= 0 && di > zi ? txt.slice(zi, di).replace(/^Alle Zutaten/, "").trim() : null;
+  const traces = (txt.match(/Kann Spuren enthalten von[^.]{0,200}/) || [])[0] || null;
+  return { name, per100, packG: packG ? Number(packG) : null, ingredients, traces, url };
+}
+
 function parsePage(html, url, problems) {
   const title = strip((html.match(/<title>([\s\S]*?)<\/title>/) || [])[1] || "");
   const name = norm(title.replace(/^EDEKA\s*\|\s*/, "").replace(/\s*\|\s*online kaufen.*$/, ""));
@@ -279,6 +327,7 @@ function parsePage(html, url, problems) {
 
 async function main() {
   const problems = [], anomalies = [], infos = [], noFibre = [], coriander = [], shellfish = [], frozen = [], noData = [];
+  const manufacturerDiffs = [];
   const items = [], seen = new Set();
   const fetchedAt = new Date().toISOString();
 
@@ -318,6 +367,24 @@ async function main() {
         d.fibreDeclared = true;
       }
     }
+    // Nährwerte von der Herstellerseite (User 20.09.2026): Shop-Werte werden ersetzt, Abweichungen dokumentiert
+    if (MANUFACTURER[d.name]) {
+      let mh = null;
+      try { mh = await get(MANUFACTURER[d.name]); } catch (e) { problems.push(d.name + " (Herstellerseite): " + e.message); }
+      const mp = mh && parseManufacturer(mh, MANUFACTURER[d.name], problems);
+      if (mp) {
+        const diff = U.KEYS.filter(k => Math.abs((d.per100[k] || 0) - mp.per100[k]) > 0.05)
+          .map(k => k + " Shop " + (d.per100[k] || 0) + " ≠ Hersteller " + mp.per100[k]);
+        if (diff.length) manufacturerDiffs.push({ name: d.name, diffs: diff, note: "der Tracker rechnet mit den Werten der Herstellerseite" });
+        if (mp.packG != null && d.packG != null && Math.abs(mp.packG - d.packG) > 1) problems.push(d.name + ": Packung Shop " + d.packG + " g ≠ Hersteller " + mp.packG + " g");
+        d.per100 = mp.per100;
+        d.fibreDeclared = true;
+        d.valuesFrom = "offizielle Herstellerseite " + MANUFACTURER[d.name];
+        d.manufacturerUrl = MANUFACTURER[d.name];
+        if (mp.ingredients) d.ingredients = mp.ingredients;   // vollständige Zutatenliste des Herstellers (ohne „Kann Spuren enthalten“)
+        if (mp.traces) d.traces = mp.traces;                  // nur Info: Spuren zählen laut Regel nicht als enthalten
+      }
+    }
     if (d.noData) noData.push(d.name + " (" + (CATS.find(c => c.id === cat) || {}).name + ", " + (d.price == null ? "?" : d.price.toFixed(2)) + " €) — " + d.noData);
     if (!d.noData && !d.fibreDeclared) noFibre.push(d.name);
     let text = d.name + " " + (d.legal || "") + " " + (d.ingredients || "");
@@ -327,6 +394,33 @@ async function main() {
     if (FROZEN_RE.test(d.storage || "")) { d.frozen = true; frozen.push(d.name); }
 
     if (!d.noData) { const issues = U.checkItem({ ...d.per100, fibre: d.per100.fibre || 0 }); if (issues.length) anomalies.push({ name: d.name, issues }); }
+    items.push(d);
+    process.stdout.write(".");
+  }
+
+  // Gerichte, die dieser Markt nicht führt: alles von der Herstellerseite, Preis als Annahme markiert (User 20.09.2026)
+  for (const p of MANUFACTURER_ONLY) {
+    if (!CATS.some(c => c.id === p.cat)) { problems.push("Unbekannte Kategorie „" + p.cat + "“ (" + p.name + ")"); continue; }
+    let mh = null;
+    try { mh = await get(p.url); } catch (e) { problems.push(p.name + ": " + e.message); continue; }
+    const mp = parseManufacturer(mh, p.url, problems);
+    if (!mp) continue;
+    const packG = packSize(p.name, problems);
+    if (mp.packG != null && packG != null && Math.abs(mp.packG - packG) > 1) problems.push(p.name + ": Packung laut Name " + packG + " g ≠ Herstellerseite " + mp.packG + " g");
+    const d = { name: p.name, url: p.url, sku: null, price: p.price, per100: mp.per100, basis: "je 100 g Packungsinhalt (Herstellerseite)",
+      noData: null, packG, drainedG: null, portionG: packG, portionNote: "ganze Packung laut Herstellerseite",
+      fibreDeclared: true, allergens: null, ingredients: mp.ingredients, traces: mp.traces, legal: null, storage: null, company: null,
+      cat: p.cat, brand: p.brand, frozen: !!p.frozen, valuesFrom: "offizielle Herstellerseite " + p.url, manufacturerUrl: p.url,
+      priceNote: p.priceNote, notInStore: true };
+    if (!d.brand) problems.push(d.name + ": Marke fehlt");
+    if (!(d.portionG > 0)) problems.push(d.name + ": keine Menge bestimmbar");
+    let text2 = d.name + " " + (d.ingredients || "");
+    for (const re of SHELLFISH_SAFE) text2 = text2.replace(re, " ");
+    if (SHELLFISH_RE.test(text2)) { d.shellfish = true; shellfish.push(d.name); }
+    if (HERB_RE.test(text2)) { d.herbs = (text2.match(HERB_RE) || [])[0]; coriander.push(d.name + " (" + d.herbs + ")"); }
+    if (d.frozen) frozen.push(d.name);
+    const issues2 = U.checkItem({ ...d.per100, fibre: d.per100.fibre || 0 });
+    if (issues2.length) anomalies.push({ name: d.name, issues: issues2 });
     items.push(d);
     process.stdout.write(".");
   }
@@ -349,11 +443,17 @@ async function main() {
         "User 19.09.2026: immer die ganze Packung rechnen (auch 500-g-Becher und Brötchen-Packs)",
         "User 19.09.2026: Gemüse ohne Nährwertangabe bekommt die Werte des jeweiligen Gemüses (gleiches Shop-Produkt bzw. USDA-Referenz), Quelle je Produkt dokumentiert",
         "User 19.09.2026: jedes Produkt verlinkt seine Produktseite (Bild + Wiederfinden im Laden)",
+        "User 20.09.2026: TK-Fertiggerichte von FRoSTA als eigene Kategorie; Nährwerte von den verlinkten Herstellerseiten (frosta.de), Preis und Packung vom Markt",
+        "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere",
       ],
       store: STORE,
       shop: SHOP,
       cats: CATS,
-      referenceValues: Object.fromEntries(items.filter(x => x.valuesFrom).map(x => [x.name, x.valuesFrom])),
+      referenceValues: Object.fromEntries(items.filter(x => x.valuesFrom && !x.manufacturerUrl).map(x => [x.name, x.valuesFrom])),
+      manufacturer: Object.fromEntries(items.filter(x => x.manufacturerUrl).map(x => [x.name, x.manufacturerUrl])),
+      manufacturerDiffs: manufacturerDiffs.length ? manufacturerDiffs : "keine Abweichung zwischen Shop- und Herstellerangaben",
+      notInStore: Object.fromEntries(items.filter(x => x.notInStore).map(x => [x.name, x.priceNote])),
+      notInTracker: NOT_IN_TRACKER,
       drained: Object.fromEntries(items.filter(x => x.drainedG != null).map(x => [x.name, x.drainedG + " g von " + x.packG + " g"])),
       noData,
       noFibre,
@@ -378,6 +478,9 @@ async function main() {
   console.log("Referenzwerte (" + Object.keys(out._meta.referenceValues).length + "):\n  " + Object.entries(out._meta.referenceValues).map(([k, v]) => k + " ← " + v).join("\n  "));
   console.log("Ohne Nährwerte auf der Seite (" + noData.length + "): " + (noData.join(" · ") || "keine"));
   console.log("Ohne Ballaststoff-Angabe (" + noFibre.length + "): " + (noFibre.join(" · ") || "keine"));
+  if (Array.isArray(out._meta.manufacturerDiffs)) console.log("Shop ≠ Hersteller (" + out._meta.manufacturerDiffs.length + "):\n  " + out._meta.manufacturerDiffs.map(d => d.name + ": " + d.diffs.join(", ")).join("\n  "));
+  if (Object.keys(out._meta.notInStore).length) console.log("Nicht im Markt gelistet: " + Object.keys(out._meta.notInStore).join(" · "));
+  console.log("Nicht im Tracker: " + NOT_IN_TRACKER.map(x => x.name + " — " + x.reason).join(" · "));
   console.log("Tiefkühl: " + (Array.isArray(out._meta.frozen) ? out._meta.frozen.join(" · ") : out._meta.frozen));
   console.log("Schalentier: " + (Array.isArray(out._meta.shellfish) ? out._meta.shellfish.join(" · ") : out._meta.shellfish));
   console.log("Koriander/Minze: " + (Array.isArray(out._meta.coriander) ? out._meta.coriander.join(" · ") : out._meta.coriander));
