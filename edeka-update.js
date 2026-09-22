@@ -22,6 +22,9 @@ function buildData(raw) {
     const p100 = Object.fromEntries(U.KEYS.map(k => [k, U.round(p.per100[k] || 0, 2)]));
     const o = { id, name: p.name, brand: p.brand, cat: p.cat, g: U.round(p.portionG, 1), pack: U.round(p.packG, 1), p100, price: p.price, url: p.url };
     if (p.frozen) o.frozen = true;       // Schalter „No frozen food“
+    if (p.fish) o.fish = true;           // Schalter „No fish“ (User 22.09.2026)
+    if (p.tuna) o.tuna = true;           // Schalter „No tuna“ (User 22.09.2026)
+    if (p.unavailable) o.unavailable = true;   // im Onlineshop gerade nicht verfügbar (letzter bekannter Preis)
     if (p.drainedG != null) o.drained = true;
     // Woher die Werte kommen — Kurzform für den Hinweis im Tracker („values: …“)
     if (p.manufacturerUrl) o.ref = (p.manufacturerUrl.match(/^https?:\/\/(?:www\.)?([^/]+)/) || [])[1] + " (manufacturer)";

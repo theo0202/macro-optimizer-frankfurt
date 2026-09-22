@@ -18,6 +18,7 @@ const STORE = "EDEKA Graf, Frankfurt am Main";
 const CATS = [
   { id: "carbs", name: "Carbs & bases" },
   { id: "chicken", name: "Cooked chicken & meat" },
+  { id: "fish", name: "Fish" },
   { id: "cottage", name: "Cottage cheese" },
   { id: "vegan", name: "Vegan protein & tofu" },
   { id: "skyr", name: "Skyr & quark" },
@@ -50,6 +51,12 @@ const PRODUCTS = [
   ["chicken", "/Bernard-Matthews-Oldenburg-Puten-Filetstreifen-125-g.html"],
   ["chicken", "/EDEKA-Herzstuecke-Haehnchenbrust-Filetstuecke-Pikant-150-g-EDEKA.html"],
   ["chicken", "/EDEKA-Herzstuecke-Haehnchenbrust-Filetstueck-Klassik-150-g.html"],
+  // 2b. Fisch (User 22.09.2026) — die Krone-Forelle mit den Werten der verlinkten Herstellerseite (MANUFACTURER)
+  ["fish", "/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Fisch-Meeresfruechte/Krone-ASC-Forellen-Filets-100-g.html"],
+  ["fish", "/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Fisch-Meeresfruechte/EDEKA-Bio-Raeucherlachs-100-g.html"],
+  ["fish", "/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Fisch-Meeresfruechte/Krone-Fisch-ASC-Mein-Lieblings-Lachs-100-g.html"],
+  ["fish", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Fischkonserven/EDEKA-Herzstuecke-Thunfischfilets-in-eigenem-Saft-und-Aufguss-185-g.html"],
+  ["fish", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Fischkonserven/Saupiquet-Thunfisch-Filets-Naturale-ohne-Oel-185-g.html"],
   // 3. Hüttenkäse
   ["cottage", "/Kuehlprodukte-EDEKA/Eier-Kaese-Molkereiprodukte/GERVAIS-Huetten-Kaese-Original-200-g.html"],
   ["cottage", "/Kuehlprodukte-EDEKA/Eier-Kaese-Molkereiprodukte/Exquisa-Koernige-Frischkaesezubereitung-Fitline-0-3-200-g.html"],
@@ -154,8 +161,8 @@ const PRODUCTS = [
 
 // Marken (längster Treffer am Namensanfang gewinnt) — für „Marke · Produkt“ in der Einkaufsliste
 const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle",
-  "Bürger", "EDEKA Bio", "EDEKA Herzstücke", "Ehrmann", "FRoSTA", "Exquisa", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
-  "Like MEAT", "LIKE", "Mestemacher", "MILRAM", "müller", "Müller", "planted", "Poensgen", "Rapunzel", "reis-fit",
+  "Bürger", "EDEKA Bio", "EDEKA Herzstücke", "Ehrmann", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
+  "Like MEAT", "LIKE", "Mestemacher", "MILRAM", "müller", "Müller", "planted", "Poensgen", "Rapunzel", "reis-fit", "Saupiquet",
   "Schwarzwaldmilch", "Taifun"];
 
 // Nährwerte von der offiziellen **Herstellerseite** statt vom Shop (User 20.09.2026: er hat die FRoSTA-Seiten verlinkt).
@@ -167,6 +174,7 @@ const MANUFACTURER = {
   "FRoSTA Nasi Goreng 500 g": "https://www.frosta.de/produkte/schnelle-gerichte/nasi-goreng/",
   "FRoSTA Bami Goreng 500 g": "https://www.frosta.de/produkte/schnelle-gerichte/bami-goreng/",
   "FRoSTA Hähnchen Paella 500 g": "https://www.frosta.de/produkte/schnelle-gerichte/haehnchen-paella/",
+  "Krone ASC Forellen-Filets 100 g": "https://www.krone-fisch.de/produkt/forellen-filets/",   // User 22.09.2026
 };
 
 // Gerichte, die dieser Markt (noch) nicht listet: alles von der Herstellerseite, Preis ausdrücklich als Annahme markiert
@@ -211,6 +219,11 @@ const SHELLFISH_ALLERGEN_RE = /krebstier|weichtier/i;
 // „Cyclamat“ enthält „clam“ (Venusmuschel), „Austernpilz“ enthält „Auster“ — beides sind keine Schalentiere
 const SHELLFISH_SAFE = [/(natrium-?)?cyclamat/gi, /austernpilz(e|en)?/gi, /austern-?pilz/gi, /austernseitling(e)?/gi, /oyster mushroom/gi, /muschelnudel(n)?/gi, /muschelpasta/gi];
 const HERB_RE = /koriander|cilantro|minze|\bmint\b/i;
+// Fisch und Thunfisch (Schalter „No fish“ / „No tuna“, User 22.09.2026): Fisch laut Allergenangabe („Fische und daraus
+// hergestellte Erzeugnisse“ = enthalten, Spuren stehen dort nicht) oder laut Name; Thunfisch laut Name, Bezeichnung oder Zutaten
+const FISH_ALLERGEN_RE = /\bFisch(e)?\b/i;
+const FISH_NAME_RE = /lachs|forelle|thunfisch|seelachs|hering|makrele|kabeljau|sardine|dorsch|scholle|\btuna\b|\bsalmon\b/i;
+const TUNA_RE = /thunfisch|\btuna\b|\btonno\b/i;
 // Tiefkühl erkennt man am Aufbewahrungshinweis („bei -18 °C“) — Schalter „No frozen food“
 const FROZEN_RE = /-\s?18\s?°|tiefgefroren|tiefkühl|gefrierfach/i;
 
@@ -255,16 +268,29 @@ const NUTRIENTS = [
   ["salt", /^Salz in g$/],
 ];
 
-// Nährwerttabelle einer FRoSTA-Produktseite (Werte je 100 g Packungsinhalt) + Packungsgröße + Zutaten ohne Spuren-Hinweis
+// Nährwerttabelle einer Herstellerseite (FRoSTA, Krone …): Werte je 100 g, Label für Label gelesen.
+// Ein Label ohne Zahl (Krone lässt z.B. Kohlenhydrate/Zucker leer) → null; der Aufrufer behält dann den Shop-Wert
+// und dokumentiert das. Dazu Packungsgröße und Zutaten ohne Spuren-Hinweis („Kann Spuren enthalten“ zählt NICHT).
 function parseManufacturer(html, url, problems) {
-  const txt = html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&nbsp;/g, " ").replace(/\s+/g, " ");
-  const m = txt.match(/Energie ([\d.,]+) kJ \/ ([\d.,]+) kcal Fett ([\d.,]+) g davon ges[^\d]*([\d.,]+) g Kohlenhydrate ([\d.,]+) g davon Zucker ([\d.,]+) g Ballaststoffe ([\d.,]+) g Eiwei[^\d]*([\d.,]+) g Salz ([\d.,]+) g/);
-  if (!m) { problems.push(url + ": Nährwerttabelle der Herstellerseite nicht lesbar"); return null; }
-  const v = i => U.parseNum(m[i], url);
-  const per100 = { kcal: v(2), fat: v(3), sat: v(4), carbs: v(5), sugars: v(6), fibre: v(7), protein: v(8), salt: v(9) };
-  const name = ((html.match(/<title>([^<]*)<\/title>/) || [])[1] || "").replace(/\s*[|-]\s*FRoSTA.*$/i, "").replace(/&amp;/g, "&").trim();
+  const txt = html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ").replace(/<[^>]+>/g, " ")
+    .replace(/&amp;/g, "&").replace(/&nbsp;/g, " ").replace(/\s+/g, " ");
+  const start = txt.search(/Energie\s+[\d.,]+\s*kJ/);
+  if (start < 0) { problems.push(url + ": Nährwerttabelle der Herstellerseite nicht lesbar"); return null; }
+  const tab = txt.slice(start, start + 600);
+  const grab = re => { const m = tab.match(re); return m ? U.parseNum(m[1], url) : null; };
+  const per100 = {
+    kcal: grab(/([\d.,]+)\s*kcal/),
+    fat: grab(/Fett\s+([\d.,]+)\s*g/),
+    sat: grab(/gesättigte Fettsäuren\s+([\d.,]+)\s*g/),
+    carbs: grab(/Kohlenhydrate\s+([\d.,]+)\s*g/),
+    sugars: grab(/davon Zucker\s+([\d.,]+)\s*g/),
+    fibre: grab(/Ballaststoffe\s+([\d.,]+)\s*g/),
+    protein: grab(/Eiwei(?:ß|ss)\s+([\d.,]+)\s*g/),
+    salt: grab(/Salz\s+([\d.,]+)\s*g/),
+  };
+  for (const k of ["kcal", "fat", "protein", "salt"]) if (per100[k] == null) problems.push(url + ": Herstellerseite nennt keinen Wert für " + k);
+  const name = ((html.match(/<title>([^<]*)<\/title>/) || [])[1] || "").replace(/\s*[|–-]\s*(FRoSTA|Krone).*$/i, "").replace(/&amp;/g, "&").trim();
   const packG = (txt.match(/Packungsgröße[^\d]{0,40}(\d{3,4})\s?g/) || [])[1];
-  // Zutaten bis zum Spuren-Hinweis („Kann Spuren enthalten von …“ zählt laut Regel NICHT als enthalten)
   const zi = txt.search(/Alle Zutaten/), di = txt.search(/Kann Spuren enthalten|Distributor:/);
   const ingredients = zi >= 0 && di > zi ? txt.slice(zi, di).replace(/^Alle Zutaten/, "").trim() : null;
   const traces = (txt.match(/Kann Spuren enthalten von[^.]{0,200}/) || [])[0] || null;
@@ -303,7 +329,8 @@ function parsePage(html, url, problems) {
 
   const priceRaw = (html.match(/itemprop="price"[^>]*>\s*([\d.,]+)/) || [])[1];
   const price = priceRaw == null ? null : U.round(Number(String(priceRaw).replace(",", ".")), 2);
-  if (price == null || !(price > 0)) problems.push(where + ": kein Preis");
+  const unavailable = /temporär nicht verfügbar/i.test(html);
+  if ((price == null || !(price > 0)) && !unavailable) problems.push(where + ": kein Preis");
   const sku = (html.match(/itemprop="sku"[^>]*content="([^"]+)"/) || [])[1] || null;
 
   // Abtropfgewicht (Konserven): „Abtropfgewicht: 250,000“ + „Abtropfgewicht Mengeneinheit: g“
@@ -315,7 +342,7 @@ function parsePage(html, url, problems) {
   }
   return {
     name, url, sku, price, per100, basis, noData,
-    packG: packSize(name, problems), drainedG: drained,
+    packG: packSize(name, problems), drainedG: drained, unavailable,
     fibreDeclared: !missing.includes("fibre"),
     allergens: info["Allergene"] || null,
     ingredients: info["Zutatenverzeichnis"] || null,
@@ -327,7 +354,8 @@ function parsePage(html, url, problems) {
 
 async function main() {
   const problems = [], anomalies = [], infos = [], noFibre = [], coriander = [], shellfish = [], frozen = [], noData = [];
-  const manufacturerDiffs = [];
+  const manufacturerDiffs = [], fish = [], tuna = [], unavailable = [];
+  let PREV = null; try { PREV = U.readJSON(OUT); } catch (e) {}   // voriger Lauf: letzter bekannter Preis für gerade nicht verfügbare Produkte
   const items = [], seen = new Set();
   const fetchedAt = new Date().toISOString();
 
@@ -340,6 +368,25 @@ async function main() {
     try { html = await get(url); } catch (e) { problems.push(p + ": " + e.message); continue; }
     const d = parsePage(html, url, problems);
     if (!d) continue;
+    // „Der Artikel ist temporär nicht verfügbar“: die Seite nennt keinen Preis → letzter bekannter Preis, sichtbar markiert
+    // Solange ein Artikel nicht verfügbar ist, blendet der Shop auch die Nährwerttabelle aus (22.09.2026, Karottenstifte)
+    // → Preis UND Werte aus dem vorigen Lauf übernehmen; beides steht in _meta.unavailable
+    if (d.unavailable && d.price == null) {
+      const old = PREV && (PREV.items || []).find(x => x.name === d.name);
+      if (old && old.price > 0) {
+        d.price = old.price;
+        d.priceNote = "temporarily not available in the online shop (" + fetchedAt.slice(0, 10) + ") — last known price";
+        let what = "Preis " + old.price.toFixed(2) + " €";
+        if (d.noData && old.per100 && !old.noData && U.KEYS.some(k => old.per100[k] > 0)) {
+          d.per100 = { ...old.per100 };
+          d.noData = null;
+          d.fibreDeclared = !!old.fibreDeclared;
+          if (old.valuesFrom) d.valuesFrom = old.valuesFrom;
+          what += " und Nährwerte (" + (old.fetchedAt || PREV._meta.fetchedAt || "voriger Lauf").slice(0, 10) + ")";
+        }
+        unavailable.push(d.name + " — letzter bekannter " + what);
+      } else problems.push(d.name + ": temporär nicht verfügbar und kein früherer Preis bekannt");
+    } else d.unavailable = false;
     if (items.some(x => x.name === d.name)) { infos.push("Produkt doppelt (gleicher Name), einmal übernommen: " + d.name); continue; }
 
     d.cat = cat;
@@ -358,6 +405,7 @@ async function main() {
       if (fb.like) {
         const src = items.find(x => x.name === fb.like);
         if (!src) { problems.push(d.name + ": Referenzprodukt „" + fb.like + "“ steht nicht (davor) in PRODUCTS"); }
+        else if (src.noData || !U.KEYS.some(k => src.per100[k] > 0)) { problems.push(d.name + ": Referenzprodukt „" + fb.like + "“ hat keine Nährwerte"); per = null; }
         else per = src.per100;
       }
       if (per) {
@@ -373,12 +421,17 @@ async function main() {
       try { mh = await get(MANUFACTURER[d.name]); } catch (e) { problems.push(d.name + " (Herstellerseite): " + e.message); }
       const mp = mh && parseManufacturer(mh, MANUFACTURER[d.name], problems);
       if (mp) {
-        const diff = U.KEYS.filter(k => Math.abs((d.per100[k] || 0) - mp.per100[k]) > 0.05)
+        // Fehlt auf der Herstellerseite ein Wert (Krone lässt Kohlenhydrate/Zucker leer), bleibt der Shop-Wert — dokumentiert
+        const gaps = U.KEYS.filter(k => mp.per100[k] == null && k !== "fibre");
+        const per = Object.fromEntries(U.KEYS.map(k => [k, mp.per100[k] == null ? (d.per100[k] || 0) : mp.per100[k]]));
+        const diff = U.KEYS.filter(k => mp.per100[k] != null && Math.abs((d.per100[k] || 0) - mp.per100[k]) > 0.05)
           .map(k => k + " Shop " + (d.per100[k] || 0) + " ≠ Hersteller " + mp.per100[k]);
-        if (diff.length) manufacturerDiffs.push({ name: d.name, diffs: diff, note: "der Tracker rechnet mit den Werten der Herstellerseite" });
+        if (diff.length || gaps.length) manufacturerDiffs.push({ name: d.name, diffs: diff,
+          gaps: gaps.map(k => k + ": Herstellerseite ohne Wert → Shop-Wert " + (d.per100[k] || 0)),
+          note: "der Tracker rechnet mit den Werten der Herstellerseite" });
         if (mp.packG != null && d.packG != null && Math.abs(mp.packG - d.packG) > 1) problems.push(d.name + ": Packung Shop " + d.packG + " g ≠ Hersteller " + mp.packG + " g");
-        d.per100 = mp.per100;
-        d.fibreDeclared = true;
+        d.per100 = per;
+        d.fibreDeclared = mp.per100.fibre != null || d.fibreDeclared;
         d.valuesFrom = "offizielle Herstellerseite " + MANUFACTURER[d.name];
         d.manufacturerUrl = MANUFACTURER[d.name];
         if (mp.ingredients) d.ingredients = mp.ingredients;   // vollständige Zutatenliste des Herstellers (ohne „Kann Spuren enthalten“)
@@ -392,6 +445,8 @@ async function main() {
     if (SHELLFISH_RE.test(text) || SHELLFISH_ALLERGEN_RE.test(d.allergens || "")) { d.shellfish = true; shellfish.push(d.name); }
     if (HERB_RE.test(text)) { d.herbs = (text.match(HERB_RE) || [])[0]; coriander.push(d.name + " (" + d.herbs + ")"); }
     if (FROZEN_RE.test(d.storage || "")) { d.frozen = true; frozen.push(d.name); }
+    if (FISH_ALLERGEN_RE.test(d.allergens || "") || FISH_NAME_RE.test(d.name)) { d.fish = true; fish.push(d.name); }
+    if (TUNA_RE.test(d.name + " " + (d.legal || "") + " " + (d.ingredients || ""))) { d.tuna = true; tuna.push(d.name); }
 
     if (!d.noData) { const issues = U.checkItem({ ...d.per100, fibre: d.per100.fibre || 0 }); if (issues.length) anomalies.push({ name: d.name, issues }); }
     items.push(d);
@@ -444,6 +499,7 @@ async function main() {
         "User 19.09.2026: Gemüse ohne Nährwertangabe bekommt die Werte des jeweiligen Gemüses (gleiches Shop-Produkt bzw. USDA-Referenz), Quelle je Produkt dokumentiert",
         "User 19.09.2026: jedes Produkt verlinkt seine Produktseite (Bild + Wiederfinden im Laden)",
         "User 20.09.2026: TK-Fertiggerichte von FRoSTA als eigene Kategorie; Nährwerte von den verlinkten Herstellerseiten (frosta.de), Preis und Packung vom Markt",
+        "User 22.09.2026: neue Kategorie „Fisch“ (Forelle, 2× Räucherlachs, 2× Thunfisch in Dosen); Schalter „No tuna“ (Default AN) und „No fish“ (Default AUS — ausdrücklich gegen die „No …“-Regel vom 13.09.2026); die Krone-Forelle mit den Werten der verlinkten Herstellerseite",
         "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere",
       ],
       store: STORE,
@@ -458,6 +514,9 @@ async function main() {
       noData,
       noFibre,
       frozen: frozen.length ? frozen : "kein Produkt mit Tiefkühl-Hinweis",
+      unavailable,   // im Onlineshop gerade nicht verfügbar → letzter bekannter Preis
+      fish,   // Schalter „No fish“: Allergen „Fische“ oder Fisch im Namen
+      tuna,   // Schalter „No tuna“
       shellfish: shellfish.length ? shellfish : "kein Produkt mit Krebs- oder Weichtieren (Lachs = Fisch, erlaubt)",
       coriander: coriander.length ? coriander : "kein Produkt mit Koriander oder Minze in Name, Bezeichnung oder Zutaten",
       anomalies,

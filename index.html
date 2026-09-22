@@ -1170,13 +1170,55 @@ const BEETSROOTS = {
   ],
 };
 // __BEETSROOTS_DATA_END__
+// __FITKITCHEN_DATA_START__ (generiert via: node fitkitchen-update.js aus data/fitkitchen-raw.json — nicht von Hand editieren)
+// Quelle: Speisekarte fit-kitchen.de (offizielle Werte je Gericht; nur kcal/KH/Fett/Eiweiß) · Menü, Namen + Preise: Wolt „fit-kitchen“, Stand 2026-09-22
+const FITKITCHEN = {
+  cats: [
+    {id:"burger",name:"Burger",on:true},
+    {id:"wraps",name:"Wraps",on:true},
+    {id:"sides",name:"Beilagen",on:true},
+    {id:"pizza",name:"Pizza",on:true},
+    {id:"dips",name:"Dips",on:true},
+  ],
+  items: [
+    {id:"fk_classic_burger",name:"Classic Burger",cat:"burger",kcal:498,fat:25,sat:0,carbs:16,sugars:0,fibre:0,protein:50,salt:0,price:8.2},
+    {id:"fk_chili_cheese_burger",name:"Chili Cheese Burger",cat:"burger",kcal:562,fat:29,sat:0,carbs:17,sugars:0,fibre:0,protein:58,salt:0,price:9.2},
+    {id:"fk_chicken_mozzarella_burger",name:"Chicken Mozzarella Burger",cat:"burger",kcal:405,fat:13,sat:0,carbs:18,sugars:0,fibre:0,protein:52,salt:0,price:9.2},
+    {id:"fk_veggie_burger",name:"Veggie Burger",cat:"burger",kcal:648,fat:31,sat:0,carbs:33,sugars:0,fibre:0,protein:52,salt:0,price:9.2},
+    {id:"fk_veganer_burger",name:"Veganer Burger",cat:"burger",kcal:609,fat:30,sat:0,carbs:33,sugars:0,fibre:0,protein:49,salt:0,price:9.2},
+    {id:"fk_mango_cheese_beef_burger",name:"Mango Cheese Beef Burger",cat:"burger",kcal:574,fat:28,sat:0,carbs:23,sugars:0,fibre:0,protein:55,salt:0,price:9.8},
+    {id:"fk_avocado_chicken_burger",name:"Avocado Chicken Burger",cat:"burger",kcal:374,fat:10,sat:0,carbs:19,sugars:0,fibre:0,protein:50,salt:0,price:9.8},
+    {id:"fk_bbq_burger",name:"BBQ Burger",cat:"burger",kcal:595,fat:32,sat:0,carbs:18,sugars:0,fibre:0,protein:56,salt:0,price:9.2},
+    {id:"fk_hackfleisch_wrap",name:"Hackfleisch Wrap",cat:"wraps",kcal:493,fat:24,sat:0,carbs:18,sugars:0,fibre:0,protein:49,salt:0,price:9.2},
+    {id:"fk_haehnchen_wrap",name:"Hähnchen Wrap",cat:"wraps",kcal:389,fat:13,sat:0,carbs:18,sugars:0,fibre:0,protein:48,salt:0,price:9.2},
+    {id:"fk_falafel_wrap",name:"Falafel Wrap",cat:"wraps",kcal:416,fat:16,sat:0,carbs:32,sugars:0,fibre:0,protein:34,salt:0,price:9.2},
+    {id:"fk_mango_beef_wrap",name:"Mango Beef Wrap",cat:"wraps",kcal:445,fat:21,sat:0,carbs:20,sugars:0,fibre:0,protein:42,salt:0,price:9.8},
+    {id:"fk_avocado_chicken_wrap",name:"Avocado Chicken Wrap",cat:"wraps",kcal:380,fat:12,sat:0,carbs:18,sugars:0,fibre:0,protein:48,salt:0,price:9.8},
+    {id:"fk_coleslaw",name:"Coleslaw",cat:"sides",kcal:210,fat:13,sat:0,carbs:15,sugars:0,fibre:0,protein:3,salt:0,price:3.9},
+    {id:"fk_pizza_margherita",name:"Pizza Margherita",cat:"pizza",kcal:474,fat:17,sat:0,carbs:32,sugars:0,fibre:0,protein:56,salt:0,price:8.8},
+    {id:"fk_pizza_salami_putenschinken_champignons",name:"Pizza Salami Putenschinken Champignons",cat:"pizza",kcal:637,fat:25,sat:0,carbs:33,sugars:0,fibre:0,protein:67,salt:0,price:10.8},
+    {id:"fk_pizza_veggie_rucola",name:"Pizza Veggie Rucola",cat:"pizza",kcal:596,fat:25,sat:0,carbs:33,sugars:0,fibre:0,protein:57,salt:0,price:10.8},
+    {id:"fk_pizza_chicken",name:"Pizza Chicken",cat:"pizza",kcal:600,fat:20,sat:0,carbs:32,sugars:0,fibre:0,protein:70,salt:0,price:11.8},
+    {id:"fk_pizza_beef",name:"Pizza Beef",cat:"pizza",kcal:631,fat:23,sat:0,carbs:34,sugars:0,fibre:0,protein:69,salt:0,price:11.8},
+    {id:"fk_pizza_sucuk_jalapenos",name:"Pizza Sucuk Jalapenos",cat:"pizza",kcal:653,fat:29,sat:0,carbs:33,sugars:0,fibre:0,protein:62,salt:0,price:10.8},
+    {id:"fk_mayonnaise",name:"Mayonnaise",cat:"dips",kcal:80,fat:7,sat:0,carbs:2,sugars:0,fibre:0,protein:2,salt:0,price:0.5,sauce:true,orderNote:"30 mL"},
+    {id:"fk_ketchup",name:"Ketchup",cat:"dips",kcal:25,fat:0,sat:0,carbs:6,sugars:0,fibre:0,protein:0,salt:0,price:0.5,sauce:true,orderNote:"30 mL"},
+    {id:"fk_avocado_dip",name:"Avocado Dip",cat:"dips",kcal:70.1,fat:5,sat:0,carbs:3,sugars:0,fibre:0,protein:3,salt:0,price:1,sauce:true,orderNote:"30 mL"},
+    {id:"fk_bbq_dip",name:"BBQ Dip",cat:"dips",kcal:65,fat:4,sat:0,carbs:4,sugars:0,fibre:0,protein:4,salt:0,price:1,sauce:true,orderNote:"30 mL"},
+    {id:"fk_chili_cheese_dip",name:"Chili Cheese Dip",cat:"dips",kcal:61,fat:4,sat:0,carbs:2,sugars:0,fibre:0,protein:4,salt:0,price:1,sauce:true,orderNote:"30 mL"},
+    {id:"fk_curry_mayonnaise_dip",name:"Curry Mayonnaise Dip",cat:"dips",kcal:61,fat:4,sat:0,carbs:3,sugars:0,fibre:0,protein:4,salt:0,price:1,sauce:true,orderNote:"30 mL"},
+    {id:"fk_mango_dip",name:"Mango Dip",cat:"dips",kcal:65,fat:4,sat:0,carbs:4,sugars:0,fibre:0,protein:3,salt:0,price:1,sauce:true,orderNote:"30 mL"},
+  ],
+};
+// __FITKITCHEN_DATA_END__
 
 // __EDEKA_DATA_START__ (generiert via: node edeka-update.js aus data/edeka-raw.json — nicht von Hand editieren)
-// Quelle: Produktseiten des EDEKA-Graf-Onlineshops (https://graf-ffm.edeka.shop, EDEKA Graf, Frankfurt am Main) · Werte je 100 g, Menge = Abtropfgewicht bzw. Packung · Stand 2026-09-20
+// Quelle: Produktseiten des EDEKA-Graf-Onlineshops (https://graf-ffm.edeka.shop, EDEKA Graf, Frankfurt am Main) · Werte je 100 g, Menge = Abtropfgewicht bzw. Packung · Stand 2026-09-22
 const EDEKA = {
   cats: [
     {id:"carbs",name:"Carbs & bases",on:true},
     {id:"chicken",name:"Cooked chicken & meat",on:true},
+    {id:"fish",name:"Fish",on:true},
     {id:"cottage",name:"Cottage cheese",on:true},
     {id:"vegan",name:"Vegan protein & tofu",on:true},
     {id:"skyr",name:"Skyr & quark",on:true},
@@ -1205,6 +1247,11 @@ const EDEKA = {
     {id:"bernard_matthews_oldenburg_puten_filetstreifen_125_g",name:"Bernard Matthews Oldenburg Puten-Filetstreifen 125 g",brand:"Bernard Matthews Oldenburg",cat:"chicken",g:125,pack:125,p100:{kcal:144,fat:4,sat:0.4,carbs:5,sugars:2,fibre:0,protein:22,salt:2.5},price:3.29,url:"https://graf-ffm.edeka.shop/Bernard-Matthews-Oldenburg-Puten-Filetstreifen-125-g.html",note:"ganze Packung laut Produktname"},
     {id:"edeka_herzstuecke_haehnchenbrust_filetstuecke_pikant_150_g",name:"EDEKA Herzstücke Hähnchenbrust-Filetstücke Pikant 150 g",brand:"EDEKA Herzstücke",cat:"chicken",g:150,pack:150,p100:{kcal:132,fat:3.5,sat:0.7,carbs:1,sugars:0.5,fibre:0,protein:24,salt:1.8},price:2.49,url:"https://graf-ffm.edeka.shop/EDEKA-Herzstuecke-Haehnchenbrust-Filetstuecke-Pikant-150-g-EDEKA.html",note:"ganze Packung laut Produktname"},
     {id:"edeka_herzstuecke_haehnchenbrust_filetstueck_klassik_150_g",name:"EDEKA Herzstücke Hähnchenbrust-Filetstück Klassik 150 g",brand:"EDEKA Herzstücke",cat:"chicken",g:150,pack:150,p100:{kcal:132,fat:3.5,sat:0.7,carbs:1,sugars:0.1,fibre:0,protein:24,salt:1.8},price:2.49,url:"https://graf-ffm.edeka.shop/EDEKA-Herzstuecke-Haehnchenbrust-Filetstueck-Klassik-150-g.html",note:"ganze Packung laut Produktname"},
+    {id:"krone_asc_forellen_filets_100_g",name:"Krone ASC Forellen-Filets 100 g",brand:"Krone",cat:"fish",g:100,pack:100,p100:{kcal:144,fat:5.6,sat:1.3,carbs:0,sugars:0,fibre:0,protein:23,salt:2.21},price:3.29,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Fisch-Meeresfruechte/Krone-ASC-Forellen-Filets-100-g.html",fish:true,ref:"krone-fisch.de (manufacturer)",note:"ganze Packung laut Produktname"},
+    {id:"edeka_bio_raeucherlachs_100_g",name:"EDEKA Bio Räucherlachs 100 g",brand:"EDEKA Bio",cat:"fish",g:100,pack:100,p100:{kcal:156,fat:8.4,sat:1.8,carbs:0,sugars:0,fibre:0,protein:20,salt:3.1},price:3.99,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Fisch-Meeresfruechte/EDEKA-Bio-Raeucherlachs-100-g.html",fish:true,note:"ganze Packung laut Produktname"},
+    {id:"krone_fisch_asc_mein_lieblings_lachs_100_g",name:"Krone Fisch ASC Mein Lieblings Lachs 100 g",brand:"Krone Fisch",cat:"fish",g:100,pack:100,p100:{kcal:180,fat:11,sat:2,carbs:0,sugars:0,fibre:0,protein:21,salt:3.07},price:3.29,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Fisch-Meeresfruechte/Krone-Fisch-ASC-Mein-Lieblings-Lachs-100-g.html",fish:true,note:"ganze Packung laut Produktname"},
+    {id:"edeka_herzstuecke_thunfischfilets_in_eigenem_saft_und_aufguss_185_g",name:"EDEKA Herzstücke Thunfischfilets in eigenem Saft und Aufguss 185 g",brand:"EDEKA Herzstücke",cat:"fish",g:130,pack:185,p100:{kcal:116,fat:0.7,sat:0.2,carbs:0,sugars:0,fibre:0,protein:27.3,salt:0.6},price:2.99,url:"https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Konserven-Feinkost/Fischkonserven/EDEKA-Herzstuecke-Thunfischfilets-in-eigenem-Saft-und-Aufguss-185-g.html",fish:true,tuna:true,drained:true,note:"Abtropfgewicht laut Produktseite (ganze Dose)"},
+    {id:"saupiquet_thunfisch_filets_naturale_ohne_oel_185_g",name:"Saupiquet Thunfisch-Filets Naturale - ohne Öl 185 g",brand:"Saupiquet",cat:"fish",g:130,pack:185,p100:{kcal:101,fat:0.5,sat:0.2,carbs:0,sugars:0,fibre:0,protein:24,salt:1.3},price:3.69,url:"https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Konserven-Feinkost/Fischkonserven/Saupiquet-Thunfisch-Filets-Naturale-ohne-Oel-185-g.html",fish:true,tuna:true,drained:true,note:"Abtropfgewicht laut Produktseite (ganze Dose)"},
     {id:"gervais_huetten_kaese_original_200_g",name:"GERVAIS Hütten Käse Original 200 g",brand:"GERVAIS",cat:"cottage",g:200,pack:200,p100:{kcal:87,fat:3.2,sat:2.1,carbs:1.5,sugars:1.5,fibre:0,protein:12.3,salt:0.85},price:2.29,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Eier-Kaese-Molkereiprodukte/GERVAIS-Huetten-Kaese-Original-200-g.html",note:"ganze Packung laut Produktname"},
     {id:"exquisa_koernige_frischkaesezubereitung_fitline_0_3_200_g",name:"Exquisa Körnige Frischkäsezubereitung Fitline 0,3 % 200 g",brand:"Exquisa",cat:"cottage",g:200,pack:200,p100:{kcal:70,fat:0.3,sat:0.2,carbs:4.4,sugars:4.4,fibre:0,protein:12.5,salt:0.7},price:2.29,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Eier-Kaese-Molkereiprodukte/Exquisa-Koernige-Frischkaesezubereitung-Fitline-0-3-200-g.html",note:"ganze Packung laut Produktname"},
     {id:"gut_guenstig_koerniger_frischkaese_leicht_200_g",name:"GUT&GÜNSTIG Körniger Frischkäse Leicht 200 g",brand:"GUT&GÜNSTIG",cat:"cottage",g:200,pack:200,p100:{kcal:73,fat:0.5,sat:0.5,carbs:5,sugars:5,fibre:0,protein:12,salt:0.85},price:1.19,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Eier-Kaese-Molkereiprodukte/GUT-GUeNSTIG-Koerniger-Frischkaese-Leicht-200-g.html",note:"ganze Packung laut Produktname"},
@@ -1217,7 +1264,7 @@ const EDEKA = {
     {id:"like_like_doener_180_g",name:"LIKE Like Döner 180 g",brand:"LIKE",cat:"vegan",g:180,pack:180,p100:{kcal:127,fat:4.5,sat:0.6,carbs:1.5,sugars:0.8,fibre:6,protein:17,salt:1.7},price:3.49,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Pflanzliche-Kuehlprodukte/Pflanzliche-Fertiggerichte/LIKE-Like-Doener-180-g.html",note:"ganze Packung laut Produktname"},
     {id:"planted_pulled_bbq_160_g",name:"planted. Pulled BBQ 160 g",brand:"planted",cat:"vegan",g:160,pack:160,p100:{kcal:134,fat:3.2,sat:0.4,carbs:5.9,sugars:3.5,fibre:0,protein:18,salt:1.7},price:3.29,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Pflanzliche-Kuehlprodukte/Pflanzliche-Fertiggerichte/planted-Pulled-BBQ-160-g.html",note:"ganze Packung laut Produktname"},
     {id:"alnatura_bio_tofu_natur_haltbar_200_g",name:"Alnatura Bio Tofu natur haltbar 200 g",brand:"Alnatura",cat:"vegan",g:200,pack:200,p100:{kcal:116,fat:7.1,sat:1.2,carbs:0.5,sugars:0.5,fibre:1.9,protein:12,salt:0.01},price:1.79,url:"https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Fertiggerichte/Alnatura-Bio-Tofu-natur-haltbar-200-g.html",note:"ganze Packung laut Produktname"},
-    {id:"schwarzwaldmilch_protein_quark_creme_0_2_fett_250_g",name:"Schwarzwaldmilch Protein Quark Creme 0,2 % Fett 250 g",brand:"Schwarzwaldmilch",cat:"skyr",g:250,pack:250,p100:{kcal:63,fat:0.2,sat:0.1,carbs:4.8,sugars:4.8,fibre:0,protein:10,salt:0.14},price:1.49,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Eier-Kaese-Molkereiprodukte/Quark-Quarkerzeugnisse/Schwarzwaldmilch-Protein-Quark-Creme-0-2-Fett-250-g.html",note:"ganze Packung laut Produktname"},
+    {id:"schwarzwaldmilch_protein_quark_creme_0_2_fett_250_g",name:"Schwarzwaldmilch Protein Quark Creme 0,2 % Fett 250 g",brand:"Schwarzwaldmilch",cat:"skyr",g:250,pack:250,p100:{kcal:63,fat:0.2,sat:0.1,carbs:4.8,sugars:4.8,fibre:0,protein:10,salt:0.14},price:1.59,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Eier-Kaese-Molkereiprodukte/Quark-Quarkerzeugnisse/Schwarzwaldmilch-Protein-Quark-Creme-0-2-Fett-250-g.html",note:"ganze Packung laut Produktname"},
     {id:"andechser_natur_bio_speisequarkzubereitung_0_fett_250_g",name:"Andechser Natur Bio Speisequarkzubereitung 0 % Fett 250 g",brand:"Andechser Natur",cat:"skyr",g:250,pack:250,p100:{kcal:56,fat:0.2,sat:0.1,carbs:4,sugars:4,fibre:0,protein:9.6,salt:0.11},price:1.79,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Eier-Kaese-Molkereiprodukte/Quark-Quarkerzeugnisse/Andechser-Natur-Bio-Speisequarkzubereitung-0-Fett-250-g.html",note:"ganze Packung laut Produktname"},
     {id:"gut_guenstig_speisequark_magerstufe_250g_250_g",name:"GUT&GÜNSTIG Speisequark Magerstufe 250g 250 g",brand:"GUT&GÜNSTIG",cat:"skyr",g:250,pack:250,p100:{kcal:68,fat:0.2,sat:0.1,carbs:4.1,sugars:4.1,fibre:0,protein:12,salt:0.1},price:0.69,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Eier-Kaese-Molkereiprodukte/Quark-Quarkerzeugnisse/GUT-GUeNSTIG-Speisequark-Magerstufe-250g-250-g-EDEKA.html",note:"ganze Packung laut Produktname"},
     {id:"gut_guenstig_speisequark_magerstufe_500g_500_g",name:"GUT&GÜNSTIG Speisequark Magerstufe 500g 500 g",brand:"GUT&GÜNSTIG",cat:"skyr",g:500,pack:500,p100:{kcal:68,fat:0.2,sat:0.1,carbs:4.1,sugars:4.1,fibre:0,protein:12,salt:0.1},price:1.19,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Eier-Kaese-Molkereiprodukte/Quark-Quarkerzeugnisse/GUT-GUeNSTIG-Speisequark-Magerstufe-500g-500-g-EDEKA.html",note:"ganze Packung laut Produktname"},
@@ -1246,7 +1293,7 @@ const EDEKA = {
     {id:"bonduelle_junge_erbsen_feine_auslese_400_g",name:"Bonduelle Junge Erbsen feine Auslese 400 g",brand:"Bonduelle",cat:"veg_tins",g:280,pack:400,p100:{kcal:79,fat:0.8,sat:0.2,carbs:9.2,sugars:2,fibre:5.9,protein:5.7,salt:0.58},price:1.89,url:"https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Junge-Erbsen-feine-Auslese-400-g.html",drained:true,note:"Abtropfgewicht laut Produktseite (ganze Dose)"},
     {id:"bonduelle_erbsen_mit_moehrchen_feine_auslese_200_g",name:"Bonduelle Erbsen mit Möhrchen feine Auslese 200 g",brand:"Bonduelle",cat:"veg_tins",g:130,pack:200,p100:{kcal:61,fat:0.5,sat:0.1,carbs:8.3,sugars:3.2,fibre:4.2,protein:3.6,salt:0.58},price:1.49,url:"https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Erbsen-mit-Moehrchen-feine-Auslese-200-g.html",drained:true,note:"Abtropfgewicht laut Produktseite (ganze Dose)"},
     {id:"bonduelle_goldmais_bunter_mix_400_g",name:"Bonduelle Goldmais Bunter Mix 400 g",brand:"Bonduelle",cat:"veg_tins",g:265,pack:400,p100:{kcal:64,fat:1.4,sat:0.3,carbs:8.1,sugars:2,fibre:3.8,protein:2.9,salt:0.5},price:1.89,url:"https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Goldmais-Bunter-Mix-400-g.html",drained:true,note:"Abtropfgewicht laut Produktseite (ganze Dose)"},
-    {id:"edeka_herzstuecke_gemuese_pur_karottenstifte_250_g",name:"EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g",brand:"EDEKA Herzstücke",cat:"fresh_veg",g:250,pack:250,p100:{kcal:38,fat:0.2,sat:0.1,carbs:6.8,sugars:6.4,fibre:3.1,protein:0.8,salt:0.06},price:1.19,url:"https://graf-ffm.edeka.shop/Obst-Gemuese-EDEKA/EDEKA-Herzstuecke-Gemuese-Pur-Karottenstifte-250-g.html",note:"ganze Packung laut Produktname"},
+    {id:"edeka_herzstuecke_gemuese_pur_karottenstifte_250_g",name:"EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g",brand:"EDEKA Herzstücke",cat:"fresh_veg",g:250,pack:250,p100:{kcal:38,fat:0.2,sat:0.1,carbs:6.8,sugars:6.4,fibre:3.1,protein:0.8,salt:0.06},price:1.19,url:"https://graf-ffm.edeka.shop/Obst-Gemuese-EDEKA/EDEKA-Herzstuecke-Gemuese-Pur-Karottenstifte-250-g.html",unavailable:true,priceNote:"temporarily not available in the online shop (2026-09-22) — last known price",note:"ganze Packung laut Produktname"},
     {id:"edeka_herzstuecke_gemuesenudeln_zucchini_250_g",name:"EDEKA Herzstücke Gemüsenudeln Zucchini 250 g",brand:"EDEKA Herzstücke",cat:"fresh_veg",g:250,pack:250,p100:{kcal:17,fat:0.32,sat:0.08,carbs:2.11,sugars:2.5,fibre:1,protein:1.21,salt:0.02},price:2.39,url:"https://graf-ffm.edeka.shop/Obst-Gemuese-EDEKA/EDEKA-Herzstuecke-Gemuesenudeln-Zucchini-250-g.html",ref:"USDA FoodData Central",note:"ganze Packung laut Produktname"},
     {id:"edeka_herzstuecke_gemuesenudeln_karotte_250_g",name:"EDEKA Herzstücke Gemüsenudeln Karotte 250 g",brand:"EDEKA Herzstücke",cat:"fresh_veg",g:250,pack:250,p100:{kcal:38,fat:0.2,sat:0.1,carbs:6.8,sugars:6.4,fibre:3.1,protein:0.8,salt:0.06},price:2.39,url:"https://graf-ffm.edeka.shop/Obst-Gemuese-EDEKA/EDEKA-Herzstuecke-Gemuesenudeln-Karotte-250-g.html",ref:"EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g",note:"ganze Packung laut Produktname"},
     {id:"edeka_herzstuecke_minigurken_klasse_i_230g",name:"EDEKA Herzstücke Minigurken Klasse I 230g",brand:"EDEKA Herzstücke",cat:"fresh_veg",g:230,pack:230,p100:{kcal:15,fat:0.11,sat:0.04,carbs:3.13,sugars:1.67,fibre:0.5,protein:0.65,salt:0.01},price:2.49,url:"https://graf-ffm.edeka.shop/Obst-Gemuese-EDEKA/Gemuese/Gurken/EDEKA-Herzstuecke-Minigurken-Klasse-I-230g.html",ref:"USDA FoodData Central",note:"ganze Packung laut Produktname"},
@@ -1273,7 +1320,7 @@ const EDEKA = {
     {id:"gut_guenstig_bulgursalat_mit_kraeutern_200_g",name:"GUT&GÜNSTIG Bulgursalat mit Kräutern 200 g",brand:"GUT&GÜNSTIG",cat:"salads",g:200,pack:200,p100:{kcal:190,fat:6,sat:0.5,carbs:28.4,sugars:4.1,fibre:4.2,protein:3.5,salt:1.4},price:0.99,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Convenience/Salate-to-go/GUT-GUeNSTIG-Bulgursalat-mit-Kraeutern-200-g.html",note:"ganze Packung laut Produktname"},
     {id:"edeka_herzstuecke_cube_salat_vegan_175_g",name:"EDEKA Herzstücke Cube Salat Vegan 175 g",brand:"EDEKA Herzstücke",cat:"salads",g:175,pack:175,p100:{kcal:33,fat:0.5,sat:0.1,carbs:4.9,sugars:3,fibre:0,protein:1.6,salt:0.05},price:2.29,url:"https://graf-ffm.edeka.shop/Obst-Gemuese-EDEKA/EDEKA-Herzstuecke-Cube-Salat-Vegan-175-g.html",note:"ganze Packung laut Produktname"},
     {id:"edeka_herzstuecke_sandwich_sweet_chili_chicken_175_g",name:"EDEKA Herzstücke Sandwich Sweet Chili Chicken 175 g",brand:"EDEKA Herzstücke",cat:"sandwiches",g:175,pack:175,p100:{kcal:180,fat:5.5,sat:0.7,carbs:23.4,sugars:4.8,fibre:0,protein:8.5,salt:1.3},price:3.49,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Convenience/Pizza-Sandwich-Baguette/EDEKA-Herzstuecke-Sandwich-Sweet-Chili-Chicken-175-g.html",note:"ganze Packung laut Produktname"},
-    {id:"edeka_herzstuecke_sandwich_lachs_175_g",name:"EDEKA Herzstücke Sandwich Lachs 175 g",brand:"EDEKA Herzstücke",cat:"sandwiches",g:175,pack:175,p100:{kcal:195,fat:8.7,sat:1.8,carbs:18.6,sugars:3.2,fibre:0,protein:9.1,salt:1.1},price:3.49,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Convenience/Pizza-Sandwich-Baguette/EDEKA-Herzstuecke-Sandwich-Lachs-175-g.html",note:"ganze Packung laut Produktname"},
+    {id:"edeka_herzstuecke_sandwich_lachs_175_g",name:"EDEKA Herzstücke Sandwich Lachs 175 g",brand:"EDEKA Herzstücke",cat:"sandwiches",g:175,pack:175,p100:{kcal:195,fat:8.7,sat:1.8,carbs:18.6,sugars:3.2,fibre:0,protein:9.1,salt:1.1},price:3.49,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Convenience/Pizza-Sandwich-Baguette/EDEKA-Herzstuecke-Sandwich-Lachs-175-g.html",fish:true,note:"ganze Packung laut Produktname"},
     {id:"edeka_herzstuecke_sandwich_farmerschinken_mozzarella_175_g",name:"EDEKA Herzstücke Sandwich Farmerschinken & Mozzarella 175 g",brand:"EDEKA Herzstücke",cat:"sandwiches",g:175,pack:175,p100:{kcal:224,fat:9,sat:3,carbs:23.4,sugars:2.3,fibre:0,protein:11.5,salt:1.3},price:3.49,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Convenience/Pizza-Sandwich-Baguette/EDEKA-Herzstuecke-Sandwich-Farmerschinken-Mozzarella-175-g.html",note:"ganze Packung laut Produktname"},
     {id:"mestemacher_westfaelischer_pumpernickel_250_g",name:"Mestemacher Westfälischer Pumpernickel 250 g",brand:"Mestemacher",cat:"bread",g:250,pack:250,p100:{kcal:177,fat:1.1,sat:0.3,carbs:32.6,sugars:6,fibre:9.6,protein:4.4,salt:0.67},price:1.49,url:"https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Brot-Backzutaten/Brot-Gebaeck/Mestemacher-Westfaelischer-Pumpernickel-250-g.html",note:"ganze Packung laut Produktname"},
     {id:"poensgen_koernerbroetchen_glutenfrei_2x75_g",name:"Poensgen Körnerbrötchen glutenfrei 2x75 g",brand:"Poensgen",cat:"bread",g:150,pack:150,p100:{kcal:218,fat:4.9,sat:0.5,carbs:39.3,sugars:1.5,fibre:2.4,protein:3.5,salt:1},price:2.39,url:"https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Brot-Backzutaten/Brot-Gebaeck/Poensgen-Koernerbroetchen-glutenfrei-2x75-g.html",note:"ganze Packung laut Produktname"},
@@ -3320,6 +3367,10 @@ const EDEKA_SWITCHES = [
     hint:"Leaves out anything the product page stores at −18 °C. PrepMyMeal meals are frozen too, but they have their own switch below." },
   { id:"prepMyMeal", label:"Include PrepMyMeal", def:false, allow:x => x.prep,          // User 19.09.2026: Default AUS
     hint:"Off: the PrepMyMeal meals sold at this store are hidden everywhere. On: they show up in the product search — in the basket you can add any of them, and in Build order they only enter an order when you lock one in yourself under “Build around your own picks” (🔒). The optimizer never suggests them on its own." },
+  { id:"noTuna", label:"No tuna", def:true, filter:x => !x.tuna,                          // User 22.09.2026: Default AN
+    hint:"Leaves out the tuna tins (and anything else with tuna). Switch off to let the optimizer use them." },
+  { id:"noFish", label:"No fish", def:false, filter:x => !x.fish,                         // User 22.09.2026: Default AUS
+    hint:"Leaves out everything that contains fish — the smoked trout and salmon, the tuna tins and the salmon sandwich (fish as an allergen on the product page)." },
 ];
 
 const edekaG = g => (Math.round(g * 10) / 10) + " g";
@@ -3328,7 +3379,7 @@ function edekaScale(it, grams, flags) {
   const g = (typeof grams === "number" && isFinite(grams) && grams > 0) ? Math.round(grams * 10) / 10 : it.g;
   // Der Produktname trägt schon die Packungsmenge („… 400 g“) — die Tracker-Menge steht nur dran, wenn sie abweicht (Abtropfgewicht, halbe Packung)
   const showG = Math.abs(g - (it.pack || it.g)) > 0.05;
-  const o = { id: it.id, name: it.name + (showG ? " (" + edekaG(g) + (it.drained ? " drained" : "") + ")" : ""), cat: it.cat, brand: it.brand, url: it.url, g, price: it.price, drained: it.drained, frozen: it.frozen, ref: it.ref, fixed: it.fixed, priceNote: it.priceNote };
+  const o = { id: it.id, name: it.name + (showG ? " (" + edekaG(g) + (it.drained ? " drained" : "") + ")" : ""), cat: it.cat, brand: it.brand, url: it.url, g, price: it.price, drained: it.drained, frozen: it.frozen, ref: it.ref, fixed: it.fixed, priceNote: it.priceNote, unavailable: it.unavailable };
   for (const k of KEYS) o[k] = Math.round(it.p100[k] * g / 10) / 10;
   return Object.assign(o, flags || {});
 }
@@ -3440,7 +3491,7 @@ function edekaPanel(sel, ctx) {
         h("div", { style:{ color:"#e0e0e0" } }, (x.locked ? "🔒 " : x.must ? "★ " : "") + edekaName(x)),
         h("div", { style:{ fontSize:10, color:"#666", fontFamily:S.mono, marginTop:1, display:"flex", gap:8, flexWrap:"wrap" } },
           x.drained ? "drained weight" : null, x.fixed ? "✎ edited from the label" : x.ref ? "values: " + x.ref : null,
-          x.priceNote ? "price assumed" : null, x.url ? edekaLink(x.url) : null)),
+          x.unavailable ? "unavailable online" : x.priceNote ? "price assumed" : null, x.url ? edekaLink(x.url) : null)),
       h("span", { style:{ color:"#999", fontFamily:S.mono, whiteSpace:"nowrap" } }, x.kcal + " kcal · P " + x.protein + "g" + (x.price != null ? " · " + bowlEuro(x.price) : "")))),
     sel.price != null && h("div", { style:{ display:"flex", justifyContent:"space-between", gap:8, fontSize:12, padding:"6px 0 0", marginTop:4, borderTop:"1px solid #1f1f1f" } },
       h("span", { style:{ color:"#e0e0e0", fontWeight:600 } }, "Total price", h("span", { style:{ color:"#777", fontWeight:400, fontSize:10 } }, "  online-shop prices, whole packs")),
@@ -3494,7 +3545,7 @@ function edekaBasketList(ctx, key) {
        h("span", { key:"q", style:{ fontSize:13, fontFamily:S.mono, color:"#fff", minWidth:18, textAlign:"center" } }, e.qty || 1),
        edekaStepBtn("+", () => setList(l => l.map((x, j) => j === i ? { ...x, qty:(x.qty || 1) + 1 } : x))),
        edekaStepBtn("✕", () => setList(l => l.filter((x, j) => j !== i)), true)],
-      Math.round(sc.kcal * (e.qty || 1)) + " kcal · P " + edekaR1(sc.protein * (e.qty || 1)) + " · C " + edekaR1(sc.carbs * (e.qty || 1)) + " · F " + edekaR1(sc.fat * (e.qty || 1)) + " · " + bowlEuro(it.price * (e.qty || 1)) + (it.drained ? " · drained weight" : "") + (it.portions > 1 ? " · " + it.portions + " portions" : "") + (it.fixed ? " · ✎ edited" : it.ref ? " · values: " + it.ref : "") + (it.priceNote ? " · price assumed" : "")));
+      Math.round(sc.kcal * (e.qty || 1)) + " kcal · P " + edekaR1(sc.protein * (e.qty || 1)) + " · C " + edekaR1(sc.carbs * (e.qty || 1)) + " · F " + edekaR1(sc.fat * (e.qty || 1)) + " · " + bowlEuro(it.price * (e.qty || 1)) + (it.drained ? " · drained weight" : "") + (it.portions > 1 ? " · " + it.portions + " portions" : "") + (it.fixed ? " · ✎ edited" : it.ref ? " · values: " + it.ref : "") + (it.unavailable ? " · unavailable online" : it.priceNote ? " · price assumed" : "")));
   });
 }
 // Editor für die Korrektur vom Etikett: Produkt suchen, Werte je 100 g / Menge / Preis überschreiben, wieder zurücksetzen
@@ -3568,7 +3619,7 @@ function edekaExtra(ctx) {
           const sc = edekaScale(it, it.g);
           return h("div", { key:i }, edekaRow(it,
             h("button", { onClick:() => add(it), style:{ background:S.green, border:"none", color:"#fff", borderRadius:8, padding:"7px 12px", fontSize:12, fontWeight:700, cursor:"pointer", fontFamily:S.font } }, track ? "+ Add" : "🔒 Lock in"),
-            edekaG(it.g) + " · " + Math.round(sc.kcal) + " kcal · P " + edekaR1(sc.protein) + " · " + bowlEuro(it.price) + (it.drained ? " · drained weight" : "") + (it.portions > 1 ? " · " + it.portions + " portions per pack" : "") + (it.fixed ? " · ✎ edited" : it.ref ? " · values: " + it.ref : "") + (it.priceNote ? " · price assumed" : "")));
+            edekaG(it.g) + " · " + Math.round(sc.kcal) + " kcal · P " + edekaR1(sc.protein) + " · " + bowlEuro(it.price) + (it.drained ? " · drained weight" : "") + (it.portions > 1 ? " · " + it.portions + " portions per pack" : "") + (it.fixed ? " · ✎ edited" : it.ref ? " · values: " + it.ref : "") + (it.unavailable ? " · unavailable online" : it.priceNote ? " · price assumed" : "")));
         })),
     h("div", { style:{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:8 } },
       h("div", { style:LBL }, (track ? "My basket" : "Your picks") + (list.length ? " · " + list.reduce((s, e) => s + (e.qty || 1), 0) + (list.reduce((s, e) => s + (e.qty || 1), 0) === 1 ? " product" : " products") : "")),
@@ -3768,6 +3819,19 @@ const RESTAURANTS = [
     ],
     note:"Every dish in its standard version: beets&roots publishes values per dish only (the “i” on beetsandroots.de), nothing per ingredient — so Custom Bowl and the Wolt extras (“Choose Extras”, “Choose Vegan Extras”) are not in the optimizer. The published values are always without the dressing; fibre is not declared and shows as 0. Grilled Wraps count their sauce (it is inside the wrap). Not suggested: Burrito Chicken Bowl (the website publishes only calories and protein); 11 dishes whose calories don't match their macros (both Thai rice bowls and the vegan one, both Sesame Chicken Noodle Bowls, Thai Lentil Soup, Crunchy Hummus Protein Bowl, Spicy Sweet Potatoes, Grilled Pita Bread, Gourmet Carrot Cake, Vegan Chocolate Brownie); drinks and smoothies.",
     footer:"Data: beetsandroots.de (official values per dish, without dressing; nutrition windows checked 18.09.2026) · menu & prices: Wolt beets&roots Frankfurt · 18.09.2026" },
+  // Fit Kitchen Frankfurt (Wolt; User 22.09.2026). Daten: node fitkitchen-crawl.js (Speisekarte fit-kitchen.de, übertragen in
+  // data/fitkitchen-menu.json, + Wolt-API) → node fitkitchen-update.js. À la carte: nur Artikel, die es bei Wolt gibt und für die
+  // die Karte Werte nennt; Dips tragen `sauce` (Schalter „No sauces“), „No desserts“ erscheint erst, wenn Wolt Desserts führt
+  { key:"fitkitchen", name:"Fit Kitchen (Wolt)", kind:"ac", data:FITKITCHEN, gradient:["#0b7fb3","#052d42"], label:"FIT KITCHEN · FRANKFURT · WOLT", platform:"Wolt", accurate:true, maxN:5,
+    switches:[
+      { id:"noSauces", label:"No sauces", def:true, filter:x => !x.sauce,                                  // User 22.09.2026: Default AN
+        hint:"Leaves out the extra dips (30 mL each). Sauces that are part of a burger, wrap or pizza stay — they are already in its values." },
+      ...[["noDesserts", "No desserts", "desserts"]]                                                        // User 22.09.2026 — Wolt führt (noch) keine
+        .filter(([, , cat]) => FITKITCHEN.cats.some(c => c.id === cat))
+        .map(([id, label, cat]) => ({ id, label, def:true, filter:x => x.cat !== cat })),
+    ],
+    note:"Official values per dish from the Fit Kitchen menu (fit-kitchen.de): every burger, wrap and pizza as described, its sauce included. Fit Kitchen publishes only kcal, carbs, fat and protein — sat fat, sugars, fibre and salt show 0. Names and prices from Wolt. Salads, fries, sweet potatoes, Chili Cheese Fries, the Starter rolls and the Classic Dip have no published values and are left out, and so are the Wolt extras (extra sauce, toppings, extra patty).",
+    footer:"Data: fit-kitchen.de menu (official values per dish) · menu & prices: Wolt Fit Kitchen · 22.09.2026" },
   // EDEKA Graf, Frankfurt (In-Store; User 19.09.2026). Daten: node edeka-crawl.js (Produktseiten des Onlineshops → data/edeka-raw.json) → node edeka-update.js.
   // Supermarkt statt Restaurant: zwei Modi (Build order / Track basket, siehe EDEKA-Sektion), Mengen in Gramm, eigene Picks sperrbar.
   // skipAll = nicht in All/Accurate (dort werden Restaurant-Bestellungen verglichen), guideLabel = Einkaufsliste statt Order Guide

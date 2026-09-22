@@ -1,0 +1,1566 @@
+{
+  "_meta": {
+    "source": "Speisekarte fit-kitchen.de (Nährwerte je Gericht, als data/fitkitchen-menu.json aus den Screenshots des Users übertragen) + Wolt-API Venue „fit-kitchen“ (Namen, Kategorien, Preise)",
+    "menu": {
+      "file": "data/fitkitchen-menu.json",
+      "url": "https://www.fit-kitchen.de/speisekarte/",
+      "capturedAt": "2026-09-22",
+      "check": "Seite 05 (Burger) am 22.09.2026 im Browser mit der Website verglichen: identisch"
+    },
+    "fetchedAt": "2026-09-22T13:30:38.911Z",
+    "basis": "Offizielle Werte je Gericht laut Speisekarte (Standard-Zusammenstellung, Soßen der Gerichte sind enthalten). Fit Kitchen nennt nur Kalorien, Kohlenhydrate, Fett und Eiweiß → gesättigte Fettsäuren, Zucker, Ballaststoffe und Salz = 0. Dips je 30 mL laut Soßen-Tabelle",
+    "notDeclared": [
+      "sat",
+      "sugars",
+      "fibre",
+      "salt"
+    ],
+    "rules": [
+      "Nur Artikel, die es bei Wolt gibt; Namen und Preise wie bei Wolt (die Karte hat andere Restaurant-Preise)",
+      "Wolt-Optionen (Extra Soße, Extras, Extra Patty, Deine Soße, Tahine) sind optional und haben keine Nährwerte → nicht im Optimizer"
+    ],
+    "decisions": [
+      "User 22.09.2026: Fit Kitchen (Wolt) als Tracker mit Kategorien; Produkte und Nährwerte laut Speisekarte, nur was es bei Wolt gibt",
+      "User 22.09.2026: Schalter „No sauces“ (Default AN) — betrifft die Dips; Soßen, die schon im Gericht stecken, bleiben natürlich",
+      "User 22.09.2026: Schalter „No desserts“ — Wolt führt keine Desserts, der Schalter erscheint erst, wenn Fit Kitchen dort Desserts anbietet"
+    ],
+    "venue": {
+      "slug": "fit-kitchen",
+      "page": "https://wolt.com/de/deu/frankfurt/restaurant/fit-kitchen",
+      "categories": [
+        "WOLT SPECIAL",
+        "BESTECK",
+        "BURGER",
+        "WRAPS",
+        "SALATE",
+        "BEILAGEN",
+        "PIZZA",
+        "DIPS",
+        "ALKOHOLFREIE GETRÄNKE"
+      ]
+    },
+    "skippedCategories": {
+      "WOLT SPECIAL": "Duplikate (Pizza Margherita, Süßkartoffeln, Chicken Mozzarella Burger)",
+      "BESTECK": "kein Essen (Besteck)",
+      "ALKOHOLFREIE GETRÄNKE": "Getränke — wie bei den anderen Restaurants nicht im Tracker, die Karte nennt dafür auch keine Werte"
+    },
+    "mapping": [
+      "Classic Burger = Classic",
+      "Chili Cheese Burger = Chili-Cheese",
+      "Chicken Mozzarella Burger = Chicken-Mozzarlla",
+      "Veggie Burger = Veggie",
+      "Mango Cheese Beef Burger = Mango-Cheese-Beef",
+      "Avocado Chicken Burger = Avocado-Chicken",
+      "BBQ Burger = Barbecue",
+      "Pizza Margherita = Margherita",
+      "Pizza Salami Putenschinken Champignons = Salami-Putenschinken-Champignon",
+      "Pizza Veggie Rucola = Veggie-Rucola",
+      "Pizza Chicken = Chicken",
+      "Pizza Beef = Beef",
+      "Pizza Sucuk Jalapenos = Sucuk-Jalapeños",
+      "Avocado Dip = Avocado",
+      "BBQ Dip = BBQ",
+      "Chili Cheese Dip = Chili-Cheese",
+      "Curry Mayonnaise Dip = Curry (Annahme: einzige Curry-Soße der Karte)",
+      "Mango Dip = Mango"
+    ],
+    "priceDiffs": [
+      "Classic Burger: Karte 7.90 € · Wolt 8.20 €",
+      "Chili Cheese Burger: Karte 8.90 € · Wolt 9.20 €",
+      "Chicken Mozzarella Burger: Karte 8.90 € · Wolt 9.20 €",
+      "Veggie Burger: Karte 8.90 € · Wolt 9.20 €",
+      "Veganer Burger: Karte 8.90 € · Wolt 9.20 €",
+      "Mango Cheese Beef Burger: Karte 9.50 € · Wolt 9.80 €",
+      "Avocado Chicken Burger: Karte 9.50 € · Wolt 9.80 €",
+      "BBQ Burger: Karte 8.90 € · Wolt 9.20 €",
+      "Hackfleisch Wrap: Karte 8.90 € · Wolt 9.20 €",
+      "Hähnchen Wrap: Karte 8.90 € · Wolt 9.20 €",
+      "Falafel Wrap: Karte 8.90 € · Wolt 9.20 €",
+      "Mango Beef Wrap: Karte 9.50 € · Wolt 9.80 €",
+      "Avocado Chicken Wrap: Karte 9.50 € · Wolt 9.80 €",
+      "Pizza Margherita: Karte 8.50 € · Wolt 8.80 €",
+      "Pizza Salami Putenschinken Champignons: Karte 10.50 € · Wolt 10.80 €",
+      "Pizza Veggie Rucola: Karte 10.50 € · Wolt 10.80 €",
+      "Pizza Chicken: Karte 11.50 € · Wolt 11.80 €",
+      "Pizza Beef: Karte 11.50 € · Wolt 11.80 €",
+      "Pizza Sucuk Jalapenos: Karte 10.50 € · Wolt 10.80 €"
+    ],
+    "optionDefaults": {
+      "note": "default_value optionaler Gruppen, im Wolt-Bestellfenster nicht vorausgewählt (Kartenpreis = Artikelpreis)",
+      "list": [
+        "Classic Burger: „Extra Soße hinzufügen“ vorausgewählt: Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)",
+        "Classic Burger: „Extras hinzufügen“ vorausgewählt: Gebratene Champignons",
+        "Classic Burger: „Extra Patty hinzufügen“ vorausgewählt: Mageres Rindfleisch",
+        "Chili Cheese Burger: „Extra Soße hinzufügen“ vorausgewählt: Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)",
+        "Chili Cheese Burger: „Extras hinzufügen“ vorausgewählt: Gebratene Champignons",
+        "Chili Cheese Burger: „Extra Patty hinzufügen“ vorausgewählt: Mageres Rindfleisch",
+        "Chicken Mozzarella Burger: „Extra Soße hinzufügen“ vorausgewählt: Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)",
+        "Chicken Mozzarella Burger: „Extras hinzufügen“ vorausgewählt: Gebratene Champignons",
+        "Chicken Mozzarella Burger: „Extra Patty hinzufügen“ vorausgewählt: Mageres Rindfleisch",
+        "Veggie Burger: „Extra Soße hinzufügen“ vorausgewählt: Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)",
+        "Veggie Burger: „Extras hinzufügen“ vorausgewählt: Gebratene Champignons",
+        "Veggie Burger: „Extra Patty hinzufügen“ vorausgewählt: Mageres Rindfleisch",
+        "Veganer Burger: „Extra Soße hinzufügen“ vorausgewählt: Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)",
+        "Veganer Burger: „Extras hinzufügen“ vorausgewählt: Gebratene Champignons",
+        "Veganer Burger: „Extra Patty hinzufügen“ vorausgewählt: Mageres Rindfleisch",
+        "Mango Cheese Beef Burger: „Extra Soße hinzufügen“ vorausgewählt: Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)",
+        "Mango Cheese Beef Burger: „Extras hinzufügen“ vorausgewählt: Gebratene Champignons",
+        "Mango Cheese Beef Burger: „Extra Patty hinzufügen“ vorausgewählt: Mageres Rindfleisch",
+        "Avocado Chicken Burger: „Extra Soße hinzufügen“ vorausgewählt: Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)",
+        "Avocado Chicken Burger: „Extras hinzufügen“ vorausgewählt: Gebratene Champignons",
+        "Avocado Chicken Burger: „Extra Patty hinzufügen“ vorausgewählt: Mageres Rindfleisch",
+        "BBQ Burger: „Extra Soße hinzufügen“ vorausgewählt: Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)",
+        "BBQ Burger: „Extras hinzufügen“ vorausgewählt: Gebratene Champignons",
+        "BBQ Burger: „Extra Patty hinzufügen“ vorausgewählt: Mageres Rindfleisch",
+        "Hackfleisch Wrap: „Extra Soße hinzufügen“ vorausgewählt: Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)",
+        "Hackfleisch Wrap: „Extras hinzufügen“ vorausgewählt: Gebratene Champignons",
+        "Hähnchen Wrap: „Extra Soße hinzufügen“ vorausgewählt: Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)",
+        "Hähnchen Wrap: „Extras hinzufügen“ vorausgewählt: Gebratene Champignons",
+        "Falafel Wrap: „Extra Soße hinzufügen“ vorausgewählt: Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)",
+        "Falafel Wrap: „Extras hinzufügen“ vorausgewählt: Gebratene Champignons",
+        "Mango Beef Wrap: „Extra Soße hinzufügen“ vorausgewählt: Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)",
+        "Mango Beef Wrap: „Extras hinzufügen“ vorausgewählt: Gebratene Champignons",
+        "Avocado Chicken Wrap: „Extra Soße hinzufügen“ vorausgewählt: Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)",
+        "Avocado Chicken Wrap: „Extras hinzufügen“ vorausgewählt: Gebratene Champignons",
+        "Hähnchenbrust Champignons Salat: „Tahine“ vorausgewählt: Joghurt Honig Senf (30ml)",
+        "Hähnchenbrust Champignons Salat: „Extra Soße hinzufügen“ vorausgewählt: Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)",
+        "Hähnchenbrust Champignons Salat: „Extras hinzufügen“ vorausgewählt: Gebratene Champignons",
+        "Falafel Salat: „Tahine“ vorausgewählt: Joghurt Honig Senf (30ml)",
+        "Falafel Salat: „Extra Soße hinzufügen“ vorausgewählt: Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)",
+        "Falafel Salat: „Extras hinzufügen“ vorausgewählt: Gebratene Champignons",
+        "Gemischter Salat: „Tahine“ vorausgewählt: Joghurt Honig Senf (30ml)",
+        "Pizza Margherita: „Extras Veggie hinzufügen“ vorausgewählt: Frische Champignons",
+        "Pizza Margherita: „Extras hinzufügen“ vorausgewählt: Spiegelei",
+        "Pizza Salami Putenschinken Champignons: „Extras Veggie hinzufügen“ vorausgewählt: Frische Champignons",
+        "Pizza Salami Putenschinken Champignons: „Extras hinzufügen“ vorausgewählt: Spiegelei",
+        "Pizza Veggie Rucola: „Extras Veggie hinzufügen“ vorausgewählt: Frische Champignons",
+        "Pizza Veggie Rucola: „Extras hinzufügen“ vorausgewählt: Spiegelei",
+        "Pizza Chicken: „Extras Veggie hinzufügen“ vorausgewählt: Frische Champignons",
+        "Pizza Chicken: „Extras hinzufügen“ vorausgewählt: Spiegelei",
+        "Pizza Beef: „Extras Veggie hinzufügen“ vorausgewählt: Frische Champignons",
+        "Pizza Beef: „Extras hinzufügen“ vorausgewählt: Spiegelei",
+        "Pizza Sucuk Jalapenos: „Extras Veggie hinzufügen“ vorausgewählt: Frische Champignons",
+        "Pizza Sucuk Jalapenos: „Extras hinzufügen“ vorausgewählt: Spiegelei"
+      ]
+    },
+    "noData": [
+      "Hähnchenbrust Champignons Salat (Salate, 10.20 €) — die Karte nennt für die Salate keine Nährwerte",
+      "Falafel Salat (Salate, 10.20 €) — die Karte nennt für die Salate keine Nährwerte",
+      "Heißluft frittierte Süßkartoffeln (Beilagen, 5.50 €) — die Karte nennt keine Nährwerte",
+      "Starter (Beilagen, 3.90 €) — die Karte nennt keine Nährwerte (3 kleine Brötchen mit Kräuterbutter)",
+      "Gemischter Salat (Beilagen, 4.50 €) — die Karte nennt keine Nährwerte",
+      "Heißluft frittierte Pommes (Beilagen, 4.50 €) — die Karte nennt keine Nährwerte",
+      "Chili Cheese Fries (Beilagen, 5.90 €) — die Karte nennt keine Nährwerte",
+      "Classic Dip (Dips, 0.50 €) — die Soßen-Tabelle der Karte hat keine Zeile für die Classic-Soße"
+    ],
+    "notOnWolt": [
+      "burger: Cheese",
+      "desserts: Low carb Schoko-Kuchen",
+      "desserts: Low carb Käsekuchen"
+    ],
+    "legend": {
+      "a": "Glutenhaltiges Getreide (Weizen, Dinkel, Roggen, Gerste, Hafer oder Hybridstämme davon)",
+      "b": "Krebstiere",
+      "c": "Eier",
+      "d": "Fisch",
+      "e": "Soja",
+      "f": "Milch und Milchprodukte (einschließlich Laktose)",
+      "g": "Sellerie",
+      "h": "Senf",
+      "i": "Weichtiere",
+      "j": "Schalenfrüchte",
+      "k": "Sesamsamen",
+      "l": "Erdnüsse",
+      "m": "Lupinen"
+    },
+    "shellfish": "kein Gericht mit b) Krebstiere oder i) Weichtiere laut Legende der Karte, keins mit Krebs-/Weichtier im Namen",
+    "coriander": "keine Beschreibung nennt Koriander oder Minze (Tomatensoße „mit Kräutern“ und Joghurt-Kräuter-Soße ohne Angabe der Kräuter)",
+    "anomalies": []
+  },
+  "wolt": {
+    "slug": "fit-kitchen",
+    "page": "https://wolt.com/de/deu/frankfurt/restaurant/fit-kitchen",
+    "cats": [
+      {
+        "id": "burger",
+        "name": "Burger",
+        "wolt": "BURGER 🍔"
+      },
+      {
+        "id": "wraps",
+        "name": "Wraps",
+        "wolt": "WRAPS 🌯"
+      },
+      {
+        "id": "salads",
+        "name": "Salate",
+        "wolt": "SALATE 🥗"
+      },
+      {
+        "id": "sides",
+        "name": "Beilagen",
+        "wolt": "BEILAGEN 🍟 "
+      },
+      {
+        "id": "pizza",
+        "name": "Pizza",
+        "wolt": "PIZZA 🍕"
+      },
+      {
+        "id": "dips",
+        "name": "Dips",
+        "wolt": "DIPS 🌶️"
+      }
+    ],
+    "items": [
+      {
+        "name": "Classic Burger",
+        "cat": "burger",
+        "price": 8.2,
+        "description": "mit 100 % magerem Rindfleisch, Salat, Zwiebeln, Gewürzgurken und low carb & low fat Classicsoße",
+        "options": [
+          {
+            "name": "Extra Soße hinzufügen",
+            "min": 0,
+            "max": 6,
+            "defaults": [
+              "Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 9,
+            "defaults": [
+              "Gebratene Champignons"
+            ]
+          },
+          {
+            "name": "Extra Patty hinzufügen",
+            "min": 0,
+            "max": 3,
+            "defaults": [
+              "Mageres Rindfleisch"
+            ]
+          }
+        ],
+        "menu": "burger/Classic",
+        "menuName": "Classic",
+        "values": {
+          "kcal": 498,
+          "carbs": 16,
+          "fat": 25,
+          "protein": 50
+        },
+        "codes": "a, c, f, 1, 4"
+      },
+      {
+        "name": "Chili Cheese Burger",
+        "cat": "burger",
+        "price": 9.2,
+        "description": "mit 100% magerem Rindfleisch, Eisbergsalat, Jalapeños und kohlenhydratarmer, fettarmer Chili Cheesesoße",
+        "options": [
+          {
+            "name": "Extra Soße hinzufügen",
+            "min": 0,
+            "max": 6,
+            "defaults": [
+              "Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 9,
+            "defaults": [
+              "Gebratene Champignons"
+            ]
+          },
+          {
+            "name": "Extra Patty hinzufügen",
+            "min": 0,
+            "max": 3,
+            "defaults": [
+              "Mageres Rindfleisch"
+            ]
+          }
+        ],
+        "menu": "burger/Chili-Cheese",
+        "menuName": "Chili-Cheese",
+        "values": {
+          "kcal": 562,
+          "carbs": 17,
+          "fat": 29,
+          "protein": 58
+        },
+        "codes": "a, f, 1"
+      },
+      {
+        "name": "Chicken Mozzarella Burger",
+        "cat": "burger",
+        "price": 9.2,
+        "description": "mit Hähnchenbrustfilet, Mozzarella, Rucola, gebratenen Champignons, gebratenen Zwiebeln, Tomaten, Gewürzgurken und kohlenhydratarmer, fettarmer Currysoße",
+        "options": [
+          {
+            "name": "Extra Soße hinzufügen",
+            "min": 0,
+            "max": 6,
+            "defaults": [
+              "Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 9,
+            "defaults": [
+              "Gebratene Champignons"
+            ]
+          },
+          {
+            "name": "Extra Patty hinzufügen",
+            "min": 0,
+            "max": 3,
+            "defaults": [
+              "Mageres Rindfleisch"
+            ]
+          }
+        ],
+        "menu": "burger/Chicken-Mozzarlla",
+        "menuName": "Chicken-Mozzarlla",
+        "values": {
+          "kcal": 405,
+          "carbs": 18,
+          "fat": 13,
+          "protein": 52
+        },
+        "codes": "a, c, f, 4, 6"
+      },
+      {
+        "name": "Veggie Burger",
+        "cat": "burger",
+        "price": 9.2,
+        "description": "mit hausgemachtem Falafel-Patty, fettarmem Käse, Eisbergsalat, gebratenen Champignons, gebratenen Zwiebeln, Gewürzgurken und kohlenhydratarmer, fettarmer Classicsoße",
+        "options": [
+          {
+            "name": "Extra Soße hinzufügen",
+            "min": 0,
+            "max": 6,
+            "defaults": [
+              "Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 9,
+            "defaults": [
+              "Gebratene Champignons"
+            ]
+          },
+          {
+            "name": "Extra Patty hinzufügen",
+            "min": 0,
+            "max": 3,
+            "defaults": [
+              "Mageres Rindfleisch"
+            ]
+          }
+        ],
+        "menu": "burger/Veggie",
+        "menuName": "Veggie",
+        "values": {
+          "kcal": 648,
+          "carbs": 33,
+          "fat": 31,
+          "protein": 52
+        },
+        "codes": "a, c, f, 1, 4"
+      },
+      {
+        "name": "Veganer Burger",
+        "cat": "burger",
+        "price": 9.2,
+        "description": "mit hausgemachtem Falafel-Patty, Eisbergsalat, gebratenen Champignons, gebratenen Zwiebeln, Gewürzgurken und Tahinesoße",
+        "options": [
+          {
+            "name": "Extra Soße hinzufügen",
+            "min": 0,
+            "max": 6,
+            "defaults": [
+              "Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 9,
+            "defaults": [
+              "Gebratene Champignons"
+            ]
+          },
+          {
+            "name": "Extra Patty hinzufügen",
+            "min": 0,
+            "max": 3,
+            "defaults": [
+              "Mageres Rindfleisch"
+            ]
+          }
+        ],
+        "menu": "burger/Veganer Burger",
+        "menuName": "Veganer Burger",
+        "values": {
+          "kcal": 609,
+          "carbs": 33,
+          "fat": 30,
+          "protein": 49
+        },
+        "codes": "a, k, 4"
+      },
+      {
+        "name": "Mango Cheese Beef Burger",
+        "cat": "burger",
+        "price": 9.8,
+        "description": "mit 100% magerem Rindfleisch, fettarmem Käse, Eisbergsalat, Tomaten, Zwiebeln, Gewürzgurken und kohlenhydratarmer, fettarmer Mangosoße",
+        "options": [
+          {
+            "name": "Extra Soße hinzufügen",
+            "min": 0,
+            "max": 6,
+            "defaults": [
+              "Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 9,
+            "defaults": [
+              "Gebratene Champignons"
+            ]
+          },
+          {
+            "name": "Extra Patty hinzufügen",
+            "min": 0,
+            "max": 3,
+            "defaults": [
+              "Mageres Rindfleisch"
+            ]
+          }
+        ],
+        "menu": "burger/Mango-Cheese-Beef",
+        "menuName": "Mango-Cheese-Beef",
+        "values": {
+          "kcal": 574,
+          "carbs": 23,
+          "fat": 28,
+          "protein": 55
+        },
+        "codes": "a, c, f, 1, 4"
+      },
+      {
+        "name": "Avocado Chicken Burger",
+        "cat": "burger",
+        "price": 9.8,
+        "description": "mit Hähnchenbrustfilet, Rucola, Tomaten, Gewürzgurken und hausgemachter, kohlenhydratarmer, fettarmer Avocadosoße",
+        "options": [
+          {
+            "name": "Extra Soße hinzufügen",
+            "min": 0,
+            "max": 6,
+            "defaults": [
+              "Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 9,
+            "defaults": [
+              "Gebratene Champignons"
+            ]
+          },
+          {
+            "name": "Extra Patty hinzufügen",
+            "min": 0,
+            "max": 3,
+            "defaults": [
+              "Mageres Rindfleisch"
+            ]
+          }
+        ],
+        "menu": "burger/Avocado-Chicken",
+        "menuName": "Avocado-Chicken",
+        "values": {
+          "kcal": 374,
+          "carbs": 19,
+          "fat": 10,
+          "protein": 50
+        },
+        "codes": "a, c, f, 4"
+      },
+      {
+        "name": "BBQ Burger",
+        "cat": "burger",
+        "price": 9.2,
+        "description": "mit 100% magerem Rindfleisch, fettarmem Puten-Bacon, fettarmem Käse, Eisbergsalat, Tomaten, gebratenen Zwiebeln, Gewürzgurken und kohlenhydratarmer und fettarmer BBQ-Soße",
+        "options": [
+          {
+            "name": "Extra Soße hinzufügen",
+            "min": 0,
+            "max": 6,
+            "defaults": [
+              "Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 9,
+            "defaults": [
+              "Gebratene Champignons"
+            ]
+          },
+          {
+            "name": "Extra Patty hinzufügen",
+            "min": 0,
+            "max": 3,
+            "defaults": [
+              "Mageres Rindfleisch"
+            ]
+          }
+        ],
+        "menu": "burger/Barbecue",
+        "menuName": "Barbecue",
+        "values": {
+          "kcal": 595,
+          "carbs": 18,
+          "fat": 32,
+          "protein": 56
+        },
+        "codes": "a, c, f, g, 1, 2, 4"
+      },
+      {
+        "name": "Hackfleisch Wrap",
+        "cat": "wraps",
+        "price": 9.2,
+        "description": "Wrap aus Chia- & Leinsamenteig mit gebratenem Hackfleisch (100 % mageres Rindfleisch), Eisbergsalat, Rucola, gebratenen Champignons, gebratenen Zwiebeln, dazu Joghurt-Kräutersoße",
+        "options": [
+          {
+            "name": "Extra Soße hinzufügen",
+            "min": 0,
+            "max": 6,
+            "defaults": [
+              "Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 9,
+            "defaults": [
+              "Gebratene Champignons"
+            ]
+          }
+        ],
+        "menu": "wraps/Hackfleisch Wrap",
+        "menuName": "Hackfleisch Wrap",
+        "values": {
+          "kcal": 493,
+          "carbs": 18,
+          "fat": 24,
+          "protein": 49
+        },
+        "codes": "a, f"
+      },
+      {
+        "name": "Hähnchen Wrap",
+        "cat": "wraps",
+        "price": 9.2,
+        "description": "Wrap aus Chia- & Leinsamenteig mit gebratenen Hähnchenbrust Filetstückchen, Eisbergsalat, Rucola, gebratenen Champignons, gebratenen Zwiebeln, dazu Joghurt-Kräutersoße",
+        "options": [
+          {
+            "name": "Extra Soße hinzufügen",
+            "min": 0,
+            "max": 6,
+            "defaults": [
+              "Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 9,
+            "defaults": [
+              "Gebratene Champignons"
+            ]
+          }
+        ],
+        "menu": "wraps/Hähnchen Wrap",
+        "menuName": "Hähnchen Wrap",
+        "values": {
+          "kcal": 389,
+          "carbs": 18,
+          "fat": 13,
+          "protein": 48
+        },
+        "codes": "a, f"
+      },
+      {
+        "name": "Falafel Wrap",
+        "cat": "wraps",
+        "price": 9.2,
+        "description": "Wrap aus Chia- & Leinsamenteig mit hausgemachten Falafelbällchen, Eisbergsalat, Rucola, gebratenen Champignons, gebratenen Zwiebeln, dazu Tahinesoße",
+        "options": [
+          {
+            "name": "Extra Soße hinzufügen",
+            "min": 0,
+            "max": 6,
+            "defaults": [
+              "Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 9,
+            "defaults": [
+              "Gebratene Champignons"
+            ]
+          }
+        ],
+        "menu": "wraps/Falafel Wrap",
+        "menuName": "Falafel Wrap",
+        "values": {
+          "kcal": 416,
+          "carbs": 32,
+          "fat": 16,
+          "protein": 34
+        },
+        "codes": "a, k"
+      },
+      {
+        "name": "Mango Beef Wrap",
+        "cat": "wraps",
+        "price": 9.8,
+        "description": "Wrap aus Chia- & Leinsamenteig mit gebratenem 100% magerem Rindfleisch, Eisbergsalat, Rucola, gebratenen Champignons, gebratenen Zwiebeln, kohlenhydratarme, fettarme Mangosoße",
+        "options": [
+          {
+            "name": "Extra Soße hinzufügen",
+            "min": 0,
+            "max": 6,
+            "defaults": [
+              "Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 9,
+            "defaults": [
+              "Gebratene Champignons"
+            ]
+          }
+        ],
+        "menu": "wraps/Mango-Beef Wrap",
+        "menuName": "Mango-Beef Wrap",
+        "values": {
+          "kcal": 445,
+          "carbs": 20,
+          "fat": 21,
+          "protein": 42
+        },
+        "codes": "a, c, f"
+      },
+      {
+        "name": "Avocado Chicken Wrap",
+        "cat": "wraps",
+        "price": 9.8,
+        "description": "Wrap aus Chia- & Leinsamenteig mit gebratenen Hähnchenbrust Filetstückchen, Eisbergsalat, Rucola, gebratenen Champignons, gebratenen Zwiebeln dazu kohlenhydratarme, fettarme Avocadosoße",
+        "options": [
+          {
+            "name": "Extra Soße hinzufügen",
+            "min": 0,
+            "max": 6,
+            "defaults": [
+              "Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 9,
+            "defaults": [
+              "Gebratene Champignons"
+            ]
+          }
+        ],
+        "menu": "wraps/Avocado-Chicken Wrap",
+        "menuName": "Avocado-Chicken Wrap",
+        "values": {
+          "kcal": 380,
+          "carbs": 18,
+          "fat": 12,
+          "protein": 48
+        },
+        "codes": "a, c, f"
+      },
+      {
+        "name": "Hähnchenbrust Champignons Salat",
+        "cat": "salads",
+        "price": 10.2,
+        "description": "mit gebratenen Hähnchenbrust Filetstückchen, verschiedenen Salatblättern, Kraut, Tomaten, gebratenen Champignons und gebratenen Zwiebeln, dazu Joghurt-Kräutersoße",
+        "options": [
+          {
+            "name": "Tahine",
+            "min": 0,
+            "max": 1,
+            "defaults": [
+              "Joghurt Honig Senf (30ml)"
+            ]
+          },
+          {
+            "name": "Extra Soße hinzufügen",
+            "min": 0,
+            "max": 6,
+            "defaults": [
+              "Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 9,
+            "defaults": [
+              "Gebratene Champignons"
+            ]
+          }
+        ],
+        "noData": "die Karte nennt für die Salate keine Nährwerte"
+      },
+      {
+        "name": "Falafel Salat",
+        "cat": "salads",
+        "price": 10.2,
+        "description": "mit hausgemachten Falafelbällchen, verschiedenen Salatblättern, Kraut, Tomaten, gebratenen Champignons und gebratenen Zwiebeln, dazu Tahinesoße",
+        "options": [
+          {
+            "name": "Tahine",
+            "min": 0,
+            "max": 1,
+            "defaults": [
+              "Joghurt Honig Senf (30ml)"
+            ]
+          },
+          {
+            "name": "Extra Soße hinzufügen",
+            "min": 0,
+            "max": 6,
+            "defaults": [
+              "Avocado (hausgemacht, kohlenhydratarm, fettarm - 30ml)"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 9,
+            "defaults": [
+              "Gebratene Champignons"
+            ]
+          }
+        ],
+        "noData": "die Karte nennt für die Salate keine Nährwerte"
+      },
+      {
+        "name": "Heißluft frittierte Süßkartoffeln",
+        "cat": "sides",
+        "price": 5.5,
+        "description": "",
+        "options": [
+          {
+            "name": "Deine Soße",
+            "min": 0,
+            "max": 2,
+            "defaults": []
+          }
+        ],
+        "noData": "die Karte nennt keine Nährwerte"
+      },
+      {
+        "name": "Starter",
+        "cat": "sides",
+        "price": 3.9,
+        "description": "3 Stück\nhausgemachte, kleine kohlenhydratarme Brötchen aus Chia- & Leinsamenteig mit Kräuterbutter",
+        "options": [
+          {
+            "name": "Deine Soße",
+            "min": 0,
+            "max": 2,
+            "defaults": []
+          }
+        ],
+        "noData": "die Karte nennt keine Nährwerte (3 kleine Brötchen mit Kräuterbutter)"
+      },
+      {
+        "name": "Coleslaw",
+        "cat": "sides",
+        "price": 3.9,
+        "description": "hausgemacht\nkohlenhydratarmer, fettarmer Salat",
+        "options": [
+          {
+            "name": "Deine Soße",
+            "min": 0,
+            "max": 2,
+            "defaults": []
+          }
+        ],
+        "menu": "sides/Coleslaw",
+        "menuName": "Coleslaw",
+        "values": {
+          "kcal": 210,
+          "carbs": 15,
+          "fat": 13,
+          "protein": 3
+        },
+        "codes": "c, f"
+      },
+      {
+        "name": "Gemischter Salat",
+        "cat": "sides",
+        "price": 4.5,
+        "description": "mit verschiedenen Salatblättern, Kraut, Tomaten und einem Dressing deiner Wahl",
+        "options": [
+          {
+            "name": "Tahine",
+            "min": 0,
+            "max": 2,
+            "defaults": [
+              "Joghurt Honig Senf (30ml)"
+            ]
+          },
+          {
+            "name": "Deine Soße",
+            "min": 0,
+            "max": 2,
+            "defaults": []
+          }
+        ],
+        "noData": "die Karte nennt keine Nährwerte"
+      },
+      {
+        "name": "Heißluft frittierte Pommes",
+        "cat": "sides",
+        "price": 4.5,
+        "description": "",
+        "options": [
+          {
+            "name": "Deine Soße",
+            "min": 0,
+            "max": 2,
+            "defaults": []
+          }
+        ],
+        "noData": "die Karte nennt keine Nährwerte"
+      },
+      {
+        "name": "Chili Cheese Fries",
+        "cat": "sides",
+        "price": 5.9,
+        "description": "Heißluft frittierte Pommes mit 100% magerem Rindfleisch, Jalapeños und hausgemachter, kohlenhydratarmer Cheesesoße",
+        "options": [
+          {
+            "name": "Deine Soße",
+            "min": 0,
+            "max": 2,
+            "defaults": []
+          }
+        ],
+        "noData": "die Karte nennt keine Nährwerte"
+      },
+      {
+        "name": "Pizza Margherita",
+        "cat": "pizza",
+        "price": 8.8,
+        "description": "",
+        "options": [
+          {
+            "name": "Extras Veggie hinzufügen",
+            "min": 0,
+            "max": 7,
+            "defaults": [
+              "Frische Champignons"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 8,
+            "defaults": [
+              "Spiegelei"
+            ]
+          }
+        ],
+        "menu": "pizza/Margherita",
+        "menuName": "Margherita",
+        "values": {
+          "kcal": 474,
+          "carbs": 32,
+          "fat": 17,
+          "protein": 56
+        },
+        "codes": "a, f, 1"
+      },
+      {
+        "name": "Pizza Salami Putenschinken Champignons",
+        "cat": "pizza",
+        "price": 10.8,
+        "description": "mit fettarmem Putenschinken, fettarmer Salami und Champignons",
+        "options": [
+          {
+            "name": "Extras Veggie hinzufügen",
+            "min": 0,
+            "max": 7,
+            "defaults": [
+              "Frische Champignons"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 8,
+            "defaults": [
+              "Spiegelei"
+            ]
+          }
+        ],
+        "menu": "pizza/Salami-Putenschinken-Champignon",
+        "menuName": "Salami-Putenschinken-Champignon",
+        "values": {
+          "kcal": 637,
+          "carbs": 33,
+          "fat": 25,
+          "protein": 67
+        },
+        "codes": "a, f, 1, 2, 8"
+      },
+      {
+        "name": "Pizza Veggie Rucola",
+        "cat": "pizza",
+        "price": 10.8,
+        "description": "mit Rucola, Tomaten, gebratenen Champignons und gebratenen Zwiebeln",
+        "options": [
+          {
+            "name": "Extras Veggie hinzufügen",
+            "min": 0,
+            "max": 7,
+            "defaults": [
+              "Frische Champignons"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 8,
+            "defaults": [
+              "Spiegelei"
+            ]
+          }
+        ],
+        "menu": "pizza/Veggie-Rucola",
+        "menuName": "Veggie-Rucola",
+        "values": {
+          "kcal": 596,
+          "carbs": 33,
+          "fat": 25,
+          "protein": 57
+        },
+        "codes": "a, f, 1"
+      },
+      {
+        "name": "Pizza Chicken",
+        "cat": "pizza",
+        "price": 11.8,
+        "description": "mit gebratenen Hähnchenbrust-Filetstückchen, Champignons und Zwiebeln",
+        "options": [
+          {
+            "name": "Extras Veggie hinzufügen",
+            "min": 0,
+            "max": 7,
+            "defaults": [
+              "Frische Champignons"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 8,
+            "defaults": [
+              "Spiegelei"
+            ]
+          }
+        ],
+        "menu": "pizza/Chicken",
+        "menuName": "Chicken",
+        "values": {
+          "kcal": 600,
+          "carbs": 32,
+          "fat": 20,
+          "protein": 70
+        },
+        "codes": "a, f, 1"
+      },
+      {
+        "name": "Pizza Beef",
+        "cat": "pizza",
+        "price": 11.8,
+        "description": "mit gebratenem 100% magerem Rindfleisch, Champignons und Zwiebeln",
+        "options": [
+          {
+            "name": "Extras Veggie hinzufügen",
+            "min": 0,
+            "max": 7,
+            "defaults": [
+              "Frische Champignons"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 8,
+            "defaults": [
+              "Spiegelei"
+            ]
+          }
+        ],
+        "menu": "pizza/Beef",
+        "menuName": "Beef",
+        "values": {
+          "kcal": 631,
+          "carbs": 34,
+          "fat": 23,
+          "protein": 69
+        },
+        "codes": "a, f, 1"
+      },
+      {
+        "name": "Pizza Sucuk Jalapenos",
+        "cat": "pizza",
+        "price": 10.8,
+        "description": "mit fettarmer Sucuk und Jalapenos",
+        "options": [
+          {
+            "name": "Extras Veggie hinzufügen",
+            "min": 0,
+            "max": 7,
+            "defaults": [
+              "Frische Champignons"
+            ]
+          },
+          {
+            "name": "Extras hinzufügen",
+            "min": 0,
+            "max": 8,
+            "defaults": [
+              "Spiegelei"
+            ]
+          }
+        ],
+        "menu": "pizza/Sucuk-Jalapeños",
+        "menuName": "Sucuk-Jalapeños",
+        "values": {
+          "kcal": 653,
+          "carbs": 33,
+          "fat": 29,
+          "protein": 62
+        },
+        "codes": "a, f, 1, 2, 6, 8"
+      },
+      {
+        "name": "Mayonnaise",
+        "cat": "dips",
+        "price": 0.5,
+        "description": "hausgemacht, kohlenhydratarm & fettarm - 30ml",
+        "options": [],
+        "menu": "dips/Mayonnaise",
+        "menuName": "Mayonnaise",
+        "values": {
+          "kcal": 80,
+          "carbs": 2,
+          "fat": 7,
+          "protein": 2
+        },
+        "codes": "c",
+        "portion": "30 mL",
+        "sauce": true
+      },
+      {
+        "name": "Ketchup",
+        "cat": "dips",
+        "price": 0.5,
+        "description": "hausgemacht, kohlenhydratarm & fettarm - 30ml",
+        "options": [],
+        "menu": "dips/Ketchup",
+        "menuName": "Ketchup",
+        "values": {
+          "kcal": 25,
+          "carbs": 6,
+          "fat": 0,
+          "protein": 0
+        },
+        "codes": "4",
+        "portion": "30 mL",
+        "sauce": true
+      },
+      {
+        "name": "Avocado Dip",
+        "cat": "dips",
+        "price": 1,
+        "description": "",
+        "options": [],
+        "menu": "sauces/Avocado",
+        "menuName": "Avocado",
+        "values": {
+          "kcal": 70.1,
+          "carbs": 3,
+          "fat": 5,
+          "protein": 3
+        },
+        "codes": "c, f",
+        "portion": "30 mL",
+        "sauce": true
+      },
+      {
+        "name": "BBQ Dip",
+        "cat": "dips",
+        "price": 1,
+        "description": "",
+        "options": [],
+        "menu": "sauces/BBQ",
+        "menuName": "BBQ",
+        "values": {
+          "kcal": 65,
+          "carbs": 4,
+          "fat": 4,
+          "protein": 4
+        },
+        "codes": "c, g",
+        "portion": "30 mL",
+        "sauce": true
+      },
+      {
+        "name": "Chili Cheese Dip",
+        "cat": "dips",
+        "price": 1,
+        "description": "",
+        "options": [],
+        "menu": "sauces/Chili-Cheese",
+        "menuName": "Chili-Cheese",
+        "values": {
+          "kcal": 61,
+          "carbs": 2,
+          "fat": 4,
+          "protein": 4
+        },
+        "codes": "f, 1",
+        "portion": "30 mL",
+        "sauce": true
+      },
+      {
+        "name": "Classic Dip",
+        "cat": "dips",
+        "price": 0.5,
+        "description": "",
+        "options": [],
+        "noData": "die Soßen-Tabelle der Karte hat keine Zeile für die Classic-Soße"
+      },
+      {
+        "name": "Curry Mayonnaise Dip",
+        "cat": "dips",
+        "price": 1,
+        "description": "",
+        "options": [],
+        "menu": "sauces/Curry",
+        "menuName": "Curry",
+        "values": {
+          "kcal": 61,
+          "carbs": 3,
+          "fat": 4,
+          "protein": 4
+        },
+        "codes": "c, f, 4, 6",
+        "portion": "30 mL",
+        "sauce": true
+      },
+      {
+        "name": "Mango Dip",
+        "cat": "dips",
+        "price": 1,
+        "description": "",
+        "options": [],
+        "menu": "sauces/Mango",
+        "menuName": "Mango",
+        "values": {
+          "kcal": 65,
+          "carbs": 4,
+          "fat": 4,
+          "protein": 3
+        },
+        "codes": "c, f",
+        "portion": "30 mL",
+        "sauce": true
+      }
+    ]
+  },
+  "menu": [
+    {
+      "id": "burger",
+      "name": "BURGER",
+      "items": [
+        {
+          "name": "Classic",
+          "codes": "a, c, f, 1, 4",
+          "price": 7.9,
+          "description": "Burger Bun aus Chia- & Leinsamenteig, 100 % mageres Rindfleisch, Salat, Zwiebeln, Gewürzgurken, low carb & low fat Classic Sauce",
+          "kcal": 498,
+          "carbs": 16,
+          "fat": 25,
+          "protein": 50
+        },
+        {
+          "name": "Cheese",
+          "codes": "a, c, f, 1, 4",
+          "price": 8.5,
+          "description": "Burger Bun aus Chia- & Leinsamenteig, 100 % mageres Rindfleisch, low fat Käse, Salat, Tomate, Zwiebeln, Gewürzgurken, low carb & low fat classic Sauce",
+          "kcal": 573,
+          "carbs": 17,
+          "fat": 31,
+          "protein": 54
+        },
+        {
+          "name": "Chili-Cheese",
+          "codes": "a, f, 1",
+          "price": 8.9,
+          "description": "Burger Bun aus Chia- & Leinsamenteig, 100 % mageres Rindfleisch, Salat, Jalapeños, low carb & low fat Chili-Cheese Sauce",
+          "kcal": 562,
+          "carbs": 17,
+          "fat": 29,
+          "protein": 58
+        },
+        {
+          "name": "Barbecue",
+          "codes": "a, c, f, g, 1, 2, 4",
+          "price": 8.9,
+          "description": "Burger Bun aus Chia- & Leinsamenteig, 100 % mageres Rindfleisch, low fat Putenbacon, low fat Käse, Salat, Tomate, gebratene Zwiebeln, Gewürzgurken, low carb & low fat BBQ Sauce",
+          "kcal": 595,
+          "carbs": 18,
+          "fat": 32,
+          "protein": 56
+        },
+        {
+          "name": "Chicken-Mozzarlla",
+          "codes": "a, c, f, 4, 6",
+          "price": 8.9,
+          "description": "Burger Bun aus Chia- & Leinsamenteig, Hähnchenbrustfilet, Mozzarella, Rucola, gebratene Champignons, gebratene Zwiebeln, Tomate, Gewürzgurken, low carb & low fat Curry Sauce",
+          "kcal": 405,
+          "carbs": 18,
+          "fat": 13,
+          "protein": 52
+        },
+        {
+          "name": "Veggie",
+          "codes": "a, c, f, 1, 4",
+          "price": 8.9,
+          "description": "Burger Bun aus Chia- & Leinsamenteig, Falafel-Patty (vegan, hausgemacht), low fat Käse, Salat, gebratene Champignons, gebratene Zwiebeln, Gewürzgurken, low carb & low fat classic Sauce",
+          "kcal": 648,
+          "carbs": 33,
+          "fat": 31,
+          "protein": 52
+        },
+        {
+          "name": "Veganer Burger",
+          "codes": "a, k, 4",
+          "price": 8.9,
+          "description": "Burger Bun aus Chia- & Leinsamenteig, Falafel-Patty (vegan, hausgemacht), Salat, gebratene Champignons, gebratene Zwiebeln, Gewürzgurken, Tahine Sauce",
+          "kcal": 609,
+          "carbs": 33,
+          "fat": 30,
+          "protein": 49
+        },
+        {
+          "name": "Mango-Cheese-Beef",
+          "codes": "a, c, f, 1, 4",
+          "price": 9.5,
+          "description": "Burger Bun aus Chia- & Leinsamenteig, 100 % mageres Rindfleisch, low fat Käse, Salat, Tomate, Zwiebeln, Gewürzgurken, low carb & low fat Mango Sauce",
+          "kcal": 574,
+          "carbs": 23,
+          "fat": 28,
+          "protein": 55
+        },
+        {
+          "name": "Avocado-Chicken",
+          "codes": "a, c, f, 4",
+          "price": 9.5,
+          "description": "Burger Bun aus Chia- & Leinsamenteig, Hähnchenbrustfilet, Rucola, Tomate, Gewürzgurken, hausgemachte low carb & low fat Avocado Sauce",
+          "kcal": 374,
+          "carbs": 19,
+          "fat": 10,
+          "protein": 50
+        }
+      ]
+    },
+    {
+      "id": "pizza",
+      "name": "PIZZA",
+      "items": [
+        {
+          "name": "Margherita",
+          "codes": "a, f, 1",
+          "price": 8.5,
+          "description": "Pizzaboden aus hausgemachtem Chia- & Leinsamenteig, hausgemachte Tomatensoße mit Kräutern, low fat Edamer Käse",
+          "kcal": 474,
+          "carbs": 32,
+          "fat": 17,
+          "protein": 56
+        },
+        {
+          "name": "Salami-Putenschinken-Champignon",
+          "codes": "a, f, 1, 2, 8",
+          "price": 10.5,
+          "description": "Pizzaboden aus hausgemachtem Chia- & Leinsamenteig, hausgemachte Tomatensoße mit Kräutern, low fat Putenschinken, low fat Salami, Champignons, low fat Edamer Käse",
+          "kcal": 637,
+          "carbs": 33,
+          "fat": 25,
+          "protein": 67
+        },
+        {
+          "name": "Sucuk-Jalapeños",
+          "codes": "a, f, 1, 2, 6, 8",
+          "price": 10.5,
+          "description": "Pizzaboden aus hausgemachtem Chia- & Leinsamenteig, hausgemachte Tomatensoße mit Kräutern, low fat Sucuk, Jalapeños, low fat Edamer Käse",
+          "kcal": 653,
+          "carbs": 33,
+          "fat": 29,
+          "protein": 62
+        },
+        {
+          "name": "Veggie-Rucola",
+          "codes": "a, f, 1",
+          "price": 10.5,
+          "description": "Pizzaboden aus hausgemachtem Chia- & Leinsamenteig, hausgemachte Tomatensoße mit Kräutern, Rucola, Tomaten, gebratene Champignons, gebratene Zwiebeln, low fat Edamer Käse",
+          "kcal": 596,
+          "carbs": 33,
+          "fat": 25,
+          "protein": 57
+        },
+        {
+          "name": "Chicken",
+          "codes": "a, f, 1",
+          "price": 11.5,
+          "description": "Pizzaboden aus hausgemachtem Chia- & Leinsamenteig, hausgemachte Tomatensoße mit Kräutern, gebratene Hähnchenbrust-Filetstückchen, Champignons, Zwiebeln, low fat Edamer Käse",
+          "kcal": 600,
+          "carbs": 32,
+          "fat": 20,
+          "protein": 70
+        },
+        {
+          "name": "Beef",
+          "codes": "a, f, 1",
+          "price": 11.5,
+          "description": "Pizzaboden aus hausgemachtem Chia- & Leinsamenteig, hausgemachte Tomatensoße mit Kräutern, gebratenes Hackfleisch (100 % mageres Rindfleisch), Champignons, Zwiebeln, low fat Edamer Käse",
+          "kcal": 631,
+          "carbs": 34,
+          "fat": 23,
+          "protein": 69
+        }
+      ]
+    },
+    {
+      "id": "desserts",
+      "name": "DESSERTS",
+      "note": "Kuchenspecials möglich. Bitte fragt unsere Servicekraft.",
+      "items": [
+        {
+          "name": "Low carb Schoko-Kuchen",
+          "codes": "c, e, 4",
+          "price": 5.9,
+          "description": "Hausgemacht, glutenfrei, zuckerfrei, laktosefrei",
+          "kcal": 167.7,
+          "carbs": 20.4,
+          "fat": 15.9,
+          "protein": 5
+        },
+        {
+          "name": "Low carb Käsekuchen",
+          "codes": "c, e, f, 4",
+          "price": 5.9,
+          "description": "Hausgemacht, glutenfrei, zuckerfrei",
+          "kcal": 252.11,
+          "carbs": 5.48,
+          "fat": 13.33,
+          "protein": 14.48
+        }
+      ]
+    },
+    {
+      "id": "wraps",
+      "name": "WRAPS",
+      "items": [
+        {
+          "name": "Hackfleisch Wrap",
+          "codes": "a, f",
+          "price": 8.9,
+          "description": "Wrap aus Chia- & Leinsamenteig, gebratenes Hackfleisch (100 % mageres Rindfleisch), Salat, Rucola, Tomate, Zwiebeln, Joghurt-Kräuter Sauce",
+          "kcal": 493,
+          "carbs": 18,
+          "fat": 24,
+          "protein": 49
+        },
+        {
+          "name": "Hähnchen Wrap",
+          "codes": "a, f",
+          "price": 8.9,
+          "description": "Wrap aus Chia- & Leinsamenteig, gebratene Hähnchenbrust-Filetstückchen, Salat, Rucola, Tomate, Zwiebeln, Joghurt-Kräuter Sauce",
+          "kcal": 389,
+          "carbs": 18,
+          "fat": 13,
+          "protein": 48
+        },
+        {
+          "name": "Falafel Wrap",
+          "codes": "a, k",
+          "price": 8.9,
+          "description": "Wrap aus Chia- & Leinsamenteig, Falafelbällchen (vegan, hausgemacht), Salat, Rucola, Tomate, Zwiebeln, Tahine Sauce",
+          "kcal": 416,
+          "carbs": 32,
+          "fat": 16,
+          "protein": 34
+        },
+        {
+          "name": "Mango-Beef Wrap",
+          "codes": "a, c, f",
+          "price": 9.5,
+          "description": "Wrap aus Chia- & Leinsamenteig, gebratenes Hackfleisch (100 % mageres Rindfleisch), Salat, Rucola, Tomate, Zwiebeln, low carb & low fat Mangosoße",
+          "kcal": 445,
+          "carbs": 20,
+          "fat": 21,
+          "protein": 42
+        },
+        {
+          "name": "Avocado-Chicken Wrap",
+          "codes": "a, c, f",
+          "price": 9.5,
+          "description": "Wrap aus Chia- & Leinsamenteig, gebratene Hähnchenbrust-Filetstückchen, Salat, Rucola, Tomate, Zwiebeln, low carb & low fat Avocadosoße",
+          "kcal": 380,
+          "carbs": 18,
+          "fat": 12,
+          "protein": 48
+        }
+      ]
+    },
+    {
+      "id": "sides",
+      "name": "BEILAGEN",
+      "items": [
+        {
+          "name": "Coleslaw",
+          "codes": "c, f",
+          "price": 3.9,
+          "description": "Hausgemachter low carb & low fat Krautsalat",
+          "kcal": 210,
+          "carbs": 15,
+          "fat": 13,
+          "protein": 3
+        }
+      ]
+    },
+    {
+      "id": "sauces",
+      "name": "Sauce (30 mL)",
+      "items": [
+        {
+          "name": "Avocado",
+          "codes": "c, f",
+          "portion": "30 mL",
+          "kcal": 70.1,
+          "carbs": 3,
+          "fat": 5,
+          "protein": 3
+        },
+        {
+          "name": "BBQ",
+          "codes": "c, g",
+          "portion": "30 mL",
+          "kcal": 65,
+          "carbs": 4,
+          "fat": 4,
+          "protein": 4
+        },
+        {
+          "name": "Curry",
+          "codes": "c, f, 4, 6",
+          "portion": "30 mL",
+          "kcal": 61,
+          "carbs": 3,
+          "fat": 4,
+          "protein": 4
+        },
+        {
+          "name": "Chili-Cheese",
+          "codes": "f, 1",
+          "portion": "30 mL",
+          "kcal": 61,
+          "carbs": 2,
+          "fat": 4,
+          "protein": 4
+        },
+        {
+          "name": "Mango",
+          "codes": "c, f",
+          "portion": "30 mL",
+          "kcal": 65,
+          "carbs": 4,
+          "fat": 4,
+          "protein": 3
+        },
+        {
+          "name": "Tahine",
+          "codes": "k",
+          "note": "vegan",
+          "portion": "30 mL",
+          "kcal": 58,
+          "carbs": 1,
+          "fat": 5,
+          "protein": 2
+        }
+      ]
+    },
+    {
+      "id": "dips",
+      "name": "Mayonnaise oder Ketchup",
+      "note": "Hausgemacht, low carb & low fat",
+      "items": [
+        {
+          "name": "Mayonnaise",
+          "codes": "c",
+          "price": 0.5,
+          "portion": "30 mL",
+          "kcal": 80,
+          "carbs": 2,
+          "fat": 7,
+          "protein": 2
+        },
+        {
+          "name": "Ketchup",
+          "codes": "4",
+          "price": 0.5,
+          "portion": "30 mL",
+          "kcal": 25,
+          "carbs": 6,
+          "fat": 0,
+          "protein": 0
+        }
+      ]
+    }
+  ]
+}

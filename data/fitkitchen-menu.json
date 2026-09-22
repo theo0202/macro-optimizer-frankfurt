@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "source": "Speisekarte von FIT KITCHEN (Frankfurt am Main), fit-kitchen.de/speisekarte — die Seiten stehen dort nur als Bilder (fit-kitchen-Speisekarte_Preisanpassung-2024_Erhoehung-von-MwSt._Seite_01–15.webp)",
+    "url": "https://www.fit-kitchen.de/speisekarte/",
+    "capturedAt": "2026-09-22",
+    "capturedFrom": "Screenshots des Users (22.09.2026) der Speisekarten-Seiten Burger, Pizza, Desserts, Wraps, Beilagen und Soßen; Seite 05 (Burger) im Browser gegen die Website geprüft: identisch",
+    "values": "je Gericht: Kalorien, Kohlenhydrate, Fett, Eiweiß (mehr veröffentlicht Fit Kitchen nicht); Soßen je 30 mL",
+    "prices": "Restaurant-Preise der Karte — bei Wolt gelten eigene Preise (Wolt-API)",
+    "legend": {
+      "a": "Glutenhaltiges Getreide (Weizen, Dinkel, Roggen, Gerste, Hafer oder Hybridstämme davon)",
+      "b": "Krebstiere",
+      "c": "Eier",
+      "d": "Fisch",
+      "e": "Soja",
+      "f": "Milch und Milchprodukte (einschließlich Laktose)",
+      "g": "Sellerie",
+      "h": "Senf",
+      "i": "Weichtiere",
+      "j": "Schalenfrüchte",
+      "k": "Sesamsamen",
+      "l": "Erdnüsse",
+      "m": "Lupinen"
+    },
+    "additives": { "1": "Farbstoff", "2": "Antioxidationsmittel", "3": "geschwärzt", "4": "Süßungsmittel", "5": "kontrollierter biologischer Anbau", "6": "Geschmacksverstärker", "7": "koffeinhaltig", "8": "Konservierungsstoffe", "9": "Schwefeldioxid und Sulfite", "10": "mit Phosphat" }
+  },
+  "sections": [
+    { "id": "burger", "name": "BURGER", "items": [
+      { "name": "Classic", "codes": "a, c, f, 1, 4", "price": 7.90, "description": "Burger Bun aus Chia- & Leinsamenteig, 100 % mageres Rindfleisch, Salat, Zwiebeln, Gewürzgurken, low carb & low fat Classic Sauce", "kcal": 498, "carbs": 16, "fat": 25, "protein": 50 },
+      { "name": "Cheese", "codes": "a, c, f, 1, 4", "price": 8.50, "description": "Burger Bun aus Chia- & Leinsamenteig, 100 % mageres Rindfleisch, low fat Käse, Salat, Tomate, Zwiebeln, Gewürzgurken, low carb & low fat classic Sauce", "kcal": 573, "carbs": 17, "fat": 31, "protein": 54 },
+      { "name": "Chili-Cheese", "codes": "a, f, 1", "price": 8.90, "description": "Burger Bun aus Chia- & Leinsamenteig, 100 % mageres Rindfleisch, Salat, Jalapeños, low carb & low fat Chili-Cheese Sauce", "kcal": 562, "carbs": 17, "fat": 29, "protein": 58 },
+      { "name": "Barbecue", "codes": "a, c, f, g, 1, 2, 4", "price": 8.90, "description": "Burger Bun aus Chia- & Leinsamenteig, 100 % mageres Rindfleisch, low fat Putenbacon, low fat Käse, Salat, Tomate, gebratene Zwiebeln, Gewürzgurken, low carb & low fat BBQ Sauce", "kcal": 595, "carbs": 18, "fat": 32, "protein": 56 },
+      { "name": "Chicken-Mozzarlla", "codes": "a, c, f, 4, 6", "price": 8.90, "description": "Burger Bun aus Chia- & Leinsamenteig, Hähnchenbrustfilet, Mozzarella, Rucola, gebratene Champignons, gebratene Zwiebeln, Tomate, Gewürzgurken, low carb & low fat Curry Sauce", "kcal": 405, "carbs": 18, "fat": 13, "protein": 52 },
+      { "name": "Veggie", "codes": "a, c, f, 1, 4", "price": 8.90, "description": "Burger Bun aus Chia- & Leinsamenteig, Falafel-Patty (vegan, hausgemacht), low fat Käse, Salat, gebratene Champignons, gebratene Zwiebeln, Gewürzgurken, low carb & low fat classic Sauce", "kcal": 648, "carbs": 33, "fat": 31, "protein": 52 },
+      { "name": "Veganer Burger", "codes": "a, k, 4", "price": 8.90, "description": "Burger Bun aus Chia- & Leinsamenteig, Falafel-Patty (vegan, hausgemacht), Salat, gebratene Champignons, gebratene Zwiebeln, Gewürzgurken, Tahine Sauce", "kcal": 609, "carbs": 33, "fat": 30, "protein": 49 },
+      { "name": "Mango-Cheese-Beef", "codes": "a, c, f, 1, 4", "price": 9.50, "description": "Burger Bun aus Chia- & Leinsamenteig, 100 % mageres Rindfleisch, low fat Käse, Salat, Tomate, Zwiebeln, Gewürzgurken, low carb & low fat Mango Sauce", "kcal": 574, "carbs": 23, "fat": 28, "protein": 55 },
+      { "name": "Avocado-Chicken", "codes": "a, c, f, 4", "price": 9.50, "description": "Burger Bun aus Chia- & Leinsamenteig, Hähnchenbrustfilet, Rucola, Tomate, Gewürzgurken, hausgemachte low carb & low fat Avocado Sauce", "kcal": 374, "carbs": 19, "fat": 10, "protein": 50 }
+    ] },
+    { "id": "pizza", "name": "PIZZA", "items": [
+      { "name": "Margherita", "codes": "a, f, 1", "price": 8.50, "description": "Pizzaboden aus hausgemachtem Chia- & Leinsamenteig, hausgemachte Tomatensoße mit Kräutern, low fat Edamer Käse", "kcal": 474, "carbs": 32, "fat": 17, "protein": 56 },
+      { "name": "Salami-Putenschinken-Champignon", "codes": "a, f, 1, 2, 8", "price": 10.50, "description": "Pizzaboden aus hausgemachtem Chia- & Leinsamenteig, hausgemachte Tomatensoße mit Kräutern, low fat Putenschinken, low fat Salami, Champignons, low fat Edamer Käse", "kcal": 637, "carbs": 33, "fat": 25, "protein": 67 },
+      { "name": "Sucuk-Jalapeños", "codes": "a, f, 1, 2, 6, 8", "price": 10.50, "description": "Pizzaboden aus hausgemachtem Chia- & Leinsamenteig, hausgemachte Tomatensoße mit Kräutern, low fat Sucuk, Jalapeños, low fat Edamer Käse", "kcal": 653, "carbs": 33, "fat": 29, "protein": 62 },
+      { "name": "Veggie-Rucola", "codes": "a, f, 1", "price": 10.50, "description": "Pizzaboden aus hausgemachtem Chia- & Leinsamenteig, hausgemachte Tomatensoße mit Kräutern, Rucola, Tomaten, gebratene Champignons, gebratene Zwiebeln, low fat Edamer Käse", "kcal": 596, "carbs": 33, "fat": 25, "protein": 57 },
+      { "name": "Chicken", "codes": "a, f, 1", "price": 11.50, "description": "Pizzaboden aus hausgemachtem Chia- & Leinsamenteig, hausgemachte Tomatensoße mit Kräutern, gebratene Hähnchenbrust-Filetstückchen, Champignons, Zwiebeln, low fat Edamer Käse", "kcal": 600, "carbs": 32, "fat": 20, "protein": 70 },
+      { "name": "Beef", "codes": "a, f, 1", "price": 11.50, "description": "Pizzaboden aus hausgemachtem Chia- & Leinsamenteig, hausgemachte Tomatensoße mit Kräutern, gebratenes Hackfleisch (100 % mageres Rindfleisch), Champignons, Zwiebeln, low fat Edamer Käse", "kcal": 631, "carbs": 34, "fat": 23, "protein": 69 }
+    ] },
+    { "id": "desserts", "name": "DESSERTS", "note": "Kuchenspecials möglich. Bitte fragt unsere Servicekraft.", "items": [
+      { "name": "Low carb Schoko-Kuchen", "codes": "c, e, 4", "price": 5.90, "description": "Hausgemacht, glutenfrei, zuckerfrei, laktosefrei", "kcal": 167.7, "carbs": 20.4, "fat": 15.9, "protein": 5 },
+      { "name": "Low carb Käsekuchen", "codes": "c, e, f, 4", "price": 5.90, "description": "Hausgemacht, glutenfrei, zuckerfrei", "kcal": 252.11, "carbs": 5.48, "fat": 13.33, "protein": 14.48 }
+    ] },
+    { "id": "wraps", "name": "WRAPS", "items": [
+      { "name": "Hackfleisch Wrap", "codes": "a, f", "price": 8.90, "description": "Wrap aus Chia- & Leinsamenteig, gebratenes Hackfleisch (100 % mageres Rindfleisch), Salat, Rucola, Tomate, Zwiebeln, Joghurt-Kräuter Sauce", "kcal": 493, "carbs": 18, "fat": 24, "protein": 49 },
+      { "name": "Hähnchen Wrap", "codes": "a, f", "price": 8.90, "description": "Wrap aus Chia- & Leinsamenteig, gebratene Hähnchenbrust-Filetstückchen, Salat, Rucola, Tomate, Zwiebeln, Joghurt-Kräuter Sauce", "kcal": 389, "carbs": 18, "fat": 13, "protein": 48 },
+      { "name": "Falafel Wrap", "codes": "a, k", "price": 8.90, "description": "Wrap aus Chia- & Leinsamenteig, Falafelbällchen (vegan, hausgemacht), Salat, Rucola, Tomate, Zwiebeln, Tahine Sauce", "kcal": 416, "carbs": 32, "fat": 16, "protein": 34 },
+      { "name": "Mango-Beef Wrap", "codes": "a, c, f", "price": 9.50, "description": "Wrap aus Chia- & Leinsamenteig, gebratenes Hackfleisch (100 % mageres Rindfleisch), Salat, Rucola, Tomate, Zwiebeln, low carb & low fat Mangosoße", "kcal": 445, "carbs": 20, "fat": 21, "protein": 42 },
+      { "name": "Avocado-Chicken Wrap", "codes": "a, c, f", "price": 9.50, "description": "Wrap aus Chia- & Leinsamenteig, gebratene Hähnchenbrust-Filetstückchen, Salat, Rucola, Tomate, Zwiebeln, low carb & low fat Avocadosoße", "kcal": 380, "carbs": 18, "fat": 12, "protein": 48 }
+    ] },
+    { "id": "sides", "name": "BEILAGEN", "items": [
+      { "name": "Coleslaw", "codes": "c, f", "price": 3.90, "description": "Hausgemachter low carb & low fat Krautsalat", "kcal": 210, "carbs": 15, "fat": 13, "protein": 3 }
+    ] },
+    { "id": "sauces", "name": "Sauce (30 mL)", "items": [
+      { "name": "Avocado", "codes": "c, f", "portion": "30 mL", "kcal": 70.1, "carbs": 3, "fat": 5, "protein": 3 },
+      { "name": "BBQ", "codes": "c, g", "portion": "30 mL", "kcal": 65, "carbs": 4, "fat": 4, "protein": 4 },
+      { "name": "Curry", "codes": "c, f, 4, 6", "portion": "30 mL", "kcal": 61, "carbs": 3, "fat": 4, "protein": 4 },
+      { "name": "Chili-Cheese", "codes": "f, 1", "portion": "30 mL", "kcal": 61, "carbs": 2, "fat": 4, "protein": 4 },
+      { "name": "Mango", "codes": "c, f", "portion": "30 mL", "kcal": 65, "carbs": 4, "fat": 4, "protein": 3 },
+      { "name": "Tahine", "codes": "k", "note": "vegan", "portion": "30 mL", "kcal": 58, "carbs": 1, "fat": 5, "protein": 2 }
+    ] },
+    { "id": "dips", "name": "Mayonnaise oder Ketchup", "note": "Hausgemacht, low carb & low fat", "items": [
+      { "name": "Mayonnaise", "codes": "c", "price": 0.50, "portion": "30 mL", "kcal": 80, "carbs": 2, "fat": 7, "protein": 2 },
+      { "name": "Ketchup", "codes": "4", "price": 0.50, "portion": "30 mL", "kcal": 25, "carbs": 6, "fat": 0, "protein": 0 }
+    ] }
+  ]
+}
