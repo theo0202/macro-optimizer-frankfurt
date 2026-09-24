@@ -27,6 +27,7 @@ const CATS = [
   { id: "beans", name: "Beans & chickpeas (tins)" },
   { id: "veg_tins", name: "Edamame, peas & veg (tins)" },
   { id: "fresh_veg", name: "Fresh vegetables" },
+  { id: "berries", name: "Berries" },     // „Beeren“ (User 24.09.2026)
   { id: "gyoza", name: "Gyoza" },
   { id: "eh_bowls", name: "Bowls" },      // Eat Happy (User 24.09.2026)
   { id: "eh_sushi", name: "Sushi" },      // Eat Happy (User 24.09.2026)
@@ -111,6 +112,11 @@ const PRODUCTS = [
   ["fresh_veg", "/Obst-Gemuese-EDEKA/EDEKA-Herzstuecke-Gemuesenudeln-Zucchini-250-g.html"],
   ["fresh_veg", "/Obst-Gemuese-EDEKA/EDEKA-Herzstuecke-Gemuesenudeln-Karotte-250-g.html"],
   ["fresh_veg", "/Obst-Gemuese-EDEKA/Gemuese/Gurken/EDEKA-Herzstuecke-Minigurken-Klasse-I-230g.html"],
+  // User 24.09.2026: „Mini Möhren, 200 g“ (ohne Link — im Onlineshop gibt es genau diese 200-g-Packung) und die verlinkten Mini-Pflaumentomaten
+  ["fresh_veg", "/Obst-Gemuese-EDEKA/Gemuese/Wurzelgemuese/EDEKA-Bio-Moehren-Mini-Bio-Klasse-II-200g.html"],
+  ["fresh_veg", "/Obst-Gemuese-EDEKA/Gemuese/Tomaten/EDEKA-Herzstuecke-Mini-Pflaumen-Tomaten-Klasse-I-250g.html"],
+  // 9b. Beeren (User 24.09.2026)
+  ["berries", "/Obst-Gemuese-EDEKA/Obst/Beeren-Trauben/Driscoll-s-Himbeeren-Klasse-I-125g-EDEKA.html"],
   // 6b. Süße Quarkspeisen / Protein-Desserts (User 19.09.2026)
   ["desserts", "/Angebote/Kuehlprodukte/Ehrmann-High-Protein-Chocolate-Pudding-200-g.html"],
   ["desserts", "/Kuehlprodukte-EDEKA/Joghurt-Desserts-Snacks/Dessert/mueller-Milchreis-High-Protein-Schoko-180-g.html"],
@@ -163,7 +169,7 @@ const PRODUCTS = [
 
 // Marken (längster Treffer am Namensanfang gewinnt) — für „Marke · Produkt“ in der Einkaufsliste
 const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle",
-  "Bürger", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
+  "Bürger", "Driscoll's", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
   "Like MEAT", "LIKE", "Mestemacher", "MILRAM", "müller", "Müller", "planted", "Poensgen", "Rapunzel", "reis-fit", "Saupiquet",
   "Schwarzwaldmilch", "Taifun"];
 
@@ -217,7 +223,9 @@ const NOT_IN_TRACKER = [
 
 // Produkte, deren Seite keine Nährwerte nennt (unverarbeitetes Obst/Gemüse braucht keine Kennzeichnung) — User 19.09.2026:
 // „nimm doch einfach jeweils die Nährwerte des jeweiligen Gemüses“. Quelle je Produkt benannt, nichts geschätzt:
-//   · `like` = ein Produkt DIESES Shops mit derselben Ware und offiziellen Werten
+//   · `like` = ein Produkt DIESES Shops mit derselben Ware und offiziellen Werten (steht selbst im Tracker)
+//   · `refUrl` = die Produktseite eines Shop-Produkts mit derselben Ware, das nicht im Tracker steht (z.B. tiefgefrorene Himbeeren);
+//     der Crawl liest ihre Nährwerttabelle bei jedem Lauf neu
 //   · `per100` = USDA FoodData Central (staatliche Referenzdatenbank), Kohlenhydrate „by difference“ minus Ballaststoffe (EU-Konvention), Salz = Natrium × 2,5
 const FALLBACK = {
   "EDEKA Herzstücke Gemüsenudeln Karotte 250 g": {
@@ -232,7 +240,30 @@ const FALLBACK = {
     per100: { kcal: 15, fat: 0.11, sat: 0.04, carbs: 3.13, sugars: 1.67, fibre: 0.5, protein: 0.65, salt: 0.01 },
     from: "USDA FoodData Central, SR Legacy #168409 „Cucumber, with peel, raw“ (rohe Gurke mit Schale)",
   },
+  // User 24.09.2026 („einfach klassische Nährwerte nehmen“)
+  "EDEKA Bio Möhren Mini, Bio Klasse II 200g": {
+    like: "EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g",
+    from: "EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g — dieselbe Ware (Möhren, roh), offizielle Werte des Shops",
+  },
+  "EDEKA Herzstücke Mini Pflaumen Tomaten Klasse I 250g": {
+    // Foundation Foods: Zucker und gesättigte Fettsäuren veröffentlicht USDA für Grape Tomatoes nicht → 0 (steht in `gaps`)
+    per100: { kcal: 27, fat: 0.63, sat: 0, carbs: 3.41, sugars: 0, fibre: 2.1, protein: 0.83, salt: 0.02 },
+    gaps: ["sugars", "sat"],
+    from: "USDA FoodData Central, Foundation #321360 „Tomatoes, grape, raw“ (Mini-/Grape-Tomaten, roh; Zucker und gesättigte Fettsäuren nennt USDA dafür nicht → 0)",
+  },
+  "Driscoll's Himbeeren Klasse I 125g": {
+    refUrl: SHOP + "/Tiefkuehl-EDEKA/Obst-Gemuese-TK/Obst-TK/EDEKA-Herzstuecke-Himbeeren-300-g-EDEKA.html",
+    from: "EDEKA Herzstücke Himbeeren 300 g (tiefgefroren) — dieselbe Frucht (Zutaten: Himbeeren), offizielle Werte des Shops",
+  },
 };
+
+// Produkte, die der Markt führt, die aber weder im Onlineshop noch auf edeka.de stehen (User 24.09.2026): Werte aus einer
+// benannten Referenz, kein Preis (per Label correction nachtragbar), keine Produktseite (`offline`)
+const OFFLINE = [
+  { cat: "berries", name: "Kulturheidelbeeren 125 g", packG: 125,
+    per100: { kcal: 57, fat: 0.33, sat: 0.03, carbs: 12.09, sugars: 9.96, fibre: 2.4, protein: 0.74, salt: 0 },
+    from: "USDA FoodData Central, SR Legacy #171711 „Blueberries, raw“ (Kulturheidelbeeren, roh; die gefrorenen „Heidelbeeren“ des Shops sind Wildheidelbeeren)" },
+];
 
 // Produkte ohne Ballaststoff-Angabe sind erlaubt (LMIV: freiwillig) → 0 und in _meta dokumentiert
 const NO_FIBRE_OK = true;
@@ -490,11 +521,19 @@ async function main() {
         else if (src.noData || !U.KEYS.some(k => src.per100[k] > 0)) { problems.push(d.name + ": Referenzprodukt „" + fb.like + "“ hat keine Nährwerte"); per = null; }
         else per = src.per100;
       }
+      if (fb.refUrl) {
+        let rh = null;
+        try { rh = await get(fb.refUrl); } catch (e) { problems.push(d.name + " (Referenzseite): " + e.message); }
+        const rp = rh && parsePage(rh, fb.refUrl, problems);
+        if (!rp || rp.noData || !U.KEYS.some(k => rp.per100[k] > 0)) { problems.push(d.name + ": Referenzseite ohne Nährwerte (" + fb.refUrl + ")"); per = null; }
+        else { per = rp.per100; d.refUrl = fb.refUrl; }
+      }
       if (per) {
         d.per100 = { ...per };
         d.valuesFrom = fb.from;
         d.noData = null;
         d.fibreDeclared = true;
+        if (fb.gaps) d.refGaps = fb.gaps;
       }
     }
     // Nährwerte von der Herstellerseite (User 20.09.2026): Shop-Werte werden ersetzt, Abweichungen dokumentiert
@@ -606,15 +645,22 @@ async function main() {
       ingredients: p.ingredients, legal: null, storage: null, cat: e.cat, brand: p.brand,
       valuesFrom: "offizielle Produktseite " + url, manufacturerUrl: url, noOnlinePrice: true });
   }
+  for (const e of OFFLINE) {
+    if (!CATS.some(c => c.id === e.cat)) { problems.push("Unbekannte Kategorie „" + e.cat + "“ (" + e.name + ")"); continue; }
+    addExtra({ name: e.name, url: null, sku: null, price: null, priceNote: "not in the EDEKA Graf online shop — no price online (enter it via Label correction)",
+      per100: { ...e.per100 }, basis: "Referenzwerte je 100 g — " + e.from, noData: null, packG: e.packG, drainedG: null,
+      portionG: e.packG, portionNote: "Packungsgröße laut User", fibreDeclared: true, allergens: null, ingredients: null, legal: null, storage: null,
+      cat: e.cat, brand: null, valuesFrom: e.from, noOnlinePrice: true, offline: true });
+  }
   console.log("");
 
   const out = {
     _meta: {
       source: "Produktseiten des EDEKA-Graf-Onlineshops " + SHOP + " (" + STORE + "): Name, Preis, Artikelnummer, Nährwerte je 100 g, Abtropfgewicht, Allergene, Zutaten",
       fetchedAt,
-      basis: "Offizielle Werte **je 100 g** laut Produktseite × Menge. Die Menge ist **immer die ganze Packung** (User 19.09.2026) — bei Konserven das **Abtropfgewicht**. Ballaststoffe sind freiwillig → fehlen sie, steht 0. Drei Produkte ohne Nährwertangabe bekommen Referenzwerte (FALLBACK, Quelle je Produkt in _meta.referenceValues)",
+      basis: "Offizielle Werte **je 100 g** laut Produktseite × Menge. Die Menge ist **immer die ganze Packung** (User 19.09.2026) — bei Konserven das **Abtropfgewicht**. Ballaststoffe sind freiwillig → fehlen sie, steht 0. Frisches Obst und Gemüse ohne Nährwertangabe bekommt Referenzwerte (FALLBACK/OFFLINE, Quelle je Produkt in _meta.referenceValues)",
       rules: [
-        "Nur Produkte, die der Markt im Onlineshop führt; Namen exakt wie dort",
+        "Produkte des Onlineshops, Namen exakt wie dort; dazu wenige, die der Markt führt, die online fehlen (Burritos von edeka.de, Kulturheidelbeeren) — ohne Preis",
         "Der Tracker rechnet mit Gramm: jedes Produkt startet mit seiner Portion, das Gramm ist im Warenkorb änderbar",
         "Preise = Onlineshop-Preise des Marktes (im Laden können sie abweichen, Angebote wechseln)",
       ],
@@ -628,6 +674,7 @@ async function main() {
         "User 20.09.2026: TK-Fertiggerichte von FRoSTA als eigene Kategorie; Nährwerte von den verlinkten Herstellerseiten (frosta.de), Preis und Packung vom Markt",
         "User 24.09.2026: Eat Happy (Sushi-/Bowl-Theke im Markt) mit Kategorien Bowls und Sushi, Schalter „No Eat Happy“ (Default AN); Standardgewicht von eathappy.de, im Tracker änderbar (das Gewicht schwankt täglich, wie Sushi Daily im London-Tool)",
         "User 24.09.2026: drei EDEKA-Burritos (edeka.de) in „Sandwiches & Wraps“ (vorher „Sandwiches“); der Graf-Onlineshop führt sie nicht → kein Preis",
+        "User 24.09.2026: neue Kategorie „Beeren“ (UI „Berries“) mit Kulturheidelbeeren 125 g (weder im Onlineshop noch auf edeka.de → USDA-Werte, kein Preis, kein Link) und Driscoll's Himbeeren 125 g (Seite ohne Nährwerte → Werte der reinen EDEKA-Himbeeren (TK) desselben Shops); frisches Gemüse dazu: EDEKA Bio Möhren Mini 200 g (Werte der Karottenstifte) und EDEKA Herzstücke Mini Pflaumen Tomaten 250 g (USDA „Tomatoes, grape, raw“)",
         "User 22.09.2026: neue Kategorie „Fisch“ (Forelle, 2× Räucherlachs, 2× Thunfisch in Dosen); Schalter „No tuna“ (Default AN) und „No fish“ (Default AUS — ausdrücklich gegen die „No …“-Regel vom 13.09.2026); die Krone-Forelle mit den Werten der verlinkten Herstellerseite",
         "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere",
       ],
@@ -642,6 +689,8 @@ async function main() {
       eatHappy: { source: "eathappy.de (Produktseiten)", note: "Nährwerte je 100 g für den ganzen Boxinhalt inkl. Saucen (Eat Happy); Standardgewicht schwankt täglich → im Tracker änderbar; Preis = Grundpreis je kg × Standardgewicht = Boxpreis, je Abholort ggf. anders",
         products: items.filter(x => x.eathappy).map(x => x.name + " — " + x.packG + " g, " + x.pricePerKg.toFixed(2) + " €/kg → " + x.price.toFixed(2) + " €") },
       noOnlinePrice: items.filter(x => x.noOnlinePrice).map(x => x.name),
+      offline: items.filter(x => x.offline).map(x => x.name + " — weder im Onlineshop noch auf edeka.de; Werte: " + x.valuesFrom),
+      referenceGaps: Object.fromEntries(items.filter(x => x.refGaps).map(x => [x.name, x.refGaps.join(", ") + " nennt die Referenz nicht → 0"])),
       drained: Object.fromEntries(items.filter(x => x.drainedG != null).map(x => [x.name, x.drainedG + " g von " + x.packG + " g"])),
       noData,
       noFibre,

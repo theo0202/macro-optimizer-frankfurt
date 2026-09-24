@@ -1,7 +1,8 @@
 {
   "_meta": {
     "source": "Kuratierte Mahlzeiten aus Produkten des Edeka-Graf-Tabs (data/edeka-raw.json). Werte rechnet die App aus den Produktdaten — hier stehen nur Zusammenstellung, Name, warm/kalt und der Behälter-Hinweis",
-    "decided": "User 19.09.2026: maximal 3 Zutaten je Gericht, Zielbereich 600–800 kcal · 55–100 g Kohlenhydrate · 5–20 g Fett · 45–70 g Eiweiß. Der User hat die Liste bestätigt (alle Vorschläge außer zwei)",
+    "decided": "User 19.09.2026: maximal 3 Zutaten je Gericht, Zielbereich 600–800 kcal · 55–100 g Kohlenhydrate · 5–20 g Fett · 45–70 g Eiweiß. Der User hat die Liste bestätigt (alle Vorschläge außer zwei). User 24.09.2026: m18 und m19 aus den Vorschlägen „nur Sandwiches, Burritos, Hüttenkäse“ (Nr. 6 und 9), m20 und m21 als eigene Kombis des Users; dieselbe Zutat darf dabei mehrfach vorkommen (2× Sandwich, 2× Gyoza) — höchstens 3 verschiedene Produkte",
+    "items": "Ein Produktname je Packung; steht er zweimal da, sind es zwei Packungen (z.B. 2× Gyoza)",
     "origin": "„user“ = Idee des Users, „claude“ = vorgeschlagen und vom User übernommen, „fix“ = fettärmere Variante der ersten User-Idee",
     "container": "User 19.09.2026: je Gericht steht dran, ob realistisch eine Schüssel nötig ist. Das Update-Skript leitet es aus den Produkten ab — nötig, sobald eine **Konserve** dabei ist (abtropfen und umfüllen) oder etwas erhitzt bzw. aus einem Beutel gekippt wird (Express-Reis, Körnermischung, Gyoza); sonst isst man alles aus Becher, Schale oder Packung",
     "note": "Die Mengen sind die Standardmengen des Trackers (ganze Packung, bei Konserven das Abtropfgewicht). Abweichende Gramm stehen als \"g\" am Produkt",
@@ -79,6 +80,22 @@
     {
       "id": "m16", "name": "Skyr, oat rolls & chicken breast slices", "temp": "cold", "origin": "claude",
       "items": ["Exquisa Milder Skyr Natur laktosefrei 375 g", "Poensgen Haferbrötchen glutenfrei 2x75 g", "GUT&GÜNSTIG Hähnchenbrust 100 g"]
+    },
+    {
+      "id": "m18", "name": "Two sweet chili chicken sandwiches & cottage cheese", "temp": "cold", "origin": "claude",
+      "items": ["EDEKA Herzstücke Sandwich Sweet Chili Chicken 175 g", "EDEKA Herzstücke Sandwich Sweet Chili Chicken 175 g", "GUT&GÜNSTIG Körniger Frischkäse Leicht 200 g"]
+    },
+    {
+      "id": "m19", "name": "BBQ chicken burrito & cottage cheese", "temp": "cold", "origin": "claude",
+      "items": ["EDEKA Herzstücke Burrito Chicken BBQ 300 g", "Exquisa Körnige Frischkäsezubereitung Fitline 0,3 % 200 g"]
+    },
+    {
+      "id": "m20", "name": "Two sweet chili chicken sandwiches & chocolate protein pudding", "temp": "cold", "origin": "user",
+      "items": ["Ehrmann High Protein Chocolate Pudding 200 g", "EDEKA Herzstücke Sandwich Sweet Chili Chicken 175 g", "EDEKA Herzstücke Sandwich Sweet Chili Chicken 175 g"]
+    },
+    {
+      "id": "m21", "name": "Double chicken gyoza with chicken breast & carrot noodles", "temp": "warm", "origin": "user",
+      "items": ["EDEKA Herzstücke Gyoza Hähnchen 150 g", "EDEKA Herzstücke Gyoza Hähnchen 150 g", "EDEKA Herzstücke Gemüsenudeln Karotte 250 g", "EDEKA Herzstücke Hähnchenbrust-Filetstück Klassik 150 g"]
     }
   ]
 }
