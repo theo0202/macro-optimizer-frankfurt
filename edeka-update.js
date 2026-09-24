@@ -3,6 +3,7 @@
 // · jedes Produkt trägt seine Werte **je 100 g** (`p100`) und seine Menge `g` (Abtropfgewicht bei Konserven, sonst Packung bzw. kuratierte Portion)
 // · `price` = Packungspreis des Onlineshops, `url` = Produktseite (im Tracker anklickbar), `brand` = Marke für die Einkaufsliste
 // · Produkte ohne veröffentlichte Nährwerte (_meta.noData) fehlen im Block; Kategorien ohne Produkt ebenfalls
+// · Eat Happy (Sushi-Theke): `eathappy` + `variable` (Standardgewicht von eathappy.de, schwankt täglich) · Produkte ohne Online-Preis: price null
 "use strict";
 const path = require("path");
 const U = require("./update-lib.js");
@@ -25,11 +26,14 @@ function buildData(raw) {
     if (p.fish) o.fish = true;           // Schalter „No fish“ (User 22.09.2026)
     if (p.tuna) o.tuna = true;           // Schalter „No tuna“ (User 22.09.2026)
     if (p.unavailable) o.unavailable = true;   // im Onlineshop gerade nicht verfügbar (letzter bekannter Preis)
+    if (p.eathappy) o.eathappy = true;         // Schalter „No Eat Happy“ (User 24.09.2026)
+    if (p.variable) o.variable = true;         // Gewicht schwankt täglich: g = Standardgewicht, im Tracker änderbar (wie Sushi Daily in London)
     if (p.drainedG != null) o.drained = true;
     // Woher die Werte kommen — Kurzform für den Hinweis im Tracker („values: …“)
     if (p.manufacturerUrl) o.ref = (p.manufacturerUrl.match(/^https?:\/\/(?:www\.)?([^/]+)/) || [])[1] + " (manufacturer)";
     else if (p.valuesFrom) o.ref = p.valuesFrom.split(" — ")[0].replace(/,.*$/, "");
-    // Produkt, das dieser Markt nicht führt: der Preis ist eine gekennzeichnete Annahme (User 20.09.2026)
+    // Produkt, das dieser Markt nicht führt: der Preis ist eine gekennzeichnete Annahme (User 20.09.2026);
+    // ohne Online-Preis (Burritos von edeka.de, User 24.09.2026): price null + Hinweis
     if (p.priceNote) o.priceNote = p.priceNote;
     o.note = p.portionNote;
     items.push(o);
@@ -61,5 +65,6 @@ if (require.main === module) {
   U.writeBlock(path.join(__dirname, "index.html"), KEY, lines);
   console.log(data.items.length + " Produkte → index.html (" + KEY + "-Block): " + data.cats.map(c => c.name + " " + data.items.filter(x => x.cat === c.id).length).join(", "));
   console.log("Mit Abtropfgewicht: " + data.items.filter(x => x.drained).length + " · Nicht im Block: " + raw._meta.noData.length + " ohne Nährwerte");
-  console.log("Preise " + Math.min(...data.items.map(x => x.price)).toFixed(2) + "–" + Math.max(...data.items.map(x => x.price)).toFixed(2) + " € · Auffälligkeiten: " + raw._meta.anomalies.length);
+  const prices = data.items.map(x => x.price).filter(x => typeof x === "number");
+  console.log("Preise " + Math.min(...prices).toFixed(2) + "–" + Math.max(...prices).toFixed(2) + " € · ohne Online-Preis: " + data.items.filter(x => x.price == null).length + " · Auffälligkeiten: " + raw._meta.anomalies.length);
 }

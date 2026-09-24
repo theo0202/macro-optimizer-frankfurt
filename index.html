@@ -1213,7 +1213,7 @@ const FITKITCHEN = {
 // __FITKITCHEN_DATA_END__
 
 // __EDEKA_DATA_START__ (generiert via: node edeka-update.js aus data/edeka-raw.json — nicht von Hand editieren)
-// Quelle: Produktseiten des EDEKA-Graf-Onlineshops (https://graf-ffm.edeka.shop, EDEKA Graf, Frankfurt am Main) · Werte je 100 g, Menge = Abtropfgewicht bzw. Packung · Stand 2026-09-22
+// Quelle: Produktseiten des EDEKA-Graf-Onlineshops (https://graf-ffm.edeka.shop, EDEKA Graf, Frankfurt am Main) · Werte je 100 g, Menge = Abtropfgewicht bzw. Packung · Stand 2026-09-24
 const EDEKA = {
   cats: [
     {id:"carbs",name:"Carbs & bases",on:true},
@@ -1228,10 +1228,12 @@ const EDEKA = {
     {id:"veg_tins",name:"Edamame, peas & veg (tins)",on:true},
     {id:"fresh_veg",name:"Fresh vegetables",on:true},
     {id:"gyoza",name:"Gyoza",on:true},
+    {id:"eh_bowls",name:"Bowls",on:true},
+    {id:"eh_sushi",name:"Sushi",on:true},
     {id:"maultaschen",name:"Maultaschen",on:true},
     {id:"tkmeals",name:"Frozen ready meals",on:true},
     {id:"salads",name:"Fresh salads",on:true},
-    {id:"sandwiches",name:"Sandwiches",on:true},
+    {id:"sandwiches",name:"Sandwiches & Wraps",on:true},
     {id:"bread",name:"Bread & rolls",on:true},
     {id:"coldcuts",name:"Chicken breast slices",on:true},
     {id:"waffles",name:"Waffles",on:true},
@@ -1293,14 +1295,14 @@ const EDEKA = {
     {id:"bonduelle_junge_erbsen_feine_auslese_400_g",name:"Bonduelle Junge Erbsen feine Auslese 400 g",brand:"Bonduelle",cat:"veg_tins",g:280,pack:400,p100:{kcal:79,fat:0.8,sat:0.2,carbs:9.2,sugars:2,fibre:5.9,protein:5.7,salt:0.58},price:1.89,url:"https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Junge-Erbsen-feine-Auslese-400-g.html",drained:true,note:"Abtropfgewicht laut Produktseite (ganze Dose)"},
     {id:"bonduelle_erbsen_mit_moehrchen_feine_auslese_200_g",name:"Bonduelle Erbsen mit Möhrchen feine Auslese 200 g",brand:"Bonduelle",cat:"veg_tins",g:130,pack:200,p100:{kcal:61,fat:0.5,sat:0.1,carbs:8.3,sugars:3.2,fibre:4.2,protein:3.6,salt:0.58},price:1.49,url:"https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Erbsen-mit-Moehrchen-feine-Auslese-200-g.html",drained:true,note:"Abtropfgewicht laut Produktseite (ganze Dose)"},
     {id:"bonduelle_goldmais_bunter_mix_400_g",name:"Bonduelle Goldmais Bunter Mix 400 g",brand:"Bonduelle",cat:"veg_tins",g:265,pack:400,p100:{kcal:64,fat:1.4,sat:0.3,carbs:8.1,sugars:2,fibre:3.8,protein:2.9,salt:0.5},price:1.89,url:"https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Goldmais-Bunter-Mix-400-g.html",drained:true,note:"Abtropfgewicht laut Produktseite (ganze Dose)"},
-    {id:"edeka_herzstuecke_gemuese_pur_karottenstifte_250_g",name:"EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g",brand:"EDEKA Herzstücke",cat:"fresh_veg",g:250,pack:250,p100:{kcal:38,fat:0.2,sat:0.1,carbs:6.8,sugars:6.4,fibre:3.1,protein:0.8,salt:0.06},price:1.19,url:"https://graf-ffm.edeka.shop/Obst-Gemuese-EDEKA/EDEKA-Herzstuecke-Gemuese-Pur-Karottenstifte-250-g.html",unavailable:true,priceNote:"temporarily not available in the online shop (2026-09-22) — last known price",note:"ganze Packung laut Produktname"},
+    {id:"edeka_herzstuecke_gemuese_pur_karottenstifte_250_g",name:"EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g",brand:"EDEKA Herzstücke",cat:"fresh_veg",g:250,pack:250,p100:{kcal:38,fat:0.2,sat:0.1,carbs:6.8,sugars:6.4,fibre:3.1,protein:0.8,salt:0.06},price:1.19,url:"https://graf-ffm.edeka.shop/Obst-Gemuese-EDEKA/EDEKA-Herzstuecke-Gemuese-Pur-Karottenstifte-250-g.html",unavailable:true,priceNote:"temporarily not available in the online shop (2026-09-24) — last known price",note:"ganze Packung laut Produktname"},
     {id:"edeka_herzstuecke_gemuesenudeln_zucchini_250_g",name:"EDEKA Herzstücke Gemüsenudeln Zucchini 250 g",brand:"EDEKA Herzstücke",cat:"fresh_veg",g:250,pack:250,p100:{kcal:17,fat:0.32,sat:0.08,carbs:2.11,sugars:2.5,fibre:1,protein:1.21,salt:0.02},price:2.39,url:"https://graf-ffm.edeka.shop/Obst-Gemuese-EDEKA/EDEKA-Herzstuecke-Gemuesenudeln-Zucchini-250-g.html",ref:"USDA FoodData Central",note:"ganze Packung laut Produktname"},
     {id:"edeka_herzstuecke_gemuesenudeln_karotte_250_g",name:"EDEKA Herzstücke Gemüsenudeln Karotte 250 g",brand:"EDEKA Herzstücke",cat:"fresh_veg",g:250,pack:250,p100:{kcal:38,fat:0.2,sat:0.1,carbs:6.8,sugars:6.4,fibre:3.1,protein:0.8,salt:0.06},price:2.39,url:"https://graf-ffm.edeka.shop/Obst-Gemuese-EDEKA/EDEKA-Herzstuecke-Gemuesenudeln-Karotte-250-g.html",ref:"EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g",note:"ganze Packung laut Produktname"},
     {id:"edeka_herzstuecke_minigurken_klasse_i_230g",name:"EDEKA Herzstücke Minigurken Klasse I 230g",brand:"EDEKA Herzstücke",cat:"fresh_veg",g:230,pack:230,p100:{kcal:15,fat:0.11,sat:0.04,carbs:3.13,sugars:1.67,fibre:0.5,protein:0.65,salt:0.01},price:2.49,url:"https://graf-ffm.edeka.shop/Obst-Gemuese-EDEKA/Gemuese/Gurken/EDEKA-Herzstuecke-Minigurken-Klasse-I-230g.html",ref:"USDA FoodData Central",note:"ganze Packung laut Produktname"},
     {id:"ehrmann_high_protein_chocolate_pudding_200_g",name:"Ehrmann High Protein Chocolate Pudding 200 g",brand:"Ehrmann",cat:"desserts",g:200,pack:200,p100:{kcal:76,fat:1.5,sat:1,carbs:5.5,sugars:4,fibre:0,protein:10,salt:0.12},price:1.49,url:"https://graf-ffm.edeka.shop/Angebote/Kuehlprodukte/Ehrmann-High-Protein-Chocolate-Pudding-200-g.html",note:"ganze Packung laut Produktname"},
     {id:"mueller_milchreis_high_protein_schoko_180_g",name:"müller Milchreis High Protein Schoko 180 g",brand:"müller",cat:"desserts",g:180,pack:180,p100:{kcal:94,fat:2.9,sat:1.8,carbs:9.2,sugars:4.2,fibre:0,protein:7.5,salt:0.33},price:0.99,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Joghurt-Desserts-Snacks/Dessert/mueller-Milchreis-High-Protein-Schoko-180-g.html",note:"ganze Packung laut Produktname"},
     {id:"mueller_milchreis_high_protein_klassik_180_g",name:"müller Milchreis High Protein Klassik 180 g",brand:"müller",cat:"desserts",g:180,pack:180,p100:{kcal:94,fat:2.8,sat:1.7,carbs:9.6,sugars:4.1,fibre:0,protein:7.5,salt:0.31},price:0.99,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Joghurt-Desserts-Snacks/Dessert/mueller-Milchreis-High-Protein-Klassik-180-g.html",note:"ganze Packung laut Produktname"},
-    {id:"mueller_high_protein_pudding_schoko_200_g",name:"müller High Protein Pudding Schoko 200 g",brand:"müller",cat:"desserts",g:200,pack:200,p100:{kcal:86,fat:2.2,sat:1.5,carbs:6,sugars:4,fibre:0,protein:10,salt:0.45},price:1.79,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Joghurt-Desserts-Snacks/Dessert/mueller-High-Protein-Pudding-Schoko-200-g.html",note:"ganze Packung laut Produktname"},
+    {id:"mueller_high_protein_pudding_schoko_200_g",name:"müller High Protein Pudding Schoko 200 g",brand:"müller",cat:"desserts",g:200,pack:200,p100:{kcal:86,fat:2.2,sat:1.5,carbs:6,sugars:4,fibre:0,protein:10,salt:0.45},price:1.79,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Joghurt-Desserts-Snacks/Dessert/mueller-High-Protein-Pudding-Schoko-200-g.html",unavailable:true,priceNote:"temporarily not available in the online shop (2026-09-24) — last known price",note:"ganze Packung laut Produktname"},
     {id:"ehrmann_high_protein_chocolate_mousse_200_g",name:"Ehrmann High Protein Chocolate Mousse 200 g",brand:"Ehrmann",cat:"desserts",g:200,pack:200,p100:{kcal:74,fat:1.5,sat:1,carbs:4.5,sugars:4,fibre:1,protein:10,salt:0.1},price:2.29,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Joghurt-Desserts-Snacks/Dessert/Ehrmann-High-Protein-Chocolate-Mousse-200-g.html",note:"ganze Packung laut Produktname"},
     {id:"mueller_milchreis_high_protein_zimt_180_g",name:"müller Milchreis High Protein Zimt 180 g",brand:"müller",cat:"desserts",g:180,pack:180,p100:{kcal:92,fat:2.8,sat:1.7,carbs:9.1,sugars:4.3,fibre:0,protein:7.5,salt:0.32},price:0.99,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Joghurt-Desserts-Snacks/Dessert/mueller-Milchreis-High-Protein-Zimt-180-g.html",note:"ganze Packung laut Produktname"},
     {id:"ehrmann_high_protein_joghurt_chocballs_classic_200_g",name:"Ehrmann High Protein Joghurt Chocballs Classic 200 g",brand:"Ehrmann",cat:"desserts",g:200,pack:200,p100:{kcal:77,fat:2.2,sat:1.5,carbs:5.5,sugars:3.8,fibre:0,protein:10,salt:0.1},price:1.79,url:"https://graf-ffm.edeka.shop/Angebote/Kuehlprodukte/Ehrmann-High-Protein-Joghurt-Chocballs-Classic-200-g.html",note:"ganze Packung laut Produktname"},
@@ -1328,15 +1330,25 @@ const EDEKA = {
     {id:"edeka_herzstuecke_glutenfreie_weltmeisterbroetchen_240_g",name:"EDEKA Herzstücke glutenfreie Weltmeisterbrötchen 240 g",brand:"EDEKA Herzstücke",cat:"bread",g:240,pack:240,p100:{kcal:281,fat:7.7,sat:1.1,carbs:46.2,sugars:3.8,fibre:3.3,protein:5,salt:1.1},price:2.99,url:"https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Brot-Backzutaten/Brot-Gebaeck/EDEKA-Herzstuecke-glutenfreie-Weltmeisterbroetchen-240-g.html",note:"ganze Packung laut Produktname"},
     {id:"gut_guenstig_haehnchenbrust_100_g",name:"GUT&GÜNSTIG Hähnchenbrust 100 g",brand:"GUT&GÜNSTIG",cat:"coldcuts",g:100,pack:100,p100:{kcal:108,fat:2,sat:0.8,carbs:1,sugars:0.9,fibre:0,protein:21,salt:2.2},price:1.59,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Salami-Schinken/GUT-GUeNSTIG-Haehnchenbrust-100-g.html",note:"ganze Packung laut Produktname"},
     {id:"gut_guenstig_haehnchenbrustfilet_150_g",name:"GUT&GÜNSTIG Hähnchenbrustfilet 150 g",brand:"GUT&GÜNSTIG",cat:"coldcuts",g:150,pack:150,p100:{kcal:105,fat:2,sat:0.8,carbs:1.5,sugars:1,fibre:0,protein:20,salt:2.3},price:2.49,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Salami-Schinken/GUT-GUeNSTIG-Haehnchenbrustfilet-150-g.html",note:"ganze Packung laut Produktname"},
-    {id:"herta_finesse_haehnchenbrust_ofengebacken_100_g",name:"Herta Finesse Hähnchenbrust ofengebacken 100 g",brand:"Herta Finesse",cat:"coldcuts",g:100,pack:100,p100:{kcal:104,fat:1.8,sat:0.6,carbs:1,sugars:1,fibre:0,protein:21,salt:2.1},price:2.59,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Salami-Schinken/Herta-Finesse-Haehnchenbrust-ofengebacken-100-g.html",note:"ganze Packung laut Produktname"},
+    {id:"herta_finesse_haehnchenbrust_ofengebacken_100_g",name:"Herta Finesse Hähnchenbrust ofengebacken 100 g",brand:"Herta Finesse",cat:"coldcuts",g:100,pack:100,p100:{kcal:104,fat:1.8,sat:0.6,carbs:1,sugars:1,fibre:0,protein:21,salt:2.1},price:2.59,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Salami-Schinken/Herta-Finesse-Haehnchenbrust-ofengebacken-100-g.html",unavailable:true,priceNote:"temporarily not available in the online shop (2026-09-24) — last known price",note:"ganze Packung laut Produktname"},
     {id:"herta_finesse_haehnchenbrust_feinwuerzig_100_g",name:"Herta Finesse Hähnchenbrust feinwürzig 100 g",brand:"Herta Finesse",cat:"coldcuts",g:100,pack:100,p100:{kcal:101,fat:1.9,sat:0.7,carbs:1,sugars:1,fibre:0,protein:20,salt:2.1},price:2.59,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Salami-Schinken/Herta-Finesse-Haehnchenbrust-feinwuerzig-100-g.html",note:"ganze Packung laut Produktname"},
-    {id:"gut_guenstig_haehnchenbrust_filetroulade_150_g",name:"GUT&GÜNSTIG Hähnchenbrust-Filetroulade 150 g",brand:"GUT&GÜNSTIG",cat:"coldcuts",g:150,pack:150,p100:{kcal:107,fat:2,sat:0.6,carbs:1,sugars:1,fibre:0,protein:21,salt:2.2},price:2.29,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Salami-Schinken/GUT-GUeNSTIG-Haehnchenbrust-Filetroulade-150-g-EDEKA.html",note:"ganze Packung laut Produktname"},
+    {id:"gut_guenstig_haehnchenbrust_filetroulade_150_g",name:"GUT&GÜNSTIG Hähnchenbrust-Filetroulade 150 g",brand:"GUT&GÜNSTIG",cat:"coldcuts",g:150,pack:150,p100:{kcal:107,fat:2,sat:0.6,carbs:1,sugars:1,fibre:0,protein:21,salt:2.2},price:2.29,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Salami-Schinken/GUT-GUeNSTIG-Haehnchenbrust-Filetroulade-150-g-EDEKA.html",unavailable:true,priceNote:"temporarily not available in the online shop (2026-09-24) — last known price",note:"ganze Packung laut Produktname"},
     {id:"edeka_herzstuecke_haehnchenbrust_ofengebacken_100_g",name:"EDEKA Herzstücke Hähnchenbrust ofengebacken 100 g",brand:"EDEKA Herzstücke",cat:"coldcuts",g:100,pack:100,p100:{kcal:107,fat:2,sat:0.8,carbs:1,sugars:0.9,fibre:0,protein:21,salt:2.2},price:1.99,url:"https://graf-ffm.edeka.shop/Kuehlprodukte-EDEKA/Fleisch-Wurst-Fisch/Salami-Schinken/EDEKA-Herzstuecke-Haehnchenbrust-ofengebacken-100-g.html",note:"ganze Packung laut Produktname"},
     {id:"edeka_bio_high_protein_linsen_waffeln_90_g",name:"EDEKA Bio High Protein Linsen-Waffeln 90 g",brand:"EDEKA Bio",cat:"waffles",g:90,pack:90,p100:{kcal:378,fat:2.2,sat:0.4,carbs:59,sugars:2.4,fibre:11,protein:25,salt:0.52},price:1.35,url:"https://graf-ffm.edeka.shop/Suesswaren-Gebaeck-EDEKA/Knabberartikel/Popcorn-Puffreis/EDEKA-Bio-High-Protein-Linsen-Waffeln-90-g.html",note:"ganze Packung laut Produktname"},
     {id:"edeka_bio_high_protein_kichererbsen_waffel_100_g",name:"EDEKA Bio High Protein Kichererbsen-Waffel 100 g",brand:"EDEKA Bio",cat:"waffles",g:100,pack:100,p100:{kcal:388,fat:4.3,sat:1,carbs:67,sugars:2.7,fibre:6.4,protein:17,salt:0.45},price:1.35,url:"https://graf-ffm.edeka.shop/Suesswaren-Gebaeck-EDEKA/Knabberartikel/Popcorn-Puffreis/EDEKA-Bio-High-Protein-Kichererbsen-Waffel-100-g.html",note:"ganze Packung laut Produktname"},
     {id:"alnatura_bio_dinkel_waffeln_natur_100_g",name:"Alnatura Bio Dinkel Waffeln natur 100 g",brand:"Alnatura",cat:"waffles",g:100,pack:100,p100:{kcal:363,fat:1.9,sat:0.4,carbs:61,sugars:0.8,fibre:11,protein:20,salt:0.01},price:1.09,url:"https://graf-ffm.edeka.shop/Suesswaren-Gebaeck-EDEKA/Knabberartikel/Popcorn-Puffreis/Alnatura-Bio-Dinkel-Waffeln-natur-100-g.html",note:"ganze Packung laut Produktname"},
     {id:"alnatura_bio_kichererbsenwaffeln_100_g",name:"Alnatura Bio Kichererbsenwaffeln 100 g",brand:"Alnatura",cat:"waffles",g:100,pack:100,p100:{kcal:384,fat:5,sat:0.7,carbs:61,sugars:2.1,fibre:9.3,protein:19,salt:0.49},price:1.89,url:"https://graf-ffm.edeka.shop/Suesswaren-Gebaeck-EDEKA/Knabberartikel/Popcorn-Puffreis/Alnatura-Bio-Kichererbsenwaffeln-100-g.html",note:"ganze Packung laut Produktname"},
     {id:"frosta_high_protein_haehnchen_mit_reis_brokkoli_500_g",name:"FRoSTA High Protein Hähnchen mit Reis & Brokkoli 500 g",brand:"FRoSTA",cat:"tkmeals",g:500,pack:500,p100:{kcal:124,fat:3.7,sat:3,carbs:10,sugars:1.3,fibre:0.9,protein:12.3,salt:1},price:4.79,url:"https://www.frosta.de/produkte/schnelle-gerichte/high-protein-haehnchen-mit-reis-brokkoli/",frozen:true,ref:"frosta.de (manufacturer)",priceNote:"not sold in this store — price assumed from the 4,79 € the market charges for every other FRoSTA ready meal",note:"ganze Packung laut Herstellerseite"},
+    {id:"eat_happy_chicken_karaage_donburi",name:"Eat Happy Chicken Karaage Donburi",brand:"Eat Happy",cat:"eh_bowls",g:341,pack:341,p100:{kcal:171,fat:3.7,sat:0.6,carbs:28,sugars:4.4,fibre:0,protein:5.7,salt:1.5},price:8.99,url:"https://www.eathappy.de/produkte/chicken-karaage-donburi/",eathappy:true,variable:true,ref:"eathappy.de (manufacturer)",note:"Standardgewicht laut eathappy.de — schwankt täglich"},
+    {id:"eat_happy_donburi_lachs_avocado",name:"Eat Happy Donburi Lachs Avocado",brand:"Eat Happy",cat:"eh_bowls",g:362,pack:362,p100:{kcal:163,fat:4.1,sat:0.9,carbs:25,sugars:3.7,fibre:0,protein:5.9,salt:1.1},price:9.49,url:"https://www.eathappy.de/produkte/donburi-lachs-avocado/",fish:true,eathappy:true,variable:true,ref:"eathappy.de (manufacturer)",note:"Standardgewicht laut eathappy.de — schwankt täglich"},
+    {id:"eat_happy_chicken_katsu_donburi",name:"Eat Happy Chicken Katsu Donburi",brand:"Eat Happy",cat:"eh_bowls",g:366,pack:366,p100:{kcal:180,fat:3,sat:0.5,carbs:33,sugars:7.4,fibre:0,protein:4.8,salt:2.1},price:8.99,url:"https://www.eathappy.de/produkte/chicken-katsu-donburi/",eathappy:true,variable:true,ref:"eathappy.de (manufacturer)",note:"Standardgewicht laut eathappy.de — schwankt täglich"},
+    {id:"eat_happy_poke_bowl_lachs",name:"Eat Happy Poké Bowl Lachs",brand:"Eat Happy",cat:"eh_bowls",g:403,pack:403,p100:{kcal:165,fat:5.7,sat:0.9,carbs:23,sugars:5.4,fibre:0,protein:5,salt:1.1},price:9.99,url:"https://www.eathappy.de/produkte/poke-bowl-lachs/",fish:true,eathappy:true,variable:true,ref:"eathappy.de (manufacturer)",note:"Standardgewicht laut eathappy.de — schwankt täglich"},
+    {id:"eat_happy_poke_bowl_vegan",name:"Eat Happy Poké Bowl Vegan",brand:"Eat Happy",cat:"eh_bowls",g:419,pack:419,p100:{kcal:165,fat:5.6,sat:0.7,carbs:25,sugars:6.1,fibre:0,protein:3.6,salt:1.2},price:9.49,url:"https://www.eathappy.de/produkte/poke-bowl-vegan/",eathappy:true,variable:true,ref:"eathappy.de (manufacturer)",note:"Standardgewicht laut eathappy.de — schwankt täglich"},
+    {id:"eat_happy_lachs_avocado_trio",name:"Eat Happy Lachs Avocado Trio",brand:"Eat Happy",cat:"eh_sushi",g:290,pack:290,p100:{kcal:160,fat:4,sat:0.9,carbs:24,sugars:3.6,fibre:0,protein:6,salt:1.09},price:10.99,url:"https://www.eathappy.de/produkte/lachs-avocado-trio/",fish:true,eathappy:true,variable:true,ref:"eathappy.de (manufacturer)",note:"Standardgewicht laut eathappy.de — schwankt täglich"},
+    {id:"eat_happy_futo_nigiri_box",name:"Eat Happy Futo Nigiri Box",brand:"Eat Happy",cat:"eh_sushi",g:349,pack:349,p100:{kcal:165,fat:4.2,sat:0.9,carbs:25,sugars:3.7,fibre:0,protein:6.5,salt:1.1},price:12.99,url:"https://www.eathappy.de/produkte/futo-nigiri-box/",fish:true,eathappy:true,variable:true,ref:"eathappy.de (manufacturer)",note:"Standardgewicht laut eathappy.de — schwankt täglich"},
+    {id:"edeka_herzstuecke_burrito_veggie_avocado_300_g",name:"EDEKA Herzstücke Burrito Veggie Avocado 300 g",brand:"EDEKA Herzstücke",cat:"sandwiches",g:300,pack:300,p100:{kcal:202,fat:9.7,sat:1.1,carbs:21.3,sugars:2,fibre:0,protein:6,salt:0.91},price:null,url:"https://www.edeka.de/sortiment/4311501172391/",ref:"edeka.de (manufacturer)",priceNote:"not in the EDEKA Graf online shop — no price online (enter it via Label correction)",note:"ganze Packung laut edeka.de"},
+    {id:"edeka_herzstuecke_burrito_texmex_300_g",name:"EDEKA Herzstücke Burrito TexMex 300 g",brand:"EDEKA Herzstücke",cat:"sandwiches",g:300,pack:300,p100:{kcal:171,fat:5.2,sat:0.9,carbs:21.5,sugars:2.6,fibre:0,protein:8.5,salt:1.1},price:null,url:"https://www.edeka.de/sortiment/4311501172339/",ref:"edeka.de (manufacturer)",priceNote:"not in the EDEKA Graf online shop — no price online (enter it via Label correction)",note:"ganze Packung laut edeka.de"},
+    {id:"edeka_herzstuecke_burrito_chicken_bbq_300_g",name:"EDEKA Herzstücke Burrito Chicken BBQ 300 g",brand:"EDEKA Herzstücke",cat:"sandwiches",g:300,pack:300,p100:{kcal:180,fat:6.3,sat:0.8,carbs:21.5,sugars:2.7,fibre:0,protein:8.3,salt:1.1},price:null,url:"https://www.edeka.de/sortiment/4311501172360/",ref:"edeka.de (manufacturer)",priceNote:"not in the EDEKA Graf online shop — no price online (enter it via Label correction)",note:"ganze Packung laut edeka.de"},
   ],
 };
 // __EDEKA_DATA_END__
@@ -3335,7 +3347,8 @@ function edekaApplyFix(it, fixes) {
   const o = { ...it, fixed:f.at || true };
   if (f.p100) o.p100 = { ...it.p100, ...f.p100 };
   if (f.g > 0) o.g = f.g;
-  if (typeof f.price === "number" && f.price >= 0) o.price = f.price;
+  // Ein Preis vom Etikett ersetzt auch den Preis-Hinweis („price assumed“, „no price online“)
+  if (typeof f.price === "number" && f.price >= 0) { o.price = f.price; delete o.priceNote; }
   return o;
 }
 const edekaById = id => { const it = EDEKA_BY_ID[id]; return it ? edekaApplyFix(it) : null; };
@@ -3351,7 +3364,9 @@ function edekaSaveFix(id, draft) {
   }
   if (Object.keys(p100).length) fix.p100 = p100;
   const g = Number(draft.g); if (draft.g !== "" && draft.g != null && isFinite(g) && g > 0 && Math.abs(g - base.g) > 1e-9) fix.g = Math.round(g * 10) / 10;
-  const pr = Number(draft.price); if (draft.price !== "" && draft.price != null && isFinite(pr) && pr >= 0 && Math.abs(pr - base.price) > 1e-9) fix.price = Math.round(pr * 100) / 100;
+  // Produkte ohne Online-Preis (price null): jeder Preis über 0 wird gespeichert
+  const pr = Number(draft.price);
+  if (draft.price !== "" && draft.price != null && isFinite(pr) && pr >= 0 && (base.price == null ? pr > 0 : Math.abs(pr - base.price) > 1e-9)) fix.price = Math.round(pr * 100) / 100;
   if (!fix.p100 && fix.g == null && fix.price == null) delete all[id]; else all[id] = fix;
   lsSet(LS.edekaFix, all);
 }
@@ -3361,7 +3376,7 @@ const edekaPrepOn = st => !!((st && st.sw) || {}).prepMyMeal;
 const edekaCatalog = st => { const fx = edekaFixes(); return EDEKA_ALL.items.filter(x => !x.prep || edekaPrepOn(st)).map(x => edekaApplyFix(x, fx)); };
 const edekaCats = st => EDEKA_ALL.cats.filter(c => c.id !== "prep" || edekaPrepOn(st));
 const EDEKA_LS = LS.edeka;                                    // localStorage: { picks:[{id,g,qty}], basket:[{id,g,qty}] }
-const EDEKA_NOTE = "Official values per 100 g from the product pages of the EDEKA Graf online shop. Every product counts as the whole pack — for tins that is the drained weight (Abtropfgewicht). Every gram figure can be changed in the basket and in your picks. Prices are the online-shop prices of this store — in the shop they can differ. Three fresh items publish no nutrition (raw vegetables need none): the carrot noodles use the values of the shop’s own carrot sticks, zucchini noodles and mini cucumbers those of USDA FoodData Central — each product says where its values come from. Leave the search box empty to browse everything in the categories you have switched on.";
+const EDEKA_NOTE = "Official values per 100 g from the product pages of the EDEKA Graf online shop. Every product counts as the whole pack — for tins that is the drained weight (Abtropfgewicht). Every gram figure can be changed in the basket and in your picks. Prices are the online-shop prices of this store — in the shop they can differ. Three fresh items publish no nutrition (raw vegetables need none): the carrot noodles use the values of the shop’s own carrot sticks, zucchini noodles and mini cucumbers those of USDA FoodData Central — each product says where its values come from. The Eat Happy boxes from the sushi counter use the values and the standard weight from eathappy.de (whole box including the sauces). Their weight changes from day to day: type in the grams from the label and the values follow (the box price stays). The three burritos are listed on edeka.de but not in the online shop, so they have no price — with a price limit they only come in when you lock them in. Tap “Browse” under the search box to list everything in the categories you have switched on.";
 const EDEKA_SWITCHES = [
   { id:"noFrozen", label:"No frozen food", def:true, filter:x => !x.frozen || x.prep,   // User 19.09.2026: Default AN
     hint:"Leaves out anything the product page stores at −18 °C. PrepMyMeal meals are frozen too, but they have their own switch below." },
@@ -3370,19 +3385,25 @@ const EDEKA_SWITCHES = [
   { id:"noTuna", label:"No tuna", def:true, filter:x => !x.tuna,                          // User 22.09.2026: Default AN
     hint:"Leaves out the tuna tins (and anything else with tuna). Switch off to let the optimizer use them." },
   { id:"noFish", label:"No fish", def:false, filter:x => !x.fish,                         // User 22.09.2026: Default AUS
-    hint:"Leaves out everything that contains fish — the smoked trout and salmon, the tuna tins and the salmon sandwich (fish as an allergen on the product page)." },
+    hint:"Leaves out everything that contains fish — the smoked trout and salmon, the tuna tins, the salmon sandwich and the Eat Happy salmon boxes (fish as an allergen on the product page)." },
+  { id:"noEatHappy", label:"No Eat Happy", def:true, filter:x => !x.eathappy,               // User 24.09.2026: Default AN
+    hint:"Leaves the Eat Happy sushi and bowls from the counter out of the suggestions. You can still search them, lock one in or add it to the basket — and set its weight from the label." },
 ];
 
 const edekaG = g => (Math.round(g * 10) / 10) + " g";
 // Ein Produkt bei <grams> Gramm als à-la-carte-Item (Werte je 100 g × Gramm / 100). Ungültige Gramm → die Menge des Produkts
 function edekaScale(it, grams, flags) {
   const g = (typeof grams === "number" && isFinite(grams) && grams > 0) ? Math.round(grams * 10) / 10 : it.g;
-  // Der Produktname trägt schon die Packungsmenge („… 400 g“) — die Tracker-Menge steht nur dran, wenn sie abweicht (Abtropfgewicht, halbe Packung)
-  const showG = Math.abs(g - (it.pack || it.g)) > 0.05;
-  const o = { id: it.id, name: it.name + (showG ? " (" + edekaG(g) + (it.drained ? " drained" : "") + ")" : ""), cat: it.cat, brand: it.brand, url: it.url, g, price: it.price, drained: it.drained, frozen: it.frozen, ref: it.ref, fixed: it.fixed, priceNote: it.priceNote, unavailable: it.unavailable };
+  // Der Produktname trägt schon die Packungsmenge („… 400 g“) — die Tracker-Menge steht nur dran, wenn sie abweicht (Abtropfgewicht, halbe Packung).
+  // Produkte mit schwankendem Gewicht (Eat Happy) nennen es immer: „(341 g typ.)“ beim Standardgewicht, sonst die eingetragenen Gramm (wie Sushi Daily in London)
+  const showG = it.variable || Math.abs(g - (it.pack || it.g)) > 0.05;
+  const typ = it.variable && Math.abs(g - it.g) <= 0.05 ? " typ." : "";
+  const o = { id: it.id, name: it.name + (showG ? " (" + edekaG(g) + (it.drained ? " drained" : "") + typ + ")" : ""), cat: it.cat, brand: it.brand, url: it.url, g, price: it.price, drained: it.drained, frozen: it.frozen, ref: it.ref, fixed: it.fixed, priceNote: it.priceNote, unavailable: it.unavailable, variable: it.variable, eathappy: it.eathappy };
   for (const k of KEYS) o[k] = Math.round(it.p100[k] * g / 10) / 10;
   return Object.assign(o, flags || {});
 }
+// Preis-Hinweis je Produkt: im Onlineshop gerade nicht verfügbar · kein Preis online (Burritos von edeka.de) · Preis angenommen (FRoSTA High Protein)
+const edekaStatus = x => x.unavailable ? "unavailable online" : x.price == null ? "no price online" : x.priceNote ? "price assumed" : null;
 const edekaEntries = list => (Array.isArray(list) ? list : []).filter(e => e && EDEKA_BY_ID[e.id]);
 // Warenkorb/Picks → Items (Menge qty vervielfacht die Zeile)
 function edekaItemsOf(list, flags) {
@@ -3434,6 +3455,8 @@ function edekaOptimize(t, mode, p, st, ex, r, inc) {
   let pool = edekaCatalog(st).filter(x => cats[x.cat] && !ex.has(x.id) && !pickIds.has(x.id) && !isShellfish(x) && !x.pick);
   for (const s of active) if (s.filter) pool = pool.filter(s.filter);
   for (const s of r.switches || []) if (s.allow && !sw[s.id]) pool = pool.filter(x => !s.allow(x));
+  // Mit Preislimit bleiben Produkte ohne bekannten Preis draußen (ihr Preis lässt sich nicht prüfen); gesperrte Picks zählen mit 0 €
+  if (t && t.maxPrice != null && t.maxPrice !== "" && isFinite(Number(t.maxPrice))) pool = pool.filter(x => typeof x.price === "number");
   const maxN = st.maxN || r.maxN || 5;
   const budget = maxN === Infinity ? Infinity : Math.max(0, maxN - base.length);
   return alaCarteCombos(t, mode, p, pool.map(x => edekaScale(x, x.g)), budget,
@@ -3477,25 +3500,25 @@ const edekaSummary = res => (res.items || []).map(x => x.name).join(" + ");
 function edekaCard(res, ctx) {
   const cats = [...new Set((res.items || []).map(x => (EDEKA_ALL.cats.find(c => c.id === x.cat) || {}).name || x.cat))];
   return h(ResultCard, { title:edekaSummary(res), sub:res.items.length + (res.items.length === 1 ? " product · " : " products · ") + cats.join(" · "),
-    n:res.nutrition, price:res.price, selected:ctx.selected, onClick:ctx.onSelect });
+    n:res.nutrition, price:res.price, pricePlus:(res.items || []).some(x => x.price == null) ? " + ?" : "", selected:ctx.selected, onClick:ctx.onSelect });
 }
 // Marke voranstellen (hilft beim Finden im Laden) — außer der Produktname beginnt schon damit
 const edekaName = x => (x.brand && x.name.toLowerCase().indexOf(String(x.brand).toLowerCase()) !== 0 ? x.brand + " · " : "") + x.name;
 const edekaLink = url => h("a", { href:url, target:"_blank", rel:"noopener noreferrer", style:{ color:"#60a5fa", fontSize:10, fontFamily:S.mono, textDecoration:"none", whiteSpace:"nowrap" } }, "open ↗");
 function edekaPanel(sel, ctx) {
-  const items = sel.items || [];
+  const items = sel.items || [], unknown = items.some(x => x.price == null);
   return h("div", { style:{ marginBottom:16 } },
     h("div", { style:{ ...LBL, marginBottom:6 } }, "Products"),
     ...items.map((x, i) => h("div", { key:i, style:{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", gap:8, fontSize:12, padding:"5px 0", borderBottom:i < items.length - 1 ? "1px solid #1f1f1f" : "none" } },
       h("div", { style:{ minWidth:0, flex:1 } },
         h("div", { style:{ color:"#e0e0e0" } }, (x.locked ? "🔒 " : x.must ? "★ " : "") + edekaName(x)),
         h("div", { style:{ fontSize:10, color:"#666", fontFamily:S.mono, marginTop:1, display:"flex", gap:8, flexWrap:"wrap" } },
-          x.drained ? "drained weight" : null, x.fixed ? "✎ edited from the label" : x.ref ? "values: " + x.ref : null,
-          x.unavailable ? "unavailable online" : x.priceNote ? "price assumed" : null, x.url ? edekaLink(x.url) : null)),
+          x.drained ? "drained weight" : null, x.variable ? "weight varies daily" : null, x.fixed ? "✎ edited from the label" : x.ref ? "values: " + x.ref : null,
+          edekaStatus(x), x.url ? edekaLink(x.url) : null)),
       h("span", { style:{ color:"#999", fontFamily:S.mono, whiteSpace:"nowrap" } }, x.kcal + " kcal · P " + x.protein + "g" + (x.price != null ? " · " + bowlEuro(x.price) : "")))),
     sel.price != null && h("div", { style:{ display:"flex", justifyContent:"space-between", gap:8, fontSize:12, padding:"6px 0 0", marginTop:4, borderTop:"1px solid #1f1f1f" } },
-      h("span", { style:{ color:"#e0e0e0", fontWeight:600 } }, "Total price", h("span", { style:{ color:"#777", fontWeight:400, fontSize:10 } }, "  online-shop prices, whole packs")),
-      h("span", { style:{ color:"#fff", fontFamily:S.mono, fontWeight:600, whiteSpace:"nowrap" } }, bowlEuro(sel.price)))
+      h("span", { style:{ color:"#e0e0e0", fontWeight:600 } }, "Total price", h("span", { style:{ color:"#777", fontWeight:400, fontSize:10 } }, unknown ? "  known prices only — not every product has a price online" : "  online-shop prices, whole packs")),
+      h("span", { style:{ color:"#fff", fontFamily:S.mono, fontWeight:600, whiteSpace:"nowrap" } }, bowlEuro(sel.price) + (unknown ? " + ?" : "")))
   );
 }
 function edekaOrderSteps(sel) {
@@ -3513,7 +3536,7 @@ function edekaValidate() {
     if (ids.has(x.id)) P.push("EDEKA: Produkt-id doppelt: " + x.id);
     ids.add(x.id);
     if (!(x.g > 0)) P.push("EDEKA: " + x.name + " ohne Menge");
-    if (typeof x.price !== "number") P.push("EDEKA: " + x.name + " ohne Preis");
+    if (typeof x.price !== "number" && !(x.price === null && x.priceNote)) P.push("EDEKA: " + x.name + " ohne Preis");   // ohne Online-Preis nur mit Hinweis
     if (!x.url) P.push("EDEKA: " + x.name + " ohne Produktseite");
     if (!EDEKA_ALL.cats.some(c => c.id === x.cat)) P.push("EDEKA: " + x.name + " in unbekannter Kategorie " + x.cat);
     for (const k of KEYS) if (typeof x.p100[k] !== "number" || !isFinite(x.p100[k]) || x.p100[k] < 0) P.push("EDEKA: " + x.name + " hat keinen gültigen Wert für " + k);
@@ -3538,14 +3561,21 @@ function edekaBasketList(ctx, key) {
   const { st } = ctx, list = edekaEntries((st.extra || {})[key]);
   const setList = fn => edekaSetExt(ctx, { [key]: fn(list) });
   return list.map((e, i) => {
-    const it = edekaById(e.id), sc = edekaScale(it, e.g);
-    return h("div", { key:key + i }, edekaRow(it,
-      [edekaGramInput(e.g, g => setList(l => l.map((x, j) => j === i ? { ...x, g } : x))),
-       edekaStepBtn("−", () => setList(l => l.map((x, j) => j === i ? { ...x, qty:Math.max(1, (x.qty || 1) - 1) } : x))),
-       h("span", { key:"q", style:{ fontSize:13, fontFamily:S.mono, color:"#fff", minWidth:18, textAlign:"center" } }, e.qty || 1),
-       edekaStepBtn("+", () => setList(l => l.map((x, j) => j === i ? { ...x, qty:(x.qty || 1) + 1 } : x))),
-       edekaStepBtn("✕", () => setList(l => l.filter((x, j) => j !== i)), true)],
-      Math.round(sc.kcal * (e.qty || 1)) + " kcal · P " + edekaR1(sc.protein * (e.qty || 1)) + " · C " + edekaR1(sc.carbs * (e.qty || 1)) + " · F " + edekaR1(sc.fat * (e.qty || 1)) + " · " + bowlEuro(it.price * (e.qty || 1)) + (it.drained ? " · drained weight" : "") + (it.portions > 1 ? " · " + it.portions + " portions" : "") + (it.fixed ? " · ✎ edited" : it.ref ? " · values: " + it.ref : "") + (it.unavailable ? " · unavailable online" : it.priceNote ? " · price assumed" : "")));
+    const it = edekaById(e.id), sc = edekaScale(it, e.g), q = e.qty || 1, status = edekaStatus(it);
+    const gram = h("span", { key:"g" }, edekaGramInput(e.g, g => setList(l => l.map((x, j) => j === i ? { ...x, g } : x))));
+    const del = h("span", { key:"x" }, edekaStepBtn("✕", () => setList(l => l.filter((x, j) => j !== i)), true));
+    const right = it.variable
+      ? [gram,
+         h("button", { key:"another", onClick:() => setList(l => [...l.slice(0, i + 1), { id:e.id, g:it.g, qty:1 }, ...l.slice(i + 1)]), title:"Add another box with its own weight",
+           style:{ height:26, borderRadius:7, border:"1px solid #2f4a35", background:"#14251a", color:"#86efac", fontSize:11, fontWeight:700, lineHeight:1, cursor:"pointer", fontFamily:S.font, padding:"0 8px", whiteSpace:"nowrap" } }, "＋ another"),
+         del]
+      : [gram,
+         h("span", { key:"m" }, edekaStepBtn("−", () => setList(l => l.map((x, j) => j === i ? { ...x, qty:Math.max(1, (x.qty || 1) - 1) } : x)))),
+         h("span", { key:"q", style:{ fontSize:13, fontFamily:S.mono, color:"#fff", minWidth:18, textAlign:"center" } }, q),
+         h("span", { key:"p" }, edekaStepBtn("+", () => setList(l => l.map((x, j) => j === i ? { ...x, qty:(x.qty || 1) + 1 } : x)))),
+         del];
+    return h("div", { key:key + i }, edekaRow(it, right,
+      Math.round(sc.kcal * q) + " kcal · P " + edekaR1(sc.protein * q) + " · C " + edekaR1(sc.carbs * q) + " · F " + edekaR1(sc.fat * q) + (it.price != null ? " · " + bowlEuro(it.price * q) : "") + (it.variable ? " · weight varies: type in the grams from the label" : "") + (it.drained ? " · drained weight" : "") + (it.portions > 1 ? " · " + it.portions + " portions" : "") + (it.fixed ? " · ✎ edited" : it.ref ? " · values: " + it.ref : "") + (status ? " · " + status : "")));
   });
 }
 // Editor für die Korrektur vom Etikett: Produkt suchen, Werte je 100 g / Menge / Preis überschreiben, wieder zurücksetzen
@@ -3561,10 +3591,10 @@ function edekaFixCard(ctx) {
   const base = ext.fixId ? EDEKA_BY_ID[ext.fixId] : null;
   const cur = base ? edekaApplyFix(base) : null;
   const draft = ext.fixDraft || {};
-  const val = k => (draft[k] != null ? draft[k] : String(k === "g" ? cur.g : k === "price" ? cur.price : cur.p100[k]));
+  const val = k => (draft[k] != null ? draft[k] : k === "price" && cur.price == null ? "" : String(k === "g" ? cur.g : k === "price" ? cur.price : cur.p100[k]));
   const setDraft = (k, v) => edekaSetExt(ctx, { fixDraft:{ ...draft, [k]:v } });
   const pick = it => edekaSetExt(ctx, { fixId:it.id, fixDraft:null, fixQ:"" });
-  const hits = base ? [] : edekaSearch(ext.fixQ, 12, st).slice(0, 12);
+  const hits = base || !(ext.fixQ || "").trim() ? [] : edekaSearch(ext.fixQ, 12, st).slice(0, 12);
   return h("div", { key:"edeka_fix", style:{ marginBottom:20, background:"#121212", border:"1px solid #2a2a2a", borderRadius:12, padding:14 } },
     h("div", { style:{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:6 } },
       h("div", { style:LBL }, "✎ Label correction"),
@@ -3602,34 +3632,41 @@ function edekaFixCard(ctx) {
 function edekaExtra(ctx) {
   const { st, tg } = ctx, ext = st.extra || {}, track = edekaMode(st) === "track";
   const key = track ? "basket" : "picks", list = edekaEntries(ext[key]);
-  const hits = edekaSearch(ext.q, (ext.q || "").trim() ? 24 : 200, st);
+  const q = (ext.q || "").trim(), browse = !q && !!ext.browse;
+  const hits = q ? edekaSearch(q, 24, st) : browse ? edekaSearch("", 200, st) : [];
+  const nBrowse = q ? 0 : edekaSearch("", 1e9, st).length;
   const add = it => edekaSetExt(ctx, { [key]:[...list, { id:it.id, g:it.g, qty:1 }], q:"" });
   const total = edekaTotal(list);
   const price = list.reduce((s, e) => s + (edekaById(e.id).price || 0) * (e.qty || 1), 0);
+  const unknown = list.some(e => edekaById(e.id).price == null);
+  const linkBtn = { background:"none", border:"none", color:"#777", fontSize:11, cursor:"pointer", fontFamily:S.mono, textDecoration:"underline", padding:0 };
   return h("div", { key:"edeka_extra", style:{ marginBottom:20 } },
     h("div", { style:{ ...LBL, marginBottom:6 } }, track ? "Track basket" : "Build around your own picks (optional)"),
     h("div", { style:{ fontSize:11, color:"#777", marginBottom:10, lineHeight:1.5 } },
       track ? "Add what you actually put in the basket — the totals below are checked against your target. Change the grams if you use only part of a pack."
             : "Lock in products you want today: every suggestion below keeps them and only fills the rest of your target. They count towards “Max. products”."),
     h("input", { type:"text", value:ext.q || "", onChange:e => edekaSetExt(ctx, { q:e.target.value }), placeholder:track ? "Search a product to add…" : "Search products to lock in…",
-      style:{ width:"100%", boxSizing:"border-box", background:"#151515", border:"1px solid #2a2a2a", borderRadius:10, padding:"11px 14px", color:"#fff", fontSize:14, fontFamily:S.font, outline:"none", marginBottom:10 } }),
-    h("div", { style:{ display:"flex", flexDirection:"column", gap:6, marginBottom:14 } },
-      hits.length === 0 ? h("div", { style:{ fontSize:12, color:"#666", fontFamily:S.mono } }, (ext.q || "").trim() ? "No matches." : "No categories switched on.")
+      style:{ width:"100%", boxSizing:"border-box", background:"#151515", border:"1px solid #2a2a2a", borderRadius:10, padding:"11px 14px", color:"#fff", fontSize:14, fontFamily:S.font, outline:"none", marginBottom:q ? 10 : 8 } }),
+    // Stöbern: die Produkte der aktiven Kategorien nur auf Klick (sonst müsste man an 100+ Produkten vorbeiscrollen)
+    !q && h("button", { onClick:() => edekaSetExt(ctx, { browse:!browse }), style:{ ...linkBtn, display:"block", textAlign:"left", marginBottom:browse ? 8 : 14 } },
+      browse ? "▴ Hide the list" : "▾ Browse the categories you switched on (" + nBrowse + (nBrowse === 1 ? " product)" : " products)")),
+    (q || browse) && h("div", { style:{ display:"flex", flexDirection:"column", gap:6, marginBottom:14 } },
+      hits.length === 0 ? h("div", { style:{ fontSize:12, color:"#666", fontFamily:S.mono } }, q ? "No matches." : "No categories switched on.")
         : hits.map((it, i) => {
-          const sc = edekaScale(it, it.g);
+          const sc = edekaScale(it, it.g), status = edekaStatus(it);
           return h("div", { key:i }, edekaRow(it,
             h("button", { onClick:() => add(it), style:{ background:S.green, border:"none", color:"#fff", borderRadius:8, padding:"7px 12px", fontSize:12, fontWeight:700, cursor:"pointer", fontFamily:S.font } }, track ? "+ Add" : "🔒 Lock in"),
-            edekaG(it.g) + " · " + Math.round(sc.kcal) + " kcal · P " + edekaR1(sc.protein) + " · " + bowlEuro(it.price) + (it.drained ? " · drained weight" : "") + (it.portions > 1 ? " · " + it.portions + " portions per pack" : "") + (it.fixed ? " · ✎ edited" : it.ref ? " · values: " + it.ref : "") + (it.unavailable ? " · unavailable online" : it.priceNote ? " · price assumed" : "")));
+            (it.variable ? "typ. " : "") + edekaG(it.g) + " · " + Math.round(sc.kcal) + " kcal · P " + edekaR1(sc.protein) + (it.price != null ? " · " + bowlEuro(it.price) : "") + (it.variable ? " · weight varies daily" : "") + (it.drained ? " · drained weight" : "") + (it.portions > 1 ? " · " + it.portions + " portions per pack" : "") + (it.fixed ? " · ✎ edited" : it.ref ? " · values: " + it.ref : "") + (status ? " · " + status : "")));
         })),
     h("div", { style:{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:8 } },
       h("div", { style:LBL }, (track ? "My basket" : "Your picks") + (list.length ? " · " + list.reduce((s, e) => s + (e.qty || 1), 0) + (list.reduce((s, e) => s + (e.qty || 1), 0) === 1 ? " product" : " products") : "")),
-      list.length > 0 && h("button", { onClick:() => edekaSetExt(ctx, { [key]:[] }), style:{ background:"none", border:"none", color:"#777", fontSize:11, cursor:"pointer", fontFamily:S.mono, textDecoration:"underline", padding:0 } }, "Clear")),
+      list.length > 0 && h("button", { onClick:() => edekaSetExt(ctx, { [key]:[] }), style:linkBtn }, "Clear")),
     list.length === 0
       ? h("div", { style:{ fontSize:12, color:"#666", marginBottom:12 } }, track ? "Nothing added yet — search above." : "Nothing locked in — the optimizer picks freely.")
       : h("div", null,
           h("div", { style:{ display:"flex", flexDirection:"column", gap:6, marginBottom:12 } }, ...edekaBasketList(ctx, key)),
           h("div", { style:{ background:"#0d0d0d", borderRadius:10, padding:14, border:"1px solid #2a2a2a" } },
-            h("div", { style:{ ...LBL, marginBottom:10 } }, (track ? "Basket total" : "Locked so far") + " · " + bowlEuro(Math.round(price * 100) / 100)),
+            h("div", { style:{ ...LBL, marginBottom:10 } }, (track ? "Basket total" : "Locked so far") + " · " + bowlEuro(Math.round(price * 100) / 100) + (unknown ? " + ?" : "")),
             h(MacroBars, { n:total, tg, mb:0 })))
   );
 }
@@ -3843,7 +3880,7 @@ const RESTAURANTS = [
     summary:edekaSummary, panelSubtitle:sel => "EDEKA Graf · " + (sel.items || []).length + " products · grams from the product pages",
     inputHint:() => "EDEKA Graf: build a basket",
     validate:edekaValidate,
-    footer:"Data: product pages of the EDEKA Graf online shop (graf-ffm.edeka.shop) — values per 100 g, tins counted at drained weight · 19.09.2026" },
+    footer:"Data: product pages of the EDEKA Graf online shop (graf-ffm.edeka.shop), the manufacturer pages frosta.de, krone-fisch.de, eathappy.de and edeka.de, and prepmymeal.com — values per 100 g, tins counted at drained weight · 24.09.2026" },
   // Pre-selected meals (User 19.09.2026): kuratierte Kombis aus höchstens drei Edeka-Produkten, kein Optimizer.
   // Liste: data/meals.json → node meals-update.js. Werte und Preise kommen aus den Edeka-Produkten, showAll zeigt alle Gerichte
   { key:"meals", name:"Pre-selected meals", kind:"byo", data:MEALS, gradient:["#b45309","#7c2d12"], label:"PRE-SELECTED MEALS · EDEKA GRAF", platform:"In-Store", accurate:true, maxN:3,
@@ -4089,7 +4126,7 @@ function MacroBars({ n, tg, mb }) {
 }
 
 // Ergebnis-Karte (Look wie London). badge = Restaurant-Badge (All/Accurate); hint ersetzt Fibre/Salt in der Makro-Zeile; price = Bestellpreis (unter den kcal)
-function ResultCard({ title, sub, n, selected, onClick, badge, hint, price }) {
+function ResultCard({ title, sub, n, selected, onClick, badge, hint, price, pricePlus }) {
   const titleEl = h("span", { style:{ fontSize:13, fontWeight:600, color:"#fff" } }, title);
   return h("button", { onClick, style:{
       background: selected ? "rgba(0,151,67,0.08)" : "#151515",
@@ -4107,7 +4144,7 @@ function ResultCard({ title, sub, n, selected, onClick, badge, hint, price }) {
       h("div", { style:{ textAlign:"right", flexShrink:0 } },
         h("div", { style:{ fontSize:16, fontWeight:700, color:"#4ade80", fontFamily:S.mono, whiteSpace:"nowrap" } },
           n.kcal, h("span", { style:{ fontSize:9, color:"#666", fontWeight:400 } }, " kcal")),
-        price != null && h("div", { style:{ fontSize:11, color:"#cfcfcf", fontFamily:S.mono, marginTop:2, whiteSpace:"nowrap" } }, bowlEuro(price)))
+        price != null && h("div", { style:{ fontSize:11, color:"#cfcfcf", fontFamily:S.mono, marginTop:2, whiteSpace:"nowrap" } }, bowlEuro(price) + (pricePlus || "")))
     ),
     h("div", { style:{ display:"flex", gap:12, fontSize:10, fontFamily:S.mono, flexWrap:"wrap" } },
       h("span", { style:{ color:"#fbbf24" } }, "C "+n.carbs+"g"),

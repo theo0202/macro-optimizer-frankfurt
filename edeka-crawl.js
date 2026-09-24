@@ -28,10 +28,12 @@ const CATS = [
   { id: "veg_tins", name: "Edamame, peas & veg (tins)" },
   { id: "fresh_veg", name: "Fresh vegetables" },
   { id: "gyoza", name: "Gyoza" },
+  { id: "eh_bowls", name: "Bowls" },      // Eat Happy (User 24.09.2026)
+  { id: "eh_sushi", name: "Sushi" },      // Eat Happy (User 24.09.2026)
   { id: "maultaschen", name: "Maultaschen" },
   { id: "tkmeals", name: "Frozen ready meals" },
   { id: "salads", name: "Fresh salads" },
-  { id: "sandwiches", name: "Sandwiches" },
+  { id: "sandwiches", name: "Sandwiches & Wraps" },   // umbenannt, seit die Burritos dazukamen (User 24.09.2026)
   { id: "bread", name: "Bread & rolls" },
   { id: "coldcuts", name: "Chicken breast slices" },
   { id: "waffles", name: "Waffles" },
@@ -161,9 +163,31 @@ const PRODUCTS = [
 
 // Marken (längster Treffer am Namensanfang gewinnt) — für „Marke · Produkt“ in der Einkaufsliste
 const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle",
-  "Bürger", "EDEKA Bio", "EDEKA Herzstücke", "Ehrmann", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
+  "Bürger", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
   "Like MEAT", "LIKE", "Mestemacher", "MILRAM", "müller", "Müller", "planted", "Poensgen", "Rapunzel", "reis-fit", "Saupiquet",
   "Schwarzwaldmilch", "Taifun"];
+
+// Eat Happy (Sushi-/Bowl-Theke im Markt, User 24.09.2026): Werte je 100 g, Standardgewicht und Grundpreis von eathappy.de.
+// Die Werte umfassen den ganzen Boxinhalt inkl. Saucen (Eat Happy). Das Gewicht schwankt täglich → `variable` (Gramm im Tracker
+// änderbar, der Boxpreis bleibt). Preis = Grundpreis je kg × Standardgewicht = der Boxpreis (8,99 €, 9,49 € …; je Abholort ggf. anders)
+const EAT_HAPPY = [
+  { cat: "eh_bowls", url: "https://www.eathappy.de/produkte/chicken-karaage-donburi/" },
+  { cat: "eh_bowls", url: "https://www.eathappy.de/produkte/donburi-lachs-avocado/" },
+  { cat: "eh_bowls", url: "https://www.eathappy.de/produkte/chicken-katsu-donburi/" },
+  { cat: "eh_bowls", url: "https://www.eathappy.de/produkte/poke-bowl-lachs/" },
+  { cat: "eh_bowls", url: "https://www.eathappy.de/produkte/poke-bowl-vegan/" },
+  { cat: "eh_sushi", url: "https://www.eathappy.de/produkte/lachs-avocado-trio/" },
+  { cat: "eh_sushi", url: "https://www.eathappy.de/produkte/futo-nigiri-box/" },
+];
+
+// Produkte aus dem EDEKA-Sortiment (edeka.de), die der Graf-Onlineshop nicht führt (User 24.09.2026: gibt es im Markt).
+// Werte je 100 g aus den strukturierten Daten der Seite (schema.org Product), Packung laut „Inhalt“. Kein Preis online →
+// price null + priceNote (im Tracker „price n/a“; per Label correction nachtragbar)
+const EDEKA_DE = [
+  { cat: "sandwiches", gtin: "4311501172391" },   // User: „Burrito Avocado und Tofu“ = Burrito Veggie Avocado
+  { cat: "sandwiches", gtin: "4311501172339" },   // User: „Burrito Chicken Tex Mex“ = Burrito TexMex
+  { cat: "sandwiches", gtin: "4311501172360" },   // Burrito Chicken BBQ
+];
 
 // Nährwerte von der offiziellen **Herstellerseite** statt vom Shop (User 20.09.2026: er hat die FRoSTA-Seiten verlinkt).
 // Der Hersteller kennt die aktuelle Rezeptur; der Shop-Datensatz hängt teils hinterher. Preis, Packung und der Tiefkühl-
@@ -274,19 +298,19 @@ const NUTRIENTS = [
 function parseManufacturer(html, url, problems) {
   const txt = html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ").replace(/<[^>]+>/g, " ")
     .replace(/&amp;/g, "&").replace(/&nbsp;/g, " ").replace(/\s+/g, " ");
-  const start = txt.search(/Energie\s+[\d.,]+\s*kJ/);
+  const start = txt.search(/Energie[^\d]{0,25}[\d.,]+\s*kJ/);
   if (start < 0) { problems.push(url + ": Nährwerttabelle der Herstellerseite nicht lesbar"); return null; }
   const tab = txt.slice(start, start + 600);
   const grab = re => { const m = tab.match(re); return m ? U.parseNum(m[1], url) : null; };
   const per100 = {
     kcal: grab(/([\d.,]+)\s*kcal/),
-    fat: grab(/Fett\s+([\d.,]+)\s*g/),
-    sat: grab(/gesättigte Fettsäuren\s+([\d.,]+)\s*g/),
-    carbs: grab(/Kohlenhydrate\s+([\d.,]+)\s*g/),
-    sugars: grab(/davon Zucker\s+([\d.,]+)\s*g/),
-    fibre: grab(/Ballaststoffe\s+([\d.,]+)\s*g/),
-    protein: grab(/Eiwei(?:ß|ss)\s+([\d.,]+)\s*g/),
-    salt: grab(/Salz\s+([\d.,]+)\s*g/),
+    fat: grab(/Fett:?\s+([\d.,]+)\s*g/),
+    sat: grab(/gesättigte Fettsäuren:?\s+([\d.,]+)\s*g/),
+    carbs: grab(/Kohlenhydrate:?\s+([\d.,]+)\s*g/),
+    sugars: grab(/davon Zucker:?\s+([\d.,]+)\s*g/),
+    fibre: grab(/Ballaststoffe:?\s+([\d.,]+)\s*g/),
+    protein: grab(/(?:Eiwei(?:ß|ss)|Protein):?\s+([\d.,]+)\s*g/),
+    salt: grab(/Salz:?\s+([\d.,]+)\s*g/),
   };
   for (const k of ["kcal", "fat", "protein", "salt"]) if (per100[k] == null) problems.push(url + ": Herstellerseite nennt keinen Wert für " + k);
   const name = ((html.match(/<title>([^<]*)<\/title>/) || [])[1] || "").replace(/\s*[|–-]\s*(FRoSTA|Krone).*$/i, "").replace(/&amp;/g, "&").trim();
@@ -295,6 +319,61 @@ function parseManufacturer(html, url, problems) {
   const ingredients = zi >= 0 && di > zi ? txt.slice(zi, di).replace(/^Alle Zutaten/, "").trim() : null;
   const traces = (txt.match(/Kann Spuren enthalten von[^.]{0,200}/) || [])[0] || null;
   return { name, per100, packG: packG ? Number(packG) : null, ingredients, traces, url };
+}
+
+// „Kann Spuren enthalten …“-Sätze zählen laut Regel nicht als enthalten → vor jedem Schalentier-/Fisch-Test entfernen
+const stripTraces = s => String(s || "").replace(/kann (?:folgende )?spuren[^.]*(?:\.|$)/gi, " ");
+
+// eathappy.de: Name (h1), Beschreibung, Gewicht, Grundpreis je kg, Werte je 100 g (inkl. Saucen), Eigenschaften, Allergene, Spuren
+function parseEatHappy(html, url, problems) {
+  const name = strip((html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/) || [])[1] || "");
+  if (!name) { problems.push(url + ": kein Produktname"); return null; }
+  const lines = html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ").replace(/<[^>]+>/g, "\n")
+    .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").split("\n").map(x => x.replace(/\s+/g, " ").trim()).filter(Boolean);
+  const flat = lines.join(" ");
+  const gram = flat.match(/Gewicht:\s*([\d.,]+)\s*g\b/), perKg = flat.match(/Grundpreis:\s*([\d.,]+)\s*€\s*\/\s*kg/);
+  if (!gram) problems.push(name + ": kein Gewicht auf eathappy.de");
+  if (!perKg) problems.push(name + ": kein Grundpreis auf eathappy.de");
+  const nut = parseManufacturer(html, url, problems);
+  if (!nut || !gram || !perKg) return null;
+  const packG = U.parseNum(gram[1], name + " Gewicht"), pricePerKg = U.parseNum(perKg[1], name + " Grundpreis");
+  const pi = lines.indexOf("PRODUKTINFORMATIONEN");
+  return {
+    name, url, packG, pricePerKg, price: U.round(pricePerKg * packG / 1000, 2), per100: nut.per100,
+    description: pi >= 0 ? lines.slice(pi + 1).join(" ").split(/\s*Gewicht:/)[0].trim() : null,
+    properties: (flat.match(/Eigenschaften:\s*(.*?)\s*Allergene und Zusatzstoffe:/) || [])[1] || null,
+    allergens: (flat.match(/Allergene und Zusatzstoffe:\s*(.*?)\s*Spurenhinweise:/) || [])[1] || null,
+    traces: (flat.match(/Kann Spuren enthalten von:\s*(.*?)\s*(?:Zu beachten:|$)/) || [])[1] || null,
+  };
+}
+
+// edeka.de/sortiment/<GTIN>: schema.org-Product (Name, Marke, GTIN, Werte je 100 g), „Inhalt: 300 g“, Zutaten, Allergene (ohne Spuren)
+function parseEdekaDe(html, url, problems) {
+  const prod = [...html.matchAll(/<script[^>]*ld\+json[^>]*>([\s\S]*?)<\/script>/g)]
+    .map(m => { try { return JSON.parse(m[1]); } catch (e) { return null; } }).find(o => o && o["@type"] === "Product");
+  if (!prod) { problems.push(url + ": kein Product-Datensatz (schema.org)"); return null; }
+  const P = Object.fromEntries((prod.additionalProperty || []).map(p => [p.propertyID, p.value]));
+  const IDS = { kcal: ["energy-kcal-per-100g"], fat: ["fat-per-100g"], sat: ["saturated-fat-per-100g"], carbs: ["carbohydrates-per-100g"],
+    sugars: ["sugars-per-100g"], fibre: ["fibre-per-100g", "fiber-per-100g"], protein: ["protein-per-100g"], salt: ["salt-per-100g"] };
+  const per100 = {};
+  let fibreDeclared = true;
+  for (const [k, ids] of Object.entries(IDS)) {
+    const id = ids.find(i => P[i] != null);
+    if (id == null) {
+      if (k === "fibre") { per100.fibre = 0; fibreDeclared = false; continue; }
+      problems.push(url + ": " + k + " fehlt"); per100[k] = 0; continue;
+    }
+    per100[k] = U.round(Number(P[id]), 2);
+  }
+  const text = html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ");
+  const inhalt = text.match(/Inhalt:\s*([\d.,]+)\s*(g|kg)\b/);
+  if (!inhalt) { problems.push(url + ": kein „Inhalt“"); return null; }
+  const packG = U.parseNum(inhalt[1], url + " Inhalt") * (inhalt[2] === "kg" ? 1000 : 1);
+  const brand = (prod.brand && prod.brand.name) || null;
+  const zi = text.indexOf("Zutaten:");
+  const ingredients = zi >= 0 ? text.slice(zi + 8).split(/\s+Allergene\s+/)[0].trim() : null;
+  const allergens = (text.slice(zi >= 0 ? zi : 0).match(/\sAllergene\s+(.*?)\s+(?:Kann folgende Spuren enthalten|$)/) || [])[1] || null;
+  return { name: [brand, prod.name, packG + " g"].filter(Boolean).join(" "), brand, gtin: prod.gtin13 || null, url, packG, per100, fibreDeclared, ingredients, allergens };
 }
 
 function parsePage(html, url, problems) {
@@ -382,7 +461,10 @@ async function main() {
           d.noData = null;
           d.fibreDeclared = !!old.fibreDeclared;
           if (old.valuesFrom) d.valuesFrom = old.valuesFrom;
-          what += " und Nährwerte (" + (old.fetchedAt || PREV._meta.fetchedAt || "voriger Lauf").slice(0, 10) + ")";
+          // Stand der Werte: vom Produkt selbst (valuesAsOf), sonst aus dem Hinweis des vorigen Laufs, sonst dessen Abrufdatum
+          const prevNote = ((PREV._meta && PREV._meta.unavailable) || []).find(x => x.indexOf(d.name + " — ") === 0) || "";
+          d.valuesAsOf = old.valuesAsOf || (prevNote.match(/Nährwerte \((\d{4}-\d{2}-\d{2})\)/) || [])[1] || (PREV._meta.fetchedAt || "").slice(0, 10) || "voriger Lauf";
+          what += " und Nährwerte (" + d.valuesAsOf + ")";
         }
         unavailable.push(d.name + " — letzter bekannter " + what);
       } else problems.push(d.name + ": temporär nicht verfügbar und kein früherer Preis bekannt");
@@ -440,9 +522,9 @@ async function main() {
     }
     if (d.noData) noData.push(d.name + " (" + (CATS.find(c => c.id === cat) || {}).name + ", " + (d.price == null ? "?" : d.price.toFixed(2)) + " €) — " + d.noData);
     if (!d.noData && !d.fibreDeclared) noFibre.push(d.name);
-    let text = d.name + " " + (d.legal || "") + " " + (d.ingredients || "");
+    let text = stripTraces(d.name + " " + (d.legal || "") + " " + (d.ingredients || ""));
     for (const re of SHELLFISH_SAFE) text = text.replace(re, " ");
-    if (SHELLFISH_RE.test(text) || SHELLFISH_ALLERGEN_RE.test(d.allergens || "")) { d.shellfish = true; shellfish.push(d.name); }
+    if (SHELLFISH_RE.test(text) || SHELLFISH_ALLERGEN_RE.test(stripTraces(d.allergens || ""))) { d.shellfish = true; shellfish.push(d.name); }
     if (HERB_RE.test(text)) { d.herbs = (text.match(HERB_RE) || [])[0]; coriander.push(d.name + " (" + d.herbs + ")"); }
     if (FROZEN_RE.test(d.storage || "")) { d.frozen = true; frozen.push(d.name); }
     if (FISH_ALLERGEN_RE.test(d.allergens || "") || FISH_NAME_RE.test(d.name)) { d.fish = true; fish.push(d.name); }
@@ -479,6 +561,51 @@ async function main() {
     items.push(d);
     process.stdout.write(".");
   }
+
+  // Weitere Quellen ohne Graf-Shopseite (User 24.09.2026): Eat Happy (Theke im Markt) und EDEKA-Sortiment von edeka.de.
+  // Dieselben Prüfungen wie bei den Shop-Produkten; „Kann Spuren enthalten“ zählt nicht (stripTraces)
+  const addExtra = d => {
+    for (const k of U.KEYS) if (k !== "fibre" && d.per100[k] == null) problems.push(d.name + ": " + k + " fehlt");
+    let text = stripTraces(d.name + " " + (d.description || "") + " " + (d.ingredients || ""));
+    for (const re of SHELLFISH_SAFE) text = text.replace(re, " ");
+    if (SHELLFISH_RE.test(text) || SHELLFISH_ALLERGEN_RE.test(stripTraces(d.allergens || ""))) { d.shellfish = true; shellfish.push(d.name); }
+    if (HERB_RE.test(text)) { d.herbs = (text.match(HERB_RE) || [])[0]; coriander.push(d.name + " (" + d.herbs + ")"); }
+    if (FISH_ALLERGEN_RE.test(stripTraces(d.allergens || "")) || FISH_NAME_RE.test(d.name)) { d.fish = true; fish.push(d.name); }
+    if (TUNA_RE.test(text)) { d.tuna = true; tuna.push(d.name); }
+    if (!d.fibreDeclared) noFibre.push(d.name);
+    const issues = U.checkItem({ ...d.per100, fibre: d.per100.fibre || 0 });
+    if (issues.length) anomalies.push({ name: d.name, issues });
+    if (items.some(x => x.name === d.name)) { problems.push(d.name + ": doppelt"); return; }
+    items.push(d);
+    process.stdout.write(".");
+  };
+  for (const e of EAT_HAPPY) {
+    if (!CATS.some(c => c.id === e.cat)) { problems.push("Unbekannte Kategorie „" + e.cat + "“ (" + e.url + ")"); continue; }
+    let html;
+    try { html = await get(e.url); } catch (err) { problems.push(e.url + ": " + err.message); continue; }
+    const p = parseEatHappy(html, e.url, problems);
+    if (!p) continue;
+    const fibreDeclared = p.per100.fibre != null;
+    addExtra({ name: "Eat Happy " + p.name, url: e.url, sku: null, price: p.price, pricePerKg: p.pricePerKg,
+      per100: { ...p.per100, fibre: fibreDeclared ? p.per100.fibre : 0 }, basis: "je 100 g laut eathappy.de (ganzer Boxinhalt inkl. Saucen)",
+      noData: null, packG: p.packG, drainedG: null, portionG: p.packG, portionNote: "Standardgewicht laut eathappy.de — schwankt täglich",
+      fibreDeclared, description: p.description, properties: p.properties, allergens: p.allergens, traces: p.traces,
+      ingredients: null, legal: null, storage: "bei max. 7 °C (eathappy.de)", cat: e.cat, brand: "Eat Happy",
+      valuesFrom: "offizielle Herstellerseite " + e.url, manufacturerUrl: e.url, eathappy: true, variable: true });
+  }
+  for (const e of EDEKA_DE) {
+    if (!CATS.some(c => c.id === e.cat)) { problems.push("Unbekannte Kategorie „" + e.cat + "“ (" + e.gtin + ")"); continue; }
+    const url = "https://www.edeka.de/sortiment/" + e.gtin + "/";
+    let html;
+    try { html = await get(url); } catch (err) { problems.push(url + ": " + err.message); continue; }
+    const p = parseEdekaDe(html, url, problems);
+    if (!p) continue;
+    addExtra({ name: p.name, url, sku: p.gtin, price: null, priceNote: "not in the EDEKA Graf online shop — no price online (enter it via Label correction)",
+      per100: p.per100, basis: "je 100 g laut edeka.de (schema.org-Produktdaten)", noData: null, packG: p.packG, drainedG: null,
+      portionG: p.packG, portionNote: "ganze Packung laut edeka.de", fibreDeclared: p.fibreDeclared, allergens: p.allergens,
+      ingredients: p.ingredients, legal: null, storage: null, cat: e.cat, brand: p.brand,
+      valuesFrom: "offizielle Produktseite " + url, manufacturerUrl: url, noOnlinePrice: true });
+  }
   console.log("");
 
   const out = {
@@ -499,6 +626,8 @@ async function main() {
         "User 19.09.2026: Gemüse ohne Nährwertangabe bekommt die Werte des jeweiligen Gemüses (gleiches Shop-Produkt bzw. USDA-Referenz), Quelle je Produkt dokumentiert",
         "User 19.09.2026: jedes Produkt verlinkt seine Produktseite (Bild + Wiederfinden im Laden)",
         "User 20.09.2026: TK-Fertiggerichte von FRoSTA als eigene Kategorie; Nährwerte von den verlinkten Herstellerseiten (frosta.de), Preis und Packung vom Markt",
+        "User 24.09.2026: Eat Happy (Sushi-/Bowl-Theke im Markt) mit Kategorien Bowls und Sushi, Schalter „No Eat Happy“ (Default AN); Standardgewicht von eathappy.de, im Tracker änderbar (das Gewicht schwankt täglich, wie Sushi Daily im London-Tool)",
+        "User 24.09.2026: drei EDEKA-Burritos (edeka.de) in „Sandwiches & Wraps“ (vorher „Sandwiches“); der Graf-Onlineshop führt sie nicht → kein Preis",
         "User 22.09.2026: neue Kategorie „Fisch“ (Forelle, 2× Räucherlachs, 2× Thunfisch in Dosen); Schalter „No tuna“ (Default AN) und „No fish“ (Default AUS — ausdrücklich gegen die „No …“-Regel vom 13.09.2026); die Krone-Forelle mit den Werten der verlinkten Herstellerseite",
         "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere",
       ],
@@ -510,6 +639,9 @@ async function main() {
       manufacturerDiffs: manufacturerDiffs.length ? manufacturerDiffs : "keine Abweichung zwischen Shop- und Herstellerangaben",
       notInStore: Object.fromEntries(items.filter(x => x.notInStore).map(x => [x.name, x.priceNote])),
       notInTracker: NOT_IN_TRACKER,
+      eatHappy: { source: "eathappy.de (Produktseiten)", note: "Nährwerte je 100 g für den ganzen Boxinhalt inkl. Saucen (Eat Happy); Standardgewicht schwankt täglich → im Tracker änderbar; Preis = Grundpreis je kg × Standardgewicht = Boxpreis, je Abholort ggf. anders",
+        products: items.filter(x => x.eathappy).map(x => x.name + " — " + x.packG + " g, " + x.pricePerKg.toFixed(2) + " €/kg → " + x.price.toFixed(2) + " €") },
+      noOnlinePrice: items.filter(x => x.noOnlinePrice).map(x => x.name),
       drained: Object.fromEntries(items.filter(x => x.drainedG != null).map(x => [x.name, x.drainedG + " g von " + x.packG + " g"])),
       noData,
       noFibre,
@@ -531,7 +663,7 @@ async function main() {
   console.log(items.filter(x => !x.noData).length + " Produkte mit Werten (von " + items.length + ") → " + path.relative(__dirname, OUT));
   for (const c of CATS) {
     const list = items.filter(x => x.cat === c.id && !x.noData);
-    console.log("  " + c.name + " (" + list.length + "): " + list.map(x => x.name + " " + x.portionG + " g · " + Math.round(x.per100.kcal * x.portionG / 100) + " kcal · " + x.price.toFixed(2) + " €").join(" · "));
+    console.log("  " + c.name + " (" + list.length + "): " + list.map(x => x.name + " " + x.portionG + " g · " + Math.round(x.per100.kcal * x.portionG / 100) + " kcal · " + (x.price == null ? "Preis ?" : x.price.toFixed(2) + " €")).join(" · "));
   }
   console.log("Abtropfgewicht genutzt (" + Object.keys(out._meta.drained).length + "): " + Object.entries(out._meta.drained).map(([k, v]) => k + " " + v).join(" · "));
   console.log("Referenzwerte (" + Object.keys(out._meta.referenceValues).length + "):\n  " + Object.entries(out._meta.referenceValues).map(([k, v]) => k + " ← " + v).join("\n  "));
