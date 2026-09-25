@@ -3720,23 +3720,38 @@ const MEALS_ASOF = [...new Set(MEALS.meals.map(m => m.asOf || MEALS.updated))].s
 // Behälter-Filter (User 25.09.2026): zwei Chips wie Warm/Cold, beide Default an — z.B. nur „No container needed“ → nur Gerichte ohne Schüssel
 const MEALS_BOXES = [{ id:"need", name:"🥣 Container needed" }, { id:"none", name:"📦 No container needed" }];
 const mealsBoxOn = (st, id) => ((((st && st.extra) || {}).box || {})[id]) !== false;
+// Suche (User 25.09.2026): Name des Gerichts + Namen und Marken seiner Produkte, umlaut-tolerant wie überall (matchesQuery:
+// jedes Wort muss vorkommen, z.B. „skyr bulgur“); wirkt zusammen mit den Chips
+const mealSearchText = m => m.name + " " + m.items.map(x => x.name + " " + (x.brand || "")).join(" ");
+const mealsQuery = st => String((((st && st.extra) || {}).q) || "").trim();
 function mealsOptimize(t, mode, p, st) {
-  const cats = (st && st.cats) || {};
+  const cats = (st && st.cats) || {}, q = mealsQuery(st);
   const out = [];
   for (const m of MEALS.meals) {
     if (!cats[m.cat]) continue;
     if (!mealsBoxOn(st, m.container ? "need" : "none")) continue;
+    if (q && !matchesQuery(mealSearchText(m), q)) continue;
     const items = mealItems(m);
     if (items.some(isShellfish)) continue;                       // Schalentier-Regel gilt überall
     const nutrition = sumN(items, 1);
     const price = Math.round(items.reduce((s, x) => s + x.price * 100, 0)) / 100;
     out.push({ key: m.id, meal: m, items, nutrition, price, score: score(nutrition, t, mode, p) });
   }
-  return out.sort((a, b) => a.score - b.score);
+  out.sort((a, b) => a.score - b.score);
+  // eigener Hinweis statt „relax the switches …“, wenn die Suche nichts findet
+  if (!out.length && q) out.empty = "No meal with “" + q + "” among the meals you switched on — try another word or clear the search.";
+  return out;
 }
 function mealsConfigCard(ctx) {
-  const { st } = ctx;
+  const { st } = ctx, q = (st.extra || {}).q || "";
+  const setQ = v => ctx.update(s => ({ extra:{ ...(s.extra || {}), q:v } }));
   return h("div", { style:CARD },
+    // Suche über Gericht, Produkte und Marken (User 25.09.2026); ✕ leert sie
+    h("div", { style:{ position:"relative", marginBottom:12 } },
+      h("input", { type:"text", value:q, placeholder:"Search meals or products (e.g. skyr, gyoza)…", onChange:e => setQ(e.target.value),
+        style:{ width:"100%", boxSizing:"border-box", background:"#151515", border:"1px solid #2a2a2a", borderRadius:10, padding:"10px 36px 10px 12px", color:"#fff", fontSize:14, fontFamily:S.font, outline:"none" } }),
+      q.trim() ? h("button", { onClick:() => setQ(""), title:"Clear search",
+        style:{ position:"absolute", right:4, top:"50%", transform:"translateY(-50%)", background:"none", border:"none", color:"#888", fontSize:14, cursor:"pointer", padding:"6px 10px" } }, "✕") : null),
     h("div", { style:LBL }, "Meals"),
     h("div", { style:{ display:"flex", flexWrap:"wrap", gap:5, marginBottom:12 } },
       ...MEALS.cats.map(c => h(Chip, { key:c.id, label:c.name, active:!!st.cats[c.id],
@@ -3936,7 +3951,7 @@ const RESTAURANTS = [
     optimize:mealsOptimize, renderConfig:mealsConfigCard, renderCard:mealsCard, renderPanel:mealsPanel,
     orderSteps:mealsOrderSteps, searchEntries:mealsSearchEntries, summary:mealsSummary, panelSubtitle:mealsSubtitle,
     inputHint:() => "Pre-selected meals: best match first",
-    initState:() => ({ box:{ need:true, none:true } }),   // Behälter-Chips (User 25.09.2026), nicht gespeichert
+    initState:() => ({ box:{ need:true, none:true }, q:"" }),   // Behälter-Chips + Suche (User 25.09.2026), nicht gespeichert
     validate:mealsValidate,
     footer:"Pre-selected meals from the EDEKA Graf tab — at most three different products each, values as of "+MEALS_ASOF+" (refresh: node meals-update.js --refresh)" },
 ];
@@ -4694,6 +4709,7 @@ function App() {
         activeResults.length===0&&h("div",{style:{fontSize:12,color:"#888",fontFamily:S.mono,padding:"4px 0"}},
           !isCross&&activeResults.missing?"Not on the "+R.platform+" menu: "+activeResults.missing.map(ingName).join(", ")+" — remove it from “Must include” or try another tab."
             :!isCross&&activeResults.conflict?"These picks don't fit together in one order: "+activeResults.conflict.map(ingName).join(" / ")+" — keep fewer of them in “Must include”."
+            :!isCross&&activeResults.empty?activeResults.empty
             :isCross?(targets.maxPrice!=null?"No results within "+bowlEuro(targets.maxPrice)+" — raise the price limit.":"No results.")
             :targets.maxPrice!=null&&(R.kind==="byo"||R.data.items.some(x=>x.price!=null))?"No results within "+bowlEuro(targets.maxPrice)+" — raise the price limit, relax the switches or remove exclusions"+(inList.length?" or picks.":".")
             :R.kind==="byo"?"No results — relax the switches or remove exclusions"+(inList.length?" or picks.":"."):"No results — turn on more categories, relax the switches or remove exclusions.")

@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -2063,12 +2063,31 @@ check("Behälter-Filter (User 25.09.2026): Chips „Container needed“ und „N
   const labels = []; const walk = n => { if (n == null || typeof n !== "object") return; if (Array.isArray(n)) return n.forEach(walk); if (n.props && n.props.label) labels.push({ label: n.props.label, active: n.props.active }); walk(n.children); };
   walk(T.mealsConfigCard({ st: box(true, false), update: () => {} }));
   global.__h = null;
-  return JSON.stringify(st0.extra) === JSON.stringify({ box: { need: true, none: true } }) && mealRes().length === 22 &&
+  return JSON.stringify(st0.extra.box) === JSON.stringify({ need: true, none: true }) && mealRes().length === 22 &&
     onlyNone.length === 6 && onlyNone.every(r => !r.meal.container) && onlyNeed.length === 16 && onlyNeed.every(r => r.meal.container) && neither.length === 0 &&
     coldNeed.length === 5 && coldNeed.every(r => r.meal.cat === "cold" && r.meal.container) && warmNone.length === 0 &&
     onlyNone.map(r => r.key).sort().join() === "m12,m16,m18,m19,m20,m3" &&
     T.MEALS_BOXES.map(b => b.name).join(" | ") === "🥣 Container needed | 📦 No container needed" &&
     labels.filter(l => /container/i.test(l.label)).map(l => l.label + ":" + l.active).join() === "🥣 Container needed:true,📦 No container needed:false";
+})(), true);
+
+check("Suche (User 25.09.2026): findet Gerichte über Namen, Produkte und Marken — umlaut-tolerant, alle Wörter, zusammen mit den Chips; ohne Treffer ein eigener Hinweis", (() => {
+  const st0 = T.defaultRestoState(ME), withQ = (q, extra) => ({ ...st0, ...(extra || {}), extra: { ...st0.extra, q } });
+  const ids = q => mealRes(tDef, withQ(q)).map(r => r.key).sort().join();
+  const expect = re => MED.meals.filter(m => re.test(T.mealSearchText(m))).map(m => m.id).sort().join();
+  const cold = mealRes(tDef, withQ("gyoza", { cats: { ...st0.cats, warm: false } }));
+  global.__h = (type, props, ...children) => ({ type, props: props || {}, children });
+  const inputs = [], texts = []; const walk = n => { if (n == null || n === false) return; if (Array.isArray(n)) return n.forEach(walk); if (typeof n !== "object") return texts.push(String(n)); if (n.type === "input") inputs.push(n.props); walk(n.children); };
+  walk(T.mealsConfigCard({ st: withQ("gyoza"), update: () => {} }));
+  global.__h = null;
+  return JSON.stringify(st0.extra) === JSON.stringify({ box: { need: true, none: true }, q: "" }) &&
+    ids("gyoza") === "m21,m4,m5,m6" && ids("gyoza") === expect(/gyoza/i) &&
+    ids("skyr") === expect(/skyr/i) && ids("skyr").split(",").length >= 5 &&
+    ids("hähnchen") === ids("haehnchen") && ids("hähnchen") === ids("hahnchen") && ids("hähnchen").split(",").length >= 8 &&
+    ids("skyr bulgur") === "m12,m13" && ids("burrito") === "m19" && ids("Sweet Chili") === "m14,m18,m20" && ids("GUT&GÜNSTIG") === expect(/GUT&GÜNSTIG/) &&
+    ids("") === MED.meals.map(m => m.id).sort().join() && ids("   ") === ids("") &&
+    cold.length === 0 && /No meal with “gyoza”/.test(cold.empty) && mealRes(tDef, withQ("")).empty === undefined &&
+    inputs.length === 1 && inputs[0].value === "gyoza" && /Search meals or products/.test(inputs[0].placeholder) && texts.includes("✕");
 })(), true);
 
 // ── Screenshot-Import-Parser (OCR-Text → verbleibende Makros C/P/F + "Übrig"-kcal) — Fälle aus dem London-Tool ──
