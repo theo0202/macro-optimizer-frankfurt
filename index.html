@@ -3717,11 +3717,15 @@ const mealProductList = items => {
 };
 // Stand der Schnappschüsse (je Gericht asOf) für die Fußzeile: „2026-09-19“ bzw. „2026-09-19 / 2026-09-24“
 const MEALS_ASOF = [...new Set(MEALS.meals.map(m => m.asOf || MEALS.updated))].sort().join(" / ");
+// Behälter-Filter (User 25.09.2026): zwei Chips wie Warm/Cold, beide Default an — z.B. nur „No container needed“ → nur Gerichte ohne Schüssel
+const MEALS_BOXES = [{ id:"need", name:"🥣 Container needed" }, { id:"none", name:"📦 No container needed" }];
+const mealsBoxOn = (st, id) => ((((st && st.extra) || {}).box || {})[id]) !== false;
 function mealsOptimize(t, mode, p, st) {
   const cats = (st && st.cats) || {};
   const out = [];
   for (const m of MEALS.meals) {
     if (!cats[m.cat]) continue;
+    if (!mealsBoxOn(st, m.container ? "need" : "none")) continue;
     const items = mealItems(m);
     if (items.some(isShellfish)) continue;                       // Schalentier-Regel gilt überall
     const nutrition = sumN(items, 1);
@@ -3737,6 +3741,10 @@ function mealsConfigCard(ctx) {
     h("div", { style:{ display:"flex", flexWrap:"wrap", gap:5, marginBottom:12 } },
       ...MEALS.cats.map(c => h(Chip, { key:c.id, label:c.name, active:!!st.cats[c.id],
         onClick:() => ctx.update(s => ({ cats:{ ...s.cats, [c.id]: !s.cats[c.id] } })) }))),
+    h("div", { style:LBL }, "Container"),
+    h("div", { style:{ display:"flex", flexWrap:"wrap", gap:5, marginBottom:12 } },
+      ...MEALS_BOXES.map(b => h(Chip, { key:b.id, label:b.name, active:mealsBoxOn(st, b.id),
+        onClick:() => ctx.update(s => { const ex = s.extra || {}; return { extra:{ ...ex, box:{ ...(ex.box || {}), [b.id]: !mealsBoxOn(s, b.id) } } }; }) }))),
     h("div", { style:{ fontSize:10, color:"#666", lineHeight:1.4 } }, MEALS_NOTE)
   );
 }
@@ -3928,6 +3936,7 @@ const RESTAURANTS = [
     optimize:mealsOptimize, renderConfig:mealsConfigCard, renderCard:mealsCard, renderPanel:mealsPanel,
     orderSteps:mealsOrderSteps, searchEntries:mealsSearchEntries, summary:mealsSummary, panelSubtitle:mealsSubtitle,
     inputHint:() => "Pre-selected meals: best match first",
+    initState:() => ({ box:{ need:true, none:true } }),   // Behälter-Chips (User 25.09.2026), nicht gespeichert
     validate:mealsValidate,
     footer:"Pre-selected meals from the EDEKA Graf tab — at most three different products each, values as of "+MEALS_ASOF+" (refresh: node meals-update.js --refresh)" },
 ];
