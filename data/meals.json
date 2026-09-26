@@ -1,7 +1,7 @@
 {
   "_meta": {
     "source": "Kuratierte Mahlzeiten aus Produkten des Edeka-Graf-Tabs (data/edeka-raw.json). Werte rechnet die App aus den Produktdaten — hier stehen nur Zusammenstellung, Name, warm/kalt und der Behälter-Hinweis",
-    "decided": "User 19.09.2026: maximal 3 Zutaten je Gericht, Zielbereich 600–800 kcal · 55–100 g Kohlenhydrate · 5–20 g Fett · 45–70 g Eiweiß. Der User hat die Liste bestätigt (alle Vorschläge außer zwei). User 24.09.2026: m18 und m19 aus den Vorschlägen „nur Sandwiches, Burritos, Hüttenkäse“ (Nr. 6 und 9), m20 und m21 als eigene Kombis des Users; dieselbe Zutat darf dabei mehrfach vorkommen (2× Sandwich, 2× Gyoza) — höchstens 3 verschiedene Produkte",
+    "decided": "User 19.09.2026: maximal 3 Zutaten je Gericht, Zielbereich 600–800 kcal · 55–100 g Kohlenhydrate · 5–20 g Fett · 45–70 g Eiweiß. Der User hat die Liste bestätigt (alle Vorschläge außer zwei). User 24.09.2026: m18 und m19 aus den Vorschlägen „nur Sandwiches, Burritos, Hüttenkäse“ (Nr. 6 und 9), m20 und m21 als eigene Kombis des Users; dieselbe Zutat darf dabei mehrfach vorkommen (2× Sandwich, 2× Gyoza) — höchstens 3 verschiedene Produkte. User 26.09.2026: m22–m28 als eigene Kombis des Users aus Build order (m22/m23/m27 mit einer Eat-Happy-Box, m25/m26 mit vier verschiedenen Produkten, m27 mit 2× Frühlingsquark) → höchstens 4 verschiedene Produkte",
     "items": "Ein Produktname je Packung; steht er zweimal da, sind es zwei Packungen (z.B. 2× Gyoza)",
     "origin": "„user“ = Idee des Users, „claude“ = vorgeschlagen und vom User übernommen, „fix“ = fettärmere Variante der ersten User-Idee",
     "container": "User 19.09.2026: je Gericht steht dran, ob realistisch eine Schüssel nötig ist. Das Update-Skript leitet es aus den Produkten ab — nötig, sobald eine **Konserve** dabei ist (abtropfen und umfüllen) oder etwas erhitzt bzw. aus einem Beutel gekippt wird (Express-Reis, Körnermischung, Gyoza); sonst isst man alles aus Becher, Schale oder Packung",
@@ -96,6 +96,34 @@
     {
       "id": "m21", "name": "Double chicken gyoza with chicken breast & carrot noodles", "temp": "warm", "origin": "user",
       "items": ["EDEKA Herzstücke Gyoza Hähnchen 150 g", "EDEKA Herzstücke Gyoza Hähnchen 150 g", "EDEKA Herzstücke Gemüsenudeln Karotte 250 g", "EDEKA Herzstücke Hähnchenbrust-Filetstück Klassik 150 g"]
+    },
+    {
+      "id": "m22", "name": "Spicy chicken with salmon avocado donburi", "temp": "cold", "origin": "user",
+      "items": ["EDEKA Herzstücke Hähnchenbrust-Filetstücke Pikant 150 g", "Eat Happy Donburi Lachs Avocado"]
+    },
+    {
+      "id": "m23", "name": "Spicy chicken with chicken karaage donburi", "temp": "cold", "origin": "user",
+      "items": ["EDEKA Herzstücke Hähnchenbrust-Filetstücke Pikant 150 g", "Eat Happy Chicken Karaage Donburi"]
+    },
+    {
+      "id": "m24", "name": "Veggie gyoza, chicken breast & grain mix", "temp": "warm", "origin": "user",
+      "items": ["EDEKA Herzstücke Gyoza Gemüse 150 g", "EDEKA Herzstücke Hähnchenbrust-Filetstück Klassik 150 g", "Alnatura Bio Schnelle Mischung Gerste, Kichererbsen, Linsen 250 g"]
+    },
+    {
+      "id": "m25", "name": "Veggie & chicken gyoza with chicken breast & basmati", "temp": "warm", "origin": "user",
+      "items": ["EDEKA Herzstücke Gyoza Gemüse 150 g", "EDEKA Herzstücke Hähnchenbrust-Filetstück Klassik 150 g", "Ben's Original Express Basmatireis 220 g", "EDEKA Herzstücke Gyoza Hähnchen 150 g"]
+    },
+    {
+      "id": "m26", "name": "Basmati, spicy chicken & veggie gyoza with blueberries", "temp": "warm", "origin": "user",
+      "items": ["Ben's Original Express Basmatireis 220 g", "Kulturheidelbeeren 125 g", "EDEKA Herzstücke Hähnchenbrust-Filetstücke Pikant 150 g", "EDEKA Herzstücke Gyoza Gemüse 150 g"]
+    },
+    {
+      "id": "m27", "name": "Salmon avocado donburi with two spring quarks", "temp": "cold", "origin": "user",
+      "items": ["Eat Happy Donburi Lachs Avocado", "MILRAM Frühlingsquark Activ 14 % Fett 185 g", "MILRAM Frühlingsquark Activ 14 % Fett 185 g"]
+    },
+    {
+      "id": "m28", "name": "Herb quark, grain mix & chicken gyoza", "temp": "warm", "origin": "user",
+      "items": ["GUT&GÜNSTIG Kräuterquark leicht 200g", "Alnatura Bio Schnelle Mischung Gerste, Kichererbsen, Linsen 250 g", "EDEKA Herzstücke Gyoza Hähnchen 150 g"]
     }
   ]
 }

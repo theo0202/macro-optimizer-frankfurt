@@ -1,7 +1,7 @@
 // Generiert den MEALS-Block in index.html aus data/meals.json + data/edeka-raw.json: node meals-update.js [--refresh]
 // „Pre-selected meals“ (User 19.09.2026, Muster: der gleichnamige Tab im London-Tool): feste Kombinationen aus höchstens
-// drei verschiedenen Edeka-Produkten, kein Optimizer. Seit 24.09.2026 darf ein Produkt mehrfach stehen (2× Sandwich,
-// 2× Gyoza): in meals.json steht der Name dann zweimal, im Block steht jede Packung als eigene Zeile.
+// vier verschiedenen Edeka-Produkten (bis 25.09.2026 drei), kein Optimizer. Seit 24.09.2026 darf ein Produkt mehrfach stehen
+// (2× Sandwich, 2× Gyoza): in meals.json steht der Name dann zweimal, im Block steht jede Packung als eigene Zeile.
 //
 // **Der Block ist ein Schnappschuss** (User 19.09.2026): Namen, Mengen, Preise und alle acht Nährwerte stehen fertig im
 // Block. Die Gerichte funktionieren damit unabhängig vom Edeka-Tab und vom Onlineshop — verschwindet dort ein Produkt oder
@@ -27,20 +27,25 @@ const lit = o => JSON.stringify(o).replace(/"([A-Za-z_][A-Za-z0-9_]*)":/g, "$1:"
 const CATS = [{ id: "warm", name: "Warm" }, { id: "cold", name: "Cold" }];
 // Kategorien, deren Produkte erhitzt bzw. aus einem Beutel umgefüllt werden
 const HEAT_CATS = new Set(["carbs", "gyoza"]);
-const MAX_PRODUCTS = 3;   // verschiedene Produkte je Gericht (User 19.09.2026)
+const MAX_PRODUCTS = 4;   // verschiedene Produkte je Gericht (User 19.09.2026: 3; User 26.09.2026: Kombis mit 4 Produkten)
 const MAX_SAME = 3;       // dieselbe Packung höchstens so oft (Tippfehler-Schutz)
 
 // Ein Produkt bei seiner Menge → fertiges Item (dieselbe Rechnung wie im Supermarkt-Tab: Werte je 100 g × Menge)
 function itemOf(p, grams) {
   const g = U.round(grams != null ? grams : p.portionG, 1);
-  // Name wie im Supermarkt-Tab: die Menge steht nur dran, wenn sie von der Packung abweicht (Abtropfgewicht)
+  // Name wie im Supermarkt-Tab: die Menge steht nur dran, wenn sie von der Packung abweicht (Abtropfgewicht); Eat Happy
+  // (Gewicht schwankt täglich) nennt immer sein Standardgewicht: „(362 g typ.)“
   const showG = Math.abs(g - U.round(p.packG, 1)) > 0.05;
-  const o = { id: U.slugId(p.name), name: p.name + (showG ? " (" + (Math.round(g * 10) / 10) + " g" + (p.drainedG != null ? " drained" : "") + ")" : ""), brand: p.brand, cat: p.cat, g };
+  const suffix = showG ? " (" + (Math.round(g * 10) / 10) + " g" + (p.drainedG != null ? " drained" : "") + ")" : p.variable ? " (" + g + " g typ.)" : "";
+  const o = { id: U.slugId(p.name), name: p.name + suffix, brand: p.brand, cat: p.cat, g };
   for (const k of U.KEYS) o[k] = U.round((p.per100[k] || 0) * g / 100, 1);
   o.price = p.price;
   if (p.price == null) o.priceNote = p.priceNote || "no price online";
   o.url = p.url;
   if (p.drainedG != null) o.drained = true;
+  if (p.eathappy) o.eathappy = true;   // Schalter „Must include Eat Happy“ (User 26.09.2026)
+  if (p.variable) o.variable = true;   // Gewicht schwankt: die Werte gelten fürs Standardgewicht
+  if (p.offline) o.offline = true;     // weder im Onlineshop noch auf edeka.de (Kulturheidelbeeren): kein Link, kein Preis
   // Quelle der Werte wie im Supermarkt-Tab (edeka-update.js): Herstellerseite als Domain, sonst die benannte Referenz
   if (p.manufacturerUrl) o.ref = (p.manufacturerUrl.match(/^https?:\/\/(?:www\.)?([^/]+)/) || [])[1] + " (manufacturer)";
   else if (p.valuesFrom) o.ref = p.valuesFrom.split(" — ")[0].replace(/,.*$/, "");

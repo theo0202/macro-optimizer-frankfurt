@@ -224,8 +224,6 @@ const NOT_IN_TRACKER = [
 // Produkte, deren Seite keine Nährwerte nennt (unverarbeitetes Obst/Gemüse braucht keine Kennzeichnung) — User 19.09.2026:
 // „nimm doch einfach jeweils die Nährwerte des jeweiligen Gemüses“. Quelle je Produkt benannt, nichts geschätzt:
 //   · `like` = ein Produkt DIESES Shops mit derselben Ware und offiziellen Werten (steht selbst im Tracker)
-//   · `refUrl` = die Produktseite eines Shop-Produkts mit derselben Ware, das nicht im Tracker steht (z.B. tiefgefrorene Himbeeren);
-//     der Crawl liest ihre Nährwerttabelle bei jedem Lauf neu
 //   · `per100` = USDA FoodData Central (staatliche Referenzdatenbank), Kohlenhydrate „by difference“ minus Ballaststoffe (EU-Konvention), Salz = Natrium × 2,5
 const FALLBACK = {
   "EDEKA Herzstücke Gemüsenudeln Karotte 250 g": {
@@ -251,9 +249,10 @@ const FALLBACK = {
     gaps: ["sugars", "sat"],
     from: "USDA FoodData Central, Foundation #321360 „Tomatoes, grape, raw“ (Mini-/Grape-Tomaten, roh; Zucker und gesättigte Fettsäuren nennt USDA dafür nicht → 0)",
   },
+  // User 26.09.2026: allgemeine Werte für Himbeeren, nicht die der tiefgefrorenen Himbeeren des Shops
   "Driscoll's Himbeeren Klasse I 125g": {
-    refUrl: SHOP + "/Tiefkuehl-EDEKA/Obst-Gemuese-TK/Obst-TK/EDEKA-Herzstuecke-Himbeeren-300-g-EDEKA.html",
-    from: "EDEKA Herzstücke Himbeeren 300 g (tiefgefroren) — dieselbe Frucht (Zutaten: Himbeeren), offizielle Werte des Shops",
+    per100: { kcal: 52, fat: 0.65, sat: 0.02, carbs: 5.44, sugars: 4.42, fibre: 6.5, protein: 1.2, salt: 0 },
+    from: "USDA FoodData Central, SR Legacy #167755 „Raspberries, raw“ (Himbeeren, roh)",
   },
 };
 
@@ -521,13 +520,6 @@ async function main() {
         else if (src.noData || !U.KEYS.some(k => src.per100[k] > 0)) { problems.push(d.name + ": Referenzprodukt „" + fb.like + "“ hat keine Nährwerte"); per = null; }
         else per = src.per100;
       }
-      if (fb.refUrl) {
-        let rh = null;
-        try { rh = await get(fb.refUrl); } catch (e) { problems.push(d.name + " (Referenzseite): " + e.message); }
-        const rp = rh && parsePage(rh, fb.refUrl, problems);
-        if (!rp || rp.noData || !U.KEYS.some(k => rp.per100[k] > 0)) { problems.push(d.name + ": Referenzseite ohne Nährwerte (" + fb.refUrl + ")"); per = null; }
-        else { per = rp.per100; d.refUrl = fb.refUrl; }
-      }
       if (per) {
         d.per100 = { ...per };
         d.valuesFrom = fb.from;
@@ -675,6 +667,7 @@ async function main() {
         "User 24.09.2026: Eat Happy (Sushi-/Bowl-Theke im Markt) mit Kategorien Bowls und Sushi, Schalter „No Eat Happy“ (Default AN); Standardgewicht von eathappy.de, im Tracker änderbar (das Gewicht schwankt täglich, wie Sushi Daily im London-Tool)",
         "User 24.09.2026: drei EDEKA-Burritos (edeka.de) in „Sandwiches & Wraps“ (vorher „Sandwiches“); der Graf-Onlineshop führt sie nicht → kein Preis",
         "User 24.09.2026: neue Kategorie „Beeren“ (UI „Berries“) mit Kulturheidelbeeren 125 g (weder im Onlineshop noch auf edeka.de → USDA-Werte, kein Preis, kein Link) und Driscoll's Himbeeren 125 g (Seite ohne Nährwerte → Werte der reinen EDEKA-Himbeeren (TK) desselben Shops); frisches Gemüse dazu: EDEKA Bio Möhren Mini 200 g (Werte der Karottenstifte) und EDEKA Herzstücke Mini Pflaumen Tomaten 250 g (USDA „Tomatoes, grape, raw“)",
+        "User 26.09.2026: Driscoll's Himbeeren mit allgemeinen Himbeer-Werten (USDA FoodData Central #167755) statt der Werte der tiefgefrorenen EDEKA-Himbeeren",
         "User 22.09.2026: neue Kategorie „Fisch“ (Forelle, 2× Räucherlachs, 2× Thunfisch in Dosen); Schalter „No tuna“ (Default AN) und „No fish“ (Default AUS — ausdrücklich gegen die „No …“-Regel vom 13.09.2026); die Krone-Forelle mit den Werten der verlinkten Herstellerseite",
         "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere",
       ],
