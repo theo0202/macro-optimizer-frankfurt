@@ -1,0 +1,202 @@
+{
+  "_meta": {
+    "source": "chidoba-Nährwertrechner https://www.chidoba.com/nutrition?type=<Produktart>#calculator, im Browser durchgeklickt",
+    "readAt": "2026-09-27",
+    "requestedBy": "User 27.09.2026: „du musst wieder alle zutaten einzeln auswählen und abwählen um die nährwerte jeder einzelnen zutat zu bekommen“",
+    "method": "Je Produktart zuerst eine Grundauswahl (je Auswahl-Gruppe die leere Option — „ohne Füllung“, „Standard ohne Reis“, „Veggie“ — bzw. die erste, wenn es keine leere gibt; alle Zutaten abgewählt), dann jede Zutat einzeln angewählt, die Nährwert-Anzeige abgelesen und wieder abgewählt (Auswahl-Gruppen: zurück zur Grundauswahl). Die Seite summiert beim Klicken die Werte der angewählten Felder und zeigt sie animiert mit einer Nachkommastelle (toFixed); an Rundungsgrenzen kann die letzte Stelle je nach Klickfolge um 0,1 abweichen (z.B. Cheese Quesadilla Natrium 2,95 mg: „3,0“ bzw. „2,9“)",
+    "fields": "shown = Energie kcal | Fett | davon gesättigte Fettsäuren | Kohlenhydrate | davon Zucker | Proteine | Ballaststoffe | Natrium mg (je wie angezeigt, Komma)",
+    "rows": "[Abschnitt, Feld, r = Auswahl (eine je Gruppe) / c = Zutat (mehrere), B = Teil der Grundauswahl, Anzeige mit diesem Feld]"
+  },
+  "types": {
+    "Burrito": {
+      "baseline": { "selected": ["TORTILLA", "OHNE FÜLLUNG", "VEGGIE"], "shown": "286,7|6,9|3,5|46,2|1,3|8,7|2,8|0,6" },
+      "rows": [
+        ["Tortilla", "TORTILLA", "r", "B", "286,7|6,9|3,5|46,2|1,3|8,7|2,8|0,6"],
+        ["Füllung", "OHNE FÜLLUNG", "r", "B", "286,7|6,9|3,5|46,2|1,3|8,7|2,8|0,6"],
+        ["Füllung", "CUBES", "r", "", "422,3|13,5|4,5|61,7|1,5|10,6|4,5|0,7"],
+        ["Füllung", "KORIANDER REIS", "r", "", "458,3|7,1|3,5|85,0|1,4|11,9|3,4|136,3"],
+        ["Füllung", "GEWÜRZTER REIS", "r", "", "458,3|7,1|3,5|85,0|1,4|11,9|3,4|136,3"],
+        ["Füllung", "REIS HALB/HALB", "r", "", "458,3|7,1|3,5|85,0|1,4|11,9|3,4|136,3"],
+        ["Füllung", "REIS (BEI VEGGIE BURRITO)", "r", "", "531,0|7,2|3,6|101,4|1,4|13,3|3,7|193,8"],
+        ["Fleisch", "CHICKEN", "r", "", "403,5|9,8|4,7|49,1|4,2|28,3|3,1|227,0"],
+        ["Fleisch", "BEEF", "r", "", "441,9|18,6|8,6|49,8|2,5|19,6|3,5|296,9"],
+        ["Fleisch", "FILETSTEAK", "r", "", "438,0|11,9|5,7|46,4|1,5|35,2|2,8|98,0"],
+        ["Fleisch", "BARBACOA", "r", "", "430,7|13,2|5,7|48,0|1,3|30,3|3,6|477,6"],
+        ["Fleisch", "VEGGIE", "r", "B", "286,7|6,9|3,5|46,2|1,3|8,7|2,8|0,6"],
+        ["Fleisch", "PLANTED CHICKEN", "r", "", "427,1|9,6|4,0|48,1|1,3|31,2|6,8|1,3"],
+        ["Zutaten", "GEGRILLTES GEMÜSE", "c", "", "298,9|7,0|3,5|48,2|3,3|9,2|4,1|2,7"],
+        ["Zutaten", "BLACK BEANS", "c", "", "363,9|7,2|3,6|60,0|1,3|13,9|7,8|139,3"],
+        ["Zutaten", "SALSA MILD ODER MEDIUM", "c", "", "306,6|7,2|3,5|49,6|2,6|9,5|3,3|1,1"],
+        ["Zutaten", "SALSA HOT", "c", "", "306,6|7,2|3,5|49,6|2,6|9,5|3,3|1,1"],
+        ["Zutaten", "CHEESESAUCE", "c", "", "397,5|16,1|4,3|48,2|3,1|13,1|2,8|0,6"],
+        ["Zutaten", "EISBERGSALAT", "c", "", "293,2|7,0|3,5|47,0|2,1|9,2|3,6|6,5"],
+        ["Zutaten", "SOUR CREAM", "c", "", "321,8|9,9|5,3|47,2|2,3|9,6|2,8|12,6"],
+        ["Zutaten", "CHEDDAR JACK CHEESE", "c", "", "351,8|11,8|6,8|46,6|1,3|12,9|2,8|1,4"],
+        ["Zutaten", "1 KUGEL GUACAMOLE", "c", "", "324,0|10,4|4,0|47,9|1,8|9,0|3,8|63,5"],
+        ["Zutaten", "2 KUGEL GUACAMOLE", "c", "", "361,2|13,9|4,6|49,6|2,2|9,4|4,8|126,5"],
+        ["Zutaten", "3 KUGEL GUACAMOLE", "c", "", "398,5|17,4|5,1|51,3|2,7|9,8|5,8|189,6"],
+        ["Zutaten", "LIMETTE", "c", "", "290,0|6,9|3,5|46,3|1,3|8,8|2,8|0,6"],
+        ["Zutaten", "BEEF (EXTRA)", "c", "", "441,9|18,6|8,6|49,8|2,5|19,6|3,5|296,9"],
+        ["Zutaten", "CHICKEN (EXTRA)", "c", "", "403,5|9,8|4,7|49,1|4,2|28,3|3,1|227,0"],
+        ["Zutaten", "FILETSTEAK (EXTRA)", "c", "", "438,0|11,9|5,7|46,4|1,5|35,2|2,8|98,0"],
+        ["Zutaten", "BARBACOA (EXTRA)", "c", "", "430,7|13,2|5,7|48,0|1,3|30,3|3,6|477,6"]
+      ]
+    },
+    "Taco 1er": {
+      "baseline": { "selected": ["MAISTACO (HARD SHELL)", "STANDARD OHNE REIS", "VEGGIE"], "shown": "70,0|4,0|1,0|8,0|0,0|0,0|0,0|0,0" },
+      "rows": [
+        ["Tortilla", "MAISTACO (HARD SHELL)", "r", "B", "70,0|4,0|1,0|8,0|0,0|0,0|0,0|0,0"],
+        ["Tortilla", "SOFTTACO", "r", "", "90,0|3,0|1,0|15,0|1,0|2,0|1,0|90,0"],
+        ["Füllung", "STANDARD OHNE REIS", "r", "B", "70,0|4,0|1,0|8,0|0,0|0,0|0,0|0,0"],
+        ["Füllung", "KORIANDER REIS", "r", "", "128,2|4,1|1,0|21,1|0,0|1,1|0,2|46,0"],
+        ["Füllung", "GEWÜRZTER REIS", "r", "", "128,2|4,1|1,0|21,1|0,0|1,1|0,2|46,0"],
+        ["Fleisch", "CHICKEN", "r", "", "116,7|5,2|1,0|9,2|1,2|7,8|0,2|90,6"],
+        ["Fleisch", "BEEF", "r", "", "117,7|6,4|2,0|8,8|0,6|5,7|0,2|66,6"],
+        ["Fleisch", "FILETSTEAK", "r", "", "132,8|5,6|1,0|9,6|1,6|10,5|0,2|121,7"],
+        ["Fleisch", "BARBACOA", "r", "", "118,0|6,1|1,8|8,6|0,0|7,2|0,3|159,0"],
+        ["Fleisch", "VEGGIE", "r", "B", "70,0|4,0|1,0|8,0|0,0|0,0|0,0|0,0"],
+        ["Zutaten", "SALSA MILD ODER MEDIUM", "c", "", "89,9|4,3|1,0|11,5|1,3|0,8|0,5|0,6"],
+        ["Zutaten", "SALSA HOT", "c", "", "89,9|4,3|1,0|11,5|1,3|0,8|0,5|0,6"],
+        ["Zutaten", "CHEESESAUCE", "c", "", "180,8|13,3|1,8|10,1|1,9|4,4|0,0|0,0"],
+        ["Zutaten", "EISBERGSALAT", "c", "", "76,5|4,1|1,0|8,8|0,8|0,5|0,9|6,0"],
+        ["Zutaten", "SOUR CREAM", "c", "", "87,5|5,5|1,9|8,5|0,5|0,5|0,0|6,0"],
+        ["Zutaten", "CHEDDAR JACK CHEESE", "c", "", "90,3|5,5|2,0|8,2|0,0|1,3|0,0|0,3"],
+        ["Zutaten", "1 KUGEL GUACAMOLE", "c", "", "107,3|7,5|1,6|9,7|0,5|0,3|1,0|63,0"],
+        ["Zutaten", "LIMETTE", "c", "", "73,3|4,0|1,0|8,1|0,0|0,1|0,0|0,0"],
+        ["Zutaten", "BLACK BEANS", "c", "", "85,9|4,1|1,0|10,8|0,0|1,1|1,1|28,6"],
+        ["Zutaten", "BEEF (EXTRA)", "c", "", "117,7|6,4|2,0|8,8|0,6|5,7|0,2|66,6"],
+        ["Zutaten", "CHICKEN (EXTRA)", "c", "", "116,7|5,2|1,0|9,2|1,2|7,8|0,2|90,6"],
+        ["Zutaten", "FILETSTEAK (EXTRA)", "c", "", "132,8|5,6|1,0|9,6|1,6|10,5|0,2|121,7"],
+        ["Zutaten", "BARBACOA (EXTRA)", "c", "", "118,0|6,1|1,8|8,6|0,0|7,2|0,3|159,0"]
+      ]
+    },
+    "Taco 3er": {
+      "baseline": { "selected": ["MAISTACO (HARD SHELL)", "STANDARD OHNE REIS", "VEGGIE"], "shown": "210,0|12,0|3,0|24,0|0,0|0,0|0,0|0,0" },
+      "rows": [
+        ["Tortilla", "MAISTACO (HARD SHELL)", "r", "B", "210,0|12,0|3,0|24,0|0,0|0,0|0,0|0,0"],
+        ["Tortilla", "SOFTTACO", "r", "", "270,0|9,0|3,0|45,0|3,0|6,0|3,0|270,0"],
+        ["Füllung", "STANDARD OHNE REIS", "r", "B", "210,0|12,0|3,0|24,0|0,0|0,0|0,0|0,0"],
+        ["Füllung", "KORIANDER REIS", "r", "", "384,5|12,3|3,1|63,5|0,1|3,3|0,7|138,0"],
+        ["Füllung", "GEWÜRZTER REIS", "r", "", "384,5|12,3|3,1|63,5|0,1|3,3|0,7|138,0"],
+        ["Fleisch", "CHICKEN", "r", "", "350,2|15,6|3,0|27,6|3,5|23,5|0,5|271,7"],
+        ["Fleisch", "BEEF", "r", "", "353,1|19,3|6,1|26,5|1,7|16,9|0,5|199,8"],
+        ["Fleisch", "FILETSTEAK", "r", "", "398,3|16,8|3,0|28,8|4,8|31,6|0,7|365,1"],
+        ["Fleisch", "BARBACOA", "r", "", "354,0|18,3|5,3|25,8|0,0|21,6|0,9|477,0"],
+        ["Fleisch", "VEGGIE", "r", "B", "210,0|12,0|3,0|24,0|0,0|0,0|0,0|0,0"],
+        ["Zutaten", "GEGRILLTES GEMÜSE", "c", "", "222,2|12,2|3,0|26,0|2,0|0,5|1,4|2,1"],
+        ["Zutaten", "BLACK BEANS", "c", "", "257,7|12,2|3,0|32,6|0,0|3,2|3,1|85,7"],
+        ["Zutaten", "SALSA MILD ODER MEDIUM", "c", "", "229,9|12,3|3,0|27,5|1,3|0,8|0,5|0,6"],
+        ["Zutaten", "SALSA HOT", "c", "", "229,9|12,3|3,0|27,5|1,3|0,8|0,5|0,6"],
+        ["Zutaten", "CHEESESAUCE", "c", "", "320,8|21,3|3,8|26,1|1,9|4,4|0,0|0,0"],
+        ["Zutaten", "EISBERGSALAT", "c", "", "229,5|12,3|3,0|26,4|2,4|1,5|2,7|18,0"],
+        ["Zutaten", "SOUR CREAM", "c", "", "262,6|16,5|5,7|25,5|1,5|1,4|0,0|18,0"],
+        ["Zutaten", "CHEDDAR JACK CHEESE", "c", "", "271,1|16,6|6,1|24,4|0,0|3,9|0,0|0,8"],
+        ["Zutaten", "3 KUGEL GUACAMOLE", "c", "", "321,8|22,5|4,7|29,1|1,4|1,1|3,1|189,0"],
+        ["Zutaten", "LIMETTE", "c", "", "213,3|12,0|3,0|24,1|0,0|0,1|0,0|0,0"],
+        ["Zutaten", "BEEF (EXTRA)", "c", "", "353,1|19,3|6,1|26,5|1,7|16,9|0,5|199,8"],
+        ["Zutaten", "CHICKEN (EXTRA)", "c", "", "350,2|15,6|3,0|27,6|3,5|23,5|0,5|271,7"],
+        ["Zutaten", "FILETSTEAK (EXTRA)", "c", "", "398,3|16,8|3,0|28,8|4,8|31,6|0,7|365,1"],
+        ["Zutaten", "BARBACOA (EXTRA)", "c", "", "354,0|18,3|5,3|25,8|0,0|21,6|0,9|477,0"]
+      ]
+    },
+    "Cup": {
+      "baseline": { "selected": ["OHNE FÜLLUNG", "VEGGIE"], "shown": "0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0" },
+      "rows": [
+        ["Füllung", "OHNE FÜLLUNG", "r", "B", "0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0"],
+        ["Füllung", "KORIANDER REIS", "r", "", "343,2|0,5|0,1|77,6|0,2|6,4|1,4|271,4"],
+        ["Füllung", "GEWÜRZTER REIS", "r", "", "343,2|0,5|0,1|77,6|0,2|6,4|1,4|271,4"],
+        ["Füllung", "REIS HALB/HALB", "r", "", "343,2|0,5|0,1|77,6|0,2|6,4|1,4|271,4"],
+        ["Füllung", "CUBES", "r", "", "271,2|13,2|2,0|31,0|0,4|3,8|3,5|0,3"],
+        ["Fleisch", "CHICKEN", "r", "", "116,8|3,0|1,2|3,0|3,0|19,6|0,4|226,4"],
+        ["Fleisch", "BEEF", "r", "", "155,2|11,7|5,1|3,7|1,3|10,9|0,8|296,4"],
+        ["Fleisch", "FILETSTEAK", "r", "", "151,3|5,0|2,2|0,2|0,2|26,5|0,1|97,5"],
+        ["Fleisch", "BARBACOA", "r", "", "144,0|6,3|2,3|1,8|0,0|21,6|0,9|477,0"],
+        ["Fleisch", "VEGGIE", "r", "B", "0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0"],
+        ["Fleisch", "PLANTED CHICKEN", "r", "", "140,4|2,7|0,6|1,9|0,0|22,5|4,1|0,7"],
+        ["Zutaten", "GEGRILLTES GEMÜSE", "c", "", "12,2|0,2|0,0|2,0|2,0|0,5|1,4|2,1"],
+        ["Zutaten", "BLACK BEANS", "c", "", "77,2|0,3|0,1|13,9|0,0|5,2|5,1|138,7"],
+        ["Zutaten", "SALSA MILD ODER MEDIUM", "c", "", "19,9|0,3|0,0|3,5|1,3|0,8|0,5|0,6"],
+        ["Zutaten", "SALSA HOT", "c", "", "19,9|0,3|0,0|3,5|1,3|0,8|0,5|0,6"],
+        ["Zutaten", "CHEESESAUCE", "c", "", "110,8|9,3|0,8|2,1|1,9|4,4|0,0|0,0"],
+        ["Zutaten", "EISBERGSALAT", "c", "", "6,5|0,1|0,0|0,8|0,8|0,5|0,9|6,0"],
+        ["Zutaten", "SOUR CREAM", "c", "", "35,1|3,0|1,8|1,0|1,0|0,9|0,0|12,0"],
+        ["Zutaten", "CHEDDAR JACK CHEESE", "c", "", "65,1|5,0|3,3|0,5|0,0|4,2|0,0|0,8"],
+        ["Zutaten", "1 KUGEL GUACAMOLE", "c", "", "37,3|3,5|0,6|1,7|0,5|0,3|1,0|63,0"],
+        ["Zutaten", "2 KUGEL GUACAMOLE (VEGGIE)", "c", "", "74,5|7,0|1,1|3,4|0,9|0,7|2,0|210,0"],
+        ["Zutaten", "3 KUGEL GUACAMOLE", "c", "", "111,8|10,5|1,6|5,1|1,4|1,1|3,1|189,0"],
+        ["Zutaten", "LIMETTE", "c", "", "3,3|0,0|0,0|0,1|0,0|0,1|0,0|0,0"],
+        ["Zutaten", "BEEF (EXTRA)", "c", "", "155,2|11,7|5,1|3,7|1,3|10,9|0,8|296,4"],
+        ["Zutaten", "CHICKEN (EXTRA)", "c", "", "116,8|3,0|1,2|3,0|3,0|19,6|0,4|226,4"],
+        ["Zutaten", "FILETSTEAK (EXTRA)", "c", "", "151,3|5,0|2,2|0,2|0,2|26,5|0,1|97,5"],
+        ["Zutaten", "BARBACOA (EXTRA)", "c", "", "144,0|6,3|2,3|1,8|0,0|21,6|0,9|477,0"]
+      ]
+    },
+    "Salat": {
+      "baseline": { "selected": ["EISBERGSALAT", "VEGGIE"], "shown": "39,0|0,6|0,1|4,7|4,7|3,0|5,4|36,0" },
+      "rows": [
+        ["Füllung", "EISBERGSALAT", "r", "B", "39,0|0,6|0,1|4,7|4,7|3,0|5,4|36,0"],
+        ["Fleisch", "CHICKEN", "r", "", "155,8|3,6|0,1|7,7|7,7|22,6|5,8|262,4"],
+        ["Fleisch", "BEEF", "r", "", "194,2|12,3|5,2|8,4|6,0|13,9|6,2|332,4"],
+        ["Fleisch", "FILETSTEAK", "r", "", "190,3|5,6|2,3|4,9|4,9|29,5|5,5|133,5"],
+        ["Fleisch", "BARBACOA", "r", "", "216,6|9,8|4,9|4,9|4,9|26,6|5,5|315,6"],
+        ["Fleisch", "VEGGIE", "r", "B", "39,0|0,6|0,1|4,7|4,7|3,0|5,4|36,0"],
+        ["Fleisch", "PLANTED CHICKEN", "r", "", "179,4|3,3|0,7|6,7|4,7|25,5|9,5|36,7"],
+        ["Zutaten", "GEGRILLTES GEMÜSE", "c", "", "51,2|0,8|0,1|6,7|6,7|3,5|6,8|38,1"],
+        ["Zutaten", "BLACK BEANS", "c", "", "116,2|0,9|0,2|18,6|4,7|8,2|10,5|174,7"],
+        ["Zutaten", "SALSA MILD ODER MEDIUM", "c", "", "58,9|0,9|0,1|8,2|6,0|3,9|5,9|36,6"],
+        ["Zutaten", "SALSA HOT", "c", "", "58,9|0,9|0,1|8,2|6,0|3,9|5,9|36,6"],
+        ["Zutaten", "SOUR CREAM", "c", "", "74,1|3,6|1,9|5,7|5,7|3,9|5,4|48,0"],
+        ["Zutaten", "CHEDDAR JACK CHEESE", "c", "", "104,1|5,6|3,4|5,2|4,7|7,2|5,4|36,8"],
+        ["Zutaten", "1 KUGEL GUACAMOLE", "c", "", "76,3|4,1|0,6|6,4|5,2|3,4|6,4|99,0"],
+        ["Zutaten", "2 KUGEL GUACAMOLE (VEGGIE)", "c", "", "113,5|7,6|1,2|8,1|5,7|3,7|7,5|246,0"],
+        ["Zutaten", "3 KUGEL GUACAMOLE", "c", "", "150,8|11,1|1,7|9,8|6,1|4,0|8,5|225,0"],
+        ["Zutaten", "LIMETTE", "c", "", "42,3|0,6|0,1|4,8|4,7|3,0|5,4|36,0"],
+        ["Zutaten", "CALIFORNIA DRESSING", "c", "", "214,2|16,2|1,1|13,9|12,5|3,1|5,4|37,1"],
+        ["Zutaten", "BEEF (EXTRA)", "c", "", "194,2|12,3|5,2|8,4|6,0|13,9|6,2|332,4"],
+        ["Zutaten", "CHICKEN (EXTRA)", "c", "", "155,8|3,6|0,1|7,7|7,7|22,6|5,8|262,4"],
+        ["Zutaten", "FILETSTEAK (EXTRA)", "c", "", "190,3|5,6|2,3|4,9|4,9|29,5|5,5|133,5"],
+        ["Zutaten", "BARBACOA (EXTRA)", "c", "", "216,6|9,8|4,9|4,9|4,9|26,6|5,5|315,6"]
+      ]
+    },
+    "Sides": {
+      "baseline": { "selected": ["CHEESE QUESADILLA"], "shown": "482,1|21,8|13,4|47,6|1,3|21,2|2,8|3,0" },
+      "rows": [
+        ["Sides", "CHEESE QUESADILLA", "r", "B", "482,1|21,8|13,4|47,6|1,3|21,2|2,8|3,0"],
+        ["Sides", "VEGGIE QUESADILLA", "r", "", "494,3|21,9|13,4|49,6|3,3|21,7|4,1|5,1"],
+        ["Sides", "VEGAN QUESADILLA", "r", "", "458,3|14,5|4,7|66,9|3,5|15,4|10,4|349,8"],
+        ["Sides", "CHILI CHEESE QUESADILLA", "r", "", "545,1|24,1|13,9|54,2|4,5|24,3|5,9|287,9"],
+        ["Sides", "HOT PEPPER QUESADILLA", "r", "", "492,1|21,8|13,4|49,6|1,3|21,2|2,8|442,9"],
+        ["Sides", "PEPPER CORN FRIES", "r", "", "376,8|21,3|10,4|40,4|1,6|3,8|4,0|0,9"],
+        ["Sides", "CAJUN FRIES", "r", "", "426,7|25,9|5,8|52,3|3,3|6,7|3,4|28,7"],
+        ["Sides", "CHIPS", "r", "", "280,0|16,0|4,0|32,0|0,0|0,0|0,0|0,0"],
+        ["Sides", "ADOBADA CHILI CHEESE FRIES", "r", "", "885,5|39,9|7,2|61,9|45,3|16,0|6,5|313,7"]
+      ]
+    },
+    "Snacks": {
+      "baseline": { "selected": ["CRUNCHWRAP BEEF"], "shown": "749,5|37,4|15,6|67,8|4,6|32,0|3,3|141,5" },
+      "rows": [
+        ["Snacks", "CRUNCHWRAP BEEF", "r", "B", "749,5|37,4|15,6|67,8|4,6|32,0|3,3|141,5"],
+        ["Snacks", "CRUNCHWRAP CHICKEN", "r", "", "732,0|34,5|14,3|68,1|5,4|33,7|3,2|159,3"],
+        ["Snacks", "CRUNCHWRAP BARBACOA", "r", "", "781,2|45,1|19,7|67,9|4,8|51,8|3,3|377,0"],
+        ["Snacks", "CRUNCHWRAP VEGGIE", "r", "", "764,3|44,5|16,7|84,3|5,6|33,8|5,5|397,5"],
+        ["Snacks", "CRUNCHWRAP CHILI CHEESE", "r", "", "694,7|30,8|12,2|71,6|6,8|26,8|5,8|201,4"],
+        ["Snacks", "BEEF CHEESE TOSTADO", "r", "", "691,6|34,4|7,9|59,5|6,4|21,8|5,0|292,1"],
+        ["Snacks", "CHICKEN CHEESE TOSTADO", "r", "", "670,9|29,8|4,7|59,9|7,6|23,7|4,9|309,8"],
+        ["Snacks", "CHILI CHEESE TOSTADO", "r", "", "644,2|28,3|4,7|63,8|8,9|17,1|7,8|374,8"],
+        ["Snacks", "VERDE TOSTADO", "r", "", "460,3|20,4|4,2|61,0|5,7|8,6|7,6|287,8"],
+        ["Snacks", "CHILI CON CARNE", "r", "", "315,4|11,8|2,3|33,1|16,0|15,6|15,6|1425,0"]
+      ]
+    },
+    "Dips": {
+      "baseline": { "selected": ["ADOBADA DIP"], "shown": "198,9|0,4|0,0|44,0|36,5|0,8|0,0|0,0" },
+      "rows": [
+        ["Dip", "ADOBADA DIP", "r", "B", "198,9|0,4|0,0|44,0|36,5|0,8|0,0|0,0"],
+        ["Dip", "SALSA MILD DIP", "r", "", "19,9|0,3|0,0|3,5|1,3|0,8|0,5|0,6"],
+        ["Dip", "SALSA MEDIUM DIP", "r", "", "19,9|0,3|0,0|3,5|1,3|0,8|0,5|0,6"],
+        ["Dip", "SALSA HOT DIP", "r", "", "19,9|0,3|0,0|3,5|1,3|0,8|0,5|0,6"],
+        ["Dip", "GUACAMOLE DIP", "r", "", "186,3|17,5|2,8|8,5|2,4|1,8|5,1|252,0"],
+        ["Dip", "CHEESE SAUCE DIP", "r", "", "167,2|14,0|1,2|3,1|2,8|6,6|0,0|0,0"]
+      ]
+    }
+  }
+}

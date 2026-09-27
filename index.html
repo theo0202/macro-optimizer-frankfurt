@@ -696,9 +696,10 @@ const MCDONALDS = {
 };
 // __MCDONALDS_DATA_END__
 // __CHIDOBA_DATA_START__ (generiert via: node chidoba-update.js aus data/chidoba-raw.json — nicht von Hand editieren)
-// Quelle: chidoba-Nährwertrechner (chidoba.com/nutrition, Werte je Portion und Produktart) · Menü + Preise: Wolt chidobi-mexican-grill (Kaiserstraße), Stand 2026-09-16
+// Quelle: chidoba-Nährwertrechner (chidoba.com/nutrition, Werte je Portion und Produktart; alle Felder im Browser an-/abgewählt: data/chidoba-rechner.json)
+// · Menü, Preise und Bestellfenster: Wolt chidobi-mexican-grill (Kaiserstraße), Stand 2026-09-27
 const CHIDOBA = {
-  // Zutaten-ids (Ausschluss/Pflicht über Cup und Salat hinweg); die Werte stehen je Produktart an den Optionen
+  // Zutaten-ids (Ausschluss/Pflicht über alle Produktarten hinweg); die Werte stehen je Produktart an den Optionen
   ingredients: [
     {id:"gegrilltes_gemuese",name:"gegrillte Paprika & rote Zwiebeln",valuesOnOptions:true},
     {id:"eisbergsalat",name:"Eisbergsalat",valuesOnOptions:true},
@@ -715,25 +716,58 @@ const CHIDOBA = {
     {id:"salsa",name:"Mild",valuesOnOptions:true},
     {id:"guacamole",name:"Guacamole",valuesOnOptions:true},
     {id:"cheesesauce",name:"Cheesesauce",valuesOnOptions:true},
-    {id:"chili_con_carne",name:"Chili con Carne",valuesOnOptions:true},
     {id:"salatbasis",name:"Eisbergsalat (Salat-Basis)",valuesOnOptions:true},
     {id:"california_dressing",name:"California Dressing",valuesOnOptions:true},
+    {id:"tortilla",name:"Tortilla",valuesOnOptions:true},
+    {id:"softtaco",name:"3 Soft-Tortillas",valuesOnOptions:true},
+    {id:"mix_taco",name:"Mix Soft Tacos",valuesOnOptions:true},
+    {id:"veggie_taco",name:"Veggie Soft Tacos",valuesOnOptions:true},
+    {id:"vegan_taco",name:"Vegan Soft Tacos",valuesOnOptions:true},
+    {id:"cheese_quesadilla",name:"Cheese Quesadilla",valuesOnOptions:true},
+    {id:"veggie_quesadilla",name:"Veggie Quesadilla",valuesOnOptions:true},
+    {id:"vegan_quesadilla",name:"Vegan Quesadilla",valuesOnOptions:true},
+    {id:"hot_pepper_quesadilla",name:"Hot Pepper Quesadilla",valuesOnOptions:true},
+    {id:"crunchwrap_beef",name:"Crunchwrap Beef",valuesOnOptions:true},
+    {id:"crunchwrap_chicken",name:"Crunchwrap Chicken",valuesOnOptions:true},
+    {id:"crunchwrap_veggie",name:"Crunchwrap Veggie",valuesOnOptions:true},
+    {id:"crunchwrap_barbacoa",name:"Crunchwrap Barbacoa",valuesOnOptions:true},
+    {id:"verde_tostado",name:"Verde Tostado",valuesOnOptions:true},
+    {id:"beef_cheese_tostado",name:"Beef Cheese Tostado",valuesOnOptions:true},
+    {id:"chicken_cheese_tostado",name:"Chicken Cheese Tostado",valuesOnOptions:true},
+    {id:"chili_con_carne",name:"Chili con Carne",valuesOnOptions:true},
+  ],
+  // Kategorie-Chips (User 27.09.2026): main = Produkt mit Bestellfenster (höchstens eins je Bestellung), snack = Snacks & Sides
+  cats: [
+    {id:"cup",name:"Cup",kind:"main",on:true},
+    {id:"salat",name:"Salat",kind:"main",on:true},
+    {id:"burrito",name:"Burrito",kind:"main",on:true},
+    {id:"taco",name:"Tacos (3×)",kind:"main",on:true},
+    {id:"quesadillas",name:"Quesadillas",kind:"snack",on:true},
+    {id:"crunchwraps",name:"Crunchwraps",kind:"snack",on:true},
+    {id:"tostados",name:"Tostados",kind:"snack",on:true},
+    {id:"chili",name:"Chili con Carne",kind:"snack",on:false},
   ],
   cup: {
-    item: "Cup", type: "cup", basePrice: 0, require: {base:false,protein:true}, proteinExtras: true, removals: [],
-    ohneOrder: ["Ohne Black Beans","Ohne gegrillte Paprika & rote Zwiebeln","Ohne Eisbergsalat","Ohne Cheddar Jack Cheese","Ohne Limette"],
+    item: "Cup", type: "cup", cat: "cup", basePrice: 0, require: {base:false,protein:true}, proteinExtras: true, removals: [],
+    steps: [
+      {id:"basis",name:"Deine Basis",kind:"base",min:1,max:1,none:"Ohne Basis"},
+      {id:"zutaten",name:"Wähle deine Zutaten",kind:"standard",min:0,max:5,ohne:["Ohne Black Beans","Ohne gegrillte Paprika & rote Zwiebeln","Ohne Eisbergsalat","Ohne Cheddar Jack Cheese","Ohne Limette"]},
+      {id:"cream",name:"Deine Cream",kind:"choice",min:1,max:1,none:"Ohne Creme"},
+      {id:"salsa",name:"Deine Salsa",kind:"choice",min:1,max:1,none:"Ohne Salsa"},
+      {id:"extras",name:"Deine Extras",kind:"extras",min:0,max:7},
+    ],
     fixed: [
-      {id:"cup_fix_gegrilltes_gemuese",name:"gegrillte Paprika & rote Zwiebeln",short:"gegrillte Paprika & rote Zwiebeln",ing:"gegrilltes_gemuese",price:0,removeName:"Ohne gegrillte Paprika & rote Zwiebeln",kcal:12.21,fat:0.16,sat:0.03,carbs:2.02,sugars:2.02,fibre:1.39,protein:0.53,salt:0.005},
-      {id:"cup_fix_eisbergsalat",name:"Eisbergsalat",short:"Eisbergsalat",ing:"eisbergsalat",price:0,removeName:"Ohne Eisbergsalat",kcal:6.5,fat:0.1,sat:0.02,carbs:0.79,sugars:0.79,fibre:0.9,protein:0.5,salt:0.015},
-      {id:"cup_fix_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",ing:"cheddar_jack_cheese",price:0,removeName:"Ohne Cheddar Jack Cheese",sauce:true,kcal:65.12,fat:4.96,sat:3.31,carbs:0.48,sugars:0.02,fibre:0,protein:4.16,salt:0.002},
-      {id:"cup_fix_limette",name:"Limette",short:"Limette",ing:"limette",price:0,removeName:"Ohne Limette",defaultOff:true,kcal:3.29,fat:0,sat:0,carbs:0.13,sugars:0,fibre:0,protein:0.05,salt:0},
+      {id:"cup_fix_gegrilltes_gemuese",name:"gegrillte Paprika & rote Zwiebeln",short:"gegrillte Paprika & rote Zwiebeln",ing:"gegrilltes_gemuese",price:0,removeName:"Ohne gegrillte Paprika & rote Zwiebeln",removeGroup:"zutaten",kcal:12.21,fat:0.16,sat:0.03,carbs:2.02,sugars:2.02,fibre:1.39,protein:0.53,salt:0.005},
+      {id:"cup_fix_eisbergsalat",name:"Eisbergsalat",short:"Eisbergsalat",ing:"eisbergsalat",price:0,removeName:"Ohne Eisbergsalat",removeGroup:"zutaten",kcal:6.5,fat:0.1,sat:0.02,carbs:0.79,sugars:0.79,fibre:0.9,protein:0.5,salt:0.015},
+      {id:"cup_fix_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",ing:"cheddar_jack_cheese",price:0,removeName:"Ohne Cheddar Jack Cheese",removeGroup:"zutaten",sauce:true,kcal:65.12,fat:4.96,sat:3.31,carbs:0.48,sugars:0.02,fibre:0,protein:4.16,salt:0.002},
+      {id:"cup_fix_limette",name:"Limette",short:"Limette",ing:"limette",price:0,removeName:"Ohne Limette",removeGroup:"zutaten",defaultOff:true,kcal:3.29,fat:0,sat:0,carbs:0.13,sugars:0,fibre:0,protein:0.05,salt:0},
     ],
     groups: [
       { id:"produkt",name:"Cups",min:1,max:1,none:null,options:[
-        {id:"cup_produkt_barbacoa_cup",name:"Barbacoa Cup",short:"Barbacoa Cup",group:"produkt",role:"protein",ing:"barbacoa",maxQty:1,price:15.99,kcal:144,fat:6.3,sat:2.25,carbs:1.8,sugars:0,fibre:0.9,protein:21.6,salt:1.193},
-        {id:"cup_produkt_filetsteak_cup",name:"Filetsteak Cup",short:"Filetsteak Cup",group:"produkt",role:"protein",ing:"filetsteak",maxQty:1,price:16.99,kcal:151.25,fat:5,sat:2.2,carbs:0.19,sugars:0.19,fibre:0.05,protein:26.5,salt:0.244},
-        {id:"cup_produkt_chicken_cup",name:"Chicken Cup",short:"Chicken Cup",group:"produkt",role:"protein",ing:"chicken",maxQty:1,price:14.49,kcal:116.8,fat:2.96,sat:1.2,carbs:2.96,sugars:2.96,fibre:0.4,protein:19.6,salt:0.566},
-        {id:"cup_produkt_beef_cup",name:"Beef Cup",short:"Beef Cup",group:"produkt",role:"protein",ing:"beef",maxQty:1,price:14.49,kcal:155.22,fat:11.7,sat:5.07,carbs:3.67,sugars:1.25,fibre:0.78,protein:10.92,salt:0.741},
+        {id:"cup_produkt_barbacoa_cup",name:"Barbacoa Cup",short:"Barbacoa Cup",group:"produkt",role:"protein",ing:"barbacoa",maxQty:1,price:15.99,listName:"Barbacoa",dialog:["basis","zutaten","cream","salsa","extras"],kcal:144,fat:6.3,sat:2.25,carbs:1.8,sugars:0,fibre:0.9,protein:21.6,salt:1.193},
+        {id:"cup_produkt_filetsteak_cup",name:"Filetsteak Cup",short:"Filetsteak Cup",group:"produkt",role:"protein",ing:"filetsteak",maxQty:1,price:16.99,listName:"Filetsteak",dialog:["basis","zutaten","cream","salsa","extras"],kcal:151.25,fat:5,sat:2.2,carbs:0.19,sugars:0.19,fibre:0.05,protein:26.5,salt:0.244},
+        {id:"cup_produkt_chicken_cup",name:"Chicken Cup",short:"Chicken Cup",group:"produkt",role:"protein",ing:"chicken",maxQty:1,price:14.49,listName:"Chicken",dialog:["basis","zutaten","cream","salsa","extras"],kcal:116.8,fat:2.96,sat:1.2,carbs:2.96,sugars:2.96,fibre:0.4,protein:19.6,salt:0.566},
+        {id:"cup_produkt_beef_cup",name:"Beef Cup",short:"Beef Cup",group:"produkt",role:"protein",ing:"beef",maxQty:1,price:14.49,listName:"Beef",dialog:["basis","zutaten","cream","salsa","extras"],kcal:155.22,fat:11.7,sat:5.07,carbs:3.67,sugars:1.25,fibre:0.78,protein:10.92,salt:0.741},
       ] },
       { id:"basis",name:"Deine Basis",min:1,max:1,none:"Ohne Basis",options:[
         {id:"cup_basis_gewuerzreis",name:"Gewürzreis",short:"Gewürzreis",group:"basis",role:"side",ing:"gewuerzreis",maxQty:1,price:0,kcal:343.18,fat:0.49,sat:0.12,carbs:77.59,sugars:0.24,fibre:1.38,protein:6.39,salt:0.679},
@@ -757,26 +791,28 @@ const CHIDOBA = {
         {id:"cup_extras_cheesesauce",name:"Cheesesauce",short:"Cheesesauce",group:"extras",role:"extra",ing:"cheesesauce",maxQty:1,price:1.89,sauce:true,kcal:110.77,fat:9.28,sat:0.8,carbs:2.07,sugars:1.86,fibre:0,protein:4.4,salt:0},
         {id:"cup_extras_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",group:"extras",role:"extra",ing:"cheddar_jack_cheese",maxQty:1,price:0.99,sauce:true,kcal:65.12,fat:4.96,sat:3.31,carbs:0.48,sugars:0.02,fibre:0,protein:4.16,salt:0.002},
       ] },
-      { id:"chili",name:"Snacks",min:0,max:1,none:null,own:true,options:[
-        {id:"cup_chili_chili_con_carne",name:"Chili con Carne",short:"Chili con Carne",group:"chili",role:"extra",ing:"chili_con_carne",maxQty:1,price:8.49,kcal:315.4,fat:11.78,sat:2.28,carbs:33.06,sugars:15.96,fibre:15.58,protein:15.58,salt:3.563},
-      ] },
     ],
   },
   salat: {
-    item: "Salat", type: "salat", basePrice: 0, require: {base:false,protein:true}, proteinExtras: true, removals: ["Ohne Tortilla Strips"],
-    ohneOrder: ["Ohne Black Beans","Ohne gegrillte Paprika & rote Zwiebeln","Ohne Cheddar Jack Cheese","Ohne Limette","Ohne Tortilla Strips","Ohne California Dressing"],
+    item: "Salat", type: "salat", cat: "salat", basePrice: 0, require: {base:false,protein:true}, proteinExtras: true, removals: ["Ohne Tortilla Strips"],
+    steps: [
+      {id:"zutaten",name:"Wähle deine Zutaten",kind:"standard",min:0,max:6,ohne:["Ohne Black Beans","Ohne gegrillte Paprika & rote Zwiebeln","Ohne Cheddar Jack Cheese","Ohne Limette","Ohne Tortilla Strips","Ohne California Dressing"]},
+      {id:"cream",name:"Deine Soße",kind:"choice",min:1,max:1,none:"Ohne Cream"},
+      {id:"salsa",name:"Deine Salsa",kind:"choice",min:1,max:1,none:"Ohne Salsa"},
+      {id:"extras",name:"Deine Extras",kind:"extras",min:0,max:7},
+    ],
     fixed: [
       {id:"salat_fix_salatbasis",name:"Eisbergsalat (Salat-Basis)",short:"Eisbergsalat (Salat-Basis)",ing:"salatbasis",price:0,kcal:39,fat:0.6,sat:0.09,carbs:4.71,sugars:4.71,fibre:5.4,protein:3,salt:0.09},
-      {id:"salat_fix_gegrilltes_gemuese",name:"gegrillte Paprika & rote Zwiebeln",short:"gegrillte Paprika & rote Zwiebeln",ing:"gegrilltes_gemuese",price:0,removeName:"Ohne gegrillte Paprika & rote Zwiebeln",kcal:12.21,fat:0.16,sat:0.03,carbs:2.02,sugars:2.02,fibre:1.39,protein:0.53,salt:0.005},
-      {id:"salat_fix_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",ing:"cheddar_jack_cheese",price:0,removeName:"Ohne Cheddar Jack Cheese",sauce:true,kcal:65.12,fat:4.96,sat:3.31,carbs:0.48,sugars:0.02,fibre:0,protein:4.16,salt:0.002},
-      {id:"salat_fix_limette",name:"Limette",short:"Limette",ing:"limette",price:0,removeName:"Ohne Limette",defaultOff:true,kcal:3.29,fat:0,sat:0,carbs:0.13,sugars:0,fibre:0,protein:0.05,salt:0},
-      {id:"salat_fix_california_dressing",name:"California Dressing",short:"California Dressing",ing:"california_dressing",price:0,removeName:"Ohne California Dressing",sauce:true,kcal:175.2,fat:15.6,sat:0.96,carbs:9.18,sugars:7.8,fibre:0,protein:0.12,salt:0.003},
+      {id:"salat_fix_gegrilltes_gemuese",name:"gegrillte Paprika & rote Zwiebeln",short:"gegrillte Paprika & rote Zwiebeln",ing:"gegrilltes_gemuese",price:0,removeName:"Ohne gegrillte Paprika & rote Zwiebeln",removeGroup:"zutaten",kcal:12.21,fat:0.16,sat:0.03,carbs:2.02,sugars:2.02,fibre:1.39,protein:0.53,salt:0.005},
+      {id:"salat_fix_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",ing:"cheddar_jack_cheese",price:0,removeName:"Ohne Cheddar Jack Cheese",removeGroup:"zutaten",sauce:true,kcal:65.12,fat:4.96,sat:3.31,carbs:0.48,sugars:0.02,fibre:0,protein:4.16,salt:0.002},
+      {id:"salat_fix_limette",name:"Limette",short:"Limette",ing:"limette",price:0,removeName:"Ohne Limette",removeGroup:"zutaten",defaultOff:true,kcal:3.29,fat:0,sat:0,carbs:0.13,sugars:0,fibre:0,protein:0.05,salt:0},
+      {id:"salat_fix_california_dressing",name:"California Dressing",short:"California Dressing",ing:"california_dressing",price:0,removeName:"Ohne California Dressing",removeGroup:"zutaten",sauce:true,kcal:175.2,fat:15.6,sat:0.96,carbs:9.18,sugars:7.8,fibre:0,protein:0.12,salt:0.003},
     ],
     groups: [
       { id:"produkt",name:"Salate",min:1,max:1,none:null,options:[
-        {id:"salat_produkt_beef_salat",name:"Beef Salat",short:"Beef Salat",group:"produkt",role:"protein",ing:"beef",maxQty:1,price:15.69,kcal:155.22,fat:11.7,sat:5.07,carbs:3.67,sugars:1.25,fibre:0.78,protein:10.92,salt:0.741},
-        {id:"salat_produkt_chicken_salat",name:"Chicken Salat",short:"Chicken Salat",group:"produkt",role:"protein",ing:"chicken",maxQty:1,price:15.69,kcal:116.8,fat:2.96,sat:0,carbs:2.96,sugars:2.96,fibre:0.4,protein:19.6,salt:0.566},
-        {id:"salat_produkt_filetsteak_salat",name:"Filetsteak Salat",short:"Filetsteak Salat",group:"produkt",role:"protein",ing:"filetsteak",maxQty:1,price:18.49,kcal:151.25,fat:5,sat:2.2,carbs:0.19,sugars:0.19,fibre:0.05,protein:26.5,salt:0.244},
+        {id:"salat_produkt_beef_salat",name:"Beef Salat",short:"Beef Salat",group:"produkt",role:"protein",ing:"beef",maxQty:1,price:15.69,listName:"Beef",dialog:["zutaten","cream","salsa","extras"],kcal:155.22,fat:11.7,sat:5.07,carbs:3.67,sugars:1.25,fibre:0.78,protein:10.92,salt:0.741},
+        {id:"salat_produkt_chicken_salat",name:"Chicken Salat",short:"Chicken Salat",group:"produkt",role:"protein",ing:"chicken",maxQty:1,price:15.69,listName:"Chicken",dialog:["zutaten","cream","salsa","extras"],kcal:116.8,fat:2.96,sat:0,carbs:2.96,sugars:2.96,fibre:0.4,protein:19.6,salt:0.566},
+        {id:"salat_produkt_filetsteak_salat",name:"Filetsteak Salat",short:"Filetsteak Salat",group:"produkt",role:"protein",ing:"filetsteak",maxQty:1,price:18.49,listName:"Filetsteak",dialog:["zutaten","cream","salsa","extras"],kcal:151.25,fat:5,sat:2.2,carbs:0.19,sugars:0.19,fibre:0.05,protein:26.5,salt:0.244},
       ] },
       { id:"zutaten",name:"Wähle deine Zutaten",min:0,max:6,none:null,own:true,options:[
         {id:"salat_zutaten_black_beans",name:"Black Beans",short:"Black Beans",group:"zutaten",role:"extra",ing:"black_beans",maxQty:1,price:0,removeName:"Ohne Black Beans",kcal:77.18,fat:0.32,sat:0.08,carbs:13.87,sugars:0,fibre:5.1,protein:5.18,salt:0.347},
@@ -795,11 +831,186 @@ const CHIDOBA = {
         {id:"salat_extras_guacamole",name:"Guacamole",short:"Guacamole",group:"extras",role:"extra",ing:"guacamole",maxQty:1,price:2.39,sauce:true,kcal:37.25,fat:3.5,sat:0.55,carbs:1.7,sugars:0.48,fibre:1.03,protein:0.35,salt:0.158},
         {id:"salat_extras_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",group:"extras",role:"extra",ing:"cheddar_jack_cheese",maxQty:1,price:0.99,sauce:true,kcal:65.12,fat:4.96,sat:3.31,carbs:0.48,sugars:0.02,fibre:0,protein:4.16,salt:0.002},
       ] },
-      { id:"chili",name:"Snacks",min:0,max:1,none:null,own:true,options:[
-        {id:"salat_chili_chili_con_carne",name:"Chili con Carne",short:"Chili con Carne",group:"chili",role:"extra",ing:"chili_con_carne",maxQty:1,price:8.49,kcal:315.4,fat:11.78,sat:2.28,carbs:33.06,sugars:15.96,fibre:15.58,protein:15.58,salt:3.563},
+    ],
+  },
+  burrito: {
+    item: "Burrito", type: "burrito", cat: "burrito", basePrice: 0, require: {base:false,protein:true}, proteinExtras: true, removals: [],
+    steps: [
+      {id:"basis",name:"Deine Basis",kind:"base",min:1,max:1,none:"Ohne Basis"},
+      {id:"zutaten",name:"Wähle deine Zutaten",kind:"standard",min:0,max:4,ohne:["Mit Eisbergsalat","Ohne Black Beans","Ohne gegrillte Paprika & rote Zwiebeln","Ohne Cheddar Jack Cheese","Ohne Limette"]},
+      {id:"cream",name:"Deine Cream",kind:"choice",min:1,max:1,none:"Ohne Creme"},
+      {id:"salsa",name:"Deine Salsa",kind:"choice",min:1,max:1,none:"Ohne Salsa"},
+      {id:"skin",name:"Dein Flavored Skin",kind:"skip",min:0,max:1},
+      {id:"extras",name:"Deine Extras",kind:"extras",min:0,max:7},
+    ],
+    fixed: [
+      {id:"burrito_fix_tortilla",name:"Tortilla",short:"Tortilla",ing:"tortilla",price:0,kcal:286.71,fat:6.87,sat:3.48,carbs:46.17,sugars:1.28,fibre:2.75,protein:8.7,salt:0.001},
+      {id:"burrito_fix_gegrilltes_gemuese",name:"gegrillte Paprika & rote Zwiebeln",short:"gegrillte Paprika & rote Zwiebeln",ing:"gegrilltes_gemuese",price:0,removeName:"Ohne gegrillte Paprika & rote Zwiebeln",removeGroup:"zutaten",kcal:12.21,fat:0.16,sat:0.03,carbs:2.02,sugars:2.02,fibre:1.39,protein:0.53,salt:0.005},
+      {id:"burrito_fix_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",ing:"cheddar_jack_cheese",price:0,removeName:"Ohne Cheddar Jack Cheese",removeGroup:"zutaten",sauce:true,kcal:65.12,fat:4.96,sat:3.31,carbs:0.48,sugars:0.02,fibre:0,protein:4.16,salt:0.002},
+      {id:"burrito_fix_limette",name:"Limette",short:"Limette",ing:"limette",price:0,removeName:"Ohne Limette",removeGroup:"zutaten",defaultOff:true,kcal:3.29,fat:0,sat:0,carbs:0.13,sugars:0,fibre:0,protein:0.05,salt:0},
+    ],
+    groups: [
+      { id:"produkt",name:"Burritos",min:1,max:1,none:null,options:[
+        {id:"burrito_produkt_beef_burrito",name:"Beef Burrito",short:"Beef Burrito",group:"produkt",role:"protein",ing:"beef",maxQty:1,price:14.49,listName:"Beef",dialog:["basis","zutaten","cream","salsa","skin","extras"],kcal:155.22,fat:11.7,sat:5.07,carbs:3.67,sugars:1.25,fibre:0.78,protein:10.92,salt:0.741},
+        {id:"burrito_produkt_chicken_burrito",name:"Chicken Burrito",short:"Chicken Burrito",group:"produkt",role:"protein",ing:"chicken",maxQty:1,price:14.49,listName:"Chicken",dialog:["basis","zutaten","cream","salsa","skin","extras"],kcal:116.8,fat:2.96,sat:1.2,carbs:2.96,sugars:2.96,fibre:0.4,protein:19.6,salt:0.566},
+        {id:"burrito_produkt_filetsteak_burrito",name:"Filetsteak Burrito",short:"Filetsteak Burrito",group:"produkt",role:"protein",ing:"filetsteak",maxQty:1,price:16.99,listName:"Filetsteak",dialog:["basis","zutaten","cream","salsa","skin","extras"],kcal:151.25,fat:5,sat:2.2,carbs:0.19,sugars:0.19,fibre:0.05,protein:26.5,salt:0.244},
+        {id:"burrito_produkt_barbacoa_burrito",name:"Barbacoa Burrito",short:"Barbacoa Burrito",group:"produkt",role:"protein",ing:"barbacoa",maxQty:1,price:15.99,listName:"Barbacoa",dialog:["basis","zutaten","cream","salsa","skin","extras"],kcal:144,fat:6.3,sat:2.25,carbs:1.8,sugars:0,fibre:0.9,protein:21.6,salt:1.193},
+      ] },
+      { id:"basis",name:"Deine Basis",min:1,max:1,none:"Ohne Basis",options:[
+        {id:"burrito_basis_gewuerzreis",name:"Gewürzreis",short:"Gewürzreis",group:"basis",role:"side",ing:"gewuerzreis",maxQty:1,price:0,kcal:171.59,fat:0.25,sat:0.06,carbs:38.79,sugars:0.12,fibre:0.69,protein:3.2,salt:0.339},
+        {id:"burrito_basis_cubes",name:"Cubes",short:"Cubes",group:"basis",role:"side",ing:"cubes",maxQty:1,price:0,kcal:135.6,fat:6.6,sat:1.02,carbs:15.5,sugars:0.21,fibre:1.75,protein:1.92,salt:0},
+      ] },
+      { id:"zutaten",name:"Wähle deine Zutaten",min:0,max:4,none:null,own:true,options:[
+        {id:"burrito_zutaten_eisbergsalat",name:"Eisbergsalat",short:"Eisbergsalat",group:"zutaten",role:"extra",ing:"eisbergsalat",maxQty:1,price:0,addName:"Mit Eisbergsalat",kcal:6.5,fat:0.1,sat:0.02,carbs:0.79,sugars:0.79,fibre:0.9,protein:0.5,salt:0.015},
+        {id:"burrito_zutaten_black_beans",name:"Black Beans",short:"Black Beans",group:"zutaten",role:"extra",ing:"black_beans",maxQty:1,price:0,removeName:"Ohne Black Beans",kcal:77.18,fat:0.32,sat:0.08,carbs:13.87,sugars:0,fibre:5.1,protein:5.18,salt:0.347},
+      ] },
+      { id:"cream",name:"Deine Cream",min:1,max:1,none:"Ohne Creme",own:true,options:[
+        {id:"burrito_cream_sour_cream",name:"Sour Cream",short:"Sour Cream",group:"cream",role:"extra",ing:"sour_cream",maxQty:1,price:0,sauce:true,kcal:35.1,fat:3,sat:1.82,carbs:0.99,sugars:0.99,fibre:0,protein:0.93,salt:0.03},
+      ] },
+      { id:"salsa",name:"Deine Salsa",min:1,max:1,none:"Ohne Salsa",own:true,options:[
+        {id:"burrito_salsa_mild",name:"Mild",short:"Salsa Mild/Medium",group:"salsa",role:"extra",ing:"salsa",maxQty:1,price:0,orderName:"Mild or Medium (your choice)",kcal:19.88,fat:0.28,sat:0.04,carbs:3.48,sugars:1.28,fibre:0.5,protein:0.85,salt:0.001},
+      ] },
+      { id:"extras",name:"Deine Extras",min:0,max:7,none:null,options:[
+        {id:"burrito_extras_beef",name:"Beef",short:"Beef",group:"extras",role:"extra",ing:"beef",maxQty:1,price:2.49,kcal:155.22,fat:11.7,sat:5.07,carbs:3.67,sugars:1.25,fibre:0.78,protein:10.92,salt:0.741},
+        {id:"burrito_extras_chicken",name:"Chicken",short:"Chicken",group:"extras",role:"extra",ing:"chicken",maxQty:1,price:2.49,kcal:116.8,fat:2.96,sat:1.2,carbs:2.96,sugars:2.96,fibre:0.4,protein:19.6,salt:0.566},
+        {id:"burrito_extras_barbacoa",name:"Barbacoa",short:"Barbacoa",group:"extras",role:"extra",ing:"barbacoa",maxQty:1,price:4.99,kcal:144,fat:6.3,sat:2.25,carbs:1.8,sugars:0,fibre:0.9,protein:21.6,salt:1.193},
+        {id:"burrito_extras_filetsteak",name:"Filetsteak",short:"Filetsteak",group:"extras",role:"extra",ing:"filetsteak",maxQty:1,price:4.99,kcal:151.25,fat:5,sat:2.2,carbs:0.19,sugars:0.19,fibre:0.05,protein:26.5,salt:0.244},
+        {id:"burrito_extras_guacamole",name:"Guacamole",short:"Guacamole",group:"extras",role:"extra",ing:"guacamole",maxQty:1,price:2.39,sauce:true,kcal:37.25,fat:3.5,sat:0.55,carbs:1.7,sugars:0.48,fibre:1.03,protein:0.35,salt:0.158},
+        {id:"burrito_extras_cheesesauce",name:"Cheesesauce",short:"Cheesesauce",group:"extras",role:"extra",ing:"cheesesauce",maxQty:1,price:1.89,sauce:true,kcal:110.77,fat:9.28,sat:0.8,carbs:2.07,sugars:1.86,fibre:0,protein:4.4,salt:0},
+        {id:"burrito_extras_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",group:"extras",role:"extra",ing:"cheddar_jack_cheese",maxQty:1,price:0.99,sauce:true,kcal:65.12,fat:4.96,sat:3.31,carbs:0.48,sugars:0.02,fibre:0,protein:4.16,salt:0.002},
       ] },
     ],
   },
+  taco: {
+    item: "3 Soft Tacos", type: "taco", cat: "taco", basePrice: 0, require: {base:false,protein:true}, proteinExtras: true, removals: [],
+    steps: [
+      {id:"salsa",name:"Wähle deine Salsa",kind:"choice",min:1,max:1,none:"Ohne Salsa"},
+      {id:"zutaten",name:"Wähle deine Zutaten",kind:"standard",min:0,max:3,ohne:["ohne Eisbergsalat","ohne Cheddar Jack","ohne Limette"]},
+      {id:"tcream",name:"Wähle deine Cream",kind:"standard",min:0,max:1,ohne:["ohne Sour Cream"]},
+      {id:"extras",name:"Wähle deine Extras",kind:"extras",min:0,max:8},
+    ],
+    fixed: [
+      {id:"taco_fix_softtaco",name:"3 Soft-Tortillas",short:"3 Soft-Tortillas",ing:"softtaco",price:0,kcal:270,fat:9,sat:3,carbs:45,sugars:3,fibre:3,protein:6,salt:0.675},
+      {id:"taco_fix_eisbergsalat",name:"Eisbergsalat",short:"Eisbergsalat",ing:"eisbergsalat",price:0,removeName:"ohne Eisbergsalat",removeGroup:"zutaten",kcal:19.5,fat:0.3,sat:0.05,carbs:2.36,sugars:2.36,fibre:2.7,protein:1.5,salt:0.045},
+      {id:"taco_fix_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",ing:"cheddar_jack_cheese",price:0,removeName:"ohne Cheddar Jack",removeGroup:"zutaten",sauce:true,kcal:61.05,fat:4.65,sat:3.11,carbs:0.45,sugars:0.02,fibre:0,protein:3.9,salt:0.002},
+      {id:"taco_fix_limette",name:"Limette",short:"Limette",ing:"limette",price:0,removeName:"ohne Limette",removeGroup:"zutaten",defaultOff:true,kcal:3.29,fat:0,sat:0,carbs:0.13,sugars:0,fibre:0,protein:0.05,salt:0},
+      {id:"taco_fix_sour_cream",name:"Sour Cream",short:"Sour Cream",ing:"sour_cream",price:0,removeName:"ohne Sour Cream",removeGroup:"tcream",sauce:true,kcal:52.65,fat:4.5,sat:2.73,carbs:1.49,sugars:1.49,fibre:0,protein:1.4,salt:0.045},
+    ],
+    groups: [
+      { id:"produkt",name:"Soft-Tacos",min:1,max:1,none:null,options:[
+        {id:"taco_produkt_3x_chicken_soft_taco",name:"3x Chicken Soft Taco",short:"3x Chicken Soft Taco",group:"produkt",role:"protein",ing:"chicken",maxQty:1,price:13.69,listName:"Chicken",dialog:["salsa","zutaten","tcream","extras"],kcal:140.16,fat:3.55,sat:0,carbs:3.55,sugars:3.55,fibre:0.48,protein:23.52,salt:0.679},
+        {id:"taco_produkt_3x_mix_soft_taco",name:"3x Mix Soft Taco",short:"3x Mix Soft Taco",group:"produkt",role:"protein",ing:"mix_taco",maxQty:1,price:13.99,listName:"Mix Soft Tacos",dialog:["zutaten","tcream","salsa","extras"],contains:["chicken","beef","barbacoa"],kcal:142.43,fat:5.71,sat:1.77,carbs:2.61,sugars:1.75,fibre:0.63,protein:20.69,salt:0.791},
+        {id:"taco_produkt_3x_barbacoa_soft_taco",name:"3x Barbacoa Soft Taco",short:"3x Barbacoa Soft Taco",group:"produkt",role:"protein",ing:"barbacoa",maxQty:1,price:14.99,listName:"Barbacoa",dialog:["zutaten","tcream","salsa","extras"],kcal:144,fat:6.3,sat:2.25,carbs:1.8,sugars:0,fibre:0.9,protein:21.6,salt:1.193},
+        {id:"taco_produkt_3x_beef_soft_taco",name:"3x Beef Soft Taco",short:"3x Beef Soft Taco",group:"produkt",role:"protein",ing:"beef",maxQty:1,price:13.69,listName:"Beef",dialog:["zutaten","tcream","salsa","extras"],kcal:143.14,fat:7.29,sat:3.06,carbs:2.49,sugars:1.72,fibre:0.5,protein:16.95,salt:0.5},
+      ] },
+      { id:"salsa",name:"Wähle deine Salsa",min:1,max:1,none:"Ohne Salsa",own:true,options:[
+        {id:"taco_salsa_mild",name:"Mild",short:"Salsa Mild/Medium",group:"salsa",role:"extra",ing:"salsa",maxQty:1,price:0,orderName:"Mild or Medium (your choice)",kcal:19.88,fat:0.28,sat:0.04,carbs:3.48,sugars:1.28,fibre:0.5,protein:0.85,salt:0.001},
+      ] },
+      { id:"extras",name:"Wähle deine Extras",min:0,max:8,none:null,options:[
+        {id:"taco_extras_beef",name:"Beef",short:"Beef",group:"extras",role:"extra",ing:"beef",maxQty:1,price:2.49,kcal:143.14,fat:7.29,sat:3.06,carbs:2.49,sugars:1.72,fibre:0.5,protein:16.95,salt:0.5},
+        {id:"taco_extras_chicken",name:"Chicken",short:"Chicken",group:"extras",role:"extra",ing:"chicken",maxQty:1,price:2.49,kcal:140.16,fat:3.55,sat:0,carbs:3.55,sugars:3.55,fibre:0.48,protein:23.52,salt:0.679},
+        {id:"taco_extras_barbacoa",name:"Barbacoa",short:"Barbacoa",group:"extras",role:"extra",ing:"barbacoa",maxQty:1,price:4.99,kcal:144,fat:6.3,sat:2.25,carbs:1.8,sugars:0,fibre:0.9,protein:21.6,salt:1.193},
+        {id:"taco_extras_filetsteak",name:"Filetsteak",short:"Filetsteak",group:"extras",role:"extra",ing:"filetsteak",maxQty:1,price:4.99,kcal:188.34,fat:4.77,sat:0,carbs:4.77,sugars:4.77,fibre:0.65,protein:31.61,salt:0.913},
+        {id:"taco_extras_guacamole",name:"Guacamole",short:"Guacamole",group:"extras",role:"extra",ing:"guacamole",maxQty:1,price:2.39,sauce:true,kcal:111.75,fat:10.5,sat:1.65,carbs:5.1,sugars:1.43,fibre:3.08,protein:1.05,salt:0.473},
+        {id:"taco_extras_cheesesauce",name:"Cheesesauce",short:"Cheesesauce",group:"extras",role:"extra",ing:"cheesesauce",maxQty:1,price:1.89,sauce:true,kcal:110.77,fat:9.28,sat:0.8,carbs:2.07,sugars:1.86,fibre:0,protein:4.4,salt:0},
+        {id:"taco_extras_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",group:"extras",role:"extra",ing:"cheddar_jack_cheese",maxQty:1,price:0.99,sauce:true,kcal:61.05,fat:4.65,sat:3.11,carbs:0.45,sugars:0.02,fibre:0,protein:3.9,salt:0.002},
+      ] },
+    ],
+  },
+  taco_veggie: {
+    item: "3 Veggie Soft Tacos", type: "taco_veggie", cat: "taco", basePrice: 0, require: {base:false,protein:true}, proteinExtras: true, removals: [],
+    steps: [
+      {id:"zutaten",name:"Wähle deine Zutaten",kind:"standard",min:0,max:5,ohne:["ohne Black Beans","ohne Guacmole","ohne Eisbergsalat","Ohne Cheddar Jack Cheese","ohne Limette"]},
+      {id:"basis",name:"Deine Basis",kind:"base",min:1,max:1,none:"Ohne Basis"},
+      {id:"tcream",name:"Wähle deine Cream",kind:"standard",min:0,max:1,ohne:["ohne Sour Cream"]},
+      {id:"salsa",name:"Wähle deine Salsa",kind:"choice",min:1,max:1,none:"Ohne Salsa"},
+      {id:"extras",name:"Wähle deine Extras",kind:"extras",min:0,max:8},
+    ],
+    fixed: [
+      {id:"taco_veggie_fix_softtaco",name:"3 Soft-Tortillas",short:"3 Soft-Tortillas",ing:"softtaco",price:0,kcal:270,fat:9,sat:3,carbs:45,sugars:3,fibre:3,protein:6,salt:0.675},
+      {id:"taco_veggie_fix_guacamole",name:"Guacamole (3 Kugeln)",short:"Guacamole (3 Kugeln)",ing:"guacamole",price:0,removeName:"ohne Guacmole",removeGroup:"zutaten",kcal:111.75,fat:10.5,sat:1.65,carbs:5.1,sugars:1.43,fibre:3.08,protein:1.05,salt:0.473},
+      {id:"taco_veggie_fix_eisbergsalat",name:"Eisbergsalat",short:"Eisbergsalat",ing:"eisbergsalat",price:0,removeName:"ohne Eisbergsalat",removeGroup:"zutaten",kcal:19.5,fat:0.3,sat:0.05,carbs:2.36,sugars:2.36,fibre:2.7,protein:1.5,salt:0.045},
+      {id:"taco_veggie_fix_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",ing:"cheddar_jack_cheese",price:0,removeName:"Ohne Cheddar Jack Cheese",removeGroup:"zutaten",sauce:true,kcal:61.05,fat:4.65,sat:3.11,carbs:0.45,sugars:0.02,fibre:0,protein:3.9,salt:0.002},
+      {id:"taco_veggie_fix_limette",name:"Limette",short:"Limette",ing:"limette",price:0,removeName:"ohne Limette",removeGroup:"zutaten",defaultOff:true,kcal:3.29,fat:0,sat:0,carbs:0.13,sugars:0,fibre:0,protein:0.05,salt:0},
+      {id:"taco_veggie_fix_sour_cream",name:"Sour Cream",short:"Sour Cream",ing:"sour_cream",price:0,removeName:"ohne Sour Cream",removeGroup:"tcream",sauce:true,kcal:52.65,fat:4.5,sat:2.73,carbs:1.49,sugars:1.49,fibre:0,protein:1.4,salt:0.045},
+    ],
+    groups: [
+      { id:"produkt",name:"Soft-Tacos (Veggie)",min:1,max:1,none:null,options:[
+        {id:"taco_veggie_produkt_3_x_veggie_soft_taco",name:"3 x Veggie Soft Taco",short:"3 x Veggie Soft Taco",group:"produkt",role:"protein",ing:"veggie_taco",maxQty:1,price:13.29,listName:"Veggie Soft Tacos",dialog:["zutaten","basis","tcream","salsa","extras"],kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
+      ] },
+      { id:"basis",name:"Deine Basis",min:1,max:1,none:"Ohne Basis",options:[
+        {id:"taco_veggie_basis_gewuerzreis",name:"Gewürzreis",short:"Gewürzreis",group:"basis",role:"side",ing:"gewuerzreis",maxQty:1,price:0,kcal:174.5,fat:0.25,sat:0.06,carbs:39.45,sugars:0.12,fibre:0.7,protein:3.25,salt:0.345},
+      ] },
+      { id:"zutaten",name:"Wähle deine Zutaten",min:0,max:5,none:null,own:true,options:[
+        {id:"taco_veggie_zutaten_black_beans",name:"Black Beans",short:"Black Beans",group:"zutaten",role:"extra",ing:"black_beans",maxQty:1,price:0,removeName:"ohne Black Beans",kcal:47.67,fat:0.2,sat:0.05,carbs:8.56,sugars:0,fibre:3.15,protein:3.2,salt:0.214},
+      ] },
+      { id:"salsa",name:"Wähle deine Salsa",min:1,max:1,none:"Ohne Salsa",own:true,options:[
+        {id:"taco_veggie_salsa_mild",name:"Mild",short:"Salsa Mild/Medium",group:"salsa",role:"extra",ing:"salsa",maxQty:1,price:0,orderName:"Mild or Medium (your choice)",kcal:19.88,fat:0.28,sat:0.04,carbs:3.48,sugars:1.28,fibre:0.5,protein:0.85,salt:0.001},
+      ] },
+      { id:"extras",name:"Wähle deine Extras",min:0,max:8,none:null,options:[
+        {id:"taco_veggie_extras_beef",name:"Beef",short:"Beef",group:"extras",role:"extra",ing:"beef",maxQty:1,price:2.49,kcal:143.14,fat:7.29,sat:3.06,carbs:2.49,sugars:1.72,fibre:0.5,protein:16.95,salt:0.5},
+        {id:"taco_veggie_extras_chicken",name:"Chicken",short:"Chicken",group:"extras",role:"extra",ing:"chicken",maxQty:1,price:2.49,kcal:140.16,fat:3.55,sat:0,carbs:3.55,sugars:3.55,fibre:0.48,protein:23.52,salt:0.679},
+        {id:"taco_veggie_extras_barbacoa",name:"Barbacoa",short:"Barbacoa",group:"extras",role:"extra",ing:"barbacoa",maxQty:1,price:4.99,kcal:144,fat:6.3,sat:2.25,carbs:1.8,sugars:0,fibre:0.9,protein:21.6,salt:1.193},
+        {id:"taco_veggie_extras_filetsteak",name:"Filetsteak",short:"Filetsteak",group:"extras",role:"extra",ing:"filetsteak",maxQty:1,price:4.99,kcal:188.34,fat:4.77,sat:0,carbs:4.77,sugars:4.77,fibre:0.65,protein:31.61,salt:0.913},
+        {id:"taco_veggie_extras_guacamole",name:"Guacamole",short:"Guacamole",group:"extras",role:"extra",ing:"guacamole",maxQty:1,price:2.39,sauce:true,kcal:111.75,fat:10.5,sat:1.65,carbs:5.1,sugars:1.43,fibre:3.08,protein:1.05,salt:0.473},
+        {id:"taco_veggie_extras_cheesesauce",name:"Cheesesauce",short:"Cheesesauce",group:"extras",role:"extra",ing:"cheesesauce",maxQty:1,price:1.89,sauce:true,kcal:110.77,fat:9.28,sat:0.8,carbs:2.07,sugars:1.86,fibre:0,protein:4.4,salt:0},
+        {id:"taco_veggie_extras_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",group:"extras",role:"extra",ing:"cheddar_jack_cheese",maxQty:1,price:0.99,sauce:true,kcal:61.05,fat:4.65,sat:3.11,carbs:0.45,sugars:0.02,fibre:0,protein:3.9,salt:0.002},
+      ] },
+    ],
+  },
+  taco_vegan: {
+    item: "3 Vegan Soft Tacos", type: "taco_vegan", cat: "taco", basePrice: 0, require: {base:false,protein:true}, proteinExtras: true, removals: [],
+    steps: [
+      {id:"basis",name:"Deine Basis",kind:"base",min:1,max:1,none:"Ohne Basis"},
+      {id:"zutaten",name:"Wähle deine Zutaten",kind:"standard",min:0,max:4,ohne:["ohne Black Beans","ohne Guacmole","ohne Eisbergsalat","ohne Limette"]},
+      {id:"salsa",name:"Wähle deine Salsa",kind:"choice",min:1,max:1,none:"Ohne Salsa"},
+      {id:"extras",name:"Wähle deine Extras",kind:"extras",min:0,max:8},
+    ],
+    fixed: [
+      {id:"taco_vegan_fix_softtaco",name:"3 Soft-Tortillas",short:"3 Soft-Tortillas",ing:"softtaco",price:0,kcal:270,fat:9,sat:3,carbs:45,sugars:3,fibre:3,protein:6,salt:0.675},
+      {id:"taco_vegan_fix_guacamole",name:"Guacamole (3 Kugeln)",short:"Guacamole (3 Kugeln)",ing:"guacamole",price:0,removeName:"ohne Guacmole",removeGroup:"zutaten",kcal:111.75,fat:10.5,sat:1.65,carbs:5.1,sugars:1.43,fibre:3.08,protein:1.05,salt:0.473},
+      {id:"taco_vegan_fix_eisbergsalat",name:"Eisbergsalat",short:"Eisbergsalat",ing:"eisbergsalat",price:0,removeName:"ohne Eisbergsalat",removeGroup:"zutaten",kcal:19.5,fat:0.3,sat:0.05,carbs:2.36,sugars:2.36,fibre:2.7,protein:1.5,salt:0.045},
+      {id:"taco_vegan_fix_limette",name:"Limette",short:"Limette",ing:"limette",price:0,removeName:"ohne Limette",removeGroup:"zutaten",defaultOff:true,kcal:3.29,fat:0,sat:0,carbs:0.13,sugars:0,fibre:0,protein:0.05,salt:0},
+    ],
+    groups: [
+      { id:"produkt",name:"Soft-Tacos (Vegan)",min:1,max:1,none:null,options:[
+        {id:"taco_vegan_produkt_3x_vegan_soft_taco",name:"3x Vegan Soft Taco",short:"3x Vegan Soft Taco",group:"produkt",role:"protein",ing:"vegan_taco",maxQty:1,price:13.29,listName:"Vegan Soft Tacos",dialog:["basis","zutaten","salsa","extras"],kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
+      ] },
+      { id:"basis",name:"Deine Basis",min:1,max:1,none:"Ohne Basis",options:[
+        {id:"taco_vegan_basis_gewuerzreis",name:"Gewürzreis",short:"Gewürzreis",group:"basis",role:"side",ing:"gewuerzreis",maxQty:1,price:0,kcal:174.5,fat:0.25,sat:0.06,carbs:39.45,sugars:0.12,fibre:0.7,protein:3.25,salt:0.345},
+      ] },
+      { id:"zutaten",name:"Wähle deine Zutaten",min:0,max:4,none:null,own:true,options:[
+        {id:"taco_vegan_zutaten_black_beans",name:"Black Beans",short:"Black Beans",group:"zutaten",role:"extra",ing:"black_beans",maxQty:1,price:0,removeName:"ohne Black Beans",kcal:47.67,fat:0.2,sat:0.05,carbs:8.56,sugars:0,fibre:3.15,protein:3.2,salt:0.214},
+      ] },
+      { id:"salsa",name:"Wähle deine Salsa",min:1,max:1,none:"Ohne Salsa",own:true,options:[
+        {id:"taco_vegan_salsa_mild",name:"Mild",short:"Salsa Mild/Medium",group:"salsa",role:"extra",ing:"salsa",maxQty:1,price:0,orderName:"Mild or Medium (your choice)",kcal:19.88,fat:0.28,sat:0.04,carbs:3.48,sugars:1.28,fibre:0.5,protein:0.85,salt:0.001},
+      ] },
+      { id:"extras",name:"Wähle deine Extras",min:0,max:8,none:null,options:[
+        {id:"taco_vegan_extras_beef",name:"Beef",short:"Beef",group:"extras",role:"extra",ing:"beef",maxQty:1,price:2.49,kcal:143.14,fat:7.29,sat:3.06,carbs:2.49,sugars:1.72,fibre:0.5,protein:16.95,salt:0.5},
+        {id:"taco_vegan_extras_chicken",name:"Chicken",short:"Chicken",group:"extras",role:"extra",ing:"chicken",maxQty:1,price:2.49,kcal:140.16,fat:3.55,sat:0,carbs:3.55,sugars:3.55,fibre:0.48,protein:23.52,salt:0.679},
+        {id:"taco_vegan_extras_barbacoa",name:"Barbacoa",short:"Barbacoa",group:"extras",role:"extra",ing:"barbacoa",maxQty:1,price:4.99,kcal:144,fat:6.3,sat:2.25,carbs:1.8,sugars:0,fibre:0.9,protein:21.6,salt:1.193},
+        {id:"taco_vegan_extras_filetsteak",name:"Filetsteak",short:"Filetsteak",group:"extras",role:"extra",ing:"filetsteak",maxQty:1,price:4.99,kcal:188.34,fat:4.77,sat:0,carbs:4.77,sugars:4.77,fibre:0.65,protein:31.61,salt:0.913},
+        {id:"taco_vegan_extras_guacamole",name:"Guacamole",short:"Guacamole",group:"extras",role:"extra",ing:"guacamole",maxQty:1,price:2.39,sauce:true,kcal:111.75,fat:10.5,sat:1.65,carbs:5.1,sugars:1.43,fibre:3.08,protein:1.05,salt:0.473},
+        {id:"taco_vegan_extras_cheesesauce",name:"Cheesesauce",short:"Cheesesauce",group:"extras",role:"extra",ing:"cheesesauce",maxQty:1,price:1.89,sauce:true,kcal:110.77,fat:9.28,sat:0.8,carbs:2.07,sugars:1.86,fibre:0,protein:4.4,salt:0},
+        {id:"taco_vegan_extras_cheddar_jack_cheese",name:"Cheddar Jack Cheese",short:"Cheddar Jack Cheese",group:"extras",role:"extra",ing:"cheddar_jack_cheese",maxQty:1,price:0.99,sauce:true,kcal:61.05,fat:4.65,sat:3.11,carbs:0.45,sugars:0.02,fibre:0,protein:3.9,salt:0.002},
+      ] },
+    ],
+  },
+  // Snacks & Sides ohne Umbau (Wolt-Artikel, Werte laut Rechner)
+  snacks: [
+    {id:"snack_cheese_quesadilla",name:"Cheese Quesadilla",short:"Cheese Quesadilla",cat:"quesadillas",ing:"cheese_quesadilla",price:6.29,kcal:482.07,fat:21.75,sat:13.42,carbs:47.61,sugars:1.33,fibre:2.75,protein:21.18,salt:0.007},
+    {id:"snack_veggie_quesadilla",name:"Veggie Quesadilla",short:"Veggie Quesadilla",cat:"quesadillas",ing:"veggie_quesadilla",price:7.09,kcal:494.28,fat:21.91,sat:13.45,carbs:49.63,sugars:3.35,fibre:4.14,protein:21.71,salt:0.013},
+    {id:"snack_vegan_quesadilla",name:"Vegan Quesadilla",short:"Vegan Quesadilla",cat:"quesadillas",ing:"vegan_quesadilla",price:7.59,kcal:458.27,fat:14.47,sat:4.7,carbs:66.91,sugars:3.51,fibre:10.4,protein:15.44,salt:0.875},
+    {id:"snack_hot_pepper_quesadilla",name:"Hot Pepper Quesadilla",short:"Hot Pepper Quesadilla",cat:"quesadillas",ing:"hot_pepper_quesadilla",price:7.49,kcal:492.07,fat:21.75,sat:13.42,carbs:49.61,sugars:1.33,fibre:2.75,protein:21.18,salt:1.107},
+    {id:"snack_crunchwrap_beef",name:"Crunchwrap Beef",short:"Crunchwrap Beef",cat:"crunchwraps",ing:"crunchwrap_beef",price:11.99,kcal:749.51,fat:37.37,sat:15.6,carbs:67.77,sugars:4.6,fibre:3.25,protein:31.97,salt:0.354},
+    {id:"snack_crunchwrap_chicken",name:"Crunchwrap Chicken",short:"Crunchwrap Chicken",cat:"crunchwraps",ing:"crunchwrap_chicken",price:11.99,kcal:731.96,fat:34.48,sat:14.35,carbs:68.09,sugars:5.42,fibre:3.18,protein:33.74,salt:0.398},
+    {id:"snack_crunchwrap_veggie",name:"Crunchwrap Veggie",short:"Crunchwrap Veggie",cat:"crunchwraps",ing:"crunchwrap_veggie",price:11.99,kcal:764.29,fat:44.45,sat:16.72,carbs:84.32,sugars:5.59,fibre:5.53,protein:33.75,salt:0.994},
+    {id:"snack_crunchwrap_barbacoa",name:"Crunchwrap Barbacoa",short:"Crunchwrap Barbacoa",cat:"crunchwraps",ing:"crunchwrap_barbacoa",price:14.49,kcal:781.18,fat:45.08,sat:19.67,carbs:67.92,sugars:4.75,fibre:3.29,protein:51.83,salt:0.942},
+    {id:"snack_verde_tostado",name:"Verde Tostado",short:"Verde Tostado",cat:"tostados",ing:"verde_tostado",price:8.39,kcal:460.34,fat:20.42,sat:4.24,carbs:60.96,sugars:5.73,fibre:7.56,protein:8.55,salt:0.719},
+    {id:"snack_beef_cheese_tostado",name:"Beef Cheese Tostado",short:"Beef Cheese Tostado",cat:"tostados",ing:"beef_cheese_tostado",price:8.39,kcal:691.63,fat:34.41,sat:7.94,carbs:59.53,sugars:6.43,fibre:5.05,protein:21.79,salt:0.73},
+    {id:"snack_chicken_cheese_tostado",name:"Chicken Cheese Tostado",short:"Chicken Cheese Tostado",cat:"tostados",ing:"chicken_cheese_tostado",price:8.39,kcal:670.91,fat:29.75,sat:4.74,carbs:59.89,sugars:7.59,fibre:4.93,protein:23.69,salt:0.775},
+    {id:"snack_chili_con_carne",name:"Chili con Carne",short:"Chili con Carne",cat:"chili",ing:"chili_con_carne",price:8.49,orderNote:"keep Sour Cream and Tortilla Strips (both are in the values)",kcal:315.4,fat:11.78,sat:2.28,carbs:33.06,sugars:15.96,fibre:15.58,protein:15.58,salt:3.563},
+  ],
 };
 // __CHIDOBA_DATA_END__
 // __LORYS_DATA_START__ (generiert via: node lorys-update.js aus data/lorys-raw.json — nicht von Hand editieren)
@@ -2180,7 +2391,7 @@ function bowlIndex(extras, caps) {
   };
   build(0, N);
   const idx = { N, P, M, PR, perm, LO, HI, PMIN, NL, NR, NS, NE };
-  if (BOWL_INDEX_CACHE.size >= 12) BOWL_INDEX_CACHE.delete(BOWL_INDEX_CACHE.keys().next().value);
+  if (BOWL_INDEX_CACHE.size >= 24) BOWL_INDEX_CACHE.delete(BOWL_INDEX_CACHE.keys().next().value);
   BOWL_INDEX_CACHE.set(ckey, idx);
   return idx;
 }
@@ -2686,7 +2897,7 @@ function bowlValidate(data, keys) {
   return P;
 }
 // Aktive filter-Schalter eines Eintrags als ein Prädikat (für BYO-Pools); allow-Schalter lassen ihre Optionen nur eingeschaltet zu
-// (z.B. Chidoba „Add Chili con carne“)
+// (z.B. beets&roots „No dressing“ für die Items ohne Dressing)
 function switchPass(r, st) {
   const sw = (st && st.sw) || {};
   const act = (r.switches || []).filter(s => s.filter && sw[s.id]);
@@ -2956,30 +3167,54 @@ function subwayValidate() {
   return P;
 }
 
-// ═══ Chidoba (Frankfurt Kaiserstraße, Wolt): Cups + Salate, optional Snack „Chili con Carne“ ═══
-// Eine Bestellung = ein Cup oder Salat (Wolt-Artikel je Protein, Rolle protein) mit seinen Standard-Zutaten (fixed); nur Black Beans darf der
-// Optimizer abwählen (User 16.09.2026). Cup: Basis 0–1 (side). Cream und Salsa je 0–1 (own), Extras je 1× (Extras-Chip), „Chili con Carne“ als
-// zweiter Artikel (own, nur mit „Add Chili con carne“ oder als Pflicht). „No sauce/cheese/dips“ (User 16.09.2026, Default AN) filtert Cream,
-// Guacamole, Cheesesauce und Extra-Käse und wählt die Standard-Zutaten Cheddar Jack Cheese und California Dressing ab; Salsa Mild/Medium bleibt erlaubt.
-// Limette ist standardmäßig abgewählt (defaultOff, User 16.09.2026; als Pflicht-Zutat bleibt sie). Menüs je Produktart (CHIDOBA.cup / CHIDOBA.salat)
-// mit eigenen Rechner-Werten; Ausschluss- und Pflicht-Listen unter „chidoba“. Order Guide in der Reihenfolge des Wolt-Bestellfensters.
-const CHIDOBA_TYPES = [{ id: "cup", label: "Cup" }, { id: "salat", label: "Salat" }];
+// ═══ Chidoba (Frankfurt Kaiserstraße, Wolt): Cups, Salate, Burritos, 3er-Soft-Tacos + Snacks & Sides ═══
+// Eine Bestellung = höchstens ein Hauptprodukt mit Bestellfenster (Cup, Salat, Burrito oder 3 Soft Tacos; Wolt-Artikel je Protein, Rolle protein)
+// mit seinen Standard-Zutaten (fixed) + Snacks & Sides ohne Umbau (Quesadillas, Crunchwraps, Tostados, Chili con Carne; auch mehrfach), zusammen
+// höchstens „Max. items per order“ Artikel (User 27.09.2026). Welche Hauptprodukte und Snacks vorkommen dürfen, sagen die Kategorie-Chips; ohne
+// Hauptprodukt geht es auch nur mit Snacks. Nur Black Beans darf der Optimizer abwählen (User 16.09.2026), beim Burrito „Mit Eisbergsalat“
+// dazunehmen. Basis 0–1 (side), Cream und Salsa je 0–1 (own), Extras je 1× (Extras-Chip). Snacks & Sides hängen je Suche als Portionen-Gruppe
+// „snacks“ (Rolle base) an jedes Hauptprodukt-Menü; dazu ein Menü nur aus Snacks (require base). „No sauce/cheese/dips“ (User 16.09.2026, Default AN)
+// filtert Cream, Guacamole, Cheesesauce und Extra-Käse und wählt die Standard-Zutaten Cheddar Jack Cheese, California Dressing (Salat) und Sour
+// Cream (Tacos) ab; Salsa Mild/Medium bleibt erlaubt, Snacks bleiben, wie sie sind. Limette ist standardmäßig abgewählt (defaultOff, User
+// 16.09.2026; als Pflicht-Zutat bleibt sie). Menüs je Produktart mit eigenen Rechner-Werten; Ausschluss- und Pflicht-Listen unter „chidoba“.
+// Order Guide in der Reihenfolge des Wolt-Bestellfensters des jeweiligen Produkts (dialog), Snacks als weitere Artikel.
+const CHIDOBA_TYPES = ["cup", "salat", "burrito", "taco", "taco_veggie", "taco_vegan"];
+const CHIDOBA_TYPE_LABEL = { cup: "Cup", salat: "Salat", burrito: "Burrito", taco: "Tacos", taco_veggie: "Veggie Tacos", taco_vegan: "Vegan Tacos", snacks: "Snacks & sides" };
+const CHIDOBA_ITEMS_CAP = 6;   // „∞“ bei Max. items: höchstens so viele Artikel (Snacks haben 315–780 kcal)
 const CHIDOBA_SWITCHES = [
   { id:"noSauce", label:"No sauce/cheese/dips", def:true, filter:x=>!x.sauce,                         // User 16.09.2026: Default AN
-    hint:"Also leaves out the standard Cheddar Jack Cheese (and California Dressing on salads) — the order guide says “Ohne …”. Salsa Mild/Medium stays allowed." },
-  { id:"addChili", label:"Add Chili con carne", def:false, allow:x=>x.group==="chili",               // User 16.09.2026: Optimizer entscheidet, Default AUS
-    hint:"Lets the optimizer add one Chili con Carne (snack) as a second item when it gets you closer to your targets." },
+    hint:"Also leaves out the standard Cheddar Jack Cheese (plus California Dressing on salads and Sour Cream on tacos) — the order guide says “Ohne …”. Salsa Mild/Medium stays allowed; snacks & sides keep their recipe." },
 ];
-const CHIDOBA_NOTE = "Cup or salad on Wolt (chidoba Kaiserstraße) with its standard toppings (grilled peppers & onions, lettuce, Cheddar Jack Cheese; salads also California Dressing) — only Black Beans may be left out. Lime is always ordered “Ohne Limette” (add it under “Must include” to keep it). Cup base: Gewürzreis, Cubes or none. Salsa: Mild or Medium (identical values). Salads are always ordered “Ohne Tortilla Strips” (no official values). Not suggested: Korianderreis and Cilantro Cream (coriander); Chili Cream, Jalapeños, Habanero, Tabasco, Chili con Carne and Planted Chicken as extras (no values); Veggie, Vegan and Planted Chicken cups/salads (raw peppers & onions have no values).";
-// Menü einer Produktart für eine Suche: Standard-Zutaten ohne ausgeschlossene; Käse/Dressing fallen mit „No sauce/cheese/dips“ weg, Limette
-// (defaultOff) immer — außer als Pflicht-Zutat; removed = „Ohne …“-Einträge für den Order Guide (inkl. immer abgewählter Standard-Zutaten ohne Werte)
-function chidobaMenu(type, sw, ex, picks) {
+const CHIDOBA_NOTE = "Cups, salads, burritos and 3-taco boxes on Wolt (chidoba Kaiserstraße) with their standard toppings — only Black Beans may be left out (burritos: lettuce may be added). Lime is always ordered “Ohne Limette” (add it under “Must include” to keep it). Base: Gewürzreis, Cubes or none (tacos: Gewürzreis or none). Salsa: Mild or Medium (identical values). Snacks & sides (quesadillas, crunchwraps, tostados, chili con carne) come as they are and can be added to one main product, also several; with no main product switched on an order is snacks only. Salads are always ordered “Ohne Tortilla Strips” (no official values). Not suggested: Korianderreis and Cilantro Cream (coriander); Chili Cream, Jalapeños, Habanero, Tabasco, Flavored Skin, Chili con Carne and Planted Chicken as extras (no values); veggie, vegan and planted cups, salads and burritos (raw peppers & onions have no values); single tacos (Wolt sells 3-taco boxes only); Chicken/Beef Cheese Quesadilla, Sweet Chicken and Chili & Bean Tostado, Lava Cheese Bites (no values); fries and chips.";
+const chidobaCatName = id => (CHIDOBA.cats.find(c => c.id === id) || {}).name || id;
+// Kategorie-Chip an? (st.cats kommt aus defaultRestoState; fehlt ein Eintrag, gilt der Default aus dem Datenblock)
+const chidobaCatOn = (st, id) => { const c = (st && st.cats) || {}; return id in c ? !!c[id] : !!(CHIDOBA.cats.find(x => x.id === id) || {}).on; };
+// Artikel je Bestellung laut Chip „Max. items per order“ (∞ → CHIDOBA_ITEMS_CAP)
+const chidobaItemsMax = st => { const n = st && st.maxN; return n === Infinity || !(n >= 1) ? CHIDOBA_ITEMS_CAP : Math.min(n, CHIDOBA_ITEMS_CAP); };
+// Gruppe „Snacks & sides“ für eine Suche: Snacks der eingeschalteten Kategorien (Pflicht-Snacks auch aus ausgeschalteten), ohne ausgeschlossene;
+// max = so viele Artikel, wie noch passen; jeder Snack auch mehrfach (Portionen-Rolle base)
+function chidobaSnackGroup(max, st, ex, picks) {
+  const opts = CHIDOBA.snacks.filter(s => !(ex && ex.has(s.ing)) && (chidobaCatOn(st, s.cat) || !!(picks && picks.has(s.ing))))
+    .map(s => Object.assign({}, s, { group: "snacks", role: "base", maxQty: max }));
+  return { id: "snacks", name: "Snacks & sides", min: 0, max, none: null, options: opts };
+}
+// Menü einer Produktart für eine Suche: Standard-Zutaten ohne ausgeschlossene; Käse/Dressing/Sour Cream fallen mit „No sauce/cheese/dips“ weg,
+// Limette (defaultOff) immer — außer als Pflicht-Zutat; removed = „Ohne …“-Einträge für den Order Guide (inkl. immer abgewählter Standard-Zutaten
+// ohne Werte); snackMax > 0 hängt die Snack-Gruppe an
+function chidobaMenu(type, sw, ex, picks, snackMax, st) {
   const m = CHIDOBA[type], picked = f => !!(picks && picks.has(f.ing));
   const keepFixed = f => !(ex && ex.has(f.ing)) && !(f.sauce && sw && sw.noSauce && !picked(f)) && !(f.defaultOff && !picked(f));
-  return Object.assign({}, m, { fixed: m.fixed.filter(keepFixed), removed: [...m.fixed.filter(f => !keepFixed(f)).map(f => f.removeName), ...(m.removals || [])] });
+  const sg = snackMax > 0 ? chidobaSnackGroup(snackMax, st, ex, picks) : null;
+  return Object.assign({}, m, { groups: sg && sg.options.length ? [...m.groups, sg] : m.groups, fixed: m.fixed.filter(keepFixed),
+    removed: [...m.fixed.filter(f => !keepFixed(f)).map(f => f.removeName), ...(m.removals || [])] });
 }
-function chidobaMenuOf(res) { return CHIDOBA[res && res.type] || CHIDOBA.cup; }
-// Exakte Suche je Produktart (bowlCombos), Ranglisten gemischt; o.includeFor(menu) = Pflicht-Zutaten dieser Produktart. Ergebnisse tragen type + removed;
+// Bestellung nur aus Snacks & Sides (mindestens einer)
+function chidobaSnackMenu(max, st, ex, picks) {
+  return { item: "Snacks & sides", type: "snacks", cat: null, basePrice: 0, require: { base: true, protein: false }, proteinExtras: true,
+    fixed: [], removals: [], removed: [], steps: [], groups: [chidobaSnackGroup(max, st, ex, picks)] };
+}
+function chidobaMenuOf(res) { return (res && res.menu) || CHIDOBA[res && res.type] || CHIDOBA.cup; }
+// Exakte Suche je Menü (bowlCombos), Ranglisten gemischt; o.includeFor(menu) = Pflicht-Zutaten dieses Menüs. Ergebnisse tragen type, menu und removed;
 // gleiche Bestellungen in anderer Anordnung (z.B. Chicken Cup + Beef = Beef Cup + Chicken) bleiben nur in der günstigsten Form (bowlDedupe)
 function chidobaCombos(menus, t, mode, p, o) {
   o = o || {};
@@ -2994,50 +3229,77 @@ function chidobaCombos(menus, t, mode, p, o) {
     if (res.conflict) conflict = res.conflict;
     if (res.missing) missing = missing ? missing.filter(id => res.missing.includes(id)) : res.missing.slice();
     else allMissing = false;
-    if (!o.raw) for (const r of res) { r.type = m.type; r.removed = m.removed || []; }
+    if (!o.raw) for (const r of res) { r.type = m.type; r.menu = m; r.removed = m.removed || []; }
     out = out.concat(res);
   }
   if (o.raw) out.sort((a, b) => a.rawScore - b.rawScore);
-  else { out.sort((a, b) => a.score - b.score || a.rawScore - b.rawScore); out = bowlDedupe(out); }
+  else {
+    out.sort((a, b) => a.score - b.score || a.rawScore - b.rawScore);
+    // dieselbe Bestellung als anderes Produkt derselben Kategorie mit gleichen Werten und gleichem Preis (z.B. Veggie- statt Vegan-Tacos, wenn
+    // „No sauce/cheese/dips“ Käse und Sour Cream abwählt) nur einmal
+    const seen = new Set();
+    out = bowlDedupe(out).filter(r => { const k = (r.menu && r.menu.cat) + "|" + KEYS.map(k2 => r.nutrition[k2]).join("/") + "|" + r.price; if (seen.has(k)) return false; seen.add(k); return true; });
+  }
   out = out.slice(0, o.raw ? 30 : 20);
   if (!out.length && conflict) return Object.assign([], { conflict });
   if (!out.length && allMissing && missing && missing.length) return Object.assign([], { missing });
   if (approx) out.approx = true;
   return out;
 }
-// Chidoba optimieren: Produktart-Chips + Extras-Chip (st.extra), Schalter, Ausschluss-Liste, Pflicht-Zutaten (gehen an Schaltern vorbei; eine Pflicht
-// auf eine Standard-Zutat hält sie im Cup/Salat), Preislimit
+// Chidoba optimieren: Kategorie-Chips (st.cats), Max. items (st.maxN), Extras-Chip (st.extra), Schalter, Ausschluss-Liste, Pflicht-Zutaten (gehen an
+// Schaltern und Kategorie-Chips vorbei; eine Pflicht auf eine Standard-Zutat hält sie im Produkt), Preislimit
 function chidobaOptimize(t, mode, p, st, ex, r, inc) {
-  const x0 = (st && st.extra) || {}, sw = (st && st.sw) || {};
-  const types = CHIDOBA_TYPES.map(x => x.id).filter(id => !(x0.types && x0.types.length) || x0.types.includes(id));
+  const x0 = (st && st.extra) || {}, sw = (st && st.sw) || {}, K = chidobaItemsMax(st);
   const allowed = id => !(ex && ex.has(id));
   const picks = new Set([...(inc || [])].filter(allowed));
   const pass = switchPass(r, st);
-  return chidobaCombos(types.map(tp => chidobaMenu(tp, sw, ex, picks)), t, mode, p, {
-    cap: 1, maxExtras: x0.maxExtras == null ? 5 : x0.maxExtras, maxPrice: t && t.maxPrice,
+  const menus = CHIDOBA_TYPES.filter(tp => chidobaCatOn(st, CHIDOBA[tp].cat)).map(tp => chidobaMenu(tp, sw, ex, picks, K - 1, st));
+  if (chidobaSnackGroup(K, st, ex, picks).options.length) menus.push(chidobaSnackMenu(K, st, ex, picks));
+  return chidobaCombos(menus, t, mode, p, {
+    cap: K, maxExtras: x0.maxExtras == null ? 5 : x0.maxExtras, maxPrice: t && t.maxPrice,
     includeFor: m => [...picks].filter(id => !m.fixed.some(f => f.ing === id)),
-    keep: x => allowed(x.ing) && (picks.has(x.ing) || pass(x)),
+    keep: x => allowed(x.ing) && (x.contains || []).every(allowed) && (picks.has(x.ing) || pass(x)),
   });
 }
-// Kurzname: Produkt + Basis + Cream + Salsa + Extras + Chili (Standard-Zutaten stehen im Untertitel und im Detail-Panel)
+const chidobaSnacks = res => res.parts.filter(pt => pt.opt.group === "snacks");
+// Kurzname: Produkt + Basis + dazugenommene Zutat (Burrito: Eisbergsalat) + Cream + Salsa + Extras, dahinter die Snacks mit Menge (Standard-Zutaten
+// stehen im Untertitel und im Detail-Panel)
 function chidobaSummary(res) {
   const opts = [...res.parts.map(pt => pt.opt), res.side, res.dip].filter(Boolean);
-  return ["produkt", "basis", "cream", "salsa", "extras", "chili"].flatMap(g => opts.filter(x => x.group === g).map(x => x.short || x.name)).join(" + ");
+  const main = ["produkt", "basis", "zutaten", "cream", "salsa", "extras"].flatMap(g => opts.filter(x => x.group === g && (g !== "zutaten" || x.addName)).map(x => x.short || x.name));
+  return [...main, ...chidobaSnacks(res).map(pt => (pt.qty > 1 ? pt.qty + "× " : "") + (pt.opt.short || pt.opt.name))].join(" + ");
 }
 function chidobaCard(res, ctx) {
-  const n = gid => res.parts.filter(pt => pt.opt.group === gid).length;
-  const bits = [res.type === "salat" ? "Salat" : "Cup"];
-  if (res.type !== "salat") bits.push(res.side ? res.side.short || res.side.name : "no base");
-  bits.push(n("zutaten") ? "beans" : "no beans", n("cream") ? "sour cream" : "no cream", n("salsa") ? "salsa" : "no salsa", n("extras") + (n("extras") === 1 ? " extra" : " extras"));
-  if (n("chili")) bits.push("+ Chili con Carne");
+  const n = gid => res.parts.filter(pt => pt.opt.group === gid).reduce((a, pt) => a + pt.qty, 0), ns = n("snacks");
+  const bits = [];
+  if (res.type === "snacks") bits.push("Snacks & sides only", ns + (ns === 1 ? " item" : " items"));
+  else {
+    const m = chidobaMenuOf(res), base = CHIDOBA[res.type] || m;
+    bits.push(CHIDOBA_TYPE_LABEL[res.type] || m.item);
+    if (base.groups.some(g => g.id === "basis")) bits.push(res.side ? res.side.short || res.side.name : "no base");
+    const zg = base.groups.find(g => g.id === "zutaten");
+    if (zg && zg.options.some(o => o.ing === "black_beans")) bits.push(res.parts.some(pt => pt.opt.group === "zutaten" && pt.opt.ing === "black_beans") ? "beans" : "no beans");
+    if (base.groups.some(g => g.id === "cream")) bits.push(n("cream") ? "sour cream" : "no cream");
+    else if (base.fixed.some(f => f.ing === "sour_cream")) bits.push(res.fixed.some(f => f.ing === "sour_cream") ? "sour cream" : "no sour cream");
+    bits.push(n("salsa") ? "salsa" : "no salsa", n("extras") + (n("extras") === 1 ? " extra" : " extras"));
+    if (ns) bits.push("+ " + ns + (ns === 1 ? " snack" : " snacks"));
+  }
   return h(ResultCard, { key: res.key, title: chidobaSummary(res), sub: bits.join(" · "), n: res.nutrition, price: res.price, selected: ctx.selected, onClick: ctx.onSelect });
 }
-// „Ohne …“ für die Wolt-Gruppe „Wähle deine Zutaten“: abgewählte Black Beans + weggefallene/immer abgewählte Standard-Zutaten, in der Reihenfolge
-// des Wolt-Bestellfensters (menu.ohneOrder)
+// Einträge eines „Standard“-Schritts (Wähle deine Zutaten / Wähle deine Cream) in Fenster-Reihenfolge: abgewählte Black Beans, dazugenommener
+// Eisbergsalat („Mit Eisbergsalat“), weggefallene und immer abgewählte Standard-Zutaten
+function chidobaStepEntries(sel, step) {
+  const m = chidobaMenuOf(sel), zg = m.groups.find(g => g.id === "zutaten"), chosen = new Set(sel.parts.map(pt => pt.opt.id));
+  const names = new Set(sel.removed || []);
+  if (zg && step.id === "zutaten") for (const o of zg.options) {
+    if (o.removeName && !chosen.has(o.id)) names.add(o.removeName);
+    if (o.addName && chosen.has(o.id)) names.add(o.addName);
+  }
+  return (step.ohne || []).filter(x => names.has(x));
+}
+// „Ohne …“ über alle Standard-Schritte (Detail-Panel „Left out“)
 function chidobaRemovals(sel) {
-  const m = chidobaMenuOf(sel), zg = m.groups.find(g => g.id === "zutaten"), pos = x => { const i = (m.ohneOrder || []).indexOf(x); return i < 0 ? 999 : i; };
-  const list = [...(zg ? zg.options.filter(o => !sel.parts.some(pt => pt.opt.id === o.id)).map(o => o.removeName) : []), ...(sel.removed || [])];
-  return [...new Set(list)].sort((a, b) => pos(a) - pos(b));
+  return (chidobaMenuOf(sel).steps || []).filter(s => s.kind === "standard").flatMap(s => chidobaStepEntries(sel, s)).filter(x => /^ohne /i.test(x));
 }
 function chidobaPanel(sel, ctx) {
   const rem = chidobaRemovals(sel);
@@ -3045,69 +3307,105 @@ function chidobaPanel(sel, ctx) {
     bowlPanel(chidobaMenuOf(sel), sel, ctx),
     rem.length > 0 && h("div", { style: { fontSize: 11, color: "#999", fontFamily: S.mono, margin: "-8px 0 16px", lineHeight: 1.4 } }, "Left out: " + rem.join(" · ")));
 }
-// Order Guide in Wolt-Reihenfolge: Artikel → Deine Basis (Cup) → Wähle deine Zutaten („Ohne …“) → Cream/Soße → Salsa → Extras → Snack als zweiter Artikel
+// Order Guide in der Reihenfolge des Wolt-Bestellfensters des Produkts (dialog): Artikel → Basis → Standard-Schritte („Ohne …“, „Mit Eisbergsalat“)
+// → Cream/Salsa → Extras; Flavored Skin bleibt leer. Danach jeder Snack als weiterer Artikel mit Menge (bei „nur Snacks“ ist der erste der Artikel)
 function chidobaOrderSteps(sel) {
-  const m = chidobaMenuOf(sel), prod = sel.parts.map(pt => pt.opt).find(x => x.group === "produkt");
-  const steps = bowlOrderSteps(Object.assign({}, m, { item: prod ? prod.name : m.item, groups: m.groups.filter(g => !["produkt", "zutaten", "chili"].includes(g.id)) }), sel);
-  const rem = chidobaRemovals(sel), zg = m.groups.find(g => g.id === "zutaten");
-  if (rem.length) { const bi = steps.findIndex(x => x.l === "Deine Basis"); steps.splice(bi >= 0 ? bi + 1 : 1, 0, { l: zg ? zg.name : "Wähle deine Zutaten", v: rem.join(" · ") }); }
-  const chili = sel.parts.find(pt => pt.opt.group === "chili");
-  if (chili) steps.push({ l: "Snacks (2nd item)", v: chili.opt.name });
+  const steps = [];
+  if (sel.type !== "snacks") {
+    const m = chidobaMenuOf(sel), prod = sel.parts.map(pt => pt.opt).find(x => x.group === "produkt");
+    steps.push({ l: "Item", v: prod ? prod.name : m.item });
+    for (const sid of (prod && prod.dialog) || (m.steps || []).map(s => s.id)) {
+      const s = (m.steps || []).find(x => x.id === sid);
+      if (!s || s.kind === "skip") continue;
+      if (s.kind === "base") { steps.push({ l: s.name, v: sel.side ? sel.side.orderName || sel.side.name : s.none }); continue; }
+      if (s.kind === "standard") { const e = chidobaStepEntries(sel, s); if (e.length) steps.push({ l: s.name, v: e.join(" · ") }); continue; }
+      const picked = sel.parts.filter(pt => pt.opt.group === s.id).map(pt => pt.opt.orderName || pt.opt.name);
+      if (s.kind === "choice") steps.push({ l: s.name, v: picked.length ? picked.join(" · ") : s.none });
+      else if (picked.length) steps.push({ l: s.name, v: picked.join(" · ") });
+    }
+  }
+  chidobaSnacks(sel).forEach((pt, i) => steps.push({ l: sel.type === "snacks" && i === 0 ? "Item" : "+ Item", v: pt.qty + "× " + pt.opt.name + (pt.opt.orderNote ? " — " + pt.opt.orderNote : "") }));
   return steps;
 }
-// Such-Index: jeder Baustein je Produktart mit Art im Namen (Protein des Produkts als „Chicken (Cup protein)“)
+// Such-Index: jeder Baustein je Produktart mit Art im Namen (Protein des Produkts als „Chicken (Cup protein)“), Snacks als „… (Snack)“ bzw.
+// Quesadillas als „… (Side)“; Bausteine ohne Werte (Veggie-/Vegan-Tacos als Produkt) nicht
 function chidobaSearchEntries() {
   const out = [];
   for (const tp of CHIDOBA_TYPES) {
-    const m = CHIDOBA[tp.id];
-    for (const x of m.fixed) out.push(Object.assign({}, x, { name: x.name.includes("(") ? x.name : x.name + " (" + tp.label + ")" }));
-    for (const g of m.groups) for (const x of g.options) out.push(Object.assign({}, x, { name: g.id === "produkt" ? x.name.replace(/ (Cup|Salat)$/, "") + " (" + tp.label + " protein)" : g.id === "chili" ? x.name + " (Snack)" : x.name + " (" + tp.label + ")" }));
+    const m = CHIDOBA[tp], label = CHIDOBA_TYPE_LABEL[tp];
+    for (const x of m.fixed) out.push(Object.assign({}, x, { name: x.name.includes("(") ? x.name : x.name + " (" + label + ")" }));
+    for (const g of m.groups) for (const x of g.options) out.push(Object.assign({}, x, { name: g.id === "produkt" ? x.listName + " (" + label + " protein)" : (x.short || x.name) + " (" + label + ")" }));
   }
-  return out;
+  for (const s of CHIDOBA.snacks) out.push(Object.assign({}, s, { name: s.name + (s.cat === "quesadillas" ? " (Side)" : " (Snack)") }));
+  return out.filter(x => KEYS.some(k => x[k] > 0));
 }
-// Ausschluss- und Pflicht-Liste: je Zutat ein Eintrag über Cup und Salat (Produkte als Protein-Zutat, Standard-Zutaten mit Rolle fixed)
+// Ausschluss- und Pflicht-Liste: je Zutat ein Eintrag über alle Produktarten (Produkte als Protein-Zutat, Standard-Zutaten mit Rolle fixed) + die
+// Snacks & Sides (Rolle base, Gruppe = Kategorie)
 function chidobaListEntries() {
   const out = [], seen = new Set();
   for (const tp of CHIDOBA_TYPES) {
-    const m = CHIDOBA[tp.id];
+    const m = CHIDOBA[tp];
     for (const g of m.groups) for (const x of g.options) {
       if (seen.has(x.ing)) continue;
       seen.add(x.ing);
-      out.push({ id: x.ing, name: g.id === "produkt" ? x.name.replace(/ (Cup|Salat)$/, "") : x.name, group: g.id === "produkt" ? "Protein" : g.name, role: bowlRole(x) });
+      out.push({ id: x.ing, name: g.id === "produkt" ? x.listName : x.name, group: g.id === "produkt" ? "Protein" : g.name, role: bowlRole(x) });
     }
     for (const f of m.fixed) if (f.removeName && !seen.has(f.ing)) { seen.add(f.ing); out.push(Object.assign({ id: f.ing, name: f.name, group: "Standard toppings", role: "fixed" }, f.defaultOff ? { defaultOff: true } : {})); }
   }
+  for (const s of CHIDOBA.snacks) if (!seen.has(s.ing)) { seen.add(s.ing); out.push({ id: s.ing, name: s.name, group: chidobaCatName(s.cat), role: "base" }); }
   return out;
 }
 function chidobaConfigCard(ctx, note) {
-  const x = (ctx.st && ctx.st.extra) || {}, chosen = x.types || [];
-  const set = (patch, clearSel) => ctx.update(st => Object.assign({ extra: { ...(st.extra || {}), ...patch } }, clearSel ? { sel: null } : {}));
+  const st = ctx.st || {}, x = st.extra || {};
+  const set = patch => ctx.update(s => ({ extra: { ...(s.extra || {}), ...patch } }));
+  const chips = kind => CHIDOBA.cats.filter(c => c.kind === kind).map(c => h(Chip, { key: c.id, label: c.name, active: chidobaCatOn(st, c.id), small: true,
+    onClick: () => ctx.update(s => ({ cats: { ...(s.cats || {}), [c.id]: !chidobaCatOn(s, c.id) }, sel: null })) }));
+  const row = mb => ({ display: "flex", gap: 5, flexWrap: "wrap", marginBottom: mb });
   return h("div", { style: CARD },
-    h("div", { style: LBL }, "Product (pick one or both — optimizer chooses the best)"),
-    h("div", { style: { display: "flex", gap: 5, flexWrap: "wrap", marginBottom: 12 } },
-      h(Chip, { label: "Cup & Salat", active: !CHIDOBA_TYPES.some(tp => chosen.includes(tp.id)), onClick: () => set({ types: [] }, true), small: true }),
-      ...CHIDOBA_TYPES.map(tp => h(Chip, { key: tp.id, label: tp.label, active: chosen.includes(tp.id), small: true,
-        onClick: () => set({ types: chosen.includes(tp.id) ? chosen.filter(y => y !== tp.id) : [...chosen, tp.id] }, true) }))),
-    h("div", { style: LBL }, "Max. extras per order"),
-    h("div", { style: { display: "flex", gap: 5, flexWrap: "wrap", marginBottom: note ? 10 : 0 } },
-      ...[0, 1, 2, 3, 4, 5, 6].map(n => h(Chip, { key: String(n), label: String(n), active: x.maxExtras === n, onClick: () => set({ maxExtras: n }), small: true }))),
+    h("div", { style: LBL }, "Main product (at most one per order — optimizer chooses the best)"),
+    h("div", { style: row(12) }, ...chips("main")),
+    h("div", { style: LBL }, "Snacks & sides (added as they are, also several)"),
+    h("div", { style: row(12) }, ...chips("snack")),
+    h("div", { style: LBL }, "Max. items per order"),
+    h("div", { style: row(12) }, ...[1, 2, 3, 5, Infinity].map(n => h(Chip, { key: String(n), label: n === Infinity ? "∞" : String(n), active: st.maxN === n, small: true,
+      onClick: () => ctx.update(() => ({ maxN: n, sel: null })) }))),
+    h("div", { style: LBL }, "Max. extras per main product"),
+    h("div", { style: row(note ? 10 : 0) }, ...[0, 1, 2, 3, 4, 5, 6].map(n => h(Chip, { key: String(n), label: String(n), active: x.maxExtras === n, onClick: () => set({ maxExtras: n }), small: true }))),
     note && h("div", { style: { fontSize: 10, color: "#666", lineHeight: 1.4 } }, note));
 }
-// Datenprüfung: beide Menüs gültig, Standard-Zutaten mit „Ohne …“, Chili-Gruppe, Produkte je Art
+// Datenprüfung: alle Menüs gültig, jeder „Ohne …“-/„Mit …“-Eintrag steht in seinem Bestellfenster-Schritt, jede Engine-Gruppe hat einen Schritt,
+// Produkte mit Bestellfenster-Reihenfolge, Snacks mit Kategorie, Preis und Werten
 function chidobaValidate() {
-  const P = bowlValidate(CHIDOBA, CHIDOBA_TYPES.map(x => x.id));
+  const P = bowlValidate(CHIDOBA, CHIDOBA_TYPES);
+  const ings = new Set(CHIDOBA.ingredients.map(x => x.id)), cats = new Map(CHIDOBA.cats.map(c => [c.id, c]));
+  if (CHIDOBA.cats.some(c => c.kind !== "main" && c.kind !== "snack")) P.push("Kategorie ohne gültige Art");
   for (const tp of CHIDOBA_TYPES) {
-    const m = CHIDOBA[tp.id];
-    if (m.type !== tp.id) P.push(tp.id + ": type ≠ " + tp.id);
-    for (const f of m.fixed) if (f.ing !== "salatbasis" && !/^Ohne /.test(f.removeName || "")) P.push(tp.id + ": Standard-Zutat " + f.id + " ohne „Ohne …“");
-    const ch = m.groups.find(g => g.id === "chili");
-    if (!ch || ch.options.length !== 1 || !ch.own || ch.max !== 1) P.push(tp.id + ": Snack-Gruppe „chili“ fehlt oder falsch");
+    const m = CHIDOBA[tp], steps = m.steps || [], sids = new Set(steps.map(s => s.id)), step = id => steps.find(s => s.id === id);
+    if (m.type !== tp) P.push(tp + ": type ≠ " + tp);
+    if (!cats.has(m.cat) || cats.get(m.cat).kind !== "main") P.push(tp + ": unbekannte Kategorie " + m.cat);
+    for (const f of m.fixed) if (f.removeName && !(step(f.removeGroup) && (step(f.removeGroup).ohne || []).includes(f.removeName))) P.push(tp + ": „" + f.removeName + "“ steht in keinem Bestellfenster-Schritt");
     const zg = m.groups.find(g => g.id === "zutaten");
-    if (!zg || !zg.options.every(o => /^Ohne /.test(o.removeName || ""))) P.push(tp.id + ": abwählbare Standard-Zutaten ohne „Ohne …“");
-    const names = [...(zg ? zg.options : []), ...m.fixed].map(o => o.removeName).filter(Boolean).concat(m.removals || []);
-    if (!Array.isArray(m.ohneOrder) || names.some(x => !m.ohneOrder.includes(x))) P.push(tp.id + ": ohneOrder deckt nicht alle „Ohne …“-Einträge ab");
-    if (!(m.groups.find(g => g.id === "produkt") || { options: [] }).options.length) P.push(tp.id + ": keine Produkte");
+    for (const o of zg ? zg.options : []) { const nm = o.removeName || o.addName; if (!nm || !(step("zutaten") && step("zutaten").ohne.includes(nm))) P.push(tp + ": Standard-Zutat " + o.id + " ohne Eintrag im Bestellfenster"); }
+    for (const x of m.removals || []) if (!steps.some(s => (s.ohne || []).includes(x))) P.push(tp + ": „" + x + "“ steht in keinem Bestellfenster-Schritt");
+    for (const g of m.groups) if (g.id !== "produkt" && !sids.has(g.id)) P.push(tp + ": Gruppe " + g.id + " ohne Bestellfenster-Schritt");
+    const prods = (m.groups.find(g => g.id === "produkt") || { options: [] }).options;
+    if (!prods.length) P.push(tp + ": keine Produkte");
+    for (const o of prods) {
+      if (!Array.isArray(o.dialog) || !o.dialog.length || o.dialog.some(s => !sids.has(s))) P.push(tp + ": " + o.id + " ohne gültige Bestellfenster-Reihenfolge");
+      if (!o.listName) P.push(tp + ": " + o.id + " ohne listName");
+      for (const c of o.contains || []) if (!ings.has(c)) P.push(tp + ": " + o.id + " enthält unbekannte Zutat " + c);
+    }
   }
+  const ids = new Set();
+  for (const s of CHIDOBA.snacks) {
+    if (ids.has(s.id)) P.push("Snack-id doppelt: " + s.id);
+    ids.add(s.id);
+    if (!cats.has(s.cat) || cats.get(s.cat).kind !== "snack") P.push("Snack " + s.id + ": unbekannte Kategorie " + s.cat);
+    if (!ings.has(s.ing)) P.push("Snack " + s.id + ": unbekannte Zutat " + s.ing);
+    if (!(s.price > 0)) P.push("Snack " + s.id + ": Preis fehlt");
+    for (const k of KEYS) if (typeof s[k] !== "number" || !isFinite(s[k]) || s[k] < 0) P.push("Snack " + s.id + ": " + k + " keine Zahl ≥ 0");
+  }
+  for (const c of CHIDOBA.cats) if (c.kind === "snack" && !CHIDOBA.snacks.some(s => s.cat === c.id)) P.push("Snack-Kategorie " + c.id + " ohne Snack");
   return P;
 }
 
@@ -3894,13 +4192,13 @@ const RESTAURANTS = [
     ],
     note:"Official nutrition values per product from mcdonalds.com; names and prices from Wolt (McDonald's An der Hauptwache). Nuggets, Potato Dippers, salads and McFlurry Mix & Match count without their included sauce, dressing or topping — the order guide says “Ohne …”. Not in the optimizer: breakfast, drinks, McMenüs, Happy Meals, bundles, Mild Wasabi Sauce (no official values).",
     footer:"Data: mcdonalds.com/de (official, per product) · menu & prices: Wolt McDonald's An der Hauptwache · 16.09.2026" },
-  // chidoba Frankfurt Kaiserstraße (Wolt; User 16.09.2026). Daten: node chidoba-crawl.js (Nährwertrechner chidoba.com + Wolt-Menü →
-  // data/chidoba-raw.json) → node chidoba-update.js
+  // chidoba Frankfurt Kaiserstraße (Wolt; User 16.09.2026, Burritos/Tacos/Snacks & Sides User 27.09.2026). Daten: node chidoba-crawl.js
+  // (Nährwertrechner chidoba.com, Kontrolle data/chidoba-rechner.json, Wolt-Menü → data/chidoba-raw.json) → node chidoba-update.js
   { key:"chidoba", name:"Chidoba (Wolt)", kind:"byo", data:CHIDOBA, menu:CHIDOBA.cup, exclusionKey:"chidoba",
     gradient:["#1d4ed8","#0b1a3d"], label:"CHIDOBA · KAISERSTRASSE · WOLT", platform:"Wolt", accurate:true, maxN:5,
-    footer:"Data: chidoba nutrition calculator (official, per portion) · menu & prices: Wolt chidoba Kaiserstraße · 16.09.2026",
+    footer:"Data: chidoba nutrition calculator (official, per portion; every field clicked through 27.09.2026) · menu, prices & order windows: Wolt chidoba Kaiserstraße · 27.09.2026",
     switches:CHIDOBA_SWITCHES,
-    initState:() => ({ types:[], maxExtras:5 }),
+    initState:() => ({ maxExtras:5 }),
     optimize:chidobaOptimize,
     renderConfig:ctx => chidobaConfigCard(ctx, CHIDOBA_NOTE),
     renderCard:chidobaCard,
@@ -3910,8 +4208,8 @@ const RESTAURANTS = [
     excludables:() => chidobaListEntries().filter(x => !x.defaultOff).map(({ role, defaultOff, ...x }) => x),
     includables:chidobaListEntries,
     summary:chidobaSummary,
-    panelSubtitle:sel => (sel.type === "salat" ? "Salat" : "Cup") + (sel.parts.some(pt => pt.opt.group === "chili") ? " + Chili con Carne" : "") + " · " + bowlEuro(sel.price),
-    inputHint:st => { const tp = (st && st.extra && st.extra.types) || []; return (tp.length === 1 ? (tp[0] === "salat" ? "Salat" : "Cup") : "Cup or Salat") + ": 1 protein + standard toppings"; },
+    panelSubtitle:sel => (sel.type === "snacks" ? "Snacks & sides" : (CHIDOBA_TYPE_LABEL[sel.type] || "Chidoba") + (chidobaSnacks(sel).length ? " + snacks" : "")) + " · " + bowlEuro(sel.price),
+    inputHint:st => { const mains = CHIDOBA.cats.filter(c => c.kind === "main" && chidobaCatOn(st, c.id)).map(c => c.name); return (mains.length ? mains.join(" / ") + " + standard toppings" : "snacks & sides only") + " · max " + (st && st.maxN === Infinity ? "∞" : chidobaItemsMax(st)) + " items"; },
     validate:chidobaValidate },
   // Lorys Gymfood Offenbach (Wolt; User 16.09.2026). Daten: node lorys-crawl.js (Nährwerte lorys-gymfood.de, Standard-Auswahl + Wolt-Menü →
   // data/lorys-raw.json) → node lorys-update.js. À la carte mit Preisen; Pflicht-Produkte über „Must include“; die Website nennt nur kcal/KH/E/F

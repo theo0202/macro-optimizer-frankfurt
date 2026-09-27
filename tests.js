@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, chidobaSnackMenu, chidobaSnackGroup, chidobaItemsMax, CHIDOBA_ITEMS_CAP, chidobaCard, chidobaConfigCard, chidobaStepEntries, chidobaCatOn, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -1130,66 +1130,266 @@ check("No sauces & dressings AUS: Saucen möglich", runMC(tgt(30, 60, 40), { ...
 check("Order Guide mit Hinweis („1× 9 Chicken McNuggets® — Sauce 1/2, Sauce 2/2: Ohne Sauce“), Suche + All mit Preis", (() => { const st1 = T.orderStepsFor(MC, { items: [mcItem("9 Chicken McNuggets®"), mcItem("Big Mac®")] }); const a = T.optimizeAll(tDef, "macros", {}, 5, false); return st1[0].v === "9 Chicken McNuggets® — Sauce 1/2, Sauce 2/2: Ohne Sauce" && st1[1].v === "Big Mac®" && T.SEARCH_INDEX.some(x => x.resto === "McDonald's (Wolt)" && x.name === "Big Mac®") && a.filter(r => r._resto === "mcdonalds").length === 1 && typeof a.find(r => r._resto === "mcdonalds").price === "number"; })(), true);
 
 // ── Chidoba (Wolt, Cup + Salat) ──
-sect("Chidoba (Wolt, Cup + Salat)");
+sect("Chidoba (Wolt: Cup, Salat, Burrito, 3er-Tacos + Snacks & Sides)");
 const CH = T.RESTO_BY_KEY.chidoba, CHD = T.CHIDOBA;
 const rawCH = U.readJSON(__dirname + "/data/chidoba-raw.json");
+const ctlCH = U.readJSON(__dirname + "/data/chidoba-rechner.json");
 const updCH = require("./chidoba-update.js");
 const chG = (menu, gid) => menu.groups.find(g => g.id === gid) || { options: [] };
 const chOpt = (menu, gid, name) => chG(menu, gid).options.find(o => o.name === name);
 const chFix = (menu, ing) => menu.fixed.find(f => f.ing === ing);
-check("Registry: Chidoba (Wolt) — BYO, accurate, Listen unter „chidoba“, Schalter „No sauce/cheese/dips“ AN + „Add Chili con carne“ AUS (allow)", !!CH && CH.kind === "byo" && CH.accurate === true && CH.platform === "Wolt" && CH.exclusionKey === "chidoba" && CH.switches.map(x => x.id + ":" + x.def).join() === "noSauce:true,addChili:false" && typeof CH.switches[1].allow === "function", true);
-check("CHIDOBA-Block = chidoba-update.js(data/chidoba-raw.json) — Cup + Salat (Block aktuell)", ["cup", "salat"].every(tp => { const m = updCH.buildMenu(rawCH, tp); return JSON.stringify(m.groups) === JSON.stringify(CHD[tp].groups) && JSON.stringify(m.fixed) === JSON.stringify(CHD[tp].fixed) && JSON.stringify(m.removals) === JSON.stringify(CHD[tp].removals); }), true);
+const chSnack = name => CHD.snacks.find(s => s.name === name);
+const chRow = (type, label, section) => rawCH.calculator[type].flatMap(s => s.items).find(i => i.label === label && (!section || i.section === section));
+const CH_TYPES = ["cup", "salat", "burrito", "taco", "taco_veggie", "taco_vegan"];
+check("Registry: Chidoba (Wolt) — BYO, accurate, Listen unter „chidoba“, ein Schalter „No sauce/cheese/dips“ AN (der frühere „Add Chili con carne“ ist jetzt die Kategorie „Chili con Carne“), Max. items 5",
+  !!CH && CH.kind === "byo" && CH.accurate === true && CH.platform === "Wolt" && CH.exclusionKey === "chidoba" && CH.maxN === 5 &&
+  CH.switches.map(x => x.id + ":" + x.def).join() === "noSauce:true" && T.CHIDOBA_TYPES.join() === CH_TYPES.join(), true);
+check("CHIDOBA-Block = chidoba-update.js(data/chidoba-raw.json) — sechs Menüs, Snacks & Sides, Kategorien (Block aktuell)", CH_TYPES.every(tp => { const m = updCH.buildMenu(rawCH, tp); return ["groups", "fixed", "removals", "steps"].every(k => JSON.stringify(m[k]) === JSON.stringify(CHD[tp][k])); }) &&
+  JSON.stringify(updCH.buildSnacks(rawCH)) === JSON.stringify(CHD.snacks) && JSON.stringify(updCH.CATS) === JSON.stringify(CHD.cats), true);
 const valCH = T.chidobaValidate();
 if (valCH.length) console.log(valCH.join("\n"));
 check("chidobaValidate ohne Probleme", valCH.length, 0);
-check("Produkte laut Wolt Kaiserstraße: 4 Cups (Chicken/Beef 14,49 €, Filetsteak 16,99 €, Barbacoa 15,99 €), 3 Salate (15,69/15,69/18,49 €); Chili con Carne 8,49 €", chG(CHD.cup, "produkt").options.map(o => o.name + " " + o.price).sort().join("|") === "Barbacoa Cup 15.99|Beef Cup 14.49|Chicken Cup 14.49|Filetsteak Cup 16.99" && chG(CHD.salat, "produkt").options.map(o => o.name + " " + o.price).sort().join("|") === "Beef Salat 15.69|Chicken Salat 15.69|Filetsteak Salat 18.49" && chOpt(CHD.cup, "chili", "Chili con Carne").price === 8.49 && /Kaiserstraße/.test(rawCH._meta.sources.wolt.name), true);
-check("Nicht im Tracker: Veggie, Vegan und Planted Chicken (rohe Paprika & Zwiebeln ohne Werte); Korianderreis/Cilantro (Koriander); Chili Cream, Jalapeños … ohne Werte; Salsa Medium/Scharf = Mild", rawCH._meta.productNoData.length === 6 && ["Veggie Cup", "Vegan Salat", "Planted Chicken Cup"].every(n => rawCH._meta.productNoData.some(x => x.startsWith(n))) && rawCH._meta.never.some(x => /Korianderreis/.test(x)) && ["Chili Creme", "Jalapeños", "Habanero Sauce", "Tabasco", "Tortilla Strips"].every(n => rawCH._meta.noData.some(x => x.includes(n))) && rawCH._meta.sameValues.length === 2 && ![CHD.cup, CHD.salat].some(m => m.groups.some(g => g.options.some(o => /Koriander|Cilantro|Jalape|Medium|Scharf|Planted|Veggie|Vegan/.test(o.name)))), true);
-check("Cup: Basis Gewürzreis/Cubes (+ „Ohne Basis“), abwählbar nur Black Beans, fest gegrillte Paprika & rote Zwiebeln/Eisbergsalat/Limette/Cheddar Jack Cheese (Käse = sauce)", chG(CHD.cup, "basis").options.map(o => o.name).join() === "Gewürzreis,Cubes" && chG(CHD.cup, "basis").none === "Ohne Basis" && chG(CHD.cup, "zutaten").options.map(o => o.name).join() === "Black Beans" && CHD.cup.fixed.map(f => f.ing).join() === "gegrilltes_gemuese,eisbergsalat,cheddar_jack_cheese,limette" && chFix(CHD.cup, "cheddar_jack_cheese").sauce === true && chFix(CHD.cup, "limette").removeName === "Ohne Limette", true);
-check("Salat: Salat-Basis fest, California Dressing fest (sauce), Tortilla Strips immer abgewählt, keine Cheesesauce (Salat-Rechner ohne Wert)", CHD.salat.fixed[0].ing === "salatbasis" && CHD.salat.fixed[0].kcal === 39 && chFix(CHD.salat, "california_dressing").sauce === true && CHD.salat.removals.join() === "Ohne Tortilla Strips" && !chOpt(CHD.salat, "extras", "Cheesesauce") && !!chOpt(CHD.cup, "extras", "Cheesesauce") && !chG(CHD.salat, "basis").options.length, true);
-check("Werte je Produktart laut Rechner: Chicken Cup = Chicken 116,8 kcal / 19,6 g P; Salz = Natrium × 2,5; Barbacoa Cup 144 vs. Barbacoa-Extra im Salat 177,6 kcal (Auffälligkeit dokumentiert)", chOpt(CHD.cup, "produkt", "Chicken Cup").kcal === 116.8 && chOpt(CHD.cup, "produkt", "Chicken Cup").protein === 19.6 && Math.abs(chOpt(CHD.cup, "produkt", "Chicken Cup").salt - 0.566) < 1e-9 && chOpt(CHD.cup, "produkt", "Barbacoa Cup").kcal === 144 && chOpt(CHD.salat, "extras", "Barbacoa").kcal === 177.6 && rawCH._meta.anomalies.some(a => /Cup ↔ Salat/.test(a.name)) && rawCH._meta.anomalies.some(a => /Chili con Carne/.test(a.name)), true);
-check("_meta: Entscheidungen mit Datum, Koriander-Hinweise (frischer Koriander in Salsa + Guacamole), kein Schalentier", rawCH._meta.decisions.length === 8 && rawCH._meta.decisions.every(d => /^User 16[.]09[.]2026/.test(d)) && rawCH._meta.decisions.some(d => /Limette/.test(d)) && rawCH._meta.decisions.some(d => /Salsa Mild und Medium/.test(d)) && rawCH._meta.coriander.some(x => /Salsa Mild oder Medium: frischer Koriander/.test(x)) && rawCH._meta.coriander.some(x => /Guacamole: frischer Koriander/.test(x)) && /kein Baustein/.test(rawCH._meta.shellfish), true);
+check("Kategorien (User 27.09.2026): Hauptprodukte Cup, Salat, Burrito, Tacos (3×) · Snacks & Sides Quesadillas, Crunchwraps, Tostados, Chili con Carne — alle an außer Chili con Carne (bisher „Add Chili con carne“ AUS)",
+  CHD.cats.map(c => c.id + ":" + c.kind + ":" + c.on).join() === "cup:main:true,salat:main:true,burrito:main:true,taco:main:true,quesadillas:snack:true,crunchwraps:snack:true,tostados:snack:true,chili:snack:false" &&
+  CHD.cats.find(c => c.id === "taco").name === "Tacos (3×)", true);
+
+// ── Daten: Rechner (durchgeklickt) und Wolt ──
+check("Rechner durchgeklickt (User 27.09.2026): alle 150 Felder der 8 Rechner-Seiten einzeln an- und abgewählt — jede abgelesene Anzeige = Summe der data-Attribute (1198 von 1200 Zahlen exakt, 2× ±0,1 durch die Animation der Seite)", (() => {
+  const F = ["kcal", "fat", "sat", "carbs", "sugars", "protein", "fibre", "natrium"];
+  let rows = 0, exact = 0, off = 0, bad = 0;
+  for (const [type, ctl] of Object.entries(ctlCH.types)) {
+    const items = rawCH.calculator[type].flatMap(s => s.items), up = s => s.toLocaleUpperCase("de-DE");
+    const base = ctl.baseline.selected.map(l => items.find(i => !i.multi && up(i.label) === l));
+    for (const [sec, label, kind, isB, shown] of ctl.rows) {
+      const it = items.find(i => up(i.section) === up(sec) && up(i.label) === label);
+      if (!it || (kind === "c") !== it.multi) { bad++; continue; }
+      rows++;
+      const sel = isB ? base : it.multi ? base.concat([it]) : base.filter(b => b.section !== it.section).concat([it]);
+      shown.split("|").forEach((v, q) => { const want = Number(sel.reduce((a, x) => a + ((x.raw && x.raw[F[q]]) || 0), 0).toFixed(1)), d = Math.abs(parseFloat(v.replace(",", ".")) - want); if (d < 1e-9) exact++; else if (d <= 0.1 + 1e-9) off++; else bad++; });
+    }
+  }
+  const rc = rawCH._meta.rechnerControl;
+  return bad === 0 && rows === 150 && exact === 1198 && off === 2 && Object.keys(ctlCH.types).length === 8 && rc.fields === 150 && rc.values === 1200 && rc.exact === 1198 && rc.rounding.length === 2 && ctlCH._meta.readAt === "2026-09-27";
+})(), true);
+check("Produkte laut Wolt Kaiserstraße: 4 Cups, 3 Salate, 4 Burritos (Chicken/Beef 14,49 €, Filetsteak 16,99 €, Barbacoa 15,99 €), 6 Soft-Taco-Boxen (Chicken/Beef 13,69 €, Barbacoa 14,99 €, Mix 13,99 €, Veggie/Vegan 13,29 €)",
+  chG(CHD.cup, "produkt").options.map(o => o.name + " " + o.price).sort().join("|") === "Barbacoa Cup 15.99|Beef Cup 14.49|Chicken Cup 14.49|Filetsteak Cup 16.99" &&
+  chG(CHD.salat, "produkt").options.map(o => o.name + " " + o.price).sort().join("|") === "Beef Salat 15.69|Chicken Salat 15.69|Filetsteak Salat 18.49" &&
+  chG(CHD.burrito, "produkt").options.map(o => o.name + " " + o.price).sort().join("|") === "Barbacoa Burrito 15.99|Beef Burrito 14.49|Chicken Burrito 14.49|Filetsteak Burrito 16.99" &&
+  chG(CHD.taco, "produkt").options.map(o => o.name + " " + o.price).sort().join("|") === "3x Barbacoa Soft Taco 14.99|3x Beef Soft Taco 13.69|3x Chicken Soft Taco 13.69|3x Mix Soft Taco 13.99" &&
+  chOpt(CHD.taco_veggie, "produkt", "3 x Veggie Soft Taco").price === 13.29 && chOpt(CHD.taco_vegan, "produkt", "3x Vegan Soft Taco").price === 13.29 && /Kaiserstraße/.test(rawCH._meta.sources.wolt.name), true);
+check("Nicht im Tracker: Veggie/Vegan/Planted Cups, Salate und Burritos (rohe Paprika ohne Werte); einzelne Tacos (bei Wolt nur 3er); Chicken/Beef Cheese Quesadilla, Sweet Chicken und Chili & Bean Tostado, Lava Cheese Bites (keine Rechner-Werte); Fries und Chips (User 27.09.2026)",
+  rawCH._meta.productNoData.length === 9 && ["Veggie Cup", "Vegan Salat", "Planted Chicken Burrito", "Veggie Burrito"].every(n => rawCH._meta.productNoData.some(x => x.startsWith(n))) &&
+  ["Chicken Cheese Quesadilla", "Beef Cheese Quesadilla", "Sweet Chicken Tostado", "Chili & Bean Tostado", "Lava Cheese Bites"].every(n => rawCH._meta.snackNoData.some(x => x.startsWith(n))) && rawCH._meta.snackNoData.length === 5 &&
+  /Sour Cream/.test(rawCH._meta.snackNoData.find(x => x.startsWith("Chili & Bean"))) &&
+  ["Adobada Chili Cheese Fries", "Pepper Corn Fries", "Cajun Fries", "Tortilla Chips"].every(n => rawCH._meta.snackSkipped.some(x => x.startsWith(n))) &&
+  rawCH._meta.notOnWolt.some(x => /Taco 1er/.test(x)) && !CHD.snacks.some(s => /Fries|Chips|Lava|Sweet|Chili & Bean|Cheese Quesadilla$/.test(s.name) && !/^Cheese Quesadilla$/.test(s.name)), true);
+check("Ohne Werte bzw. nie: Korianderreis/Cilantro (Koriander); Chili Creme, Jalapeños, Chili con Carne und Planted Chicken als Extra, Habanero, Tabasco, Flavored Skin, Tortilla Strips, Cubes bei den Tacos; Salsa Medium/Scharf = Mild",
+  rawCH._meta.never.some(x => /Korianderreis/.test(x)) && rawCH._meta.never.some(x => /Cilantro/.test(x)) &&
+  ["Chili Creme", "Jalapeños", "Habanero", "Tabasco", "Tortilla Strips", "Flavored Skin"].every(n => rawCH._meta.noData.some(x => x.includes(n))) &&
+  rawCH._meta.noData.some(x => x.includes("„Chili con Carne“ (Deine Extras, +1,69 €)")) && rawCH._meta.noData.some(x => x.includes("„Planted Chicken“ (Deine Extras, +3,99 €)")) && rawCH._meta.noData.some(x => /„Cubes“ \(Deine Basis, Soft-Tacos/.test(x)) &&
+  rawCH._meta.sameValues.length === 2 && !CH_TYPES.some(tp => CHD[tp].groups.some(g => g.options.some(o => /Koriander|Cilantro|Jalape|Medium|Scharf|Planted|Habanero|Tabasco|Cajun|Ginger|Indian/.test(o.name)))), true);
+check("Cup: Basis Gewürzreis/Cubes (+ „Ohne Basis“), abwählbar nur Black Beans, fest gegrillte Paprika & rote Zwiebeln/Eisbergsalat/Limette/Cheddar Jack Cheese (Käse = sauce); Bestellfenster Basis → Zutaten → Cream → Salsa → Extras",
+  chG(CHD.cup, "basis").options.map(o => o.name).join() === "Gewürzreis,Cubes" && chG(CHD.cup, "basis").none === "Ohne Basis" && chG(CHD.cup, "zutaten").options.map(o => o.name).join() === "Black Beans" &&
+  CHD.cup.fixed.map(f => f.ing).join() === "gegrilltes_gemuese,eisbergsalat,cheddar_jack_cheese,limette" && chFix(CHD.cup, "cheddar_jack_cheese").sauce === true && chFix(CHD.cup, "limette").removeName === "Ohne Limette" &&
+  CHD.cup.steps.map(s => s.id + ":" + s.kind).join() === "basis:base,zutaten:standard,cream:choice,salsa:choice,extras:extras" &&
+  CHD.cup.steps[1].ohne.join() === "Ohne Black Beans,Ohne gegrillte Paprika & rote Zwiebeln,Ohne Eisbergsalat,Ohne Cheddar Jack Cheese,Ohne Limette" && chOpt(CHD.cup, "produkt", "Chicken Cup").dialog.join() === "basis,zutaten,cream,salsa,extras", true);
+check("Salat: Salat-Basis fest, California Dressing fest (sauce), Tortilla Strips immer abgewählt, keine Cheesesauce (Salat-Rechner ohne Wert), keine Basis", CHD.salat.fixed[0].ing === "salatbasis" && CHD.salat.fixed[0].kcal === 39 && !CHD.salat.fixed[0].removeName &&
+  chFix(CHD.salat, "california_dressing").sauce === true && CHD.salat.removals.join() === "Ohne Tortilla Strips" && !chOpt(CHD.salat, "extras", "Cheesesauce") && !!chOpt(CHD.cup, "extras", "Cheesesauce") && !chG(CHD.salat, "basis").options.length &&
+  CHD.salat.steps.find(s => s.id === "cream").name === "Deine Soße", true);
+check("Burrito (Bestellfenster wie in der Einfügung des Users): Tortilla immer (286,7 kcal), Basis = halbe Cup-Portion (Gewürzreis 171,6 / Cubes 135,6 kcal), „Mit Eisbergsalat“ dazunehmbar, Black Beans abwählbar, Flavored Skin ohne Werte (nie gewählt), Guacamole-Extra 1 Kugel",
+  chFix(CHD.burrito, "tortilla").kcal === 286.71 && !chFix(CHD.burrito, "tortilla").removeName && chOpt(CHD.burrito, "basis", "Gewürzreis").kcal === 171.59 && chOpt(CHD.burrito, "basis", "Cubes").kcal === 135.6 &&
+  chOpt(CHD.cup, "basis", "Gewürzreis").kcal === 343.18 && chG(CHD.burrito, "zutaten").options.map(o => o.name + ":" + (o.addName || o.removeName)).join() === "Eisbergsalat:Mit Eisbergsalat,Black Beans:Ohne Black Beans" &&
+  CHD.burrito.steps.map(s => s.id + ":" + s.kind).join() === "basis:base,zutaten:standard,cream:choice,salsa:choice,skin:skip,extras:extras" && CHD.burrito.steps.find(s => s.id === "skin").name === "Dein Flavored Skin" &&
+  CHD.burrito.steps[1].ohne.join() === "Mit Eisbergsalat,Ohne Black Beans,Ohne gegrillte Paprika & rote Zwiebeln,Ohne Cheddar Jack Cheese,Ohne Limette" && CHD.burrito.steps[1].max === 4 &&
+  chOpt(CHD.burrito, "extras", "Guacamole").kcal === 37.25 && chOpt(CHD.burrito, "produkt", "Chicken Burrito").kcal === chOpt(CHD.cup, "produkt", "Chicken Cup").kcal && rawCH._meta.infos.some(x => /halbe Cup-Portion/.test(x)), true);
+check("3er-Soft-Tacos (Rechner „Taco 3er“): 3 Soft-Tortillas fest (270 kcal), Chicken = 3 × Taco-1er-Chicken, Mix = Chicken + Beef + Barbacoa je ein Taco (142,43 kcal, enthält alle drei), Standard Eisbergsalat/Cheddar/Limette/Sour Cream (Sour Cream in „Wähle deine Cream“), keine Basis; Extras = die 3er-„(extra)“-Zeilen, Guacamole 3 Kugeln",
+  chFix(CHD.taco, "softtaco").kcal === 270 && chOpt(CHD.taco, "produkt", "3x Chicken Soft Taco").kcal === 140.16 && Math.abs(3 * chRow("Taco 1er", "Chicken", "Fleisch").perPortion.kcal - 140.16) < 0.011 &&
+  Math.abs(chOpt(CHD.taco, "produkt", "3x Mix Soft Taco").kcal - (46.72 + 47.71 + 48)) < 1e-9 && chOpt(CHD.taco, "produkt", "3x Mix Soft Taco").contains.join() === "chicken,beef,barbacoa" &&
+  CHD.taco.fixed.map(f => f.ing).join() === "softtaco,eisbergsalat,cheddar_jack_cheese,limette,sour_cream" && chFix(CHD.taco, "sour_cream").removeGroup === "tcream" && chFix(CHD.taco, "sour_cream").removeName === "ohne Sour Cream" && chFix(CHD.taco, "sour_cream").sauce === true &&
+  chFix(CHD.taco, "eisbergsalat").kcal === 19.5 && !chG(CHD.taco, "basis").options.length && !chG(CHD.taco, "zutaten").options.length && !chG(CHD.taco, "cream").options.length &&
+  chOpt(CHD.taco, "extras", "Beef").kcal === 143.14 && chOpt(CHD.taco, "extras", "Guacamole").kcal === 111.75 && chG(CHD.taco, "extras").name === "Wähle deine Extras" &&
+  chOpt(CHD.taco, "produkt", "3x Chicken Soft Taco").dialog.join() === "salsa,zutaten,tcream,extras" && chOpt(CHD.taco, "produkt", "3x Beef Soft Taco").dialog.join() === "zutaten,tcream,salsa,extras", true);
+check("Veggie/Vegan Soft Tacos: kein Fleisch (0 kcal), Guacamole (3 Kugeln) als Standard ohne sauce-Flag, Black Beans abwählbar, Basis nur Gewürzreis (174,5 kcal; Cubes ohne Taco-Wert); Veggie mit Cheddar + Sour Cream, Vegan ohne",
+  T.KEYS.every(k => chOpt(CHD.taco_veggie, "produkt", "3 x Veggie Soft Taco")[k] === 0) && chFix(CHD.taco_veggie, "guacamole").kcal === 111.75 && !chFix(CHD.taco_veggie, "guacamole").sauce && chFix(CHD.taco_veggie, "guacamole").removeName === "ohne Guacmole" &&
+  chG(CHD.taco_veggie, "zutaten").options.map(o => o.name).join() === "Black Beans" && chOpt(CHD.taco_veggie, "zutaten", "Black Beans").kcal === 47.67 && chG(CHD.taco_veggie, "basis").options.map(o => o.name + " " + o.kcal).join() === "Gewürzreis 174.5" &&
+  !!chFix(CHD.taco_veggie, "cheddar_jack_cheese") && !!chFix(CHD.taco_veggie, "sour_cream") && !chFix(CHD.taco_vegan, "cheddar_jack_cheese") && !chFix(CHD.taco_vegan, "sour_cream") &&
+  chOpt(CHD.taco_vegan, "produkt", "3x Vegan Soft Taco").dialog.join() === "basis,zutaten,salsa,extras", true);
+check("Snacks & Sides (User 27.09.2026): 12 Wolt-Artikel mit Rechner-Werten — 4 Quesadillas, 4 Crunchwraps, 3 Tostados, Chili con Carne; Werte = Rechner-Zeile, Preise laut Wolt, Chili mit Hinweis „keep Sour Cream and Tortilla Strips“",
+  CHD.snacks.length === 12 && ["quesadillas:4", "crunchwraps:4", "tostados:3", "chili:1"].every(x => { const [c, n] = x.split(":"); return CHD.snacks.filter(s => s.cat === c).length === +n; }) &&
+  CHD.snacks.every(s => { const r = chRow(s.cat === "quesadillas" ? "Sides" : "Snacks", s.name); return !!r && T.KEYS.every(k => Math.abs(s[k] - r.perPortion[k]) < 1e-9); }) &&
+  chSnack("Crunchwrap Beef").price === 11.99 && chSnack("Crunchwrap Barbacoa").price === 14.49 && chSnack("Cheese Quesadilla").price === 6.29 && chSnack("Verde Tostado").price === 8.39 && chSnack("Chili con Carne").price === 8.49 &&
+  chSnack("Crunchwrap Beef").kcal === 749.51 && chSnack("Crunchwrap Beef").protein === 31.97 && /keep Sour Cream and Tortilla Strips/.test(chSnack("Chili con Carne").orderNote) && CHD.snacks.filter(s => s.orderNote).length === 1, true);
+check("Auffälligkeiten dokumentiert (unverändert übernommen): Crunchwrap Veggie + Barbacoa (kcal ≠ Makros), Cup ↔ Salat, Taco 3er ≠ 3 × Taco 1er bei Salsa/Cheesesauce/Limette, Taco-Chicken ohne gesättigte Fettsäuren, Chili con Carne, niedriges Natrium",
+  ["Snacks / Crunchwrap Veggie", "Snacks / Crunchwrap Barbacoa", "Cup ↔ Salat", "Taco 3er ↔ Taco 1er", "Taco 3er / gesättigte Fettsäuren", "Snacks / Chili con Carne", "Natrium"].every(n => rawCH._meta.anomalies.some(a => a.name === n)) &&
+  !rawCH._meta.anomalies.some(a => a.name === "Cup ↔ Burrito") && /Salsa Mild oder Medium/.test(rawCH._meta.anomalies.find(a => a.name === "Taco 3er ↔ Taco 1er").issues[0]), true);
+check("_meta: Entscheidungen 16. und 27.09.2026, Annahmen (Mix-Taco, Veggie-Guacamole, Taco-Extras), Koriander-Hinweise (frischer Koriander in Salsa, Guacamole, Crunchwraps, Verde Tostado, Vegan Quesadilla), Wolt-Fenster durchgeklickt, kein Schalentier",
+  rawCH._meta.decisions.length === 9 && rawCH._meta.decisions.every(d => /^User (16|27)[.]09[.]2026/.test(d)) && rawCH._meta.decisions.filter(d => /^User 27/.test(d)).length === 2 &&
+  rawCH._meta.assumptions.some(a => /Mix Soft Taco/.test(a)) && rawCH._meta.assumptions.some(a => /3 Kugel Guacamole/.test(a)) &&
+  ["Salsa Mild oder Medium: frischer Koriander", "Crunchwrap Beef: frischer Koriander", "Verde Tostado: frischer Koriander", "Vegan Quesadilla: frischer Koriander"].every(x => rawCH._meta.coriander.some(c => c.includes(x))) &&
+  rawCH._meta.woltDialogs.checkedAt === "2026-09-27" && /kein Baustein/.test(rawCH._meta.shellfish), true);
+
+// ── Optimizer ──
 const stCH = T.defaultRestoState(CH);
-const chSt = (extra, sw) => ({ ...stCH, extra: { ...stCH.extra, ...(extra || {}) }, sw: { ...stCH.sw, ...(sw || {}) } });
+const chSt = (patch, sw, cats) => ({ ...stCH, ...(patch || {}), extra: { ...stCH.extra, ...((patch && patch.extra) || {}) }, sw: { ...stCH.sw, ...(sw || {}) }, cats: { ...stCH.cats, ...(cats || {}) } });
+const CH_MAINS_OFF = { cup: false, salat: false, burrito: false, taco: false };
 const runCH = (t, st, ex, inc, mode, p) => T.runOptimize(CH, t, mode || "macros", p || {}, st || stCH, new Set(ex || []), new Set(inc || []));
 const chOpts = r => [...r.parts.map(pt => pt.opt), r.side, r.dip].filter(Boolean);
-const chPrice = r => Math.round(chOpts(r).reduce((a, o) => a + o.price * 100, 0)) / 100;
+const chPrice = r => Math.round([...r.parts.flatMap(pt => Array(pt.qty).fill(pt.opt)), r.side, r.dip].filter(Boolean).reduce((a, o) => a + o.price * 100, 0)) / 100;
+const chItems = r => (r.type === "snacks" ? 0 : 1) + r.parts.filter(pt => pt.opt.group === "snacks").reduce((a, pt) => a + pt.qty, 0);
 const rCH = runCH(tDef);
-check("Defaults: Cup & Salat, max. 5 Extras; No sauce/cheese/dips AN, Add Chili con carne AUS", stCH.extra.types.length === 0 && stCH.extra.maxExtras === 5 && stCH.sw.noSauce === true && stCH.sw.addChili === false, true);
-check("Standard: genau 1 Produkt, keine Sauce/kein Käse/kein Chili, Käse und Limette abgewählt („Ohne …“), übrige Standard-Zutaten dabei, Preis = Σ", rCH.length > 0 && rCH.every(r => r.parts.filter(pt => pt.opt.group === "produkt").length === 1 && chOpts(r).every(o => !o.sauce && o.group !== "chili") && r.removed.includes("Ohne Cheddar Jack Cheese") && r.removed.includes("Ohne Limette") && !r.fixed.some(f => f.ing === "cheddar_jack_cheese" || f.ing === "limette") && r.fixed.some(f => f.ing === "gegrilltes_gemuese") && Math.abs(r.price - chPrice(r)) < 1e-9), true);
-check("Limette standardmäßig raus (User 16.09.2026): Datenflag nur bei Limette; als Pflicht bleibt sie (kein „Ohne Limette“); nicht in der Ausschluss-Liste, aber als Pflicht wählbar", ["cup", "salat"].every(tp => CHD[tp].fixed.filter(f => f.defaultOff).map(f => f.ing).join() === "limette") && (() => { const r = runCH(tDef, stCH, null, ["limette"]); return r.length > 0 && r.every(x => x.fixed.some(f => f.ing === "limette") && !x.removed.includes("Ohne Limette")); })() && !T.excludablesFor(CH).some(x => x.id === "limette") && T.includablesFor(CH).some(x => x.id === "limette" && x.role === "fixed"), true);
-check("Salsa Mild/Medium bei „No sauce/cheese/dips“ erlaubt (User 16.09.2026): Salsa ohne sauce-Flag, Sour Cream/Guacamole/Cheesesauce/Extra-Käse weiter gefiltert; Bestellname „Mild or Medium (your choice)“", (() => { const pass = T.switchPass(CH, stCH); const sal = chOpt(CHD.cup, "salsa", "Mild"); return pass(sal) && !sal.sauce && sal.short === "Salsa Mild/Medium" && sal.orderName === "Mild or Medium (your choice)" && ["cream", "extras"].every(g => chG(CHD.cup, g).options.filter(o => /Sour Cream|Guacamole|Cheesesauce|Cheddar/.test(o.name)).every(o => !pass(o))) && runCH(tgt(60, 70, 18)).some(r => chOpts(r).some(o => o.group === "salsa")); })(), true);
-check("keine Doppel-Anordnungen (Chicken Cup + Beef = Beef Cup + Chicken): Schlüssel eindeutig, günstigste bleibt", [tDef, tgt(80, 60, 25), tgt(100, 90, 30)].every(tt => { const r = runCH(tt); return r.length > 0 && new Set(r.map(T.bowlSameKey)).size === r.length; }), true);
-check("Add Chili con carne: AUS nie, AN möglich (höchstens 1×), Pflicht geht am Schalter vorbei", (() => { const tt = tgt(100, 140, 35); const off = runCH(tt), on = runCH(tt, chSt({}, { addChili: true })), pick = runCH(tDef, stCH, null, ["chili_con_carne"]); return off.every(r => !chOpts(r).some(o => o.group === "chili")) && on.some(r => chOpts(r).some(o => o.group === "chili")) && on.every(r => chOpts(r).filter(o => o.group === "chili").length <= 1) && pick.length > 0 && pick.every(r => chOpts(r).some(o => o.group === "chili")); })(), true);
-check("No sauce/cheese/dips AUS: Käse (und im Salat California Dressing) bleiben Standard, Sour Cream/Salsa möglich", (() => { const r = runCH(tgt(55, 60, 40), chSt({}, { noSauce: false })); return r.length > 0 && r.every(x => x.fixed.some(f => f.ing === "cheddar_jack_cheese") && !x.removed.includes("Ohne Cheddar Jack Cheese") && (x.type !== "salat" || x.fixed.some(f => f.ing === "california_dressing"))) && r.some(x => chOpts(x).some(o => o.group === "cream" || o.group === "salsa")); })(), true);
-check("Pflicht Cheddar Jack Cheese bei „No sauce“ AN: Standard-Käse bleibt (kein erzwungener Extra-Käse); Pflicht Guacamole in jeder Bestellung", (() => { const r = runCH(tDef, stCH, null, ["cheddar_jack_cheese", "guacamole"]); return r.length > 0 && r.every(x => x.fixed.some(f => f.ing === "cheddar_jack_cheese") && chOpts(x).some(o => o.ing === "guacamole")) && r.some(x => !chOpts(x).some(o => o.group === "extras" && o.ing === "cheddar_jack_cheese")); })(), true);
-check("Produkt-Chip Salat: nur Salate, „Ohne California Dressing“ + „Ohne Tortilla Strips“; Pflicht Gewürzreis → nur Cups", (() => { const s1 = runCH(tDef, chSt({ types: ["salat"] })); const c1 = runCH(tDef, stCH, null, ["gewuerzreis"]); return s1.length > 0 && s1.every(x => x.type === "salat" && x.removed.includes("Ohne California Dressing") && x.removed.includes("Ohne Tortilla Strips")) && c1.length > 0 && c1.every(x => x.type === "cup" && x.side && x.side.ing === "gewuerzreis"); })(), true);
-check("Ausschluss: Eisbergsalat → „Ohne Eisbergsalat“ (nur Cup); Chicken → weder Chicken Cup/Salat noch Chicken-Extra", (() => { const r = runCH(tDef, stCH, ["eisbergsalat"]); return r.length > 0 && r.every(x => x.type === "salat" || (x.removed.includes("Ohne Eisbergsalat") && !x.fixed.some(f => f.ing === "eisbergsalat"))); })() && runCH(tgt(90, 70, 25), chSt({ maxExtras: 6 }), ["chicken"]).every(r => !chOpts(r).some(o => o.ing === "chicken")), true);
-check("Preislimit 20 €: Ergebnisse, keines teurer", (() => { const r = runCH({ ...tDef, maxPrice: 20 }); return r.length > 0 && r.every(x => x.price <= 20 + 1e-9); })(), true);
-const selCH = { type: "cup", parts: [{ opt: chOpt(CHD.cup, "produkt", "Beef Cup"), qty: 1 }, { opt: chOpt(CHD.cup, "extras", "Chicken"), qty: 1 }, { opt: chOpt(CHD.cup, "chili", "Chili con Carne"), qty: 1 }], side: chOpt(CHD.cup, "basis", "Gewürzreis"), dip: null, fixed: CHD.cup.fixed.filter(f => f.ing !== "cheddar_jack_cheese"), removed: ["Ohne Cheddar Jack Cheese"], price: 0, nutrition: {} };
-check("Order Guide: Artikel → Deine Basis → Wähle deine Zutaten („Ohne Black Beans · Ohne Cheddar Jack Cheese“) → Cream/Salsa „Ohne …“ → Extras → Snack als 2. Artikel", CH.orderSteps(selCH).map(x => x.l + ": " + x.v).join(" | ") === "Item: Beef Cup | Deine Basis: Gewürzreis | Wähle deine Zutaten: Ohne Black Beans · Ohne Cheddar Jack Cheese | Deine Cream: Ohne Creme | Deine Salsa: Ohne Salsa | Deine Extras: Chicken | Snacks (2nd item): Chili con Carne", true);
-check("Order Guide Salat: ohne Basis-Schritt, „Deine Soße: Ohne Cream“, Tortilla Strips + Dressing abgewählt", (() => { const sel = { type: "salat", parts: [{ opt: chOpt(CHD.salat, "produkt", "Chicken Salat"), qty: 1 }, { opt: chOpt(CHD.salat, "zutaten", "Black Beans"), qty: 1 }], side: null, dip: null, fixed: [], removed: ["Ohne Cheddar Jack Cheese", "Ohne California Dressing", "Ohne Tortilla Strips"], price: 0, nutrition: {} }; const st1 = CH.orderSteps(sel); const v = l => (st1.find(x => x.l === l) || {}).v; return v("Deine Basis") === undefined && v("Wähle deine Zutaten") === "Ohne Cheddar Jack Cheese · Ohne Tortilla Strips · Ohne California Dressing" && v("Deine Soße") === "Ohne Cream"; })(), true);
-check("Order Guide wie das Wolt-Bestellfenster (User 16.09.2026): „Ohne …“ in Fenster-Reihenfolge (Cup: Black Beans, Paprika & Zwiebeln, Eisbergsalat, Cheddar, Limette · Salat: … Limette, Tortilla Strips, California Dressing), Salsa „Mild or Medium (your choice)“", (() => {
-  const cupOrder = "Ohne Black Beans,Ohne gegrillte Paprika & rote Zwiebeln,Ohne Eisbergsalat,Ohne Cheddar Jack Cheese,Ohne Limette", salOrder = "Ohne Black Beans,Ohne gegrillte Paprika & rote Zwiebeln,Ohne Cheddar Jack Cheese,Ohne Limette,Ohne Tortilla Strips,Ohne California Dressing";
-  const sel = { type: "cup", parts: [{ opt: chOpt(CHD.cup, "produkt", "Chicken Cup"), qty: 1 }, { opt: chOpt(CHD.cup, "salsa", "Mild"), qty: 1 }], side: null, dip: null, fixed: [], removed: ["Ohne Limette", "Ohne Eisbergsalat", "Ohne Cheddar Jack Cheese"], price: 0, nutrition: {} };
-  const st1 = CH.orderSteps(sel), v = l => (st1.find(x => x.l === l) || {}).v;
-  return CHD.cup.ohneOrder.join() === cupOrder && CHD.salat.ohneOrder.join() === salOrder && v("Wähle deine Zutaten") === "Ohne Black Beans · Ohne Eisbergsalat · Ohne Cheddar Jack Cheese · Ohne Limette" && v("Deine Salsa") === "Mild or Medium (your choice)" && v("Deine Basis") === "Ohne Basis" && v("Deine Cream") === "Ohne Creme"
-    && rawCH._meta.noData.some(x => x.includes("„Chili con Carne“ (Deine Extras, +1,69 €)")) && rawCH._meta.noData.some(x => x.includes("„Jalapeños“ (Deine Extras, +0,89 €)")) && rawCH._meta.noData.some(x => x.includes("„Planted Chicken“ (Deine Extras, +3,99 €)"));
+check("Defaults: alle Hauptprodukte + Quesadillas/Crunchwraps/Tostados an, Chili con Carne aus, Max. items 5, max. 5 Extras, No sauce/cheese/dips AN",
+  JSON.stringify(stCH.cats) === JSON.stringify({ cup: true, salat: true, burrito: true, taco: true, quesadillas: true, crunchwraps: true, tostados: true, chili: false }) && stCH.maxN === 5 && stCH.extra.maxExtras === 5 && stCH.sw.noSauce === true, true);
+check("Standard: höchstens ein Hauptprodukt je Bestellung, keine Sauce/kein Käse, Käse und Limette abgewählt („Ohne …“), kein Chili, höchstens 5 Artikel, Preis = Σ", rCH.length > 0 && rCH.every(r => r.parts.filter(pt => pt.opt.group === "produkt").length === (r.type === "snacks" ? 0 : 1) &&
+  chOpts(r).every(o => !o.sauce && o.ing !== "chili_con_carne") && (r.type === "snacks" || (r.removed.some(x => /^ohne Cheddar Jack( Cheese)?$/i.test(x)) && r.removed.some(x => /^ohne Limette$/i.test(x)) && !r.fixed.some(f => f.ing === "cheddar_jack_cheese" || f.ing === "limette"))) &&
+  chItems(r) <= 5 && Math.abs(r.price - chPrice(r)) < 1e-9), true);
+check("Kombinationen (User 27.09.2026, z.B. 3 Tacos + Snack): nur Tacos + Crunchwraps, 1100 kcal → Taco-Boxen mit Crunchwrap; jede Bestellung höchstens eine Taco-Box, Snacks auch mehrfach, Order Guide mit „+ Item“", (() => {
+  const st = chSt(null, null, { cup: false, salat: false, burrito: false, quesadillas: false, tostados: false });
+  const r = runCH(tgt(90, 100, 45), st, null, ["crunchwrap_chicken"]);
+  const big = runCH(tgt(150, 200, 70), chSt({ maxN: Infinity }, null, { cup: false, salat: false, burrito: false }));
+  return r.length > 0 && r.every(x => (x.type.startsWith("taco") || x.type === "snacks") && x.parts.some(pt => pt.opt.ing === "crunchwrap_chicken")) && r.some(x => x.type.startsWith("taco")) &&
+    r.filter(x => x.type.startsWith("taco")).every(x => { const st1 = CH.orderSteps(x); return /Soft Taco$/.test(st1[0].v) && st1.some(s => s.l === "+ Item" && /^\d× Crunchwrap Chicken$/.test(s.v)); }) &&
+    big.length > 0 && big.some(x => x.type !== "snacks" && x.parts.some(pt => pt.opt.group === "snacks" && pt.qty >= 1)) && big.every(x => chItems(x) <= T.CHIDOBA_ITEMS_CAP);
 })(), true);
-check("Zusammenfassung + Suche + Listen: „Beef Cup + Gewürzreis + Chicken + Chili con Carne“; Suche mit Produktart; Pflicht/Ausschluss ohne Salat-Basis", T.chidobaSummary(selCH) === "Beef Cup + Gewürzreis + Chicken + Chili con Carne" && T.SEARCH_INDEX.some(x => x.resto === "Chidoba (Wolt)" && x.name === "Chicken (Cup protein)" && x.kcal === 116.8) && T.SEARCH_INDEX.some(x => x.resto === "Chidoba (Wolt)" && x.name === "Chili con Carne (Snack)") && !T.includablesFor(CH).some(x => x.id === "salatbasis") && T.includablesFor(CH).find(x => x.id === "chicken").role === "protein" && T.excludablesFor(CH).some(x => x.id === "eisbergsalat") && T.excludablesFor(CH).every(x => x.defaultOff === undefined && x.role === undefined) && new Set(T.excludablesFor(CH).map(x => x.id)).size === T.excludablesFor(CH).length, true);
+check("Max. items per order: 1 → keine Snacks neben dem Hauptprodukt (nur Snacks: genau einer); 2 → höchstens ein Snack dazu; ∞ → höchstens 6 Artikel", (() => {
+  const t1 = tgt(100, 140, 45);
+  const one = runCH(t1, chSt({ maxN: 1 })), two = runCH(t1, chSt({ maxN: 2 })), inf = runCH(tgt(160, 240, 80), chSt({ maxN: Infinity }));
+  return one.length > 0 && one.every(r => chItems(r) === 1) && two.length > 0 && two.every(r => chItems(r) <= 2) && two.some(r => chItems(r) === 2) && inf.length > 0 && inf.every(r => chItems(r) <= 6) && T.chidobaItemsMax(chSt({ maxN: Infinity })) === 6;
+})(), true);
+check("Nur Snacks (alle Hauptprodukte aus): Bestellungen aus Snacks & Sides, auch mehrfach derselbe; Order Guide beginnt mit „Item: N× …“", (() => {
+  const r = runCH(tgt(60, 120, 40), chSt(null, null, { ...CH_MAINS_OFF, chili: true }));
+  return r.length > 0 && r.every(x => x.type === "snacks" && chItems(x) >= 1 && chItems(x) <= 5) && r.some(x => x.parts.some(pt => pt.qty > 1)) &&
+    r.every(x => { const s = CH.orderSteps(x); return s[0].l === "Item" && /^\d× /.test(s[0].v) && s.slice(1).every(y => y.l === "+ Item"); });
+})(), true);
+check("Kategorie-Chips: Chili con Carne aus → nie (außer Pflicht, auch bei ausgeschaltetem Chip); an → möglich; Snack-Kategorie aus → keine Snacks daraus", (() => {
+  const tt = tgt(100, 140, 40);
+  const off = runCH(tt), on = runCH(tt, chSt(null, null, { chili: true, quesadillas: false, crunchwraps: false, tostados: false })), pick = runCH(tDef, stCH, null, ["chili_con_carne"]);
+  const noQ = runCH(tgt(110, 170, 50), chSt(null, null, { quesadillas: false }));
+  return off.every(r => !chOpts(r).some(o => o.ing === "chili_con_carne")) && on.some(r => chOpts(r).some(o => o.ing === "chili_con_carne")) && pick.length > 0 && pick.every(r => chOpts(r).some(o => o.ing === "chili_con_carne")) &&
+    noQ.length > 0 && noQ.every(r => !chOpts(r).some(o => o.group === "snacks" && o.cat === "quesadillas"));
+})(), true);
+check("Produkt-Kategorien: nur Burrito → nur Burritos (+ Snacks); nur Salat → „Ohne California Dressing“ + „Ohne Tortilla Strips“; Pflicht Gewürzreis ohne Snacks → nur Produkte mit Basis", (() => {
+  const b = runCH(tDef, chSt(null, null, { cup: false, salat: false, taco: false }));
+  const s1 = runCH(tDef, chSt(null, null, { cup: false, burrito: false, taco: false, quesadillas: false, crunchwraps: false, tostados: false }));
+  const c1 = runCH(tDef, chSt(null, null, { quesadillas: false, crunchwraps: false, tostados: false }), null, ["gewuerzreis"]);
+  return b.length > 0 && b.every(x => x.type === "burrito" || x.type === "snacks") && b.some(x => x.type === "burrito") &&
+    s1.length > 0 && s1.every(x => x.type === "salat" && x.removed.includes("Ohne California Dressing") && x.removed.includes("Ohne Tortilla Strips")) &&
+    c1.length > 0 && c1.every(x => ["cup", "burrito", "taco_veggie", "taco_vegan"].includes(x.type) && x.side && x.side.ing === "gewuerzreis");
+})(), true);
+check("Limette standardmäßig raus (User 16.09.2026): nur Limette mit defaultOff; als Pflicht bleibt sie (kein „Ohne Limette“); nicht in der Ausschluss-Liste, aber als Pflicht wählbar",
+  CH_TYPES.every(tp => CHD[tp].fixed.filter(f => f.defaultOff).map(f => f.ing).join() === "limette") && (() => { const r = runCH(tDef, stCH, null, ["limette"]); return r.length > 0 && r.every(x => x.type !== "snacks" && x.fixed.some(f => f.ing === "limette") && !x.removed.some(y => /^ohne Limette$/i.test(y))); })() &&
+  !T.excludablesFor(CH).some(x => x.id === "limette") && T.includablesFor(CH).some(x => x.id === "limette" && x.role === "fixed"), true);
+check("Salsa Mild/Medium bei „No sauce/cheese/dips“ erlaubt (User 16.09.2026); Sour Cream/Guacamole/Cheesesauce/Extra-Käse gefiltert, bei den Tacos fällt die Standard-Sour-Cream weg („ohne Sour Cream“)", (() => {
+  const pass = T.switchPass(CH, stCH), sal = chOpt(CHD.cup, "salsa", "Mild");
+  const tacos = runCH(tDef, chSt(null, null, { cup: false, salat: false, burrito: false, quesadillas: false, crunchwraps: false, tostados: false }));
+  return pass(sal) && !sal.sauce && sal.short === "Salsa Mild/Medium" && sal.orderName === "Mild or Medium (your choice)" && ["cream", "extras"].every(g => chG(CHD.cup, g).options.filter(o => /Sour Cream|Guacamole|Cheesesauce|Cheddar/.test(o.name)).every(o => !pass(o))) &&
+    tacos.length > 0 && tacos.every(x => !x.fixed.some(f => f.ing === "sour_cream") && (x.type === "taco_vegan" || x.removed.includes("ohne Sour Cream"))) && runCH(tgt(60, 70, 18)).some(r => chOpts(r).some(o => o.group === "salsa"));
+})(), true);
+check("No sauce/cheese/dips AUS: Käse (Salat: + California Dressing, Tacos: + Sour Cream) bleibt Standard, Sour Cream/Salsa möglich", (() => {
+  const r = runCH(tgt(55, 60, 40), chSt(null, { noSauce: false }));
+  return r.length > 0 && r.filter(x => x.type !== "snacks" && x.type !== "taco_vegan").every(x => x.fixed.some(f => f.ing === "cheddar_jack_cheese") && !x.removed.some(y => /^ohne Cheddar/i.test(y)) && (x.type !== "salat" || x.fixed.some(f => f.ing === "california_dressing")) && (!x.type.startsWith("taco") || x.fixed.some(f => f.ing === "sour_cream"))) &&
+    r.some(x => chOpts(x).some(o => o.group === "cream" || o.group === "salsa"));
+})(), true);
+check("Pflicht Guacamole: Veggie-/Vegan-Tacos behalten ihre Standard-Guacamole, die übrigen bekommen das Guacamole-Extra; Pflicht Cheddar bei „No sauce“ AN hält den Standard-Käse", (() => {
+  const g = runCH(tgt(50, 90, 30), stCH, null, ["guacamole"]), c = runCH(tDef, stCH, null, ["cheddar_jack_cheese"]);
+  return g.length > 0 && g.every(x => x.type !== "snacks" && (x.fixed.some(f => f.ing === "guacamole") || chOpts(x).some(o => o.group === "extras" && o.ing === "guacamole"))) &&
+    c.length > 0 && c.every(x => x.type !== "snacks" && x.fixed.some(f => f.ing === "cheddar_jack_cheese"));
+})(), true);
+check("Pflicht-Snack: aus ausgeschalteter Kategorie möglich; bei Max. items 1 nur als einziger Artikel; Ausschluss eines Snacks → nie", (() => {
+  const a = runCH(tgt(90, 110, 40), chSt(null, null, { crunchwraps: false }), null, ["crunchwrap_barbacoa"]);
+  const one = runCH(tgt(40, 60, 40), chSt({ maxN: 1 }), null, ["crunchwrap_beef"]);
+  const ex = runCH(tgt(120, 180, 55), chSt({ maxN: Infinity }), ["crunchwrap_beef", "crunchwrap_chicken"]);
+  return a.length > 0 && a.every(x => x.parts.some(pt => pt.opt.ing === "crunchwrap_barbacoa")) && one.length > 0 && one.every(x => x.type === "snacks" && chItems(x) === 1) &&
+    ex.length > 0 && ex.every(x => !chOpts(x).some(o => o.ing === "crunchwrap_beef" || o.ing === "crunchwrap_chicken"));
+})(), true);
+check("Ausschluss: Eisbergsalat → „Ohne Eisbergsalat“ (Cup) bzw. „ohne Eisbergsalat“ (Tacos), beim Burrito kein „Mit Eisbergsalat“; Chicken → weder Chicken-Produkt noch -Extra noch Mix-Tacos", (() => {
+  const r = runCH(tDef, stCH, ["eisbergsalat"]);
+  const nc = runCH(tgt(90, 70, 25), chSt({ extra: { maxExtras: 6 } }), ["chicken"]);
+  return r.length > 0 && r.every(x => !x.fixed.some(f => f.ing === "eisbergsalat") && !chOpts(x).some(o => o.ing === "eisbergsalat") && (!(x.type === "cup" || x.type.startsWith("taco")) || x.removed.some(y => /^ohne Eisbergsalat$/i.test(y)))) &&
+    nc.length > 0 && nc.every(x => !chOpts(x).some(o => o.ing === "chicken" || o.ing === "mix_taco"));
+})(), true);
+check("Burrito „Mit Eisbergsalat“: der Optimizer darf ihn dazunehmen; er steht im Kartentitel und im Order Guide", (() => {
+  const r = runCH(tDef, chSt(null, null, { cup: false, salat: false, taco: false }));
+  const w = r.filter(x => x.parts.some(pt => pt.opt.addName));
+  return w.length > 0 && w.every(x => /Eisbergsalat/.test(T.chidobaSummary(x)) && CH.orderSteps(x).some(s => s.l === "Wähle deine Zutaten" && /^Mit Eisbergsalat/.test(s.v)));
+})(), true);
+check("keine Doppel-Anordnungen (Chicken Cup + Beef = Beef Cup + Chicken) und keine wertgleichen Veggie-/Vegan-Taco-Paare", [tDef, tgt(80, 60, 25), tgt(100, 90, 30), tgt(80, 110, 35)].every(tt => { const r = runCH(tt); return r.length > 0 && new Set(r.map(T.bowlSameKey)).size === r.length && new Set(r.map(x => x.menu.cat + "|" + T.KEYS.map(k => x.nutrition[k]).join("/") + "|" + x.price)).size === r.length; }), true);
+check("Preislimit 20 €: Ergebnisse, keines teurer (auch mit Snacks)", (() => { const r = runCH({ ...tDef, maxPrice: 20 }, chSt({ maxN: Infinity })); return r.length > 0 && r.every(x => x.price <= 20 + 1e-9); })(), true);
+
+// ── Order Guide je Kategorie (Wolt-Bestellfenster, durchgeklickt am 27.09.2026) ──
+const chSel = (tp, prodName, more, side, removed, fixed) => { const m = CHD[tp]; return { type: tp, menu: Object.assign({}, m, { groups: [...m.groups, { id: "snacks", name: "Snacks & sides", min: 0, max: 4, none: null, options: CHD.snacks.map(s => Object.assign({}, s, { group: "snacks", role: "base", maxQty: 4 })) }] }), parts: [{ opt: chOpt(m, "produkt", prodName), qty: 1 }, ...(more || [])], side: side || null, dip: null, fixed: fixed || m.fixed, removed: removed || [], price: 0, nutrition: {} }; };
+const snackPart = (name, qty) => ({ opt: Object.assign({}, chSnack(name), { group: "snacks", role: "base" }), qty: qty || 1 });
+const guide = sel => CH.orderSteps(sel).map(x => x.l + ": " + x.v).join(" | ");
+check("Order Guide Cup: Artikel → Deine Basis → Wähle deine Zutaten („Ohne Black Beans · Ohne Cheddar Jack Cheese“) → Cream/Salsa „Ohne …“ → Extras → Snack als weiterer Artikel mit Menge und Hinweis",
+  guide(chSel("cup", "Beef Cup", [{ opt: chOpt(CHD.cup, "extras", "Chicken"), qty: 1 }, snackPart("Chili con Carne")], chOpt(CHD.cup, "basis", "Gewürzreis"), ["Ohne Cheddar Jack Cheese"])) ===
+  "Item: Beef Cup | Deine Basis: Gewürzreis | Wähle deine Zutaten: Ohne Black Beans · Ohne Cheddar Jack Cheese | Deine Cream: Ohne Creme | Deine Salsa: Ohne Salsa | Deine Extras: Chicken | + Item: 1× Chili con Carne — keep Sour Cream and Tortilla Strips (both are in the values)", true);
+check("Order Guide Salat: ohne Basis-Schritt, „Deine Soße: Ohne Cream“, Tortilla Strips + Dressing abgewählt (Fenster-Reihenfolge)",
+  guide(chSel("salat", "Chicken Salat", [{ opt: chOpt(CHD.salat, "zutaten", "Black Beans"), qty: 1 }], null, ["Ohne Cheddar Jack Cheese", "Ohne California Dressing", "Ohne Tortilla Strips"])) ===
+  "Item: Chicken Salat | Wähle deine Zutaten: Ohne Cheddar Jack Cheese · Ohne Tortilla Strips · Ohne California Dressing | Deine Soße: Ohne Cream | Deine Salsa: Ohne Salsa", true);
+check("Order Guide Burrito (wie das Bestellfenster in der Einfügung des Users): Basis → Zutaten („Mit Eisbergsalat · Ohne Black Beans …“) → Cream → Salsa → Extras; Flavored Skin bleibt leer",
+  guide(chSel("burrito", "Chicken Burrito", [{ opt: chOpt(CHD.burrito, "zutaten", "Eisbergsalat"), qty: 1 }, { opt: chOpt(CHD.burrito, "salsa", "Mild"), qty: 1 }, { opt: chOpt(CHD.burrito, "extras", "Filetsteak"), qty: 1 }], chOpt(CHD.burrito, "basis", "Cubes"), ["Ohne Cheddar Jack Cheese", "Ohne Limette"])) ===
+  "Item: Chicken Burrito | Deine Basis: Cubes | Wähle deine Zutaten: Mit Eisbergsalat · Ohne Black Beans · Ohne Cheddar Jack Cheese · Ohne Limette | Deine Cream: Ohne Creme | Deine Salsa: Mild or Medium (your choice) | Deine Extras: Filetsteak", true);
+check("Order Guide Tacos je Produkt in dessen Fenster-Reihenfolge: 3x Chicken (Salsa zuerst) und 3x Beef (Zutaten → Cream → Salsa); „Wähle deine Cream: ohne Sour Cream“", (() => {
+  const rem = ["ohne Cheddar Jack", "ohne Limette", "ohne Sour Cream"];
+  const c = guide(chSel("taco", "3x Chicken Soft Taco", [{ opt: chOpt(CHD.taco, "salsa", "Mild"), qty: 1 }, { opt: chOpt(CHD.taco, "extras", "Chicken"), qty: 1 }], null, rem));
+  const b = guide(chSel("taco", "3x Beef Soft Taco", [snackPart("Crunchwrap Beef", 2)], null, rem));
+  return c === "Item: 3x Chicken Soft Taco | Wähle deine Salsa: Mild or Medium (your choice) | Wähle deine Zutaten: ohne Cheddar Jack · ohne Limette | Wähle deine Cream: ohne Sour Cream | Wähle deine Extras: Chicken" &&
+    b === "Item: 3x Beef Soft Taco | Wähle deine Zutaten: ohne Cheddar Jack · ohne Limette | Wähle deine Cream: ohne Sour Cream | Wähle deine Salsa: Ohne Salsa | + Item: 2× Crunchwrap Beef";
+})(), true);
+check("Order Guide Veggie Soft Tacos: Zutaten → Basis → Cream → Salsa (Reihenfolge laut Wolt); nur Snacks: erster Snack = Artikel", guide(chSel("taco_veggie", "3 x Veggie Soft Taco", [], chOpt(CHD.taco_veggie, "basis", "Gewürzreis"), ["Ohne Cheddar Jack Cheese", "ohne Limette", "ohne Sour Cream"])) ===
+  "Item: 3 x Veggie Soft Taco | Wähle deine Zutaten: ohne Black Beans · Ohne Cheddar Jack Cheese · ohne Limette | Deine Basis: Gewürzreis | Wähle deine Cream: ohne Sour Cream | Wähle deine Salsa: Ohne Salsa" &&
+  guide({ type: "snacks", menu: T.chidobaSnackMenu(4, stCH, null, null), parts: [snackPart("Crunchwrap Beef", 2), snackPart("Chili con Carne")], side: null, dip: null, fixed: [], removed: [] }) === "Item: 2× Crunchwrap Beef | + Item: 1× Chili con Carne — keep Sour Cream and Tortilla Strips (both are in the values)", true);
+check("Zusammenfassung + Suche + Listen: „Beef Cup + Gewürzreis + Chicken + Chili con Carne“; Suche mit Produktart und Snacks, ohne Nullwerte; Listen mit Snacks (Rolle base, Gruppe = Kategorie), ohne Salat-Basis/Tortillas", (() => {
+  const s = T.chidobaSummary(chSel("cup", "Beef Cup", [{ opt: chOpt(CHD.cup, "extras", "Chicken"), qty: 1 }, snackPart("Chili con Carne")], chOpt(CHD.cup, "basis", "Gewürzreis")));
+  const idx = T.SEARCH_INDEX.filter(x => x.resto === "Chidoba (Wolt)"), inc = T.includablesFor(CH), ex = T.excludablesFor(CH);
+  return s === "Beef Cup + Gewürzreis + Chicken + Chili con Carne" && idx.some(x => x.name === "Chicken (Cup protein)" && x.kcal === 116.8) && idx.some(x => x.name === "Chicken (Tacos protein)" && x.kcal === 140.16) &&
+    idx.some(x => x.name === "Crunchwrap Beef (Snack)") && idx.some(x => x.name === "Cheese Quesadilla (Side)") && idx.some(x => x.name === "Chili con Carne (Snack)") && idx.some(x => x.name === "Salsa Mild/Medium (Cup)") &&
+    !idx.some(x => /Veggie Soft Tacos|Vegan Soft Tacos/.test(x.name)) && idx.every(x => x.kcal > 0 || x.protein > 0 || x.carbs > 0 || x.fat > 0) &&
+    inc.find(x => x.id === "crunchwrap_beef").role === "base" && inc.find(x => x.id === "crunchwrap_beef").group === "Crunchwraps" && inc.find(x => x.id === "chicken").role === "protein" && inc.find(x => x.id === "mix_taco").name === "Mix Soft Tacos" &&
+    !inc.some(x => ["salatbasis", "tortilla", "softtaco"].includes(x.id)) && ex.every(x => x.defaultOff === undefined && x.role === undefined) && new Set(ex.map(x => x.id)).size === ex.length && inc.length === 31;
+})(), true);
+check("Karten-Untertitel: Burrito mit Basis/Beans/Cream/Salsa/Extras, Tacos mit „no sour cream“, Snacks nur mit Artikelzahl", (() => {
+  global.__h = (type, props, ...children) => ({ type, props: props || {}, children });
+  const sub = sel => T.chidobaCard(Object.assign({ key: "x", nutrition: T.sumN([], 1), price: 0 }, sel), { selected: false, onSelect: () => {} }).props.sub;
+  const b = sub(chSel("burrito", "Beef Burrito", [], chOpt(CHD.burrito, "basis", "Gewürzreis"), [], CHD.burrito.fixed));
+  const tc = sub(chSel("taco", "3x Beef Soft Taco", [snackPart("Crunchwrap Beef", 2)], null, ["ohne Sour Cream"], CHD.taco.fixed.filter(f => f.ing !== "sour_cream")));
+  const sn = sub({ type: "snacks", menu: T.chidobaSnackMenu(4, stCH), parts: [snackPart("Crunchwrap Beef", 2)], side: null, dip: null, fixed: [], removed: [] });
+  global.__h = null;
+  return b === "Burrito · Gewürzreis · no beans · no cream · no salsa · 0 extras" && tc === "Tacos · no sour cream · no salsa · 0 extras · + 2 snacks" && sn === "Snacks & sides only · 2 items";
+})(), true);
+check("Config-Karte: Chips „Main product“ + „Snacks & sides“, „Max. items per order“ 1/2/3/5/∞, „Max. extras per main product“", (() => {
+  global.__h = (type, props, ...children) => ({ type, props: props || {}, children });
+  const labels = [], texts = []; const walk = n => { if (n == null || n === false) return; if (Array.isArray(n)) return n.forEach(walk); if (typeof n !== "object") return texts.push(String(n)); if (n.props && n.props.label) labels.push(n.props.label + ":" + !!n.props.active); walk(n.children); };
+  walk(T.chidobaConfigCard({ st: stCH, update: () => {} }, "x"));
+  global.__h = null;
+  return labels.join() === "Cup:true,Salat:true,Burrito:true,Tacos (3×):true,Quesadillas:true,Crunchwraps:true,Tostados:true,Chili con Carne:false,1:false,2:false,3:false,5:true,∞:false,0:false,1:false,2:false,3:false,4:false,5:true,6:false" &&
+    ["Main product (at most one per order — optimizer chooses the best)", "Snacks & sides (added as they are, also several)", "Max. items per order", "Max. extras per main product"].every(x => texts.includes(x));
+})(), true);
 check("All: Chidoba mit einem Treffer und Preis", (() => { const a = T.optimizeAll(tDef, "macros", {}, 5, false); return a.filter(r => r._resto === "chidoba").length === 1 && typeof a.find(r => r._resto === "chidoba").price === "number"; })(), true);
-// Exaktheit: je Produktart vorbereitetes Menü vollständig durchrechnen, Ranglisten mischen
+// Exaktheit: die Menüs einer Suche (Hauptprodukte mit Snack-Gruppe + „nur Snacks“) vollständig durchrechnen, Ranglisten mischen
 const chRaw = (menus, tt, md, pp, oo) => T.chidobaCombos(menus, tt, md, pp, Object.assign({ maxMs: Infinity }, oo, { raw: true })).map(r => r.rawScore);
 const chEx = (menus, tt, md, pp, oo) => menus.flatMap(m => exhaustiveBowl(m, tt, md, pp, Object.assign({}, oo, { include: oo.includeFor ? oo.includeFor(m) : oo.include }))).sort((a, b) => a - b).slice(0, 30);
-const chPass = st => T.switchPass(CH, st);
-const chCases = [[["cup", "salat"], tDef, "macros", {}, stCH, []], [["cup", "salat"], kcalT(750), "calories", { hp: true, lf: true }, chSt({}, { addChili: true }), []], [["cup"], tgt(70, 100, 40), "macros", {}, chSt({}, { noSauce: false }), ["guacamole"]], [["salat"], kcalT(550), "calories", {}, stCH, ["black_beans"]], [["cup", "salat"], tgt(90, 120, 30), "macros", {}, chSt({}, { addChili: true }), ["chili_con_carne"]]];
+const chCases = [
+  [["cup", "salat"], tDef, "macros", {}, stCH, [], 3],
+  [["burrito", "taco"], kcalT(900), "calories", { hp: true, lf: true }, chSt(null, null, { quesadillas: false, tostados: false }), [], 3],
+  [["taco", "taco_veggie"], tgt(90, 110, 40), "macros", {}, chSt(null, { noSauce: false }, { crunchwraps: true }), ["crunchwrap_beef"], 3],
+  [["cup"], tgt(70, 100, 40), "macros", {}, chSt(null, { noSauce: false }), ["guacamole"], 2],
+  [[], tgt(60, 120, 45), "macros", {}, chSt(null, null, { chili: true }), [], 4],
+  [["salat", "taco_vegan"], kcalT(1200), "calories", {}, stCH, ["black_beans"], 3],
+];
 let exCH = 0;
-for (const [types, tt, md, pp, st, inc] of chCases) {
-  const picks = new Set(inc), menus = types.map(tp => T.chidobaMenu(tp, st.sw, null, picks)), pass = chPass(st);
-  const oo = { cap: 1, maxExtras: 3, includeFor: m => inc.filter(id => !m.fixed.some(f => f.ing === id)), keep: x => picks.has(x.ing) || pass(x) };
+for (const [types, tt, md, pp, st, inc, K] of chCases) {
+  const picks = new Set(inc), pass = T.switchPass(CH, st);
+  const menus = types.map(tp => T.chidobaMenu(tp, st.sw, null, picks, K - 1, st)).concat([T.chidobaSnackMenu(K, st, null, picks)]);
+  const oo = { cap: K, maxExtras: 3, includeFor: m => inc.filter(id => !m.fixed.some(f => f.ing === id)), keep: x => picks.has(x.ing) || pass(x) };
   if (sameTop(chRaw(menus, tt, md, pp, oo), chEx(menus, tt, md, pp, oo))) exCH++;
 }
-check("Chidoba exakt: Top 30 = vollständige Durchrechnung je Produktart (Schalter, Chili, Pflicht; 5 Fälle)", exCH, chCases.length);
-check("Laufzeit: Standard und mit Saucen + Chili + 6 Extras im Zeitbudget (kein approx)", !rCH.approx && !runCH(tgt(120, 170, 50), chSt({ maxExtras: 6 }, { noSauce: false, addChili: true })).approx && !runCH(kcalT(1300), chSt({ maxExtras: 6 }, { noSauce: false, addChili: true }), null, null, "calories", { hp: true }).approx, true);
+check("Chidoba exakt: Top 30 = vollständige Durchrechnung aller Menüs einer Suche inkl. Snacks (Kategorien, Schalter, Pflicht, nur Snacks; 6 Fälle)", exCH, chCases.length);
+check("Laufzeit: Standard, ∞ Artikel mit Saucen und 6 Extras sowie Kalorien-Modus mit Präferenzen im Zeitbudget (kein approx)", (() => {
+  const a = runCH(tgt(120, 170, 50), chSt({ maxN: Infinity, extra: { maxExtras: 6 } }, { noSauce: false }, { chili: true }));
+  const b = runCH(kcalT(1300), chSt({ maxN: Infinity, extra: { maxExtras: 6 } }, { noSauce: false }, { chili: true }), null, null, "calories", { hp: true });
+  const c = runCH(kcalT(700), chSt({ maxN: 3 }), null, null, "calories", { lc: true, hf: true });
+  return !rCH.approx && a.length > 0 && !a.approx && b.length > 0 && !b.approx && c.length > 0 && !c.approx;
+})(), true);
 
 // ── Lorys Gymfood (Wolt, à la carte) ──
 sect("Lorys Gymfood (Wolt, à la carte)");
