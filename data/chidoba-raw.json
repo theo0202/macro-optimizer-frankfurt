@@ -1,7 +1,7 @@
 {
   "_meta": {
     "restaurant": "chidoba MEXICAN GRILL",
-    "fetchedAt": "2026-09-27T07:18:33.699Z",
+    "fetchedAt": "2026-09-27T08:20:56.390Z",
     "sources": {
       "nutrition": {
         "calculator": "https://www.chidoba.com/nutrition?type=%7BProduktart%7D",
@@ -35,7 +35,8 @@
       "User 16.09.2026: Salsa Mild und Medium auch bei „No sauce/cheese/dips“ erlaubt (gleiche Rechner-Zeile → Order Guide „Mild or Medium“)",
       "User 16.09.2026: Bestellfenster Chicken Cup / Chicken Salat abgeglichen (Gruppen, Grenzen, „Ohne …“-Reihenfolge, Extras-Preise) — der Order Guide folgt ihm",
       "User 27.09.2026: dazu Burrito, Taco 1er und Taco 3er sowie alle Snacks und Sides außer Fries und Chips; eigene Kategorien für Snacks und Sides (Quesadillas, Crunchwraps, Tostados, Chili con Carne); Produktkategorien weiter einzeln wählbar, bei mehreren Kategorien Kombinationen (z.B. 3 Tacos + Snack) mit „Max. items per order“",
-      "User 27.09.2026: jede Zutat im Rechner einzeln an- und abwählen (data/chidoba-rechner.json) und jedes Wolt-Bestellfenster durchklicken, um die Bestellanleitung je Kategorie zu bauen"
+      "User 27.09.2026: jede Zutat im Rechner einzeln an- und abwählen (data/chidoba-rechner.json) und jedes Wolt-Bestellfenster durchklicken, um die Bestellanleitung je Kategorie zu bauen",
+      "User 27.09.2026: Crunchwrap Veggie und Crunchwrap Barbacoa gesperrt — ihre kcal passen nicht zu den Makros (bleiben mit Grund im Datensatz, _meta.blocked)"
     ],
     "assumptions": [
       "„No Sauce/Cheese/Dips“ wählt auch die Standard-Zutaten Cheddar Jack Cheese, (Salat) California Dressing und (Tacos) Sour Cream ab",
@@ -109,8 +110,8 @@
       "Hot Pepper Quesadilla 7.49 € (quesadillas)",
       "Crunchwrap Beef 11.99 € (crunchwraps)",
       "Crunchwrap Chicken 11.99 € (crunchwraps)",
-      "Crunchwrap Veggie 11.99 € (crunchwraps)",
-      "Crunchwrap Barbacoa 14.49 € (crunchwraps)",
+      "Crunchwrap Veggie 11.99 € (crunchwraps, gesperrt)",
+      "Crunchwrap Barbacoa 14.49 € (crunchwraps, gesperrt)",
       "Verde Tostado 8.39 € (tostados)",
       "Beef Cheese Tostado 8.39 € (tostados)",
       "Chicken Cheese Tostado 8.39 € (tostados)",
@@ -134,6 +135,10 @@
       "Taco 1er (einzelner Taco) und Maistaco (Hard Shell): bei Wolt Kaiserstraße nur „3x … Soft Taco“ — der Taco-1er-Rechner liefert nur die Werte des Mix-Tacos",
       "Rechner-Zeilen ohne Wolt-Option: Reis halb/halb, Reis (bei Veggie Burrito), Planted Chicken (Fleisch), 2 Kugel Guacamole",
       "Crunchwrap Chili Cheese, Chili Cheese Quesadilla, Chili Cheese Tostado (Rechner) — bei Wolt nicht als solche bestellbar"
+    ],
+    "blocked": [
+      "Crunchwrap Veggie (crunchwraps) — User 27.09.2026: gesperrt — 764 kcal passen nicht zu 84,32 g KH, 33,75 g Eiweiß, 44,45 g Fett (4·KH + 4·E + 9·F = 872 kcal, -12 %)",
+      "Crunchwrap Barbacoa (crunchwraps) — User 27.09.2026: gesperrt — 781 kcal passen nicht zu 67,92 g KH, 51,83 g Eiweiß, 45,08 g Fett (4·KH + 4·E + 9·F = 885 kcal, -12 %)"
     ],
     "rechnerControl": {
       "readAt": "2026-09-27",
@@ -8855,7 +8860,8 @@
               "Tabasco"
             ]
           }
-        ]
+        ],
+        "blocked": "User 27.09.2026: gesperrt — 764 kcal passen nicht zu 84,32 g KH, 33,75 g Eiweiß, 44,45 g Fett (4·KH + 4·E + 9·F = 872 kcal, -12 %)"
       },
       {
         "name": "Crunchwrap Barbacoa",
@@ -8884,7 +8890,8 @@
               "Tabasco"
             ]
           }
-        ]
+        ],
+        "blocked": "User 27.09.2026: gesperrt — 781 kcal passen nicht zu 67,92 g KH, 51,83 g Eiweiß, 45,08 g Fett (4·KH + 4·E + 9·F = 885 kcal, -12 %)"
       },
       {
         "name": "Verde Tostado",

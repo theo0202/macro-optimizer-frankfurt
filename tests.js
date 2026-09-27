@@ -1214,16 +1214,27 @@ check("Veggie/Vegan Soft Tacos: kein Fleisch (0 kcal), Guacamole (3 Kugeln) als 
   chG(CHD.taco_veggie, "zutaten").options.map(o => o.name).join() === "Black Beans" && chOpt(CHD.taco_veggie, "zutaten", "Black Beans").kcal === 47.67 && chG(CHD.taco_veggie, "basis").options.map(o => o.name + " " + o.kcal).join() === "Gewürzreis 174.5" &&
   !!chFix(CHD.taco_veggie, "cheddar_jack_cheese") && !!chFix(CHD.taco_veggie, "sour_cream") && !chFix(CHD.taco_vegan, "cheddar_jack_cheese") && !chFix(CHD.taco_vegan, "sour_cream") &&
   chOpt(CHD.taco_vegan, "produkt", "3x Vegan Soft Taco").dialog.join() === "basis,zutaten,salsa,extras", true);
-check("Snacks & Sides (User 27.09.2026): 12 Wolt-Artikel mit Rechner-Werten — 4 Quesadillas, 4 Crunchwraps, 3 Tostados, Chili con Carne; Werte = Rechner-Zeile, Preise laut Wolt, Chili mit Hinweis „keep Sour Cream and Tortilla Strips“",
-  CHD.snacks.length === 12 && ["quesadillas:4", "crunchwraps:4", "tostados:3", "chili:1"].every(x => { const [c, n] = x.split(":"); return CHD.snacks.filter(s => s.cat === c).length === +n; }) &&
+check("Snacks & Sides (User 27.09.2026): 12 Wolt-Artikel mit Rechner-Werten, 10 im Tracker — 4 Quesadillas, 2 Crunchwraps, 3 Tostados, Chili con Carne; Werte = Rechner-Zeile, Preise laut Wolt, Chili mit Hinweis „keep Sour Cream and Tortilla Strips“",
+  rawCH.wolt.snacks.length === 12 && CHD.snacks.length === 10 && ["quesadillas:4", "crunchwraps:2", "tostados:3", "chili:1"].every(x => { const [c, n] = x.split(":"); return CHD.snacks.filter(s => s.cat === c).length === +n; }) &&
   CHD.snacks.every(s => { const r = chRow(s.cat === "quesadillas" ? "Sides" : "Snacks", s.name); return !!r && T.KEYS.every(k => Math.abs(s[k] - r.perPortion[k]) < 1e-9); }) &&
-  chSnack("Crunchwrap Beef").price === 11.99 && chSnack("Crunchwrap Barbacoa").price === 14.49 && chSnack("Cheese Quesadilla").price === 6.29 && chSnack("Verde Tostado").price === 8.39 && chSnack("Chili con Carne").price === 8.49 &&
+  chSnack("Crunchwrap Beef").price === 11.99 && rawCH.wolt.snacks.find(s => s.name === "Crunchwrap Barbacoa").price === 14.49 && chSnack("Cheese Quesadilla").price === 6.29 && chSnack("Verde Tostado").price === 8.39 && chSnack("Chili con Carne").price === 8.49 &&
   chSnack("Crunchwrap Beef").kcal === 749.51 && chSnack("Crunchwrap Beef").protein === 31.97 && /keep Sour Cream and Tortilla Strips/.test(chSnack("Chili con Carne").orderNote) && CHD.snacks.filter(s => s.orderNote).length === 1, true);
+check("Gesperrt (User 27.09.2026 „Ja nimm sie raus“): Crunchwrap Veggie und Crunchwrap Barbacoa — genau die Snacks, deren kcal laut checkItem nicht zu den Makros passen; mit Grund im Datensatz, aber nicht im Block, in Suche und Listen; als Pflicht → missing", (() => {
+  const blocked = rawCH.wolt.snacks.filter(s => s.blocked).map(s => s.name);
+  const flagged = rawCH._meta.anomalies.filter(a => a.name.startsWith("Snacks / ") && a.issues.some(i => /^kcal .* ≠ 4·C\+4·P\+9·F/.test(i))).map(a => a.name.slice(9));
+  const miss = T.runOptimize(CH, tDef, "macros", {}, T.defaultRestoState(CH), new Set(), new Set(["crunchwrap_veggie"]));
+  return blocked.join() === "Crunchwrap Veggie,Crunchwrap Barbacoa" && flagged.slice().sort().join() === blocked.slice().sort().join() &&
+    rawCH._meta.blocked.length === 2 && rawCH._meta.blocked.every(b => /User 27[.]09[.]2026: gesperrt/.test(b)) && /872 kcal/.test(rawCH._meta.blocked[0]) && /885 kcal/.test(rawCH._meta.blocked[1]) &&
+    !CHD.snacks.some(s => /Crunchwrap (Veggie|Barbacoa)/.test(s.name)) && !CHD.ingredients.some(x => /crunchwrap_(veggie|barbacoa)/.test(x.id)) &&
+    !T.SEARCH_INDEX.some(x => x.resto === "Chidoba (Wolt)" && /Crunchwrap (Veggie|Barbacoa)/.test(x.name)) && !T.includablesFor(CH).some(x => /crunchwrap_(veggie|barbacoa)/.test(x.id)) &&
+    !T.excludablesFor(CH).some(x => /crunchwrap_(veggie|barbacoa)/.test(x.id)) && miss.length === 0 && Array.isArray(miss.missing) && miss.missing.includes("crunchwrap_veggie") &&
+    /Crunchwrap Veggie and Crunchwrap Barbacoa/.test(T.CHIDOBA_NOTE);
+})(), true);
 check("Auffälligkeiten dokumentiert (unverändert übernommen): Crunchwrap Veggie + Barbacoa (kcal ≠ Makros), Cup ↔ Salat, Taco 3er ≠ 3 × Taco 1er bei Salsa/Cheesesauce/Limette, Taco-Chicken ohne gesättigte Fettsäuren, Chili con Carne, niedriges Natrium",
   ["Snacks / Crunchwrap Veggie", "Snacks / Crunchwrap Barbacoa", "Cup ↔ Salat", "Taco 3er ↔ Taco 1er", "Taco 3er / gesättigte Fettsäuren", "Snacks / Chili con Carne", "Natrium"].every(n => rawCH._meta.anomalies.some(a => a.name === n)) &&
   !rawCH._meta.anomalies.some(a => a.name === "Cup ↔ Burrito") && /Salsa Mild oder Medium/.test(rawCH._meta.anomalies.find(a => a.name === "Taco 3er ↔ Taco 1er").issues[0]), true);
 check("_meta: Entscheidungen 16. und 27.09.2026, Annahmen (Mix-Taco, Veggie-Guacamole, Taco-Extras), Koriander-Hinweise (frischer Koriander in Salsa, Guacamole, Crunchwraps, Verde Tostado, Vegan Quesadilla), Wolt-Fenster durchgeklickt, kein Schalentier",
-  rawCH._meta.decisions.length === 9 && rawCH._meta.decisions.every(d => /^User (16|27)[.]09[.]2026/.test(d)) && rawCH._meta.decisions.filter(d => /^User 27/.test(d)).length === 2 &&
+  rawCH._meta.decisions.length === 10 && rawCH._meta.decisions.every(d => /^User (16|27)[.]09[.]2026/.test(d)) && rawCH._meta.decisions.filter(d => /^User 27/.test(d)).length === 3 &&
   rawCH._meta.assumptions.some(a => /Mix Soft Taco/.test(a)) && rawCH._meta.assumptions.some(a => /3 Kugel Guacamole/.test(a)) &&
   ["Salsa Mild oder Medium: frischer Koriander", "Crunchwrap Beef: frischer Koriander", "Verde Tostado: frischer Koriander", "Vegan Quesadilla: frischer Koriander"].every(x => rawCH._meta.coriander.some(c => c.includes(x))) &&
   rawCH._meta.woltDialogs.checkedAt === "2026-09-27" && /kein Baustein/.test(rawCH._meta.shellfish), true);
@@ -1295,10 +1306,10 @@ check("Pflicht Guacamole: Veggie-/Vegan-Tacos behalten ihre Standard-Guacamole, 
     c.length > 0 && c.every(x => x.type !== "snacks" && x.fixed.some(f => f.ing === "cheddar_jack_cheese"));
 })(), true);
 check("Pflicht-Snack: aus ausgeschalteter Kategorie möglich; bei Max. items 1 nur als einziger Artikel; Ausschluss eines Snacks → nie", (() => {
-  const a = runCH(tgt(90, 110, 40), chSt(null, null, { crunchwraps: false }), null, ["crunchwrap_barbacoa"]);
+  const a = runCH(tgt(90, 110, 40), chSt(null, null, { crunchwraps: false }), null, ["crunchwrap_chicken"]);
   const one = runCH(tgt(40, 60, 40), chSt({ maxN: 1 }), null, ["crunchwrap_beef"]);
   const ex = runCH(tgt(120, 180, 55), chSt({ maxN: Infinity }), ["crunchwrap_beef", "crunchwrap_chicken"]);
-  return a.length > 0 && a.every(x => x.parts.some(pt => pt.opt.ing === "crunchwrap_barbacoa")) && one.length > 0 && one.every(x => x.type === "snacks" && chItems(x) === 1) &&
+  return a.length > 0 && a.every(x => x.parts.some(pt => pt.opt.ing === "crunchwrap_chicken")) && one.length > 0 && one.every(x => x.type === "snacks" && chItems(x) === 1) &&
     ex.length > 0 && ex.every(x => !chOpts(x).some(o => o.ing === "crunchwrap_beef" || o.ing === "crunchwrap_chicken"));
 })(), true);
 check("Ausschluss: Eisbergsalat → „Ohne Eisbergsalat“ (Cup) bzw. „ohne Eisbergsalat“ (Tacos), beim Burrito kein „Mit Eisbergsalat“; Chicken → weder Chicken-Produkt noch -Extra noch Mix-Tacos", (() => {
@@ -1345,7 +1356,7 @@ check("Zusammenfassung + Suche + Listen: „Beef Cup + Gewürzreis + Chicken + C
     idx.some(x => x.name === "Crunchwrap Beef (Snack)") && idx.some(x => x.name === "Cheese Quesadilla (Side)") && idx.some(x => x.name === "Chili con Carne (Snack)") && idx.some(x => x.name === "Salsa Mild/Medium (Cup)") &&
     !idx.some(x => /Veggie Soft Tacos|Vegan Soft Tacos/.test(x.name)) && idx.every(x => x.kcal > 0 || x.protein > 0 || x.carbs > 0 || x.fat > 0) &&
     inc.find(x => x.id === "crunchwrap_beef").role === "base" && inc.find(x => x.id === "crunchwrap_beef").group === "Crunchwraps" && inc.find(x => x.id === "chicken").role === "protein" && inc.find(x => x.id === "mix_taco").name === "Mix Soft Tacos" &&
-    !inc.some(x => ["salatbasis", "tortilla", "softtaco"].includes(x.id)) && ex.every(x => x.defaultOff === undefined && x.role === undefined) && new Set(ex.map(x => x.id)).size === ex.length && inc.length === 31;
+    !inc.some(x => ["salatbasis", "tortilla", "softtaco"].includes(x.id)) && ex.every(x => x.defaultOff === undefined && x.role === undefined) && new Set(ex.map(x => x.id)).size === ex.length && inc.length === 29 && ex.length === 28;
 })(), true);
 check("Karten-Untertitel: Burrito mit Basis/Beans/Cream/Salsa/Extras, Tacos mit „no sour cream“, Snacks nur mit Artikelzahl", (() => {
   global.__h = (type, props, ...children) => ({ type, props: props || {}, children });

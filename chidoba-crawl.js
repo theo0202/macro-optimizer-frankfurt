@@ -80,6 +80,12 @@ const SNACK_SKIP = {
   "Adobada Chili Cheese Fries": "Fries (User 27.09.2026: keine Fries und Chips)", "Pepper Corn Fries": "Fries (User 27.09.2026)", "Cajun Fries": "Fries (User 27.09.2026)",
   "Tortilla Chips": "Chips (User 27.09.2026)", "Cheese & Beef Soße": "Soße ohne Werte im Rechner",
 };
+// Gesperrt (User 27.09.2026 „Ja nimm sie raus“): die veröffentlichten kcal passen nicht zu den Makros. Die Snacks bleiben mit Grund im Datensatz
+// (blocked, _meta.blocked), fehlen aber im Tracker — wie bei Lorys und beets&roots. Ballaststoffe (2 kcal/g) vergrößern die Lücke nur
+const SNACK_BLOCKED = {
+  "Crunchwrap Veggie": "User 27.09.2026: gesperrt — 764 kcal passen nicht zu 84,32 g KH, 33,75 g Eiweiß, 44,45 g Fett (4·KH + 4·E + 9·F = 872 kcal, -12 %)",
+  "Crunchwrap Barbacoa": "User 27.09.2026: gesperrt — 781 kcal passen nicht zu 67,92 g KH, 51,83 g Eiweiß, 45,08 g Fett (4·KH + 4·E + 9·F = 885 kcal, -12 %)",
+};
 // Wolt-Kategorien mit Snacks & Sides: jeder Artikel muss in SNACKS, SNACK_NO_DATA oder SNACK_SKIP stehen
 const SNACK_CATS = ["QUESADILLAS", "SNACKS", "BEILAGEN"];
 const SKIPPED_CATS = ["BELIEBTE ARTIKEL", "BESTECK", "DIPS", "DESSERTS", "ALKOHOLFREIE GETRÄNKE"];
@@ -357,8 +363,9 @@ async function main() {
     const c = comp(calcType, U.slugId(wname), label, calcType, wname);
     const opts = (it.options || []).map(ref => { const cfg = (ref.multi_choice_config && ref.multi_choice_config.total_range) || {}; return { name: normName(ref.name), min: cfg.min || 0, max: cfg.max, values: groupOptions(ref).map(v => v.name + (v.price ? " +" + euro(v.price) : "")) }; });
     for (const g of opts) if (g.min > 0) problems.push("Wolt: Snack „" + wname + "“ hat eine Pflicht-Auswahl „" + g.name + "“ (bisher nur optionale Gruppen)");
-    if (c) snacks.push(Object.assign({ name: wname, cat, component: c.id, ing: c.ing, price: U.round(it.price / 100, 2), description: normName(it.description), options: opts }, SNACK_NOTES[wname] ? { orderNote: SNACK_NOTES[wname] } : {}));
+    if (c) snacks.push(Object.assign({ name: wname, cat, component: c.id, ing: c.ing, price: U.round(it.price / 100, 2), description: normName(it.description), options: opts }, SNACK_NOTES[wname] ? { orderNote: SNACK_NOTES[wname] } : {}, SNACK_BLOCKED[wname] ? { blocked: SNACK_BLOCKED[wname] } : {}));
   }
+  for (const n of Object.keys(SNACK_BLOCKED)) if (!SNACKS[n]) problems.push("SNACK_BLOCKED: „" + n + "“ steht nicht in SNACKS");
   const snackNoData = Object.entries(SNACK_NO_DATA).map(([n, why]) => { const it = items.find(i => normName(i.name) === n); if (!it) problems.push("Wolt: „" + n + "“ (SNACK_NO_DATA) nicht mehr im Menü"); return n + (it ? " (" + euro(it.price / 100) + ")" : "") + " — " + why; });
   const snackSkipped = Object.entries(SNACK_SKIP).map(([n, why]) => n + " — " + why);
 
@@ -418,6 +425,7 @@ async function main() {
         "User 16.09.2026: Bestellfenster Chicken Cup / Chicken Salat abgeglichen (Gruppen, Grenzen, „Ohne …“-Reihenfolge, Extras-Preise) — der Order Guide folgt ihm",
         "User 27.09.2026: dazu Burrito, Taco 1er und Taco 3er sowie alle Snacks und Sides außer Fries und Chips; eigene Kategorien für Snacks und Sides (Quesadillas, Crunchwraps, Tostados, Chili con Carne); Produktkategorien weiter einzeln wählbar, bei mehreren Kategorien Kombinationen (z.B. 3 Tacos + Snack) mit „Max. items per order“",
         "User 27.09.2026: jede Zutat im Rechner einzeln an- und abwählen (data/chidoba-rechner.json) und jedes Wolt-Bestellfenster durchklicken, um die Bestellanleitung je Kategorie zu bauen",
+        "User 27.09.2026: Crunchwrap Veggie und Crunchwrap Barbacoa gesperrt — ihre kcal passen nicht zu den Makros (bleiben mit Grund im Datensatz, _meta.blocked)",
       ],
       assumptions: [
         "„No Sauce/Cheese/Dips“ wählt auch die Standard-Zutaten Cheddar Jack Cheese, (Salat) California Dressing und (Tacos) Sour Cream ab",
@@ -430,7 +438,8 @@ async function main() {
         "Snacks & Sides ohne Umbau: Wolt-Extras und extra Dips haben im Rechner keine Werte → nie gewählt; Chili con Carne mit Sour Cream und Tortilla Strips (Standard, so im Rechner)",
       ],
       products: products.map(p => p.name + " " + p.price + " €"), productNoData, never: [...never.values()], noData: [...noData.values()], sameValues: [...same.values()],
-      snacks: snacks.map(s => s.name + " " + s.price + " € (" + s.cat + ")"), snackNoData, snackSkipped, notOnWolt,
+      snacks: snacks.map(s => s.name + " " + s.price + " € (" + s.cat + (s.blocked ? ", gesperrt" : "") + ")"), snackNoData, snackSkipped, notOnWolt,
+      blocked: snacks.filter(s => s.blocked).map(s => s.name + " (" + s.cat + ") — " + s.blocked),
       rechnerControl: Object.assign({}, rechner, { note: "Alle " + rechner.fields + " Felder der " + rechner.types + " Rechner-Seiten einzeln an- und abgewählt (" + rechner.readAt + "); jede abgelesene Anzeige = Summe der data-Attribute, " + rechner.exact + " von " + rechner.values + " Zahlen exakt, der Rest ±0,1 (Animation an Rundungsgrenzen)" }),
       woltDialogs: WOLT_DIALOGS,
       infos: burritoHalf.length ? ["Burrito-Basis = halbe Cup-Portion laut Rechner: " + burritoHalf.join(", ")] : [],
@@ -456,6 +465,7 @@ async function main() {
   console.log("Reihenfolge der Bestellfenster: " + products.map(p => p.name + " = " + p.dialog.join(" → ")).join(" · "));
   console.log("Snacks & Sides: " + out._meta.snacks.join(" · "));
   console.log("Snacks ohne Werte: " + snackNoData.join(" · "));
+  console.log("Gesperrt: " + (out._meta.blocked.join(" · ") || "–"));
   console.log("Nicht im Tracker (Produkte): " + productNoData.join(" · "));
   console.log("Ohne Werte: " + out._meta.noData.join(" · "));
   console.log("Nie (Koriander): " + out._meta.never.join(" · "));

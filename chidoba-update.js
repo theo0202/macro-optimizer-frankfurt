@@ -95,10 +95,11 @@ function buildMenu(raw, type) {
   return { item: T.item, type, cat: T.cat, basePrice: 0, require: { base: false, protein: true }, proteinExtras: true, fixed, removals, steps, groups };
 }
 
-// Snacks & Sides (feste Rezeptur): Werte laut Rechner, Kategorie, Wolt-Preis; die App baut daraus je Suche die Gruppe „Snacks & sides“
+// Snacks & Sides (feste Rezeptur): Werte laut Rechner, Kategorie, Wolt-Preis; die App baut daraus je Suche die Gruppe „Snacks & sides“.
+// Gesperrte Snacks (_meta.blocked, User 27.09.2026: kcal passen nicht zu den Makros) fehlen im Block
 function buildSnacks(raw) {
   const byComp = Object.fromEntries(raw.components.map(c => [c.id, c]));
-  return raw.wolt.snacks.map(s => {
+  return raw.wolt.snacks.filter(s => !s.blocked).map(s => {
     const c = byComp[s.component];
     if (!c) throw new Error("Baustein fehlt: " + s.component);
     if (!CATS.some(k => k.id === s.cat && k.kind === "snack")) throw new Error("Snack " + s.name + ": unbekannte Kategorie " + s.cat);
@@ -150,4 +151,5 @@ if (require.main === module) {
   U.writeBlock(path.join(__dirname, "index.html"), KEY, lines);
   for (const [tp, m] of menus) console.log(tp + ": fest " + m.fixed.map(f => f.name + (f.sauce ? "*" : "")).join(", ") + " · " + m.groups.map(g => g.name + " " + g.options.length).join(", ") + (m.removals.length ? " · immer " + m.removals.join(", ") : ""));
   console.log("Snacks & Sides: " + snacks.map(s => s.name + " (" + s.cat + ", " + Math.round(s.kcal) + " kcal, " + s.price + " €)").join(" · "));
+  console.log("Gesperrt (nicht im Block): " + ((raw._meta.blocked || []).map(b => b.split(" — ")[0]).join(", ") || "–"));
 }
