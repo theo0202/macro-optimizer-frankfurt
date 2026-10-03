@@ -2958,7 +2958,7 @@ function compleatOptimize(t, mode, p, st, ex, r, inc) { return bowlOptimize(t, m
 const COMPLEAT_SWITCHES = [
   { id:"noDip", label:"No dip", def:true, filter:x=>bowlRole(x)!=="dip" },                          // User 15.09.2026: Default AN
   { id:"noCrunch", label:"No crunch", def:false, filter:x=>!x.crunch,                                // User 15.09.2026: Default AUS
-    hint:"Hides Erdnüsse, Walnusskerne, Röstzwiebeln and Schwarzer Sesam." },
+    hint:"Hides Erdnüsse, Walnusskerne, Röstzwiebeln, Schwarzer Sesam and the Functional Fall Crunch." },
 ];
 // Registry-Eintrag für ein Bowl-Menü: o = { key, name, platform, label, gradient, footer, data, menuKey, exclusionKey, switches, blocked,
 // note(menu), labels?, inputHint?, initState? } — Ausschluss- und Pflicht-Listen teilen sich exclusionKey (ein Restaurant, mehrere Tabs)
@@ -4541,12 +4541,15 @@ const SPECIAL_TABS = [
   { key:"accurate", label:"Accurate restaurants", gradient:["#0284c7","#0c4a6e"], header:"ACCURATE RESTAURANTS · FRANKFURT" },
   { key:"all",      label:"All restaurants",      gradient:["#7c3aed","#4c1d95"], header:"ALL RESTAURANTS · FRANKFURT" },
 ];
-// Freundes-Link (User 27.09.2026): „?view=compleat“ zeigt nur Compleat (Wolt) und Edeka Graf — zum Teilen mit Freunden ohne die übrigen
-// Restaurants, ohne Uber Eats und ohne die Spezial-Tabs (Add own order, Accurate, All). Nur eine Ansicht, kein Zugriffsschutz (die Seite ist
-// öffentlich); Registry, Daten und Speicher (fra_…, je Gerät) bleiben dieselben.
-// Link: https://theo0202.github.io/macro-optimizer-frankfurt/?view=compleat
+// Freundes-Links: „?view=compleat“ (User 27.09.2026) zeigt nur Compleat (Wolt) und Edeka Graf, „?view=compleat-only“ (User 03.10.2026) nur
+// Compleat (Wolt) — zum Teilen mit Freunden ohne die übrigen Restaurants, ohne Uber Eats und ohne die Spezial-Tabs (Add own order, Accurate, All).
+// hide = Teile der App, die in der Ansicht fehlen: "copy" = Kopier-Text „Meal data for your app“ (gehört zur Tracking-App des Users),
+// "screenshot" = „Import from screenshot“. Nur Ansichten, kein Zugriffsschutz (die Seite ist öffentlich); Registry, Daten und Speicher
+// (fra_…, je Gerät) bleiben dieselben.
+// Links: https://theo0202.github.io/macro-optimizer-frankfurt/?view=compleat · https://theo0202.github.io/macro-optimizer-frankfurt/?view=compleat-only
 const SHARE_VIEWS = {
-  compleat: { keys: ["compleat", "edeka"] },
+  compleat: { keys: ["compleat", "edeka"], hide: ["copy"] },
+  "compleat-only": { keys: ["compleat"], hide: ["copy", "screenshot"] },
 };
 function shareViewFrom(search) {
   const v = new URLSearchParams(search || "").get("view");
@@ -4560,6 +4563,12 @@ function visibleTabs(view) {
 const VISIBLE_TABS = visibleTabs(SHARE_VIEW);
 // Start-Tab: erstes sichtbare Registry-Restaurant (ohne Restaurants: All restaurants)
 const DEFAULT_TAB = VISIBLE_TABS.restos.length ? VISIBLE_TABS.restos[0].key : "all";
+// Zeigt die Ansicht diesen Teil der App? (ohne Freundes-Link alles)
+function viewShows(view, part) { return !(view && Array.isArray(view.hide) && view.hide.includes(part)); }
+const SHOW_SCREENSHOT_IMPORT = viewShows(SHARE_VIEW, "screenshot");
+// Tab-Zeile nur bei mehr als einem Tab (im Link „nur Compleat“ gibt es genau einen)
+function showTabRow(tabs) { return tabs.special.length + tabs.restos.length > 1; }
+const SHOW_TAB_ROW = showTabRow(VISIBLE_TABS);
 
 function Chip({label,active,onClick,small}) {
   return h("button",{onClick,style:{
@@ -4635,9 +4644,11 @@ function copyToClipboard(text) {
   try { if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text).then(() => true, () => fallback()); } catch (e) {}
   return Promise.resolve(fallback());
 }
-// Textfeld mit dem Kopier-Text + „📋 Copy“ (ein Klick kopiert alles); 6 Zeilen, weil die Kopfzeile auf dem iPhone umbricht; mt/mb = Abstand oben/unten
-function CopyNutrition({ n, mt, mb }) {
+// Textfeld mit dem Kopier-Text + „📋 Copy“ (ein Klick kopiert alles); 6 Zeilen, weil die Kopfzeile auf dem iPhone umbricht; mt/mb = Abstand oben/unten.
+// In den Freundes-Links fehlt er (hide "copy", User 03.10.2026); view wird nur in den Tests übergeben
+function CopyNutrition({ n, mt, mb, view = SHARE_VIEW }) {
   const [state, setState] = useState(null);   // null | "ok" | "fail"
+  if (!viewShows(view, "copy")) return null;
   const text = nutritionCopyText(n);
   const copy = () => copyToClipboard(text).then(ok => { setState(ok ? "ok" : "fail"); setTimeout(() => setState(null), 1800); });
   return h("div", { style:{ marginTop: mt == null ? 0 : mt, marginBottom: mb == null ? 16 : mb } },
@@ -4978,8 +4989,8 @@ function App() {
         btn("calories","Calories + preferences",mode,setMode)
       ),
 
-      // Screenshot-Import (verbleibende Makros + Kalorien per On-Device-OCR)
-      h("div",{style:{marginBottom:16}},
+      // Screenshot-Import (verbleibende Makros + Kalorien per On-Device-OCR; nicht im Freundes-Link „nur Compleat“)
+      SHOW_SCREENSHOT_IMPORT&&h("div",{style:{marginBottom:16}},
         h("label",{style:{display:"inline-flex",alignItems:"center",gap:8,cursor:imp.busy?"progress":"pointer",
             padding:"10px 14px",borderRadius:8,border:"1px solid #2a2a2a",background:"#151515",
             color:"#bbb",fontSize:12,fontWeight:600,fontFamily:S.font,opacity:imp.busy?0.65:1}},
@@ -5030,8 +5041,8 @@ function App() {
         )
       ),
 
-      // Tabs: Spezial-Tabs, dann die Registry-Restaurants
-      h("div",{style:{display:"flex",flexWrap:"wrap",gap:8,marginBottom:16}},
+      // Tabs: Spezial-Tabs, dann die Registry-Restaurants (nur bei mehr als einem Tab)
+      SHOW_TAB_ROW&&h("div",{style:{display:"flex",flexWrap:"wrap",gap:8,marginBottom:16}},
         ...VISIBLE_TABS.special.map(s=>btn(s.key,s.label,tab,setTab)),
         ...VISIBLE_TABS.restos.map(r=>btn(r.key,r.name,tab,setTab))
       ),
