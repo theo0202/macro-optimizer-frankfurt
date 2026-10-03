@@ -31,7 +31,7 @@ const { useState, useMemo, useEffect, createElement: h } = React;
 // London- und Frankfurt-Tool laufen auf DERSELBEN Origin (theo0202.github.io) → gleichnamige Keys würden sich gegenseitig
 // überschreiben. Deshalb läuft JEDER Zugriff über lsGet/lsSet, die das Präfix "fra_" voranstellen (tests.js prüft das statisch).
 const LS_PREFIX = "fra_";
-const LS = { ownOrder: "own_order", excluded: "excluded", included: "included", edeka: "edeka", edekaFix: "edeka_fix" }; // → "fra_own_order", "fra_excluded", "fra_included", "fra_edeka", "fra_edeka_fix"
+const LS = { ownOrder: "own_order", excluded: "excluded", included: "included", edeka: "edeka", edekaFix: "edeka_fix", unlocked: "unlocked" }; // → "fra_own_order", "fra_excluded", "fra_included", "fra_edeka", "fra_edeka_fix", "fra_unlocked"
 function lsGet(key, fallback) {
   try { const raw = localStorage.getItem(LS_PREFIX + key); return raw == null ? fallback : JSON.parse(raw); }
   catch (e) { return fallback; }
@@ -4544,11 +4544,11 @@ const SPECIAL_TABS = [
 // Freundes-Links: „?view=compleat“ (User 27.09.2026) zeigt nur Compleat (Wolt) und Edeka Graf, „?view=compleat-only“ (User 03.10.2026) nur
 // Compleat (Wolt) — zum Teilen mit Freunden ohne die übrigen Restaurants, ohne Uber Eats und ohne die Spezial-Tabs (Add own order, Accurate, All).
 // hide = Teile der App, die in der Ansicht fehlen: "copy" = Kopier-Text „Meal data for your app“ (gehört zur Tracking-App des Users),
-// "screenshot" = „Import from screenshot“. Nur Ansichten, kein Zugriffsschutz (die Seite ist öffentlich); Registry, Daten und Speicher
-// (fra_…, je Gerät) bleiben dieselben.
+// "screenshot" = „Import from screenshot“. Ohne Link fragt die App einen Code ab (APP_CODE, ganz unten) — Freunde kommen so nicht in die
+// ganze App; Registry, Daten und Speicher (fra_…, je Gerät) bleiben dieselben.
 // Links: https://theo0202.github.io/macro-optimizer-frankfurt/?view=compleat · https://theo0202.github.io/macro-optimizer-frankfurt/?view=compleat-only
 const SHARE_VIEWS = {
-  compleat: { keys: ["compleat", "edeka"], hide: ["copy"] },
+  compleat: { keys: ["compleat", "edeka"], hide: ["copy", "screenshot"] },
   "compleat-only": { keys: ["compleat"], hide: ["copy", "screenshot"] },
 };
 function shareViewFrom(search) {
@@ -4989,7 +4989,7 @@ function App() {
         btn("calories","Calories + preferences",mode,setMode)
       ),
 
-      // Screenshot-Import (verbleibende Makros + Kalorien per On-Device-OCR; nicht im Freundes-Link „nur Compleat“)
+      // Screenshot-Import (verbleibende Makros + Kalorien per On-Device-OCR; nicht in den Freundes-Links)
       SHOW_SCREENSHOT_IMPORT&&h("div",{style:{marginBottom:16}},
         h("label",{style:{display:"inline-flex",alignItems:"center",gap:8,cursor:imp.busy?"progress":"pointer",
             padding:"10px 14px",borderRadius:8,border:"1px solid #2a2a2a",background:"#151515",
@@ -5221,7 +5221,49 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+// ═══ Zugang zur ganzen App (User 03.10.2026) ═══
+// Ohne Freundes-Link fragt die App einmal je Gerät einen Code ab (gemerkt in fra_unlocked); über ihren Link (?view=…) sehen Freunde nur ihre
+// Ansicht und kommen ohne Code nicht in die ganze App. Eine einfache Sperre, kein Schutz der Daten: Code, Daten und Quelltext stehen im
+// öffentlichen GitHub-Repo. Ändert sich APP_CODE, fragt jedes Gerät neu.
+const APP_CODE = "1303";
+// Braucht dieser Aufruf den Code? Nicht mit Freundes-Link, nicht wenn das Gerät ihn schon kennt
+function appNeedsCode(view, stored) { return !view && stored !== APP_CODE; }
+// Code prüfen; richtig → auf dem Gerät merken
+function appUnlock(code) {
+  if (String(code == null ? "" : code).trim() !== APP_CODE) return false;
+  lsSet(LS.unlocked, APP_CODE);
+  return true;
+}
+function AppGate({ onUnlock }) {
+  const [code, setCode] = useState("");
+  const [err, setErr] = useState(false);
+  const submit = () => { if (appUnlock(code)) onUnlock(); else { setErr(true); setCode(""); } };
+  return h("div", { style:{ minHeight:"100vh", background:S.bg, color:"#e0e0e0", fontFamily:S.font } },
+    h("div", { style:{ background:"linear-gradient(135deg,#475569,#1e293b)", padding:"20px 20px 16px", position:"relative", overflow:"hidden" } },
+      h("div", { style:{ position:"absolute", top:-20, right:-20, width:120, height:120, borderRadius:"50%", background:"rgba(255,255,255,0.06)" } }),
+      h("div", { style:{ fontSize:10, letterSpacing:3, textTransform:"uppercase", color:"rgba(255,255,255,0.6)", fontFamily:S.mono, marginBottom:4 } }, "FRA MACROS · PRIVATE"),
+      h("div", { style:{ fontSize:22, fontWeight:700, color:"#fff", letterSpacing:-0.5 } }, "Macro Optimizer"),
+      h("div", { style:{ fontSize:11, color:"rgba(255,255,255,0.5)", marginTop:2 } }, "Find the optimal order for your goals")),
+    h("div", { style:{ padding:"16px 16px 0" } },
+      h("div", { style:{ ...CARD, padding:16 } },
+        h("div", { style:{ fontSize:13, fontWeight:600, color:"#ddd", marginBottom:4 } }, "Enter the code"),
+        h("div", { style:{ fontSize:11, color:"#777", lineHeight:1.4, marginBottom:12 } }, "This app is private. The code is asked once on each device."),
+        h("div", { style:{ display:"flex", gap:8, alignItems:"center" } },
+          h("input", { type:"password", inputMode:"numeric", autoComplete:"off", autoFocus:true, value:code || "", placeholder:"Code",
+            onChange:e => { setCode(e.target.value); setErr(false); },
+            onKeyDown:e => { if (e.key === "Enter") submit(); },
+            style:{ flex:1, minWidth:0, background:"#151515", border:"1px solid #2a2a2a", borderRadius:10, padding:"10px 12px", color:"#fff", fontSize:13, fontFamily:S.mono, outline:"none" } }),
+          h("button", { onClick:submit,
+            style:{ background:"#1f2937", border:"1px solid #333", borderRadius:10, padding:"10px 14px", color:"#e0e0e0", fontSize:12, cursor:"pointer", fontFamily:S.font } }, "Unlock")),
+        err ? h("div", { style:{ fontSize:11, color:"#f87171", marginTop:6 } }, "Wrong code.") : null)));
+}
+// Wurzel: die ganze App erst nach dem Code; Freundes-Links direkt (nur ihre Ansicht)
+function Root() {
+  const [locked, setLocked] = useState(() => appNeedsCode(SHARE_VIEW, lsGet(LS.unlocked, null)));
+  return locked ? h(AppGate, { onUnlock: () => setLocked(false) }) : h(App);
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(h(Root));
 </script>
 </body>
 </html>
