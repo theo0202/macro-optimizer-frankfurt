@@ -3861,6 +3861,37 @@ const edekaMode = st => ((st.extra || {}).mode === "track" ? "track" : "build");
 function edekaSetExt(ctx, patch) {
   ctx.update(s => { const ext = Object.assign({}, s.extra, patch); edekaSave(ext); return { extra: ext }; });
 }
+// Code vor der Label correction (User 27.09.2026: Freunde mit dem Link sollen keine Nährwerte ändern). Einfache Sperre, kein Schutz — der
+// Code steht im öffentlichen Quelltext; entsperrt bleibt sie bis zum Neuladen der App. Korrekturen gelten ohnehin nur auf dem jeweiligen Gerät.
+const EDEKA_FIX_CODE = "1303";
+let edekaFixUnlocked = false;
+// Klick auf „Label correction“: offen → schließen; entsperrt → Korrektur-Karte; sonst erst die Code-Abfrage
+function edekaFixToggle(ctx) {
+  const ext = (ctx.st && ctx.st.extra) || {};
+  if (ext.fix || ext.fixAsk) return edekaSetExt(ctx, { fix: false, fixAsk: false, fixCode: "", fixCodeErr: false, fixId: null, fixDraft: null, fixQ: "" });
+  edekaSetExt(ctx, edekaFixUnlocked ? { fix: true } : { fixAsk: true, fixCode: "", fixCodeErr: false });
+}
+function edekaFixUnlock(ctx) {
+  const ext = (ctx.st && ctx.st.extra) || {};
+  if (String(ext.fixCode || "").trim() === EDEKA_FIX_CODE) { edekaFixUnlocked = true; edekaSetExt(ctx, { fixAsk: false, fixCode: "", fixCodeErr: false, fix: true }); }
+  else edekaSetExt(ctx, { fixCode: "", fixCodeErr: true });
+}
+function edekaFixCodeCard(ctx) {
+  const ext = (ctx.st && ctx.st.extra) || {};
+  return h("div", { key:"edeka_fix_code", style:{ marginBottom:20, background:"#121212", border:"1px solid #2a2a2a", borderRadius:12, padding:14 } },
+    h("div", { style:{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:6 } },
+      h("div", { style:{ ...LBL, marginBottom:0 } }, "✎ Label correction · code"),
+      h("button", { onClick:() => edekaFixToggle(ctx),
+        style:{ background:"none", border:"none", color:"#777", fontSize:11, cursor:"pointer", fontFamily:S.mono, textDecoration:"underline", padding:0 } }, "Close")),
+    h("div", { style:{ display:"flex", gap:8, alignItems:"center" } },
+      h("input", { type:"password", inputMode:"numeric", autoComplete:"off", value:ext.fixCode || "", placeholder:"Code",
+        onChange:e => edekaSetExt(ctx, { fixCode:e.target.value, fixCodeErr:false }),
+        onKeyDown:e => { if (e.key === "Enter") edekaFixUnlock(ctx); },
+        style:{ flex:1, minWidth:0, background:"#151515", border:"1px solid #2a2a2a", borderRadius:10, padding:"10px 12px", color:"#fff", fontSize:13, fontFamily:S.mono, outline:"none" } }),
+      h("button", { onClick:() => edekaFixUnlock(ctx),
+        style:{ background:"#1f2937", border:"1px solid #333", borderRadius:10, padding:"10px 14px", color:"#e0e0e0", fontSize:12, cursor:"pointer", fontFamily:S.font } }, "Unlock")),
+    ext.fixCodeErr ? h("div", { style:{ fontSize:11, color:"#f87171", marginTop:6 } }, "Wrong code.") : null);
+}
 function edekaConfigCard(ctx) {
   const { st } = ctx, track = edekaMode(st) === "track";
   return h("div", { style:CARD },
@@ -3883,7 +3914,8 @@ function edekaConfigCard(ctx) {
         onClick:() => ctx.update(() => ({ maxN:n })) }))),
     h("div", { style:{ fontSize:10, color:"#666", lineHeight:1.4 } }, EDEKA_NOTE,
       // Bewusst unauffällig (User 20.09.2026: „eher versteckt und fast nie benutzt“) — korrigiert Werte, die im Laden anders auf der Packung stehen
-      h("span", { onClick:() => edekaSetExt(ctx, { fix:!(st.extra || {}).fix }), style:{ color:"#3d3d3d", cursor:"pointer", marginLeft:4 } }, "Label correction")),
+      h("span", { onClick:() => edekaFixToggle(ctx), style:{ color:"#3d3d3d", cursor:"pointer", marginLeft:4 } }, "Label correction")),
+    (st.extra || {}).fixAsk ? edekaFixCodeCard(ctx) : null,
     (st.extra || {}).fix ? edekaFixCard(ctx) : null
   );
 }
@@ -4509,8 +4541,25 @@ const SPECIAL_TABS = [
   { key:"accurate", label:"Accurate restaurants", gradient:["#0284c7","#0c4a6e"], header:"ACCURATE RESTAURANTS · FRANKFURT" },
   { key:"all",      label:"All restaurants",      gradient:["#7c3aed","#4c1d95"], header:"ALL RESTAURANTS · FRANKFURT" },
 ];
-// Start-Tab: erstes Registry-Restaurant (ohne Restaurants: All restaurants)
-const DEFAULT_TAB = RESTAURANTS.length ? RESTAURANTS[0].key : "all";
+// Freundes-Link (User 27.09.2026): „?view=compleat“ zeigt nur Compleat (Wolt) und Edeka Graf — zum Teilen mit Freunden ohne die übrigen
+// Restaurants, ohne Uber Eats und ohne die Spezial-Tabs (Add own order, Accurate, All). Nur eine Ansicht, kein Zugriffsschutz (die Seite ist
+// öffentlich); Registry, Daten und Speicher (fra_…, je Gerät) bleiben dieselben.
+// Link: https://theo0202.github.io/macro-optimizer-frankfurt/?view=compleat
+const SHARE_VIEWS = {
+  compleat: { keys: ["compleat", "edeka"] },
+};
+function shareViewFrom(search) {
+  const v = new URLSearchParams(search || "").get("view");
+  return v && Object.prototype.hasOwnProperty.call(SHARE_VIEWS, v) ? SHARE_VIEWS[v] : null;
+}
+const SHARE_VIEW = (() => { try { return shareViewFrom(location.search); } catch (e) { return null; } })();
+// Sichtbare Tabs: ohne Freundes-Link alle; mit ihm nur die freigegebenen Restaurants (Registry-Reihenfolge) und keine Spezial-Tabs
+function visibleTabs(view) {
+  return view ? { special: [], restos: RESTAURANTS.filter(r => view.keys.includes(r.key)) } : { special: SPECIAL_TABS, restos: RESTAURANTS };
+}
+const VISIBLE_TABS = visibleTabs(SHARE_VIEW);
+// Start-Tab: erstes sichtbare Registry-Restaurant (ohne Restaurants: All restaurants)
+const DEFAULT_TAB = VISIBLE_TABS.restos.length ? VISIBLE_TABS.restos[0].key : "all";
 
 function Chip({label,active,onClick,small}) {
   return h("button",{onClick,style:{
@@ -4983,8 +5032,8 @@ function App() {
 
       // Tabs: Spezial-Tabs, dann die Registry-Restaurants
       h("div",{style:{display:"flex",flexWrap:"wrap",gap:8,marginBottom:16}},
-        ...SPECIAL_TABS.map(s=>btn(s.key,s.label,tab,setTab)),
-        ...RESTAURANTS.map(r=>btn(r.key,r.name,tab,setTab))
+        ...VISIBLE_TABS.special.map(s=>btn(s.key,s.label,tab,setTab)),
+        ...VISIBLE_TABS.restos.map(r=>btn(r.key,r.name,tab,setTab))
       ),
 
       // All/Accurate: max items pro à-la-carte-Bestellung

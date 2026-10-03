@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, chidobaSnackMenu, chidobaSnackGroup, chidobaItemsMax, CHIDOBA_ITEMS_CAP, chidobaCard, chidobaConfigCard, chidobaStepEntries, chidobaCatOn, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, chidobaSnackMenu, chidobaSnackGroup, chidobaItemsMax, CHIDOBA_ITEMS_CAP, chidobaCard, chidobaConfigCard, chidobaStepEntries, chidobaCatOn, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition, SHARE_VIEWS, SHARE_VIEW, shareViewFrom, visibleTabs, VISIBLE_TABS, EDEKA_FIX_CODE, edekaFixToggle, edekaFixUnlock, edekaConfigCard };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -857,6 +857,23 @@ check("Shop-Anzeige-Abgleich erkennt Fehler: verfälschter Wert → Abweichung; 
 })(), true);
 check("Änderungsbericht des Crawls vorhanden (_meta.lastChanges: Shop, Wolt, Uber Eats, Preise)", ["since", "shopAdded", "shopRemoved", "woltAdded", "woltRemoved", "ubereatsAdded", "ubereatsRemoved", "prices"].every(k => k in metaC.lastChanges), true);
 check("Skill „compleat-aktualisieren“: SKILL.md mit Auslösern und dem Ablauf (Crawl, Shop-Anzeige, Uber-Eats-Erfassung, Abgleiche, Tests)", (() => { const p = __dirname + "/.claude/skills/compleat-aktualisieren/SKILL.md"; if (!fs.existsSync(p)) return false; const t = fs.readFileSync(p, "utf8"); return /^---\nname: compleat-aktualisieren\n/.test(t.replace(/\r/g, "")) && /aktualisiere compleat/i.test(t) && ["compleat-crawl.js", "compleat-shop-capture.js", "ubereats-capture.js", "verify-compleat-shop.js", "node tests.js"].every(x => t.includes(x)); })(), true);
+
+check("Freundes-Link (User 27.09.2026): ?view=compleat zeigt nur Compleat (Wolt) und Edeka Graf — kein Uber Eats, keine anderen Restaurants, keine Spezial-Tabs; ohne Parameter alles; unbekannte Ansicht → volle App", (() => {
+  const v = T.visibleTabs(T.SHARE_VIEWS.compleat), all = T.visibleTabs(null);
+  return T.shareViewFrom("?view=compleat") === T.SHARE_VIEWS.compleat && T.shareViewFrom("?view=gibtsnicht") === null && T.shareViewFrom("?view=toString") === null && T.shareViewFrom("") === null &&
+    T.SHARE_VIEW === null && T.VISIBLE_TABS === T.VISIBLE_TABS && all.special.length === 3 && all.restos.length === T.RESTAURANTS.length &&
+    v.special.length === 0 && v.restos.map(r => r.key).join() === "compleat,edeka" && T.SHARE_VIEWS.compleat.keys.every(k => !!T.RESTO_BY_KEY[k]) && T.DEFAULT_TAB === T.RESTAURANTS[0].key;
+})(), true);
+check("Freundes-Link: die Tab-Zeile der App nutzt die sichtbaren Tabs (VISIBLE_TABS), nicht direkt SPECIAL_TABS/RESTAURANTS", /\.\.\.VISIBLE_TABS\.special\.map\(/.test(SCRIPT) && /\.\.\.VISIBLE_TABS\.restos\.map\(/.test(SCRIPT) && !/\.\.\.SPECIAL_TABS\.map\(s=>btn/.test(SCRIPT), true);
+check("Compleat-Hinweistext: nennt die beim letzten Crawl ausverkauften Zutaten genau dann, wenn es welche im Menü gibt", (() => {
+  const so = T.COMPLEAT.ingredients.filter(x => x.soldOut).map(x => x.id), inMenu = W.groups.some(g => g.options.some(o => so.includes(o.ing)));
+  global.__h = (type, props, ...children) => ({ type, props: props || {}, children });
+  const out = []; const walk = x => { if (x == null || x === false || x === true) return; if (Array.isArray(x)) return x.forEach(walk); if (typeof x !== "object") return out.push(String(x)); walk(x.children); };
+  walk(CR.renderConfig({ R: CR, st: T.defaultRestoState(CR), tg: {}, update: () => {} }));
+  global.__h = null;
+  const n = out.join(" ");
+  return /^\d{4}-\d{2}-\d{2}$/.test(T.COMPLEAT.asOf) && (inMenu ? /Sold out in the Compleat shop on \d{2}\.\d{2}\.\d{4}: /.test(n) : !/Sold out/.test(n)) && /base price €3\.00/.test(n);
+})(), true);
 
 // ── Compleat: Optimizer ──
 sect("Compleat: Optimizer (Wolt + Uber Eats)");
@@ -1925,6 +1942,25 @@ check("✎ Label correction (User 20.09.2026): korrigierte Werte gelten überall
   const back = T.edekaById(id);
   return ok && !back.fixed && back.p100.protein === base.p100.protein && back.g === base.g && back.price === base.price &&
     Object.keys(T.edekaFixes()).length === 0;
+})(), true);
+check("Label correction mit Code (User 27.09.2026): Klick öffnet erst die Code-Abfrage (Passwortfeld), falscher Code → „Wrong code.“, 1303 → Korrektur-Karte; entsperrt bis zum Neuladen; Code-Felder werden nicht gespeichert", (() => {
+  let st = edState({});
+  const ctx = () => ({ st, tg: {}, update: fn => { st = Object.assign({}, st, fn(st)); } });
+  const setCode = c => { st = Object.assign({}, st, { extra: Object.assign({}, st.extra, { fixCode: c }) }); };
+  global.__h = (type, props, ...children) => ({ type, props: props || {}, children });
+  const tree = () => { const out = { texts: [], inputs: [] }; const walk = n => { if (n == null || n === false || n === true) return; if (Array.isArray(n)) return n.forEach(walk); if (typeof n !== "object") return out.texts.push(String(n)); if (n.type === "input") out.inputs.push(n.props); walk(n.children); }; walk(T.edekaConfigCard(ctx())); return out; };
+  T.edekaFixToggle(ctx());
+  const t1 = tree(), ask = !!st.extra.fixAsk && !st.extra.fix && t1.texts.includes("✎ Label correction · code") && t1.inputs.some(p => p.type === "password" && p.inputMode === "numeric") && !t1.texts.includes("✎ Label correction");
+  setCode("1234"); T.edekaFixUnlock(ctx());
+  const wrong = st.extra.fixCodeErr === true && !st.extra.fix && tree().texts.includes("Wrong code.");
+  setCode(T.EDEKA_FIX_CODE); T.edekaFixUnlock(ctx());
+  const open = st.extra.fix === true && !st.extra.fixAsk && tree().texts.includes("✎ Label correction");
+  T.edekaFixToggle(ctx()); const closed = !st.extra.fix && !st.extra.fixAsk;
+  T.edekaFixToggle(ctx()); const direct = st.extra.fix === true && !st.extra.fixAsk;
+  T.edekaFixToggle(ctx());
+  global.__h = null;
+  const saved = JSON.stringify(T.edekaLoad());
+  return ask && wrong && open && closed && direct && T.EDEKA_FIX_CODE === "1303" && !/fixCode|fixAsk/.test(saved);
 })(), true);
 check("Label correction: gleiche Werte wie offiziell speichern nichts, der Schlüssel liegt unter „fra_edeka_fix“", (() => {
   const id = U.slugId("Bonduelle Kidney Bohnen 400 g"), base = edItem(id);
