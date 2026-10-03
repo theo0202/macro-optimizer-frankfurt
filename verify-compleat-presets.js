@@ -17,6 +17,7 @@ const EXPECTED = new Set([
   "Bundle-Datensatz|Mango Fire - Low Carb",                                         // dito (+201 kcal)
   "Werte je 100 g|Bunter Bio Quinoa - Halbe Portion (125g)|protein",                // halbe Portion 0,9 g statt 1,8 g Eiweiß je 100 g (Quinoa ist gesperrt)
   "fehlt|Joghurt Tzatziki Dip (100g)",                                              // nur in den Lachs-Nudeln, nicht in „Selbst zusammenstellen“
+  "fehlt|Süßkartoffel (250g)",                                                      // seit 27.09.2026 aus dem Shop gestrichen (Super Bowl + High Protein, Stand 16.09.)
 ]);
 
 // Shop-Rechnung: kcal je Option gerundet und addiert; übrige Werte Σ(Wert je 100 g × Menge) / 100 → toFixed

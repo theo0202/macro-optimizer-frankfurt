@@ -85,9 +85,11 @@ function blockLines(raw) {
     if (x.crunch) o.crunch = true;
     if (x.shellfish) o.shellfish = true;
     if (x.blocked) o.blocked = x.blocked;
+    if (x.soldOut) o.soldOut = true; // beim letzten Crawl im Shop ausverkauft (bleibt im Menü, Hinweis in der App)
     lines.push("    " + lit(o) + ",");
   }
   lines.push("  ],");
+  lines.push("  // Stand des letzten Crawls (Shop-Werte, Menüs, Ausverkauft-Status)", "  asOf: " + JSON.stringify(raw._meta.fetchedAt.slice(0, 10)) + ",");
   for (const [pf, m] of menus) {
     lines.push("  " + pf + ": {", "    item: " + JSON.stringify(m.item) + ", page: " + JSON.stringify(m.page) + ", basePrice: " + m.basePrice + ",");
     // Vorausgewählte Pflicht-Optionen der Plattform (nur für den Hinweistext „Menükarte zeigt …“)

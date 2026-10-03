@@ -2,7 +2,15 @@
 // Wolt-Menü „Build your Bowl" (Compleat Nordend) und liest das im Browser erfasste Uber-Eats-Menü „Selbst zusammenstellen"
 // (data/compleat-ubereats-menu.json, siehe ubereats-capture.js) → data/compleat-raw.json (Quelle der Wahrheit, NICHT von Hand
 // editieren — Kuratierung passiert in den Tabellen unten). Aufruf: node compleat-crawl.js · danach node compleat-update.js
-// Kontrolle gegen den Word-Export des Users: node verify-compleat.js
+// Kontrolle gegen den Word-Export des Users: node verify-compleat.js · gegen die einzeln angeklickte Shop-Anzeige: node verify-compleat-shop.js
+// (data/compleat-shop-anzeige.json, erfasst mit compleat-shop-capture.js — der Crawl bricht ab, wenn eine verfügbare Shop-Zutat dort fehlt
+// oder anders angezeigt wird). Ablauf „aktualisiere Compleat“: .claude/skills/compleat-aktualisieren/SKILL.md
+//
+// Ausverkauft vs. gestrichen (User 27.09.2026: „Zutaten, die es dauerhaft nicht mehr gibt, raus — wenn nur gerade ausverkauft, drinlassen“):
+// die Shop-API liefert mit ?forceStockStatus=1 das ganze Sortiment, ohne den Parameter nur das gerade Verfügbare. Im ersten, nicht im
+// zweiten = ausverkauft (bleibt, soldOut). In keinem = aus dem Shop gestrichen (fliegt raus, _meta.removedIngredients). Fehlt eine Option
+// auf einer Plattform, deren Zutat im Shop nur ausverkauft ist, wird sie aus dem letzten Lauf übernommen (Uber Eats blendet Ausverkauftes
+// komplett aus); fehlt sie bei verfügbarer Shop-Zutat, gibt es sie auf der Plattform nicht mehr (bleibt im Datensatz für die andere).
 //
 // Datenbasis: vmos liefert je Zutat nutritionalMeta PRO 100 g (bzw. 100 ml) plus defaultQuantity (= Mengenangabe im Namen).
 // Portionswerte = pro 100 × Portion / 100 (LMIV-Umrechnung). Die Shop-Anzeige rechnet dagegen mit variations[0].value —
@@ -26,6 +34,9 @@ const WOLT_ITEM = "Build your Bowl";
 const UE_FILE = path.join(__dirname, "data", "compleat-ubereats-menu.json");
 const UE_ITEM = "Selbst zusammenstellen";
 const OUT = path.join(__dirname, "data", "compleat-raw.json");
+const SHOP_CTL = path.join(__dirname, "data", "compleat-shop-anzeige.json");
+// Wolt liefert neue Artikel/Optionen nur mit Client-Version-Headern (siehe CLAUDE.md, Subway „Beef Chili“)
+const WOLT_HEADERS = { "Accept": "application/json", "Accept-Language": "de-DE", "App-Language": "de", "User-Agent": "Mozilla/5.0", Platform: "Web", "Client-Version": "1.16.49", ClientVersionNumber: "1.16.49" };
 
 const VMOS_GROUPS = { "Base": "base", "Proteine": "proteine", "Vitamine": "vitamine", "Toppings": "toppings", "Dips": "dips" };
 const WOLT_GROUPS = { "Deine Basis": "base", "Deine Proteine": "protein", "Deine Extras": "extra", "Dein Dip": "dip" };
@@ -51,18 +62,37 @@ const WOLT_MAP = {
   "Granatapfelkerne, 15 g": "granatapfelkerne", "Erdnüsse, 20 g": "erdnuesse", "Walnusskerne, 20 g": "walnusskerne", "Röstzwiebeln, 20 g": "roestzwiebeln",
   "Chili Gewürz, 1 g": "chili_gewuerz", "Grana Padano, 20 g": "grana_padano",
   "Hart gekochtes Ei, 50 g": "hart_gekochtes_ei", // neu bei Wolt am 15.09.2026 (war in der User-Liste noch nicht enthalten)
+  // Herbst-Karte, neu bei Wolt am 27.09.2026 (Shop-Namen: Kürbiswürfel mariniert (200g), Mushroots Pilzbällchen (75g), Baby-Grünkohl (20g),
+  // Sriracha Light (Inlead) — Wolt schreibt „Siracha Mayo Light“; die Mushroots stehen unter Proteine und Extras, mit „…“ bzw. "…")
+  "Kürbis, 200 g": "kuerbiswuerfel_mariniert", "Pilzbällchen „Mushroots“, 75 g": "mushroots_pilzbaellchen", "Pilzbällchen \"Mushroots\", 75 g": "mushroots_pilzbaellchen",
+  "Ziegenkäse, 60 g": "ziegenkaese", "Rote Beete, 70 g": "rote_beete", "Grünkohl, 20 g": "baby_gruenkohl", "Functional Fall Crunch, 20 g": "functional_fall_crunch",
   "Curvy Curry Dip": "curvy_curry", "Honey Muscle Mustard Dip": "honey_muscle_mustard", "Joghurt-Salatdressing": "joghurt_salatdressing",
   "Power Peanut Dip": "power_peanut", "Sexy Sesame Dip": "sexy_sesame", "Champion Chili-Dip": "champion_chili", "Protein Tsatsiki Dip": "protein_tzatziki",
-  "Guacamole": "guacamole", "Rotes Pesto, 80g": "rotes_pesto", "Ajvar, 100g": "ajvar", "Sojasoße , 20ml": "sojasauce",
+  "Guacamole": "guacamole", "Sojasoße , 20ml": "sojasauce",
   "Olivenöl und halbe Zitrone": "olivenoel_salz_halbe_zitrone", "Balsamico Dressing , 80g": "balsamico_dressing",
+  "Trüffel Light (Inlead), 80 g": "trueffel_light_inlead", "Siracha Mayo Light (Inlead), 80 g": "sriracha_light_inlead", "Aioli Light (Inlead), 80 g": "aioli_light_inlead",
+  // seit 27.09.2026 nicht mehr bei Wolt (im Shop weiter; kommen automatisch zurück, wenn Wolt sie wieder führt)
+  "Rotes Pesto, 80g": "rotes_pesto", "Ajvar, 100g": "ajvar",
 };
 
 // Haupt-Proteine: nur sie erfüllen „≥1 Protein" (User 15.09.2026: jede Bowl ≥1 Base + ≥1 Protein), auch als halbe Portion.
 // Ei, Edamame, Erbsen und Feta stehen bei Uber Eats unter „Proteine", zählen im Rechner aber wie bei Wolt (dort Extras) als Extras.
-const PROTEIN_MAIN = new Set(["huehnchen", "veganes_huehnchen_planted_chicken", "rinderhackbaellchen", "vegane_hackbaellchen", "pulled_salmon"]);
+// Mushroots Pilzbällchen (27.09.2026) wie die Hackbällchen: bei Wolt unter „Deine Proteine“
+const PROTEIN_MAIN = new Set(["huehnchen", "veganes_huehnchen_planted_chicken", "rinderhackbaellchen", "vegane_hackbaellchen", "pulled_salmon", "mushroots_pilzbaellchen"]);
 
-// „No crunch"-Schalter (User 15.09.2026): Nüsse, Röstzwiebeln, Sesam
-const CRUNCH = new Set(["erdnuesse", "walnusskerne", "roestzwiebeln", "schwarzer_sesam"]);
+// „No crunch"-Schalter (User 15.09.2026): Nüsse, Röstzwiebeln, Sesam — dazu der Functional Fall Crunch (27.09.2026: Haferflocken, Kürbiskerne,
+// Pekannuss, Walnuss …)
+const CRUNCH = new Set(["erdnuesse", "walnusskerne", "roestzwiebeln", "schwarzer_sesam", "functional_fall_crunch"]);
+
+// Halbe Portionen mit (leicht) anderen Werten je 100 g als die ganze: der Rechner nutzt die Werte der ganzen Portion — hier geprüft und
+// akzeptiert (sonst bricht der Crawl ab). Betrifft nur Uber Eats (Wolt hat keine halben Portionen).
+const HALF_DIFF_OK = {
+  kuerbiswuerfel_mariniert: "Kürbiswürfel mariniert - halbe Portion: Zucker 1,7 statt 1,5 g je 100 g (sonst identisch) → +0,2 g Zucker je halbe Portion; der Rechner nutzt die Werte der ganzen Portion (27.09.2026)",
+};
+// Uber Eats: halbe Portionen, die NICHT die halbe Menge zum halben Preis sind → „höchstens eine halbe neben der ganzen“ lässt 2 halbe aus
+const UE_HALF_NOT_DOUBLE = {
+  mushroots_pilzbaellchen: "Mushroots - Halbe Portion = 45 g für 2,00 €, ganze Portion 75 g für 3,00 € (2 halbe = 90 g / 4,00 €) → der Rechner nimmt höchstens eine halbe neben der ganzen; 2 halbe statt einer ganzen schlägt er nicht vor (27.09.2026)",
+};
 
 // Im Rechner gesperrt — bleibt im Datensatz, wird aber auf KEINER Plattform (Wolt, Uber Eats …) vorgeschlagen,
 // gesucht oder als Ausschluss angeboten. compleat-update.js lässt gesperrte Zutaten aus allen Plattform-Menüs weg.
@@ -137,24 +167,41 @@ async function main() {
   const bundle = await discoverBundle(menu.uuid);
   console.log("  Menü " + menu.uuid + " " + menu.name + (menu.discovered ? "" : " [FALLBACK]") + " · Bundle " + bundle.uuid + (bundle.discovered ? "" : " [FALLBACK]"));
   const itemTypes = await getJSON(VMOS + "/catalog/bundles/" + bundle.uuid + "/item-types?forceStockStatus=1", vmosHeaders(menu.uuid));
+  // ohne forceStockStatus liefert die API nur das gerade Verfügbare → was dort fehlt, ist ausverkauft (27.09.2026 geprüft: genau die drei
+  // Karten mit „Ausverkauft“-Overlay im Shop)
+  const itemTypesNow = await getJSON(VMOS + "/catalog/bundles/" + bundle.uuid + "/item-types", vmosHeaders(menu.uuid));
+  const availNow = new Set((itemTypesNow.payload || []).flatMap(g => (g.items || []).map(it => normName(it.name))));
+  const prev = fs.existsSync(OUT) ? U.readJSON(OUT) : null;
   const diets = await getJSON(VMOS + "/catalog/diets", vmosHeaders(menu.uuid));
   const allergenName = Object.fromEntries(((diets.payload && diets.payload.allergens) || []).map(a => [a.uuid, normName(a.name)]));
   if (!Object.keys(allergenName).length) throw new Error("Allergenliste leer");
 
   // ── Zutaten (kompletter Shop-Datensatz „Selbst zusammenstellen") ──
   const ingredients = [], byId = {}, halves = [], problems = [], missingDeclared = [], displayBugs = [], dislikes = [], shellfish = [], halfPortionDiffs = [];
+  const shopItems = [], soldOut = []; // jede Shop-Karte (auch halbe Portionen) mit Werten je 100 g und Anzeige-Menge → Abgleich mit der Shop-Anzeige
   for (const g of itemTypes.payload || []) {
     const group = VMOS_GROUPS[normName(g.name)];
     if (!group) continue; // „base item type" = das Bundle selbst
     for (const it of g.items || []) {
       const name = normName(it.name), m = it.nutritionalMeta || {};
       if (m.calories == null || m.calories === "") { if (!/^ohne /i.test(name)) problems.push("Keine Nährwerte: " + name); continue; }
+      const isSoldOut = !availNow.has(name);
+      if (isSoldOut) soldOut.push(name);
+      const vars = ((it.customizations && it.customizations[0] && it.customizations[0].variations) || []).map(v => Number(v.value));
+      const shopPer100 = Object.fromEntries(PER100.map(([k, src]) => [k, m[src] === "" || m[src] == null ? 0 : U.parseNum(Number(m[src]))]));
+      shopItems.push(Object.assign({ name, group, per100: shopPer100, displayAmount: vars.length ? vars[0] : (splitHalf(name) || splitPortion(name)).amount }, isSoldOut ? { soldOut: true } : {}));
       const half = splitHalf(name);
-      if (half) { halves.push({ base: half.base, amount: half.amount, name, per100: Object.fromEntries(PER100.map(([k, src]) => [k, m[src] === "" || m[src] == null ? 0 : U.parseNum(Number(m[src]))])) }); continue; }
+      if (half) { halves.push({ base: half.base, amount: half.amount, name, per100: shopPer100 }); continue; }
       const sp = splitPortion(name);
       if (sp.amount == null) { problems.push("Keine Mengenangabe im Namen: " + name); continue; }
-      const id = U.slugId(sp.base);
-      if (byId[id]) { problems.push("Doppelte Zutat-id " + id + " (" + name + ")"); continue; }
+      let id = U.slugId(sp.base), dupOf = null;
+      if (byId[id]) {
+        // dieselbe Zutat in einer anderen Gruppe mit anderer Portion (Kürbiswürfel mariniert: Base 200 g, Vitamine 50 g) → eigene id, wenn die
+        // Werte je 100 g identisch sind (sonst wäre es eine andere Zutat gleichen Namens → prüfen)
+        const first = byId[id], same = PER100.every(([k, src]) => U.parseNum(Number(m[src] === "" || m[src] == null ? 0 : m[src])) === first.per100[k]);
+        if (first.group === group || !same) { problems.push("Doppelte Zutat-id " + id + " (" + name + ")" + (same ? "" : " mit anderen Werten je 100 g")); continue; }
+        dupOf = id; id = id + "_" + sp.amount + sp.unit;
+      }
       const per100 = {}, missing = [];
       for (const [k, src] of PER100) {
         if (m[src] === "" || m[src] == null) { per100[k] = 0; missing.push(LABEL[k]); }
@@ -172,7 +219,7 @@ async function main() {
       const zutaten = stripHtml(it.ingredients);
       // Verfügbarkeit wird bewusst NICHT übernommen: die Stock-Felder der API sind nicht eindeutig (ausverkauft = Ausschluss-Liste in der App)
       const ing = {
-        id, name: sp.base, shopName: name, group, portion: sp.amount, unit: sp.unit, per100,
+        id, name: dupOf ? sp.base + " (" + sp.amount + " " + sp.unit + ")" : sp.base, shopName: name, group, portion: sp.amount, unit: sp.unit, per100,
         perPortion: Object.fromEntries(U.KEYS.map(k => [k, U.round(per100[k] * sp.amount / 100, 2)])),
         allergens, ingredients: zutaten || null,
         vmos: { uuid: it.itemUUID || it.uuid, displayAmount },
@@ -181,6 +228,8 @@ async function main() {
         const shown = Math.round(per100.kcal * displayAmount / 100), real = Math.round(per100.kcal * sp.amount / 100);
         displayBugs.push({ id, shopName: name, shopRechnetMit: displayAmount, portion: sp.amount, unit: sp.unit, shopZeigtKcal: shown, richtigKcal: real });
       }
+      if (dupOf) ing.sameAs = dupOf;
+      if (isSoldOut) ing.soldOut = true;
       if (CRUNCH.has(id)) ing.crunch = true;
       if (BLOCKED[id]) ing.blocked = BLOCKED[id];
       if (allergens.some(a => SHELLFISH_ALLERGENS.has(a))) { ing.shellfish = true; shellfish.push(name + ": " + allergens.join(", ")); }
@@ -197,14 +246,19 @@ async function main() {
     const diff = U.KEYS.filter(k => Math.abs(hp.per100[k] - ing.per100[k]) > 1e-9);
     if (diff.length) {
       halfPortionDiffs.push({ id: ing.id, name: hp.name, halb: Object.fromEntries(diff.map(k => [k, hp.per100[k]])), ganz: Object.fromEntries(diff.map(k => [k, ing.per100[k]])) });
-      if (!ing.blocked) problems.push("Halbe Portion „" + hp.name + "“ hat andere Werte je 100 g als die ganze Portion (" + diff.map(k => k + " " + hp.per100[k] + " statt " + ing.per100[k]).join(", ") + ") → Rechner würde die Werte der ganzen Portion nutzen: prüfen und entscheiden");
+      if (!ing.blocked && !HALF_DIFF_OK[ing.id]) problems.push("Halbe Portion „" + hp.name + "“ hat andere Werte je 100 g als die ganze Portion (" + diff.map(k => k + " " + hp.per100[k] + " statt " + ing.per100[k]).join(", ") + ") → Rechner würde die Werte der ganzen Portion nutzen: prüfen und in HALF_DIFF_OK begründen");
     }
   }
-  for (const id of [...CRUNCH, ...Object.keys(BLOCKED), ...Object.keys(MANUAL_ANOMALIES), ...PROTEIN_MAIN]) if (!byId[id]) problems.push("Kuratierte id fehlt im Shop: " + id);
+  for (const id of [...CRUNCH, ...Object.keys(BLOCKED), ...Object.keys(MANUAL_ANOMALIES), ...PROTEIN_MAIN, ...Object.keys(HALF_DIFF_OK), ...Object.keys(UE_HALF_NOT_DOUBLE)]) if (!byId[id]) problems.push("Kuratierte id fehlt im Shop: " + id + " (aus dem Shop gestrichen? → Tabelle bereinigen)");
+  const soldOutIds = new Set(ingredients.filter(x => x.soldOut).map(x => x.id));
+
+  // ── Abgleich mit der einzeln angeklickten Shop-Anzeige (data/compleat-shop-anzeige.json) ──
+  const shopControl = require("./verify-compleat-shop.js").compare(shopItems, U.readJSON(SHOP_CTL));
+  for (const p of shopControl.problems) problems.push("Shop-Anzeige: " + p);
 
   // ── Wolt-Menü „Build your Bowl" ──
   console.log("Wolt: " + WOLT_SLUG + " …");
-  const wa = await getJSON(WOLT_API, { "Accept": "application/json", "Accept-Language": "de-DE", "App-Language": "de", "User-Agent": "Mozilla/5.0" });
+  const wa = await getJSON(WOLT_API, WOLT_HEADERS);
   const byo = (wa.items || []).find(i => normName(i.name) === WOLT_ITEM);
   if (!byo) throw new Error("Wolt-Item „" + WOLT_ITEM + "“ nicht gefunden");
   const optById = Object.fromEntries((wa.options || []).map(o => [o.id, o]));
@@ -218,7 +272,8 @@ async function main() {
     // zeigt die Menükarte Grundpreis + Vorauswahl (Build your Bowl: 2 € + Curvy Curry Dip 2 € = 4 €, User-Rückfrage 16.09.2026).
     const wgrp = optById[ref.option_id] || {};
     const dflt = (wgrp.values || []).find(v => v.id === wgrp.default_value);
-    if (dflt) grp.defaultOption = { name: normName(dflt.name), price: U.round((dflt.price || 0) / 100, 2) };
+    // Standard-Option „Ohne Dip“ (seit 27.09.2026) = keine Vorauswahl mit Aufpreis
+    if (dflt && WOLT_NONE[normName(dflt.name)] !== gid) grp.defaultOption = { name: normName(dflt.name), price: U.round((dflt.price || 0) / 100, 2) };
     for (const v of wgrp.values || []) {
       const wname = normName(v.name);
       if (WOLT_NONE[wname] === gid) { grp.noneOption = wname; continue; }
@@ -236,6 +291,9 @@ async function main() {
       const role = gid === "protein" ? (PROTEIN_MAIN.has(id) ? "protein" : "extra") : gid;
       grp.options.push({ name: wname, ingredient: id, role, amount, unit, maxQty: Math.max(1, rawMax || 0), price: U.round((v.price || 0) / 100, 2) });
     }
+    // Option fehlt bei Wolt, Zutat im Shop nur ausverkauft → aus dem letzten Lauf übernehmen (ausverkauft ≠ gestrichen)
+    const prevG = prev && prev.wolt && (prev.wolt.groups || []).find(x => x.id === gid);
+    for (const o of (prevG ? prevG.options : [])) if (soldOutIds.has(o.ingredient) && !grp.options.some(x => x.name === o.name)) grp.options.push(Object.assign({}, o, { soldOut: true }));
     woltGroups.push(grp);
   }
   if (unmapped.length) problems.push("Nicht zugeordnete Wolt-Optionen (WOLT_MAP ergänzen): " + unmapped.join(" · "));
@@ -266,7 +324,9 @@ async function main() {
       if (UE_NO_DATA[uname]) { ueNoData.push(grp.name + ": „" + uname + "“ — " + UE_NO_DATA[uname]); continue; }
       const half = splitHalf(uname);
       const sp = half || splitPortion(uname);
-      const id = U.slugId(splitPortion(sp.base).base);
+      // exakter Shop-Name zuerst (Kürbiswürfel mariniert (50g) = eigene Zutat neben der 200-g-Base), sonst über den Namen ohne Menge
+      const exact = !half && ingredients.find(x => x.shopName === uname);
+      const id = exact ? exact.id : U.slugId(splitPortion(sp.base).base);
       const ing = byId[id];
       if (!ing) { ueUnknown.push(grp.name + ": „" + uname + "“"); continue; }
       if (sp.amount == null) { problems.push("Uber Eats: keine Mengenangabe: " + uname); continue; }
@@ -282,19 +342,40 @@ async function main() {
       if (half) opt.half = true;
       grp.options.push(opt);
     }
+    const prevG = prev && prev.ubereats && (prev.ubereats.groups || []).find(x => x.id === gid && x.name === gname);
+    for (const o of (prevG ? prevG.options : [])) if (soldOutIds.has(o.ingredient) && !grp.options.some(x => x.name === o.name)) grp.options.push(Object.assign({}, o, { soldOut: true }));
     ueGroups.push(grp);
   }
   if (ueUnknown.length) problems.push("Uber-Eats-Optionen ohne Shop-Zutat (Namen prüfen oder in UE_NO_DATA begründen): " + ueUnknown.join(" · "));
   // Halbe Portion = halbe Menge zum halben Preis der ganzen? Nur dann ist „halbe Portion höchstens 1× neben der ganzen" im Rechner verlustfrei
+  const ueHalfNotDouble = [];
   for (const g of ueGroups) for (const o of g.options.filter(x => x.half)) {
     const full = g.options.find(x => !x.half && x.ingredient === o.ingredient);
     if (!full) { problems.push("Uber Eats: halbe Portion ohne ganze Portion in derselben Gruppe: " + o.name); continue; }
-    if (U.round(2 * o.amount, 2) !== full.amount || U.round(2 * o.price, 2) !== full.price) problems.push("Uber Eats: 2× „" + o.name + "“ ≠ „" + full.name + "“ (Menge oder Preis) → Regel für halbe Portionen prüfen");
+    if (U.round(2 * o.amount, 2) !== full.amount || U.round(2 * o.price, 2) !== full.price) {
+      if (UE_HALF_NOT_DOUBLE[o.ingredient]) ueHalfNotDouble.push(o.name + " — " + UE_HALF_NOT_DOUBLE[o.ingredient]);
+      else problems.push("Uber Eats: 2× „" + o.name + "“ ≠ „" + full.name + "“ (Menge oder Preis) → Regel für halbe Portionen prüfen (UE_HALF_NOT_DOUBLE)");
+    }
   }
   const ueItemPrice = U.round(((ue.item && ue.item.price) || 0) / 100, 2);
   const ueCardPrice = U.round(ueItemPrice + uePreselect.reduce((sum, x) => sum + x.price * (x.qty || 1), 0), 2);
   const onUE = new Set(ueGroups.flatMap(g => g.options.map(o => o.ingredient)));
   const notOnUberEats = ingredients.filter(x => !onUE.has(x.id)).map(x => x.shopName);
+
+  // ── Änderungen gegenüber dem letzten Lauf (für „aktualisiere Compleat“) ──
+  const today = fetchedAt.slice(0, 10);
+  const optNames = (m, pf) => new Map(((m && m.groups) || []).flatMap(g => g.options.filter(o => !o.soldOut).map(o => [pf + " · " + g.name + ": " + o.name, o.price])));
+  const prevIds = new Set(prev ? prev.ingredients.map(x => x.id) : []);
+  const removedNow = prev ? prev.ingredients.filter(x => !byId[x.id]).map(x => ({ name: x.shopName, id: x.id, removedAt: today })) : [];
+  const removedIngredients = [...((prev && prev._meta.removedIngredients) || []).filter(r => !byId[r.id]), ...removedNow];
+  const lastChanges = { since: prev ? prev._meta.fetchedAt : null, shopAdded: ingredients.filter(x => prev && !prevIds.has(x.id)).map(x => x.shopName), shopRemoved: removedNow.map(x => x.name), woltAdded: [], woltRemoved: [], ubereatsAdded: [], ubereatsRemoved: [], prices: [] };
+  for (const [pf, cur, old] of [["Wolt", { groups: woltGroups }, prev && prev.wolt], ["Uber Eats", { groups: ueGroups }, prev && prev.ubereats]]) {
+    const a = optNames(cur, pf), b = optNames(old, pf), key = pf === "Wolt" ? "wolt" : "ubereats";
+    for (const [n, p] of a) { if (!b.has(n)) lastChanges[key + "Added"].push(n.replace(pf + " · ", "")); else if (b.get(n) !== p) lastChanges.prices.push(n + ": " + b.get(n) + " → " + p + " €"); }
+    for (const n of b.keys()) if (!a.has(n)) lastChanges[key + "Removed"].push(n.replace(pf + " · ", ""));
+  }
+  if (prev && prev.wolt && prev.wolt.itemPrice !== woltItemPrice) lastChanges.prices.unshift("Wolt · Grundpreis „" + WOLT_ITEM + "“: " + prev.wolt.itemPrice + " → " + woltItemPrice + " €");
+  if (prev && prev.ubereats && prev.ubereats.itemPrice !== ueItemPrice) lastChanges.prices.unshift("Uber Eats · Grundpreis „" + UE_ITEM + "“: " + prev.ubereats.itemPrice + " → " + ueItemPrice + " €");
 
   // ── Auffälligkeiten (automatisch + manuell) ──
   const anomalies = [];
@@ -321,6 +402,8 @@ async function main() {
         wolt: { page: WOLT_PAGE, api: WOLT_API, item: WOLT_ITEM, itemPrice: woltItemPrice, cardPrice: woltCardPrice },
         ubereats: { page: ue.pageUrl, file: "data/compleat-ubereats-menu.json", capturedAt: ue.capturedAt, item: UE_ITEM, itemPrice: ueItemPrice, cardPrice: ueCardPrice, how: "Uber Eats blockt Skript-Abrufe (Cloudflare) → Produktseite im Browser geöffnet, __REACT_QUERY_STATE__ gelesen (ubereats-capture.js)" },
         word: "data/compleat-word.txt = Word-Copy-Paste des Users (Shop-Anzeige, 15.09.2026) → Abgleich: node verify-compleat.js",
+        shopDisplay: "data/compleat-shop-anzeige.json = jede Zutat einzeln im Shop ausgewählt und die Anzeige abgelesen (compleat-shop-capture.js, " + shopControl.readAt + ") → Abgleich: node verify-compleat-shop.js",
+        stock: "Ausverkauft = mit ?forceStockStatus=1 im Bundle, ohne den Parameter nicht (27.09.2026 an den „Ausverkauft“-Karten des Shops bestätigt)",
       },
       basis: "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Wolt-Mengen weichen nur beim Salat-Mix ab → mit Wolt-Menge gerechnet. Uber Eats nutzt die Shop-Namen und -Mengen (inkl. halber Portionen).",
       woltRules: "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Grundpreis „Build your Bowl“ " + woltItemPrice + " €. " + woltCardNote,
@@ -332,13 +415,18 @@ async function main() {
         "User 15.09.2026: Guacamole normal anbieten (enthält laut Zutatenliste Koriander, im Chat erwähnt)",
         "User 15.09.2026: Optionales Preislimit — keine vorgeschlagene Bestellung liegt über dem eingegebenen Maximalpreis (Grundpreis + Zutaten)",
         "User 15.09.2026: Rechner zusätzlich für Uber Eats („Selbst zusammenstellen“, Grundpreis 1 €)",
-        "User 16.09.2026 (Rückfrage „Build your Bowl kostet 4 €“): Grundpreis bleibt " + woltItemPrice + " € — die " + woltCardPrice + " € auf der Wolt-Karte sind Grundpreis + vorausgewählter Dip; der Rechner rechnet Grundpreis + gewählte Optionen und nennt die Vorauswahl im Hinweistext",
+        "User 16.09.2026 (Rückfrage „Build your Bowl kostet 4 €“): damals 2 € Grundpreis + vorausgewählter Curvy Curry Dip; der Rechner rechnet Grundpreis + gewählte Optionen und nennt eine Vorauswahl im Hinweistext (seit 27.09.2026 wählt Wolt „Ohne Dip“ vor)",
+        "User 27.09.2026: neue Compleat-Zutaten einbauen, soweit Wolt sie führt — Werte je Zutat durch einzelnes Auswählen im Shop bestätigt (data/compleat-shop-anzeige.json); Zutaten, die es dauerhaft nicht mehr gibt, raus, ausverkaufte drin (Skill „compleat-aktualisieren“)",
       ],
       portionDiffs, portionAssumed, displayBugs, halfPortionDiffs, anomalies, missingDeclared, notOnWolt, woltMapUnused, dislikes, shellfish,
-      ubereats: { noData: ueNoData, portionDiffs: uePortionDiffs, kcalDiffs: ueKcalDiffs, notOnUberEats },
-      eggNote: "Hart gekochtes Ei: offizielle Shop-Werte (pro 100 g 155 kcal → 77,5 kcal je 50 g) statt der generischen Tabellenwerte aus dem Word-Dokument (78 kcal / 6,3 g P / 0,6 g KH / 5,3 g F je 50 g). Seit 15.09.2026 bei Wolt als Extra „Hart gekochtes Ei, 50 g“ bestellbar.",
+      soldOut, removedIngredients, lastChanges,
+      halfPortionAccepted: Object.values(HALF_DIFF_OK),
+      shopControl: { readAt: shopControl.readAt, checked: shopControl.checked, values: shopControl.values, soldOutNotChecked: shopControl.soldOutNotChecked, notInShop: shopControl.notInShop },
+      ubereats: { noData: ueNoData, portionDiffs: uePortionDiffs, kcalDiffs: ueKcalDiffs, notOnUberEats, halfNotDouble: ueHalfNotDouble },
+      eggNote: "Hart gekochtes Ei: offizielle Shop-Werte (155 kcal je 100 g). Seit 27.09.2026 heißt die Shop-Zutat „Hart gekochtes Ei (40g)“ (defaultQuantity 40), die Shop-Anzeige rechnet aber weiter mit 50 g (78 kcal), und Wolt („Hart gekochtes Ei, 50 g“) wie Uber Eats („Hart gekochtes Ei (50g)“) nennen 50 g → der Rechner nimmt auf beiden Plattformen 50 g (77,5 kcal).",
     },
     ingredients,
+    shopItems,
     wolt: { page: WOLT_PAGE, item: WOLT_ITEM, itemPrice: woltItemPrice, cardPrice: woltCardPrice, preselected: woltPreselect, groups: woltGroups },
     ubereats: { page: ue.pageUrl, item: UE_ITEM, itemPrice: ueItemPrice, cardPrice: ueCardPrice, preselected: uePreselect, capturedAt: ue.capturedAt, groups: ueGroups },
   };
@@ -346,6 +434,13 @@ async function main() {
   if (problems.length) { console.error("\nPROBLEME — raw.json wird NICHT geschrieben:\n  " + problems.join("\n  ")); process.exit(1); }
   fs.writeFileSync(OUT, JSON.stringify(raw, null, 2) + "\n", "utf8");
 
+  const L = (label, arr) => console.log(label + ": " + (arr.length ? arr.join(" · ") : "—"));
+  console.log("\n── Änderungen seit " + (lastChanges.since || "—") + " ──");
+  L("Neu im Shop", lastChanges.shopAdded); L("Aus dem Shop gestrichen (raus)", lastChanges.shopRemoved);
+  L("Neu bei Wolt", lastChanges.woltAdded); L("Nicht mehr bei Wolt", lastChanges.woltRemoved);
+  L("Neu bei Uber Eats", lastChanges.ubereatsAdded); L("Nicht mehr bei Uber Eats", lastChanges.ubereatsRemoved);
+  L("Preise", lastChanges.prices); L("Im Shop gerade ausverkauft (bleibt drin)", soldOut);
+  console.log("Shop-Anzeige (" + shopControl.readAt + "): " + shopControl.checked + " Karten / " + shopControl.values + " Werte identisch" + (shopControl.soldOutNotChecked.length ? " · ausverkauft, nicht prüfbar: " + shopControl.soldOutNotChecked.join(", ") : ""));
   console.log("\n" + ingredients.length + " Zutaten (" + Object.entries(ingredients.reduce((o, x) => (o[x.group] = (o[x.group] || 0) + 1, o), {})).map(([k, v]) => k + " " + v).join(", ") + ") → " + path.relative(__dirname, OUT));
   console.log("Wolt (Grundpreis " + woltItemPrice + " €): " + woltGroups.map(g => g.name + " " + g.options.length + (g.noneOption ? " + „" + g.noneOption + "“" : "") + " (" + g.min + "–" + g.max + ")").join(" · "));
   console.log("Uber Eats (Grundpreis " + ueItemPrice + " €, erfasst " + ue.capturedAt + "): " + ueGroups.map(g => g.name + " " + g.options.length + (g.noneOption ? " + „" + g.noneOption + "“" : "") + " (" + g.min + "–" + g.max + ")").join(" · "));

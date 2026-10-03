@@ -1,0 +1,1082 @@
+{
+ "_source": "Compleat-Onlineshop, Bundle „Selbst zusammenstellen“ (Store Frankfurt Nordend): jede Zutat-Karte EINZELN ausgewählt (Menge 1) und die Anzeige „Nutrition facts per serving“ (Reiter „Nährwerte“) abgelesen, danach wieder abgewählt (compleat-shop-capture.js, im Browser; Prüfsumme sha256 des kompakten JSON im Browser und lokal verglichen). Werte als angezeigt (Text, „--“ = nicht angegeben). soldOut = Overlay „Ausverkauft“, Häkchen gesperrt → keine Werte. Kontrollquelle für node verify-compleat-shop.js. Nicht von Hand ändern.",
+ "readAt": "2026-09-27T19:24:33.979Z",
+ "page": "https://compleat.vmos.io/store/bb51e8b9-3301-4bee-bb33-e063fac5ec64/menu/category/bae2cbce-c348-4807-9988-4c52556d68b2/bundle/afaa6fe6-4785-4bd7-b6e0-0ea9d4f12c22/bundleCustomization?menuUUID=9a7bd18b-9542-4768-b85a-c48740da87e9",
+ "items": [
+  {
+   "name": "Basmati Reis (250g)",
+   "uuid": "2dd55dd5-a2f3-4758-ac1e-dab930d2a04e",
+   "group": "Base",
+   "qty": 1,
+   "shown": {
+    "kcal": "330",
+    "kj": "1381",
+    "fat": "0.8",
+    "carbs": "70.0",
+    "sat": "--",
+    "sugars": "0.3",
+    "protein": "7.5",
+    "fibre": "1.5",
+    "salt": "2.50"
+   }
+  },
+  {
+   "name": "Kürbiswürfel mariniert (200g)",
+   "uuid": "00aebe1f-d466-4d6c-ab34-45cf406184eb",
+   "group": "Base",
+   "qty": 1,
+   "shown": {
+    "kcal": "113",
+    "kj": "473",
+    "fat": "5.2",
+    "carbs": "11.4",
+    "sat": "0.8",
+    "sugars": "3.0",
+    "protein": "1.6",
+    "fibre": "3.2",
+    "salt": "1.20"
+   }
+  },
+  {
+   "name": "Salatmix (80g)",
+   "uuid": "97dc729f-09e0-4f8f-a403-5c0922465b98",
+   "group": "Base",
+   "qty": 1,
+   "shown": {
+    "kcal": "14",
+    "kj": "59",
+    "fat": "0.2",
+    "carbs": "1.7",
+    "sat": "0.1",
+    "sugars": "0.9",
+    "protein": "1.2",
+    "fibre": "--",
+    "salt": "0.08"
+   }
+  },
+  {
+   "name": "Bunter Bio Quinoa (250g)",
+   "uuid": "e0a98460-cdca-4ca0-8eb8-14df54d4bf93",
+   "group": "Base",
+   "qty": 1,
+   "shown": {
+    "kcal": "130",
+    "kj": "544",
+    "fat": "2.3",
+    "carbs": "21.3",
+    "sat": "0.3",
+    "sugars": "0.8",
+    "protein": "4.5",
+    "fibre": "4.0",
+    "salt": "2.50"
+   }
+  },
+  {
+   "name": "Protein-Pasta (200g)",
+   "uuid": "2cc29890-4d6f-434a-b552-00a56ef536ed",
+   "group": "Base",
+   "qty": 1,
+   "shown": {
+    "kcal": "381",
+    "kj": "1594",
+    "fat": "5.5",
+    "carbs": "50.0",
+    "sat": "0.4",
+    "sugars": "1.5",
+    "protein": "26.0",
+    "fibre": "14.0",
+    "salt": "2.00"
+   }
+  },
+  {
+   "name": "Bunter Bio Quinoa - Halbe Portion (125g)",
+   "uuid": "aa8d7036-0fef-4efc-929a-a05907185b17",
+   "group": "Base",
+   "qty": 1,
+   "shown": {
+    "kcal": "65",
+    "kj": "272",
+    "fat": "1.1",
+    "carbs": "10.6",
+    "sat": "0.1",
+    "sugars": "0.4",
+    "protein": "1.1",
+    "fibre": "2.0",
+    "salt": "1.25"
+   }
+  },
+  {
+   "name": "Basmati Reis - Halbe Portion (125g)",
+   "uuid": "23b883ab-9f93-4ec6-a8bb-649d7ec1e9e9",
+   "group": "Base",
+   "qty": 1,
+   "shown": {
+    "kcal": "165",
+    "kj": "690",
+    "fat": "0.4",
+    "carbs": "35.0",
+    "sat": "--",
+    "sugars": "0.1",
+    "protein": "3.8",
+    "fibre": "0.8",
+    "salt": "1.25"
+   }
+  },
+  {
+   "name": "Protein-Pasta - Halbe Portion (100g)",
+   "uuid": "20e25b0b-3c76-4fc6-97b0-8c54046667dc",
+   "group": "Base",
+   "qty": 1,
+   "shown": {
+    "kcal": "191",
+    "kj": "799",
+    "fat": "2.8",
+    "carbs": "25.0",
+    "sat": "0.2",
+    "sugars": "0.8",
+    "protein": "13.0",
+    "fibre": "7.0",
+    "salt": "1.00"
+   }
+  },
+  {
+   "name": "Salatmix - Halbe Portion (40g)",
+   "uuid": "229b1cd1-6a28-4226-8aac-cb130c9eeafc",
+   "group": "Base",
+   "qty": 1,
+   "shown": {
+    "kcal": "7",
+    "kj": "29",
+    "fat": "0.1",
+    "carbs": "0.8",
+    "sat": "0.0",
+    "sugars": "0.4",
+    "protein": "0.6",
+    "fibre": "--",
+    "salt": "0.04"
+   }
+  },
+  {
+   "name": "Kürbiswürfel mariniert - halbe Portion (100g)",
+   "uuid": "bfde53d2-fb2d-49b5-97a9-8e122afd437f",
+   "group": "Base",
+   "qty": 1,
+   "shown": {
+    "kcal": "56",
+    "kj": "234",
+    "fat": "2.6",
+    "carbs": "5.7",
+    "sat": "0.4",
+    "sugars": "1.7",
+    "protein": "0.8",
+    "fibre": "1.6",
+    "salt": "0.60"
+   }
+  },
+  {
+   "name": "Hühnchen (100g)",
+   "uuid": "199fd192-f999-432f-96ba-069cd1237ce9",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "125",
+    "kj": "523",
+    "fat": "2.7",
+    "carbs": "1.6",
+    "sat": "1.2",
+    "sugars": "0.7",
+    "protein": "23.2",
+    "fibre": "--",
+    "salt": "1.07"
+   }
+  },
+  {
+   "name": "Veganes Hühnchen planted.chicken (80g)",
+   "uuid": "ba2285ac-4cb6-4023-85a2-c77265c2e1c3",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "156",
+    "kj": "653",
+    "fat": "8.0",
+    "carbs": "1.8",
+    "sat": "0.8",
+    "sugars": "0.4",
+    "protein": "16.8",
+    "fibre": "3.2",
+    "salt": "1.52"
+   }
+  },
+  {
+   "name": "Mushroots Pilzbällchen (75g)",
+   "uuid": "5ac42837-9e4b-4df5-a1bd-8cc3adc8826e",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "155",
+    "kj": "649",
+    "fat": "7.5",
+    "carbs": "4.2",
+    "sat": "0.6",
+    "sugars": "1.1",
+    "protein": "16.5",
+    "fibre": "2.5",
+    "salt": "1.13"
+   }
+  },
+  {
+   "name": "Rinderhackbällchen (100g)",
+   "uuid": "e2f09f25-8914-4a53-bed5-844a98bae172",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "222",
+    "kj": "929",
+    "fat": "14.0",
+    "carbs": "10.0",
+    "sat": "5.2",
+    "sugars": "1.0",
+    "protein": "14.0",
+    "fibre": "2.0",
+    "salt": "1.80"
+   }
+  },
+  {
+   "name": "Vegane Hackbällchen (100g)",
+   "uuid": "82e42a4e-51ee-4d2c-b9cc-f6ac88e72bdc",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "154",
+    "kj": "644",
+    "fat": "4.5",
+    "carbs": "7.0",
+    "sat": "0.5",
+    "sugars": "1.0",
+    "protein": "17.7",
+    "fibre": "7.5",
+    "salt": "1.40"
+   }
+  },
+  {
+   "name": "Pulled Salmon (100g)",
+   "uuid": "1f8fe554-f525-4df5-ad65-1825ee40ca70",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "215",
+    "kj": "900",
+    "fat": "14.4",
+    "carbs": "--",
+    "sat": "3.5",
+    "sugars": "--",
+    "protein": "20.3",
+    "fibre": "6.0",
+    "salt": "2.20"
+   }
+  },
+  {
+   "name": "Hart gekochtes Ei (40g)",
+   "uuid": "18ff1bd4-2b1d-48da-b254-fa3cae783452",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "78",
+    "kj": "326",
+    "fat": "5.6",
+    "carbs": "0.3",
+    "sat": "1.6",
+    "sugars": "0.1",
+    "protein": "6.5",
+    "fibre": "0.3",
+    "salt": "0.38"
+   }
+  },
+  {
+   "name": "Edamame (50g)",
+   "uuid": "eee79452-d172-4b70-94d0-c51991c0833c",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "55",
+    "kj": "230",
+    "fat": "--",
+    "carbs": "4.3",
+    "sat": "--",
+    "sugars": "1.2",
+    "protein": "5.0",
+    "fibre": "1.2",
+    "salt": "1.00"
+   }
+  },
+  {
+   "name": "Erbsen (50g)",
+   "uuid": "20445c61-b2ea-4a52-997c-8007d5021199",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "35",
+    "kj": "146",
+    "fat": "0.1",
+    "carbs": "4.5",
+    "sat": "0.1",
+    "sugars": "1.6",
+    "protein": "2.6",
+    "fibre": "2.5",
+    "salt": "0.50"
+   }
+  },
+  {
+   "name": "Feta Käse (50g)",
+   "uuid": "9b965655-c0e0-4379-8f24-423c5092b5d7",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "140",
+    "kj": "586",
+    "fat": "11.8",
+    "carbs": "0.1",
+    "sat": "7.0",
+    "sugars": "0.1",
+    "protein": "8.4",
+    "fibre": "--",
+    "salt": "1.20"
+   }
+  },
+  {
+   "name": "Ziegenkäse (60g)",
+   "uuid": "a0d63a26-4507-451a-a4d2-28e76c77c0d5",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "175",
+    "kj": "732",
+    "fat": "13.8",
+    "carbs": "0.6",
+    "sat": "9.7",
+    "sugars": "0.6",
+    "protein": "12.0",
+    "fibre": "--",
+    "salt": "0.90"
+   }
+  },
+  {
+   "name": "Hühnchen - Halbe Portion (50g)",
+   "uuid": "efd9473d-21cb-4631-b352-862a9f202cab",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "63",
+    "kj": "264",
+    "fat": "1.4",
+    "carbs": "0.8",
+    "sat": "0.6",
+    "sugars": "0.4",
+    "protein": "11.6",
+    "fibre": "--",
+    "salt": "0.54"
+   }
+  },
+  {
+   "name": "Vegane Hackbällchen - Halbe Portion (50g)",
+   "uuid": "3d1b14a3-433b-4e18-bf94-e0b1af4c2637",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "77",
+    "kj": "322",
+    "fat": "2.3",
+    "carbs": "3.5",
+    "sat": "0.3",
+    "sugars": "0.5",
+    "protein": "8.8",
+    "fibre": "3.8",
+    "salt": "0.70"
+   }
+  },
+  {
+   "name": "Rinderhackbällchen - Halbe Portion (50g)",
+   "uuid": "173f6597-8c1f-4012-bdea-e1a7fece65a0",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "111",
+    "kj": "464",
+    "fat": "7.0",
+    "carbs": "5.0",
+    "sat": "2.6",
+    "sugars": "0.5",
+    "protein": "7.0",
+    "fibre": "1.0",
+    "salt": "0.90"
+   }
+  },
+  {
+   "name": "Veganes Hühnchen planted.chicken - Halbe Portion (40g)",
+   "uuid": "f06cf5cd-242a-49a4-95ad-ba97980e7b60",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "78",
+    "kj": "326",
+    "fat": "4.0",
+    "carbs": "0.9",
+    "sat": "0.4",
+    "sugars": "0.2",
+    "protein": "8.4",
+    "fibre": "1.6",
+    "salt": "0.76"
+   }
+  },
+  {
+   "name": "Pulled Salmon - Halbe Portion (50g)",
+   "uuid": "b88ff4d3-13c1-4873-bc02-5b7e42c2ec50",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "108",
+    "kj": "452",
+    "fat": "7.2",
+    "carbs": "--",
+    "sat": "1.8",
+    "sugars": "--",
+    "protein": "10.2",
+    "fibre": "3.0",
+    "salt": "1.10"
+   }
+  },
+  {
+   "name": "Mushroots Pilzbällchen - Halbe Portion (45g)",
+   "uuid": "3ab4aebf-b12d-46c8-9a58-f6e6fc7f6e45",
+   "group": "Proteine",
+   "qty": 1,
+   "shown": {
+    "kcal": "93",
+    "kj": "389",
+    "fat": "4.5",
+    "carbs": "2.5",
+    "sat": "0.4",
+    "sugars": "0.7",
+    "protein": "9.9",
+    "fibre": "1.5",
+    "salt": "0.68"
+   }
+  },
+  {
+   "name": "Baby Spinat (20g)",
+   "uuid": "05e3c509-a947-451d-8e7c-da618a3c8a6f",
+   "group": "Vitamine",
+   "qty": 1,
+   "shown": {
+    "kcal": "4",
+    "kj": "17",
+    "fat": "0.1",
+    "carbs": "0.1",
+    "sat": "0.0",
+    "sugars": "--",
+    "protein": "0.9",
+    "fibre": "0.4",
+    "salt": "--"
+   }
+  },
+  {
+   "name": "Baby-Grünkohl (20g)",
+   "uuid": "368709c3-7701-4619-83f6-8608220a995f",
+   "group": "Vitamine",
+   "qty": 1,
+   "shown": {
+    "kcal": "7",
+    "kj": "29",
+    "fat": "0.2",
+    "carbs": "0.5",
+    "sat": "--",
+    "sugars": "--",
+    "protein": "0.9",
+    "fibre": "0.8",
+    "salt": "--"
+   }
+  },
+  {
+   "name": "Avocado (35g)",
+   "uuid": "ad7fbbf3-5164-4bf6-9657-05a3bf6a639e",
+   "group": "Vitamine",
+   "qty": 1,
+   "shown": {
+    "kcal": "76",
+    "kj": "318",
+    "fat": "4.4",
+    "carbs": "1.3",
+    "sat": "3.5",
+    "sugars": "0.5",
+    "protein": "0.5",
+    "fibre": "1.4",
+    "salt": "--"
+   }
+  },
+  {
+   "name": "Kürbiswürfel mariniert (50g)",
+   "uuid": "1ebc4c8c-65c0-4236-a130-f4bb9ac8a5c9",
+   "group": "Vitamine",
+   "qty": 1,
+   "shown": {
+    "kcal": "28",
+    "kj": "117",
+    "fat": "1.3",
+    "carbs": "2.9",
+    "sat": "0.2",
+    "sugars": "0.8",
+    "protein": "0.4",
+    "fibre": "0.8",
+    "salt": "0.30"
+   }
+  },
+  {
+   "name": "Rote Beete (70g)",
+   "uuid": "b6e42b2a-cdfb-45df-82a8-1c5dd44c1c53",
+   "group": "Vitamine",
+   "qty": 1,
+   "shown": {
+    "kcal": "30",
+    "kj": "126",
+    "fat": "0.1",
+    "carbs": "5.9",
+    "sat": "--",
+    "sugars": "4.8",
+    "protein": "1.1",
+    "fibre": "1.8",
+    "salt": "--"
+   }
+  },
+  {
+   "name": "Karotten (50g)",
+   "uuid": "2a482c0f-9c07-4e23-9d39-16a0e4b8dc57",
+   "group": "Vitamine",
+   "qty": 1,
+   "shown": {
+    "kcal": "16",
+    "kj": "67",
+    "fat": "0.1",
+    "carbs": "2.5",
+    "sat": "--",
+    "sugars": "2.5",
+    "protein": "0.5",
+    "fibre": "2.0",
+    "salt": "0.07"
+   }
+  },
+  {
+   "name": "Rotkohl geraspelt (50g)",
+   "uuid": "29418288-11a1-4c5d-bafb-d8ee805efe29",
+   "group": "Vitamine",
+   "qty": 1,
+   "shown": {
+    "kcal": "14",
+    "kj": "59",
+    "fat": "0.1",
+    "carbs": "2.0",
+    "sat": "0.1",
+    "sugars": "1.5",
+    "protein": "1.0",
+    "fibre": "1.3",
+    "salt": "0.01"
+   }
+  },
+  {
+   "name": "Gurke (50g)",
+   "uuid": "53d381c3-fbef-4b9b-b8e0-17b0abfbcfc0",
+   "group": "Vitamine",
+   "qty": 1,
+   "shown": {
+    "kcal": "7",
+    "kj": "29",
+    "fat": "0.1",
+    "carbs": "0.9",
+    "sat": "--",
+    "sugars": "0.6",
+    "protein": "0.3",
+    "fibre": "0.5",
+    "salt": "--"
+   }
+  },
+  {
+   "name": "Mais (50g)",
+   "uuid": "f9943e74-7bdb-4c9f-9ad5-b714f446d6c9",
+   "group": "Vitamine",
+   "qty": 1,
+   "shown": {
+    "kcal": "35",
+    "kj": "146",
+    "fat": "0.6",
+    "carbs": "5.5",
+    "sat": "0.1",
+    "sugars": "3.5",
+    "protein": "1.3",
+    "fibre": "1.6",
+    "salt": "0.25"
+   }
+  },
+  {
+   "name": "Mango (70g)",
+   "uuid": "9903585e-86d8-4c76-b2f7-f48d24da72b7",
+   "group": "Vitamine",
+   "qty": 1,
+   "shown": {
+    "kcal": "46",
+    "kj": "192",
+    "fat": "--",
+    "carbs": "9.9",
+    "sat": "--",
+    "sugars": "8.5",
+    "protein": "1.1",
+    "fibre": "1.0",
+    "salt": "0.01"
+   }
+  },
+  {
+   "name": "Tomaten (50g)",
+   "uuid": "29e6f760-0557-4020-a776-bd6031e64ce9",
+   "group": "Vitamine",
+   "qty": 1,
+   "shown": {
+    "kcal": "10",
+    "kj": "42",
+    "fat": "0.1",
+    "carbs": "1.8",
+    "sat": "--",
+    "sugars": "1.6",
+    "protein": "0.3",
+    "fibre": "0.5",
+    "salt": "--"
+   }
+  },
+  {
+   "name": "Gemüsemix (100g)",
+   "uuid": "00d25f9e-2271-4334-b42e-dca8df124616",
+   "group": "Vitamine",
+   "qty": 1,
+   "shown": {
+    "kcal": "43",
+    "kj": "180",
+    "fat": "0.3",
+    "carbs": "6.3",
+    "sat": "0.1",
+    "sugars": "5.4",
+    "protein": "2.1",
+    "fibre": "0.5",
+    "salt": "0.02"
+   }
+  },
+  {
+   "name": "Rote Bete Falafel (100g)",
+   "uuid": "42f74b49-20c5-4b45-86a6-f184b710691e",
+   "group": "Vitamine",
+   "qty": 1,
+   "shown": {
+    "kcal": "216",
+    "kj": "904",
+    "fat": "13.0",
+    "carbs": "15.0",
+    "sat": "1.1",
+    "sugars": "5.0",
+    "protein": "6.5",
+    "fibre": "6.7",
+    "salt": "1.10"
+   }
+  },
+  {
+   "name": "Brokkoli (100g)",
+   "uuid": "5432f3a3-9218-4b72-bbe1-8166b3132c1a",
+   "group": "Vitamine",
+   "qty": 1,
+   "shown": {
+    "kcal": "25",
+    "kj": "105",
+    "fat": "0.2",
+    "carbs": "4.4",
+    "sat": "--",
+    "sugars": "4.2",
+    "protein": "3.0",
+    "fibre": "3.0",
+    "salt": "0.10"
+   }
+  },
+  {
+   "name": "Erdnüsse (20g)",
+   "uuid": "3892cbb5-0f22-4f38-bf73-ae1777dff527",
+   "group": "Toppings",
+   "qty": 1,
+   "shown": {
+    "kcal": "125",
+    "kj": "523",
+    "fat": "10.6",
+    "carbs": "1.2",
+    "sat": "1.7",
+    "sugars": "0.8",
+    "protein": "5.6",
+    "fibre": "2.2",
+    "salt": "0.18"
+   }
+  },
+  {
+   "name": "Walnusskerne (20g)",
+   "uuid": "4c7ebfca-7cd7-4134-a345-774e537535cc",
+   "group": "Toppings",
+   "qty": 1,
+   "shown": {
+    "kcal": "7",
+    "kj": "29",
+    "fat": "0.7",
+    "carbs": "0.1",
+    "sat": "0.1",
+    "sugars": "0.0",
+    "protein": "0.2",
+    "fibre": "0.1",
+    "salt": "--"
+   }
+  },
+  {
+   "name": "Röstzwiebeln (20g)",
+   "uuid": "59373871-4fbc-4058-a985-7ea44ea78abb",
+   "group": "Toppings",
+   "qty": 1,
+   "shown": {
+    "kcal": "106",
+    "kj": "444",
+    "fat": "7.9",
+    "carbs": "7.2",
+    "sat": "3.8",
+    "sugars": "1.6",
+    "protein": "1.1",
+    "fibre": "0.8",
+    "salt": "0.22"
+   }
+  },
+  {
+   "name": "Grana Padano (20g)",
+   "uuid": "46976571-28cb-4ede-a871-90d66315666c",
+   "group": "Toppings",
+   "qty": 1,
+   "shown": {
+    "kcal": "80",
+    "kj": "335",
+    "fat": "5.8",
+    "carbs": "--",
+    "sat": "3.6",
+    "sugars": "--",
+    "protein": "6.6",
+    "fibre": "--",
+    "salt": "0.30"
+   }
+  },
+  {
+   "name": "Granatapfelkerne (15g)",
+   "uuid": "ceafa76f-903c-4e7b-be24-0a66ad27ff82",
+   "group": "Toppings",
+   "qty": 1,
+   "shown": {
+    "kcal": "15",
+    "kj": "63",
+    "fat": "0.1",
+    "carbs": "3.4",
+    "sat": "--",
+    "sugars": "3.3",
+    "protein": "0.1",
+    "fibre": "0.4",
+    "salt": "--"
+   }
+  },
+  {
+   "name": "Schwarzer Sesam (3g)",
+   "uuid": "e30ac63f-5e45-4d71-9f64-21f79882fc38",
+   "group": "Toppings",
+   "qty": 1,
+   "shown": {
+    "kcal": "18",
+    "kj": "75",
+    "fat": "1.5",
+    "carbs": "0.3",
+    "sat": "0.2",
+    "sugars": "0.0",
+    "protein": "0.6",
+    "fibre": "0.3",
+    "salt": "0.00"
+   }
+  },
+  {
+   "name": "Chili Gewürz (1g)",
+   "uuid": "640972df-0ad3-4ca2-8d1c-23f61cb997b6",
+   "group": "Toppings",
+   "soldOut": true,
+   "overlay": "Ausverkauft"
+  },
+  {
+   "name": "Functional Fall Crunch (20g)",
+   "uuid": "73394470-a4a0-41f6-8608-8e0435a403f8",
+   "group": "Toppings",
+   "qty": 1,
+   "shown": {
+    "kcal": "5",
+    "kj": "21",
+    "fat": "0.2",
+    "carbs": "0.6",
+    "sat": "0.0",
+    "sugars": "0.2",
+    "protein": "0.2",
+    "fibre": "0.1",
+    "salt": "0.00"
+   }
+  },
+  {
+   "name": "Power Peanut (80g)",
+   "uuid": "674751fb-626b-47ea-90c5-1e9cc2ee442d",
+   "group": "Dips",
+   "qty": 1,
+   "shown": {
+    "kcal": "250",
+    "kj": "1046",
+    "fat": "21.6",
+    "carbs": "11.0",
+    "sat": "2.2",
+    "sugars": "1.9",
+    "protein": "3.0",
+    "fibre": "--",
+    "salt": "2.16"
+   }
+  },
+  {
+   "name": "Honey Muscle Mustard (80g)",
+   "uuid": "2939e81f-65f7-4080-be2d-2b0d97eabd55",
+   "group": "Dips",
+   "qty": 1,
+   "shown": {
+    "kcal": "200",
+    "kj": "837",
+    "fat": "18.4",
+    "carbs": "8.5",
+    "sat": "1.3",
+    "sugars": "1.8",
+    "protein": "0.6",
+    "fibre": "28.0",
+    "salt": "1.92"
+   }
+  },
+  {
+   "name": "Champion Chili (80g)",
+   "uuid": "21a6bbfe-6a6b-42c9-9977-850469b89d3c",
+   "group": "Dips",
+   "qty": 1,
+   "shown": {
+    "kcal": "218",
+    "kj": "912",
+    "fat": "20.5",
+    "carbs": "7.8",
+    "sat": "1.5",
+    "sugars": "1.9",
+    "protein": "1.0",
+    "fibre": "2.0",
+    "salt": "2.40"
+   }
+  },
+  {
+   "name": "Curvy Curry (80g)",
+   "uuid": "83ee9120-4693-4712-8923-805e03d549d4",
+   "group": "Dips",
+   "qty": 1,
+   "shown": {
+    "kcal": "302",
+    "kj": "1264",
+    "fat": "30.0",
+    "carbs": "8.5",
+    "sat": "2.2",
+    "sugars": "1.7",
+    "protein": "0.3",
+    "fibre": "0.8",
+    "salt": "1.12"
+   }
+  },
+  {
+   "name": "Sexy Sesame (80g)",
+   "uuid": "99f2851a-222a-4f19-b4bf-046967364772",
+   "group": "Dips",
+   "qty": 1,
+   "shown": {
+    "kcal": "294",
+    "kj": "1230",
+    "fat": "27.6",
+    "carbs": "9.5",
+    "sat": "2.6",
+    "sugars": "0.6",
+    "protein": "1.9",
+    "fibre": "--",
+    "salt": "2.40"
+   }
+  },
+  {
+   "name": "Protein Tzatziki (100g)",
+   "uuid": "b63e4852-090f-48f4-8825-194a36aac533",
+   "group": "Dips",
+   "qty": 1,
+   "shown": {
+    "kcal": "67",
+    "kj": "280",
+    "fat": "0.2",
+    "carbs": "5.0",
+    "sat": "0.1",
+    "sugars": "4.7",
+    "protein": "10.8",
+    "fibre": "0.1",
+    "salt": "1.13"
+   }
+  },
+  {
+   "name": "Guacamole (100g)",
+   "uuid": "0852c6c2-64fd-4917-a550-d3cbd0ebd60a",
+   "group": "Dips",
+   "soldOut": true,
+   "overlay": "Ausverkauft"
+  },
+  {
+   "name": "Ajvar (100g)",
+   "uuid": "9219859e-76d5-4478-8290-6cde1581b20a",
+   "group": "Dips",
+   "qty": 1,
+   "shown": {
+    "kcal": "105",
+    "kj": "439",
+    "fat": "5.3",
+    "carbs": "11.0",
+    "sat": "0.6",
+    "sugars": "9.2",
+    "protein": "1.4",
+    "fibre": "3.0",
+    "salt": "1.40"
+   }
+  },
+  {
+   "name": "Joghurt-Salatdressing (80g)",
+   "uuid": "411e51ee-7477-4456-9bea-f0733a0004eb",
+   "group": "Dips",
+   "qty": 1,
+   "shown": {
+    "kcal": "114",
+    "kj": "477",
+    "fat": "10.9",
+    "carbs": "3.7",
+    "sat": "1.3",
+    "sugars": "2.0",
+    "protein": "0.9",
+    "fibre": "--",
+    "salt": "1.04"
+   }
+  },
+  {
+   "name": "Sojasauce (20ml)",
+   "uuid": "506f00e4-5190-4ada-99fd-7d86a18598b3",
+   "group": "Dips",
+   "qty": 1,
+   "shown": {
+    "kcal": "8",
+    "kj": "33",
+    "fat": "0.1",
+    "carbs": "0.9",
+    "sat": "0.0",
+    "sugars": "0.2",
+    "protein": "1.0",
+    "fibre": "--",
+    "salt": "5.74"
+   }
+  },
+  {
+   "name": "Olivenöl (20ml), Salz & halbe Zitrone",
+   "uuid": "efc5c9c3-8043-4f37-8a38-215184c7c3db",
+   "group": "Dips",
+   "qty": 1,
+   "shown": {
+    "kcal": "180",
+    "kj": "753",
+    "fat": "20.0",
+    "carbs": "--",
+    "sat": "2.6",
+    "sugars": "--",
+    "protein": "--",
+    "fibre": "--",
+    "salt": "--"
+   }
+  },
+  {
+   "name": "Balsamico Dressing (80g)",
+   "uuid": "5a7afe09-179e-4b5b-87b5-0b3468cf6de4",
+   "group": "Dips",
+   "qty": 1,
+   "shown": {
+    "kcal": "46",
+    "kj": "192",
+    "fat": "1.8",
+    "carbs": "7.0",
+    "sat": "0.2",
+    "sugars": "6.7",
+    "protein": "0.1",
+    "fibre": "0.2",
+    "salt": "1.60"
+   }
+  },
+  {
+   "name": "Rotes Pesto (80g)",
+   "uuid": "8de52e64-c12b-46c8-a681-ab8725528199",
+   "group": "Dips",
+   "soldOut": true,
+   "overlay": "Ausverkauft"
+  },
+  {
+   "name": "Trüffel Light (Inlead) (80g)",
+   "uuid": "c37abacb-445d-4be6-8556-c6b0179b08ed",
+   "group": "Dips",
+   "qty": 1,
+   "shown": {
+    "kcal": "78",
+    "kj": "326",
+    "fat": "4.8",
+    "carbs": "8.0",
+    "sat": "0.7",
+    "sugars": "2.6",
+    "protein": "0.6",
+    "fibre": "0.2",
+    "salt": "1.51"
+   }
+  },
+  {
+   "name": "Sriracha Light (Inlead) (80g)",
+   "uuid": "5c0d673b-7107-43d4-aac1-6945f5dcc4e9",
+   "group": "Dips",
+   "qty": 1,
+   "shown": {
+    "kcal": "76",
+    "kj": "318",
+    "fat": "4.6",
+    "carbs": "7.6",
+    "sat": "0.7",
+    "sugars": "3.5",
+    "protein": "0.7",
+    "fibre": "0.2",
+    "salt": "1.52"
+   }
+  },
+  {
+   "name": "Aioli Light (Inlead) (80g)",
+   "uuid": "7796ba55-11cd-4b70-a337-901d2f79f183",
+   "group": "Dips",
+   "qty": 1,
+   "shown": {
+    "kcal": "78",
+    "kj": "326",
+    "fat": "4.8",
+    "carbs": "7.8",
+    "sat": "0.7",
+    "sugars": "4.1",
+    "protein": "0.1",
+    "fibre": "0.2",
+    "salt": "1.52"
+   }
+  }
+ ]
+}
