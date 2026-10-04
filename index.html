@@ -31,7 +31,7 @@ const { useState, useMemo, useEffect, createElement: h } = React;
 // London- und Frankfurt-Tool laufen auf DERSELBEN Origin (theo0202.github.io) → gleichnamige Keys würden sich gegenseitig
 // überschreiben. Deshalb läuft JEDER Zugriff über lsGet/lsSet, die das Präfix "fra_" voranstellen (tests.js prüft das statisch).
 const LS_PREFIX = "fra_";
-const LS = { ownOrder: "own_order", excluded: "excluded", included: "included", edeka: "edeka", edekaFix: "edeka_fix", unlocked: "unlocked" }; // → "fra_own_order", "fra_excluded", "fra_included", "fra_edeka", "fra_edeka_fix", "fra_unlocked"
+const LS = { ownOrder: "own_order", excluded: "excluded", included: "included", edeka: "edeka", edekaFix: "edeka_fix", unlocked: "unlocked", compleatBuild: "compleat_build" }; // → "fra_own_order", "fra_excluded", "fra_included", "fra_edeka", "fra_edeka_fix", "fra_unlocked", "fra_compleat_build"
 function lsGet(key, fallback) {
   try { const raw = localStorage.getItem(LS_PREFIX + key); return raw == null ? fallback : JSON.parse(raw); }
   catch (e) { return fallback; }
@@ -2440,7 +2440,8 @@ const BOWL_MAX_WORK = Infinity; // Arbeitsbudget in Baum-Knoten (Standard: keins
 //          · include: Zutat-ids, die jede Bowl enthalten muss („Must include“, User 16.09.2026)
 //          · maxPrice: Preislimit in € inkl. Grundpreis (null/undefined = keins) · maxMs: Zeitbudget (Default BOWL_MAX_MS)
 //          · maxWork: Arbeitsbudget in Baum-Knoten (Default ∞, deterministisch für Tests)
-//          · raw: true → nur die ungerundete Rangliste [{ key, rawScore, price }] (Top 30; für Tests und Benchmarks) }
+//          · raw: true → nur die ungerundete Rangliste [{ key, rawScore, price }] (Top 30; für Tests und Benchmarks)
+//          · capUsed: { [Zutat-id]: halbe Portionen } schon belegt — kürzen den Portionen-Deckel je Zutat (Compleat „Build my order“) }
 // Jede Bowl hat die Portionen-Rollen aus require (≥1), je Einzelauswahl-Rolle höchstens eine Option, Extras je 1×. Extras, deren Zutat auch als
 // Protein angeboten wird (Wolt-Duplikat), laufen nur über die Protein-Rolle. Die Kern-Rollen stehen je in genau einer Gruppe (bowlValidate).
 // Pflicht-Zutaten: Extra → fest in jeder Bowl (zählt zu maxExtras, geht aber vor; in own-Gruppen zur Gruppen-Grenze) · Einzelauswahl → nur diese
@@ -2451,6 +2452,7 @@ const BOWL_MAX_WORK = Infinity; // Arbeitsbudget in Baum-Knoten (Standard: keins
 function bowlCombos(menu, t, mode, p, opts) {
   const o = opts || {};
   const cap = Math.max(1, o.cap || 1), keep = o.keep || (() => true), K = 30, capHU = 2 * cap;
+  const usedHU = o.capUsed || {}, capOf = ing => Math.max(0, capHU - (usedHU[ing] || 0)); // Rest-Deckel je Zutat in halben Portionen
   const ok = x => !isShellfish(x) && keep(x); // Schalentier permanent raus (Allergie)
   const need = Object.assign({ base: true, protein: true }, menu.require || {});
   const fixed = menu.fixed || [];
@@ -2488,15 +2490,16 @@ function bowlCombos(menu, t, mode, p, opts) {
   }
   const fullOk = new Set(all.filter(({ x }) => !x.half && ok(x)).map(({ x }) => bowlRole(x) + "|" + x.ing));
   // Kern-Bausteine: Portionen-Rollen + Einzelauswahl. hu = halbe Portionen je Auswahl (ganz 2, halb 1), slot = Zähler je Zutat (Deckel)
-  const core = [], extras = [], forcedExtras = [], slots = new Map();
+  const core = [], extras = [], forcedExtras = [], slots = new Map(), slotCap = [];
   for (const r of ["base", "protein", "dip", "side"]) for (const { x } of all) {
     if (bowlRole(x) !== r || !ok(x)) continue;
     if (forcedChoice.has(r) && x.ing !== forcedChoice.get(r)) continue; // Pflicht-Dip/-Brot → nur dessen Varianten
     let qmax = 1, hu = 0, slot = -1;
     if (r in PORTION) {
       hu = x.half ? 1 : 2;
-      qmax = Math.min(x.maxQty || 1, x.half ? (fullOk.has(r + "|" + x.ing) ? 1 : capHU) : cap);
-      if (!slots.has(x.ing)) slots.set(x.ing, slots.size);
+      const cH = capOf(x.ing);
+      qmax = Math.min(x.maxQty || 1, x.half ? (fullOk.has(r + "|" + x.ing) ? Math.min(1, cH) : cH) : Math.floor(cH / 2));
+      if (!slots.has(x.ing)) { slots.set(x.ing, slots.size); slotCap.push(cH); }
       slot = slots.get(x.ing);
     }
     if (qmax >= 1) core.push({ opt: x, g: r in PORTION ? PORTION[r] : CHOICE[r], qmax, hu, slot, pc: cents(x), v: KEYS.map(k => x[k] || 0) });
@@ -2632,7 +2635,7 @@ function bowlCombos(menu, t, mode, p, opts) {
       const u = core[i];
       if (i < lowOK[i]) continue; // unter dem Repräsentanten einer Pflicht-Klasse (Seed) → gehört zu einem anderen Seed
       if (q[i] >= u.qmax || gc[u.g] >= gmax[u.g] || cp + u.pc > budget) continue;
-      if (u.slot >= 0 && ih[u.slot] + u.hu > capHU) continue;
+      if (u.slot >= 0 && ih[u.slot] + u.hu > slotCap[u.slot]) continue;
       for (let k = 0; k < 8; k++) n2[k] = n[k] + u.v[k];
       const s2 = shares ? 0 : scoreVec(n2, t, mode, p);
       if (!shares && !(s2 < s - 1e-9)) continue; // a) nur verbessernde Zusätze
@@ -2664,7 +2667,7 @@ function bowlCombos(menu, t, mode, p, opts) {
         if (u.slot >= 0) hs.set(u.slot, (hs.get(u.slot) || 0) + u.hu);
         for (let k = 0; k < 8; k++) nn[k] += u.v[k];
       }
-      if (g4.some((c, g) => c > gmax[g]) || [...hs.values()].some(h => h > capHU) || pc > budget) return;
+      if (g4.some((c, g) => c > gmax[g]) || [...hs].some(([sl, hh]) => hh > slotCap[sl]) || pc > budget) return;
       for (let k = 0; k < 8; k++) nn[k] += OFF[k];
       seeds.push({ reps: Array.from(reps), uniq, nn, pc, lb: subLB(nn, 0) + bowlBoxLB(nn, LO, HI, 0, t, mode, p) });
       return;
@@ -2713,7 +2716,7 @@ function bowlCombos(menu, t, mode, p, opts) {
         for (let i = 0; i < C; i++) {
           const u = core[i];
           if (it.q[i] >= u.qmax || cnt[u.g] >= gmax[u.g] || it.pc + u.pc > budget) continue;
-          if (u.slot >= 0 && hus[u.slot] + u.hu > capHU) continue;
+          if (u.slot >= 0 && hus[u.slot] + u.hu > slotCap[u.slot]) continue;
           for (let k = 0; k < 8; k++) tot[k] = nut[k] + u.v[k];
           const s = scoreVec(tot, t, mode, p);
           if (!(s < thr)) continue;
@@ -2805,8 +2808,8 @@ function bowlPreselectNote(menu, platform) {
   return " " + (platform || "The platform") + " shows " + bowlEuro(card) + " on the menu card because " + pre.map(x => x.name + " " + bowlEuro(x.price)).join(" + ") +
     " is preselected; prices here are the base price plus what the order guide lists" + (none.length ? ", so switch that group to “" + none.join("” / “") + "” when the guide says so." : ".");
 }
-// Bestellschritte je Plattform-Gruppe in Menü-Reihenfolge: Mengen bei Base/Protein (wenn die Gruppe oder Option mehr als 1 erlaubt) und bei
-// Stepper-Extras (maxQty > 1), Häkchen-Extras ohne Menge; leere Einzelauswahl-Gruppen (Dip/Dressing, Brot) und leere Pflicht-Gruppen (min ≥ 1)
+// Bestellschritte je Plattform-Gruppe in Menü-Reihenfolge: Mengen bei Base/Protein (wenn die Gruppe oder Option mehr als 1 erlaubt), bei
+// Stepper-Extras (maxQty > 1) und bei Dips/Brot mit Stepper in einer Mehrfach-Gruppe (Uber Eats), Häkchen-Extras ohne Menge, mehr als 1× immer mit; leere Einzelauswahl-Gruppen (Dip/Dressing, Brot) und leere Pflicht-Gruppen (min ≥ 1)
 // mit ihrer „ohne …“-Option. orderName = Name in der eigenen Gruppe (Varianten), order = zusätzliche Einträge in anderen Gruppen, zuerst
 // (z.B. „Extra Dressing/Sauce“ in „Extra Brot/Dressing dazu?“, Subway „Extra Fleisch / Protein“ in „Extras“)
 function bowlOrderSteps(menu, sel) {
@@ -2819,7 +2822,7 @@ function bowlOrderSteps(menu, sel) {
     for (const c of chosen) for (const e of c.opt.order || []) if (e.group === g.id) vals.push(e.name);
     for (const c of chosen) if (c.opt.group === g.id) {
       const r = bowlRole(c.opt);
-      const withQty = ((r === "base" || r === "protein") && (g.max > 1 || c.opt.maxQty > 1)) || (r === "extra" && c.opt.maxQty > 1);
+      const withQty = ((r === "base" || r === "protein") && (g.max > 1 || c.opt.maxQty > 1)) || ((r === "extra" || ((r === "dip" || r === "side") && g.max > 1)) && c.opt.maxQty > 1) || c.qty > 1;
       vals.push((withQty ? c.qty + "× " : "") + (c.opt.orderName || c.opt.name));
     }
     if (!vals.length && g.none && (choice || g.min >= 1)) vals.push(g.none);
@@ -2984,9 +2987,20 @@ function bowlEntry(o) {
   };
 }
 // Compleat je Plattform: gleiche Regeln, Schalter und Listen (exclusionKey "compleat" — ausverkauft ist ausverkauft, egal über welche App);
-// eigenes Menü mit eigenen Mengen und Preisen
+// eigenes Menü mit eigenen Mengen und Preisen. Dazu „Build my order“ (nur volle App, siehe unten): Baukasten als renderExtra, Schalter
+// „Complete to my macros“ in der Config-Karte; aus → keine Ergebnisliste (hideResults) und keine Schalter/Listen (controls), an → Ergänzen
+// der eigenen Auswahl statt freier Vorschläge („Must include“ ruht, auch keine ★ im Panel)
 function compleatEntry(o) {
-  return bowlEntry(Object.assign({ data: COMPLEAT, exclusionKey: "compleat", switches: COMPLEAT_SWITCHES, blocked: COMPLEAT_BLOCKED }, o));
+  const e = bowlEntry(Object.assign({ data: COMPLEAT, exclusionKey: "compleat", switches: COMPLEAT_SWITCHES, blocked: COMPLEAT_BLOCKED }, o));
+  return Object.assign(e, {
+    initState: () => Object.assign({ maxExtras: 5, cap: 2, build: false }, compleatBuildLoad(e.key, e.menu)),
+    optimize: (t, mode, p, st, ex, r, inc) => (compleatBuildMode(st) ? compleatComplete(r, t, mode, p, st, ex) : bowlOptimize(t, mode, p, st, ex, r, inc, COMPLEAT_BLOCKED)),
+    renderConfig: ctx => compleatConfigCard(ctx, e, o.note(e.menu)),
+    renderExtra: ctx => (compleatBuildMode(ctx.st) ? compleatBuilder(ctx, e) : null),
+    renderPanel: (sel, ctx) => bowlPanel(e.menu, sel, compleatBuildMode(ctx && ctx.st) ? Object.assign({}, ctx, { inc: new Set() }) : ctx),
+    hideResults: st => compleatBuildMode(st) && !st.extra.complete,
+    controls: st => (compleatBuildMode(st) ? { switches: !!st.extra.complete, include: false, exclude: !!st.extra.complete } : null),
+  });
 }
 // „03.10.2026“ aus „2026-10-03“ (Datenstand in Hinweis und Fußzeile)
 const deDate = iso => iso ? iso.slice(8, 10) + "." + iso.slice(5, 7) + "." + iso.slice(0, 4) : "";
@@ -2995,6 +3009,227 @@ function compleatSoldOutNote(m) {
   const so = new Set(COMPLEAT.ingredients.filter(x => x.soldOut).map(x => x.id)), names = [];
   for (const g of m.groups) for (const o of g.options) if (so.has(o.ing) && !names.includes(o.short)) names.push(o.short);
   return names.length ? " Sold out in the Compleat shop on " + deDate(COMPLEAT.asOf) + ": " + names.join(", ") + " — they stay in the list; exclude them below while they're out." : "";
+}
+
+// ═══ Compleat „Build my order“ (User 04.10.2026; nur in der vollen App, nicht in den Freundes-Links) ═══
+// Die eigene Bestellung Zutat für Zutat zusammenstellen wie im Bestellfenster der Plattform: gleiche Gruppen, Mengen und Grenzen (je Option
+// maxQty, je Gruppe max; eine Gruppe mit max 1 wie Wolts Dip → Antippen ersetzt die alte Wahl). Schalter „Complete to my macros“:
+//   aus → genau die Auswahl: Summe gegen das Ziel, Preis, Aufschlüsselung, Order Guide, Kopier-Text — kein Optimizer
+//   an  → der Optimizer behält die Auswahl und ergänzt, was zum Ziel fehlt (Regeln wie sonst: ≥1 Base + ≥1 Protein, Extras je 1×, höchstens
+//         ein Dip; Schalter und Ausschlüsse gelten nur für das Ergänzte; Portionen- und Extras-Chip zählen die Auswahl mit; „Must include“ ruht)
+// Auswahl und Schalter je Tab in fra_compleat_build (überleben den App-Neustart), der Modus nicht (die App startet mit den Vorschlägen).
+function compleatBuilderAvailable(view) { return !view; }
+const compleatBuilderOn = () => compleatBuilderAvailable(SHARE_VIEW);
+const compleatBuildMode = st => compleatBuilderOn() && !!(st && st.extra && st.extra.build);
+// Auswahl bereinigen: nur Optionen des Menüs, ganze Mengen 1…maxQty, je Gruppe höchstens max (spätere fallen weg)
+function compleatCleanPicks(menu, picks) {
+  const out = {};
+  for (const g of menu.groups) {
+    let used = 0;
+    for (const o of g.options) {
+      const q = Math.min(Math.floor(Number(picks && picks[o.id]) || 0), o.maxQty || 1, g.max - used);
+      if (q >= 1) { out[o.id] = q; used += q; }
+    }
+  }
+  return out;
+}
+// Auswahl als [{ opt, qty }] in Menü-Reihenfolge (unbekannte Optionen fallen weg)
+function compleatPickList(menu, picks) {
+  const out = [];
+  for (const g of menu.groups) for (const o of g.options) if (picks && picks[o.id] >= 1) out.push({ opt: o, qty: picks[o.id] });
+  return out;
+}
+// Darf diese Option noch eine Portion mehr? (Gruppe mit max 1: ja — die neue ersetzt die alte)
+function compleatCanAdd(menu, picks, g, o) {
+  const q = (picks && picks[o.id]) || 0;
+  return q < (o.maxQty || 1) && (g.max === 1 || g.options.reduce((s, y) => s + ((picks && picks[y.id]) || 0), 0) < g.max);
+}
+// Stepper: delta +1 / −1 mit den Plattform-Grenzen
+function compleatPickStep(menu, picks, optId, delta) {
+  const g = menu.groups.find(gg => gg.options.some(o => o.id === optId));
+  if (!g) return picks;
+  const o = g.options.find(y => y.id === optId), cur = picks[optId] || 0, next = Object.assign({}, picks);
+  if (delta < 0) { if (cur <= 1) delete next[optId]; else next[optId] = cur - 1; return next; }
+  if (!compleatCanAdd(menu, picks, g, o)) return picks;
+  if (g.max === 1) for (const y of g.options) delete next[y.id];
+  next[optId] = cur + 1;
+  return next;
+}
+// Bowl aus einer Auswahl [{ opt, qty }] (gleiche Option zusammengefasst, Teile in Menü-Reihenfolge): genau ein Dip bzw. Brot mit Menge 1 →
+// dip / side wie beim Optimizer, sonst bleiben sie Teile (Uber Eats erlaubt mehrere Dips); Preis = Grundpreis + Optionen (Cent-genau)
+function bowlAssemble(menu, choices) {
+  const qty = new Map();
+  for (const c of choices) if (c && c.opt && c.qty > 0) qty.set(c.opt.id, (qty.get(c.opt.id) || 0) + c.qty);
+  const parts = [];
+  for (const g of menu.groups) for (const o of g.options) if (qty.get(o.id)) parts.push({ opt: o, qty: qty.get(o.id) });
+  let dip = null, side = null;
+  for (const r of ["dip", "side"]) {
+    const ps = parts.filter(pt => bowlRole(pt.opt) === r);
+    if (ps.length === 1 && ps[0].qty === 1) { if (r === "dip") dip = ps[0].opt; else side = ps[0].opt; parts.splice(parts.indexOf(ps[0]), 1); }
+  }
+  const items = [];
+  for (const pt of parts) for (let i = 0; i < pt.qty; i++) items.push(pt.opt);
+  if (side) items.push(side);
+  if (dip) items.push(dip);
+  const cents = Math.round((menu.basePrice || 0) * 100) + items.reduce((s, x) => s + Math.round((x.price || 0) * 100), 0);
+  const key = parts.map(pt => pt.opt.id + "x" + pt.qty).join("+") + (side ? "|" + side.id : "") + "|" + (dip ? dip.id : "nodip");
+  return { key, parts, dip, side, fixed: [], items, price: cents / 100 };
+}
+// Schalter aus: die Auswahl selbst als Bestellung (Nährwerte wie überall über sumN, Score gegen das Ziel)
+function compleatManualResult(menu, picks, t, mode, p) {
+  const r = bowlAssemble(menu, compleatPickList(menu, picks));
+  r.nutrition = sumN(r.items, 1);
+  r.score = score(r.nutrition, t || { protein: 0, carbs: 0, fat: 0, kcal: 0 }, mode || "macros", p || {});
+  return r;
+}
+// Schalter an: Suchraum für das Ergänzen. Die Auswahl ist fester Anteil (Nährwerte + Preis in jeder Bowl); dazukommen dürfen nur noch die
+// Restmengen (je Option maxQty − Auswahl, je Gruppe max − Auswahl), keine schon gewählten Extras (Extras je 1×), kein weiterer Dip/Brot, wenn
+// einer gewählt ist; Base/Protein nur noch Pflicht, wenn die Auswahl keine hat. Protein-Duplikate unter den Extras bleiben draußen (wie im
+// normalen Optimizer — sonst kämen sie zurück, sobald die Protein-Option ausgeschöpft ist). capUsed = halbe Portionen je Zutat aus der Auswahl
+// (zählen zum Portionen-Chip), extrasPicked = Extras der Auswahl (zählen zum Extras-Chip).
+function compleatCompletionMenu(menu, picks) {
+  const list = compleatPickList(menu, picks);
+  const protIngs = new Set(menu.groups.flatMap(g => g.options.filter(o => bowlRole(o) === "protein").map(o => o.ing)));
+  const picked = new Map(list.map(c => [c.opt.id, c.qty]));
+  const has = r => list.some(c => bowlRole(c.opt) === r);
+  const capUsed = {};
+  let extrasPicked = 0;
+  for (const c of list) {
+    const r = bowlRole(c.opt);
+    if (r === "base" || r === "protein") capUsed[c.opt.ing] = (capUsed[c.opt.ing] || 0) + (c.opt.half ? 1 : 2) * c.qty;
+    else if (r === "extra") extrasPicked += c.qty;
+  }
+  const groups = menu.groups.map(g => {
+    const usedG = g.options.reduce((s, o) => s + (picked.get(o.id) || 0), 0);
+    const options = g.options.filter(o => {
+      const r = bowlRole(o), q = picked.get(o.id) || 0;
+      if (r === "extra") return !q && !protIngs.has(o.ing);
+      if (r === "dip" || r === "side") return !has(r);
+      return (o.maxQty || 1) - q >= 1;
+    }).map(o => (picked.get(o.id) ? Object.assign({}, o, { maxQty: (o.maxQty || 1) - picked.get(o.id) }) : o));
+    return Object.assign({}, g, { max: Math.max(0, g.max - usedG), options });
+  });
+  const fixed = [];
+  for (const c of list) for (let i = 0; i < c.qty; i++) fixed.push(c.opt);
+  return { menu: Object.assign({}, menu, { groups, fixed, require: { base: !has("base"), protein: !has("protein") } }), capUsed, extrasPicked, list };
+}
+// Ergänzen: exakte Suche (bowlCombos) im Restraum, danach Auswahl + Ergänztes zu einer Bowl zusammenführen (locked = Mengen der Auswahl)
+function compleatComplete(r, t, mode, p, st, ex) {
+  const x0 = (st && st.extra) || {};
+  const cm = compleatCompletionMenu(r.menu, x0.picks || {});
+  const pass = switchPass(r, st), allowed = id => !(ex && ex.has(id)) && !COMPLEAT_BLOCKED.has(id);
+  const res = bowlCombos(cm.menu, t, mode, p, {
+    cap: x0.cap || 2, maxExtras: Math.max(0, (x0.maxExtras == null ? 5 : x0.maxExtras) - cm.extrasPicked), maxPrice: t && t.maxPrice,
+    keep: x => allowed(x.ing) && pass(x), capUsed: cm.capUsed,
+  });
+  const locked = Object.fromEntries(cm.list.map(c => [c.opt.id, c.qty]));
+  const out = res.map(x => {
+    const b = bowlAssemble(r.menu, [...cm.list, ...x.parts, ...[x.side, x.dip].filter(Boolean).map(o => ({ opt: o, qty: 1 }))]);
+    b.nutrition = sumN(b.items, 1);
+    b.score = score(b.nutrition, t, mode, p);
+    b.rawScore = x.rawScore;
+    b.locked = locked;
+    return b;
+  });
+  out.sort((a, b) => a.score - b.score || a.rawScore - b.rawScore);
+  for (const k of ["approx", "missing", "conflict"]) if (res[k]) out[k] = res[k];
+  return out;
+}
+// Speicher je Tab: { [Tab-key]: { picks: { [Option-id]: Menge }, complete } }
+function compleatBuildLoad(key, menu) {
+  const all = lsGet(LS.compleatBuild, null), s = (all && all[key]) || {};
+  return { picks: compleatCleanPicks(menu, s.picks), complete: !!s.complete };
+}
+function compleatBuildSave(key, ext) {
+  const all = Object.assign({}, lsGet(LS.compleatBuild, null) || {});
+  all[key] = { picks: (ext && ext.picks) || {}, complete: !!(ext && ext.complete) };
+  lsSet(LS.compleatBuild, all);
+}
+// State-Änderung im Baukasten: speichern und die offene Bestellung schließen (sie passt nicht mehr zur Auswahl)
+function compleatBuildSet(ctx, R, patch) {
+  ctx.update(s => { const ext = Object.assign({}, s.extra, patch); compleatBuildSave(R.key, ext); return { extra: ext, sel: null }; });
+}
+// Config-Karte: Modus-Umschalter (nur volle App), im Baukasten der Schalter „Complete to my macros“; Chips nur, wenn der Optimizer läuft
+function compleatConfigCard(ctx, R, note) {
+  const menu = R.menu, x = (ctx.st && ctx.st.extra) || {}, build = compleatBuildMode(ctx.st), complete = build && !!x.complete;
+  const buildNote = "Pick your ingredients like in the " + R.platform + " order dialog — same groups, amounts and limits (" + menu.item + ", base price " + bowlEuro(menu.basePrice) + "). " +
+    (complete ? "Your picks stay in every suggestion; the optimizer adds what's missing for your target (at least 1 base and 1 protein, extras once each, one dip at most). The switches and “Exclude items” only apply to what it adds, the chips above count your picks, “Must include” is paused while you build."
+      : "Nothing is added: you get exactly your order with its totals, price and order guide.") + compleatSoldOutNote(menu);
+  return h("div", { style: CARD },
+    compleatBuilderOn() && h("div", { style: { display: "flex", gap: 8, marginBottom: 12 } },
+      h("button", { onClick: () => compleatBuildSet(ctx, R, { build: false }), style: EDEKA_BTN(!build) }, "🎯 Suggest bowls"),
+      h("button", { onClick: () => compleatBuildSet(ctx, R, { build: true }), style: EDEKA_BTN(build) }, "🛠 Build my order")),
+    build && h("label", { style: { display: "flex", alignItems: "center", gap: 8, cursor: "pointer", fontSize: 13, color: "#ddd", fontWeight: 600, marginBottom: 4 } },
+      h("input", { type: "checkbox", checked: complete, onChange: e => compleatBuildSet(ctx, R, { complete: e.target.checked }), style: { accentColor: S.green, width: 16, height: 16 } }),
+      "✨ Complete to my macros"),
+    build && h("div", { style: { fontSize: 11, color: "#7a7", fontStyle: "italic", lineHeight: 1.4, margin: "0 0 12px 24px" } },
+      complete ? "On: every suggestion below keeps your picks and adds the rest." : "Off: exactly your picks — nothing is added."),
+    ...(build && !complete ? [h("div", { key: "note", style: { fontSize: 10, color: "#666", lineHeight: 1.4 } }, buildNote)] : bowlConfigParts(ctx, build ? buildNote : note, menu)));
+}
+// Baukasten (renderExtra im Modus „Build my order“): Gruppen wie im Bestellfenster mit Stepper je Option, darunter die Bestellung
+// (Schalter aus) bzw. die Summe der Auswahl (Schalter an; die Vorschläge stehen dann in der Ergebnisliste)
+function compleatBuilder(ctx, R) {
+  const menu = R.menu, x = (ctx.st && ctx.st.extra) || {}, picks = x.picks || {}, complete = !!x.complete;
+  const list = compleatPickList(menu, picks), nPicked = list.reduce((s, c) => s + c.qty, 0);
+  const soldOut = new Set(COMPLEAT.ingredients.filter(i => i.soldOut).map(i => i.id));
+  const r1 = v => Math.round(v * 10) / 10;
+  const setOpen = patch => ctx.update(s => ({ extra: Object.assign({}, s.extra, { open: Object.assign({}, (s.extra || {}).open, patch) }) }));
+  const stepBtn = (label, onClick, off) => h("button", { onClick: off ? undefined : onClick, disabled: !!off,
+    style: { width: 28, height: 28, borderRadius: 7, border: "1px solid #333", background: "#1c1c1c", color: "#ccc", fontSize: 16, lineHeight: 1, cursor: off ? "default" : "pointer", fontFamily: S.font, opacity: off ? 0.3 : 1 } }, label);
+  const optRow = (g, o) => {
+    const q = picks[o.id] || 0;
+    return h("div", { key: o.id, style: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, background: q ? "rgba(0,151,67,0.08)" : "#161616", border: "1px solid " + (q ? "#1f5a35" : "#222"), borderRadius: 8, padding: "7px 9px" } },
+      h("div", { style: { minWidth: 0, flex: 1 } },
+        h("div", { style: { fontSize: 12, color: q ? "#fff" : "#ddd" } }, o.name),
+        h("div", { style: { fontSize: 10, color: "#888", fontFamily: S.mono } },
+          Math.round(o.kcal) + " kcal · P " + r1(o.protein) + " · C " + r1(o.carbs) + " · F " + r1(o.fat) + " · " + bowlEuro(o.price) + (soldOut.has(o.ing) ? " · sold out on " + deDate(COMPLEAT.asOf) : ""))),
+      h("div", { style: { display: "flex", alignItems: "center", gap: 6, flexShrink: 0 } },
+        stepBtn("−", () => compleatBuildSet(ctx, R, { picks: compleatPickStep(menu, picks, o.id, -1) }), !q),
+        h("span", { style: { fontSize: 13, fontFamily: S.mono, color: q ? "#fff" : "#555", minWidth: 16, textAlign: "center" } }, q),
+        stepBtn("+", () => compleatBuildSet(ctx, R, { picks: compleatPickStep(menu, picks, o.id, 1) }), !compleatCanAdd(menu, picks, g, o))));
+  };
+  // Gruppen mit Base/Protein und Gruppen mit Auswahl starten offen, die langen Listen (Extras, Dips) zu
+  const groupBlock = g => {
+    const inG = list.filter(c => c.opt.group === g.id), nG = inG.reduce((s, c) => s + c.qty, 0);
+    const def = g.options.some(o => ["base", "protein"].includes(bowlRole(o))) || nG > 0;
+    const open = x.open && x.open[g.id] != null ? !!x.open[g.id] : def;
+    const limit = g.max === 1 ? "pick one" : g.max < 100 ? "up to " + g.max : "";
+    return h("div", { key: g.id, style: { marginBottom: 8, border: "1px solid #222", borderRadius: 10, background: "#121212" } },
+      h("button", { onClick: () => setOpen({ [g.id]: !open }), style: { width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, background: "none", border: "none", padding: "10px 12px", cursor: "pointer", color: "#ddd", fontFamily: S.font, textAlign: "left" } },
+        h("span", { style: { fontSize: 13, fontWeight: 600 } }, (open ? "▾ " : "▸ ") + g.name),
+        h("span", { style: { fontSize: 10, color: nG ? "#4ade80" : "#666", fontFamily: S.mono, whiteSpace: "nowrap" } }, (nG ? nG + " picked" : g.options.length + " options") + (limit ? " · " + limit : ""))),
+      !open && nG > 0 && h("div", { style: { fontSize: 11, color: "#9a9", padding: "0 12px 10px", lineHeight: 1.4 } }, inG.map(c => (c.qty > 1 ? c.qty + "× " : "") + (c.opt.short || c.opt.name)).join(" · ")),
+      open && h("div", { style: { display: "flex", flexDirection: "column", gap: 4, padding: "0 8px 8px" } }, ...g.options.map(o => optRow(g, o))));
+  };
+  const res = list.length ? compleatManualResult(menu, picks, ctx.targets, ctx.mode, ctx.prefs) : null;
+  const n = res && res.nutrition;
+  const line = res ? (complete ? "Your picks: " : "Total: ") + Math.round(n.kcal) + " kcal · P " + r1(n.protein) + " · C " + r1(n.carbs) + " · F " + r1(n.fat) + " · " + bowlEuro(res.price) : null;
+  const linkBtn = { background: "none", border: "none", color: "#777", fontSize: 11, cursor: "pointer", fontFamily: S.mono, textDecoration: "underline", padding: 0 };
+  const noStars = Object.assign({}, ctx, { inc: new Set() }); // „Must include“ ruht im Baukasten → keine ★
+  const bottom = !res
+    ? h("div", { style: { fontSize: 12, color: "#666" } }, complete ? "Nothing picked yet — the suggestions below are whole bowls." : "Nothing picked yet.")
+    : complete
+      ? h("div", { style: { background: "#0d0d0d", borderRadius: 10, padding: 14, border: "1px solid #2a2a2a" } },
+          h("div", { style: { ...LBL, marginBottom: 10 } }, "Your picks · " + bowlEuro(res.price) + " incl. base price"),
+          h(MacroBars, { n, tg: ctx.tg, mb: 0 }),
+          h("div", { style: { fontSize: 11, color: "#777", marginTop: 10 } }, "The suggestions below keep these and add the rest."))
+      : h("div", { style: { background: "#151515", borderRadius: 12, border: "1px solid " + S.green, padding: 16 } },
+          h("div", { style: { ...LBL, marginBottom: 6 } }, "Your order"),
+          h("div", { style: { fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 4 } }, bowlSummary(res)),
+          h("div", { style: { fontSize: 11, color: "#777", marginBottom: 12, fontFamily: S.mono } }, bowlSubtitle(menu, res)),
+          h(MacroBars, { n, tg: ctx.tg }),
+          h(CopyNutrition, { n }),
+          bowlPanel(menu, res, noStars),
+          h(OrderGuide, { platform: R.platform, steps: bowlOrderSteps(menu, res) }));
+  return h("div", { key: "compleat_build", style: { marginBottom: 20 } },
+    h("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 } },
+      h("div", { style: { ...LBL, marginBottom: 0 } }, "Build my order · " + menu.item + (nPicked ? " · " + nPicked + " picked" : "")),
+      nPicked > 0 && h("button", { onClick: () => compleatBuildSet(ctx, R, { picks: {} }), style: linkBtn }, "Clear")),
+    h("div", { style: { fontSize: 11, color: "#777", marginBottom: line ? 6 : 10, lineHeight: 1.5 } },
+      "Tap + to add an ingredient, − to remove it. " + (complete ? "Your picks stay in every suggestion below." : "Below you get exactly this order.")),
+    line && h("div", { style: { fontSize: 11, color: "#4ade80", fontFamily: S.mono, marginBottom: 10 } }, line),
+    ...menu.groups.map(groupBlock),
+    h("div", { style: { marginTop: 12 } }, bottom));
 }
 
 // ═══ Dean & David (Frankfurt, Wolt): „Mix Your Own Salad bar“ + „Mix Your Own Bowl bar“ ═══
@@ -3710,7 +3945,8 @@ function summarizeResult(r, res) { return (r.kind === "byo" && r.summary) ? r.su
 //     (isShellfish im eigenen Pool! ex = Set ausgeschlossener ids aus der Ausschluss-Liste; t.maxPrice = Preislimit in € oder null)
 //   renderConfig(ctx) · renderCard(res, ctx) · renderPanel(sel, ctx) · orderSteps(sel) → [{l, v}] · searchEntries() → Items
 //   optional: summary(res), panelSubtitle(sel), inputHint(st), initState() → st.extra, excludables() → [{id, name, group}],
-//   renderExtra(ctx) = eigener Block über der Ergebnisliste (Supermarkt: Picks bzw. Warenkorb), hideResults(st) = Ergebnisliste + Panel aus,
+//   renderExtra(ctx) = eigener Block über der Ergebnisliste (Supermarkt: Picks bzw. Warenkorb; Compleat: „Build my order“), hideResults(st) = Ergebnisliste + Panel aus,
+//   controls(st) = { switches, include, exclude } — false blendet die Schalter-Zeile bzw. „Must include“ / „Exclude items“ aus (null = alles zeigen),
 //   skipAll = nicht in All/Accurate, guideLabel = eigener Titel statt „Order guide (<platform>)“, showAll = alle Ergebnisse zeigen (statt der besten 8),
 //   validate() → Liste von Datenproblemen (von validateRegistry geprüft), menu = Bowl-Menü (bowlCombos)
 // ═══ EDEKA Graf (In-Store): Supermarkt-Tab mit „Build order“ und „Track basket“ (User 19.09.2026) ═══
@@ -4776,31 +5012,36 @@ function IncludeCard({ list, included, nameOf, platform, onAdd, onRemove, onClea
 const BOWL_LABELS = { base: "base", protein: "protein", dip: "dip", side: "bread" };
 function bowlHas(menu, role) { return !!(menu && menu.groups.some(g => g.options.some(o => bowlRole(o) === role))); }
 function bowlConfigCard(ctx, note, menu, labels) {
+  return h("div", { style: CARD }, ...bowlConfigParts(ctx, note, menu, labels));
+}
+// Inhalt der Config-Karte: Extras-Chip, Portionen-Chip, Hinweis (auch für Karten mit eigenem Kopf, z.B. Compleat „Build my order“)
+function bowlConfigParts(ctx, note, menu, labels) {
   const L = Object.assign({}, BOWL_LABELS, labels || {});
   const x = (ctx.st && ctx.st.extra) || {};
   const set = patch => ctx.update(s => ({ extra: { ...(s.extra || {}), ...patch } }));
   const halves = !!(menu && menu.groups.some(g => g.options.some(o => o.half)));
   // Portionen-Chip nur für Rollen mit Stepper (maxQty > 1): Compleat „base / protein“, Dean & David „protein“
   const stepRoles = ["base", "protein"].filter(r => menu && menu.groups.some(g => g.options.some(o => bowlRole(o) === r && (o.maxQty || 1) > 1)));
-  return h("div", { style: CARD },
+  return [
     h("div", { style: LBL }, "Max. extras per bowl"),
     h("div", { style: { display: "flex", gap: 5, flexWrap: "wrap", marginBottom: stepRoles.length || note ? 12 : 0 } },
       ...[0, 1, 2, 3, 4, 5, 6].map(n => h(Chip, { key: String(n), label: String(n), active: x.maxExtras === n, onClick: () => set({ maxExtras: n }), small: true }))),
     stepRoles.length > 0 && h("div", { style: LBL }, "Max. portions of the same " + stepRoles.map(r => L[r]).join(" / ") + (halves ? " · half portion = ½" : "")),
     stepRoles.length > 0 && h("div", { style: { display: "flex", gap: 5, marginBottom: note ? 10 : 0 } },
       ...[1, 2, 3, 4].map(n => h(Chip, { key: String(n), label: String(n), active: x.cap === n, onClick: () => set({ cap: n }), small: true }))),
-    note && h("div", { style: { fontSize: 10, color: "#666", lineHeight: 1.4 } }, note)
-  );
+    note && h("div", { style: { fontSize: 10, color: "#666", lineHeight: 1.4 } }, note),
+  ];
 }
 function bowlCard(res, ctx, menu, labels) {
   const L = Object.assign({}, BOWL_LABELS, labels || {});
-  const c = { base: 0, protein: 0, extra: 0 };
+  const c = { base: 0, protein: 0, extra: 0, dip: res.dip ? 1 : 0, side: res.side ? 1 : 0 };
   for (const pt of res.parts) { const r = bowlRole(pt.opt); c[r] = (c[r] || 0) + pt.qty; }
   const bits = [menu ? menu.item : "Bowl"];
   if (bowlHas(menu, "base")) bits.push(c.base + " " + L.base);
   bits.push(c.protein + " " + L.protein, c.extra + (c.extra === 1 ? " extra" : " extras"));
-  if (bowlHas(menu, "side")) bits.push(res.side ? L.side : "no " + L.side);
-  if (bowlHas(menu, "dip")) bits.push(res.dip ? L.dip : "no " + L.dip);
+  if (bowlHas(menu, "side")) bits.push(c.side ? (c.side > 1 ? c.side + "× " : "") + L.side : "no " + L.side);
+  if (bowlHas(menu, "dip")) bits.push(c.dip ? (c.dip > 1 ? c.dip + "× " : "") + L.dip : "no " + L.dip);
+  if (res.locked) { const k = Object.values(res.locked).reduce((a, q) => a + q, 0); if (k) bits.push("🔒 " + k + " picked"); }
   return h(ResultCard, { key: res.key, title: bowlSummary(res), sub: bits.join(" · "), n: res.nutrition, price: res.price, selected: ctx.selected, onClick: ctx.onSelect });
 }
 function bowlSubtitle(menu, sel) {
@@ -4808,14 +5049,20 @@ function bowlSubtitle(menu, sel) {
   return menu.item + " · " + n + (n === 1 ? " component" : " components") + (sel.price != null ? " · " + bowlEuro(sel.price) : "");
 }
 // Aufschlüsselung je Plattform-Gruppe (kcal · Protein · Preis) + Gesamtpreis inkl. Grundpreis; feste Bestandteile oben („Included“),
-// Pflicht-Zutaten mit ★; reine Bestellschritt-Gruppen (ohne Optionen) stecken in den Varianten und bekommen keine eigene Zeile
+// Pflicht-Zutaten mit ★, eigene Auswahl („Build my order“, sel.locked = Mengen je Option) mit 🔒; reine Bestellschritt-Gruppen (ohne Optionen)
+// stecken in den Varianten und bekommen keine eigene Zeile
 function bowlPanel(menu, sel, ctx) {
   const rows = [], inc = (ctx && ctx.inc) || new Set();
   const line = { display: "flex", justifyContent: "space-between", gap: 8, fontSize: 12, padding: "4px 0", borderBottom: "1px solid #1f1f1f" };
   const head = (key, text) => h("div", { key, style: { fontSize: 10, color: "#555", fontFamily: S.mono, textTransform: "uppercase", letterSpacing: 1, margin: "8px 0 4px" } }, text);
-  const row = (key, opt, qty, priceText) => h("div", { key, style: line },
-    h("span", { style: { color: "#e0e0e0", minWidth: 0, flex: 1 } }, (inc.has(opt.ing) ? "★ " : "") + (qty > 1 ? qty + "× " : "") + opt.name),
-    h("span", { style: { color: "#999", fontFamily: S.mono, whiteSpace: "nowrap" } }, Math.round(opt.kcal * qty) + " kcal · P " + Math.round(opt.protein * qty * 10) / 10 + "g · " + priceText));
+  const locked = (sel && sel.locked) || null;
+  const row = (key, opt, qty, priceText) => {
+    const lq = locked ? Math.min(qty, locked[opt.id] || 0) : 0;
+    return h("div", { key, style: line },
+      h("span", { style: { color: "#e0e0e0", minWidth: 0, flex: 1 } }, (lq ? "🔒 " : inc.has(opt.ing) ? "★ " : "") + (qty > 1 ? qty + "× " : "") + opt.name + (lq && lq < qty ? " (" + lq + " yours)" : "")),
+      h("span", { style: { color: "#999", fontFamily: S.mono, whiteSpace: "nowrap" } }, Math.round(opt.kcal * qty) + " kcal · P " + Math.round(opt.protein * qty * 10) / 10 + "g · " + priceText));
+  };
+  if (locked && Object.keys(locked).length) rows.push(h("div", { key: "_locked", style: { fontSize: 11, color: "#9a9", margin: "0 0 4px" } }, "🔒 = your picks · the rest was added to hit your target"));
   if (sel.fixed && sel.fixed.length) {
     rows.push(head("_fixed", "Included"));
     for (const x of sel.fixed) rows.push(row("_fixed_" + x.id, x, 1, "incl."));
@@ -4897,6 +5144,8 @@ function App() {
   const includables = useMemo(() => R ? includablesFor(R) : [], [R]);
   const ingName = id => { const e = includables.find(y => y.id === id); if (e) return e.name; const x = R && R.data && Array.isArray(R.data.ingredients) ? R.data.ingredients.find(y => y.id === id) : null; return x ? x.name : id; };
   const excludables = useMemo(() => R ? excludablesFor(R) : [], [R]);
+  // Welche generischen Bedienelemente der Eintrag gerade zeigt (Compleat „Build my order“ ohne Ergänzen: keine Schalter und Listen)
+  const ctl = Object.assign({ switches: true, include: true, exclude: true }, (R && st && R.controls && R.controls(st)) || {});
   const updRS = (key, fn) => setRs(prev => prev[key] ? { ...prev, [key]: { ...prev[key], ...fn(prev[key]) } } : prev);
   const isCross = tab === "all" || tab === "accurate";
   const accList = RESTAURANTS.filter(r => r.accurate);
@@ -5080,7 +5329,7 @@ function App() {
       R&&R.kind==="byo"&&R.renderConfig(ctx),
 
       // Schalter (deklarativ aus der Registry; group = UI-exklusiv)
-      h("div",{style:{display:"flex",gap:16,marginBottom:16,alignItems:"center",flexWrap:"wrap"}},
+      ctl.switches&&h("div",{style:{display:"flex",gap:16,marginBottom:16,alignItems:"center",flexWrap:"wrap"}},
         ...(R?(R.switches||[]):[]).flatMap(s=>[
           h("label",{key:s.id,style:{display:"flex",alignItems:"center",gap:6,cursor:"pointer",fontSize:12,color:"#999"}},
             h("input",{type:"checkbox",checked:!!st.sw[s.id],onChange:e=>{const on=e.target.checked;updRS(R.key,x=>({sw:toggleSwitch(R,x.sw,s.id,on)}));},style:{accentColor:S.green,width:16,height:16}}),
@@ -5091,12 +5340,12 @@ function App() {
 
       // Ausschluss-Liste (ausverkauft / heute keine Lust) — generisch für jedes Registry-Restaurant
       // Pflicht-Zutaten („Must include“) — für BYO-Restaurants mit includables(); Ausschluss und Pflicht schließen sich gegenseitig aus
-      R&&includables.length>0&&h(IncludeCard,{key:"in_"+R.key,list:includables.filter(x=>!exSet.has(x.id)),included:inList,platform:R.platform,nameOf:ingName,
+      R&&ctl.include&&includables.length>0&&h(IncludeCard,{key:"in_"+R.key,list:includables.filter(x=>!exSet.has(x.id)),included:inList,platform:R.platform,nameOf:ingName,
         onAdd:id=>{setInclFor(exKey,cur=>addInclude(cur,id,includables));setExclFor(exKey,cur=>cur.filter(x=>x!==id));},
         onRemove:id=>setInclFor(exKey,cur=>cur.filter(x=>x!==id)),
         onClear:()=>setInclFor(exKey,()=>[])}),
       // nur, wenn es etwas auszuschließen gibt (Pre-selected meals haben keine Liste) oder noch alte Ausschlüsse gespeichert sind
-      R&&(excludables.length>0||exList.length>0)&&h(ExcludeCard,{key:"ex_"+R.key,list:excludables,excluded:exList,
+      R&&ctl.exclude&&(excludables.length>0||exList.length>0)&&h(ExcludeCard,{key:"ex_"+R.key,list:excludables,excluded:exList,
         onAdd:id=>{setExclFor(exKey,cur=>cur.includes(id)?cur:[...cur,id]);setInclFor(exKey,cur=>cur.filter(x=>x!==id));},
         onRemove:id=>setExclFor(exKey,cur=>cur.filter(x=>x!==id)),
         onClear:()=>setExclFor(exKey,()=>[])}),
