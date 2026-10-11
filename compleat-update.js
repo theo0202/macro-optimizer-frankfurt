@@ -65,7 +65,11 @@ function buildMenu(raw, platform) {
     if (typeof x.price !== "number" || !(x.price >= 0)) throw new Error("Vorauswahl ohne Preis: " + x.name + " (" + platform + ")");
     return { group: x.group, name: x.name, price: x.price };
   });
-  return { item: menu.item, page: menu.page, basePrice: menu.itemPrice, preselected, groups, skipped };
+  // Pflicht-Rollen laut Plattform: eine Portionen-Rolle (base/protein) ist nur Pflicht, wenn ihre Gruppe min ≥ 1 verlangt und keine
+  // „ohne …“-Option hat. Wolt und Uber Eats: Basis und Proteine 0–… → keine (User 11.10.2026: „bei Compleat muss keine Basis gewählt
+  // werden … genau das gleiche gilt für alle anderen Kategorien“; bis dahin rechnete der Tracker mit ≥1 Base + ≥1 Protein)
+  const needs = role => groups.some(g => g.min >= 1 && !g.none && g.options.some(o => o.role === role));
+  return { item: menu.item, page: menu.page, basePrice: menu.itemPrice, require: { base: needs("base"), protein: needs("protein") }, preselected, groups, skipped };
 }
 
 function blockLines(raw) {
@@ -92,6 +96,7 @@ function blockLines(raw) {
   lines.push("  // Stand des letzten Crawls (Shop-Werte, Menüs, Ausverkauft-Status)", "  asOf: " + JSON.stringify(raw._meta.fetchedAt.slice(0, 10)) + ",");
   for (const [pf, m] of menus) {
     lines.push("  " + pf + ": {", "    item: " + JSON.stringify(m.item) + ", page: " + JSON.stringify(m.page) + ", basePrice: " + m.basePrice + ",");
+    lines.push("    require: " + lit(m.require) + ", // Pflicht-Rollen laut Plattform (Gruppen-Minimum; keine → jede Gruppe optional)");
     // Vorausgewählte Pflicht-Optionen der Plattform (nur für den Hinweistext „Menükarte zeigt …“)
     if (m.preselected.length) lines.push("    preselected: [" + m.preselected.map(lit).join(",") + "],");
     lines.push("    groups: [");
@@ -114,7 +119,8 @@ if (require.main === module) {
   U.writeBlock(path.join(__dirname, "index.html"), KEY, lines);
   console.log(raw.ingredients.length + " Zutaten → index.html (" + KEY + "-Block)");
   for (const [pf, m] of menus) {
-    console.log("  " + pf + " „" + m.item + "“ (Grundpreis " + m.basePrice + " €): " + m.groups.map(g => g.name + " " + g.options.length).join(", "));
+    console.log("  " + pf + " „" + m.item + "“ (Grundpreis " + m.basePrice + " €): " + m.groups.map(g => g.name + " " + g.options.length).join(", ") +
+      " · Pflicht: " + (Object.keys(m.require).filter(k => m.require[k]).join(" + ") || "keine Gruppe"));
     if (m.skipped.length) console.log("    gesperrt, nicht im Menü des Rechners: " + m.skipped.join(", "));
   }
 }

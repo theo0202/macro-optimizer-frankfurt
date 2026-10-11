@@ -106,6 +106,7 @@ const COMPLEAT = {
   asOf: "2026-10-11",
   wolt: {
     item: "Build your Bowl", page: "https://wolt.com/de/deu/frankfurt/restaurant/compleat-nordend", basePrice: 3,
+    require: {base:false,protein:false}, // Pflicht-Rollen laut Plattform (Gruppen-Minimum; keine → jede Gruppe optional)
     groups: [
       { id:"base",name:"Deine Basis",min:0,max:5,none:null,options:[
         {id:"base_basmatireis_250_g",name:"Basmatireis, 250 g",short:"Basmatireis",group:"base",role:"base",ing:"basmati_reis",amount:250,unit:"g",maxQty:4,price:2.5,kcal:330,fat:0.75,sat:0,carbs:70,sugars:0.25,fibre:1.5,protein:7.5,salt:2.5},
@@ -175,6 +176,7 @@ const COMPLEAT = {
   },
   ubereats: {
     item: "Selbst zusammenstellen", page: "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440", basePrice: 3,
+    require: {base:false,protein:false}, // Pflicht-Rollen laut Plattform (Gruppen-Minimum; keine → jede Gruppe optional)
     groups: [
       { id:"base",name:"Base",min:0,max:100,none:null,options:[
         {id:"base_basmati_reis_250g",name:"Basmati Reis (250g)",short:"Basmati Reis",group:"base",role:"base",ing:"basmati_reis",amount:250,unit:"g",maxQty:10,price:2.5,kcal:330,fat:0.75,sat:0,carbs:70,sugars:0.25,fibre:1.5,protein:7.5,salt:2.5},
@@ -2216,7 +2218,8 @@ function alaCarteCombos(t, mode, p, pool, maxN, opts) {
 // ═══ Build-Your-Own-Bowl-Kern (Gruppen-Menü mit base / protein / extra / dip, z.B. Compleat „Build your Bowl") ═══
 // Exakte Suche: Die Rangliste der K = 30 besten Bowls ist identisch mit der vollständigen Durchrechnung, in beiden Modi
 // (tests.js und der Benchmark prüfen das). Zwei Teile:
-// 1) Kern = Base-/Protein-Portionen + Dip. Start je 1 Base × 1 Protein, Erweiterung in fester Reihenfolge (jede Kombination genau einmal).
+// 1) Kern = Base-/Protein-Portionen + Dip. Start je 1 Base × 1 Protein (soweit das Menü sie verlangt, menu.require — Compleat verlangt seit
+//    11.10.2026 keine: Start mit dem leeren Kern), Erweiterung in fester Reihenfolge (jede Kombination genau einmal).
 //    a) Makro-Modus und Kalorien-Modus ohne Präferenzen: Der Score ist je Nährwert konvex und alle Beiträge sind ≥ 0. Der Nutzen
 //       eines Zusatzes u ist deshalb bei einer kleineren Bowl nie kleiner als bei einer größeren: Verbessert u die Teil-Bowl T nicht,
 //       ist jede Bowl S, die T und u enthält, höchstens so gut wie S ohne u. Erweitert wird daher nur um VERBESSERNDE Zusätze
@@ -2443,7 +2446,8 @@ const BOWL_MAX_WORK = Infinity; // Arbeitsbudget in Baum-Knoten (Standard: keins
 //          · maxWork: Arbeitsbudget in Baum-Knoten (Default ∞, deterministisch für Tests)
 //          · raw: true → nur die ungerundete Rangliste [{ key, rawScore, price }] (Top 30; für Tests und Benchmarks)
 //          · capUsed: { [Zutat-id]: halbe Portionen } schon belegt — kürzen den Portionen-Deckel je Zutat (Compleat „Build my order“) }
-// Jede Bowl hat die Portionen-Rollen aus require (≥1), je Einzelauswahl-Rolle höchstens eine Option, Extras je 1×. Extras, deren Zutat auch als
+// Jede Bowl hat die Portionen-Rollen aus require (≥1; { base:false, protein:false } = keine Pflicht-Rolle, dann darf der Kern leer sein —
+// nur die ganz leere Bestellung ohne jede Zutat gibt es nie), je Einzelauswahl-Rolle höchstens eine Option, Extras je 1×. Extras, deren Zutat auch als
 // Protein angeboten wird (Wolt-Duplikat), laufen nur über die Protein-Rolle. Die Kern-Rollen stehen je in genau einer Gruppe (bowlValidate).
 // Pflicht-Zutaten: Extra → fest in jeder Bowl (zählt zu maxExtras, geht aber vor; in own-Gruppen zur Gruppen-Grenze) · Einzelauswahl → nur diese
 // Zutat (in einer ihrer Varianten) · Portionen-Rolle → mindestens eine (halbe) Portion. Pflicht-Zutaten gehen an keep vorbei nur über den Aufrufer
@@ -2531,6 +2535,10 @@ function bowlCombos(menu, t, mode, p, opts) {
   for (const e of forcedExtras) { for (let k = 0; k < 8; k++) OFF[k] += e.v[k]; offPc += e.pc; }
   budget -= offPc;
   if (budget < 0) return [];
+  // Ohne Pflicht-Rolle, Pflicht-Zutat und festen Anteil wäre auch die leere Bestellung (nichts gewählt) eine „Bowl“ → sie läuft intern mit
+  // (Ausgangspunkt fürs Nachtragen), kommt aber nie ins Ergebnis; dafür ein Ranglisten-Platz mehr (KT), damit die Top K vollständig bleiben
+  const canBeEmpty = !need.base && !need.protein && !fixed.length && !forcedExtras.length && ![...incRole.values()].some(r => r !== "extra");
+  const KT = K + (canBeEmpty ? 1 : 0);
   const maxE = Math.max(0, Math.min(extraMax, o.maxExtras == null ? 6 : o.maxExtras) - nForced(""));
   for (const e of extras) e.ci = e.cls ? 1 + ownG.findIndex(g => g.id === e.cls) : 0;
   const idx = bowlIndex(extras, [maxE, ...ownG.map(g => g.max - nForced(g.id))]);
@@ -2598,8 +2606,8 @@ function bowlCombos(menu, t, mode, p, opts) {
     top.push(item);
     while (i > 0 && top[i - 1].s > s) { top[i] = top[i - 1]; i--; }
     top[i] = item;
-    if (top.length > K) top.pop();
-    if (top.length === K) thr = top[K - 1].s;
+    if (top.length > KT) top.pop();
+    if (top.length === KT) thr = top[KT - 1].s;
   };
   const { P, M, PR, perm, LO, HI, PMIN, NL, NR, NS, NE } = idx;
   const tot = new Float64Array(8), stack = new Int32Array(256);
@@ -2750,6 +2758,11 @@ function bowlCombos(menu, t, mode, p, opts) {
     const key = parts.map(pt => pt.opt.id + "x" + pt.qty).join("+") + (side ? "|" + side.id : "") + "|" + (dip ? dip.id : "nodip");
     return { key, parts, dip, side, fixed, items, price: (baseCents + offPc + it.pc) / 100 };
   };
+  if (canBeEmpty) { // die leere Bestellung streichen, danach wieder höchstens K
+    const full = top.filter(it => it.m !== 0 || it.q.some(n => n > 0));
+    top.length = 0;
+    for (const it of full.slice(0, K)) top.push(it);
+  }
   if (o.raw) {
     const raw = top.map(it => { const b = build(it); return { key: b.key, rawScore: it.s, price: b.price }; });
     if (aborted) raw.approx = true;
@@ -2957,13 +2970,19 @@ function bowlOptimize(t, mode, p, st, ex, r, inc, blocked) {
     keep: x => allowed(x.ing) && (picks.has(x.ing) || force.has(x.ing) || pass(x)),
   });
 }
-// Jede Compleat-Bowl: ≥1 Base + ≥1 Protein (User 15.09.2026), Dip einer oder keiner
+// Compleat: keine Gruppe ist Pflicht (User 11.10.2026 — bei Wolt und Uber Eats lässt sich auch ohne Basis oder ohne Protein bestellen; bis
+// dahin galt „≥1 Base + ≥1 Protein“, User 15.09.2026) → menu.require { base:false, protein:false } im Datenblock; Dip einer oder keiner
 function compleatOptimize(t, mode, p, st, ex, r, inc) { return bowlOptimize(t, mode, p, st, ex, r, inc, COMPLEAT_BLOCKED); }
 const COMPLEAT_SWITCHES = [
   { id:"noDip", label:"No dip", def:true, filter:x=>bowlRole(x)!=="dip" },                          // User 15.09.2026: Default AN
   { id:"noCrunch", label:"No crunch", def:false, filter:x=>!x.crunch,                                // User 15.09.2026: Default AUS
     hint:"Hides Erdnüsse, Walnusskerne, Röstzwiebeln, Schwarzer Sesam and the Functional Fall Crunch." },
 ];
+// Kurzhinweis unter den Zielen: welche Portionen-Rollen das Menü verlangt (menu.require, Default base + protein)
+function bowlRequireHint(menu) {
+  const need = Object.assign({ base: true, protein: true }, (menu && menu.require) || {});
+  return [need.base && "1+ base", need.protein && "1+ protein"].filter(Boolean).join(", ") || "every group optional";
+}
 // Registry-Eintrag für ein Bowl-Menü: o = { key, name, platform, label, gradient, footer, data, menuKey, exclusionKey, switches, blocked,
 // note(menu), labels?, inputHint?, initState? } — Ausschluss- und Pflicht-Listen teilen sich exclusionKey (ein Restaurant, mehrere Tabs)
 function bowlEntry(o) {
@@ -2983,7 +3002,7 @@ function bowlEntry(o) {
     includables: () => bowlIncludables(menu, o.blocked),
     summary: bowlSummary,
     panelSubtitle: sel => bowlSubtitle(menu, sel),
-    inputHint: () => o.inputHint || menu.item + ": 1+ base, 1+ protein",
+    inputHint: () => o.inputHint || menu.item + ": " + bowlRequireHint(menu),
     validate: () => bowlValidate(o.data, [o.menuKey]),
   };
 }
@@ -3016,7 +3035,7 @@ function compleatSoldOutNote(m) {
 // Die eigene Bestellung Zutat für Zutat zusammenstellen wie im Bestellfenster der Plattform: gleiche Gruppen, Mengen und Grenzen (je Option
 // maxQty, je Gruppe max; eine Gruppe mit max 1 wie Wolts Dip → Antippen ersetzt die alte Wahl). Schalter „Complete to my macros“:
 //   aus → genau die Auswahl: Summe gegen das Ziel, Preis, Aufschlüsselung, Order Guide, Kopier-Text — kein Optimizer
-//   an  → der Optimizer behält die Auswahl und ergänzt, was zum Ziel fehlt (Regeln wie sonst: ≥1 Base + ≥1 Protein, Extras je 1×, höchstens
+//   an  → der Optimizer behält die Auswahl und ergänzt, was zum Ziel fehlt (Regeln wie sonst: keine Pflicht-Gruppe, Extras je 1×, höchstens
 //         ein Dip; Schalter und Ausschlüsse gelten nur für das Ergänzte; Portionen- und Extras-Chip zählen die Auswahl mit; „Must include“ ruht)
 // Auswahl und Schalter je Tab in fra_compleat_build (überleben den App-Neustart), der Modus nicht (die App startet mit den Vorschlägen).
 function compleatBuilderAvailable(view) { return !view; }
@@ -3085,7 +3104,7 @@ function compleatManualResult(menu, picks, t, mode, p) {
 }
 // Schalter an: Suchraum für das Ergänzen. Die Auswahl ist fester Anteil (Nährwerte + Preis in jeder Bowl); dazukommen dürfen nur noch die
 // Restmengen (je Option maxQty − Auswahl, je Gruppe max − Auswahl), keine schon gewählten Extras (Extras je 1×), kein weiterer Dip/Brot, wenn
-// einer gewählt ist; Base/Protein nur noch Pflicht, wenn die Auswahl keine hat. Protein-Duplikate unter den Extras bleiben draußen (wie im
+// einer gewählt ist; Base/Protein nur Pflicht, wenn das Menü sie verlangt (menu.require; Compleat nicht) und die Auswahl keine hat. Protein-Duplikate unter den Extras bleiben draußen (wie im
 // normalen Optimizer — sonst kämen sie zurück, sobald die Protein-Option ausgeschöpft ist). capUsed = halbe Portionen je Zutat aus der Auswahl
 // (zählen zum Portionen-Chip), extrasPicked = Extras der Auswahl (zählen zum Extras-Chip).
 function compleatCompletionMenu(menu, picks) {
@@ -3093,6 +3112,7 @@ function compleatCompletionMenu(menu, picks) {
   const protIngs = new Set(menu.groups.flatMap(g => g.options.filter(o => bowlRole(o) === "protein").map(o => o.ing)));
   const picked = new Map(list.map(c => [c.opt.id, c.qty]));
   const has = r => list.some(c => bowlRole(c.opt) === r);
+  const need = Object.assign({ base: true, protein: true }, menu.require || {});
   const capUsed = {};
   let extrasPicked = 0;
   for (const c of list) {
@@ -3112,7 +3132,7 @@ function compleatCompletionMenu(menu, picks) {
   });
   const fixed = [];
   for (const c of list) for (let i = 0; i < c.qty; i++) fixed.push(c.opt);
-  return { menu: Object.assign({}, menu, { groups, fixed, require: { base: !has("base"), protein: !has("protein") } }), capUsed, extrasPicked, list };
+  return { menu: Object.assign({}, menu, { groups, fixed, require: { base: need.base && !has("base"), protein: need.protein && !has("protein") } }), capUsed, extrasPicked, list };
 }
 // Ergänzen: exakte Suche (bowlCombos) im Restraum, danach Auswahl + Ergänztes zu einer Bowl zusammenführen (locked = Mengen der Auswahl)
 function compleatComplete(r, t, mode, p, st, ex) {
@@ -3154,7 +3174,7 @@ function compleatBuildSet(ctx, R, patch) {
 function compleatConfigCard(ctx, R, note) {
   const menu = R.menu, x = (ctx.st && ctx.st.extra) || {}, build = compleatBuildMode(ctx.st), complete = build && !!x.complete;
   const buildNote = "Pick your ingredients like in the " + R.platform + " order dialog — same groups, amounts and limits (" + menu.item + ", base price " + bowlEuro(menu.basePrice) + "). " +
-    (complete ? "Your picks stay in every suggestion; the optimizer adds what's missing for your target (at least 1 base and 1 protein, extras once each, one dip at most). The switches and “Exclude items” only apply to what it adds, the chips above count your picks, “Must include” is paused while you build."
+    (complete ? "Your picks stay in every suggestion; the optimizer adds what's missing for your target (no group is required, extras once each, one dip at most). The switches and “Exclude items” only apply to what it adds, the chips above count your picks, “Must include” is paused while you build."
       : "Nothing is added: you get exactly your order with its totals, price and order guide.") + compleatSoldOutNote(menu);
   return h("div", { style: CARD },
     compleatBuilderOn() && h("div", { style: { display: "flex", gap: 8, marginBottom: 12 } },
@@ -4452,11 +4472,11 @@ const RESTAURANTS = [
   compleatEntry({ key:"compleat", menuKey:"wolt", name:"Compleat (Wolt)", platform:"Wolt", label:"COMPLEAT · NORDEND · WOLT",
     gradient:["#d7192d","#6b0f1a"],
     footer:"Data: Compleat online shop (official, per 100 g × Wolt portion; every ingredient selected one by one in the shop, last on 11.10.2026) · menu & prices: Wolt · "+deDate(COMPLEAT.asOf),
-    note:m=>"Build your Bowl on Wolt (base price "+bowlEuro(m.basePrice)+"): every bowl gets at least 1 base and 1 protein, plus one dip or none. Bunter Quinoa is never suggested (implausible official values)."+bowlPreselectNote(m,"Wolt")+compleatSoldOutNote(m) }),
+    note:m=>"Build your Bowl on Wolt (base price "+bowlEuro(m.basePrice)+"): no group is required — the optimizer also suggests bowls without a base or without a protein when that fits your target; one dip or none. Bunter Quinoa is never suggested (implausible official values)."+bowlPreselectNote(m,"Wolt")+compleatSoldOutNote(m) }),
   compleatEntry({ key:"compleatuber", menuKey:"ubereats", name:"Compleat (Uber Eats)", platform:"Uber Eats", label:"COMPLEAT · NORDEND · UBER EATS",
     gradient:["#b3121d","#141414"],
     footer:"Data: Compleat online shop (official, per 100 g × Uber Eats portion; every ingredient selected one by one in the shop, last on 11.10.2026) · menu & prices: Uber Eats, captured 11.10.2026",
-    note:m=>"Selbst zusammenstellen on Uber Eats (base price "+bowlEuro(m.basePrice)+"): every bowl gets at least 1 base and 1 main protein (half portions count; egg, edamame, peas, feta and goat cheese count as extras), plus one dip or none. Extras at most once each. Bunter Bio Quinoa is never suggested (implausible official values)."+bowlPreselectNote(m,"Uber Eats")+compleatSoldOutNote(m) }),
+    note:m=>"Selbst zusammenstellen on Uber Eats (base price "+bowlEuro(m.basePrice)+"): no group is required — the optimizer also suggests bowls without a base or without a main protein when that fits your target; one dip or none. Egg, edamame, peas, feta and goat cheese count as extras; extras at most once each. Bunter Bio Quinoa is never suggested (implausible official values)."+bowlPreselectNote(m,"Uber Eats")+compleatSoldOutNote(m) }),
   // Dean & David Frankfurt (Wolt; Menü identisch in Welle, Mainzer Landstraße und Tower 185 — MyZeil ohne Marinierte Zwiebeln, Bockenheim nur Bowl).
   // Daten: py -3 deandavid-pdf.py (PDFs → data/) → node deandavid-crawl.js (→ data/deandavid-raw.json) → node deandavid-update.js
   deanDavidEntry({ key:"deandavidsalad", menuKey:"salad", name:"Dean & David Salad (Wolt)", platform:"Wolt", label:"DEAN&DAVID · MIX YOUR OWN SALAD · WOLT",
@@ -5053,8 +5073,8 @@ function bowlCard(res, ctx, menu, labels) {
   const c = { base: 0, protein: 0, extra: 0, dip: res.dip ? 1 : 0, side: res.side ? 1 : 0 };
   for (const pt of res.parts) { const r = bowlRole(pt.opt); c[r] = (c[r] || 0) + pt.qty; }
   const bits = [menu ? menu.item : "Bowl"];
-  if (bowlHas(menu, "base")) bits.push(c.base + " " + L.base);
-  bits.push(c.protein + " " + L.protein, c.extra + (c.extra === 1 ? " extra" : " extras"));
+  if (bowlHas(menu, "base")) bits.push(c.base ? c.base + " " + L.base : "no " + L.base); // ohne Base/Protein (Compleat: keine Pflicht) → „no base“
+  bits.push(c.protein ? c.protein + " " + L.protein : "no " + L.protein, c.extra + (c.extra === 1 ? " extra" : " extras"));
   if (bowlHas(menu, "side")) bits.push(c.side ? (c.side > 1 ? c.side + "× " : "") + L.side : "no " + L.side);
   if (bowlHas(menu, "dip")) bits.push(c.dip ? (c.dip > 1 ? c.dip + "× " : "") + L.dip : "no " + L.dip);
   if (res.locked) { const k = Object.values(res.locked).reduce((a, q) => a + q, 0); if (k) bits.push("🔒 " + k + " picked"); }

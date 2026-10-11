@@ -76,7 +76,8 @@ const WOLT_MAP = {
   "Rotes Pesto, 80g": "rotes_pesto", "Ajvar, 100g": "ajvar",
 };
 
-// Haupt-Proteine: nur sie erfüllen „≥1 Protein" (User 15.09.2026: jede Bowl ≥1 Base + ≥1 Protein), auch als halbe Portion.
+// Haupt-Proteine (Rolle protein: mehrere Portionen über den Portionen-Chip, auch als halbe Portion). Bis 10.10.2026 erfüllten nur sie
+// „≥1 Protein" (User 15.09.2026: jede Bowl ≥1 Base + ≥1 Protein) — seit 11.10.2026 ist keine Gruppe mehr Pflicht (User 11.10.2026).
 // Ei, Edamame, Erbsen und Feta stehen bei Uber Eats unter „Proteine", zählen im Rechner aber wie bei Wolt (dort Extras) als Extras.
 // Mushroots Pilzbällchen (27.09.2026) wie die Hackbällchen: bei Wolt unter „Deine Proteine“
 const PROTEIN_MAIN = new Set(["huehnchen", "veganes_huehnchen_planted_chicken", "rinderhackbaellchen", "vegane_hackbaellchen", "pulled_salmon", "mushroots_pilzbaellchen"]);
@@ -407,11 +408,11 @@ async function main() {
         stock: "Ausverkauft = mit ?forceStockStatus=1 im Bundle, ohne den Parameter nicht (27.09.2026 an den „Ausverkauft“-Karten des Shops bestätigt)",
       },
       basis: "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Wolt-Mengen weichen nur beim Salat-Mix ab → mit Wolt-Menge gerechnet. Uber Eats nutzt die Shop-Namen und -Mengen (inkl. halber Portionen).",
-      woltRules: "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Grundpreis „Build your Bowl“ " + woltItemPrice + " €. " + woltCardNote,
-      ubereatsRules: "Selbst zusammenstellen (Grundpreis " + ueItemPrice + " €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft). " + ueCardNote,
+      woltRules: "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Keine Gruppe außer dem Dip ist Pflicht (min 0) → der Rechner verlangt weder Base noch Protein (User 11.10.2026). Grundpreis „Build your Bowl“ " + woltItemPrice + " €. " + woltCardNote,
+      ubereatsRules: "Selbst zusammenstellen (Grundpreis " + ueItemPrice + " €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: keine Gruppe Pflicht (User 11.10.2026) · Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft). " + ueCardNote,
       decisions: [
         "User 15.09.2026: Bunter Bio Quinoa bleibt im Datensatz, ist aber im Rechner ausgeschlossen (auch künftige Plattformen)",
-        "User 15.09.2026: Jede vorgeschlagene Bowl hat ≥1 Base und ≥1 Protein",
+        "User 11.10.2026: Keine Gruppe ist Pflicht — bei Compleat lässt sich auch ohne Basis, ohne Protein, ohne Extras bestellen (Wolt: Basis 0–5, Proteine 0–10; Uber Eats: 0–100; nur der Dip ist Pflicht und hat „Ohne Dip“). Der Rechner schlägt deshalb auch Bowls ohne Base oder ohne Protein vor; nur die ganz leere Bestellung nie. (Bis 10.10.2026: jede vorgeschlagene Bowl ≥1 Base und ≥1 Protein, User 15.09.2026)",
         "User 15.09.2026: „No dip“ Default AN, „No crunch“ (Erdnüsse, Walnusskerne, Röstzwiebeln, Schwarzer Sesam) Default AUS",
         "User 15.09.2026: Guacamole normal anbieten (enthält laut Zutatenliste Koriander, im Chat erwähnt)",
         "User 15.09.2026: Optionales Preislimit — keine vorgeschlagene Bestellung liegt über dem eingegebenen Maximalpreis (Grundpreis + Zutaten)",
