@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, chidobaSnackMenu, chidobaSnackGroup, chidobaItemsMax, CHIDOBA_ITEMS_CAP, chidobaCard, chidobaConfigCard, chidobaStepEntries, chidobaCatOn, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition, SHARE_VIEWS, SHARE_VIEW, shareViewFrom, visibleTabs, VISIBLE_TABS, viewShows, SHOW_SCREENSHOT_IMPORT, showTabRow, SHOW_TAB_ROW, APP_CODE, appNeedsCode, appUnlock, AppGate, compleatBuilderAvailable, compleatBuildMode, compleatCleanPicks, compleatPickList, compleatCanAdd, compleatPickStep, bowlAssemble, compleatManualResult, compleatCompletionMenu, compleatComplete, compleatBuildLoad, compleatBuildSave, compleatConfigCard, compleatBuilder, OrderGuide, MacroBars, bowlPanel, bowlCard, bowlConfigParts, EDEKA_FIX_CODE, edekaFixToggle, edekaFixUnlock, edekaConfigCard };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, chidobaSnackMenu, chidobaSnackGroup, chidobaItemsMax, CHIDOBA_ITEMS_CAP, chidobaCard, chidobaConfigCard, chidobaStepEntries, chidobaCatOn, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition, SHARE_VIEWS, SHARE_VIEW, shareViewFrom, visibleTabs, VISIBLE_TABS, viewSearchIndex, VIEW_SEARCH_INDEX, viewShows, SHOW_SCREENSHOT_IMPORT, showTabRow, SHOW_TAB_ROW, APP_CODE, appNeedsCode, appUnlock, AppGate, compleatBuilderAvailable, compleatBuildMode, compleatCleanPicks, compleatPickList, compleatCanAdd, compleatPickStep, bowlAssemble, compleatManualResult, compleatCompletionMenu, compleatComplete, compleatBuildLoad, compleatBuildSave, compleatConfigCard, compleatBuilder, OrderGuide, MacroBars, bowlPanel, bowlCard, bowlConfigParts, EDEKA_FIX_CODE, edekaFixToggle, edekaFixUnlock, edekaConfigCard };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -871,7 +871,8 @@ check("Freundes-Link „nur Compleat“ (User 03.10.2026): ?view=compleat-only z
   const v = T.visibleTabs(T.SHARE_VIEWS["compleat-only"]);
   return T.shareViewFrom("?view=compleat-only") === T.SHARE_VIEWS["compleat-only"] && v.special.length === 0 && v.restos.map(r => r.key).join() === "compleat" &&
     T.showTabRow(v) === false && T.showTabRow(T.visibleTabs(T.SHARE_VIEWS.compleat)) === true && T.showTabRow(T.visibleTabs(null)) === true && T.SHOW_TAB_ROW === true &&
-    Object.values(T.SHARE_VIEWS).every(sv => sv.keys.length > 0 && sv.keys.every(k => !!T.RESTO_BY_KEY[k]));
+    Object.values(T.SHARE_VIEWS).every(sv => (sv.keys ? sv.keys.length > 0 && !sv.without : Array.isArray(sv.without)) && [...(sv.keys || []), ...(sv.without || []), ...Object.keys(sv.names || {})].every(k => !!T.RESTO_BY_KEY[k]) &&
+      (sv.special || []).every(k => ["search", "accurate", "all"].includes(k)));
 })(), true);
 check("Freundes-Links blenden Teile aus (hide, User 03.10.2026): beide ohne „Meal data for your app“ und ohne „Import from screenshot“; ohne Link ist alles da", (() =>
   T.viewShows(null, "copy") && T.viewShows(null, "screenshot") &&
@@ -907,6 +908,27 @@ check("Code-Abfrage der ganzen App: falscher Code speichert nichts, 1303 merkt s
     inp.length === 1 && inp[0].props.type === "password" && inp[0].props.inputMode === "numeric" && btn.length === 1 && texts(btn[0]).join("") === "Unlock" &&
     texts(tree).includes("Enter the code") && /render\(h\(Root\)\)/.test(SCRIPT) && !/render\(h\(App\)\)/.test(SCRIPT) &&
     /appNeedsCode\(SHARE_VIEW, lsGet\(LS\.unlocked, null\)\)/.test(SCRIPT) && /locked \? h\(AppGate, \{ onUnlock:/.test(SCRIPT);
+})(), true);
+check("Freunde-Version (User 11.10.2026): ?view=friends zeigt die ganze App ohne „Accurate restaurants“ und ohne Compleat (Uber Eats); Pre-selected meals heißen dort „Edeka Graf Pre-selected meals“ (in der vollen App unverändert)", (() => {
+  const fv = T.SHARE_VIEWS.friends, v = T.visibleTabs(fv);
+  return T.shareViewFrom("?view=friends") === fv && v.special.map(s => s.key).join() === "search,all" &&
+    v.restos.map(r => r.key).join() === T.RESTAURANTS.filter(r => r.key !== "compleatuber").map(r => r.key).join() && v.restos.length === T.RESTAURANTS.length - 1 &&
+    v.restos.find(r => r.key === "meals").name === "Edeka Graf Pre-selected meals" && T.RESTO_BY_KEY.meals.name === "Pre-selected meals" &&
+    v.restos.filter(r => r.key !== "meals").every(r => r === T.RESTO_BY_KEY[r.key]) && T.showTabRow(v) === true &&
+    T.visibleTabs(null).restos.find(r => r.key === "meals").name === "Pre-selected meals";
+})(), true);
+check("Freunde-Version: ohne „Import from screenshot“, ohne „Meal data for your app“, ohne „Build my order“ und ohne Code beim Öffnen; die Label correction bleibt hinter dem Code 1303", (() => {
+  const fv = T.SHARE_VIEWS.friends;
+  return !T.viewShows(fv, "copy") && !T.viewShows(fv, "screenshot") && T.compleatBuilderAvailable(fv) === false && T.appNeedsCode(fv, null) === false && T.EDEKA_FIX_CODE === "1303" &&
+    /h\("span", \{ onClick:\(\) => edekaFixToggle\(ctx\)/.test(SCRIPT) && /edekaFixUnlocked \? \{ fix: true \} : \{ fixAsk: true/.test(SCRIPT);
+})(), true);
+check("Freunde-Version: Compleat (Uber Eats) ist ganz raus — nicht in „All restaurants“ und nicht im Such-Index von „Add own order“; die volle App hat beides weiter", (() => {
+  const fv = T.SHARE_VIEWS.friends, v = T.visibleTabs(fv), idx = T.viewSearchIndex(fv), t = tgt(65, 85, 20);
+  const all = T.optimizeAll(t, "macros", {}, 5, false, v.restos), full = T.optimizeAll(t, "macros", {}, 5, false);
+  return all.length > 0 && !all.some(r => r._resto === "compleatuber") && all.some(r => r._resto === "compleat") && full.some(r => r._resto === "compleatuber") &&
+    !idx.some(x => x.resto === "Compleat (Uber Eats)") && idx.some(x => x.resto === "Compleat (Wolt)") && idx.some(x => x.resto === "Edeka Graf Pre-selected meals") &&
+    !idx.some(x => x.resto === "Pre-selected meals") && T.SEARCH_INDEX.some(x => x.resto === "Compleat (Uber Eats)") && T.viewSearchIndex(null) === T.SEARCH_INDEX && idx.length < T.SEARCH_INDEX.length &&
+    /optimizeAll\(targets, mode, prefs, maxAll, tab === "accurate", VISIBLE_TABS\.restos, excl, incl\)/.test(SCRIPT) && /searchItems\(searchQ, 60, VIEW_SEARCH_INDEX\)/.test(SCRIPT);
 })(), true);
 check("Compleat-Hinweistext: nennt die beim letzten Crawl ausverkauften Zutaten genau dann, wenn es welche im Menü gibt", (() => {
   const so = T.COMPLEAT.ingredients.filter(x => x.soldOut).map(x => x.id), inMenu = W.groups.some(g => g.options.some(o => so.includes(o.ing)));
@@ -2088,6 +2110,15 @@ check("Kategorie-Chips und Ausschluss wirken; „Max. products“ 2 begrenzt die
   const two = runED(tDef, { ...edSt, maxN: 2 });
   return noSkyr.every(r => r.items.every(x => x.cat !== "skyr")) && ex.every(r => r.items.every(x => x.id !== U.slugId("Bonduelle Kidney Bohnen 400 g"))) &&
     two.length > 0 && two.every(r => r.items.length <= 2);
+})(), true);
+check("„Max. products per order“ mit 4 (User 11.10.2026): Chips 1/2/3/4/5/∞; mit 4 höchstens vier Produkte je Bestellung", (() => {
+  global.__h = (type, props, ...children) => ({ type, props: props || {}, children });
+  const find = (n, pred, out = []) => { if (n == null || typeof n !== "object") return out; if (Array.isArray(n)) { n.forEach(x => find(x, pred, out)); return out; } if (pred(n)) out.push(n); find(n.children, pred, out); return out; };
+  const card = ED.renderConfig({ R: ED, st: edSt, tg: {}, update: () => {} });
+  global.__h = null;
+  const labels = find(card, x => x.props && x.props.small === true && typeof x.props.label === "string").map(x => x.props.label);
+  const r4 = runED(tgt(90, 120, 30), { ...edSt, maxN: 4 }), r3 = runED(tgt(90, 120, 30), { ...edSt, maxN: 3 });
+  return labels.join() === "1,2,3,4,5,∞" && r4.length > 0 && r4.every(r => r.items.length <= 4) && r4.some(r => r.items.length === 4) && r3.every(r => r.items.length <= 3);
 })(), true);
 check("Must include: das Produkt steckt in jeder Bestellung (★) und zählt zu „Max. products“", (() => {
   const id = U.slugId("EDEKA Herzstücke Gyoza Hähnchen 150 g");
