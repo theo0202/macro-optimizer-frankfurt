@@ -71,7 +71,8 @@ const WOLT_MAP = {
   "Guacamole": "guacamole", "Sojasoße , 20ml": "sojasauce",
   "Olivenöl und halbe Zitrone": "olivenoel_salz_halbe_zitrone", "Balsamico Dressing , 80g": "balsamico_dressing",
   "Trüffel Light (Inlead), 80 g": "trueffel_light_inlead", "Siracha Mayo Light (Inlead), 80 g": "sriracha_light_inlead", "Aioli Light (Inlead), 80 g": "aioli_light_inlead",
-  // seit 27.09.2026 nicht mehr bei Wolt (im Shop weiter; kommen automatisch zurück, wenn Wolt sie wieder führt)
+  // Ajvar: vom 27.09. bis 10.10.2026 nicht bei Wolt, seit 11.10.2026 wieder (User 11.10.2026). Rotes Pesto führt Wolt seit 27.09.2026 nicht
+  // (im Shop ausverkauft; kommt automatisch zurück, wenn Wolt es wieder führt)
   "Rotes Pesto, 80g": "rotes_pesto", "Ajvar, 100g": "ajvar",
 };
 
@@ -421,7 +422,7 @@ async function main() {
       portionDiffs, portionAssumed, displayBugs, halfPortionDiffs, anomalies, missingDeclared, notOnWolt, woltMapUnused, dislikes, shellfish,
       soldOut, removedIngredients, lastChanges,
       halfPortionAccepted: Object.values(HALF_DIFF_OK),
-      shopControl: { readAt: shopControl.readAt, checked: shopControl.checked, values: shopControl.values, soldOutNotChecked: shopControl.soldOutNotChecked, notInShop: shopControl.notInShop },
+      shopControl: { readAt: shopControl.readAt, checked: shopControl.checked, values: shopControl.values, earlier: shopControl.earlier, soldOutNotChecked: shopControl.soldOutNotChecked, notInShop: shopControl.notInShop },
       ubereats: { noData: ueNoData, portionDiffs: uePortionDiffs, kcalDiffs: ueKcalDiffs, notOnUberEats, halfNotDouble: ueHalfNotDouble },
       eggNote: "Hart gekochtes Ei: offizielle Shop-Werte (155 kcal je 100 g). Seit 27.09.2026 heißt die Shop-Zutat „Hart gekochtes Ei (40g)“ (defaultQuantity 40), die Shop-Anzeige rechnet aber weiter mit 50 g (78 kcal), und Wolt („Hart gekochtes Ei, 50 g“) wie Uber Eats („Hart gekochtes Ei (50g)“) nennen 50 g → der Rechner nimmt auf beiden Plattformen 50 g (77,5 kcal).",
     },
@@ -440,7 +441,7 @@ async function main() {
   L("Neu bei Wolt", lastChanges.woltAdded); L("Nicht mehr bei Wolt", lastChanges.woltRemoved);
   L("Neu bei Uber Eats", lastChanges.ubereatsAdded); L("Nicht mehr bei Uber Eats", lastChanges.ubereatsRemoved);
   L("Preise", lastChanges.prices); L("Im Shop gerade ausverkauft (bleibt drin)", soldOut);
-  console.log("Shop-Anzeige (" + shopControl.readAt + "): " + shopControl.checked + " Karten / " + shopControl.values + " Werte identisch" + (shopControl.soldOutNotChecked.length ? " · ausverkauft, nicht prüfbar: " + shopControl.soldOutNotChecked.join(", ") : ""));
+  console.log("Shop-Anzeige (" + shopControl.readAt + "): " + shopControl.checked + " Karten / " + shopControl.values + " Werte identisch" + (shopControl.earlier.length ? " · davon frühere Ablesung (heute ausverkauft): " + shopControl.earlier.map(x => x.name + " (" + x.readAt + ")").join(", ") : "") + (shopControl.soldOutNotChecked.length ? " · ausverkauft, nicht prüfbar: " + shopControl.soldOutNotChecked.join(", ") : ""));
   console.log("\n" + ingredients.length + " Zutaten (" + Object.entries(ingredients.reduce((o, x) => (o[x.group] = (o[x.group] || 0) + 1, o), {})).map(([k, v]) => k + " " + v).join(", ") + ") → " + path.relative(__dirname, OUT));
   console.log("Wolt (Grundpreis " + woltItemPrice + " €): " + woltGroups.map(g => g.name + " " + g.options.length + (g.noneOption ? " + „" + g.noneOption + "“" : "") + " (" + g.min + "–" + g.max + ")").join(" · "));
   console.log("Uber Eats (Grundpreis " + ueItemPrice + " €, erfasst " + ue.capturedAt + "): " + ueGroups.map(g => g.name + " " + g.options.length + (g.noneOption ? " + „" + g.noneOption + "“" : "") + " (" + g.min + "–" + g.max + ")").join(" · "));

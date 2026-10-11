@@ -763,7 +763,7 @@ if (valC.length) console.log(valC.join("\n"));
 check("bowlValidate(COMPLEAT) ohne Probleme (beide Menüs)", valC.length, 0);
 check("bowlValidate erkennt Fehler (Preis fehlt, Kern-Rolle in zwei Gruppen)", (() => { const bad = JSON.parse(JSON.stringify(T.COMPLEAT)); delete bad.ubereats.groups[0].options[0].price; bad.ubereats.groups[2].options.push({ ...bad.ubereats.groups[0].options[1], id: "x_dup", group: bad.ubereats.groups[2].id }); const P = T.bowlValidate(bad, ["ubereats"]); return P.some(x => /price fehlt/.test(x)) && P.some(x => /Rolle base steht in mehreren Gruppen/.test(x)); })(), true);
 // Wolt
-check("Wolt-Gruppen (Herbst-Karte 27.09.2026): Basis 4 (ohne Quinoa, mit Kürbis) · Proteine 6 (mit Mushroots) · Extras 30 · Dips 15 + „Ohne Dip“", WG.base.options.length === 4 && WG.protein.options.length === 6 && WG.extra.options.length === 30 && WG.dip.options.length === 15 && WG.dip.none === "Ohne Dip", true);
+check("Wolt-Gruppen (Herbst-Karte, Stand 11.10.2026): Basis 4 (ohne Quinoa, mit Kürbis) · Proteine 6 (mit Mushroots) · Extras 30 · Dips 16 (Ajvar wieder dabei) + „Ohne Dip“", WG.base.options.length === 4 && WG.protein.options.length === 6 && WG.extra.options.length === 30 && WG.dip.options.length === 16 && WG.dip.none === "Ohne Dip", true);
 check("Wolt-Grenzen: Basis 0–5 · Proteine 0–10 · Extras 0–30 · Dip genau 1", WG.base.max === 5 && WG.protein.max === 10 && WG.extra.max === 30 && WG.dip.min === 1 && WG.dip.max === 1, true);
 check("Wolt-Mengen: Basmatireis/Salat-Mix bis 4×, Protein Nudeln 1×, Hähnchen bis 10×, Pulled Salmon 1×, Extras 1×", wopt("base_basmatireis_250_g").maxQty === 4 && wopt("base_salat_mix_100_g").maxQty === 4 && wopt("base_protein_nudeln_200_g").maxQty === 1 && wopt("protein_haehnchen_100_g").maxQty === 10 && wopt("protein_pulled_salmon_100_g").maxQty === 1 && WG.extra.options.every(o => o.maxQty === 1), true);
 check("Wolt: Grundpreis 3 € (seit 27.09.2026, vorher 2 €), jede Option mit Preis, Rolle = Gruppe", W.basePrice === 3 && W.item === "Build your Bowl" && W.groups.every(g => g.options.every(o => typeof o.price === "number" && o.role === g.id)), true);
@@ -797,7 +797,7 @@ check("Uber Eats: Quinoa (ganz + halb) nicht im Rechner-Menü, als gesperrt übe
 check("Uber Eats: Halbe Limette (ohne offizielle Werte) gibt es dort seit 27.09.2026 nicht mehr → keine Option ohne Werte", !ueAll.some(o => /Limette/.test(o.name)) && rawC._meta.ubereats.noData.length === 0, true);
 check("Uber Eats: kcal-Angaben geprüft — Abweichungen nur Protein-Pasta halbe (238 statt 190,5), Granatapfelkerne (15 statt 11,1) und seit 27.09.2026 Sojasauce (8 statt 4,2 = Shop-Anzeige mit 40 ml)", rawC._meta.ubereats.kcalDiffs.map(d => d.ubereats + ":" + d.ubereatsKcal + ":" + d.shopKcal).sort().join("|") === "Granatapfelkerne (15g):15:11.1|Protein-Pasta - Halbe Portion (100g):238:190.5|Sojasauce (20ml):8:4.2", true);
 check("Uber Eats: einzige Mengenabweichung zum Shop = Hart gekochtes Ei (Uber Eats 50 g, Shop-Name 40 g), jede Shop-Zutat angeboten", rawC._meta.ubereats.portionDiffs.map(d => d.ubereats).join() === "Hart gekochtes Ei (50g)" && rawC._meta.ubereats.notOnUberEats.length === 0, true);
-check("Uber-Eats-Erfassung (27.09.2026): 66 Optionen inkl. 3 Seasonals-Werbung (maxPermitted 0, ignoriert), Zeitstempel und Produktseite, = raw.json", (() => { const capU = U.readJSON(__dirname + "/data/compleat-ubereats-menu.json"); return capU.groups.reduce((a, g) => a + g.options.length, 0) === 66 && /^2026-09-27T/.test(capU.capturedAt) && /ubereats\.com\/de-en\/store\/compleat-frankfurt-nordend\//.test(capU.pageUrl) && rawC.ubereats.capturedAt === capU.capturedAt && rawC.ubereats.itemPrice === capU.item.price / 100; })(), true);
+check("Uber-Eats-Erfassung (11.10.2026): 65 Optionen inkl. 3 Seasonals-Werbung (maxPermitted 0, ignoriert; die drei ausverkauften Kürbis-Optionen und Rotes Pesto blendet Uber Eats aus), Zeitstempel und Produktseite, = raw.json", (() => { const capU = U.readJSON(__dirname + "/data/compleat-ubereats-menu.json"); return capU.groups.reduce((a, g) => a + g.options.length, 0) === 65 && /^2026-10-11T/.test(capU.capturedAt) && capU.groups.filter(g => g.maxPermitted === 0).length === 1 && capU.groups.find(g => g.maxPermitted === 0).options.length === 3 && /ubereats\.com\/de-en\/store\/compleat-frankfurt-nordend\//.test(capU.pageUrl) && rawC.ubereats.capturedAt === capU.capturedAt && rawC.ubereats.itemPrice === capU.item.price / 100; })(), true);
 // beide Plattformen
 check("Crunch = Erdnüsse, Walnusskerne, Röstzwiebeln, Schwarzer Sesam + Functional Fall Crunch (Kürbiskerne, Nüsse; seit 27.09.2026) — beide Menüs", [...new Set([...W.groups, ...UE.groups].flatMap(g => g.options).filter(o => o.crunch).map(o => o.ing))].sort().join(",") === "erdnuesse,functional_fall_crunch,roestzwiebeln,schwarzer_sesam,walnusskerne", true);
 check("Hinweis am Schalter „No crunch“ nennt jede Crunch-Zutat beider Menüs (auch den Functional Fall Crunch)", (() => { const hint = CR.switches.find(s => s.id === "noCrunch").hint; return CR.switches === CU.switches && [...W.groups, ...UE.groups].flatMap(g => g.options).filter(o => o.crunch).every(o => hint.includes(o.short)); })(), true);
@@ -846,10 +846,38 @@ check("Kürbiswürfel mariniert: Base 200 g (+ halbe 100 g bei Uber Eats) und al
     uopt("Kürbiswürfel mariniert (50g)").ing === "kuerbiswuerfel_mariniert_50g" && uopt("Kürbiswürfel mariniert (50g)").role === "extra" && uopt("Kürbiswürfel mariniert - halbe Portion (100g)").ing === "kuerbiswuerfel_mariniert";
 })(), true);
 check("Hart gekochtes Ei: Shop heißt jetzt „(40g)“, Shop-Anzeige, Wolt und Uber Eats rechnen mit 50 g → beide Plattformen 77,5 kcal", T.COMPLEAT.ingredients.find(x => x.id === "hart_gekochtes_ei").portion === 40 && wopt("extra_hart_gekochtes_ei_50_g").kcal === 77.5 && uopt("Hart gekochtes Ei (50g)").kcal === 77.5 && /40g/.test(metaC.eggNote) && /50 g/.test(metaC.eggNote), true);
-check("Shop-Anzeige einzeln angeklickt (27.09.2026): 62 Karten / 496 Werte = Shop-API × Anzeige-Menge, ausverkaufte nicht prüfbar; verify-compleat-shop.js grün", (() => {
+check("Shop-Anzeige einzeln angeklickt (11.10.2026): alle 65 Karten durchgegangen, 64 Karten / 512 Werte = Shop-API × Anzeige-Menge (61 heute abgelesen + die 3 heute ausverkauften Kürbis-Karten mit ihrer Ablesung vom 27.09.2026), Rotes Pesto nie wählbar; verify-compleat-shop.js grün", (() => {
   const ctl = U.readJSON(__dirname + "/data/compleat-shop-anzeige.json"), r = require("./verify-compleat-shop.js").compare(rawC.shopItems, ctl);
   let ok = true; try { require("child_process").execFileSync(process.execPath, [__dirname + "/verify-compleat-shop.js"], { stdio: "pipe" }); } catch (e) { ok = false; }
-  return ok && r.problems.length === 0 && r.checked === 62 && r.values === 496 && ctl.items.length === 65 && metaC.shopControl.checked === 62 && rawC.shopItems.length >= 64;
+  const read = ctl.items.filter(x => x.shown), last = ctl.items.filter(x => !x.shown && x.lastRead);
+  return ok && r.problems.length === 0 && /^2026-10-11T/.test(ctl.readAt) && ctl.items.length === 65 && read.length === 61 && last.length === 3 && last.every(x => /^Kürbiswürfel mariniert/.test(x.name) && x.soldOut === true && /^2026-09-27T/.test(x.lastRead.readAt)) &&
+    r.checked === read.length + last.length && r.values === 8 * r.checked && r.checked === 64 && r.earlier.length === 3 && r.earlier.every(e => e.readAt === "2026-09-27") && r.soldOutNotChecked.join() === "Rotes Pesto (80g)" &&
+    metaC.shopControl.checked === r.checked && metaC.shopControl.values === r.values && metaC.shopControl.earlier.length === 3 && rawC.shopItems.length >= 64;
+})(), true);
+check("Shop-Anzeige vom 11.10.2026: Ajvar (105 kcal / 5,3 g F / 11,0 g KH / 1,4 g E), Guacamole (194 kcal, wieder wählbar) und Chili Gewürz (wieder wählbar; ausgewählt zeigt der Shop überall „--“ = 0) einzeln abgelesen", (() => {
+  const ctl = U.readJSON(__dirname + "/data/compleat-shop-anzeige.json"), c = n => ctl.items.find(x => x.name === n);
+  const a = c("Ajvar (100g)"), g = c("Guacamole (100g)"), ch = c("Chili Gewürz (1g)");
+  return a.qty === 1 && a.shown.kcal === "105" && a.shown.fat === "5.3" && a.shown.carbs === "11.0" && a.shown.protein === "1.4" && a.shown.salt === "1.40" &&
+    g.qty === 1 && g.shown.kcal === "194" && g.shown.protein === "1.7" && ch.qty === 1 && !ch.soldOut && U.KEYS.every(k => ch.shown[k] === "--") &&
+    U.KEYS.every(k => rawC.shopItems.find(x => x.name === "Chili Gewürz (1g)").per100[k] === 0);
+})(), true);
+check("Shop-Anzeige übernehmen (merge): heute ausverkaufte Karte behält ihre letzte Ablesung als lastRead (auch über mehrere Durchgänge), heute abgelesene Karten bleiben unverändert; wählbar, aber nie abgelesen → Problem", (() => {
+  const vs = require("./verify-compleat-shop.js");
+  const old = { readAt: "2026-01-01T10:00:00.000Z", items: [{ name: "A (10g)", uuid: "a", group: "G", qty: 1, shown: { kcal: "5" } }, { name: "B (10g)", uuid: "b", group: "G", qty: 1, shown: { kcal: "7" } }, { name: "C (10g)", uuid: "c", group: "G", soldOut: true, overlay: "Ausverkauft" }] };
+  const fresh1 = { readAt: "2026-02-01T10:00:00.000Z", page: "p", items: [{ name: "A (10g)", uuid: "a", group: "G", soldOut: true, overlay: "Ausverkauft" }, { name: "B (10g)", uuid: "b", group: "G", qty: 1, shown: { kcal: "8" } }, { name: "C (10g)", uuid: "c", group: "G", soldOut: true, overlay: "Ausverkauft" }] };
+  const m1 = vs.merge(fresh1, old), m2 = vs.merge(Object.assign({}, fresh1, { readAt: "2026-03-01T10:00:00.000Z" }), m1);
+  const ctl = U.readJSON(__dirname + "/data/compleat-shop-anzeige.json");
+  const never = JSON.parse(JSON.stringify(ctl)); const z = never.items.find(x => x.name === "Ziegenkäse (60g)"); delete z.shown; delete z.qty; z.soldOut = true;
+  return m1.readAt === fresh1.readAt && m1.items[0].soldOut === true && m1.items[0].lastRead.readAt === old.readAt && m1.items[0].lastRead.shown.kcal === "5" && m1.items[1].shown.kcal === "8" && !m1.items[1].lastRead && !m1.items[2].lastRead &&
+    m2.items[0].lastRead.readAt === old.readAt && m2.readAt === "2026-03-01T10:00:00.000Z" && typeof m1._source === "string" &&
+    vs.compare(rawC.shopItems, never).problems.some(p => /Ziegenkäse/.test(p) && /noch nie abgelesen/.test(p));
+})(), true);
+check("Ajvar wieder bei Wolt (User 11.10.2026): „Ajvar, 100g“ unter „Dein Dip“, 3 €, 105 kcal / 1,4 g E / 11 g KH / 5,3 g F = Shop-Werte je 100 g × 100 g; steht nicht mehr unter „nicht bei Wolt“; Uber Eats „Ajvar (100g)“ mit denselben Werten und 3 €", (() => {
+  const a = wopt("dip_ajvar_100g"), u = uopt("Ajvar (100g)"), ing = rawC.ingredients.find(x => x.id === "ajvar");
+  return !!a && a.name === "Ajvar, 100g" && a.short === "Ajvar" && a.group === "dip" && a.role === "dip" && a.ing === "ajvar" && a.amount === 100 && a.maxQty === 1 && a.price === 3 &&
+    a.kcal === 105 && a.protein === 1.4 && a.carbs === 11 && a.fat === 5.3 && a.sat === 0.6 && a.sugars === 9.2 && a.fibre === 3 && a.salt === 1.4 &&
+    !!ing && !ing.soldOut && ing.portion === 100 && U.KEYS.every(k => Math.abs(ing.per100[k] - a[k]) < 1e-9) && !metaC.notOnWolt.some(x => /Ajvar/.test(x)) && !metaC.woltMapUnused.some(x => /Ajvar/.test(x)) &&
+    rawC.wolt.groups.find(g => g.id === "dip").options.some(o => o.name === "Ajvar, 100g" && !o.soldOut) && !!u && u.ing === "ajvar" && u.price === 3 && U.KEYS.every(k => u[k] === a[k]);
 })(), true);
 check("Shop-Anzeige-Abgleich erkennt Fehler: verfälschter Wert → Abweichung; fehlende Karte einer verfügbaren Zutat → Problem", (() => {
   const vs = require("./verify-compleat-shop.js"), ctl = U.readJSON(__dirname + "/data/compleat-shop-anzeige.json");
@@ -960,6 +988,13 @@ const tDip = tgt(b1.protein + p1.protein + d1.protein, b1.carbs + p1.carbs + d1.
 const stDipOn = { ...stC, sw: { ...stC.sw, noDip: false } };
 check("No dip AUS → passender Dip wird genommen (Basmatireis + Hähnchen + Curvy Curry)", (() => { const r0 = run(tDip, stDipOn)[0]; return !!r0.dip && r0.dip.id === "dip_curvy_curry_dip"; })(), true);
 check("No dip AN → derselbe Zielwert ohne Dip", run(tDip, stC).every(r => !r.dip), true);
+check("Ajvar (seit 11.10.2026 wieder bei Wolt): in „Must include“ und „Exclude items“ wählbar; als Pflicht steckt er in jeder Bowl (auch mit No dip AN), Preis inkl. 3 €, Order Guide „Dein Dip: Ajvar, 100g“; ausgeschlossen kommt er nie", (() => {
+  const aj = wopt("dip_ajvar_100g"), rs = T.runOptimize(CR, tDef, "macros", {}, stC, new Set(), new Set(["ajvar"])), rx = T.runOptimize(CR, tDip, "macros", {}, stDipOn, new Set(["ajvar"]), new Set());
+  const st = T.orderStepsFor(CR, rs[0]);
+  return T.includablesFor(CR).some(x => x.id === "ajvar" && x.role === "dip") && T.excludablesFor(CR).some(x => x.id === "ajvar" && x.group === "Dein Dip") &&
+    rs.length > 0 && !rs.missing && rs.every(r => !!r.dip && r.dip.id === aj.id && Math.abs(r.price - priceC(W, r)) < 1e-9 && r.price >= W.basePrice + 3) &&
+    st[st.length - 1].l === "Dein Dip" && st[st.length - 1].v === "Ajvar, 100g" && rx.length > 0 && rx.every(r => !r.dip || r.dip.ing !== "ajvar");
+})(), true);
 const s1 = wopt("base_salat_mix_100_g"), wn = wopt("extra_walnusskerne_20_g");
 const tCrunch = tgt(s1.protein + p1.protein + wn.protein, s1.carbs + p1.carbs + wn.carbs, s1.fat + p1.fat + wn.fat);
 check("No crunch AUS → Walnusskerne möglich", run(tCrunch, stC).some(r => r.parts.some(pt => pt.opt.crunch)), true);

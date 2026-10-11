@@ -6,8 +6,9 @@
 //      https://compleat.vmos.io/store/bb51e8b9-3301-4bee-bb33-e063fac5ec64/menu/category/bae2cbce-c348-4807-9988-4c52556d68b2/bundle/afaa6fe6-4785-4bd7-b6e0-0ea9d4f12c22/bundleCustomization?menuUUID=9a7bd18b-9542-4768-b85a-c48740da87e9
 //   2. `node compleat-shop-capture.js` gibt das Snippet aus → in der Seite ausführen, in Portionen (Werkzeug-Zeitlimit):
 //      await CAPTURE(0, 20); await CAPTURE(20, 20); … bis „fertig“ — die Ergebnisse sammeln sich in window.__compleatShop
-//   3. window.__compleatShopJSON() liefert { json, sha256 } → JSON als data/compleat-shop-anzeige.json speichern und die
-//      Prüfsumme lokal vergleichen (sha256 des kompakten JSON)
+//   3. window.__compleatShopJSON() liefert { json, sha256 } → JSON unverändert in eine Datei schreiben und mit
+//      `node verify-compleat-shop.js --save <datei> <sha256>` übernehmen (prüft die Prüfsumme des kompakten JSON und behält für
+//      heute ausverkaufte Karten die letzte Ablesung als lastRead)
 // Je Karte: Häkchen anklicken (Menge 1) → warten, bis die Anzeige „Nutrition facts per serving“ Zahlen zeigt → ablesen →
 // „Remove …“ (decrease-quantity-btn) → warten, bis die Anzeige wieder „--“ zeigt (sonst liest die nächste Karte veraltete Werte).
 // Ausverkaufte Karten (Overlay „Ausverkauft“, Häkchen gesperrt) lassen sich nicht wählen → soldOut, ohne Werte.
@@ -41,12 +42,16 @@ const CAPTURE = async function (from, count) {
     const overlay = (document.getElementById(li.id + "-overlay-text") || {}).textContent || "";
     if (!input || input.disabled) { window.__compleatShop.push({ name, uuid, group: groupOf(li), soldOut: true, overlay: overlay.trim() || null }); continue; }
     input.click();
-    const v = await waitFor(r => r.kcal && r.kcal !== "--", name + " auswählen");
+    // Zutaten mit lauter 0-Werten (Chili Gewürz, 11.10.2026) zeigen auch ausgewählt überall „--“ → nach 3 s gilt diese Anzeige,
+    // wenn die Karte wirklich ausgewählt ist (Häkchen gesetzt, Menge 1)
+    let v = null;
+    for (let t = 0; t < 30 && !v; t++) { const r = read(); if (r.kcal && r.kcal !== "--") v = r; else await sleep(100); }
     const qty = (document.getElementById(li.id + "-quantity") || {}).textContent;
+    if (!v) { if (!(li.querySelector("input").checked && qty === "1")) throw new Error("Zeitüberschreitung: " + name + " auswählen"); v = read(); }
     const rm = li.querySelector("[data-test='decrease-quantity-btn']");
     if (!rm) throw new Error("Kein „Remove“-Knopf bei " + name);
     rm.click();
-    await waitFor(r => r.kcal === "--", name + " abwählen");
+    await waitFor(r => r.kcal === "--" && !li.querySelector("input").checked, name + " abwählen");
     window.__compleatShop.push({ name, uuid, group: groupOf(li), qty: qty == null ? null : Number(qty), shown: v });
   }
   const next = from + count;

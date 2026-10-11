@@ -18,7 +18,7 @@ ausverkauft. Bei Problemen schreibt er `data/compleat-raw.json` nicht und nennt 
 | Meldung | Was tun |
 |---|---|
 | „Nicht zugeordnete Wolt-Optionen (WOLT_MAP ergänzen)“ | `WOLT_MAP` in compleat-crawl.js: Wolt-Name exakt (inkl. Wolts Leerzeichen und Anführungszeichen) → Zutat-id = `slugId` des Shop-Namens ohne Menge. Haupt-Protein → `PROTEIN_MAIN`, Nüsse/Kerne/Röstzwiebeln/Sesam/Crunch → `CRUNCH`. Unklare Zuordnung (anderer Name als im Shop) begründen und dem User nennen, nicht raten |
-| „… fehlt in der Shop-Anzeige“ / „Shop zeigt …, die API ergibt …“ | Schritt 2 (Shop-Anzeige neu ablesen). Weicht eine Anzeige danach immer noch ab: dem User melden |
+| „… fehlt in der Shop-Anzeige“ / „… ist im Shop wählbar, wurde aber noch nie abgelesen“ / „Shop zeigt …, die API ergibt …“ | Schritt 2 (Shop-Anzeige neu ablesen). Weicht eine Anzeige danach immer noch ab: dem User melden |
 | „Uber-Eats-Optionen ohne Shop-Zutat“ | Schritt 3 (Uber Eats neu erfassen); bleibt eine Option ohne offizielle Werte → `UE_NO_DATA` mit Grund |
 | „Halbe Portion … andere Werte je 100 g“ | prüfen; geringe Abweichung → `HALF_DIFF_OK` mit Begründung (der Rechner nutzt die Werte der ganzen Portion), sonst dem User melden |
 | „Uber Eats: 2× halbe ≠ ganze“ | `UE_HALF_NOT_DOUBLE` mit Menge und Preis begründen |
@@ -39,10 +39,14 @@ Im eingebauten Browser die Shop-Seite aus dem Kopf von `compleat-shop-capture.js
 `window.__compleatShopJSON`. Dann:
 1. `window.__compleatShop = []; await window.CAPTURE(0, 20)`, danach `await window.CAPTURE(20, 20)` usw., bis „fertig“ zurückkommt. Mehr als 20 Karten je Aufruf überschreiten das 45-s-Limit des Werkzeugs.
 2. `window.__shopExport = await window.__compleatShopJSON()` ausführen, `sha256` und `length` merken, dann `window.__shopExport.json` holen.
-3. Den JSON-Text unverändert in eine Scratch-Datei schreiben, sha256 lokal prüfen (`crypto.createHash("sha256")`, muss gleich sein) und als `data/compleat-shop-anzeige.json` speichern (`_source` wie bisher davor, `JSON.stringify(…, null, 1)`).
+3. Den JSON-Text unverändert in eine Scratch-Datei schreiben und mit `node verify-compleat-shop.js --save <Scratch-Datei> <sha256>` übernehmen. Das Skript prüft die Prüfsumme (muss gleich sein), schreibt `data/compleat-shop-anzeige.json` und behält für heute ausverkaufte Karten die letzte frühere Ablesung als `lastRead` (sie wird weiter gegen die API geprüft).
 
 Je Karte wählt das Snippet die Zutat (Menge 1), liest „Nutrition facts per serving“ und wählt sie über „Remove …“ wieder ab. Ausverkaufte
-Karten sind gesperrt und bekommen keine Werte. Nie „Zur Bestellung hinzufügen“ klicken.
+Karten sind gesperrt und bekommen keine Werte. Zutaten mit lauter 0-Werten (Chili Gewürz) zeigen auch ausgewählt überall „--“; das Snippet
+übernimmt das nach 3 s, wenn die Karte wirklich ausgewählt ist. Nie „Zur Bestellung hinzufügen“ klicken.
+
+Der Änderungsbericht des Crawls vergleicht mit dem letzten Lauf. Läuft der Crawl in einer Sitzung mehrmals, vor dem letzten Lauf
+`git checkout HEAD -- data/compleat-raw.json` (generierte Datei), damit `_meta.lastChanges` die Änderungen seit dem veröffentlichten Stand nennt.
 
 ## 3. Uber Eats neu erfassen (wenn sich Shop oder Menü geändert haben)
 

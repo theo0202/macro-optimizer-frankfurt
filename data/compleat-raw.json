@@ -2,7 +2,7 @@
   "_meta": {
     "restaurant": "Compleat",
     "store": "Frankfurt Nordend (Glauburgstraße 5, 60318 Frankfurt am Main)",
-    "fetchedAt": "2026-10-03T15:28:10.854Z",
+    "fetchedAt": "2026-10-11T12:23:49.968Z",
     "sources": {
       "shop": {
         "url": "https://compleat.vmos.io",
@@ -25,14 +25,14 @@
       "ubereats": {
         "page": "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440",
         "file": "data/compleat-ubereats-menu.json",
-        "capturedAt": "2026-09-27T19:18:54.720Z",
+        "capturedAt": "2026-10-11T12:15:16.087Z",
         "item": "Selbst zusammenstellen",
         "itemPrice": 3,
         "cardPrice": 3,
         "how": "Uber Eats blockt Skript-Abrufe (Cloudflare) → Produktseite im Browser geöffnet, __REACT_QUERY_STATE__ gelesen (ubereats-capture.js)"
       },
       "word": "data/compleat-word.txt = Word-Copy-Paste des Users (Shop-Anzeige, 15.09.2026) → Abgleich: node verify-compleat.js",
-      "shopDisplay": "data/compleat-shop-anzeige.json = jede Zutat einzeln im Shop ausgewählt und die Anzeige abgelesen (compleat-shop-capture.js, 2026-09-27) → Abgleich: node verify-compleat-shop.js",
+      "shopDisplay": "data/compleat-shop-anzeige.json = jede Zutat einzeln im Shop ausgewählt und die Anzeige abgelesen (compleat-shop-capture.js, 2026-10-11) → Abgleich: node verify-compleat-shop.js",
       "stock": "Ausverkauft = mit ?forceStockStatus=1 im Bundle, ohne den Parameter nicht (27.09.2026 an den „Ausverkauft“-Karten des Shops bestätigt)"
     },
     "basis": "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Wolt-Mengen weichen nur beim Salat-Mix ab → mit Wolt-Menge gerechnet. Uber Eats nutzt die Shop-Namen und -Mengen (inkl. halber Portionen).",
@@ -223,19 +223,17 @@
     ],
     "notOnWolt": [
       "Gemüsemix (100g)",
-      "Kürbiswürfel mariniert (50g)",
-      "Ajvar (100g)"
+      "Kürbiswürfel mariniert (50g)"
     ],
-    "woltMapUnused": [
-      "Ajvar, 100g"
-    ],
+    "woltMapUnused": [],
     "dislikes": [
       "Guacamole (100g): Koriander in den Zutaten"
     ],
     "shellfish": [],
     "soldOut": [
-      "Chili Gewürz (1g)",
-      "Guacamole (100g)",
+      "Kürbiswürfel mariniert - halbe Portion (100g)",
+      "Kürbiswürfel mariniert (200g)",
+      "Kürbiswürfel mariniert (50g)",
       "Rotes Pesto (80g)"
     ],
     "removedIngredients": [
@@ -246,74 +244,46 @@
       }
     ],
     "lastChanges": {
-      "since": "2026-09-16T08:38:10.758Z",
-      "shopAdded": [
-        "Kürbiswürfel mariniert (200g)",
-        "Mushroots Pilzbällchen (75g)",
-        "Ziegenkäse (60g)",
-        "Rote Beete (70g)",
-        "Kürbiswürfel mariniert (50g)",
-        "Baby-Grünkohl (20g)",
-        "Functional Fall Crunch (20g)",
-        "Sriracha Light (Inlead) (80g)",
-        "Aioli Light (Inlead) (80g)",
-        "Trüffel Light (Inlead) (80g)"
-      ],
-      "shopRemoved": [
-        "Süßkartoffel (250g)"
-      ],
+      "since": "2026-10-03T15:28:10.854Z",
+      "shopAdded": [],
+      "shopRemoved": [],
       "woltAdded": [
-        "Deine Basis: Kürbis, 200 g",
-        "Deine Proteine: Pilzbällchen „Mushroots“, 75 g",
-        "Deine Extras: Pilzbällchen \"Mushroots\", 75 g",
-        "Deine Extras: Rote Beete, 70 g",
-        "Deine Extras: Ziegenkäse, 60 g",
-        "Deine Extras: Grünkohl, 20 g",
-        "Deine Extras: Functional Fall Crunch, 20 g",
-        "Dein Dip: Trüffel Light (Inlead), 80 g",
-        "Dein Dip: Siracha Mayo Light (Inlead), 80 g",
-        "Dein Dip: Aioli Light (Inlead), 80 g"
-      ],
-      "woltRemoved": [
-        "Dein Dip: Rotes Pesto, 80g",
         "Dein Dip: Ajvar, 100g"
       ],
+      "woltRemoved": [],
       "ubereatsAdded": [
-        "Base: Kürbiswürfel mariniert (200g)",
-        "Base: Kürbiswürfel mariniert - halbe Portion (100g)",
-        "Proteine: Mushroots Pilzbällchen (75g)",
-        "Proteine: Ziegenkäse (60g)",
-        "Proteine: Mushroots Pilzbällchen - Halbe Portion (45g)",
-        "Vitamine: Baby-Grünkohl (20g)",
-        "Vitamine: Kürbiswürfel mariniert (50g)",
-        "Vitamine: Rote Beete (70g)",
-        "Toppings: Functional Fall Crunch (20g)",
-        "Dips: Trüffel Light (Inlead) (80g)",
-        "Dips: Sriracha Light (Inlead) (80g)",
-        "Dips: Aioli Light (Inlead) (80g)"
+        "Toppings: Chili Gewürz (1g)",
+        "Dips: Guacamole (100g)"
       ],
       "ubereatsRemoved": [
-        "Base: Süßkartoffel (250g)",
-        "Base: Süßkartoffel - Halbe Portion (125g)",
-        "Toppings: Chili Gewürz (1g)",
-        "Dips: Guacamole (100g)",
-        "Dips: Rotes Pesto (80g)"
+        "Base: Kürbiswürfel mariniert (200g)",
+        "Base: Kürbiswürfel mariniert - halbe Portion (100g)",
+        "Vitamine: Kürbiswürfel mariniert (50g)"
       ],
-      "prices": [
-        "Uber Eats · Grundpreis „Selbst zusammenstellen“: 1 → 3 €",
-        "Wolt · Grundpreis „Build your Bowl“: 2 → 3 €"
-      ]
+      "prices": []
     },
     "halfPortionAccepted": [
       "Kürbiswürfel mariniert - halbe Portion: Zucker 1,7 statt 1,5 g je 100 g (sonst identisch) → +0,2 g Zucker je halbe Portion; der Rechner nutzt die Werte der ganzen Portion (27.09.2026)"
     ],
     "shopControl": {
-      "readAt": "2026-09-27",
-      "checked": 62,
-      "values": 496,
+      "readAt": "2026-10-11",
+      "checked": 64,
+      "values": 512,
+      "earlier": [
+        {
+          "name": "Kürbiswürfel mariniert - halbe Portion (100g)",
+          "readAt": "2026-09-27"
+        },
+        {
+          "name": "Kürbiswürfel mariniert (200g)",
+          "readAt": "2026-09-27"
+        },
+        {
+          "name": "Kürbiswürfel mariniert (50g)",
+          "readAt": "2026-09-27"
+        }
+      ],
       "soldOutNotChecked": [
-        "Chili Gewürz (1g)",
-        "Guacamole (100g)",
         "Rotes Pesto (80g)"
       ],
       "notInShop": []
@@ -494,6 +464,7 @@
         "uuid": "00aebe1f-d466-4d6c-ab34-45cf406184eb",
         "displayAmount": 200
       },
+      "soldOut": true,
       "halfPortion": 100
     },
     {
@@ -1103,7 +1074,8 @@
         "uuid": "1ebc4c8c-65c0-4236-a130-f4bb9ac8a5c9",
         "displayAmount": 50
       },
-      "sameAs": "kuerbiswuerfel_mariniert"
+      "sameAs": "kuerbiswuerfel_mariniert",
+      "soldOut": true
     },
     {
       "id": "mais",
@@ -1517,8 +1489,7 @@
       "vmos": {
         "uuid": "640972df-0ad3-4ca2-8d1c-23f61cb997b6",
         "displayAmount": 1
-      },
-      "soldOut": true
+      }
     },
     {
       "id": "granatapfelkerne",
@@ -1958,8 +1929,7 @@
       "vmos": {
         "uuid": "0852c6c2-64fd-4917-a550-d3cbd0ebd60a",
         "displayAmount": 100
-      },
-      "soldOut": true
+      }
     },
     {
       "id": "honey_muscle_mustard",
@@ -2396,7 +2366,8 @@
         "protein": 0.8,
         "salt": 0.6
       },
-      "displayAmount": 100
+      "displayAmount": 100,
+      "soldOut": true
     },
     {
       "name": "Basmati Reis (250g)",
@@ -2426,7 +2397,8 @@
         "protein": 0.8,
         "salt": 0.6
       },
-      "displayAmount": 200
+      "displayAmount": 200,
+      "soldOut": true
     },
     {
       "name": "Bunter Bio Quinoa (250g)",
@@ -2771,7 +2743,8 @@
         "protein": 0.8,
         "salt": 0.6
       },
-      "displayAmount": 50
+      "displayAmount": 50,
+      "soldOut": true
     },
     {
       "name": "Mais (50g)",
@@ -2951,8 +2924,7 @@
         "protein": 0,
         "salt": 0
       },
-      "displayAmount": 1,
-      "soldOut": true
+      "displayAmount": 1
     },
     {
       "name": "Granatapfelkerne (15g)",
@@ -3132,8 +3104,7 @@
         "protein": 1.7,
         "salt": 0.42
       },
-      "displayAmount": 100,
-      "soldOut": true
+      "displayAmount": 100
     },
     {
       "name": "Honey Muscle Mustard (80g)",
@@ -3767,6 +3738,15 @@
             "price": 3
           },
           {
+            "name": "Ajvar, 100g",
+            "ingredient": "ajvar",
+            "role": "dip",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 1,
+            "price": 3
+          },
+          {
             "name": "Sojasoße , 20ml",
             "ingredient": "sojasauce",
             "role": "dip",
@@ -3840,7 +3820,7 @@
     "itemPrice": 3,
     "cardPrice": 3,
     "preselected": [],
-    "capturedAt": "2026-09-27T19:18:54.720Z",
+    "capturedAt": "2026-10-11T12:15:16.087Z",
     "groups": [
       {
         "id": "base",
@@ -3857,15 +3837,6 @@
             "unit": "g",
             "maxQty": 10,
             "price": 2.5
-          },
-          {
-            "name": "Kürbiswürfel mariniert (200g)",
-            "ingredient": "kuerbiswuerfel_mariniert",
-            "role": "base",
-            "amount": 200,
-            "unit": "g",
-            "maxQty": 10,
-            "price": 3.5
           },
           {
             "name": "Salatmix (80g)",
@@ -3935,6 +3906,16 @@
             "half": true
           },
           {
+            "name": "Kürbiswürfel mariniert (200g)",
+            "ingredient": "kuerbiswuerfel_mariniert",
+            "role": "base",
+            "amount": 200,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 3.5,
+            "soldOut": true
+          },
+          {
             "name": "Kürbiswürfel mariniert - halbe Portion (100g)",
             "ingredient": "kuerbiswuerfel_mariniert",
             "role": "base",
@@ -3942,7 +3923,8 @@
             "unit": "g",
             "maxQty": 10,
             "price": 1.75,
-            "half": true
+            "half": true,
+            "soldOut": true
           }
         ]
       },
@@ -4149,15 +4131,6 @@
             "price": 1.5
           },
           {
-            "name": "Kürbiswürfel mariniert (50g)",
-            "ingredient": "kuerbiswuerfel_mariniert_50g",
-            "role": "extra",
-            "amount": 50,
-            "unit": "g",
-            "maxQty": 5,
-            "price": 1.5
-          },
-          {
             "name": "Rote Beete (70g)",
             "ingredient": "rote_beete",
             "role": "extra",
@@ -4246,6 +4219,16 @@
             "unit": "g",
             "maxQty": 5,
             "price": 2.5
+          },
+          {
+            "name": "Kürbiswürfel mariniert (50g)",
+            "ingredient": "kuerbiswuerfel_mariniert_50g",
+            "role": "extra",
+            "amount": 50,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1.5,
+            "soldOut": true
           }
         ]
       },
@@ -4311,6 +4294,15 @@
             "price": 1
           },
           {
+            "name": "Chili Gewürz (1g)",
+            "ingredient": "chili_gewuerz",
+            "role": "extra",
+            "amount": 1,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 0
+          },
+          {
             "name": "Functional Fall Crunch (20g)",
             "ingredient": "functional_fall_crunch",
             "role": "extra",
@@ -4318,16 +4310,6 @@
             "unit": "g",
             "maxQty": 5,
             "price": 1
-          },
-          {
-            "name": "Chili Gewürz (1g)",
-            "ingredient": "chili_gewuerz",
-            "role": "extra",
-            "amount": 1,
-            "unit": "g",
-            "maxQty": 5,
-            "price": 0,
-            "soldOut": true
           }
         ]
       },
@@ -4386,6 +4368,15 @@
           {
             "name": "Protein Tzatziki (100g)",
             "ingredient": "protein_tzatziki",
+            "role": "dip",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 3
+          },
+          {
+            "name": "Guacamole (100g)",
+            "ingredient": "guacamole",
             "role": "dip",
             "amount": 100,
             "unit": "g",
@@ -4463,16 +4454,6 @@
             "unit": "g",
             "maxQty": 5,
             "price": 3
-          },
-          {
-            "name": "Guacamole (100g)",
-            "ingredient": "guacamole",
-            "role": "dip",
-            "amount": 100,
-            "unit": "g",
-            "maxQty": 5,
-            "price": 3,
-            "soldOut": true
           },
           {
             "name": "Rotes Pesto (80g)",
