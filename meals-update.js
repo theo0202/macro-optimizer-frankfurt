@@ -37,7 +37,7 @@ function itemOf(p, grams) {
   // (Gewicht schwankt täglich) nennt immer sein Standardgewicht: „(362 g typ.)“
   const showG = Math.abs(g - U.round(p.packG, 1)) > 0.05;
   const suffix = showG ? " (" + (Math.round(g * 10) / 10) + " g" + (p.drainedG != null ? " drained" : "") + ")" : p.variable ? " (" + g + " g typ.)" : "";
-  const o = { id: U.slugId(p.name), name: p.name + suffix, brand: p.brand, cat: p.cat, g };
+  const o = { id: U.slugId(p.idName || p.name), name: p.name + suffix, brand: p.brand, cat: p.cat, g };   // id wie im Supermarkt-Tab (bleibt bei Umbenennung)
   for (const k of U.KEYS) o[k] = U.round((p.per100[k] || 0) * g / 100, 1);
   o.price = p.price;
   if (p.price == null) o.priceNote = p.priceNote || "no price online";
@@ -74,6 +74,8 @@ function buildData(raw, edeka, opts) {
   const oldById = new Map(((o.old && o.old.meals) || []).map(m => [m.id, m]));
   const oldDate = (o.old && o.old.updated) || today;
   const byName = new Map(edeka.items.filter(x => !x.noData).map(x => [x.name, x]));
+  // im Shop umbenannte Produkte bleiben in meals.json unter ihrem ursprünglichen Namen auffindbar (formerName aus dem Crawl)
+  for (const x of edeka.items) if (!x.noData && x.formerName && !byName.has(x.formerName)) byName.set(x.formerName, x);
   const meals = [], ids = new Set(), kept = [], fresh = [];
   for (const m of raw.meals) {
     if (ids.has(m.id)) throw new Error("Gericht-id doppelt: " + m.id);

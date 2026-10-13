@@ -49,6 +49,28 @@ const PRODUCTS = [
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Mediterran-220-g.html"],
   ["carbs", "/Angebote/Nahrungsmittel/Fertiggerichte-Beilagen/Reis/reis-fit-Express-Basmati-Reis-250-g.html"],
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Basmatireis-220-g.html"],
+  // Fertige Reis-Mischungen (User 13.10.2026: „Reis-Fertigmischungen, auch mit Bohnen oder Gemüse“): alle verzehrfertigen Beutel
+  // (Mikrowelle/Pfanne) der Shop-Kategorien „Reis“ und „Fertiggerichte“, die eine Mischung sind — gewürzt, mit Gemüse/Hülsenfrüchten
+  // oder aus mehreren Reissorten. Nicht aufgenommen: sortenreine Express-Beutel (Langkorn, Jasmin, Natur, Sticky, Basmati anderer
+  // Marken) und die alten 250-g-Größen von Ben's Original, die der Shop neben den 220-g-Beuteln noch führt (Risi Bisi, Mexikanisch,
+  // Langkorn, Basmati) — siehe CLAUDE.md
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Fertiggerichte/Ben-s-Original-Express-Linsen-Curry-Bowl-Reis-220-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Fertiggerichte/Ben-s-Original-Express-Spicy-Curry-Bowl-Reis-220-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Griechisch-Djuvec-Reis-220-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Mexikanisch-220-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Mexikanisch-scharf-220-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-nach-Art-Risi-Bisi-220-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-nach-Art-gebratener-Reis-220-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-bunter-Paprika-Reis-220-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Curryreis-220-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Langkorn-Wildreis-220-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Basmati-Jasminreis-220-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/reis-fit-Express-Burrito-Bowl-Reis-250-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/reis-fit-Expres-Mediterran-Reis-250-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/reis-fit-Express-griechischer-Reis-nach-Djuvec-Art-250-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/GUT-GUeNSTIG-Expressreis-Djuvec-250-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/GUT-GUeNSTIG-Expressreis-Asia-250-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Tilda-Pure-Basmatireis-gedaempft-mit-Kokosnuss-Chili-und-Zitronengras-250-g.html"],
   // 2. Gegartes Chicken / Fleisch
   ["chicken", "/Bernard-Matthews-Oldenburg-Haehnchen-Filetstreifen-125-g.html"],
   ["chicken", "/Bernard-Matthews-Oldenburg-Puten-Filetstreifen-125-g.html"],
@@ -171,7 +193,7 @@ const PRODUCTS = [
 const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle",
   "Bürger", "Driscoll's", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
   "Like MEAT", "LIKE", "Mestemacher", "MILRAM", "müller", "Müller", "planted", "Poensgen", "Rapunzel", "reis-fit", "Saupiquet",
-  "Schwarzwaldmilch", "Taifun"];
+  "Schwarzwaldmilch", "Taifun", "Tilda"];
 
 // Eat Happy (Sushi-/Bowl-Theke im Markt, User 24.09.2026): Werte je 100 g, Standardgewicht und Grundpreis von eathappy.de.
 // Die Werte umfassen den ganzen Boxinhalt inkl. Saucen (Eat Happy). Das Gewicht schwankt täglich → `variable` (Gramm im Tracker
@@ -234,7 +256,7 @@ const FALLBACK = {
     per100: { kcal: 17, fat: 0.32, sat: 0.08, carbs: 2.11, sugars: 2.5, fibre: 1, protein: 1.21, salt: 0.02 },
     from: "USDA FoodData Central, SR Legacy #169291 „Squash, summer, zucchini, includes skin, raw“ (rohe Zucchini mit Schale)",
   },
-  "EDEKA Herzstücke Minigurken Klasse I 230g": {
+  "EDEKA Herzstücke Snackster, Minigurken Klasse I 230g": {   // bis 12.10.2026 „EDEKA Herzstücke Minigurken Klasse I 230g“ (RENAMED)
     per100: { kcal: 15, fat: 0.11, sat: 0.04, carbs: 3.13, sugars: 1.67, fibre: 0.5, protein: 0.65, salt: 0.01 },
     from: "USDA FoodData Central, SR Legacy #168409 „Cucumber, with peel, raw“ (rohe Gurke mit Schale)",
   },
@@ -243,7 +265,7 @@ const FALLBACK = {
     like: "EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g",
     from: "EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g — dieselbe Ware (Möhren, roh), offizielle Werte des Shops",
   },
-  "EDEKA Herzstücke Mini Pflaumen Tomaten Klasse I 250g": {
+  "EDEKA Herzstücke Snackster, Mini Pflaumen Tomaten Klasse I 250g": {   // bis 12.10.2026 ohne „Snackster,“ (RENAMED)
     // Foundation Foods: Zucker und gesättigte Fettsäuren veröffentlicht USDA für Grape Tomatoes nicht → 0 (steht in `gaps`)
     per100: { kcal: 27, fat: 0.63, sat: 0, carbs: 3.41, sugars: 0, fibre: 2.1, protein: 0.83, salt: 0.02 },
     gaps: ["sugars", "sat"],
@@ -254,6 +276,17 @@ const FALLBACK = {
     per100: { kcal: 52, fat: 0.65, sat: 0.02, carbs: 5.44, sugars: 4.42, fibre: 6.5, protein: 1.2, salt: 0 },
     from: "USDA FoodData Central, SR Legacy #167755 „Raspberries, raw“ (Himbeeren, roh)",
   },
+};
+
+// Im Shop umbenannte Produkte (dieselbe Produktseite, neuer Name): aktueller Shop-Name → ursprünglicher Name. Der Tracker zeigt den
+// aktuellen Namen, die Produkt-id entsteht aber weiter aus dem ursprünglichen (`idName`) — gespeicherte Warenkörbe, Picks,
+// Ausschlüsse, Pflicht-Produkte und Label corrections (alle über die id) und die Produktnamen in data/meals.json gelten damit weiter.
+// Der Crawl bricht ab, wenn eine Produktseite seit dem letzten Lauf anders heißt und hier fehlt. Bei erneuter Umbenennung nur den
+// Schlüssel ersetzen — der Wert (ursprünglicher Name) bleibt.
+const RENAMED = {
+  "EDEKA Herzstücke Snackster, Minigurken Klasse I 230g": "EDEKA Herzstücke Minigurken Klasse I 230g",                        // 13.10.2026
+  "EDEKA Herzstücke Snackster, Mini Pflaumen Tomaten Klasse I 250g": "EDEKA Herzstücke Mini Pflaumen Tomaten Klasse I 250g",  // 13.10.2026
+  "LIKE Like Chicken 180 g": "Like MEAT Like Chicken 180 g",                                                                  // 13.10.2026 (Marke jetzt „LIKE“)
 };
 
 // Produkte, die der Markt führt, die aber weder im Onlineshop noch auf edeka.de stehen (User 24.09.2026): Werte aus einer
@@ -477,13 +510,22 @@ async function main() {
     try { html = await get(url); } catch (e) { problems.push(p + ": " + e.message); continue; }
     const d = parsePage(html, url, problems);
     if (!d) continue;
+    // Umbenennung im Shop: die id bleibt beim ursprünglichen Namen (RENAMED); eine nicht eingetragene Umbenennung bricht ab
+    if (RENAMED[d.name]) { d.formerName = RENAMED[d.name]; d.idName = RENAMED[d.name]; }
+    const prevAtUrl = PREV && (PREV.items || []).find(x => x.url === url);
+    if (prevAtUrl && (prevAtUrl.idName || prevAtUrl.name) !== (d.idName || d.name))
+      problems.push("Im Shop umbenannt: „" + prevAtUrl.name + "“ heißt jetzt „" + d.name + "“ → in RENAMED eintragen (id bleibt) und FALLBACK/MANUFACTURER-Schlüssel anpassen");
     // „Der Artikel ist temporär nicht verfügbar“: die Seite nennt keinen Preis → letzter bekannter Preis, sichtbar markiert
     // Solange ein Artikel nicht verfügbar ist, blendet der Shop auch die Nährwerttabelle aus (22.09.2026, Karottenstifte)
     // → Preis UND Werte aus dem vorigen Lauf übernehmen; beides steht in _meta.unavailable
     if (d.unavailable && d.price == null) {
-      const old = PREV && (PREV.items || []).find(x => x.name === d.name);
+      const old = prevAtUrl || (PREV && (PREV.items || []).find(x => x.name === d.name));
       if (old && old.price > 0) {
         d.price = old.price;
+        // Mit Preis und Nährwerttabelle fehlen auf der Seite auch Abtropfgewicht, Aufbewahrungshinweis (Tiefkühl), Allergene, Zutaten und
+        // Bezeichnung (13.10.2026: Kidneybohnen ohne Abtropfgewicht → 400 statt 255 g, FRoSTA Nasi/Bami Goreng ohne Tiefkühl-Hinweis)
+        // → alles, was die Seite gerade nicht nennt, aus dem vorigen Lauf
+        for (const f of ["drainedG", "storage", "allergens", "ingredients", "legal", "company", "sku"]) if (d[f] == null && old[f] != null) d[f] = old[f];
         d.priceNote = "temporarily not available in the online shop (" + fetchedAt.slice(0, 10) + ") — last known price";
         let what = "Preis " + old.price.toFixed(2) + " €";
         if (d.noData && old.per100 && !old.noData && U.KEYS.some(k => old.per100[k] > 0)) {
@@ -565,6 +607,10 @@ async function main() {
     items.push(d);
     process.stdout.write(".");
   }
+
+  // Kuratierte Namen müssen ein Produkt treffen — sonst hat der Shop umbenannt und das Produkt verlöre still seine Referenz- bzw. Herstellerwerte
+  for (const k of [...Object.keys(FALLBACK), ...Object.keys(MANUFACTURER)]) if (!items.some(x => x.name === k)) problems.push("Kuratierter Produktname ohne Produkt: „" + k + "“ (im Shop umbenannt? → FALLBACK/MANUFACTURER anpassen)");
+  for (const k of Object.keys(RENAMED)) if (!items.some(x => x.name === k)) problems.push("RENAMED: „" + k + "“ heißt im Shop nicht (mehr) so → Schlüssel anpassen");
 
   // Gerichte, die dieser Markt nicht führt: alles von der Herstellerseite, Preis als Annahme markiert (User 20.09.2026)
   for (const p of MANUFACTURER_ONLY) {
@@ -669,6 +715,7 @@ async function main() {
         "User 24.09.2026: neue Kategorie „Beeren“ (UI „Berries“) mit Kulturheidelbeeren 125 g (weder im Onlineshop noch auf edeka.de → USDA-Werte, kein Preis, kein Link) und Driscoll's Himbeeren 125 g (Seite ohne Nährwerte → Werte der reinen EDEKA-Himbeeren (TK) desselben Shops); frisches Gemüse dazu: EDEKA Bio Möhren Mini 200 g (Werte der Karottenstifte) und EDEKA Herzstücke Mini Pflaumen Tomaten 250 g (USDA „Tomatoes, grape, raw“)",
         "User 26.09.2026: Driscoll's Himbeeren mit allgemeinen Himbeer-Werten (USDA FoodData Central #167755) statt der Werte der tiefgefrorenen EDEKA-Himbeeren",
         "User 22.09.2026: neue Kategorie „Fisch“ (Forelle, 2× Räucherlachs, 2× Thunfisch in Dosen); Schalter „No tuna“ (Default AN) und „No fish“ (Default AUS — ausdrücklich gegen die „No …“-Regel vom 13.09.2026); die Krone-Forelle mit den Werten der verlinkten Herstellerseite",
+        "User 13.10.2026: fertige Reis-Mischungen (auch mit Bohnen oder Gemüse) in „Carbs & bases“ — alle verzehrfertigen Beutel der Shop-Kategorien „Reis“ und „Fertiggerichte“, die eine Mischung sind (gewürzt, mit Gemüse/Hülsenfrüchten oder aus mehreren Reissorten): 11× Ben's Original, 3× reis-fit, 2× GUT&GÜNSTIG, 1× Tilda. Nicht aufgenommen: sortenreine Express-Beutel und die alten 250-g-Größen von Ben's Original",
         "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere",
       ],
       store: STORE,
@@ -684,6 +731,7 @@ async function main() {
       noOnlinePrice: items.filter(x => x.noOnlinePrice).map(x => x.name),
       offline: items.filter(x => x.offline).map(x => x.name + " — weder im Onlineshop noch auf edeka.de; Werte: " + x.valuesFrom),
       referenceGaps: Object.fromEntries(items.filter(x => x.refGaps).map(x => [x.name, x.refGaps.join(", ") + " nennt die Referenz nicht → 0"])),
+      renamed: Object.fromEntries(items.filter(x => x.formerName).map(x => [x.name, "hieß im Shop bis zur Umbenennung „" + x.formerName + "“ — die Produkt-id bleibt"])),
       drained: Object.fromEntries(items.filter(x => x.drainedG != null).map(x => [x.name, x.drainedG + " g von " + x.packG + " g"])),
       noData,
       noFibre,

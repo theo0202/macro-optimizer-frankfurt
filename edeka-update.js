@@ -17,7 +17,7 @@ function buildData(raw) {
   for (const p of raw.items) {
     if (p.noData) continue;              // keine veröffentlichten Nährwerte (siehe _meta.noData)
     if (p.shellfish) continue;           // Krebs-/Weichtier (User 13.09.2026) — der Crawl meldet keins
-    const id = U.slugId(p.name);
+    const id = U.slugId(p.idName || p.name);   // im Shop umbenannt → die id bleibt beim ursprünglichen Namen (RENAMED im Crawl)
     if (used.has(id)) throw new Error("Produkt-id doppelt: " + id);
     used.add(id);
     const p100 = Object.fromEntries(U.KEYS.map(k => [k, U.round(p.per100[k] || 0, 2)]));
