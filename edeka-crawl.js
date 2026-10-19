@@ -3,7 +3,10 @@
 //   · <title> „EDEKA | <Name> | online kaufen“ · itemprop="price" · itemprop="sku" (Artikelnummer)
 //   · <dl class="attributes"> mit „Nährwertinformationen“ (Bezugsgröße) und den LMIV-Werten **je 100 g**
 //   · Info-Liste <span class="listTitle"> mit Abtropfgewicht, Allergenen, Zutatenverzeichnis, Aufbewahrungshinweis
-// Rechenbasis (User 19.09.2026): Werte je 100 g × Menge; **bei Konserven zählt das Abtropfgewicht**, sonst die Packungsmenge laut Name.
+// Rechenbasis (User 19.09.2026): Werte je 100 g × Menge; **bei Konserven zählt das Abtropfgewicht**, sonst die Packungsmenge laut Name
+// (Bohnen in Soße nennen kein Abtropfgewicht → ganzer Inhalt, die Soße isst man mit).
+// robots.txt des Shops: „Crawl-delay: 2“ und keine Suche (/index.php?cl=search) → der Crawl wartet 2 s zwischen zwei Abrufen eines Hosts;
+// neue Produkte über die Kategorie-Seiten /<Kategorie-Pfad>/?pgNr=N suchen, nicht über die Shop-Suche.
 // Kuratierung steht in den Tabellen unten (CATS, PRODUCTS, BRANDS, VARIABLE, NO_FIBRE_OK). Abbruch bei fehlenden/unlesbaren Werten.
 "use strict";
 const fs = require("fs");
@@ -117,6 +120,30 @@ const PRODUCTS = [
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Kichererbsen-310-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Rapunzel-Bio-Kichererbsen-400-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Rapunzel-Bio-Rote-Kidney-Bohnen-400-g.html"],
+  // Bohnen-Konserven (User 19.10.2026: „Bohnen in der Dose …, müssen sofort verzehrbar sein“): alle Dosen mit gegarten Bohnen der
+  // Shop-Kategorie „Gemüsekonserven“. In Wasser/Aufguss zählt das Abtropfgewicht — die Werte je 100 g gelten fürs abgetropfte
+  // Erzeugnis (bezogen auf den Doseninhalt mit Aufguss hätten die Bohnen 9,7–12,9 g Eiweiß je 100 g, mehr als gekochte Bohnen) —,
+  // in Soße der ganze Inhalt (die Seite nennt kein Abtropfgewicht, die Soße isst man mit). Nicht aufgenommen: Trockenbohnen
+  // (ungekocht), grüne Bohnen (Gemüse → „Edamame, peas & veg“), Gemüsemischungen mit wenig Bohnen (Chili Mix, Goldmais Texas Mix),
+  // Bohnen-Eintöpfe (Fertiggerichte), GUT&GÜNSTIG Kidneybohnen 3 × 200 g (gerade nicht verfügbar; dieselben Bohnen wie die 400-g-Dose)
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Bio-Kidney-Bohnen-400-g.html"],
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Kidneybohnen-400-g.html"],
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Kidneybohnen-800-g.html"],
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Alnatura-Bio-Kidney-Bohnen-360-g.html"],
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Kidney-Bohnen-200-g.html"],
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Kidney-Bohnen-800-g.html"],
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/GUT-GUeNSTIG-Weisse-Bohnen-800g.html"],
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Schwarze-Bohnen-400-g.html"],   // WAITING
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Bio-Cannellini-Bohnen-400g.html"],   // WAITING
+  // … in Soße (ganzer Inhalt)
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Chili-Bohnen-400-g.html"],
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Bio-Baked-Beans-350g.html"],
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Baked-Beans-mit-Ahornsirup-400-g.html"],
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Alnatura-Bio-Baked-Beans-360-g.html"],
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Rapunzel-Bio-Baked-Beans-weisse-Bohnen-in-Tomatensauce-400-g.html"],
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/HEINZ-Baked-Beanz-415-g.html"],
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Rapunzel-Bio-Gigantes-Riesenbohnen-in-Tomatensauce-230-g.html"],
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bazar-Weisse-Bohnen-Mediterraner-Art-300-g.html"],
   // 8. Edamame / Erbsen / Gemüse Konserven
   ["veg_tins", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/ITA-SAN-Edamame-Sojabohnen-400-g.html"],
   ["veg_tins", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Junge-Erbsen-feine-Auslese-200-g.html"],
@@ -189,9 +216,17 @@ const PRODUCTS = [
   ["waffles", "/Suesswaren-Gebaeck-EDEKA/Knabberartikel/Popcorn-Puffreis/Alnatura-Bio-Kichererbsenwaffeln-100-g.html"],
 ];
 
+// Vom Shop gelistet, aber beim Aufnehmen gerade nicht verfügbar — dann zeigt die Seite weder Preis noch Nährwerte (19.10.2026).
+// Solange es noch keinen Lauf mit Werten gab, überspringt der Crawl sie (_meta.waiting) statt abzubrechen; sobald der Shop sie wieder
+// führt, kommen sie mit ihren Werten in den Tracker (danach gilt die normale Regel: letzter Preis + letzte Werte) — dann hier streichen
+const WAITING = new Set([
+  "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Schwarze-Bohnen-400-g.html",
+  "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Bio-Cannellini-Bohnen-400g.html",
+]);
+
 // Marken (längster Treffer am Namensanfang gewinnt) — für „Marke · Produkt“ in der Einkaufsliste
-const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle",
-  "Bürger", "Driscoll's", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
+const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Bazar", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle",
+  "Bürger", "Driscoll's", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "GUT&GÜNSTIG", "HEINZ", "Herta Finesse", "ITA-SAN", "LAC",
   "Like MEAT", "LIKE", "Mestemacher", "MILRAM", "müller", "Müller", "planted", "Poensgen", "Rapunzel", "reis-fit", "Saupiquet",
   "Schwarzwaldmilch", "Taifun", "Tilda"];
 
@@ -320,10 +355,26 @@ const decode = s => String(s).replace(/&#(\d+);/g, (_, d) => String.fromCharCode
 const strip = s => decode(String(s).replace(/<[^>]*>/g, " ")).replace(/\s+/g, " ").trim();
 const norm = s => String(s).normalize("NFC").replace(/\s+/g, " ").trim();
 
+// robots.txt des Shops: „Crawl-delay: 2“ → mindestens 2 s zwischen zwei Abrufen desselben Hosts (für alle Hosts des Crawls).
+// Netzwerkfehler („fetch failed“, abgebrochene Übertragung) bis zu zweimal wiederholen (19.10.2026: ein Abbruch nach 140 Seiten);
+// HTTP-Fehler (404 …) nicht — die bleiben ein Problem
+const CRAWL_DELAY_MS = 2000, lastHit = new Map();
 async function get(url) {
-  const r = await fetch(url, { headers: H });
-  if (!r.ok) throw new Error("HTTP " + r.status + " für " + url);
-  return r.text();
+  for (let attempt = 1; ; attempt++) {
+    const host = new URL(url).host, wait = (lastHit.get(host) || 0) + CRAWL_DELAY_MS - Date.now();
+    if (wait > 0) await new Promise(res => setTimeout(res, wait));
+    lastHit.set(host, Date.now());
+    let r;
+    try {
+      r = await fetch(url, { headers: H });
+      if (r.ok) return await r.text();
+    } catch (e) {
+      if (attempt >= 3) throw e;
+      await new Promise(res => setTimeout(res, 3000 * attempt));
+      continue;
+    }
+    throw new Error("HTTP " + r.status + " für " + url);
+  }
 }
 
 // „250,000“ → 250 · „2,5“ → 2.5
@@ -496,7 +547,7 @@ function parsePage(html, url, problems) {
 
 async function main() {
   const problems = [], anomalies = [], infos = [], noFibre = [], coriander = [], shellfish = [], frozen = [], noData = [];
-  const manufacturerDiffs = [], fish = [], tuna = [], unavailable = [];
+  const manufacturerDiffs = [], fish = [], tuna = [], unavailable = [], waiting = [];
   let PREV = null; try { PREV = U.readJSON(OUT); } catch (e) {}   // voriger Lauf: letzter bekannter Preis für gerade nicht verfügbare Produkte
   const items = [], seen = new Set();
   const fetchedAt = new Date().toISOString();
@@ -539,8 +590,12 @@ async function main() {
           what += " und Nährwerte (" + d.valuesAsOf + ")";
         }
         unavailable.push(d.name + " — letzter bekannter " + what);
-      } else problems.push(d.name + ": temporär nicht verfügbar und kein früherer Preis bekannt");
+      } else if (WAITING.has(p)) {
+        waiting.push(d.name + " — gerade nicht verfügbar (" + fetchedAt.slice(0, 10) + "), noch nie mit Werten gelesen → kommt in den Tracker, sobald der Shop Preis und Nährwerte zeigt");
+        continue;
+      } else problems.push(d.name + ": temporär nicht verfügbar und kein früherer Preis bekannt (neues Produkt → in WAITING eintragen)");
     } else d.unavailable = false;
+    if (WAITING.has(p) && !d.unavailable) infos.push("Aus WAITING jetzt mit Werten im Tracker: " + d.name + " → Eintrag in WAITING streichen");
     if (items.some(x => x.name === d.name)) { infos.push("Produkt doppelt (gleicher Name), einmal übernommen: " + d.name); continue; }
 
     d.cat = cat;
@@ -611,6 +666,7 @@ async function main() {
   // Kuratierte Namen müssen ein Produkt treffen — sonst hat der Shop umbenannt und das Produkt verlöre still seine Referenz- bzw. Herstellerwerte
   for (const k of [...Object.keys(FALLBACK), ...Object.keys(MANUFACTURER)]) if (!items.some(x => x.name === k)) problems.push("Kuratierter Produktname ohne Produkt: „" + k + "“ (im Shop umbenannt? → FALLBACK/MANUFACTURER anpassen)");
   for (const k of Object.keys(RENAMED)) if (!items.some(x => x.name === k)) problems.push("RENAMED: „" + k + "“ heißt im Shop nicht (mehr) so → Schlüssel anpassen");
+  for (const w of WAITING) if (!PRODUCTS.some(([, p]) => p === w)) problems.push("WAITING: " + w + " steht nicht in PRODUCTS");
 
   // Gerichte, die dieser Markt nicht führt: alles von der Herstellerseite, Preis als Annahme markiert (User 20.09.2026)
   for (const p of MANUFACTURER_ONLY) {
@@ -696,7 +752,7 @@ async function main() {
     _meta: {
       source: "Produktseiten des EDEKA-Graf-Onlineshops " + SHOP + " (" + STORE + "): Name, Preis, Artikelnummer, Nährwerte je 100 g, Abtropfgewicht, Allergene, Zutaten",
       fetchedAt,
-      basis: "Offizielle Werte **je 100 g** laut Produktseite × Menge. Die Menge ist **immer die ganze Packung** (User 19.09.2026) — bei Konserven das **Abtropfgewicht**. Ballaststoffe sind freiwillig → fehlen sie, steht 0. Frisches Obst und Gemüse ohne Nährwertangabe bekommt Referenzwerte (FALLBACK/OFFLINE, Quelle je Produkt in _meta.referenceValues)",
+      basis: "Offizielle Werte **je 100 g** laut Produktseite × Menge. Die Menge ist **immer die ganze Packung** (User 19.09.2026) — bei Konserven das **Abtropfgewicht** (Bohnen in Soße nennen keins → ganzer Inhalt, die Soße isst man mit). Ballaststoffe sind freiwillig → fehlen sie, steht 0. Frisches Obst und Gemüse ohne Nährwertangabe bekommt Referenzwerte (FALLBACK/OFFLINE, Quelle je Produkt in _meta.referenceValues)",
       rules: [
         "Produkte des Onlineshops, Namen exakt wie dort; dazu wenige, die der Markt führt, die online fehlen (Burritos von edeka.de, Kulturheidelbeeren) — ohne Preis",
         "Der Tracker rechnet mit Gramm: jedes Produkt startet mit seiner Portion, das Gramm ist im Warenkorb änderbar",
@@ -715,6 +771,7 @@ async function main() {
         "User 24.09.2026: neue Kategorie „Beeren“ (UI „Berries“) mit Kulturheidelbeeren 125 g (weder im Onlineshop noch auf edeka.de → USDA-Werte, kein Preis, kein Link) und Driscoll's Himbeeren 125 g (Seite ohne Nährwerte → Werte der reinen EDEKA-Himbeeren (TK) desselben Shops); frisches Gemüse dazu: EDEKA Bio Möhren Mini 200 g (Werte der Karottenstifte) und EDEKA Herzstücke Mini Pflaumen Tomaten 250 g (USDA „Tomatoes, grape, raw“)",
         "User 26.09.2026: Driscoll's Himbeeren mit allgemeinen Himbeer-Werten (USDA FoodData Central #167755) statt der Werte der tiefgefrorenen EDEKA-Himbeeren",
         "User 22.09.2026: neue Kategorie „Fisch“ (Forelle, 2× Räucherlachs, 2× Thunfisch in Dosen); Schalter „No tuna“ (Default AN) und „No fish“ (Default AUS — ausdrücklich gegen die „No …“-Regel vom 13.09.2026); die Krone-Forelle mit den Werten der verlinkten Herstellerseite",
+        "User 19.10.2026: Bohnen in der Dose, sofort verzehrbar, in „Beans & chickpeas (tins)“ — alle Bohnen-Konserven der Shop-Kategorie „Gemüsekonserven“: in Wasser mit Abtropfgewicht (EDEKA Bio Kidney Bohnen, EDEKA Herzstücke Kidneybohnen 400 und 800 g, Alnatura Bio Kidney Bohnen, Bonduelle Kidney Bohnen 200 und 800 g, GUT&GÜNSTIG Weiße Bohnen 800 g), in Soße mit dem ganzen Inhalt (EDEKA Herzstücke Chili-Bohnen, Baked Beans von EDEKA Bio, EDEKA Herzstücke, Alnatura, Rapunzel und HEINZ, Rapunzel Gigantes Riesenbohnen, Bazar Weiße Bohnen mediterran). Gerade nicht verfügbar und deshalb noch ohne Werte (WAITING): EDEKA Herzstücke Schwarze Bohnen, EDEKA Bio Cannellini Bohnen. Nicht aufgenommen: Trockenbohnen (ungekocht), grüne Bohnen, Gemüsemischungen mit wenig Bohnen, Bohnen-Eintöpfe, GUT&GÜNSTIG Kidneybohnen 3 × 200 g",
         "User 13.10.2026: fertige Reis-Mischungen (auch mit Bohnen oder Gemüse) in „Carbs & bases“ — alle verzehrfertigen Beutel der Shop-Kategorien „Reis“ und „Fertiggerichte“, die eine Mischung sind (gewürzt, mit Gemüse/Hülsenfrüchten oder aus mehreren Reissorten): 11× Ben's Original, 3× reis-fit, 2× GUT&GÜNSTIG, 1× Tilda. Nicht aufgenommen: sortenreine Express-Beutel und die alten 250-g-Größen von Ben's Original",
         "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere",
       ],
@@ -737,6 +794,7 @@ async function main() {
       noFibre,
       frozen: frozen.length ? frozen : "kein Produkt mit Tiefkühl-Hinweis",
       unavailable,   // im Onlineshop gerade nicht verfügbar → letzter bekannter Preis
+      waiting,   // neu aufgenommen, aber noch nie mit Werten gelesen (WAITING) → noch nicht im Tracker
       fish,   // Schalter „No fish“: Allergen „Fische“ oder Fisch im Namen
       tuna,   // Schalter „No tuna“
       shellfish: shellfish.length ? shellfish : "kein Produkt mit Krebs- oder Weichtieren (Lachs = Fisch, erlaubt)",
@@ -762,6 +820,7 @@ async function main() {
   if (Array.isArray(out._meta.manufacturerDiffs)) console.log("Shop ≠ Hersteller (" + out._meta.manufacturerDiffs.length + "):\n  " + out._meta.manufacturerDiffs.map(d => d.name + ": " + d.diffs.join(", ")).join("\n  "));
   if (Object.keys(out._meta.notInStore).length) console.log("Nicht im Markt gelistet: " + Object.keys(out._meta.notInStore).join(" · "));
   console.log("Nicht im Tracker: " + NOT_IN_TRACKER.map(x => x.name + " — " + x.reason).join(" · "));
+  if (waiting.length) console.log("Wartet auf Werte (WAITING, " + waiting.length + "): " + waiting.join(" · "));
   console.log("Tiefkühl: " + (Array.isArray(out._meta.frozen) ? out._meta.frozen.join(" · ") : out._meta.frozen));
   console.log("Schalentier: " + (Array.isArray(out._meta.shellfish) ? out._meta.shellfish.join(" · ") : out._meta.shellfish));
   console.log("Koriander/Minze: " + (Array.isArray(out._meta.coriander) ? out._meta.coriander.join(" · ") : out._meta.coriander));
