@@ -457,7 +457,7 @@ Restaurants (Stand 19.09.2026): **Compleat** (Frankfurt Nordend) mit je einem Ta
   | Mais | Bonduelle Goldmais Junge Ernte 300 g | 2,59 € | 285 von 300 g | 216,6 | 8,3 | 34,2 | 3,4 |
   | Mais | EDEKA Herzstücke Supersweet Mais 150 g | 0,99 € | 140 von 150 g | 99,4 | 3,5 | 15,4 | 1,7 |
   | Mais | EDEKA Herzstücke Supersweet Mais 330 g | 1,49 € | 285 von 330 g | 202,4 | 7,1 | 31,4 | 3,4 |
-  | Pilze | GUT&GÜNSTIG Sonnenmais 330 g | 0,89 € | 285 von 330 g | 193,8 | 8,8 | 24,8 | 4,6 |
+  | Mais | GUT&GÜNSTIG Sonnenmais 330 g | 0,89 € | 285 von 330 g | 193,8 | 8,8 | 24,8 | 4,6 |
   | Mais | Alnatura Bio Mais 340 g | 1,79 € | 230 von 340 g | 211,6 | 6,7 | 34,5 | 3,5 |
   | Mais-Mischung | Bonduelle Goldmais Mexiko Mix 300 g | 1,89 € | 265 von 300 g | 214,4 | 9,0 | 30,2 | 4,0 |
   | Mais-Mischung | EDEKA Herzstücke Mexiko Mix 300g | 2,29 € | 280 von 300 g | 224,0 | 10,9 | 27,4 | 4,8 |
@@ -469,7 +469,7 @@ Restaurants (Stand 19.09.2026): **Compleat** (Frankfurt Nordend) mit je einem Ta
   | Erbsen | GUT&GÜNSTIG Junge Erbsen mit Möhrchen sehr fein 400 g | 0,89 € | 265 von 400 g | 119,3 | 7,2 | 12,5 | 1,9 |
   | Edamame | Bonduelle Edamame 155 g | 2,39 € | 130 von 155 g | 161,2 | 14,3 | 1,8 | 8,8 |
   | Grüne Bohnen | Bonduelle Grüne Bohnen feine Auslese 400 g | 1,99 € | 220 von 400 g | 58,1 | 3,5 | 6,8 | 0,4 |
-  | Pilze | EDEKA Herzstücke Brechbohnen sehr fein 530 g | 1,49 € | 290 von 530 g | 69,6 | 4,4 | 8,7 | 0,3 |
+  | Grüne Bohnen | EDEKA Herzstücke Brechbohnen sehr fein 530 g | 1,49 € | 290 von 530 g | 69,6 | 4,4 | 8,7 | 0,3 |
   | Asiatisch | Diamond Bambusstreifen 330 g | 2,49 € | 175 von 330 g | 21,0 | 1,9 | 1,2 | 0,9 |
   | Asiatisch | Diamond Mungobohnenkeimlinge fein 330 g | 2,39 € | 175 von 330 g | 14,0 | 1,6 | 0,9 | 0,9 |
   | Asiatisch | Diamond China Gemüse 330 g | 2,49 € | 175 von 330 g | 24,5 | 0,9 | 0,9 | 0,9 |
