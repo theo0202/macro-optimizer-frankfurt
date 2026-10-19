@@ -2161,38 +2161,40 @@ check("Reis-Mischungen: Werte stimmig (kcal ↔ Makros), kein Schalentier; Koria
     rawED._meta.decisions.some(d => /^User 13[.]10[.]2026: fertige Reis-Mischungen/.test(d));
 })(), true);
 // Bohnen-Konserven (User 19.10.2026): alle Dosen mit gegarten Bohnen der Shop-Kategorie „Gemüsekonserven“ — in Wasser [Name, Packung, abgetropft], in Soße [Name, Packung]
-const BEANS_WATER = [["EDEKA Bio Kidney Bohnen 400 g", 400, 265], ["EDEKA Herzstücke Kidneybohnen 400 g", 400, 265], ["EDEKA Herzstücke Kidneybohnen 800 g", 800, 530],
-  ["Alnatura Bio Kidney Bohnen 360 g", 360, 240], ["Bonduelle Kidney Bohnen 200 g", 200, 125], ["Bonduelle Kidney Bohnen 800 g", 800, 500], ["GUT&GÜNSTIG Weiße Bohnen 800g", 800, 530]];
-const BEANS_SAUCE = [["EDEKA Herzstücke Chili-Bohnen 400 g", 400], ["EDEKA Bio Baked Beans 350g", 350], ["EDEKA Herzstücke Baked Beans mit Ahornsirup 400 g", 400],
-  ["Alnatura Bio Baked Beans 360 g", 360], ["Rapunzel Bio Baked Beans weiße Bohnen in Tomatensauce 400 g", 400], ["HEINZ Baked Beanz 415 g", 415],
+const BEANS_WATER = [["EDEKA Bio Kidney Bohnen 400 g", 400, 265], ["EDEKA Herzstücke Kidneybohnen 400 g", 400, 265], ["Alnatura Bio Kidney Bohnen 360 g", 360, 240],
+  ["Bonduelle Kidney Bohnen 200 g", 200, 125]];
+const BEANS_SAUCE = [["EDEKA Herzstücke Chili-Bohnen 400 g", 400], ["EDEKA Bio Baked Beans 350g", 350], ["Alnatura Bio Baked Beans 360 g", 360],
   ["Rapunzel Bio Gigantes Riesenbohnen in Tomatensauce 230 g", 230], ["Bazar Weisse Bohnen Mediterraner Art 300 g", 300]];
+// auf Wunsch wieder raus (User 19.10.2026, später): die 800-g-Dosen und Baked Beans mit mehr als 4 g Zucker je 100 g
+const BEANS_REMOVED = ["EDEKA Herzstücke Kidneybohnen 800 g", "Bonduelle Kidney Bohnen 800 g", "GUT&GÜNSTIG Weiße Bohnen 800g",
+  "EDEKA Herzstücke Baked Beans mit Ahornsirup 400 g", "Rapunzel Bio Baked Beans weiße Bohnen in Tomatensauce 400 g", "HEINZ Baked Beanz 415 g"];
 const BEANS_WAITING = ["EDEKA Herzstücke Schwarze Bohnen 400 g", "EDEKA Bio Cannellini Bohnen 400g"];   // beim Aufnehmen gerade nicht verfügbar (WAITING)
-check("Bohnen-Konserven (User 19.10.2026): 15 neue Dosen in „Beans & chickpeas (tins)“ hinter den 6 bisherigen — 7 in Wasser mit dem Abtropfgewicht, 8 in Soße mit dem ganzen Inhalt; Werte je 100 g = Produktseite, Preis und Link vom Markt", (() => {
+check("Bohnen-Konserven (User 19.10.2026): 9 neue Dosen in „Beans & chickpeas (tins)“ hinter den 6 bisherigen — 4 in Wasser mit dem Abtropfgewicht, 5 in Soße mit dem ganzen Inhalt; Werte je 100 g = Produktseite, Preis und Link vom Markt", (() => {
   const beans = EDD.items.filter(x => x.cat === "beans"), names = beans.slice(6).map(x => x.name).filter(n => !BEANS_WAITING.includes(n));
   const one = (n, g, pack, drained) => { const x = edItem(U.slugId(n)), r = edRaw(n);
     return !!x && !!r && x.cat === "beans" && x.g === g && x.pack === pack && !!x.drained === drained && (drained ? r.drainedG === g && g < pack : r.drainedG == null) &&
       x.price > 0 && x.price === r.price && /^https:\/\/graf-ffm\.edeka\.shop\/Nahrungsmittel-EDEKA\/Konserven-Feinkost\/Gemuesekonserven\//.test(x.url) && /je\s*100\s*g/.test(r.basis) &&
       !r.noData && r.fibreDeclared && U.KEYS.every(k => x.p100[k] === U.round(r.per100[k] || 0, 2)) && !x.frozen && !x.fish && !x.tuna && !x.ref; };
-  return beans.length === 21 + beans.filter(x => BEANS_WAITING.includes(x.name)).length &&
+  return beans.length === 15 + beans.filter(x => BEANS_WAITING.includes(x.name)).length &&
     names.join("|") === [...BEANS_WATER, ...BEANS_SAUCE].map(b => b[0]).join("|") &&
     BEANS_WATER.every(([n, pack, dr]) => one(n, dr, pack, true)) && BEANS_SAUCE.every(([n, pack]) => one(n, pack, pack, false)) &&
     [...BEANS_WATER, ...BEANS_SAUCE].map(b => edItem(U.slugId(b[0])).brand).join() ===
-      "EDEKA Bio,EDEKA Herzstücke,EDEKA Herzstücke,Alnatura,Bonduelle,Bonduelle,GUT&GÜNSTIG,EDEKA Herzstücke,EDEKA Bio,EDEKA Herzstücke,Alnatura,Rapunzel,HEINZ,Rapunzel,Bazar";
+      "EDEKA Bio,EDEKA Herzstücke,Alnatura,Bonduelle,EDEKA Herzstücke,EDEKA Bio,Alnatura,Rapunzel,Bazar";
 })(), true);
-check("Bohnen-Konserven, Beispiele je ganzer Dose: EDEKA Bio Kidney Bohnen 265 g abgetropft = 267,7 kcal / 21,5 g E · EDEKA Herzstücke Kidneybohnen 800 g → 530 g = 503,5 kcal / 36,6 g E · GUT&GÜNSTIG Weiße Bohnen 800 g → 530 g = 461,1 kcal / 33,9 g E · HEINZ Baked Beanz 415 g samt Soße = 336,2 kcal / 19,9 g E · Chili-Bohnen 400 g = 348 kcal / 20 g E · Gigantes 230 g = 280,6 kcal / 10,4 g F", (() => {
+check("Bohnen-Konserven, Beispiele je ganzer Dose: EDEKA Bio Kidney Bohnen 265 g abgetropft = 267,7 kcal / 21,5 g E · Alnatura Kidney Bohnen 240 g = 278,4 kcal / 19,7 g E · Bonduelle Kidney Bohnen 200 g → 125 g = 138,8 kcal / 9,5 g E · EDEKA Bio Baked Beans 350 g samt Soße = 297,5 kcal / 16,8 g E / 11,2 g Zucker · Chili-Bohnen 400 g = 348 kcal / 20 g E · Gigantes 230 g = 280,6 kcal / 10,4 g F", (() => {
   const s = n => { const x = edItem(U.slugId(n)); return T.edekaScale(x, x.g); };
-  const bio = s("EDEKA Bio Kidney Bohnen 400 g"), hz = s("EDEKA Herzstücke Kidneybohnen 800 g"), wb = s("GUT&GÜNSTIG Weiße Bohnen 800g");
-  const he = s("HEINZ Baked Beanz 415 g"), ch = s("EDEKA Herzstücke Chili-Bohnen 400 g"), gi = s("Rapunzel Bio Gigantes Riesenbohnen in Tomatensauce 230 g");
+  const bio = s("EDEKA Bio Kidney Bohnen 400 g"), al = s("Alnatura Bio Kidney Bohnen 360 g"), bo = s("Bonduelle Kidney Bohnen 200 g");
+  const bb = s("EDEKA Bio Baked Beans 350g"), ch = s("EDEKA Herzstücke Chili-Bohnen 400 g"), gi = s("Rapunzel Bio Gigantes Riesenbohnen in Tomatensauce 230 g");
   const near = (a, b) => Math.abs(a - b) < 0.051;
   return near(bio.kcal, 267.7) && near(bio.protein, 21.5) && near(bio.carbs, 33.7) && /\(265 g drained\)$/.test(bio.name) &&
-    near(hz.kcal, 503.5) && near(hz.protein, 36.6) && near(hz.carbs, 63.6) && /\(530 g drained\)$/.test(hz.name) &&
-    near(wb.kcal, 461.1) && near(wb.protein, 33.9) && near(wb.carbs, 58.3) &&
-    near(he.kcal, 336.2) && near(he.protein, 19.9) && near(he.carbs, 64.3) && he.name === "HEINZ Baked Beanz 415 g" && !he.drained &&
+    near(al.kcal, 278.4) && near(al.protein, 19.7) && near(al.carbs, 36) && /\(240 g drained\)$/.test(al.name) &&
+    near(bo.kcal, 138.8) && near(bo.protein, 9.5) && /\(125 g drained\)$/.test(bo.name) &&
+    near(bb.kcal, 297.5) && near(bb.protein, 16.8) && near(bb.carbs, 46.9) && near(bb.sugars, 11.2) && bb.name === "EDEKA Bio Baked Beans 350g" && !bb.drained &&
     near(ch.kcal, 348) && near(ch.protein, 20) && near(ch.carbs, 44) && near(gi.kcal, 280.6) && near(gi.fat, 10.4);
 })(), true);
-check("Abgetropft ist die richtige Basis (User-Rückfrage 19.10.2026): bezogen auf den Doseninhalt samt Aufguss hätten die abgetropften Bohnen 9,7–12,9 g Eiweiß je 100 g — mehr als gekochte Bohnen (USDA: Kidney 8,67 g, Great Northern 8,33 g); die deklarierten 6,4–8,2 g passen zu abgetropften Dosenbohnen (USDA 7,98 g), nicht zum Inhalt samt Aufguss (5,22 g)", (() => {
+check("Abgetropft ist die richtige Basis (User-Rückfrage 19.10.2026): bezogen auf den Doseninhalt samt Aufguss hätten die abgetropften Bohnen 10,6–12,9 g Eiweiß je 100 g — mehr als gekochte Bohnen (USDA: Kidney 8,67 g, Great Northern 8,33 g); die deklarierten 6,6–8,2 g passen zu abgetropften Dosenbohnen (USDA 7,98 g), nicht zum Inhalt samt Aufguss (5,22 g)", (() => {
   const tins = rawED.items.filter(x => x.cat === "beans" && /bohnen/i.test(x.name) && x.drainedG != null);
-  return tins.length === 11 && tins.every(x => x.drainedG < x.packG && x.per100.protein >= 6 && x.per100.protein <= 8.5 && x.per100.protein * x.packG / x.drainedG > 9.5);
+  return tins.length === 8 && tins.every(x => x.drainedG < x.packG && x.per100.protein >= 6 && x.per100.protein <= 8.5 && x.per100.protein * x.packG / x.drainedG > 9.5);
 })(), true);
 check("Beim Aufnehmen gerade nicht verfügbar (WAITING): EDEKA Herzstücke Schwarze Bohnen 400 g und EDEKA Bio Cannellini Bohnen 400 g — die Seite zeigt weder Preis noch Werte → noch nicht im Tracker, stehen in _meta.waiting und kommen mit dem ersten Lauf mit Werten von selbst dazu (kein Abbruch); der Crawl hält 2 s Abstand (robots.txt)", (() => {
   const src = fs.readFileSync(__dirname + "/edeka-crawl.js", "utf8"), w = rawED._meta.waiting || [];
@@ -2200,11 +2202,15 @@ check("Beim Aufnehmen gerade nicht verfügbar (WAITING): EDEKA Herzstücke Schwa
     BEANS_WAITING.every(n => w.some(s => s.indexOf(n + " — ") === 0) !== !!edItem(U.slugId(n))) && w.every(s => /noch nie mit Werten gelesen/.test(s)) &&
     /CRAWL_DELAY_MS = 2000/.test(src) && !/cl=search/.test(src.replace(/^\s*\/\/.*$/gm, ""));
 })(), true);
-check("Bohnen-Konserven: Werte stimmig (kcal ↔ Makros), kein Schalentier, weder Koriander noch Minze; nicht im Tracker: Trockenbohnen, grüne Bohnen, Gemüsemischungen mit wenig Bohnen, Bohnen-Eintöpfe und der 3×200-g-Pack", (() => {
+check("Bohnen-Konserven: Werte stimmig (kcal ↔ Makros), kein Schalentier, weder Koriander noch Minze; nicht im Tracker: Trockenbohnen, grüne Bohnen, Gemüsemischungen mit wenig Bohnen, Bohnen-Eintöpfe, der 3×200-g-Pack — und auf Wunsch (User 19.10.2026, später) die 800-g-Dosen und Baked Beans mit mehr als 4 g Zucker je 100 g", (() => {
   const raws = [...BEANS_WATER, ...BEANS_SAUCE].map(b => edRaw(b[0]));
   return raws.every(r => U.checkItem({ ...r.per100, fibre: r.per100.fibre || 0 }).length === 0 && !r.shellfish && !r.herbs && !!r.ingredients && /bohnen|beans/i.test(r.legal || r.name)) &&
     !EDD.items.some(x => /Müller´s Mühle|Mungobohnen|Chili Mix|Texas Mix|Mexiko Mix|Eintopf|Bohnensuppe|Brechbohnen|Grüne Bohnen|Kidneybohnen 3 x 200 g/.test(x.name)) &&
-    rawED._meta.decisions.some(d => /^User 19[.]10[.]2026: Bohnen in der Dose/.test(d));
+    rawED._meta.decisions.some(d => /^User 19[.]10[.]2026: Bohnen in der Dose/.test(d)) &&
+    BEANS_REMOVED.every(n => !edRaw(n) && !edItem(U.slugId(n))) && !EDD.items.some(x => x.cat === "beans" && /\b800 ?g\b/.test(x.name)) &&
+    EDD.items.filter(x => /Baked Beans?z?\b/.test(x.name)).map(x => x.name).join("|") === "EDEKA Bio Baked Beans 350g|Alnatura Bio Baked Beans 360 g" &&
+    EDD.items.filter(x => /Baked Beans?z?\b/.test(x.name)).every(x => x.p100.sugars <= 4) &&
+    rawED._meta.decisions.some(d => /^User 19[.]10[.]2026 \(später\): „Die 800 g und Baked Beans mit über 4 g Zucker/.test(d));
 })(), true);
 check("Im Shop umbenannt (13.10.2026): „Snackster, Minigurken“, „Snackster, Mini Pflaumen Tomaten“ und „LIKE Like Chicken“ zeigen den neuen Namen, behalten aber ihre id (gespeicherte Picks, Ausschlüsse und meals.json gelten weiter) und ihre Referenzwerte", (() => {
   const gu = edItem("edeka_herzstuecke_minigurken_klasse_i_230g"), to = edItem("edeka_herzstuecke_mini_pflaumen_tomaten_klasse_i_250g"), li = edItem("like_meat_like_chicken_180_g");
@@ -2220,17 +2226,17 @@ check("Im Shop umbenannt (13.10.2026): „Snackster, Minigurken“, „Snackster
 check("Gerade nicht verfügbar ≠ Daten weg: jede Konserve in Aufguss behält ihr Abtropfgewicht (Bohnen in Soße zählen den ganzen Inhalt) und jedes TK-Gericht sein Tiefkühl-Kennzeichen — auch wenn die Shop-Seite sie gerade ausblendet (13.10.2026: Kidneybohnen, Kichererbsen, Nasi/Bami Goreng)", (() => {
   const sauce = BEANS_SAUCE.map(b => b[0]), tins = EDD.items.filter(x => (x.cat === "beans" || x.cat === "veg_tins") && !sauce.includes(x.name)), tk = EDD.items.filter(x => x.cat === "tkmeals");
   const un = rawED.items.filter(x => x.unavailable);
-  return tins.length === 24 + EDD.items.filter(x => BEANS_WAITING.includes(x.name)).length && tins.every(x => x.drained === true && x.g < x.pack && x.g > 0) &&
+  return tins.length === 21 + EDD.items.filter(x => BEANS_WAITING.includes(x.name)).length && tins.every(x => x.drained === true && x.g < x.pack && x.g > 0) &&
     sauce.every(n => { const x = edItem(U.slugId(n)); return !!x && !x.drained && x.g === x.pack; }) && tk.length === 6 && tk.every(x => x.frozen === true) &&
-    EDD.items.filter(x => x.drained).length === 26 + EDD.items.filter(x => BEANS_WAITING.includes(x.name)).length &&
+    EDD.items.filter(x => x.drained).length === 23 + EDD.items.filter(x => BEANS_WAITING.includes(x.name)).length &&
     // nicht verfügbare Produkte: letzter Preis + Hinweis, Werte vorhanden, Zutaten/Lagerung aus dem vorigen Lauf übernommen
     un.every(x => x.price > 0 && /temporarily not available/.test(x.priceNote) && U.KEYS.some(k => x.per100[k] > 0) && !x.noData && (!!x.storage || !!x.ingredients)) &&
     rawED._meta.unavailable.length === un.length;
 })(), true);
-const ED_N = 146;   // Produkte des Marktes im Tracker (bis 12.10.2026: 114; 13.10.2026: + 17 fertige Reis-Mischungen; 19.10.2026: + 15 Bohnen-Konserven)
-check("Alle 146 Produkte im Tracker, 22 Kategorien wie vom User gruppiert (22.09.2026 dazu: Fish 5; 24.09.2026: Eat Happy Bowls 5 + Sushi 2, 3 Burritos in „Sandwiches & Wraps“, Berries 2, Fresh vegetables 6; 13.10.2026: Carbs & bases 23; 19.10.2026: Beans & chickpeas 21), alle Chips an",
+const ED_N = 140;   // Produkte des Marktes im Tracker (bis 12.10.2026: 114; 13.10.2026: + 17 fertige Reis-Mischungen; 19.10.2026: + 9 Bohnen-Konserven)
+check("Alle 140 Produkte im Tracker, 22 Kategorien wie vom User gruppiert (22.09.2026 dazu: Fish 5; 24.09.2026: Eat Happy Bowls 5 + Sushi 2, 3 Burritos in „Sandwiches & Wraps“, Berries 2, Fresh vegetables 6; 13.10.2026: Carbs & bases 23; 19.10.2026: Beans & chickpeas 15), alle Chips an",
   rawED.items.length === ED_N && EDD.items.length === ED_N && rawED._meta.noData.length === 0 && EDD.items.filter(x => x.cat === "carbs").length === 23 &&
-  EDD.items.filter(x => x.cat === "beans").length === 21 &&
+  EDD.items.filter(x => x.cat === "beans").length === 15 &&
   EDD.cats.length === 22 && EDD.cats.every(c => c.on === true) && EDD.cats[0].id === "carbs" && EDD.cats[21].id === "waffles" &&
   EDD.cats.map(c => c.id).join().indexOf("fresh_veg,berries,gyoza,eh_bowls,eh_sushi,maultaschen") > 0 &&
   EDD.items.filter(x => x.cat === "fresh_veg").length === 6 && EDD.items.filter(x => x.cat === "berries").length === 2 &&
@@ -2252,9 +2258,9 @@ check("Jedes Produkt: Werte je 100 g, Menge, Packungsmenge, Preis (oder der Hinw
   EDD.items.every(x => x.g > 0 && x.pack > 0 && (typeof x.price === "number" || (x.price === null && /no price online/.test(x.priceNote))) &&
     (x.offline ? x.url === null && x.price === null : /^https:\/\/(graf-ffm\.edeka\.shop|www\.frosta\.de|www\.eathappy\.de\/produkte|www\.edeka\.de\/sortiment)\//.test(x.url) && !!x.brand) &&
     T.KEYS.every(k => typeof x.p100[k] === "number" && isFinite(x.p100[k]) && x.p100[k] >= 0)) && T.edekaValidate().length === 0, true);
-check("Konserven zählen das Abtropfgewicht (User 19.09.2026): 26 Produkte (seit 22.09.2026 mit 2 Thunfisch-Dosen, seit 19.10.2026 mit 7 weiteren Bohnen-Dosen), Bonduelle Kidney Bohnen 250 g von 400 g → 92 kcal je 100 g = 230 kcal / 18 g Eiweiß", (() => {
+check("Konserven zählen das Abtropfgewicht (User 19.09.2026): 23 Produkte (seit 22.09.2026 mit 2 Thunfisch-Dosen, seit 19.10.2026 mit 4 weiteren Bohnen-Dosen), Bonduelle Kidney Bohnen 250 g von 400 g → 92 kcal je 100 g = 230 kcal / 18 g Eiweiß", (() => {
   const raw = edRaw("Bonduelle Kidney Bohnen 400 g"), it = edItem(U.slugId("Bonduelle Kidney Bohnen 400 g")), sc = T.edekaScale(it, it.g);
-  return EDD.items.filter(x => x.drained).length === 26 + EDD.items.filter(x => BEANS_WAITING.includes(x.name)).length && raw.drainedG === 250 && raw.packG === 400 && it.g === 250 && it.pack === 400 && it.p100.kcal === 92 &&
+  return EDD.items.filter(x => x.drained).length === 23 + EDD.items.filter(x => BEANS_WAITING.includes(x.name)).length && raw.drainedG === 250 && raw.packG === 400 && it.g === 250 && it.pack === 400 && it.p100.kcal === 92 &&
     Math.abs(sc.kcal - 230) < 0.05 && Math.abs(sc.protein - 18) < 0.05 && Math.abs(sc.carbs - 27.5) < 0.05 && /\(250 g drained\)$/.test(sc.name);
 })(), true);
 check("Immer die ganze Packung (User 19.09.2026): 500-g-Becher, Brötchen-Pack und Brot zählen komplett; nur Konserven weichen ab (Abtropfgewicht)", (() => {
@@ -2458,8 +2464,8 @@ check("Artikel „temporär nicht verfügbar“ (seit 22.09.2026, z.B. Karottens
     (!sticks.unavailable || edRaw("EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g").valuesAsOf === "2026-09-20") &&
     sticks.p100.kcal === 38 && noodles.p100.kcal === 38 && !noodles.unavailable;
 })(), true);
-check("_meta: Quelle, Rechenbasis (Abtropfgewicht, Bohnen in Soße mit ganzem Inhalt), Entscheidungen vom 19.–26.09., 13. und 19.10.2026, eine Auffälligkeit (Zucchini), kein Schalentier, 6 Tiefkühl-Gerichte, 61 Produkte ohne Ballaststoff-Angabe",
-  /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && /Soße/.test(rawED._meta.basis) && rawED._meta.decisions.length === 15 &&
+check("_meta: Quelle, Rechenbasis (Abtropfgewicht, Bohnen in Soße mit ganzem Inhalt), Entscheidungen vom 19.–26.09., 13. und 19.10.2026 (zwei), eine Auffälligkeit (Zucchini), kein Schalentier, 6 Tiefkühl-Gerichte, 61 Produkte ohne Ballaststoff-Angabe",
+  /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && /Soße/.test(rawED._meta.basis) && rawED._meta.decisions.length === 16 &&
   rawED._meta.decisions.every(d => /^User ((19|20|22|24|26)[.]09|1[39][.]10)[.]2026/.test(d)) && rawED._meta.anomalies.length === 1 && rawED._meta.anomalies[0].name === "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g" &&
   typeof rawED._meta.shellfish === "string" && Array.isArray(rawED._meta.coriander) && Array.isArray(rawED._meta.frozen) && rawED._meta.frozen.length === 6 &&
   rawED._meta.noFibre.length === 61 && EDD.items.filter(x => x.p100.fibre === 0).length >= 61 && EDD.items.length === ED_N, true);

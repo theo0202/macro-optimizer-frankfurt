@@ -120,28 +120,25 @@ const PRODUCTS = [
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Kichererbsen-310-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Rapunzel-Bio-Kichererbsen-400-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Rapunzel-Bio-Rote-Kidney-Bohnen-400-g.html"],
-  // Bohnen-Konserven (User 19.10.2026: „Bohnen in der Dose …, müssen sofort verzehrbar sein“): alle Dosen mit gegarten Bohnen der
+  // Bohnen-Konserven (User 19.10.2026: „Bohnen in der Dose …, müssen sofort verzehrbar sein“): die Dosen mit gegarten Bohnen der
   // Shop-Kategorie „Gemüsekonserven“. In Wasser/Aufguss zählt das Abtropfgewicht — die Werte je 100 g gelten fürs abgetropfte
-  // Erzeugnis (bezogen auf den Doseninhalt mit Aufguss hätten die Bohnen 9,7–12,9 g Eiweiß je 100 g, mehr als gekochte Bohnen) —,
+  // Erzeugnis (bezogen auf den Doseninhalt mit Aufguss hätten die Bohnen 10,6–12,9 g Eiweiß je 100 g, mehr als gekochte Bohnen) —,
   // in Soße der ganze Inhalt (die Seite nennt kein Abtropfgewicht, die Soße isst man mit). Nicht aufgenommen: Trockenbohnen
   // (ungekocht), grüne Bohnen (Gemüse → „Edamame, peas & veg“), Gemüsemischungen mit wenig Bohnen (Chili Mix, Goldmais Texas Mix),
-  // Bohnen-Eintöpfe (Fertiggerichte), GUT&GÜNSTIG Kidneybohnen 3 × 200 g (gerade nicht verfügbar; dieselben Bohnen wie die 400-g-Dose)
+  // Bohnen-Eintöpfe (Fertiggerichte), GUT&GÜNSTIG Kidneybohnen 3 × 200 g (gerade nicht verfügbar; dieselben Bohnen wie die 400-g-Dose).
+  // Auf Wunsch wieder raus (User 19.10.2026, später): die 800-g-Dosen (EDEKA Herzstücke Kidneybohnen, Bonduelle Kidney Bohnen,
+  // GUT&GÜNSTIG Weiße Bohnen) und die Baked Beans mit mehr als 4 g Zucker je 100 g (EDEKA Herzstücke mit Ahornsirup 4,1 g,
+  // HEINZ 4,3 g, Rapunzel 5,31 g)
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Bio-Kidney-Bohnen-400-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Kidneybohnen-400-g.html"],
-  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Kidneybohnen-800-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Alnatura-Bio-Kidney-Bohnen-360-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Kidney-Bohnen-200-g.html"],
-  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Kidney-Bohnen-800-g.html"],
-  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/GUT-GUeNSTIG-Weisse-Bohnen-800g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Schwarze-Bohnen-400-g.html"],   // WAITING
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Bio-Cannellini-Bohnen-400g.html"],   // WAITING
   // … in Soße (ganzer Inhalt)
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Chili-Bohnen-400-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Bio-Baked-Beans-350g.html"],
-  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Baked-Beans-mit-Ahornsirup-400-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Alnatura-Bio-Baked-Beans-360-g.html"],
-  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Rapunzel-Bio-Baked-Beans-weisse-Bohnen-in-Tomatensauce-400-g.html"],
-  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/HEINZ-Baked-Beanz-415-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Rapunzel-Bio-Gigantes-Riesenbohnen-in-Tomatensauce-230-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bazar-Weisse-Bohnen-Mediterraner-Art-300-g.html"],
   // 8. Edamame / Erbsen / Gemüse Konserven
@@ -226,7 +223,7 @@ const WAITING = new Set([
 
 // Marken (längster Treffer am Namensanfang gewinnt) — für „Marke · Produkt“ in der Einkaufsliste
 const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Bazar", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle",
-  "Bürger", "Driscoll's", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "GUT&GÜNSTIG", "HEINZ", "Herta Finesse", "ITA-SAN", "LAC",
+  "Bürger", "Driscoll's", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
   "Like MEAT", "LIKE", "Mestemacher", "MILRAM", "müller", "Müller", "planted", "Poensgen", "Rapunzel", "reis-fit", "Saupiquet",
   "Schwarzwaldmilch", "Taifun", "Tilda"];
 
@@ -772,6 +769,7 @@ async function main() {
         "User 26.09.2026: Driscoll's Himbeeren mit allgemeinen Himbeer-Werten (USDA FoodData Central #167755) statt der Werte der tiefgefrorenen EDEKA-Himbeeren",
         "User 22.09.2026: neue Kategorie „Fisch“ (Forelle, 2× Räucherlachs, 2× Thunfisch in Dosen); Schalter „No tuna“ (Default AN) und „No fish“ (Default AUS — ausdrücklich gegen die „No …“-Regel vom 13.09.2026); die Krone-Forelle mit den Werten der verlinkten Herstellerseite",
         "User 19.10.2026: Bohnen in der Dose, sofort verzehrbar, in „Beans & chickpeas (tins)“ — alle Bohnen-Konserven der Shop-Kategorie „Gemüsekonserven“: in Wasser mit Abtropfgewicht (EDEKA Bio Kidney Bohnen, EDEKA Herzstücke Kidneybohnen 400 und 800 g, Alnatura Bio Kidney Bohnen, Bonduelle Kidney Bohnen 200 und 800 g, GUT&GÜNSTIG Weiße Bohnen 800 g), in Soße mit dem ganzen Inhalt (EDEKA Herzstücke Chili-Bohnen, Baked Beans von EDEKA Bio, EDEKA Herzstücke, Alnatura, Rapunzel und HEINZ, Rapunzel Gigantes Riesenbohnen, Bazar Weiße Bohnen mediterran). Gerade nicht verfügbar und deshalb noch ohne Werte (WAITING): EDEKA Herzstücke Schwarze Bohnen, EDEKA Bio Cannellini Bohnen. Nicht aufgenommen: Trockenbohnen (ungekocht), grüne Bohnen, Gemüsemischungen mit wenig Bohnen, Bohnen-Eintöpfe, GUT&GÜNSTIG Kidneybohnen 3 × 200 g",
+        "User 19.10.2026 (später): „Die 800 g und Baked Beans mit über 4 g Zucker pro 100 g können raus“ → nicht mehr im Tracker: EDEKA Herzstücke Kidneybohnen 800 g, Bonduelle Kidney Bohnen 800 g, GUT&GÜNSTIG Weiße Bohnen 800 g, EDEKA Herzstücke Baked Beans mit Ahornsirup (4,1 g Zucker je 100 g), HEINZ Baked Beanz (4,3 g), Rapunzel Bio Baked Beans (5,31 g). Es bleiben die Baked Beans von EDEKA Bio (3,2 g) und Alnatura (3,4 g); die EDEKA Herzstücke Chili-Bohnen (4,5 g Zucker) sind keine Baked Beans und bleiben",
         "User 13.10.2026: fertige Reis-Mischungen (auch mit Bohnen oder Gemüse) in „Carbs & bases“ — alle verzehrfertigen Beutel der Shop-Kategorien „Reis“ und „Fertiggerichte“, die eine Mischung sind (gewürzt, mit Gemüse/Hülsenfrüchten oder aus mehreren Reissorten): 11× Ben's Original, 3× reis-fit, 2× GUT&GÜNSTIG, 1× Tilda. Nicht aufgenommen: sortenreine Express-Beutel und die alten 250-g-Größen von Ben's Original",
         "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere",
       ],
