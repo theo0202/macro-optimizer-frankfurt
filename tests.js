@@ -148,6 +148,73 @@ const rBase = T.alaCarteCombos(tgt(40, 50, 10), "macros", {}, [Bq, C, Dd, E], 2,
 check("baseItems: in jeder Kombo enthalten", rBase.every(r => r.items.some(x => x.id === "a")), true);
 check("baseItems: 'nur Basis' möglich + Top-1 = a+b", rBase.some(r => r.items.length === 1) && ids(rBase[0]) === "a|b", true);
 check("opts {} = identisch zu ohne opts", JSON.stringify(T.alaCarteCombos(tgt(45, 70, 20), "macros", {}, POOL, 3, {}).map(r => r.nutrition)) === JSON.stringify(rTri.map(r => r.nutrition)), true);
+// Schneller Weg (19.10.2026, ohne Ergebnis-Filter/Dedup): nur die besten Kandidaten je Stufe werden ausformuliert. Referenz = die bisherige
+// vollständige Ausformulierung (Singles + alle Paare, Beam über die besten 80, ab Stufe 4 nur verbessernde Zusätze) — Ergebnis muss identisch sein
+function acCombosFull(t, mode, p, pool, maxN, o) {
+  pool = pool.filter(x => !T.isShellfish(x));
+  const dk = o.distinctBy || null, distinctOk = dk ? (items, x) => { const k = dk(x); return !items.some(y => dk(y) === k); } : null;
+  const B = o.baseItems && o.baseItems.length ? o.baseItems : null, cents = x => Math.round((x.price || 0) * 100);
+  const mp = o.maxPrice == null || o.maxPrice === "" ? NaN : Number(o.maxPrice), budget = isFinite(mp) ? Math.round(mp * 100) : Infinity;
+  if (B && B.reduce((a, x) => a + cents(x), 0) > budget) return [];
+  const mk = items => { const c = items.reduce((a, x) => a + cents(x), 0); if (c > budget) return null;
+    const n = T.sumN(items, 1), r = { items, nutrition: n, score: T.score(n, t, mode, p) }; if (o.priced) r.price = c / 100; return r; };
+  const R = [], byScore = (a, b) => a.score - b.score;
+  if (B) R.push(mk(B.slice()));
+  if (maxN >= 1) for (const x of pool) { const r = mk(B ? [...B, x] : [x]); if (r) R.push(r); }
+  if (maxN >= 2) {
+    const pairs = [];
+    for (let i = 0; i < pool.length; i++) for (let j = i; j < pool.length; j++) {
+      if (dk && dk(pool[i]) === dk(pool[j])) continue;
+      const r = mk(B ? [...B, pool[i], pool[j]] : [pool[i], pool[j]]); if (!r) continue; R.push(r); pairs.push(r);
+    }
+    if (maxN >= 3) {
+      pairs.sort(byScore);
+      const seen = new Set(); let frontier = [];
+      for (const pr of pairs.slice(0, 80)) for (const x of pool) {
+        if (distinctOk && !distinctOk(pr.items, x)) continue;
+        const items = [...pr.items, x], key = items.map(y => y.id).sort().join("|");
+        if (seen.has(key)) continue; seen.add(key);
+        const r = mk(items); if (!r) continue; R.push(r); frontier.push(r);
+      }
+      let depth = 3;
+      while (depth < maxN && depth < 12 && frontier.length) {
+        frontier.sort(byScore); frontier = frontier.slice(0, 80);
+        const next = [];
+        for (const pr of frontier) for (const x of pool) {
+          if (distinctOk && !distinctOk(pr.items, x)) continue;
+          const items = [...pr.items, x], key = items.map(y => y.id).sort().join("|");
+          if (seen.has(key)) continue; seen.add(key);
+          const r = mk(items); if (r && r.score < pr.score) { R.push(r); next.push(r); }
+        }
+        frontier = next; depth++;
+      }
+    }
+  }
+  R.sort(byScore);
+  return R.slice(0, 20);
+}
+check("alaCarteCombos, schneller Weg ohne Filter/Dedup = vollständige Ausformulierung: identische Top 20 (Items, Reihenfolge, Score, Preis, Nährwerte) in 160 Zufallsfällen — mit wertgleichen Items (Gleichstände), Basis, Preislimit, distinctBy, maxN 2/3/4/5/∞, Makro- und Kalorien-Modus", (() => {
+  let seed = 20261019;
+  const rnd = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; };
+  const pick = a => a[Math.floor(rnd() * a.length)];
+  const mkItem = (id, src) => { const P = src ? src.protein : Math.round(rnd() * 40), Cc = src ? src.carbs : Math.round(rnd() * 70), F = src ? src.fat : Math.round(rnd() * 25 * 10) / 10;
+    return { id, name: id, cat: "x", kcal: Math.round((4 * P + 4 * Cc + 9 * F) * 10) / 10, fat: F, sat: 0, carbs: Cc, sugars: 0, fibre: src ? src.fibre : Math.round(rnd() * 8), protein: P, salt: src ? src.salt : Math.round(rnd() * 30) / 10,
+      price: src ? src.price : Math.round((0.5 + rnd() * 4) * 100) / 100 }; };
+  for (let k = 0; k < 160; k++) {
+    const n = 4 + Math.floor(rnd() * 40), pool = [];
+    for (let i = 0; i < n; i++) pool.push(i > 2 && rnd() < 0.2 ? mkItem("p" + i, pick(pool)) : mkItem("p" + i));   // 20 % Klone → Gleichstände
+    const base = rnd() < 0.3 ? [mkItem("b0"), ...(rnd() < 0.5 ? [mkItem("b1")] : [])] : [];
+    const t = { protein: 20 + Math.round(rnd() * 120), carbs: 20 + Math.round(rnd() * 160), fat: 5 + Math.round(rnd() * 50), fibMin: rnd() < 0.2 ? 10 : null, fibMax: null, sMin: null, sMax: rnd() < 0.2 ? 3 : null };
+    t.kcal = t.protein * 4 + t.carbs * 4 + t.fat * 9;
+    const mode = rnd() < 0.6 ? "macros" : "calories", p = mode === "calories" ? { hp: rnd() < 0.5, lf: rnd() < 0.5, lc: rnd() < 0.3 } : {};
+    const o = { baseItems: base, priced: true, maxPrice: rnd() < 0.3 ? 6 + Math.round(rnd() * 14) : null };
+    if (rnd() < 0.2) o.distinctBy = x => x.id;
+    const maxN = pick([2, 3, 4, 5, Infinity]);
+    const sig = rs => JSON.stringify(rs.map(r => [r.items.map(x => x.id).join(","), r.score, r.price, r.nutrition]));
+    if (sig(T.alaCarteCombos(t, mode, p, pool, maxN, o)) !== sig(acCombosFull(t, mode, p, pool, maxN, o))) return false;
+  }
+  return true;
+})(), true);
 const SHRIMP = it("garnelen", "x", 40, 10, 5, { name: "Garnelen Bowl" });
 check("Schalentier nie im Ergebnis (auch bei exaktem Treffer)", T.alaCarteCombos(tgt(10, 40, 5), "macros", {}, [SHRIMP, ...POOL], 3).every(r => r.items.every(x => x.id !== "garnelen")), true);
 
@@ -2168,15 +2235,27 @@ const BEANS_SAUCE = [["EDEKA Herzstücke Chili-Bohnen 400 g", 400], ["EDEKA Bio 
 // auf Wunsch wieder raus (User 19.10.2026, später): die 800-g-Dosen und Baked Beans mit mehr als 4 g Zucker je 100 g
 const BEANS_REMOVED = ["EDEKA Herzstücke Kidneybohnen 800 g", "Bonduelle Kidney Bohnen 800 g", "GUT&GÜNSTIG Weiße Bohnen 800g",
   "EDEKA Herzstücke Baked Beans mit Ahornsirup 400 g", "Rapunzel Bio Baked Beans weiße Bohnen in Tomatensauce 400 g", "HEINZ Baked Beanz 415 g"];
+// Bowl-Zutaten aus Dose und Glas (User 19.10.2026: „ähnliche Dosengemüse oder Hülsenfrüchte, die man gut zur Bowl mit Reis und Huhn hineinschmeißen kann“)
+const BOWL_PULSES = ["Alnatura Bio Kichererbsen 330 g", "EDEKA Bio Kichererbsen 350 g", "EDEKA Herzstücke Kichererbsen 300 g", "EDEKA Herzstücke Kichererbsen 400 g", "GUT&GÜNSTIG Kichererbsen 400 g",
+  "Bonduelle Linsen 400 g", "EDEKA Bio Braune Linsen 400 g", "EDEKA Herzstücke Braune Linsen 400 g"];
+const BOWL_VEG = ["Bonduelle Goldmais 150 g", "Bonduelle Goldmais 300 g", "Bonduelle Bio Goldmais 300 g", "Bonduelle Goldmais Junge Ernte 300 g", "EDEKA Herzstücke Supersweet Mais 150 g",
+  "EDEKA Herzstücke Supersweet Mais 330 g", "GUT&GÜNSTIG Sonnenmais 330 g", "Alnatura Bio Mais 340 g", "Bonduelle Goldmais Mexiko Mix 300 g", "EDEKA Herzstücke Mexiko Mix 300g",
+  "Bonduelle Goldmais Texas Mix 300 g", "EDEKA Herzstücke Junge Erbsen 330 g", "EDEKA Bio Erbsen 340 g", "GUT&GÜNSTIG Junge Erbsen sehr fein 400 g", "EDEKA Bio Erbsen mit Möhren 340 g",
+  "GUT&GÜNSTIG Junge Erbsen mit Möhrchen sehr fein 400 g", "Bonduelle Edamame 155 g", "Bonduelle Grüne Bohnen feine Auslese 400 g", "EDEKA Herzstücke Brechbohnen sehr fein 530 g",
+  "Diamond Bambusstreifen 330 g", "Diamond Mungobohnenkeimlinge fein 330 g", "Diamond China Gemüse 330 g", "EDEKA Herzstücke Artischockenherzen 400 g",
+  "FEINKOST DITTMANN Spanische Artischockenherzen Natur 390 g", "FEINKOST DITTMANN Spanische Artischockenböden 390 g", "Korean Street Kimchi 160 g"];
+const BOWL_MUSH = ["EDEKA Herzstücke Champignons 1. Wahl 330 g", "EDEKA Herzstücke Champignons in Scheiben 530 g", "EDEKA Herzstücke Champignons ganze Köpfe 330 g",
+  "EDEKA Herzstücke Champignons Minis 330 g", "GUT&GÜNSTIG Champignons geschnitten 290 g", "GUT&GÜNSTIG Champignons, ganze Köpfe 400 g", "EDEKA Herzstücke Pilz Melange, waldfrisch 290 g",
+  "GUT&GÜNSTIG Feine Pilzmischung 290 g", "EDEKA Herzstücke Pfifferlinge 180 g", "Waldschatz Pfifferlinge 290 g"];
 const BEANS_WAITING = ["EDEKA Herzstücke Schwarze Bohnen 400 g", "EDEKA Bio Cannellini Bohnen 400g"];   // beim Aufnehmen gerade nicht verfügbar (WAITING)
-check("Bohnen-Konserven (User 19.10.2026): 9 neue Dosen in „Beans & chickpeas (tins)“ hinter den 6 bisherigen — 4 in Wasser mit dem Abtropfgewicht, 5 in Soße mit dem ganzen Inhalt; Werte je 100 g = Produktseite, Preis und Link vom Markt", (() => {
+check("Bohnen-Konserven (User 19.10.2026): 9 neue Dosen in „Beans, chickpeas & lentils (tins)“ hinter den 6 bisherigen (danach die 8 Kichererbsen-/Linsen-Dosen der Bowl-Zutaten) — 4 in Wasser mit dem Abtropfgewicht, 5 in Soße mit dem ganzen Inhalt; Werte je 100 g = Produktseite, Preis und Link vom Markt", (() => {
   const beans = EDD.items.filter(x => x.cat === "beans"), names = beans.slice(6).map(x => x.name).filter(n => !BEANS_WAITING.includes(n));
   const one = (n, g, pack, drained) => { const x = edItem(U.slugId(n)), r = edRaw(n);
     return !!x && !!r && x.cat === "beans" && x.g === g && x.pack === pack && !!x.drained === drained && (drained ? r.drainedG === g && g < pack : r.drainedG == null) &&
       x.price > 0 && x.price === r.price && /^https:\/\/graf-ffm\.edeka\.shop\/Nahrungsmittel-EDEKA\/Konserven-Feinkost\/Gemuesekonserven\//.test(x.url) && /je\s*100\s*g/.test(r.basis) &&
       !r.noData && r.fibreDeclared && U.KEYS.every(k => x.p100[k] === U.round(r.per100[k] || 0, 2)) && !x.frozen && !x.fish && !x.tuna && !x.ref; };
-  return beans.length === 15 + beans.filter(x => BEANS_WAITING.includes(x.name)).length &&
-    names.join("|") === [...BEANS_WATER, ...BEANS_SAUCE].map(b => b[0]).join("|") &&
+  return beans.length === 23 + beans.filter(x => BEANS_WAITING.includes(x.name)).length &&
+    names.join("|") === [...BEANS_WATER, ...BEANS_SAUCE].map(b => b[0]).concat(BOWL_PULSES).join("|") &&
     BEANS_WATER.every(([n, pack, dr]) => one(n, dr, pack, true)) && BEANS_SAUCE.every(([n, pack]) => one(n, pack, pack, false)) &&
     [...BEANS_WATER, ...BEANS_SAUCE].map(b => edItem(U.slugId(b[0])).brand).join() ===
       "EDEKA Bio,EDEKA Herzstücke,Alnatura,Bonduelle,EDEKA Herzstücke,EDEKA Bio,Alnatura,Rapunzel,Bazar";
@@ -2205,12 +2284,41 @@ check("Beim Aufnehmen gerade nicht verfügbar (WAITING): EDEKA Herzstücke Schwa
 check("Bohnen-Konserven: Werte stimmig (kcal ↔ Makros), kein Schalentier, weder Koriander noch Minze; nicht im Tracker: Trockenbohnen, grüne Bohnen, Gemüsemischungen mit wenig Bohnen, Bohnen-Eintöpfe, der 3×200-g-Pack — und auf Wunsch (User 19.10.2026, später) die 800-g-Dosen und Baked Beans mit mehr als 4 g Zucker je 100 g", (() => {
   const raws = [...BEANS_WATER, ...BEANS_SAUCE].map(b => edRaw(b[0]));
   return raws.every(r => U.checkItem({ ...r.per100, fibre: r.per100.fibre || 0 }).length === 0 && !r.shellfish && !r.herbs && !!r.ingredients && /bohnen|beans/i.test(r.legal || r.name)) &&
-    !EDD.items.some(x => /Müller´s Mühle|Mungobohnen|Chili Mix|Texas Mix|Mexiko Mix|Eintopf|Bohnensuppe|Brechbohnen|Grüne Bohnen|Kidneybohnen 3 x 200 g/.test(x.name)) &&
+    !EDD.items.some(x => /Müller´s Mühle|Alnatura Bio Mungobohnen|Chili Mix|Eintopf|Bohnensuppe|Junge Brechbohnen 800 g|Kidneybohnen 3 x 200 g/.test(x.name)) &&
     rawED._meta.decisions.some(d => /^User 19[.]10[.]2026: Bohnen in der Dose/.test(d)) &&
     BEANS_REMOVED.every(n => !edRaw(n) && !edItem(U.slugId(n))) && !EDD.items.some(x => x.cat === "beans" && /\b800 ?g\b/.test(x.name)) &&
     EDD.items.filter(x => /Baked Beans?z?\b/.test(x.name)).map(x => x.name).join("|") === "EDEKA Bio Baked Beans 350g|Alnatura Bio Baked Beans 360 g" &&
     EDD.items.filter(x => /Baked Beans?z?\b/.test(x.name)).every(x => x.p100.sugars <= 4) &&
     rawED._meta.decisions.some(d => /^User 19[.]10[.]2026 \(später\): „Die 800 g und Baked Beans mit über 4 g Zucker/.test(d));
+})(), true);
+check("Bowl-Zutaten (User 19.10.2026): 44 neue Dosen und Gläser — 5 Kichererbsen + 3 Linsen in „Beans, chickpeas & lentils (tins)“, 26 in „Edamame, peas & veg (tins)“ (8× Mais, 3 Mais-Mischungen, 5× Erbsen, Edamame, 2× grüne Bohnen, 3× asiatisch, 3× Artischocken in Lake, Kimchi) und 10 Pilz-Dosen/-Gläser in der neuen Kategorie „Mushrooms (tins)“; Werte = Produktseite, Abtropfgewicht (Kimchi: ganzer Inhalt), Preis und Link vom Markt", (() => {
+  const cat = id => EDD.items.filter(x => x.cat === id).map(x => x.name), ids = EDD.cats.map(c => c.id);
+  const one = (n, c) => { const x = edItem(U.slugId(n)), r = edRaw(n);
+    return !!x && !!r && x.cat === c && x.price > 0 && x.price === r.price && /^https:\/\/graf-ffm\.edeka\.shop\/Nahrungsmittel-EDEKA\/Konserven-Feinkost\/(Gemuesekonserven|Sauerkonserven)\//.test(x.url) &&
+      /je\s*100\s*g/.test(r.basis) && !r.noData && U.KEYS.every(k => x.p100[k] === U.round(r.per100[k] || 0, 2)) && x.pack === r.packG && r.packG < 600 &&
+      (n === "Korean Street Kimchi 160 g" ? !x.drained && x.g === x.pack : x.drained === true && x.g === r.drainedG && x.g < x.pack); };
+  return ids.indexOf("mushrooms") === ids.indexOf("veg_tins") + 1 && EDD.cats.find(c => c.id === "mushrooms").name === "Mushrooms (tins)" &&
+    EDD.cats.find(c => c.id === "beans").name === "Beans, chickpeas & lentils (tins)" &&
+    cat("beans").filter(n => !BEANS_WAITING.includes(n)).slice(-8).join("|") === BOWL_PULSES.join("|") &&
+    cat("veg_tins").slice(11).join("|") === BOWL_VEG.join("|") && cat("mushrooms").join("|") === BOWL_MUSH.join("|") &&
+    BOWL_PULSES.every(n => one(n, "beans")) && BOWL_VEG.every(n => one(n, "veg_tins")) && BOWL_MUSH.every(n => one(n, "mushrooms"));
+})(), true);
+check("Bowl-Zutaten, Beispiele je ganzer Dose: Alnatura Kichererbsen 220 g abgetropft = 281,6 kcal / 19,8 g E · GUT&GÜNSTIG Kichererbsen 265 g = 310,1 kcal / 18 g E · Bonduelle Linsen 265 g = 241,2 kcal / 18,3 g E · GUT&GÜNSTIG Erbsen 280 g = 201,6 kcal / 15,4 g E · Bonduelle Edamame 130 g = 161,2 kcal / 14,3 g E · Champignons 200 g = 40 kcal / 4,6 g E · Kimchi 160 g ganz = 56 kcal / 3,4 g Salz", (() => {
+  const s = n => { const x = edItem(U.slugId(n)); return T.edekaScale(x, x.g); };
+  const near = (a, b) => Math.abs(a - b) < 0.051;
+  const al = s("Alnatura Bio Kichererbsen 330 g"), gg = s("GUT&GÜNSTIG Kichererbsen 400 g"), li = s("Bonduelle Linsen 400 g"), er = s("GUT&GÜNSTIG Junge Erbsen sehr fein 400 g");
+  const ed = s("Bonduelle Edamame 155 g"), ch = s("EDEKA Herzstücke Champignons 1. Wahl 330 g"), ki = s("Korean Street Kimchi 160 g");
+  return near(al.kcal, 281.6) && near(al.protein, 19.8) && /\(220 g drained\)$/.test(al.name) && near(gg.kcal, 310.1) && near(gg.protein, 18) &&
+    near(li.kcal, 241.2) && near(li.protein, 18.3) && near(er.kcal, 201.6) && near(er.protein, 15.4) && near(ed.kcal, 161.2) && near(ed.protein, 14.3) &&
+    near(ch.kcal, 40) && near(ch.protein, 4.6) && near(ki.kcal, 56) && near(ki.salt, 3.4) && ki.name === "Korean Street Kimchi 160 g";
+})(), true);
+check("Bowl-Zutaten: Werte stimmig, kein Schalentier, weder Koriander noch Minze; das Kimchi enthält Thunfisch-Extrakt → Fisch und „No tuna“. Nach den Regeln vom selben Tag nicht drin: Dosen ab 600 g, Mehrfachpacks, Zuckerzusatz mit mehr als 4 g Zucker je 100 g (Rote Bete, geröstete Paprika, Paprikastreifen, Maiskölbchen, Chili Mix); dazu Artischocken in Öl", (() => {
+  const all = [...BOWL_PULSES, ...BOWL_VEG, ...BOWL_MUSH], raws = all.map(edRaw), items = all.map(n => edItem(U.slugId(n))), ki = edItem(U.slugId("Korean Street Kimchi 160 g"));
+  const sweet = r => /zucker|sirup|honig/i.test((r.ingredients || "").replace(/kann spuren[\s\S]*$/i, "")) && r.per100.sugars > 4;
+  return raws.every(r => !!r && U.checkItem({ ...r.per100, fibre: r.per100.fibre || 0 }).length === 0 && !r.shellfish && !r.herbs && !sweet(r) && r.packG < 600 && !/\d\s*x\s*\d/i.test(r.name)) &&
+    ki.fish === true && ki.tuna === true && items.filter(x => x.fish || x.tuna).length === 1 &&
+    !EDD.items.some(x => /Rote Bete|Geröstete Paprika|Gerösteter Paprika|Paprika geröstet|Paprika in Streifen|Herzstücke Rote Paprika|Maiskölbchen|Chili Mix|Artischock.*(Toscana|Knoblauch|geschnitten|Marinade)|gegrillte Artischocken|Artischocken Herzen 125 g|Minis 800 g|Sonnenmais 3 x|Erbsen.*3 x|Goldmais 600 g/.test(x.name)) &&
+    rawED._meta.decisions.some(d => /^User 19[.]10[.]2026 \(Bowl-Zutaten\)/.test(d));
 })(), true);
 check("Im Shop umbenannt (13.10.2026): „Snackster, Minigurken“, „Snackster, Mini Pflaumen Tomaten“ und „LIKE Like Chicken“ zeigen den neuen Namen, behalten aber ihre id (gespeicherte Picks, Ausschlüsse und meals.json gelten weiter) und ihre Referenzwerte", (() => {
   const gu = edItem("edeka_herzstuecke_minigurken_klasse_i_230g"), to = edItem("edeka_herzstuecke_mini_pflaumen_tomaten_klasse_i_250g"), li = edItem("like_meat_like_chicken_180_g");
@@ -2224,20 +2332,20 @@ check("Im Shop umbenannt (13.10.2026): „Snackster, Minigurken“, „Snackster
     U.readJSON(__dirname + "/data/meals.json").meals.find(m => m.id === "m12").items.includes("EDEKA Herzstücke Minigurken Klasse I 230g") && m12.items.some(x => x.id === gu.id && x.g === 230);
 })(), true);
 check("Gerade nicht verfügbar ≠ Daten weg: jede Konserve in Aufguss behält ihr Abtropfgewicht (Bohnen in Soße zählen den ganzen Inhalt) und jedes TK-Gericht sein Tiefkühl-Kennzeichen — auch wenn die Shop-Seite sie gerade ausblendet (13.10.2026: Kidneybohnen, Kichererbsen, Nasi/Bami Goreng)", (() => {
-  const sauce = BEANS_SAUCE.map(b => b[0]), tins = EDD.items.filter(x => (x.cat === "beans" || x.cat === "veg_tins") && !sauce.includes(x.name)), tk = EDD.items.filter(x => x.cat === "tkmeals");
+  const sauce = BEANS_SAUCE.map(b => b[0]).concat("Korean Street Kimchi 160 g"), tins = EDD.items.filter(x => ["beans", "veg_tins", "mushrooms"].includes(x.cat) && !sauce.includes(x.name)), tk = EDD.items.filter(x => x.cat === "tkmeals");
   const un = rawED.items.filter(x => x.unavailable);
-  return tins.length === 21 + EDD.items.filter(x => BEANS_WAITING.includes(x.name)).length && tins.every(x => x.drained === true && x.g < x.pack && x.g > 0) &&
+  return tins.length === 64 + EDD.items.filter(x => BEANS_WAITING.includes(x.name)).length && tins.every(x => x.drained === true && x.g < x.pack && x.g > 0) &&
     sauce.every(n => { const x = edItem(U.slugId(n)); return !!x && !x.drained && x.g === x.pack; }) && tk.length === 6 && tk.every(x => x.frozen === true) &&
-    EDD.items.filter(x => x.drained).length === 23 + EDD.items.filter(x => BEANS_WAITING.includes(x.name)).length &&
+    EDD.items.filter(x => x.drained).length === 66 + EDD.items.filter(x => BEANS_WAITING.includes(x.name)).length &&
     // nicht verfügbare Produkte: letzter Preis + Hinweis, Werte vorhanden, Zutaten/Lagerung aus dem vorigen Lauf übernommen
     un.every(x => x.price > 0 && /temporarily not available/.test(x.priceNote) && U.KEYS.some(k => x.per100[k] > 0) && !x.noData && (!!x.storage || !!x.ingredients)) &&
     rawED._meta.unavailable.length === un.length;
 })(), true);
-const ED_N = 140;   // Produkte des Marktes im Tracker (bis 12.10.2026: 114; 13.10.2026: + 17 fertige Reis-Mischungen; 19.10.2026: + 9 Bohnen-Konserven)
-check("Alle 140 Produkte im Tracker, 22 Kategorien wie vom User gruppiert (22.09.2026 dazu: Fish 5; 24.09.2026: Eat Happy Bowls 5 + Sushi 2, 3 Burritos in „Sandwiches & Wraps“, Berries 2, Fresh vegetables 6; 13.10.2026: Carbs & bases 23; 19.10.2026: Beans & chickpeas 15), alle Chips an",
+const ED_N = 184;   // Produkte des Marktes im Tracker (bis 12.10.2026: 114; 13.10.2026: + 17 fertige Reis-Mischungen; 19.10.2026: + 9 Bohnen-Konserven und 44 Bowl-Zutaten)
+check("Alle 184 Produkte im Tracker, 23 Kategorien wie vom User gruppiert (22.09.2026 dazu: Fish 5; 24.09.2026: Eat Happy Bowls 5 + Sushi 2, 3 Burritos in „Sandwiches & Wraps“, Berries 2, Fresh vegetables 6; 13.10.2026: Carbs & bases 23; 19.10.2026: Beans, chickpeas & lentils 23, Edamame, peas & veg 37, Mushrooms 10), alle Chips an",
   rawED.items.length === ED_N && EDD.items.length === ED_N && rawED._meta.noData.length === 0 && EDD.items.filter(x => x.cat === "carbs").length === 23 &&
-  EDD.items.filter(x => x.cat === "beans").length === 15 &&
-  EDD.cats.length === 22 && EDD.cats.every(c => c.on === true) && EDD.cats[0].id === "carbs" && EDD.cats[21].id === "waffles" &&
+  EDD.items.filter(x => x.cat === "beans").length === 23 && EDD.items.filter(x => x.cat === "veg_tins").length === 37 && EDD.items.filter(x => x.cat === "mushrooms").length === 10 &&
+  EDD.cats.length === 23 && EDD.cats.every(c => c.on === true) && EDD.cats[0].id === "carbs" && EDD.cats[22].id === "waffles" &&
   EDD.cats.map(c => c.id).join().indexOf("fresh_veg,berries,gyoza,eh_bowls,eh_sushi,maultaschen") > 0 &&
   EDD.items.filter(x => x.cat === "fresh_veg").length === 6 && EDD.items.filter(x => x.cat === "berries").length === 2 &&
   EDD.items.filter(x => x.cat === "tkmeals").length === 6 &&
@@ -2258,9 +2366,9 @@ check("Jedes Produkt: Werte je 100 g, Menge, Packungsmenge, Preis (oder der Hinw
   EDD.items.every(x => x.g > 0 && x.pack > 0 && (typeof x.price === "number" || (x.price === null && /no price online/.test(x.priceNote))) &&
     (x.offline ? x.url === null && x.price === null : /^https:\/\/(graf-ffm\.edeka\.shop|www\.frosta\.de|www\.eathappy\.de\/produkte|www\.edeka\.de\/sortiment)\//.test(x.url) && !!x.brand) &&
     T.KEYS.every(k => typeof x.p100[k] === "number" && isFinite(x.p100[k]) && x.p100[k] >= 0)) && T.edekaValidate().length === 0, true);
-check("Konserven zählen das Abtropfgewicht (User 19.09.2026): 23 Produkte (seit 22.09.2026 mit 2 Thunfisch-Dosen, seit 19.10.2026 mit 4 weiteren Bohnen-Dosen), Bonduelle Kidney Bohnen 250 g von 400 g → 92 kcal je 100 g = 230 kcal / 18 g Eiweiß", (() => {
+check("Konserven zählen das Abtropfgewicht (User 19.09.2026): 66 Produkte (seit 22.09.2026 mit 2 Thunfisch-Dosen, seit 19.10.2026 mit 4 weiteren Bohnen-Dosen und 43 Bowl-Zutaten), Bonduelle Kidney Bohnen 250 g von 400 g → 92 kcal je 100 g = 230 kcal / 18 g Eiweiß", (() => {
   const raw = edRaw("Bonduelle Kidney Bohnen 400 g"), it = edItem(U.slugId("Bonduelle Kidney Bohnen 400 g")), sc = T.edekaScale(it, it.g);
-  return EDD.items.filter(x => x.drained).length === 23 + EDD.items.filter(x => BEANS_WAITING.includes(x.name)).length && raw.drainedG === 250 && raw.packG === 400 && it.g === 250 && it.pack === 400 && it.p100.kcal === 92 &&
+  return EDD.items.filter(x => x.drained).length === 66 + EDD.items.filter(x => BEANS_WAITING.includes(x.name)).length && raw.drainedG === 250 && raw.packG === 400 && it.g === 250 && it.pack === 400 && it.p100.kcal === 92 &&
     Math.abs(sc.kcal - 230) < 0.05 && Math.abs(sc.protein - 18) < 0.05 && Math.abs(sc.carbs - 27.5) < 0.05 && /\(250 g drained\)$/.test(sc.name);
 })(), true);
 check("Immer die ganze Packung (User 19.09.2026): 500-g-Becher, Brötchen-Pack und Brot zählen komplett; nur Konserven weichen ab (Abtropfgewicht)", (() => {
@@ -2347,7 +2455,7 @@ check("Track basket: kein Optimizer (hideResults), Modus im State, Warenkorb und
 check("Einkaufsliste statt Order Guide: je Produkt Kategorie + Name (Marke steht schon im Namen), 🔒 für Picks", (() => {
   const it = edItem(U.slugId("Bonduelle Kidney Bohnen 400 g"));
   const steps = T.orderStepsFor(ED, { items: [T.edekaScale(it, it.g), Object.assign(T.edekaScale(it, 125), { locked: true })] });
-  return steps.length === 2 && steps[0].l === "Beans & chickpeas (tins)" && steps[0].v === "Bonduelle Kidney Bohnen 400 g (250 g drained)" &&
+  return steps.length === 2 && steps[0].l === "Beans, chickpeas & lentils (tins)" && steps[0].v === "Bonduelle Kidney Bohnen 400 g (250 g drained)" &&
     steps[1].v === "🔒 Bonduelle Kidney Bohnen 400 g (125 g drained)";
 })(), true);
 check("Supermarkt bleibt aus All/Accurate heraus, steht aber im Such-Index von „Add own order“", (() => {
@@ -2445,8 +2553,9 @@ check("Schalter „No tuna“ (Default AN) und „No fish“ (Default AUS): Flag
   const res = sws => runED(tgt(60, 20, 10), edState(null, null, sws));
   const one = sws => runED(tgt(35, 1, 1), { ...edState(null, null, sws), maxN:1 });   // ein Produkt, fast nur Eiweiß → Thunfisch ist ideal
   const def = res({}), noFish = res({ noFish:true }), tunaOk = one({ noTuna:false }), tunaDef = one({});
-  return JSON.stringify(tuna) === JSON.stringify(["EDEKA Herzstücke Thunfischfilets in eigenem Saft und Aufguss 185 g", "Saupiquet Thunfisch-Filets Naturale - ohne Öl 185 g"]) &&
-    fish.length === 10 && fish.includes("EDEKA Herzstücke Sandwich Lachs 175 g") && !fish.some(n => /Maultaschen|Gyoza|Skyr|Karaage|Katsu|Vegan|Burrito/.test(n)) &&
+  // seit 19.10.2026 auch das Kimchi (Thunfisch-Extrakt in der Würzmischung, Allergen „Fische“)
+  return JSON.stringify(tuna) === JSON.stringify(["EDEKA Herzstücke Thunfischfilets in eigenem Saft und Aufguss 185 g", "Korean Street Kimchi 160 g", "Saupiquet Thunfisch-Filets Naturale - ohne Öl 185 g"]) &&
+    fish.length === 11 && fish.includes("EDEKA Herzstücke Sandwich Lachs 175 g") && fish.includes("Korean Street Kimchi 160 g") && !fish.some(n => /Maultaschen|Gyoza|Skyr|Karaage|Katsu|Vegan|Burrito/.test(n)) &&
     ["Eat Happy Donburi Lachs Avocado", "Eat Happy Poké Bowl Lachs", "Eat Happy Lachs Avocado Trio", "Eat Happy Futo Nigiri Box"].every(n => fish.includes(n)) &&
     sw("noTuna").def === true && sw("noFish").def === false &&
     def.length > 0 && def.every(r => r.items.every(x => !EDD.items.find(p => p.id === x.id).tuna)) &&
@@ -2464,11 +2573,11 @@ check("Artikel „temporär nicht verfügbar“ (seit 22.09.2026, z.B. Karottens
     (!sticks.unavailable || edRaw("EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g").valuesAsOf === "2026-09-20") &&
     sticks.p100.kcal === 38 && noodles.p100.kcal === 38 && !noodles.unavailable;
 })(), true);
-check("_meta: Quelle, Rechenbasis (Abtropfgewicht, Bohnen in Soße mit ganzem Inhalt), Entscheidungen vom 19.–26.09., 13. und 19.10.2026 (zwei), eine Auffälligkeit (Zucchini), kein Schalentier, 6 Tiefkühl-Gerichte, 61 Produkte ohne Ballaststoff-Angabe",
-  /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && /Soße/.test(rawED._meta.basis) && rawED._meta.decisions.length === 16 &&
+check("_meta: Quelle, Rechenbasis (Abtropfgewicht, Bohnen in Soße mit ganzem Inhalt), Entscheidungen vom 19.–26.09., 13. und 19.10.2026 (drei), eine Auffälligkeit (Zucchini), kein Schalentier, 6 Tiefkühl-Gerichte, 77 Produkte ohne Ballaststoff-Angabe",
+  /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && /Soße/.test(rawED._meta.basis) && rawED._meta.decisions.length === 17 &&
   rawED._meta.decisions.every(d => /^User ((19|20|22|24|26)[.]09|1[39][.]10)[.]2026/.test(d)) && rawED._meta.anomalies.length === 1 && rawED._meta.anomalies[0].name === "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g" &&
   typeof rawED._meta.shellfish === "string" && Array.isArray(rawED._meta.coriander) && Array.isArray(rawED._meta.frozen) && rawED._meta.frozen.length === 6 &&
-  rawED._meta.noFibre.length === 61 && EDD.items.filter(x => x.p100.fibre === 0).length >= 61 && EDD.items.length === ED_N, true);
+  rawED._meta.noFibre.length === 77 && EDD.items.filter(x => x.p100.fibre === 0).length >= 77 && EDD.items.length === ED_N, true);
 
 // ── Eat Happy (Sushi-Theke) und Burritos von edeka.de (User 24.09.2026) ──
 const ehId = name => U.slugId("Eat Happy " + name);
