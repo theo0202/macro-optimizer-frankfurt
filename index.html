@@ -1451,6 +1451,45 @@ const FITKITCHEN = {
 };
 // __FITKITCHEN_DATA_END__
 
+// __BURGERMEISTER_DATA_START__ (generiert via: node burgermeister-update.js aus data/burgermeister-raw.json — nicht von Hand editieren)
+// Quelle: Burgermeister-Nährwerttabelle (Stand AUGUST 2026; offizielle Werte je Produkt, ohne gesättigte Fettsäuren) · Menü, Namen, Preise, Extras: Wolt „burgermeister-frankfurt“, Stand 2026-10-20
+const BURGERMEISTER = {
+  cats: [
+    {id:"burger",name:"Burger",on:true},
+    {id:"extras",name:"Extras (on burger or fries)",on:true},
+    {id:"fries",name:"Fries",on:true},
+    {id:"sauce",name:"Sauce",on:true},
+    {id:"cookies",name:"Cookies",on:true},
+  ],
+  items: [
+    {id:"bm_woltmeister",name:"Woltmeister",cat:"burger",kcal:818,fat:52,sat:0,carbs:46.3,sugars:8.4,fibre:2.9,protein:39.6,salt:2.71,price:8.3,addons:[{group:"Extras dazu?",max:2,opts:{bm_x_patty:"extra Fleisch Patty",bm_x_cheese:"extra Käse Scheibe",bm_x_bacon:"extra Bacon Scheibe"}}]},
+    {id:"bm_hamburger",name:"HAMBURGER",cat:"burger",kcal:543,fat:29.1,sat:0,carbs:42.1,sugars:9.2,fibre:2.3,protein:28,salt:3.17,price:7,addons:[{group:"Extras",max:7,opts:{bm_x_bacon:"extra Bacon Scheibe",bm_x_cheese:"extra Käse Scheibe",bm_x_jalapenos:"extra Jalapeños",bm_x_mushrooms:"extra Champignons",bm_x_onions:"extra gebr. Zwiebeln",bm_x_patty:"extra Fleisch Patty"}}]},
+    {id:"bm_cheeseburger",name:"CHEESEBURGER",cat:"burger",kcal:623,fat:35.6,sat:0,carbs:42.9,sugars:10,fibre:2.3,protein:32.5,salt:4.2,price:8.3,addons:[{group:"Extras",max:7,opts:{bm_x_bacon:"extra Bacon Scheibe",bm_x_cheese:"extra Käse Scheibe",bm_x_jalapenos:"extra Jalapeños",bm_x_mushrooms:"extra Champignons",bm_x_onions:"extra gebr. Zwiebeln",bm_x_patty:"extra Fleisch Patty"}}]},
+    {id:"bm_chili_cheeseburger",name:"CHILI-CHEESEBURGER",cat:"burger",kcal:625,fat:35.6,sat:0,carbs:43.2,sugars:10.2,fibre:2.5,protein:32.7,salt:4.61,price:8.75,addons:[{group:"Extras",max:7,opts:{bm_x_bacon:"extra Bacon Scheibe",bm_x_cheese:"extra Käse Scheibe",bm_x_jalapenos:"extra Jalapeños",bm_x_mushrooms:"extra Champignons",bm_x_onions:"extra gebr. Zwiebeln",bm_x_patty:"extra Fleisch Patty"}}]},
+    {id:"bm_fleischermeister",name:"FLEISCHERMEISTER",cat:"burger",kcal:931,fat:58.1,sat:0,carbs:43.7,sugars:10.3,fibre:2.4,protein:58.6,salt:6.77,price:12.8,addons:[{group:"Extras",max:7,opts:{bm_x_bacon:"extra Bacon Scheibe",bm_x_cheese:"extra Käse Scheibe",bm_x_jalapenos:"extra Jalapeños",bm_x_mushrooms:"extra Champignons",bm_x_onions:"extra gebr. Zwiebeln",bm_x_patty:"extra Fleisch Patty"}}]},
+    {id:"bm_meisterburger",name:"MEISTERBURGER",cat:"burger",kcal:647,fat:37.2,sat:0,carbs:45.7,sugars:11.4,fibre:3,protein:32.4,salt:3.84,price:10.3,addons:[{group:"Extras",max:7,opts:{bm_x_bacon:"extra Bacon Scheibe",bm_x_cheese:"extra Käse Scheibe",bm_x_jalapenos:"extra Jalapeños",bm_x_mushrooms:"extra Champignons",bm_x_onions:"extra gebr. Zwiebeln",bm_x_patty:"extra Fleisch Patty"}}]},
+    {id:"bm_meister_aller_klassen",name:"MEISTER ALLER KLASSEN®",cat:"burger",kcal:1043,fat:67.6,sat:0,carbs:46.5,sugars:13.4,fibre:2.5,protein:62.6,salt:8.13,price:12.9,addons:[{group:"Extras",max:7,opts:{bm_x_bacon:"extra Bacon Scheibe",bm_x_cheese:"extra Käse Scheibe",bm_x_jalapenos:"extra Jalapeños",bm_x_mushrooms:"extra Champignons",bm_x_onions:"extra gebr. Zwiebeln",bm_x_patty:"extra Fleisch Patty"}}]},
+    {id:"bm_hausmeister",name:"HAUSMEISTER®",cat:"burger",kcal:712,fat:43.7,sat:0,carbs:43,sugars:10,fibre:2.6,protein:37.3,salt:4.63,price:10.3,addons:[{group:"Extras",max:7,opts:{bm_x_bacon:"extra Bacon Scheibe",bm_x_cheese:"extra Käse Scheibe",bm_x_jalapenos:"extra Jalapeños",bm_x_mushrooms:"extra Champignons",bm_x_onions:"extra gebr. Zwiebeln",bm_x_patty:"extra Fleisch Patty"}}]},
+    {id:"bm_waldmeister_veggie",name:"WALDMEISTER® (VEGGIE)",cat:"burger",kcal:556,fat:22.9,sat:0,carbs:56.8,sugars:11,fibre:6.6,protein:28.2,salt:3.86,price:9.1,addons:[{group:"Extra",max:6,opts:{bm_x_veggie_patty:"extra Veggie Patty",bm_x_cheese:"extra Käse Scheibe",bm_x_mushrooms:"extra Champignons",bm_x_onions:"extra gebr. Zwiebeln",bm_x_jalapenos:"extra Jalapeños"}}]},
+    {id:"bm_x_patty",name:"extra Fleisch Patty",cat:"extras",kcal:255,fat:19,sat:0,carbs:0,sugars:0,fibre:0,protein:21.5,salt:1.7,price:4,addon:true},
+    {id:"bm_x_veggie_patty",name:"extra Veggie Patty",cat:"extras",kcal:173,fat:4.7,sat:0,carbs:14,sugars:1.1,fibre:4,protein:16.3,salt:1.5,price:4,addon:true},
+    {id:"bm_x_bacon",name:"extra Bacon Scheibe",cat:"extras",kcal:139,fat:10.5,sat:0,carbs:0.4,sugars:0,fibre:0,protein:10.1,salt:0.51,price:1.2,addon:true},
+    {id:"bm_x_cheese",name:"extra Käse Scheibe",cat:"extras",kcal:79,fat:6.5,sat:0,carbs:0.8,sugars:0.8,fibre:0,protein:4.6,salt:1.03,price:1.2,addon:true},
+    {id:"bm_x_jalapenos",name:"extra Jalapeños",cat:"extras",kcal:9,fat:0.2,sat:0,carbs:1.2,sugars:0.7,fibre:0,protein:0.3,salt:0,price:1.2,addon:true},
+    {id:"bm_x_mushrooms",name:"extra Champignons",cat:"extras",kcal:65,fat:6.6,sat:0,carbs:1.2,sugars:0.5,fibre:0.5,protein:0.5,salt:0.47,price:1.2,addon:true},
+    {id:"bm_x_onions",name:"extra gebr. Zwiebeln",cat:"extras",kcal:30,fat:2,sat:0,carbs:2.8,sugars:1.3,fibre:0.4,protein:0.4,salt:0,price:1.2,addon:true},
+    {id:"bm_fries",name:"FRIES",cat:"fries",kcal:600,fat:29,sat:0,carbs:76,sugars:0.6,fibre:4,protein:7,salt:1,price:4.9,addons:[{group:"Extras",max:5,opts:{bm_x_mushrooms:"extra Champignons",bm_x_onions:"extra gebr. Zwiebeln",bm_x_jalapenos:"EXTRA Jalapenos"}}]},
+    {id:"bm_cheese_fries",name:"CHEESE FRIES",cat:"fries",kcal:776,fat:43.7,sat:0,carbs:77.8,sugars:0.9,fibre:4,protein:16.2,salt:2.6,price:5.6,addons:[{group:"Extras",max:5,opts:{bm_x_mushrooms:"extra Champignons",bm_x_onions:"extra gebr. Zwiebeln",bm_x_jalapenos:"EXTRA Jalapenos"}}]},
+    {id:"bm_bacon_onion_fries",name:"BACON & ONION FRIES",cat:"fries",kcal:768,fat:43.1,sat:0,carbs:80.5,sugars:3.6,fibre:4.5,protein:13.6,salt:2.2,price:6.8,addons:[{group:"Extras",max:5,opts:{bm_x_mushrooms:"extra Champignons",bm_x_onions:"extra gebr. Zwiebeln",bm_x_jalapenos:"EXTRA Jalapenos"}}]},
+    {id:"bm_chili_fries",name:"Chili Fries",cat:"fries",kcal:764,fat:40.2,sat:0,carbs:79.8,sugars:3,fibre:6,protein:13.8,salt:1.9,price:7.3,addons:[{group:"Extras",max:5,opts:{bm_x_mushrooms:"extra Champignons",bm_x_onions:"extra gebr. Zwiebeln",bm_x_jalapenos:"EXTRA Jalapenos"}}]},
+    {id:"bm_portion_cheese_sauce_70g",name:"PORTION CHEESE SAUCE 70g",cat:"sauce",kcal:176,fat:14.7,sat:0,carbs:1.8,sugars:0.3,fibre:0,protein:9.2,salt:1.61,price:2.8,sauce:true},
+    {id:"bm_blueberry_cheesecake_cookie",name:"BLUEBERRY CHEESECAKE COOKIE",cat:"cookies",kcal:592,fat:27.4,sat:0,carbs:77.2,sugars:37.9,fibre:2.2,protein:8.5,salt:0.45,price:4.5},
+    {id:"bm_double_chocolate_peanut_chip_cookie",name:"DOUBLE CHOCOLATE PEANUT CHIP COOKIE",cat:"cookies",kcal:548,fat:26.5,sat:0,carbs:70.7,sugars:42.1,fibre:3,protein:7.4,salt:0.73,price:4.5},
+    {id:"bm_chocolate_chip_waltnut_cookie",name:"CHOCOLATE CHIP WALTNUT COOKIE",cat:"cookies",kcal:546,fat:26.7,sat:0,carbs:68.5,sugars:38.8,fibre:2.4,protein:8.5,salt:0.32,price:4.5},
+  ],
+};
+// __BURGERMEISTER_DATA_END__
+
 // __EDEKA_DATA_START__ (generiert via: node edeka-update.js aus data/edeka-raw.json — nicht von Hand editieren)
 // Quelle: Produktseiten des EDEKA-Graf-Onlineshops (https://graf-ffm.edeka.shop, EDEKA Graf, Frankfurt am Main) · Werte je 100 g, Menge = Abtropfgewicht bzw. Packung · Stand 2026-10-20
 const EDEKA = {
@@ -2118,11 +2157,62 @@ function comboLabel(items) {
 }
 // Order-Guide-Schritte einer à-la-carte-Bestellung: [{l:"2×", v:"Hähnchen Bowl"}, …]; orderNote = Pflicht-Auswahl der Plattform, die der Gast
 // so setzen soll (z.B. McDonald's Nuggets „Sauce 1/2, Sauce 2/2: Ohne Sauce“ — die Werte gelten ohne die inklusive Sauce)
+// Extras (Items mit `addon`) stehen beim Artikel, der sie aufnimmt: „1× HAMBURGER — Extras: extra Fleisch Patty · extra Käse Scheibe“
 function acOrderSteps(items) {
-  const key = x => x.id + "|" + x.name;
+  const plan = items.some(x => x.addon) ? acAddonPlan(items) : null;
+  const text = (x, i) => {
+    let v = x.orderName || x.name;
+    const ad = plan && plan.of.get(i);
+    if (ad) {
+      const g = {};
+      for (const e of ad) (g[e.group] = g[e.group] || []).push(e.name);
+      v += " — " + Object.keys(g).map(n => n + ": " + g[n].join(" · ")).join(" · ");
+    }
+    if (x.addon && !plan) v += " — a Wolt option: tick it under “Extras” of a burger or fries that offers it";
+    return v + (x.orderNote ? " — " + x.orderNote : "");
+  };
   const counts = {}, uniq = [];
-  for (const x of items) { const k = key(x); if (!counts[k]) { counts[k] = 0; uniq.push(x); } counts[k]++; }
-  return uniq.map(x => ({ l: counts[key(x)] + "×", v: (x.orderName || x.name) + (x.orderNote ? " — " + x.orderNote : "") }));
+  items.forEach((x, i) => {
+    if (plan && x.addon) return;
+    const k = x.id + "|" + text(x, i);
+    if (!counts[k]) { counts[k] = 0; uniq.push([k, x, i]); }
+    counts[k]++;
+  });
+  return uniq.map(([k, x, i]) => ({ l: counts[k] + "×", v: text(x, i) }));
+}
+// À la carte mit Extras als Optionen (Burgermeister, User 20.10.2026): Items mit `addon` sind Wolt-Optionen eines anderen Artikels und lassen
+// sich nicht allein bestellen; Artikel mit `addons: [{ group, max, opts: { <Extra-id>: <Wolt-Name> } }]` nehmen sie auf — je Extra höchstens
+// 1× je Artikel (bei Wolt je Option max. 1), je Gruppe höchstens `max`. acAddonPlan verteilt die Extras einer Bestellung auf ihre Artikel
+// (Backtracking, Extras mit den wenigsten möglichen Plätzen zuerst, Artikel in Bestell-Reihenfolge — Burger vor Fries):
+// { at: Map(Extra-Index → Artikel-Index), of: Map(Artikel-Index → [{ x, group, name }]) } oder null, wenn es nicht geht
+// → optimizeAC lässt solche Bestellungen weg, Order Guide und Detail-Panel zeigen die Zuordnung
+function acAddonPlan(items) {
+  const adds = [], hold = [], at = new Map(), of = new Map();
+  items.forEach((x, i) => { if (x.addon) adds.push(i); else if (x.addons) hold.push(i); });
+  if (!adds.length) return { at, of };
+  const cand = adds.map(a => ({ a, o: hold.flatMap(h => items[h].addons.map((g, gi) => [h, gi]).filter(([, gi]) => items[h].addons[gi].opts[items[a].id] != null)) }))
+    .sort((p, q) => p.o.length - q.o.length);
+  if (cand.some(c => !c.o.length)) return null;
+  const cnt = new Map(), has = new Set(), asg = [];
+  const rec = k => {
+    if (k === cand.length) return true;
+    const { a, o } = cand[k], id = items[a].id;
+    for (const [h, gi] of o) {
+      const ck = h + "|" + gi, hk = h + "|" + id;
+      if (has.has(hk) || (cnt.get(ck) || 0) >= items[h].addons[gi].max) continue;
+      has.add(hk); cnt.set(ck, (cnt.get(ck) || 0) + 1); asg.push([a, h, gi]);
+      if (rec(k + 1)) return true;
+      has.delete(hk); cnt.set(ck, cnt.get(ck) - 1); asg.pop();
+    }
+    return false;
+  };
+  if (!rec(0)) return null;
+  for (const [a, h, gi] of asg.sort((p, q) => p[0] - q[0])) {
+    at.set(a, h);
+    if (!of.has(h)) of.set(h, []);
+    of.get(h).push({ x: items[a], group: items[h].addons[gi].group, name: items[h].addons[gi].opts[items[a].id] });
+  }
+  return { at, of };
 }
 // Stabiler Ergebnis-Key (sortierte Item-IDs) → markiert die gewählte Karte auch nach Neuberechnung und Tab-Wechsel.
 // BYO-Ergebnisse dürfen einen eigenen .key mitliefern.
@@ -4048,6 +4138,8 @@ function optimizeAC(r, t, mode, p, st, ex, inc) {
   for (const s of active) if (s.filter) pool = pool.filter(s.filter);
   for (const s of r.switches || []) if (s.allow && !sw[s.id]) pool = pool.filter(x => !s.allow(x));
   const reqs = active.filter(s => s.require);
+  // Extras als Optionen (Items mit addon): nur Bestellungen, in denen jedes Extra einen Artikel findet, der es anbietet
+  const addonOk = D.items.some(x => x.addon) ? (items => acAddonPlan(items) !== null) : null;
   const byId = new Map(D.items.map(x => [x.id, x]));
   const picks = [], groups = [], missing = [];
   for (const id of inc || []) {
@@ -4063,7 +4155,7 @@ function optimizeAC(r, t, mode, p, st, ex, inc) {
   const variants = D.items.some(x => x.product);
   const run = (baseLen, extra) => alaCarteCombos(t, mode, p, pool, maxN === Infinity ? Infinity : Math.max(0, maxN - baseLen), Object.assign({
     distinctBy: r.distinctBy, dedupKey: r.dedupKey || (variants ? acVariantKey : undefined),
-    resultFilter: reqs.length ? items => reqs.every(s => s.require(items)) : undefined,
+    resultFilter: (reqs.length || addonOk) ? items => (!addonOk || addonOk(items)) && reqs.every(s => s.require(items)) : undefined,
     priced, maxPrice: priced && t ? t.maxPrice : null,
   }, extra));
   if (!groups.length) return run(picks.length, { baseItems: picks });
@@ -4728,6 +4820,19 @@ const RESTAURANTS = [
     ],
     note:"Official values per dish from the Fit Kitchen menu (fit-kitchen.de): every burger, wrap and pizza as described, its sauce included. Fit Kitchen publishes only kcal, carbs, fat and protein — sat fat, sugars, fibre and salt show 0. Names and prices from Wolt. Salads, fries, sweet potatoes, Chili Cheese Fries, the Starter rolls and the Classic Dip have no published values and are left out, and so are the Wolt extras (extra sauce, toppings, extra patty).",
     footer:"Data: fit-kitchen.de menu (official values per dish) · menu & prices: Wolt Fit Kitchen · 22.09.2026" },
+  // Burgermeister Frankfurt (Wolt, Zeil 106; User 20.10.2026). Daten: py -3 -I burgermeister-pdf.py "<Nährwert-PDF>" (offizielle Tabelle, August 2026)
+  // → node burgermeister-crawl.js (+ Wolt-API) → node burgermeister-update.js. À la carte; die Wolt-Extras mit Werten (extra Patty, Bacon, Käse …)
+  // sind Items mit `addon` — der Optimizer hängt sie nur an einen Burger bzw. Fries, die sie anbieten (acAddonPlan); Cheese-Sauce-Becher mit `sauce`
+  { key:"burgermeister", name:"Burgermeister (Wolt)", kind:"ac", data:BURGERMEISTER, gradient:["#e8590c","#053420"], label:"BURGERMEISTER · FRANKFURT · WOLT", platform:"Wolt", accurate:true, maxN:5,
+    switches:[
+      { id:"noSauces", label:"No sauces", def:true, filter:x => !x.sauce,                                  // User 20.10.2026 (Annahme): Default AN
+        hint:"Leaves out the extra cheese sauce cup (70 g). Sauces inside a burger stay — they are in its values — and so does the cup that comes with the Cheese Fries." },
+      ...[["noDesserts", "No desserts", "cookies"]]                                                         // User 20.10.2026 (Annahme): Default AN
+        .filter(([, , cat]) => BURGERMEISTER.cats.some(c => c.id === cat))
+        .map(([id, label, cat]) => ({ id, label, def:true, filter:x => x.cat !== cat, hint:"Leaves out the cookies." })),
+    ],
+    note:"Official values per item from the Burgermeister nutrition table (August 2026): every burger as described, its sauces included; fries per portion. Saturated fat is not declared and shows 0. Names and prices from Wolt. The extras with published values — extra patty, veggie patty, bacon, cheese slice, jalapeños, mushrooms, grilled onions — are Wolt options: the optimizer adds them only to a burger (or fries) that offers them, at most one of each per item, and the order guide says where to tick them. Not in the optimizer: the menus (burger + fries + drink), drinks and milkshakes, the 20 mL ketchup and mayo cups (the table lists other amounts), the roasted-pepper and Bacon & Onion-Mix extras and leaving ingredients out (no values). Wolt's own descriptions show different calories for most items — the official table is used.",
+    footer:"Data: Burgermeister nutrition table (official, August 2026) · menu, prices & extras: Wolt Burgermeister Frankfurt · 20.10.2026" },
   // EDEKA Graf, Frankfurt (In-Store; User 19.09.2026). Daten: node edeka-crawl.js (Produktseiten des Onlineshops → data/edeka-raw.json) → node edeka-update.js.
   // Supermarkt statt Restaurant: zwei Modi (Build order / Track basket, siehe EDEKA-Sektion), Mengen in Gramm, eigene Picks sperrbar.
   // skipAll = nicht in All/Accurate (dort werden Restaurant-Bestellungen verglichen), guideLabel = Einkaufsliste statt Order Guide
@@ -4809,6 +4914,13 @@ function validateRegistry(restos) {
         if (it.product !== undefined && (typeof it.product !== "string" || !it.product || typeof it.productName !== "string")) P.push(tag + "Item " + it.id + ": product/productName ungültig");
         if (it.choices !== undefined && (!Array.isArray(it.choices) || it.choices.some(c => !(D.choices || []).some(y => y.id === c)))) P.push(tag + "Item " + it.id + ": choices ungültig");
       }
+      // Extras als Optionen (acAddonPlan): jede Gruppe mit Namen, Höchstzahl und bekannten Extras; jedes Extra hat mindestens einen Artikel
+      const addonIds = new Set(D.items.filter(x => x.addon).map(x => x.id)), placed = new Set();
+      for (const it of D.items) for (const g of it.addons || []) {
+        if (it.addon || !g || typeof g.group !== "string" || !(g.max >= 1) || !g.opts || !Object.keys(g.opts).length) { P.push(tag + "Item " + it.id + ": addons ungültig"); continue; }
+        for (const k of Object.keys(g.opts)) { if (!addonIds.has(k) || typeof g.opts[k] !== "string") P.push(tag + "Item " + it.id + ": unbekanntes Extra " + k); placed.add(k); }
+      }
+      for (const k of addonIds) if (!placed.has(k)) P.push(tag + "Extra ohne Artikel, der es anbietet: " + k);
       const prodIds = new Set(D.items.map(x => x.product).filter(Boolean));
       for (const c of D.choices || []) if (!c.id || typeof c.name !== "string" || ids.has(c.id) || prodIds.has(c.id)) P.push(tag + "Option ungültig oder id belegt: " + c.id);
       for (const pid of prodIds) if (ids.has(pid)) P.push(tag + "Gericht-id kollidiert mit Item-id: " + pid);
@@ -5620,10 +5732,11 @@ function App() {
         h(CopyNutrition,{n:sel.nutrition}),
         R.kind==="byo"?R.renderPanel(sel,ctx):h("div",{style:{marginBottom:16}},
           h("div",{style:{fontSize:10,color:"#555",fontFamily:S.mono,textTransform:"uppercase",letterSpacing:1,marginBottom:6}},"Items"),
-          ...sel.items.map((x,xi)=>h("div",{key:xi,style:{display:"flex",alignItems:"flex-start",justifyContent:"space-between",gap:8,fontSize:12,padding:"4px 0",borderBottom:xi<sel.items.length-1?"1px solid #1f1f1f":"none"}},
-            h("span",{style:{color:"#e0e0e0",minWidth:0,flex:1}},(inSet.has(x.id)||(x.product&&inSet.has(x.product))?"★ ":"")+x.name),
+          ...(()=>{const plan=sel.items.some(y=>y.addon)?acAddonPlan(sel.items):null;return sel.items.map((x,xi)=>h("div",{key:xi,style:{display:"flex",alignItems:"flex-start",justifyContent:"space-between",gap:8,fontSize:12,padding:"4px 0",borderBottom:xi<sel.items.length-1?"1px solid #1f1f1f":"none"}},
+            h("span",{style:{color:"#e0e0e0",minWidth:0,flex:1}},(inSet.has(x.id)||(x.product&&inSet.has(x.product))?"★ ":"")+x.name,
+              plan&&plan.at.has(xi)&&h("span",{style:{color:"#777",fontSize:10}},"  on "+sel.items[plan.at.get(xi)].name)),
             h("span",{style:{color:"#999",fontFamily:S.mono,whiteSpace:"nowrap"}},x.kcal+" kcal · P "+x.protein+"g"+(x.price!=null?" · "+bowlEuro(x.price):""))
-          )),
+          ));})(),
           sel.price!=null&&h("div",{style:{display:"flex",justifyContent:"space-between",gap:8,fontSize:12,padding:"6px 0 0",marginTop:4,borderTop:"1px solid #1f1f1f"}},
             h("span",{style:{color:"#e0e0e0",fontWeight:600}},"Total price",h("span",{style:{color:"#777",fontWeight:400,fontSize:10}},"  "+R.platform+" menu prices, no fees")),
             h("span",{style:{color:"#fff",fontFamily:S.mono,fontWeight:600,whiteSpace:"nowrap"}},bowlEuro(sel.price)))

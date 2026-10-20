@@ -1,0 +1,1530 @@
+{
+  "_meta": {
+    "source": "Burgermeister-Nährwerttabelle (PDF „Burgermeister-Nutrition-Facts-2026_DE.pdf“, Stand AUGUST 2026, als data/burgermeister-naehrwerte.txt) + Wolt-API Venue „burgermeister-frankfurt“ (Namen, Kategorien, Preise, Optionen)",
+    "table": {
+      "file": "data/burgermeister-naehrwerte.txt",
+      "stand": "AUGUST 2026",
+      "url": "https://burgermeister.com/downloads/2026/Burgermeister-Nutrition-Facts-2026_DE.pdf",
+      "rows": 41,
+      "check": "am 20.10.2026: das PDF des Users trägt dieselbe Fußzeile wie das auf burgermeister.com/menu/ verlinkte (Last-Modified 24.08.2026); Spalten über die Kopfzeile geprüft"
+    },
+    "fetchedAt": "2026-10-20T06:46:26.063Z",
+    "basis": "Offizielle Werte je Produkt laut Nährwerttabelle (Burger „pro Stück“ in der Standard-Zusammenstellung samt Saucen, Fries je Portion, Extras je Portion). Gesättigte Fettsäuren nennt die Tabelle nicht → 0",
+    "notDeclared": [
+      "sat"
+    ],
+    "rules": [
+      "Nur Artikel, die es bei Wolt gibt; Namen und Preise wie bei Wolt",
+      "Wolt-Extras mit Werten in der Tabelle sind eigene Artikel mit `addon`: nur zusammen mit einem Artikel, der sie in seiner Wolt-Gruppe anbietet (Burger bzw. Fries), je Artikel höchstens 1× und höchstens so viele wie die Gruppe erlaubt",
+      "„Ohne …“-Optionen, Zusatzverkauf-Gruppen und Menüs werden nicht genutzt"
+    ],
+    "decisions": [
+      "User 20.10.2026: Burgermeister (Wolt, Frankfurt) als Tracker mit der Nährwerttabelle 2026 (PDF vom User); auch in der Freunde-Version sichtbar"
+    ],
+    "assumptions": [
+      "Kategorien Burger (mit dem Woltmeister aus „Wolt Specials“), Extras, Fries, Sauce, Cookies; Menüs, Getränke und Milchshakes nicht im Tracker",
+      "Schalter „No sauces“ (Cheese-Sauce-Becher) und „No desserts“ (Cookies) starten AN — wie bei Fit Kitchen und beets&roots",
+      "Extras = die Zeilen „EXTRAS“ der Tabelle (Patty 255 kcal / 21,5 g Eiweiß …); „extra Cheesesauce 70g“ = der Artikel „PORTION CHEESE SAUCE 70g“ (gleiche Menge, gleicher Preis)",
+      "Die kcal-Angaben der Wolt-Beschreibungen weichen bei den meisten Artikeln ab — der Tracker nimmt die offizielle Tabelle (Stand August 2026)"
+    ],
+    "venue": {
+      "slug": "burgermeister-frankfurt",
+      "page": "https://wolt.com/de/deu/frankfurt/restaurant/burgermeister-frankfurt",
+      "categories": [
+        "Wolt Specials",
+        "Burger",
+        "Menü",
+        "Fries",
+        "Sauce",
+        "Cookies",
+        "Alkoholfreie Getränke",
+        "Alkoholische Getränke",
+        "Shakes"
+      ]
+    },
+    "skippedCategories": {
+      "MENÜ": "Menüs = Burger + Fries + Getränk (Getränk Pflicht-Auswahl, 16,50–19,80 €) — Burger und Fries stehen einzeln im Tracker und sind ohne Getränk günstiger",
+      "ALKOHOLFREIE GETRÄNKE": "Getränke — wie bei den anderen Restaurants nicht im Tracker",
+      "ALKOHOLISCHE GETRÄNKE": "Getränke (Bier) — nicht im Tracker",
+      "SHAKES": "Milchshakes — wie bei McDonald's als Getränke nicht im Tracker (die Tabelle hat Werte)"
+    },
+    "skippedItems": [
+      "Woltmeister Menü — Menü (Woltmeister + Fries + Getränk) — wie die übrigen Menüs nicht im Tracker"
+    ],
+    "ignoredGroups": {
+      "Ohne": "Zutaten abwählen — die Tabelle nennt nur die Standard-Zusammenstellung",
+      "etwas abwählen?": "Zutaten abwählen (Woltmeister) — die Tabelle nennt nur die Standard-Zusammenstellung",
+      "some fries...?": "Zusatzverkauf: dieselben Fries gibt es als eigene Artikel",
+      "durstig...?": "Zusatzverkauf: Getränke (nicht im Tracker)",
+      "Lust auf was Süßes...?": "Zusatzverkauf: dieselben Cookies gibt es als eigene Artikel"
+    },
+    "addonAsItem": {
+      "extra Cheesesauce 70g": "PORTION CHEESE SAUCE 70g"
+    },
+    "addonNoData": {
+      "extra geröstete Paprika": "die Tabelle nennt keine Paprika (nur beim Woltmeister wählbar)",
+      "Bacon & Onion-Mix": "die Tabelle nennt den Mix nicht (nur die fertigen Bacon & Onion Fries)"
+    },
+    "mapping": [
+      "FRIES = FRIES (200G)",
+      "CHEESE FRIES = CHEESE FRIES (270G)",
+      "PORTION CHEESE SAUCE 70g = CHEESE SAUCE",
+      "BLUEBERRY CHEESECAKE COOKIE = BLUEBERRY CHEESECAKE (PRO STÜCK)",
+      "DOUBLE CHOCOLATE PEANUT CHIP COOKIE = DOUBLE CHOCOLATE PEANUT (PRO STÜCK)",
+      "CHOCOLATE CHIP WALTNUT COOKIE = CHOCOLATE CHIP WALNUT (PRO STÜCK)"
+    ],
+    "noData": [
+      "PORTION KETCHUP 20ml (Sauce, 0.80 €) — die Tabelle nennt Ketchup mit 14 kcal / 3,2 g KH — das sind etwa 14 g (Wolt: 102 kcal je 100 g), nicht die 20-mL-Portion",
+      "PORTION MAYO 20ml (Sauce, 0.80 €) — die Tabelle nennt Mayo mit 44 kcal / 4,5 g Fett — das sind etwa 6 g (Wolt: 700 kcal je 100 g), nicht die 20-mL-Portion"
+    ],
+    "notOnWolt": [
+      "BURGERS: LIEFERANDOMEISTER — nur bei Lieferando",
+      "MILKSHAKES: VANILLA 0,4 L — Getränk (nicht im Tracker)",
+      "MILKSHAKES: VANILLA COOKIE CRUMBLE 0,4 L — Getränk (nicht im Tracker)",
+      "MILKSHAKES: DOUBLE CHOCOLATE 0,4 L — Getränk (nicht im Tracker)",
+      "MILKSHAKES: STRAWBERRY 0,4 L — Getränk (nicht im Tracker)",
+      "MILKSHAKES: STICKY RICE MANGO 0,4 L — Getränk (nicht im Tracker)",
+      "MILKSHAKES: COCONUT 0,4 L — Getränk (nicht im Tracker)",
+      "DRINKS: COCA-COLA 0,3L — Getränk (nicht im Tracker)",
+      "DRINKS: COCA-COLA ZERO 0,3L — Getränk (nicht im Tracker)",
+      "DRINKS: SPRITE 0,3L — Getränk (nicht im Tracker)",
+      "DRINKS: FANTA 0,3L — Getränk (nicht im Tracker)",
+      "DRINKS: WASSER 0,3L — Getränk (nicht im Tracker)",
+      "DRINKS: BIER 0,33L — Getränk (nicht im Tracker)",
+      "EXTRAS: PROTEINPULVER (30G) — Extra zum Milchshake (Shakes nicht im Tracker)",
+      "EXTRAS: SAHNE (25G) — Extra zum Milchshake (Shakes nicht im Tracker)",
+      "EXTRAS: MAYO — Menge der Tabelle (≈ 6 g) ≠ Wolt-Portion 20 mL",
+      "EXTRAS: KETCHUP — Menge der Tabelle (≈ 14 g) ≠ Wolt-Portion 20 mL"
+    ],
+    "woltKcal": {
+      "note": "kcal laut Wolt-Beschreibung (Saucen je 100 g) ≠ Tabelle — Tracker = Tabelle",
+      "diffs": [
+        "HAMBURGER: Wolt 693 kcal · Tabelle 543 kcal",
+        "CHEESEBURGER: Wolt 777 kcal · Tabelle 623 kcal",
+        "CHILI-CHEESEBURGER: Wolt 786 kcal · Tabelle 625 kcal",
+        "FLEISCHERMEISTER: Wolt 1113 kcal · Tabelle 931 kcal",
+        "MEISTERBURGER: Wolt 864 kcal · Tabelle 647 kcal",
+        "MEISTER ALLER KLASSEN®: Wolt 1277 kcal · Tabelle 1043 kcal",
+        "HAUSMEISTER®: Wolt 974 kcal · Tabelle 712 kcal",
+        "WALDMEISTER® (VEGGIE): Wolt 648 kcal · Tabelle 556 kcal",
+        "FRIES: Wolt 660 kcal · Tabelle 600 kcal",
+        "CHEESE FRIES: Wolt 837 kcal · Tabelle 776 kcal",
+        "BACON & ONION FRIES: Wolt 1219 kcal · Tabelle 768 kcal",
+        "BLUEBERRY CHEESECAKE COOKIE: Wolt 418 kcal · Tabelle 592 kcal",
+        "DOUBLE CHOCOLATE PEANUT CHIP COOKIE: Wolt 433 kcal · Tabelle 548 kcal",
+        "CHOCOLATE CHIP WALTNUT COOKIE: Wolt 442 kcal · Tabelle 546 kcal"
+      ]
+    },
+    "optionDefaults": {
+      "note": "default_value optionaler Gruppen — keine Vorauswahl (Wolt-Karte 20.10.2026: Kartenpreis = Artikelpreis)",
+      "list": [
+        "Woltmeister: „Extras dazu?“ vorausgewählt: extra Fleisch Patty",
+        "Woltmeister: „etwas abwählen?“ vorausgewählt: ohne gebratene Zwiebeln",
+        "HAMBURGER: „Extras“ vorausgewählt: extra Bacon Scheibe",
+        "HAMBURGER: „Ohne“ vorausgewählt: Ohne Salat",
+        "HAMBURGER: „some fries...?“ vorausgewählt: Bacon & Onion Fries",
+        "HAMBURGER: „durstig...?“ vorausgewählt: COCA-COLA ZERO 0,33L",
+        "HAMBURGER: „Lust auf was Süßes...?“ vorausgewählt: CHOCOLATE CHIP WALTNUT COOKIE",
+        "CHEESEBURGER: „Extras“ vorausgewählt: extra Bacon Scheibe",
+        "CHEESEBURGER: „Ohne“ vorausgewählt: Ohne Salat",
+        "CHEESEBURGER: „some fries...?“ vorausgewählt: Bacon & Onion Fries",
+        "CHEESEBURGER: „durstig...?“ vorausgewählt: COCA-COLA ZERO 0,33L",
+        "CHEESEBURGER: „Lust auf was Süßes...?“ vorausgewählt: CHOCOLATE CHIP WALTNUT COOKIE",
+        "CHILI-CHEESEBURGER: „Extras“ vorausgewählt: extra Bacon Scheibe",
+        "CHILI-CHEESEBURGER: „Ohne“ vorausgewählt: Ohne Salat",
+        "CHILI-CHEESEBURGER: „some fries...?“ vorausgewählt: Bacon & Onion Fries",
+        "CHILI-CHEESEBURGER: „durstig...?“ vorausgewählt: COCA-COLA ZERO 0,33L",
+        "CHILI-CHEESEBURGER: „Lust auf was Süßes...?“ vorausgewählt: CHOCOLATE CHIP WALTNUT COOKIE",
+        "FLEISCHERMEISTER: „Extras“ vorausgewählt: extra Bacon Scheibe",
+        "FLEISCHERMEISTER: „Ohne“ vorausgewählt: ohne Käsescheibe",
+        "FLEISCHERMEISTER: „some fries...?“ vorausgewählt: Bacon & Onion Fries",
+        "FLEISCHERMEISTER: „durstig...?“ vorausgewählt: COCA-COLA ZERO 0,33L",
+        "FLEISCHERMEISTER: „Lust auf was Süßes...?“ vorausgewählt: CHOCOLATE CHIP WALTNUT COOKIE",
+        "MEISTERBURGER: „Extras“ vorausgewählt: extra Bacon Scheibe",
+        "MEISTERBURGER: „Ohne“ vorausgewählt: Ohne Salat",
+        "MEISTERBURGER: „some fries...?“ vorausgewählt: Bacon & Onion Fries",
+        "MEISTERBURGER: „durstig...?“ vorausgewählt: COCA-COLA ZERO 0,33L",
+        "MEISTERBURGER: „Lust auf was Süßes...?“ vorausgewählt: CHOCOLATE CHIP WALTNUT COOKIE",
+        "MEISTER ALLER KLASSEN®: „Extras“ vorausgewählt: extra Bacon Scheibe",
+        "MEISTER ALLER KLASSEN®: „Ohne“ vorausgewählt: Ohne Salat",
+        "MEISTER ALLER KLASSEN®: „some fries...?“ vorausgewählt: Bacon & Onion Fries",
+        "MEISTER ALLER KLASSEN®: „durstig...?“ vorausgewählt: COCA-COLA ZERO 0,33L",
+        "MEISTER ALLER KLASSEN®: „Lust auf was Süßes...?“ vorausgewählt: CHOCOLATE CHIP WALTNUT COOKIE",
+        "HAUSMEISTER®: „Extras“ vorausgewählt: extra Bacon Scheibe",
+        "HAUSMEISTER®: „Ohne“ vorausgewählt: Ohne Salat",
+        "HAUSMEISTER®: „some fries...?“ vorausgewählt: Bacon & Onion Fries",
+        "HAUSMEISTER®: „durstig...?“ vorausgewählt: COCA-COLA ZERO 0,33L",
+        "HAUSMEISTER®: „Lust auf was Süßes...?“ vorausgewählt: CHOCOLATE CHIP WALTNUT COOKIE",
+        "WALDMEISTER® (VEGGIE): „Extra“ vorausgewählt: extra Veggie Patty",
+        "WALDMEISTER® (VEGGIE): „Ohne“ vorausgewählt: Ohne Salat",
+        "WALDMEISTER® (VEGGIE): „some fries...?“ vorausgewählt: Bacon & Onion Fries",
+        "WALDMEISTER® (VEGGIE): „durstig...?“ vorausgewählt: COCA-COLA ZERO 0,33L",
+        "WALDMEISTER® (VEGGIE): „Lust auf was Süßes...?“ vorausgewählt: CHOCOLATE CHIP WALTNUT COOKIE",
+        "FRIES: „Extras“ vorausgewählt: extra Cheesesauce 70g",
+        "FRIES: „durstig...?“ vorausgewählt: COCA-COLA ZERO 0,33L",
+        "FRIES: „Lust auf was Süßes...?“ vorausgewählt: CHOCOLATE CHIP WALTNUT COOKIE",
+        "CHEESE FRIES: „Extras“ vorausgewählt: extra Cheesesauce 70g",
+        "CHEESE FRIES: „durstig...?“ vorausgewählt: COCA-COLA ZERO 0,33L",
+        "CHEESE FRIES: „Lust auf was Süßes...?“ vorausgewählt: CHOCOLATE CHIP WALTNUT COOKIE",
+        "BACON & ONION FRIES: „Extras“ vorausgewählt: extra Cheesesauce 70g",
+        "BACON & ONION FRIES: „durstig...?“ vorausgewählt: COCA-COLA ZERO 0,33L",
+        "BACON & ONION FRIES: „Lust auf was Süßes...?“ vorausgewählt: CHOCOLATE CHIP WALTNUT COOKIE",
+        "Chili Fries: „Extras“ vorausgewählt: extra Cheesesauce 70g"
+      ]
+    },
+    "shellfish": "kein Artikel mit Krebs- oder Weichtieren (Namen, Beschreibungen und Allergen-Angaben der Wolt-Artikel)",
+    "coriander": "keine Wolt-Beschreibung nennt Koriander oder Minze (Chipotle-, Barbecue- und Chili-Saucen ohne Gewürzangabe)",
+    "anomalies": [
+      {
+        "name": "DRINKS/SPRITE 0,3L",
+        "issues": [
+          "kcal 139 ≠ 4·C+4·P+9·F = 120"
+        ]
+      },
+      {
+        "name": "DRINKS/BIER 0,33L",
+        "issues": [
+          "kcal 148 ≠ 4·C+4·P+9·F = 53"
+        ]
+      }
+    ]
+  },
+  "table": [
+    {
+      "section": "BURGERS",
+      "name": "HAMBURGER",
+      "qualifier": "PRO STÜCK",
+      "values": {
+        "kcal": 543,
+        "protein": 28,
+        "fat": 29.1,
+        "carbs": 42.1,
+        "sugars": 9.2,
+        "fibre": 2.3,
+        "salt": 3.17
+      },
+      "key": "BURGERS/HAMBURGER"
+    },
+    {
+      "section": "BURGERS",
+      "name": "CHEESEBURGER",
+      "qualifier": "PRO STÜCK",
+      "values": {
+        "kcal": 623,
+        "protein": 32.5,
+        "fat": 35.6,
+        "carbs": 42.9,
+        "sugars": 10,
+        "fibre": 2.3,
+        "salt": 4.2
+      },
+      "key": "BURGERS/CHEESEBURGER"
+    },
+    {
+      "section": "BURGERS",
+      "name": "CHILI-CHEESEBURGER",
+      "qualifier": "PRO STÜCK",
+      "values": {
+        "kcal": 625,
+        "protein": 32.7,
+        "fat": 35.6,
+        "carbs": 43.2,
+        "sugars": 10.2,
+        "fibre": 2.5,
+        "salt": 4.61
+      },
+      "key": "BURGERS/CHILI-CHEESEBURGER"
+    },
+    {
+      "section": "BURGERS",
+      "name": "HAUSMEISTER®",
+      "qualifier": "PRO STÜCK",
+      "values": {
+        "kcal": 712,
+        "protein": 37.3,
+        "fat": 43.7,
+        "carbs": 43,
+        "sugars": 10,
+        "fibre": 2.6,
+        "salt": 4.63
+      },
+      "key": "BURGERS/HAUSMEISTER®"
+    },
+    {
+      "section": "BURGERS",
+      "name": "MEISTERBURGER",
+      "qualifier": "PRO STÜCK",
+      "values": {
+        "kcal": 647,
+        "protein": 32.4,
+        "fat": 37.2,
+        "carbs": 45.7,
+        "sugars": 11.4,
+        "fibre": 3,
+        "salt": 3.84
+      },
+      "key": "BURGERS/MEISTERBURGER"
+    },
+    {
+      "section": "BURGERS",
+      "name": "MEISTER ALLER KLASSEN®",
+      "qualifier": "PRO STÜCK",
+      "values": {
+        "kcal": 1043,
+        "protein": 62.6,
+        "fat": 67.6,
+        "carbs": 46.5,
+        "sugars": 13.4,
+        "fibre": 2.5,
+        "salt": 8.13
+      },
+      "key": "BURGERS/MEISTER ALLER KLASSEN®"
+    },
+    {
+      "section": "BURGERS",
+      "name": "FLEISCHERMEISTER",
+      "qualifier": "PRO STÜCK",
+      "values": {
+        "kcal": 931,
+        "protein": 58.6,
+        "fat": 58.1,
+        "carbs": 43.7,
+        "sugars": 10.3,
+        "fibre": 2.4,
+        "salt": 6.77
+      },
+      "key": "BURGERS/FLEISCHERMEISTER"
+    },
+    {
+      "section": "BURGERS",
+      "name": "WALDMEISTER® (VEGGIE)",
+      "qualifier": "PRO STÜCK",
+      "values": {
+        "kcal": 556,
+        "protein": 28.2,
+        "fat": 22.9,
+        "carbs": 56.8,
+        "sugars": 11,
+        "fibre": 6.6,
+        "salt": 3.86
+      },
+      "key": "BURGERS/WALDMEISTER® (VEGGIE)"
+    },
+    {
+      "section": "BURGERS",
+      "name": "LIEFERANDOMEISTER",
+      "qualifier": "PRO STÜCK",
+      "values": {
+        "kcal": 744,
+        "protein": 39.3,
+        "fat": 45.5,
+        "carbs": 44.7,
+        "sugars": 11.5,
+        "fibre": 2.8,
+        "salt": 5.67
+      },
+      "key": "BURGERS/LIEFERANDOMEISTER"
+    },
+    {
+      "section": "BURGERS",
+      "name": "WOLTMEISTER",
+      "qualifier": "PRO STÜCK",
+      "values": {
+        "kcal": 818,
+        "protein": 39.6,
+        "fat": 52,
+        "carbs": 46.3,
+        "sugars": 8.4,
+        "fibre": 2.9,
+        "salt": 2.71
+      },
+      "key": "BURGERS/WOLTMEISTER"
+    },
+    {
+      "section": "FRIES",
+      "name": "FRIES (200G)",
+      "qualifier": null,
+      "values": {
+        "kcal": 600,
+        "protein": 7,
+        "fat": 29,
+        "carbs": 76,
+        "sugars": 0.6,
+        "fibre": 4,
+        "salt": 1
+      },
+      "key": "FRIES/FRIES (200G)"
+    },
+    {
+      "section": "FRIES",
+      "name": "CHEESE FRIES (270G)",
+      "qualifier": null,
+      "values": {
+        "kcal": 776,
+        "protein": 16.2,
+        "fat": 43.7,
+        "carbs": 77.8,
+        "sugars": 0.9,
+        "fibre": 4,
+        "salt": 2.6
+      },
+      "key": "FRIES/CHEESE FRIES (270G)"
+    },
+    {
+      "section": "FRIES",
+      "name": "BACON & ONION FRIES",
+      "qualifier": "SCHWEINEFLEISCH | 280G",
+      "values": {
+        "kcal": 768,
+        "protein": 13.6,
+        "fat": 43.1,
+        "carbs": 80.5,
+        "sugars": 3.6,
+        "fibre": 4.5,
+        "salt": 2.2
+      },
+      "key": "FRIES/BACON & ONION FRIES"
+    },
+    {
+      "section": "FRIES",
+      "name": "CHILI FRIES",
+      "qualifier": "RINDFLEISCH | 280G",
+      "values": {
+        "kcal": 764,
+        "protein": 13.8,
+        "fat": 40.2,
+        "carbs": 79.8,
+        "sugars": 3,
+        "fibre": 6,
+        "salt": 1.9
+      },
+      "key": "FRIES/CHILI FRIES"
+    },
+    {
+      "section": "COOKIES",
+      "name": "BLUEBERRY CHEESECAKE",
+      "qualifier": "PRO STÜCK",
+      "values": {
+        "kcal": 592,
+        "protein": 8.5,
+        "fat": 27.4,
+        "carbs": 77.2,
+        "sugars": 37.9,
+        "fibre": 2.2,
+        "salt": 0.45
+      },
+      "key": "COOKIES/BLUEBERRY CHEESECAKE"
+    },
+    {
+      "section": "COOKIES",
+      "name": "DOUBLE CHOCOLATE PEANUT",
+      "qualifier": "PRO STÜCK",
+      "values": {
+        "kcal": 548,
+        "protein": 7.4,
+        "fat": 26.5,
+        "carbs": 70.7,
+        "sugars": 42.1,
+        "fibre": 3,
+        "salt": 0.73
+      },
+      "key": "COOKIES/DOUBLE CHOCOLATE PEANUT"
+    },
+    {
+      "section": "COOKIES",
+      "name": "CHOCOLATE CHIP WALNUT",
+      "qualifier": "PRO STÜCK",
+      "values": {
+        "kcal": 546,
+        "protein": 8.5,
+        "fat": 26.7,
+        "carbs": 68.5,
+        "sugars": 38.8,
+        "fibre": 2.4,
+        "salt": 0.32
+      },
+      "key": "COOKIES/CHOCOLATE CHIP WALNUT"
+    },
+    {
+      "section": "MILKSHAKES",
+      "name": "VANILLA 0,4 L",
+      "qualifier": null,
+      "values": {
+        "kcal": 364,
+        "protein": 11.4,
+        "fat": 13.5,
+        "carbs": 49.6,
+        "sugars": 47.5,
+        "fibre": 0,
+        "salt": 0.52
+      },
+      "key": "MILKSHAKES/VANILLA 0,4 L"
+    },
+    {
+      "section": "MILKSHAKES",
+      "name": "VANILLA COOKIE CRUMBLE 0,4 L",
+      "qualifier": null,
+      "values": {
+        "kcal": 457,
+        "protein": 12.7,
+        "fat": 18,
+        "carbs": 61.6,
+        "sugars": 54.6,
+        "fibre": 0.5,
+        "salt": 0.64
+      },
+      "key": "MILKSHAKES/VANILLA COOKIE CRUMBLE 0,4 L"
+    },
+    {
+      "section": "MILKSHAKES",
+      "name": "DOUBLE CHOCOLATE 0,4 L",
+      "qualifier": null,
+      "values": {
+        "kcal": 533,
+        "protein": 16.5,
+        "fat": 22.6,
+        "carbs": 63.3,
+        "sugars": 54.7,
+        "fibre": 6.3,
+        "salt": 0.65
+      },
+      "key": "MILKSHAKES/DOUBLE CHOCOLATE 0,4 L"
+    },
+    {
+      "section": "MILKSHAKES",
+      "name": "STRAWBERRY 0,4 L",
+      "qualifier": null,
+      "values": {
+        "kcal": 394,
+        "protein": 11.4,
+        "fat": 13.5,
+        "carbs": 56.8,
+        "sugars": 54.7,
+        "fibre": 0,
+        "salt": 0.54
+      },
+      "key": "MILKSHAKES/STRAWBERRY 0,4 L"
+    },
+    {
+      "section": "MILKSHAKES",
+      "name": "STICKY RICE MANGO 0,4 L",
+      "qualifier": null,
+      "values": {
+        "kcal": 441,
+        "protein": 13.1,
+        "fat": 14.7,
+        "carbs": 64.4,
+        "sugars": 58.2,
+        "fibre": 0.4,
+        "salt": 0.6
+      },
+      "key": "MILKSHAKES/STICKY RICE MANGO 0,4 L"
+    },
+    {
+      "section": "MILKSHAKES",
+      "name": "COCONUT 0,4 L",
+      "qualifier": null,
+      "values": {
+        "kcal": 506,
+        "protein": 12.6,
+        "fat": 24.8,
+        "carbs": 56.7,
+        "sugars": 54.6,
+        "fibre": 3.6,
+        "salt": 0.53
+      },
+      "key": "MILKSHAKES/COCONUT 0,4 L"
+    },
+    {
+      "section": "DRINKS",
+      "name": "COCA-COLA 0,3L",
+      "qualifier": null,
+      "values": {
+        "kcal": 139,
+        "protein": 0,
+        "fat": 0,
+        "carbs": 33,
+        "sugars": 31.2,
+        "fibre": 0,
+        "salt": 0.01
+      },
+      "key": "DRINKS/COCA-COLA 0,3L"
+    },
+    {
+      "section": "DRINKS",
+      "name": "COCA-COLA ZERO 0,3L",
+      "qualifier": null,
+      "values": {
+        "kcal": 1,
+        "protein": 0,
+        "fat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "salt": 0.02
+      },
+      "key": "DRINKS/COCA-COLA ZERO 0,3L"
+    },
+    {
+      "section": "DRINKS",
+      "name": "SPRITE 0,3L",
+      "qualifier": null,
+      "values": {
+        "kcal": 139,
+        "protein": 0,
+        "fat": 0,
+        "carbs": 30,
+        "sugars": 26,
+        "fibre": 0,
+        "salt": 0.03
+      },
+      "key": "DRINKS/SPRITE 0,3L"
+    },
+    {
+      "section": "DRINKS",
+      "name": "FANTA 0,3L",
+      "qualifier": null,
+      "values": {
+        "kcal": 125,
+        "protein": 0,
+        "fat": 0,
+        "carbs": 30,
+        "sugars": 25,
+        "fibre": 0,
+        "salt": 0.03
+      },
+      "key": "DRINKS/FANTA 0,3L"
+    },
+    {
+      "section": "DRINKS",
+      "name": "WASSER 0,3L",
+      "qualifier": null,
+      "values": {
+        "kcal": 0,
+        "protein": 0,
+        "fat": 0,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "salt": 0
+      },
+      "key": "DRINKS/WASSER 0,3L"
+    },
+    {
+      "section": "DRINKS",
+      "name": "BIER 0,33L",
+      "qualifier": null,
+      "values": {
+        "kcal": 148,
+        "protein": 1.7,
+        "fat": 0.3,
+        "carbs": 10.9,
+        "sugars": 0.1,
+        "fibre": 0,
+        "salt": 0.03
+      },
+      "key": "DRINKS/BIER 0,33L"
+    },
+    {
+      "section": "EXTRAS",
+      "name": "BACON",
+      "qualifier": "SCHWEINEFLEISCH",
+      "values": {
+        "kcal": 139,
+        "protein": 10.1,
+        "fat": 10.5,
+        "carbs": 0.4,
+        "sugars": 0,
+        "fibre": 0,
+        "salt": 0.51
+      },
+      "key": "EXTRAS/BACON"
+    },
+    {
+      "section": "EXTRAS",
+      "name": "CHEESE",
+      "qualifier": null,
+      "values": {
+        "kcal": 79,
+        "protein": 4.6,
+        "fat": 6.5,
+        "carbs": 0.8,
+        "sugars": 0.8,
+        "fibre": 0,
+        "salt": 1.03
+      },
+      "key": "EXTRAS/CHEESE"
+    },
+    {
+      "section": "EXTRAS",
+      "name": "JALAPEÑOS",
+      "qualifier": null,
+      "values": {
+        "kcal": 9,
+        "protein": 0.3,
+        "fat": 0.2,
+        "carbs": 1.2,
+        "sugars": 0.7,
+        "fibre": 0,
+        "salt": 0
+      },
+      "key": "EXTRAS/JALAPEÑOS"
+    },
+    {
+      "section": "EXTRAS",
+      "name": "GRILLED MUSHROOMS",
+      "qualifier": null,
+      "values": {
+        "kcal": 65,
+        "protein": 0.5,
+        "fat": 6.6,
+        "carbs": 1.2,
+        "sugars": 0.5,
+        "fibre": 0.5,
+        "salt": 0.47
+      },
+      "key": "EXTRAS/GRILLED MUSHROOMS"
+    },
+    {
+      "section": "EXTRAS",
+      "name": "GRILLED ONIONS",
+      "qualifier": null,
+      "values": {
+        "kcal": 30,
+        "protein": 0.4,
+        "fat": 2,
+        "carbs": 2.8,
+        "sugars": 1.3,
+        "fibre": 0.4,
+        "salt": 0
+      },
+      "key": "EXTRAS/GRILLED ONIONS"
+    },
+    {
+      "section": "EXTRAS",
+      "name": "CHEESE SAUCE",
+      "qualifier": null,
+      "values": {
+        "kcal": 176,
+        "protein": 9.2,
+        "fat": 14.7,
+        "carbs": 1.8,
+        "sugars": 0.3,
+        "fibre": 0,
+        "salt": 1.61
+      },
+      "key": "EXTRAS/CHEESE SAUCE"
+    },
+    {
+      "section": "EXTRAS",
+      "name": "PROTEINPULVER (30G)",
+      "qualifier": null,
+      "values": {
+        "kcal": 122,
+        "protein": 24.3,
+        "fat": 2.3,
+        "carbs": 1.2,
+        "sugars": 1.2,
+        "fibre": 0,
+        "salt": 0.11
+      },
+      "key": "EXTRAS/PROTEINPULVER (30G)"
+    },
+    {
+      "section": "EXTRAS",
+      "name": "SAHNE (25G)",
+      "qualifier": null,
+      "values": {
+        "kcal": 84,
+        "protein": 0.5,
+        "fat": 8.8,
+        "carbs": 0.9,
+        "sugars": 0.9,
+        "fibre": 0,
+        "salt": 0.01
+      },
+      "key": "EXTRAS/SAHNE (25G)"
+    },
+    {
+      "section": "EXTRAS",
+      "name": "PATTY",
+      "qualifier": null,
+      "values": {
+        "kcal": 255,
+        "protein": 21.5,
+        "fat": 19,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "salt": 1.7
+      },
+      "key": "EXTRAS/PATTY"
+    },
+    {
+      "section": "EXTRAS",
+      "name": "VEGGIE PATTY",
+      "qualifier": null,
+      "values": {
+        "kcal": 173,
+        "protein": 16.3,
+        "fat": 4.7,
+        "carbs": 14,
+        "sugars": 1.1,
+        "fibre": 4,
+        "salt": 1.5
+      },
+      "key": "EXTRAS/VEGGIE PATTY"
+    },
+    {
+      "section": "EXTRAS",
+      "name": "MAYO",
+      "qualifier": null,
+      "values": {
+        "kcal": 44,
+        "protein": 0,
+        "fat": 4.5,
+        "carbs": 0.8,
+        "sugars": 0.4,
+        "fibre": 0,
+        "salt": 0.1
+      },
+      "key": "EXTRAS/MAYO"
+    },
+    {
+      "section": "EXTRAS",
+      "name": "KETCHUP",
+      "qualifier": null,
+      "values": {
+        "kcal": 14,
+        "protein": 0.1,
+        "fat": 0.1,
+        "carbs": 3.2,
+        "sugars": 2.6,
+        "fibre": 0,
+        "salt": 0.11
+      },
+      "key": "EXTRAS/KETCHUP"
+    }
+  ],
+  "addons": [
+    {
+      "id": "patty",
+      "name": "extra Fleisch Patty",
+      "table": "EXTRAS/PATTY",
+      "tableName": "PATTY",
+      "values": {
+        "kcal": 255,
+        "protein": 21.5,
+        "fat": 19,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "salt": 1.7
+      },
+      "price": 4,
+      "holders": [
+        "Woltmeister",
+        "HAMBURGER",
+        "CHEESEBURGER",
+        "CHILI-CHEESEBURGER",
+        "FLEISCHERMEISTER",
+        "MEISTERBURGER",
+        "MEISTER ALLER KLASSEN®",
+        "HAUSMEISTER®"
+      ]
+    },
+    {
+      "id": "veggie_patty",
+      "name": "extra Veggie Patty",
+      "table": "EXTRAS/VEGGIE PATTY",
+      "tableName": "VEGGIE PATTY",
+      "values": {
+        "kcal": 173,
+        "protein": 16.3,
+        "fat": 4.7,
+        "carbs": 14,
+        "sugars": 1.1,
+        "fibre": 4,
+        "salt": 1.5
+      },
+      "price": 4,
+      "holders": [
+        "WALDMEISTER® (VEGGIE)"
+      ]
+    },
+    {
+      "id": "bacon",
+      "name": "extra Bacon Scheibe",
+      "table": "EXTRAS/BACON",
+      "tableName": "BACON (SCHWEINEFLEISCH)",
+      "values": {
+        "kcal": 139,
+        "protein": 10.1,
+        "fat": 10.5,
+        "carbs": 0.4,
+        "sugars": 0,
+        "fibre": 0,
+        "salt": 0.51
+      },
+      "price": 1.2,
+      "holders": [
+        "Woltmeister",
+        "HAMBURGER",
+        "CHEESEBURGER",
+        "CHILI-CHEESEBURGER",
+        "FLEISCHERMEISTER",
+        "MEISTERBURGER",
+        "MEISTER ALLER KLASSEN®",
+        "HAUSMEISTER®"
+      ]
+    },
+    {
+      "id": "cheese",
+      "name": "extra Käse Scheibe",
+      "table": "EXTRAS/CHEESE",
+      "tableName": "CHEESE",
+      "values": {
+        "kcal": 79,
+        "protein": 4.6,
+        "fat": 6.5,
+        "carbs": 0.8,
+        "sugars": 0.8,
+        "fibre": 0,
+        "salt": 1.03
+      },
+      "price": 1.2,
+      "holders": [
+        "Woltmeister",
+        "HAMBURGER",
+        "CHEESEBURGER",
+        "CHILI-CHEESEBURGER",
+        "FLEISCHERMEISTER",
+        "MEISTERBURGER",
+        "MEISTER ALLER KLASSEN®",
+        "HAUSMEISTER®",
+        "WALDMEISTER® (VEGGIE)"
+      ]
+    },
+    {
+      "id": "jalapenos",
+      "name": "extra Jalapeños",
+      "table": "EXTRAS/JALAPEÑOS",
+      "tableName": "JALAPEÑOS",
+      "values": {
+        "kcal": 9,
+        "protein": 0.3,
+        "fat": 0.2,
+        "carbs": 1.2,
+        "sugars": 0.7,
+        "fibre": 0,
+        "salt": 0
+      },
+      "price": 1.2,
+      "holders": [
+        "HAMBURGER",
+        "CHEESEBURGER",
+        "CHILI-CHEESEBURGER",
+        "FLEISCHERMEISTER",
+        "MEISTERBURGER",
+        "MEISTER ALLER KLASSEN®",
+        "HAUSMEISTER®",
+        "WALDMEISTER® (VEGGIE)",
+        "FRIES",
+        "CHEESE FRIES",
+        "BACON & ONION FRIES",
+        "Chili Fries"
+      ]
+    },
+    {
+      "id": "mushrooms",
+      "name": "extra Champignons",
+      "table": "EXTRAS/GRILLED MUSHROOMS",
+      "tableName": "GRILLED MUSHROOMS",
+      "values": {
+        "kcal": 65,
+        "protein": 0.5,
+        "fat": 6.6,
+        "carbs": 1.2,
+        "sugars": 0.5,
+        "fibre": 0.5,
+        "salt": 0.47
+      },
+      "price": 1.2,
+      "holders": [
+        "HAMBURGER",
+        "CHEESEBURGER",
+        "CHILI-CHEESEBURGER",
+        "FLEISCHERMEISTER",
+        "MEISTERBURGER",
+        "MEISTER ALLER KLASSEN®",
+        "HAUSMEISTER®",
+        "WALDMEISTER® (VEGGIE)",
+        "FRIES",
+        "CHEESE FRIES",
+        "BACON & ONION FRIES",
+        "Chili Fries"
+      ]
+    },
+    {
+      "id": "onions",
+      "name": "extra gebr. Zwiebeln",
+      "table": "EXTRAS/GRILLED ONIONS",
+      "tableName": "GRILLED ONIONS",
+      "values": {
+        "kcal": 30,
+        "protein": 0.4,
+        "fat": 2,
+        "carbs": 2.8,
+        "sugars": 1.3,
+        "fibre": 0.4,
+        "salt": 0
+      },
+      "price": 1.2,
+      "holders": [
+        "HAMBURGER",
+        "CHEESEBURGER",
+        "CHILI-CHEESEBURGER",
+        "FLEISCHERMEISTER",
+        "MEISTERBURGER",
+        "MEISTER ALLER KLASSEN®",
+        "HAUSMEISTER®",
+        "WALDMEISTER® (VEGGIE)",
+        "FRIES",
+        "CHEESE FRIES",
+        "BACON & ONION FRIES",
+        "Chili Fries"
+      ]
+    }
+  ],
+  "wolt": {
+    "slug": "burgermeister-frankfurt",
+    "page": "https://wolt.com/de/deu/frankfurt/restaurant/burgermeister-frankfurt",
+    "cats": [
+      {
+        "id": "burger",
+        "name": "Burger"
+      },
+      {
+        "id": "extras",
+        "name": "Extras (on burger or fries)"
+      },
+      {
+        "id": "fries",
+        "name": "Fries"
+      },
+      {
+        "id": "sauce",
+        "name": "Sauce"
+      },
+      {
+        "id": "cookies",
+        "name": "Cookies"
+      }
+    ],
+    "items": [
+      {
+        "name": "Woltmeister",
+        "cat": "burger",
+        "woltCat": "Wolt Specials",
+        "price": 8.3,
+        "description": "Patty aus frischem Rindfleisch, gebuttertes und getoastetes Brioche, geschmolzener Käse, Bacon, gegrillte rote Paprika, gebratene Zwiebeln, Barbecue-Sauce und Senf.",
+        "table": "BURGERS/WOLTMEISTER",
+        "values": {
+          "kcal": 818,
+          "protein": 39.6,
+          "fat": 52,
+          "carbs": 46.3,
+          "sugars": 8.4,
+          "fibre": 2.9,
+          "salt": 2.71
+        },
+        "qualifier": "PRO STÜCK",
+        "addons": [
+          {
+            "group": "Extras dazu?",
+            "max": 2,
+            "opts": {
+              "patty": "extra Fleisch Patty",
+              "cheese": "extra Käse Scheibe",
+              "bacon": "extra Bacon Scheibe"
+            }
+          }
+        ]
+      },
+      {
+        "name": "HAMBURGER",
+        "cat": "burger",
+        "woltCat": "Burger",
+        "price": 7,
+        "description": "Patty aus frischem Rindfleisch, gebuttertes und getoastetes Brioche, Eisbergsalat, Tomate, rote Zwiebeln, Dillgurken, Ketchup und Mayo Zutaten: WEIZENMEHL, Wasser, pflanzliches Fett (Emulgator E471), Kartoffelflocken, MILCHPULVER, WEIZENSAUER, Hefe, Speisesalz, Zucker, WEIZENGLUTEN, Emulgatoren (E471, E472e), Ascorbinsäure, Enzyme, Säuerungsmittel (E270, E296, E330), Glanzmittel (Wasser, pflanzliche Proteine, Dextrose, Stärke), Rindfleisch, Eisbergsalat, Tomate, Gewürzgurke, Rote Zwiebeln, Ketchup, MAYO, SCHWEFELDIOXID, Konservierungsstoffe, Farbstoffe, Antioxidationsmittel Brennwert: 2901 KJ / 693 kcal Allergene: Enhält Gluten, enthält Milch, enthält Sellerie, enthält Eier Zusatzstoffte: Mit Konservierungsstoffen, mit Farbstoffen, mit Antioxidationsmitteln, mit Schwefeldioxid",
+        "woltKcal": 693,
+        "table": "BURGERS/HAMBURGER",
+        "values": {
+          "kcal": 543,
+          "protein": 28,
+          "fat": 29.1,
+          "carbs": 42.1,
+          "sugars": 9.2,
+          "fibre": 2.3,
+          "salt": 3.17
+        },
+        "qualifier": "PRO STÜCK",
+        "addons": [
+          {
+            "group": "Extras",
+            "max": 7,
+            "opts": {
+              "bacon": "extra Bacon Scheibe",
+              "cheese": "extra Käse Scheibe",
+              "jalapenos": "extra Jalapeños",
+              "mushrooms": "extra Champignons",
+              "onions": "extra gebr. Zwiebeln",
+              "patty": "extra Fleisch Patty"
+            }
+          }
+        ]
+      },
+      {
+        "name": "CHEESEBURGER",
+        "cat": "burger",
+        "woltCat": "Burger",
+        "price": 8.3,
+        "description": "Patty aus frischem Rindfleisch, gebuttertes und getoastetes Brioche, geschmolzener Käse, Eisbergsalat, Tomate, rote Zwiebeln, Dillgurken, Ketchup und Mayo Zutaten: WEIZENMEHL, Wasser, pflanzliches Fett (Emulgator E471), Kartoffelflocken, MILCHPULVER, WEIZENSAUER, Hefe, Speisesalz, Zucker, WEIZENGLUTEN, Emulgatoren (E471, E472e), Ascorbinsäure, Enzyme, Säuerungsmittel (E270, E296, E330), Glanzmittel (Wasser, pflanzliche Proteine, Dextrose, Stärke), Rindfleisch, KÄSE, Eisbergsalat, Tomate, Gewürzgurke, Rote Zwiebeln, Ketchup, MAYO, SCHWEFELDIOXID, Konservierungsstoffe, Farbstoffe, Antioxidationsmittel Energie: 3249 KJ / 777 kcal Allergene: Enhält Gluten, enthält Milch, enthält Sellerie, enthält Eier Zusatzstoffte: Mit Konservierungsstoffen, mit Farbstoffen, mit Antioxidationsmitteln, mit Schwefeldioxid",
+        "woltKcal": 777,
+        "table": "BURGERS/CHEESEBURGER",
+        "values": {
+          "kcal": 623,
+          "protein": 32.5,
+          "fat": 35.6,
+          "carbs": 42.9,
+          "sugars": 10,
+          "fibre": 2.3,
+          "salt": 4.2
+        },
+        "qualifier": "PRO STÜCK",
+        "addons": [
+          {
+            "group": "Extras",
+            "max": 7,
+            "opts": {
+              "bacon": "extra Bacon Scheibe",
+              "cheese": "extra Käse Scheibe",
+              "jalapenos": "extra Jalapeños",
+              "mushrooms": "extra Champignons",
+              "onions": "extra gebr. Zwiebeln",
+              "patty": "extra Fleisch Patty"
+            }
+          }
+        ]
+      },
+      {
+        "name": "CHILI-CHEESEBURGER",
+        "cat": "burger",
+        "woltCat": "Burger",
+        "price": 8.75,
+        "description": "Patty aus frischem Rindfleisch, gebuttertes und getoastetes Brioche, geschmolzener Käse, Jalapeños, Eisbergsalat, Tomate, rote Zwiebeln, Dillgurken, Chili Chipotle Sauce und Mayo Zutaten: WEIZENMEHL, Wasser, pflanzliches Fett (Emulgator E471), Kartoffelflocken, MILCHPULVER, WEIZENSAUER, Hefe, Speisesalz, Zucker, WEIZENGLUTEN, Emulgatoren (E471, E472e), Ascorbinsäure, Enzyme, Säuerungsmittel (E270, E296, E330), Glanzmittel (Wasser, pflanzliche Proteine, Dextrose, Stärke), Rindfleisch, Jalapeños, KÄSE, Eisbergsalat, Tomate, Gewürzgurke, Rote Zwiebeln, Chipotle Sauce, MAYO, SCHWEFELDIOXID, Konservierungsstoffe, Farbstoffe, Antioxidationsmittel Energie: 3287 KJ / 786 kcal Allergene: Enhält Gluten, enthält Milch, enthält Sellerie, enthält Eier, enthält Senf Zusatzstoffte: Mit Konservierungsstoffen, mit Farbstoffen, mit Antioxidationsmitteln, mit Schwefeldioxid",
+        "woltKcal": 786,
+        "table": "BURGERS/CHILI-CHEESEBURGER",
+        "values": {
+          "kcal": 625,
+          "protein": 32.7,
+          "fat": 35.6,
+          "carbs": 43.2,
+          "sugars": 10.2,
+          "fibre": 2.5,
+          "salt": 4.61
+        },
+        "qualifier": "PRO STÜCK",
+        "addons": [
+          {
+            "group": "Extras",
+            "max": 7,
+            "opts": {
+              "bacon": "extra Bacon Scheibe",
+              "cheese": "extra Käse Scheibe",
+              "jalapenos": "extra Jalapeños",
+              "mushrooms": "extra Champignons",
+              "onions": "extra gebr. Zwiebeln",
+              "patty": "extra Fleisch Patty"
+            }
+          }
+        ]
+      },
+      {
+        "name": "FLEISCHERMEISTER",
+        "cat": "burger",
+        "woltCat": "Burger",
+        "price": 12.8,
+        "description": "Doppelt frisches Patty aus Rindfleisch, gebuttertes und getoastetes Brioche, doppelt geschmolzener Käse, gebratene Zwiebeln, Ketchup und Senf Zutaten: WEIZENMEHL, Wasser, pflanzliches Fett (Emulgator E471), Kartoffelflocken, MILCHPULVER, WEIZENSAUER, Hefe, Speisesalz, Zucker, WEIZENGLUTEN, Emulgatoren (E471, E472e), Ascorbinsäure, Enzyme, Säuerungsmittel (E270, E296, E330), Glanzmittel (Wasser, pflanzliche Proteine, Dextrose, Stärke), Rindfleisch, KÄSE, Karamelisierte Zwiebeln, SENF, Ketchup, SCHWEFELDIOXID, Konservierungsstoffe, Farbstoffe, Antioxidationsmittel Brennwert: 4656 KJ / 1113 kcal Allergene: Enhält Gluten, enthält Milch, enthält Sellerie, enthält Eier, enthält Senf Zusatzstoffte: Mit Konservierungsstoffen, mit Farbstoffen, mit Antioxidationsmittel, mit Schwefeldioxid, mit Emulgatoren, mit Säuerungsmitteln, mit Enzymen",
+        "woltKcal": 1113,
+        "table": "BURGERS/FLEISCHERMEISTER",
+        "values": {
+          "kcal": 931,
+          "protein": 58.6,
+          "fat": 58.1,
+          "carbs": 43.7,
+          "sugars": 10.3,
+          "fibre": 2.4,
+          "salt": 6.77
+        },
+        "qualifier": "PRO STÜCK",
+        "addons": [
+          {
+            "group": "Extras",
+            "max": 7,
+            "opts": {
+              "bacon": "extra Bacon Scheibe",
+              "cheese": "extra Käse Scheibe",
+              "jalapenos": "extra Jalapeños",
+              "mushrooms": "extra Champignons",
+              "onions": "extra gebr. Zwiebeln",
+              "patty": "extra Fleisch Patty"
+            }
+          }
+        ]
+      },
+      {
+        "name": "MEISTERBURGER",
+        "cat": "burger",
+        "woltCat": "Burger",
+        "price": 10.3,
+        "description": "Patty aus frischem Rindfleisch, gebuttertes und getoastetes Brioche, Bacon, gebratene Zwiebeln, Eisbergsalat, Tomate, rote Zwiebeln, Dillgurken, Barbecue Sauce, Senf und Mayo Zutaten: WEIZENMEHL, Wasser, pflanzliches Fett (Emulgator E471), Kartoffelflocken, MILCHPULVER, WEIZENSAUER, Hefe, Speisesalz, Zucker, WEIZENGLUTEN, Emulgatoren (E471, E472e), Ascorbinsäure, Enzyme, Säuerungsmittel (E270, E296, E330), Glanzmittel (Wasser, pflanzliche Proteine, Dextrose, Stärke), Rindfleisch, Bacon, KÄSE, Eisbergsalat, Tomate, Gewürzgurke, Karamelisierte Zwiebeln, Rote Zwiebeln, Barbecue Sauce, MAYO, SENF, SCHWEFELDIOXID, Konservierungsstoffe, Farbstoffe, Antioxidationsmittel Brennwert: 3617 KJ / 864 kcal Allergene: Enhält Gluten, enthält Milch, enthält Sellerie, enthält Eier, enthält Senf Zusatzstoffte: Mit Konservierungsstoffen, mit Farbstoffen, mit Antioxidationsmitteln, mit Schwefeldioxid",
+        "woltKcal": 864,
+        "table": "BURGERS/MEISTERBURGER",
+        "values": {
+          "kcal": 647,
+          "protein": 32.4,
+          "fat": 37.2,
+          "carbs": 45.7,
+          "sugars": 11.4,
+          "fibre": 3,
+          "salt": 3.84
+        },
+        "qualifier": "PRO STÜCK",
+        "addons": [
+          {
+            "group": "Extras",
+            "max": 7,
+            "opts": {
+              "bacon": "extra Bacon Scheibe",
+              "cheese": "extra Käse Scheibe",
+              "jalapenos": "extra Jalapeños",
+              "mushrooms": "extra Champignons",
+              "onions": "extra gebr. Zwiebeln",
+              "patty": "extra Fleisch Patty"
+            }
+          }
+        ]
+      },
+      {
+        "name": "MEISTER ALLER KLASSEN®",
+        "cat": "burger",
+        "woltCat": "Burger",
+        "price": 12.9,
+        "description": "Doppelt frisches Patty aus Rindfleisch, gebuttertes und getoastetes Brioche, doppelt geschmolzener Käse, Bacon, Jalapeños, Eisbergsalat, Tomate, rote Zwiebeln, Dillgurken, Barbecue Sauce und Mayo Zutaten: WEIZENMEHL, Wasser, pflanzliches Fett (Emulgator E471), Kartoffelflocken, MILCHPULVER, WEIZENSAUER, Hefe, Speisesalz, Zucker, WEIZENGLUTEN, Emulgatoren (E471, E472e), Ascorbinsäure, Enzyme, Säuerungsmittel (E270, E296, E330), Glanzmittel (Wasser, pflanzliche Proteine, Dextrose, Stärke), Rindfleisch, Bacon, Jalapeños, KÄSE, Eisbergsalat, Tomate, Gewürzgurke, Rote Zwiebeln, Barbecue Sauce, MAYO, SCHWEFELDIOXID, Konservierungsstoffe, Farbstoffe, Antioxidationsmittel Brennwert: 5342 KJ / 1277 kcal Allergene: Enhält Gluten, enthält Milch, enthält Eier Zusatzstoffte: Mit Konservierungsstoffen, mit Farbstoffen, mit Antioxidationsmitteln, mit Schwefeldioxid",
+        "woltKcal": 1277,
+        "table": "BURGERS/MEISTER ALLER KLASSEN®",
+        "values": {
+          "kcal": 1043,
+          "protein": 62.6,
+          "fat": 67.6,
+          "carbs": 46.5,
+          "sugars": 13.4,
+          "fibre": 2.5,
+          "salt": 8.13
+        },
+        "qualifier": "PRO STÜCK",
+        "addons": [
+          {
+            "group": "Extras",
+            "max": 7,
+            "opts": {
+              "bacon": "extra Bacon Scheibe",
+              "cheese": "extra Käse Scheibe",
+              "jalapenos": "extra Jalapeños",
+              "mushrooms": "extra Champignons",
+              "onions": "extra gebr. Zwiebeln",
+              "patty": "extra Fleisch Patty"
+            }
+          }
+        ]
+      },
+      {
+        "name": "HAUSMEISTER®",
+        "cat": "burger",
+        "woltCat": "Burger",
+        "price": 10.3,
+        "description": "Patty aus frischem Rindfleisch, gebuttertes und getoastetes Brioche, geschmolzener Käse, Bacon, gebratene Champignons, Eisbergsalat, Tomate, rote Zwiebeln, Dillgurken und Mayo Zutaten: WEIZENMEHL, Wasser, pflanzliches Fett (Emulgator E471), Kartoffelflocken, MILCHPULVER, WEIZENSAUER, Hefe, Speisesalz, Zucker, WEIZENGLUTEN, Emulgatoren (E471, E472e), Ascorbinsäure, Enzyme, Säuerungsmittel (E270, E296, E330), Glanzmittel (Wasser, pflanzliche Proteine, Dextrose, Stärke), Rindfleisch, Gebratene Champignons, Bacon, Käse, Eisbergsalat, Tomate, Dillgurke, rote Zwiebeln, MAYO, SCHWEFELDIOXID, Konservierungsstoffe, Farbstoffe, Antioxidationsmittel Brennwert: 4074 KJ / 974 kcal Allergene: Enhält Gluten, enthält Milch, enthält Eier Zusatzstoffte: Mit Konservierungsstoffen, mit Farbstoffen, mit Antioxidationsmitteln, mit Schwefeldioxid",
+        "woltKcal": 974,
+        "table": "BURGERS/HAUSMEISTER®",
+        "values": {
+          "kcal": 712,
+          "protein": 37.3,
+          "fat": 43.7,
+          "carbs": 43,
+          "sugars": 10,
+          "fibre": 2.6,
+          "salt": 4.63
+        },
+        "qualifier": "PRO STÜCK",
+        "addons": [
+          {
+            "group": "Extras",
+            "max": 7,
+            "opts": {
+              "bacon": "extra Bacon Scheibe",
+              "cheese": "extra Käse Scheibe",
+              "jalapenos": "extra Jalapeños",
+              "mushrooms": "extra Champignons",
+              "onions": "extra gebr. Zwiebeln",
+              "patty": "extra Fleisch Patty"
+            }
+          }
+        ]
+      },
+      {
+        "name": "WALDMEISTER® (VEGGIE)",
+        "cat": "burger",
+        "woltCat": "Burger",
+        "price": 9.1,
+        "description": "Veggiepatty, gebuttertes und getoastetes Brioche, geschmolzener Käse, gebratene Champignons, Eisbergsalat, Tomate, rote Zwiebeln, Dillgurken und Mayo Zutaten: WEIZENMEHL, Wasser, pflanzliches Fett (Emulgator E471), Kartoffelflocken, MILCHPULVER, WEIZENSAUER, Hefe, Speisesalz, Zucker, WEIZENGLUTEN, Emulgatoren (E471, E472e), Ascorbinsäure, Enzyme, Säuerungsmittel (E270, E296, E330), Glanzmittel (Wasser, pflanzliche Proteine, Dextrose, Stärke), SCHWEFELDIOXID, Konservierungsstoffe, Farbstoffe, Antioxidationsmittel, Veggiepatty, KÄSE, Eisbergsalat, Tomate, Dillgurken, Rote Zwiebeln, MAYO Brennwert: 2713 KJ / 648 kcal Allergene: Enhält Gluten, enthält Milch, enthält Eier, enthält Sojabohnen Zusatzstoffte: Mit Konservierungsstoffen, mit Farbstoffen, mit Antioxidationsmitteln, mit Schwefeldioxid",
+        "woltKcal": 648,
+        "table": "BURGERS/WALDMEISTER® (VEGGIE)",
+        "values": {
+          "kcal": 556,
+          "protein": 28.2,
+          "fat": 22.9,
+          "carbs": 56.8,
+          "sugars": 11,
+          "fibre": 6.6,
+          "salt": 3.86
+        },
+        "qualifier": "PRO STÜCK",
+        "addons": [
+          {
+            "group": "Extra",
+            "max": 6,
+            "opts": {
+              "veggie_patty": "extra Veggie Patty",
+              "cheese": "extra Käse Scheibe",
+              "mushrooms": "extra Champignons",
+              "onions": "extra gebr. Zwiebeln",
+              "jalapenos": "extra Jalapeños"
+            }
+          }
+        ]
+      },
+      {
+        "name": "FRIES",
+        "cat": "fries",
+        "woltCat": "Fries",
+        "price": 4.9,
+        "description": "Pommes aus frischen Kartoffeln mit Schale geschnitten, zwei Mal frittiert und leicht gesalzen Zutaten: Kartoffeln, pflanzliches Fett, Salz Brennwert: 2763 KJ / 660 kcal",
+        "woltKcal": 660,
+        "table": "FRIES/FRIES (200G)",
+        "values": {
+          "kcal": 600,
+          "protein": 7,
+          "fat": 29,
+          "carbs": 76,
+          "sugars": 0.6,
+          "fibre": 4,
+          "salt": 1
+        },
+        "addons": [
+          {
+            "group": "Extras",
+            "max": 5,
+            "opts": {
+              "mushrooms": "extra Champignons",
+              "onions": "extra gebr. Zwiebeln",
+              "jalapenos": "EXTRA Jalapenos"
+            }
+          }
+        ]
+      },
+      {
+        "name": "CHEESE FRIES",
+        "cat": "fries",
+        "woltCat": "Fries",
+        "price": 5.6,
+        "description": "Pommes aus frischen Kartoffeln mit Schale geschnitten, zwei Mal frittiert und leicht gesalzen. Mit separater Burgermeister Cheesesauce im Becher Zutaten: Kartoffeln, pflanzliches Fett, Salz, KÄSE (mind. 50%), Wasser, BUTTER, Schmelzsalze (E339, E452), modifizierte Stärke, Farbstoffe (E160c, E160a), Verdickungsmittel (E412), natürliches Käsearoma, Konservierungsmittel (E200) Brennwert: 3500 KJ / 837 kcal Allergene: Enthält Gluten, enthält Milch Zusatzstoffe: Mit Konservierungsstoffen",
+        "woltKcal": 837,
+        "table": "FRIES/CHEESE FRIES (270G)",
+        "values": {
+          "kcal": 776,
+          "protein": 16.2,
+          "fat": 43.7,
+          "carbs": 77.8,
+          "sugars": 0.9,
+          "fibre": 4,
+          "salt": 2.6
+        },
+        "addons": [
+          {
+            "group": "Extras",
+            "max": 5,
+            "opts": {
+              "mushrooms": "extra Champignons",
+              "onions": "extra gebr. Zwiebeln",
+              "jalapenos": "EXTRA Jalapenos"
+            }
+          }
+        ]
+      },
+      {
+        "name": "BACON & ONION FRIES",
+        "cat": "fries",
+        "woltCat": "Fries",
+        "price": 6.8,
+        "description": "Pommes aus frischen Kartoffeln mit Schale geschnitten, zwei Mal frittiert und leicht gesalzen. Mit gebratenem Bacon, Zwiebelwürfeln und BBQ-Sauce Zutaten: Kartoffeln, pflanzliches Fett, Salz, Zwiebeln, Speck, Barbecue Sauce, Konservierungsstoffe, Antioxidationsmitteln Brennwert: 5099 KJ / 1219 kcal",
+        "woltKcal": 1219,
+        "table": "FRIES/BACON & ONION FRIES",
+        "values": {
+          "kcal": 768,
+          "protein": 13.6,
+          "fat": 43.1,
+          "carbs": 80.5,
+          "sugars": 3.6,
+          "fibre": 4.5,
+          "salt": 2.2
+        },
+        "qualifier": "SCHWEINEFLEISCH | 280G",
+        "addons": [
+          {
+            "group": "Extras",
+            "max": 5,
+            "opts": {
+              "mushrooms": "extra Champignons",
+              "onions": "extra gebr. Zwiebeln",
+              "jalapenos": "EXTRA Jalapenos"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Chili Fries",
+        "cat": "fries",
+        "woltCat": "Fries",
+        "price": 7.3,
+        "description": "Pommes aus frischen Kartoffeln mit Schale geschnitten, zwei Mal frittiert und leicht gesalzen, serviert mit Chili con Carne mit Rindfleisch, Tomaten, Paprika,Zwiebeln und Chipotle Chilis",
+        "table": "FRIES/CHILI FRIES",
+        "values": {
+          "kcal": 764,
+          "protein": 13.8,
+          "fat": 40.2,
+          "carbs": 79.8,
+          "sugars": 3,
+          "fibre": 6,
+          "salt": 1.9
+        },
+        "qualifier": "RINDFLEISCH | 280G",
+        "addons": [
+          {
+            "group": "Extras",
+            "max": 5,
+            "opts": {
+              "mushrooms": "extra Champignons",
+              "onions": "extra gebr. Zwiebeln",
+              "jalapenos": "EXTRA Jalapenos"
+            }
+          }
+        ]
+      },
+      {
+        "name": "PORTION KETCHUP 20ml",
+        "cat": "sauce",
+        "woltCat": "Sauce",
+        "price": 0.8,
+        "description": "Zutaten: Tomatenmark (58 %), Wasser, Zucker, modifizierte Stärke, Branntweinessig, Speisesalz, SENF, Gewürze, Konservierungsmittel: Kaliumsorbat, Sorbinsäure Brennwert: 427 kJ / 102 kcal Allergene: Enthält Sellerie, enthält Senf Zusatzstoffe: Mit Konservierungsstoffen",
+        "woltKcal": 102,
+        "noData": "die Tabelle nennt Ketchup mit 14 kcal / 3,2 g KH — das sind etwa 14 g (Wolt: 102 kcal je 100 g), nicht die 20-mL-Portion"
+      },
+      {
+        "name": "PORTION MAYO 20ml",
+        "cat": "sauce",
+        "woltCat": "Sauce",
+        "price": 0.8,
+        "description": "Zutaten: Rapsöl 50 %, Wasser, Zucker, Maisstärke, EIGELB, Branntweinessig, WEIZENSTÄRKE, Gewürze, Speisesalz, SENFSAATEN, Karamellzuckersirup, Zitronenöl, Speisewürze, Säuerungsmittel: Citronensäure; Verdickungsmittel: Guarkernmehl; Konservierungsstoffen: Kaliumsorbat, Natriumbenzoat; Aroma Brennwert: 2929 KJ / 700 kcal Allergene: Enthält Gluten, enthält Eier, enthält Milch, enthält Senf Zusatzstoffe: Mit Säuerungsmitteln, mit Verdickungsmitteln, mit Konservierungsmitteln, mit Aromen",
+        "woltKcal": 700,
+        "noData": "die Tabelle nennt Mayo mit 44 kcal / 4,5 g Fett — das sind etwa 6 g (Wolt: 700 kcal je 100 g), nicht die 20-mL-Portion"
+      },
+      {
+        "name": "PORTION CHEESE SAUCE 70g",
+        "cat": "sauce",
+        "woltCat": "Sauce",
+        "price": 2.8,
+        "description": "Zutaten: KÄSE (mind. 50%), Wasser, BUTTER, Schmelzsalze (E339, E452), modifizierte Stärke, Farbstoffe (E160c, E160a), Verdickungsmittel (E412), natürliches Käsearoma, Konservierungsmittel (E200) Brennwert: 1050 kJ / 251 kcal Allergene: Enthält Gluten, enthält Milch Zusatzstoffe: Mit Farbstoffen, mit Verdickungsmitteln, mit Konservierungsstoffen",
+        "woltKcal": 251,
+        "table": "EXTRAS/CHEESE SAUCE",
+        "values": {
+          "kcal": 176,
+          "protein": 9.2,
+          "fat": 14.7,
+          "carbs": 1.8,
+          "sugars": 0.3,
+          "fibre": 0,
+          "salt": 1.61
+        },
+        "sauce": true
+      },
+      {
+        "name": "BLUEBERRY CHEESECAKE COOKIE",
+        "cat": "cookies",
+        "woltCat": "Cookies",
+        "price": 4.5,
+        "description": "Hausgebackener Cookie mit getrockneten Blaubeeren in einer Cheesecake-Füllung. Jeden Morgen frisch aus unserer eigenen Berliner Bäckerei Zutaten: WEIZENMEHL, Zucker, Fettzubereitung (pflanzliche Öle und Fette (Palm, Sonnenblume), Wasser, BUTTER (MILCH), Salz, Emulgator E471, natürliches Aroma, Säuerungsmittel E330, Farbstoff E160a, Frischkäse-Füllung (15 %) (FRISCHKÄSE (MILCH), Zucker, Vanillinzucker (Zucker, Aroma Vanillin), SAHNE (MILCH), Zitronensaft), weiße Schokoladen-Chips (12 %) (Zucker, Kakaobutter, VOLLMILCHPULVER, Emulgator E322, Aroma), VOLLEI, Stärke, Backtriebmittel (E450, E500), getrocknete Blaubeeren (5 %) (Blaubeeren, Zucker, Sonnenblumenöl, Säuerungsmittel E330) Brennwert: 1750 KJ / 418 kcal Allergene: Enthält Gluten, enthält Milch, enthält Eier, enthält Soja Zusatzstoffe: Mit Farbstoffen, mit Emulgatoren, mit Säuerungsmitteln",
+        "woltKcal": 418,
+        "table": "COOKIES/BLUEBERRY CHEESECAKE",
+        "values": {
+          "kcal": 592,
+          "protein": 8.5,
+          "fat": 27.4,
+          "carbs": 77.2,
+          "sugars": 37.9,
+          "fibre": 2.2,
+          "salt": 0.45
+        },
+        "qualifier": "PRO STÜCK"
+      },
+      {
+        "name": "DOUBLE CHOCOLATE PEANUT CHIP COOKIE",
+        "cat": "cookies",
+        "woltCat": "Cookies",
+        "price": 4.5,
+        "description": "Hausgebackener Cookie mit heller und dunkler Schokolade und einer Menge Erdnuss-Chips. Jeden Morgen frisch aus unserer eigenen Berliner Bäckerei Zutaten: WEIZENMEHL, Zucker, Fettzubereitung (pflanzliche Öle und Fette (Palm, Sonnenblume), Wasser, BUTTER (MILCH), Salz, Emulgator E471, natürliches Aroma, Säuerungsmittel E330, Farbstoff E160a), Erdnussbutter-Chips (20 %) (ERDNUSS, Zucker, MILCH, Emulgator E322), Schokoladen-Chips (14 %) (Kakaomasse, Zucker, Kakaobutter, Emulgator E322), VOLLEI, Kakaopulver, Backtriebmittel (E450, E500), Stärke Brennwert: 1813 KJ / 433 kcal Allergene: Enthält Gluten, enthält Milch, enthält Eier, enthält Soja, enthält Erdnüsse Zusatzstoffe: Mit Farbstoffen, mit Emulgaroten, mit Säuerungsmitteln",
+        "woltKcal": 433,
+        "table": "COOKIES/DOUBLE CHOCOLATE PEANUT",
+        "values": {
+          "kcal": 548,
+          "protein": 7.4,
+          "fat": 26.5,
+          "carbs": 70.7,
+          "sugars": 42.1,
+          "fibre": 3,
+          "salt": 0.73
+        },
+        "qualifier": "PRO STÜCK"
+      },
+      {
+        "name": "CHOCOLATE CHIP WALTNUT COOKIE",
+        "cat": "cookies",
+        "woltCat": "Cookies",
+        "price": 4.5,
+        "description": "Hausgebackener Cookie mit viel Chocolate-Chips und Walnussstückchen. Mehrfach täglich frisch gebacken Zutaten: WEIZENMEHL, Zucker, Fettzubereitung (pflanzliche Öle und Fette (Palm, Sonnenblume), Wasser, BUTTER (MILCH), Salz, Emulgator E471, natürliches Aroma, Säuerungsmittel E330, Farbstoff E160a), WALNÜSSE (9 %), Schokoladen-Chips (Kakaomasse, Zucker, Kakaobutter, Emulgator E322), VOLLEI, Backtriebmittel (E450, E500), Stärke Brennwert: 1850 KJ / 442 kcal Allergene: Enthält Gluten, enthält Milch, enthält Eier, enthält Soja, enthält Walnüsse Zusatzstoffe: Mit Farbstoffen, mit Emulgatoren, mit Säuerungsmitteln",
+        "woltKcal": 442,
+        "table": "COOKIES/CHOCOLATE CHIP WALNUT",
+        "values": {
+          "kcal": 546,
+          "protein": 8.5,
+          "fat": 26.7,
+          "carbs": 68.5,
+          "sugars": 38.8,
+          "fibre": 2.4,
+          "salt": 0.32
+        },
+        "qualifier": "PRO STÜCK"
+      }
+    ]
+  }
+}

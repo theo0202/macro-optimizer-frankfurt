@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, chidobaSnackMenu, chidobaSnackGroup, chidobaItemsMax, CHIDOBA_ITEMS_CAP, chidobaCard, chidobaConfigCard, chidobaStepEntries, chidobaCatOn, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition, SHARE_VIEWS, SHARE_VIEW, shareViewFrom, visibleTabs, VISIBLE_TABS, viewSearchIndex, VIEW_SEARCH_INDEX, viewShows, SHOW_SCREENSHOT_IMPORT, showTabRow, SHOW_TAB_ROW, APP_CODE, appNeedsCode, appUnlock, AppGate, compleatBuilderAvailable, compleatBuildMode, compleatCleanPicks, compleatPickList, compleatCanAdd, compleatPickStep, bowlAssemble, bowlRequireHint, compleatManualResult, compleatCompletionMenu, compleatComplete, compleatBuildLoad, compleatBuildSave, compleatConfigCard, compleatBuilder, OrderGuide, MacroBars, bowlPanel, bowlCard, bowlConfigParts, EDEKA_FIX_CODE, edekaFixToggle, edekaFixUnlock, edekaConfigCard };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, chidobaSnackMenu, chidobaSnackGroup, chidobaItemsMax, CHIDOBA_ITEMS_CAP, chidobaCard, chidobaConfigCard, chidobaStepEntries, chidobaCatOn, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, BURGERMEISTER, acAddonPlan, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition, SHARE_VIEWS, SHARE_VIEW, shareViewFrom, visibleTabs, VISIBLE_TABS, viewSearchIndex, VIEW_SEARCH_INDEX, viewShows, SHOW_SCREENSHOT_IMPORT, showTabRow, SHOW_TAB_ROW, APP_CODE, appNeedsCode, appUnlock, AppGate, compleatBuilderAvailable, compleatBuildMode, compleatCleanPicks, compleatPickList, compleatCanAdd, compleatPickStep, bowlAssemble, bowlRequireHint, compleatManualResult, compleatCompletionMenu, compleatComplete, compleatBuildLoad, compleatBuildSave, compleatConfigCard, compleatBuilder, OrderGuide, MacroBars, bowlPanel, bowlCard, bowlConfigParts, EDEKA_FIX_CODE, edekaFixToggle, edekaFixUnlock, edekaConfigCard };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -2182,6 +2182,142 @@ check("_meta: Quelle (Karte + Wolt), Entscheidungen vom 22.09.2026, Legende mit 
   rawFK._meta.legend.b === "Krebstiere" && rawFK._meta.legend.i === "Weichtiere" && typeof rawFK._meta.shellfish === "string" &&
   rawFK._meta.anomalies.length === 0 && rawFK._meta.priceDiffs.length === 19 && JSON.stringify(rawFK._meta.notDeclared) === JSON.stringify(["sat", "sugars", "fibre", "salt"]) &&
   typeof rawFK._meta.coriander === "string", true);
+
+// ── Burgermeister (Wolt, à la carte mit Extras als Optionen; User 20.10.2026) ──
+sect("Burgermeister (Wolt, à la carte, Extras als Optionen)");
+const BM = T.RESTO_BY_KEY.burgermeister, BMD = T.BURGERMEISTER;
+const rawBM = U.readJSON(__dirname + "/data/burgermeister-raw.json");
+const updBM = require("./burgermeister-update.js");
+const crawlBM = require("./burgermeister-crawl.js");
+const bmItem = name => BMD.items.find(x => x.name === name);
+const stBM = T.defaultRestoState(BM);
+const runBM = (t, st, ex, inc) => T.runOptimize(BM, t, "macros", {}, st || stBM, new Set(ex || []), new Set(inc || []));
+const BM_BURGERS = ["Woltmeister", "HAMBURGER", "CHEESEBURGER", "CHILI-CHEESEBURGER", "FLEISCHERMEISTER", "MEISTERBURGER", "MEISTER ALLER KLASSEN®", "HAUSMEISTER®", "WALDMEISTER® (VEGGIE)"];
+const BM_EXTRAS = ["extra Fleisch Patty", "extra Veggie Patty", "extra Bacon Scheibe", "extra Käse Scheibe", "extra Jalapeños", "extra Champignons", "extra gebr. Zwiebeln"];
+check("Registry: Burgermeister (Wolt), à la carte, accurate, in All/Accurate; Schalter „No sauces“ und „No desserts“ AN; Kategorien Burger · Extras · Fries · Sauce · Cookies",
+  !!BM && BM.kind === "ac" && BM.platform === "Wolt" && BM.accurate === true && !BM.skipAll && BM.label === "BURGERMEISTER · FRANKFURT · WOLT" &&
+  BM.switches.map(x => x.id + ":" + x.def).join() === "noSauces:true,noDesserts:true" && BMD.cats.map(c => c.id).join() === "burger,extras,fries,sauce,cookies" && BMD.cats.every(c => c.on) &&
+  T.RESTAURANTS.indexOf(BM) === T.RESTAURANTS.indexOf(T.RESTO_BY_KEY.fitkitchen) + 1 && T.validateRegistry([BM]).length === 0, true);
+check("BURGERMEISTER-Block = burgermeister-update.js(data/burgermeister-raw.json) (Block aktuell)", (() => {
+  const d = updBM.buildData(rawBM);
+  return JSON.stringify(d.cats) === JSON.stringify(BMD.cats) && JSON.stringify(d.items) === JSON.stringify(BMD.items);
+})(), true);
+check("Nährwerttabelle (Stand August 2026): 41 Zeilen — Burgers 10, Fries 4, Cookies 3, Milkshakes 6, Drinks 6, Extras 12; der Text in data/burgermeister-naehrwerte.txt ergibt genau die Rohdaten", (() => {
+  const P = [], parsed = crawlBM.parseTable(fs.readFileSync(__dirname + "/data/burgermeister-naehrwerte.txt", "utf8"), P);
+  const n = s => rawBM.table.filter(r => r.section === s).length;
+  const ham = rawBM.table.find(r => r.key === "BURGERS/HAMBURGER");
+  return P.length === 0 && parsed.stand === "AUGUST 2026" && rawBM._meta.table.stand === "AUGUST 2026" && JSON.stringify(parsed.rows) === JSON.stringify(rawBM.table) && rawBM.table.length === 41 &&
+    [["BURGERS", 10], ["FRIES", 4], ["COOKIES", 3], ["MILKSHAKES", 6], ["DRINKS", 6], ["EXTRAS", 12]].every(([s, c]) => n(s) === c) &&
+    ham.qualifier === "PRO STÜCK" && JSON.stringify(ham.values) === JSON.stringify({ kcal: 543, protein: 28, fat: 29.1, carbs: 42.1, sugars: 9.2, fibre: 2.3, salt: 3.17 });
+})(), true);
+check("24 Items: 9 Burger (mit dem Woltmeister aus „Wolt Specials“), 7 Extras, 4 Fries, 1 Sauce, 3 Cookies; jeder Wert = Tabellen-Zeile, gesättigte Fettsäuren 0 (nicht deklariert), Preis = Wolt", (() => {
+  const byKey = Object.fromEntries(rawBM.table.map(r => [r.key, r]));
+  const main = rawBM.wolt.items.filter(w => !w.noData);
+  const okMain = main.length === 17 && main.every(w => { const it = bmItem(w.name), r = byKey[w.table];
+    return !!it && !!r && ["kcal", "protein", "fat", "carbs", "sugars", "fibre", "salt"].every(k => it[k] === r.values[k]) && it.sat === 0 && it.price === w.price; });
+  const okAdd = rawBM.addons.length === 7 && rawBM.addons.every(ad => { const it = bmItem(ad.name), r = byKey[ad.table];
+    return !!it && it.addon === true && it.cat === "extras" && ["kcal", "protein", "fat", "carbs", "sugars", "fibre", "salt"].every(k => it[k] === r.values[k]) && it.price === ad.price; });
+  return okMain && okAdd && BMD.items.length === 24 && [["burger", 9], ["extras", 7], ["fries", 4], ["sauce", 1], ["cookies", 3]].every(([c, k]) => BMD.items.filter(x => x.cat === c).length === k) &&
+    BMD.items.filter(x => x.cat === "burger").map(x => x.name).join("|") === BM_BURGERS.join("|") && BMD.items.filter(x => x.addon).map(x => x.name).join("|") === BM_EXTRAS.join("|");
+})(), true);
+check("Beispiele: HAMBURGER 543 kcal / 28 g E / 29,1 g F / 42,1 g KH für 7,00 € · MEISTER ALLER KLASSEN® 1043 kcal / 62,6 g E für 12,90 € · extra Fleisch Patty 255 kcal / 21,5 g E / 19 g F für 4,00 € · Cheese Fries = Fries + Cheese Sauce (Tabelle in sich stimmig)", (() => {
+  const h = bmItem("HAMBURGER"), m = bmItem("MEISTER ALLER KLASSEN®"), p = bmItem("extra Fleisch Patty"), f = bmItem("FRIES"), cf = bmItem("CHEESE FRIES"), cs = bmItem("PORTION CHEESE SAUCE 70g");
+  return h.kcal === 543 && h.protein === 28 && h.fat === 29.1 && h.carbs === 42.1 && h.price === 7 && m.kcal === 1043 && m.protein === 62.6 && m.price === 12.9 &&
+    p.kcal === 255 && p.protein === 21.5 && p.fat === 19 && p.carbs === 0 && p.price === 4 && cs.sauce === true && cs.kcal === 176 &&
+    ["kcal", "protein", "fat", "carbs", "sugars", "fibre"].every(k => approx(cf[k], f[k] + cs[k])) && Math.abs(cf.salt - (f.salt + cs.salt)) < 0.02;
+})(), true);
+check("Extras je Artikel wie im Wolt-Bestellfenster: 7 Rindfleisch-Burger „Extras“ (bis 7: Bacon, Käse, Jalapeños, Champignons, gebr. Zwiebeln, Fleisch Patty) · WALDMEISTER „Extra“ (bis 6: Veggie Patty, Käse, Champignons, Zwiebeln, Jalapeños) · Woltmeister „Extras dazu?“ (bis 2: Patty, Käse, Bacon) · Fries „Extras“ (bis 5: Champignons, Zwiebeln, „EXTRA Jalapenos“)", (() => {
+  const ids = x => Object.keys(x.addons[0].opts).map(k => k.replace("bm_x_", "")).sort().join(",");
+  const beef = BMD.items.filter(x => x.cat === "burger" && !/^Woltmeister$|WALDMEISTER/.test(x.name));
+  const wald = bmItem("WALDMEISTER® (VEGGIE)"), wolt = bmItem("Woltmeister"), fries = BMD.items.filter(x => x.cat === "fries");
+  return beef.length === 7 && beef.every(x => x.addons.length === 1 && x.addons[0].group === "Extras" && x.addons[0].max === 7 && ids(x) === "bacon,cheese,jalapenos,mushrooms,onions,patty") &&
+    wald.addons[0].group === "Extra" && wald.addons[0].max === 6 && ids(wald) === "cheese,jalapenos,mushrooms,onions,veggie_patty" &&
+    wolt.addons[0].group === "Extras dazu?" && wolt.addons[0].max === 2 && ids(wolt) === "bacon,cheese,patty" &&
+    fries.length === 4 && fries.every(x => x.addons[0].group === "Extras" && x.addons[0].max === 5 && ids(x) === "jalapenos,mushrooms,onions" && x.addons[0].opts.bm_x_jalapenos === "EXTRA Jalapenos") &&
+    !BMD.items.some(x => x.cat === "sauce" || x.cat === "cookies" ? !!x.addons : false) && bmItem("extra Jalapeños").addon === true;
+})(), true);
+check("acAddonPlan: ein Extra braucht einen Artikel, der es anbietet — je Artikel jedes Extra höchstens 1×, je Gruppe höchstens bis zur Grenze; Burger vor Fries", (() => {
+  const I = n => bmItem(n), plan = list => T.acAddonPlan(list.map(I));
+  const two = plan(["HAMBURGER", "HAMBURGER", "extra Fleisch Patty", "extra Fleisch Patty"]);
+  const mix = plan(["HAMBURGER", "FRIES", "extra Champignons", "extra Champignons"]);
+  const first = plan(["HAMBURGER", "FRIES", "extra Champignons"]);
+  return !!plan(["HAMBURGER", "extra Fleisch Patty"]) && plan(["extra Fleisch Patty"]) === null && plan(["FRIES", "extra Fleisch Patty"]) === null &&
+    !!plan(["FRIES", "extra Champignons"]) && plan(["HAMBURGER", "extra Fleisch Patty", "extra Fleisch Patty"]) === null &&
+    !!two && two.of.get(0).length === 1 && two.of.get(1).length === 1 &&
+    plan(["Woltmeister", "extra Fleisch Patty", "extra Käse Scheibe", "extra Bacon Scheibe"]) === null && !!plan(["Woltmeister", "extra Fleisch Patty", "extra Käse Scheibe"]) &&
+    plan(["Woltmeister", "extra Champignons"]) === null && plan(["WALDMEISTER® (VEGGIE)", "extra Fleisch Patty"]) === null && plan(["WALDMEISTER® (VEGGIE)", "extra Bacon Scheibe"]) === null &&
+    !!plan(["WALDMEISTER® (VEGGIE)", "extra Veggie Patty"]) && plan(["HAMBURGER", "extra Veggie Patty"]) === null &&
+    !!mix && mix.of.get(0).length === 1 && mix.of.get(1).length === 1 && first.at.get(2) === 0 && T.acAddonPlan([I("HAMBURGER"), I("FRIES")]).at.size === 0;
+})(), true);
+check("Optimizer: jede vorgeschlagene Bestellung ist bestellbar (jedes Extra an einem passenden Burger bzw. Fries), Standard ohne Cheese-Sauce-Becher und Cookies, höchstens 5 Artikel, Preis = Σ Wolt-Preise; Extras kommen vor (z.B. Veggie Patty beim Standard-Ziel)", (() => {
+  const r = runBM(tDef), hi = runBM(tgt(100, 90, 50));
+  const valid = rs => rs.every(x => T.acAddonPlan(x.items) !== null && x.items.length <= 5 && x.items.every(y => !y.sauce && y.cat !== "cookies") &&
+    Math.abs(x.price - Math.round(x.items.reduce((a, y) => a + y.price * 100, 0)) / 100) < 1e-9);
+  return r.length > 0 && hi.length > 0 && valid(r) && valid(hi) && r.some(x => x.items.some(y => y.addon)) && hi.some(x => x.items.some(y => y.name === "extra Fleisch Patty")) &&
+    r[0].items.map(x => x.name).includes("WALDMEISTER® (VEGGIE)") && r[0].items.map(x => x.name).includes("extra Veggie Patty");
+})(), true);
+check("Optimizer = vollständige Durchrechnung: beste bestellbare Bestellung identisch in 24 Zufallsfällen (Makro-Modus, Max. 3/4/5 Artikel, Pool ohne Sauce/Cookies wie im Standard)", (() => {
+  const pool = BMD.items.filter(x => !x.sauce && x.cat !== "cookies");
+  let seed = 20261020;
+  const rnd = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; };
+  for (let k = 0; k < 24; k++) {
+    const t = tgt(30 + Math.round(rnd() * 70), 30 + Math.round(rnd() * 120), 10 + Math.round(rnd() * 50)), maxN = [3, 4, 5][k % 3];
+    const res = runBM(t, { ...stBM, maxN });
+    let best = Infinity;
+    const rec = (start, cur) => {
+      if (cur.length && T.acAddonPlan(cur)) best = Math.min(best, T.score(T.sumN(cur, 1), t, "macros", {}));
+      if (cur.length === maxN) return;
+      for (let i = start; i < pool.length; i++) { cur.push(pool[i]); rec(i, cur); cur.pop(); }
+    };
+    rec(0, []);
+    if (!res.length || Math.abs(res[0].score - best) > 1e-9) return false;
+  }
+  return true;
+})(), true);
+check("Schalter, Chips, Ausschluss, Must include und Preislimit: „No sauces“ AUS → Cheese-Sauce möglich; Extras-Chip aus → keine Extras; Patty ausgeschlossen → keine; Patty als Pflicht → in jeder Bestellung samt passendem Burger; Preislimit 12 €", (() => {
+  const t = tgt(80, 100, 40), patty = bmItem("extra Fleisch Patty").id;
+  const sauceOn = runBM(tgt(40, 60, 45), { ...stBM, sw: { ...stBM.sw, noSauces:false } });
+  const noExtras = runBM(t, { ...stBM, cats: { ...stBM.cats, extras: false } });
+  const ex = runBM(t, stBM, [patty]), inc = runBM(tDef, stBM, null, [patty]), cap = runBM({ ...t, maxPrice: 12 });
+  const cookies = runBM(tgt(20, 150, 40), { ...stBM, sw: { ...stBM.sw, noDesserts:false } });
+  return sauceOn.some(x => x.items.some(y => y.sauce)) && noExtras.length > 0 && noExtras.every(x => x.items.every(y => !y.addon)) &&
+    ex.length > 0 && ex.every(x => x.items.every(y => y.id !== patty)) &&
+    inc.length > 0 && inc.every(x => x.items.some(y => y.id === patty) && T.acAddonPlan(x.items) !== null) &&
+    cap.length > 0 && cap.every(x => x.price <= 12 + 1e-9) && cookies.some(x => x.items.some(y => y.cat === "cookies"));
+})(), true);
+check("Order Guide: Extras stehen beim Artikel, der sie aufnimmt („1× HAMBURGER — Extras: extra Fleisch Patty · extra Käse Scheibe“, Fries mit Wolts „EXTRA Jalapenos“); zwei gleiche Burger mit verschiedenen Extras getrennt; Panel nennt „on …“", (() => {
+  const I = n => bmItem(n);
+  const a = T.orderStepsFor(BM, { items: [I("HAMBURGER"), I("extra Fleisch Patty"), I("extra Käse Scheibe"), I("FRIES"), I("extra Jalapeños")] });
+  const b = T.orderStepsFor(BM, { items: [I("HAMBURGER"), I("HAMBURGER"), I("extra Fleisch Patty")] });
+  const c = T.orderStepsFor(BM, { items: [I("HAMBURGER"), I("HAMBURGER")] });
+  const d = T.acOrderSteps([I("extra Bacon Scheibe")]);
+  return a.length === 2 && a[0].l === "1×" && a[0].v === "HAMBURGER — Extras: extra Fleisch Patty · extra Käse Scheibe · extra Jalapeños" && a[1].v === "FRIES" &&
+    T.orderStepsFor(BM, { items: [I("FRIES"), I("extra Jalapeños")] })[0].v === "FRIES — Extras: EXTRA Jalapenos" &&
+    T.orderStepsFor(BM, { items: [I("WALDMEISTER® (VEGGIE)"), I("extra Veggie Patty")] })[0].v === "WALDMEISTER® (VEGGIE) — Extra: extra Veggie Patty" &&
+    b.length === 2 && b[0].v === "HAMBURGER — Extras: extra Fleisch Patty" && b[1].l === "1×" && b[1].v === "HAMBURGER" &&
+    c.length === 1 && c[0].l === "2×" && c[0].v === "HAMBURGER" && d.length === 1 && /a Wolt option/.test(d[0].v) &&
+    /plan&&plan\.at\.has\(xi\)&&h\("span",\{style:\{color:"#777",fontSize:10\}\},"  on "\+sel\.items\[plan\.at\.get\(xi\)\]\.name\)/.test(SCRIPT);
+})(), true);
+check("Nicht im Tracker: Menüs (Burger + Fries + Getränk), Getränke, Bier, Milchshakes; Ketchup- und Mayo-Becher 20 mL ohne passende Werte; Lieferandomeister nur bei Lieferando; Extras „geröstete Paprika“ und „Bacon & Onion-Mix“ ohne Werte, „extra Cheesesauce 70g“ = der Becher",
+  rawBM._meta.noData.length === 2 && ["PORTION KETCHUP 20ml", "PORTION MAYO 20ml"].every(n => rawBM._meta.noData.some(x => x.startsWith(n + " ")) && !bmItem(n)) &&
+  JSON.stringify(Object.keys(rawBM._meta.skippedCategories)) === JSON.stringify(["MENÜ", "ALKOHOLFREIE GETRÄNKE", "ALKOHOLISCHE GETRÄNKE", "SHAKES"]) &&
+  rawBM._meta.skippedItems.length === 1 && /^Woltmeister Menü/.test(rawBM._meta.skippedItems[0]) &&
+  !BMD.items.some(x => /Menü|MILKSHAKE|COCA|FANTA|SPRITE|WASSER|Bayreuther|KETCHUP|MAYO/.test(x.name)) &&
+  rawBM._meta.notOnWolt.some(x => /^BURGERS: LIEFERANDOMEISTER — nur bei Lieferando/.test(x)) && rawBM._meta.notOnWolt.length === 17 &&
+  Object.keys(rawBM._meta.addonNoData).join() === "extra geröstete Paprika,Bacon & Onion-Mix" && rawBM._meta.addonAsItem["extra Cheesesauce 70g"] === "PORTION CHEESE SAUCE 70g", true);
+check("_meta: Quelle (Tabelle + Wolt), Entscheidung vom 20.10.2026, gesättigte Fettsäuren nicht deklariert, Wolt-kcal ≠ Tabelle dokumentiert (14, z.B. HAMBURGER 693 statt 543 kcal), keine Vorauswahl trotz default_value, kein Schalentier, weder Koriander noch Minze, Auffälligkeiten nur bei Getränken (Sprite, Bier)",
+  /Burgermeister-Nutrition-Facts-2026_DE\.pdf/.test(rawBM._meta.source) && rawBM._meta.decisions.length === 1 && /^User 20[.]10[.]2026/.test(rawBM._meta.decisions[0]) &&
+  JSON.stringify(rawBM._meta.notDeclared) === JSON.stringify(["sat"]) && rawBM._meta.woltKcal.diffs.length === 14 &&
+  rawBM._meta.woltKcal.diffs.includes("HAMBURGER: Wolt 693 kcal · Tabelle 543 kcal") && rawBM._meta.optionDefaults.list.length > 0 && /keine Vorauswahl/.test(rawBM._meta.optionDefaults.note) &&
+  typeof rawBM._meta.shellfish === "string" && typeof rawBM._meta.coriander === "string" &&
+  rawBM._meta.anomalies.map(a => a.name).join() === "DRINKS/SPRITE 0,3L,DRINKS/BIER 0,33L", true);
+check("Suche, Listen, All und Freunde-Version: 24 Items im Such-Index, Must include/Exclude je Item, ein Treffer in „All restaurants“; in ?view=friends sichtbar (nicht in den Compleat-Links)", (() => {
+  const all = T.optimizeAll(tDef, "macros", {}, 5, false), fv = T.visibleTabs(T.SHARE_VIEWS.friends);
+  return T.SEARCH_INDEX.filter(x => x.resto === "Burgermeister (Wolt)").length === 24 && T.excludablesFor(BM).length === 24 && T.includablesFor(BM).length === 24 &&
+    all.filter(x => x._resto === "burgermeister").length === 1 && T.acAddonPlan(all.find(x => x._resto === "burgermeister").items) !== null &&
+    fv.restos.some(r => r.key === "burgermeister") && T.viewSearchIndex(T.SHARE_VIEWS.friends).some(x => x.resto === "Burgermeister (Wolt)") &&
+    !T.visibleTabs(T.SHARE_VIEWS.compleat).restos.some(r => r.key === "burgermeister") && !T.visibleTabs(T.SHARE_VIEWS["compleat-only"]).restos.some(r => r.key === "burgermeister");
+})(), true);
 
 // ── EDEKA Graf (In-Store): Supermarkt-Tab mit Build order + Track basket ──
 sect("EDEKA Graf (In-Store, Supermarkt)");
