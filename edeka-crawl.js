@@ -29,7 +29,6 @@ const CATS = [
   { id: "desserts", name: "Protein puddings & desserts" },
   { id: "beans", name: "Beans, chickpeas & lentils (tins)" },   // bis 18.10.2026 „Beans & chickpeas (tins)“ — seit 19.10.2026 auch Linsen
   { id: "veg_tins", name: "Edamame, peas & veg (tins)" },
-  { id: "mushrooms", name: "Mushrooms (tins)" },   // User 19.10.2026
   { id: "fresh_veg", name: "Fresh vegetables" },
   { id: "berries", name: "Berries" },     // „Beeren“ (User 24.09.2026)
   { id: "gyoza", name: "Gyoza" },
@@ -164,8 +163,9 @@ const PRODUCTS = [
   ["veg_tins", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Junge-Erbsen-feine-Auslese-400-g.html"],
   ["veg_tins", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Erbsen-mit-Moehrchen-feine-Auslese-200-g.html"],
   ["veg_tins", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Goldmais-Bunter-Mix-400-g.html"],
-  // Bowl-Zutaten aus Dose und Glas (User 19.10.2026, wie oben): Mais, Mais-Mischungen, Erbsen, Edamame, grüne Bohnen, asiatisches Gemüse,
-  // Artischocken in Lake und Kimchi — alles gegart bzw. verzehrfertig, mit Abtropfgewicht (Kimchi: ganzer Inhalt). Nach den Wünschen des
+  // Bowl-Zutaten aus Dose und Glas (User 19.10.2026, wie oben): Mais, Mais-Mischungen, Erbsen, Edamame, grüne Bohnen, asiatisches Gemüse und
+  // Artischocken in Lake — alles gegart bzw. verzehrfertig, mit Abtropfgewicht. Am 20.10.2026 wieder raus (User): die 10 Pilz-Dosen und -Gläser
+  // (samt Kategorie „Mushrooms (tins)“) und alles mit mehr als 2 g Salz je ganzer Packung (Korean Street Kimchi 160 g: 3,4 g). Nach den Wünschen des
   // Users vom selben Tag nicht aufgenommen: Dosen ab 600 g und Mehrfachpacks (ganze Packung = zu viel für eine Bowl) und alles mit
   // Zuckerzusatz und mehr als 4 g Zucker je 100 g (Rote Bete, geröstete Paprika, Paprikastreifen, Maiskölbchen süß-sauer, Chili Mix).
   // Außerdem nicht: Artischocken in Öl (7–10 g Fett je 100 g), Oliven, getrocknete Tomaten, Gurken, Sauerkraut, Rotkohl, Kapern,
@@ -195,18 +195,6 @@ const PRODUCTS = [
   ["veg_tins", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Sauerkonserven/EDEKA-Herzstuecke-Artischockenherzen-400-g.html"],
   ["veg_tins", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Sauerkonserven/FEINKOST-DITTMANN-Spanische-Artischockenherzen-Natur-390-g.html"],
   ["veg_tins", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Sauerkonserven/FEINKOST-DITTMANN-Spanische-Artischockenboeden-390-g.html"],
-  ["veg_tins", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Sauerkonserven/Korean-Street-Kimchi-160-g.html"],
-  // Pilze aus Dose und Glas (User 19.10.2026, wie oben) — eigene Kategorie, damit man sie als Gruppe abwählen kann
-  ["mushrooms", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Champignons-1-Wahl-330-g.html"],
-  ["mushrooms", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Champignons-in-Scheiben-530-g.html"],
-  ["mushrooms", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Champignons-ganze-Koepfe-330-g.html"],
-  ["mushrooms", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Champignons-Minis-330-g.html"],
-  ["mushrooms", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/GUT-GUeNSTIG-Champignons-geschnitten-290-g.html"],
-  ["mushrooms", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/GUT-GUeNSTIG-Champignons-ganze-Koepfe-400-g.html"],
-  ["mushrooms", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Pilz-Melange-waldfrisch-290-g.html"],
-  ["mushrooms", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/GUT-GUeNSTIG-Feine-Pilzmischung-290-g.html"],
-  ["mushrooms", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Pfifferlinge-180-g.html"],
-  ["mushrooms", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Waldschatz-Pfifferlinge-290-g.html"],
   // 9. Frisches Gemüse
   ["fresh_veg", "/Obst-Gemuese-EDEKA/EDEKA-Herzstuecke-Gemuese-Pur-Karottenstifte-250-g.html"],
   ["fresh_veg", "/Obst-Gemuese-EDEKA/EDEKA-Herzstuecke-Gemuesenudeln-Zucchini-250-g.html"],
@@ -276,7 +264,7 @@ const WAITING = new Set([
 ]);
 
 // Marken (längster Treffer am Namensanfang gewinnt) — für „Marke · Produkt“ in der Einkaufsliste
-const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Bazar", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle", "Diamond", "FEINKOST DITTMANN", "Korean Street", "Waldschatz",
+const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Bazar", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle", "Diamond", "FEINKOST DITTMANN",
   "Bürger", "Driscoll's", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
   "Like MEAT", "LIKE", "Mestemacher", "MILRAM", "müller", "Müller", "planted", "Poensgen", "Rapunzel", "reis-fit", "Saupiquet",
   "Schwarzwaldmilch", "Taifun", "Tilda"];
@@ -825,6 +813,7 @@ async function main() {
         "User 19.10.2026: Bohnen in der Dose, sofort verzehrbar, in „Beans & chickpeas (tins)“ — alle Bohnen-Konserven der Shop-Kategorie „Gemüsekonserven“: in Wasser mit Abtropfgewicht (EDEKA Bio Kidney Bohnen, EDEKA Herzstücke Kidneybohnen 400 und 800 g, Alnatura Bio Kidney Bohnen, Bonduelle Kidney Bohnen 200 und 800 g, GUT&GÜNSTIG Weiße Bohnen 800 g), in Soße mit dem ganzen Inhalt (EDEKA Herzstücke Chili-Bohnen, Baked Beans von EDEKA Bio, EDEKA Herzstücke, Alnatura, Rapunzel und HEINZ, Rapunzel Gigantes Riesenbohnen, Bazar Weiße Bohnen mediterran). Gerade nicht verfügbar und deshalb noch ohne Werte (WAITING): EDEKA Herzstücke Schwarze Bohnen, EDEKA Bio Cannellini Bohnen. Nicht aufgenommen: Trockenbohnen (ungekocht), grüne Bohnen, Gemüsemischungen mit wenig Bohnen, Bohnen-Eintöpfe, GUT&GÜNSTIG Kidneybohnen 3 × 200 g",
         "User 19.10.2026 (später): „Die 800 g und Baked Beans mit über 4 g Zucker pro 100 g können raus“ → nicht mehr im Tracker: EDEKA Herzstücke Kidneybohnen 800 g, Bonduelle Kidney Bohnen 800 g, GUT&GÜNSTIG Weiße Bohnen 800 g, EDEKA Herzstücke Baked Beans mit Ahornsirup (4,1 g Zucker je 100 g), HEINZ Baked Beanz (4,3 g), Rapunzel Bio Baked Beans (5,31 g). Es bleiben die Baked Beans von EDEKA Bio (3,2 g) und Alnatura (3,4 g); die EDEKA Herzstücke Chili-Bohnen (4,5 g Zucker) sind keine Baked Beans und bleiben",
         "User 19.10.2026 (Bowl-Zutaten): „Gibt es noch ähnliche Dosengemüse oder Hülsenfrüchte, die man gut zur Bowl mit Reis und Huhn hineinschmeißen kann? Wenn ja, füge sie hinzu“ → aus „Gemüsekonserven“ und „Sauerkonserven“: 5 Kichererbsen- und 3 Linsen-Dosen (Kategorie heißt jetzt „Beans, chickpeas & lentils (tins)“), 8 Mais-Dosen, 3 Mais-Mischungen, 5 Erbsen-Dosen, Bonduelle Edamame, 2 grüne Bohnen, 3 asiatische Gemüse (Diamond), 3 Artischocken in Lake, Kimchi und 10 Pilz-Dosen/-Gläser (neue Kategorie „Mushrooms (tins)“). Nach den Regeln vom selben Tag nicht: Dosen ab 600 g, Mehrfachpacks, Zuckerzusatz mit mehr als 4 g Zucker je 100 g (Rote Bete, geröstete Paprika, Paprikastreifen, Maiskölbchen, Chili Mix); dazu Artischocken in Öl, Oliven, getrocknete Tomaten, Gurken, Sauerkraut, Rotkohl, Kapern, Pfefferonen, Spargel, Kartoffeln",
+        "User 20.10.2026 (Bowl-Zutaten, später): „Die Pilze können alle wieder raus und alles, was in der letzten Nachricht dazugekommen ist und pro ganzer Artikel mehr als 2 g Salz hat, soll auch raus“ → nicht mehr im Tracker: die 10 Pilz-Dosen und -Gläser (Kategorie „Mushrooms (tins)“ entfällt) und Korean Street Kimchi 160 g (3,4 g Salz je Glas) — als einzige der 44 Bowl-Zutaten über 2 g Salz je ganzer Packung (gezählt wie im Tracker: bei Konserven das Abtropfgewicht; knapp darunter EDEKA Herzstücke Artischockenherzen 400 g mit 1,9 g)",
         "User 13.10.2026: fertige Reis-Mischungen (auch mit Bohnen oder Gemüse) in „Carbs & bases“ — alle verzehrfertigen Beutel der Shop-Kategorien „Reis“ und „Fertiggerichte“, die eine Mischung sind (gewürzt, mit Gemüse/Hülsenfrüchten oder aus mehreren Reissorten): 11× Ben's Original, 3× reis-fit, 2× GUT&GÜNSTIG, 1× Tilda. Nicht aufgenommen: sortenreine Express-Beutel und die alten 250-g-Größen von Ben's Original",
         "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere",
       ],
