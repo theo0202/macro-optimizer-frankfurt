@@ -1,6 +1,6 @@
 {
  "_source": "Compleat-Onlineshop, Bundle „Selbst zusammenstellen“ (Store Frankfurt Nordend): jede Zutat-Karte EINZELN ausgewählt (Menge 1) und die Anzeige „Nutrition facts per serving“ (Reiter „Nährwerte“) abgelesen, danach wieder abgewählt (compleat-shop-capture.js, im Browser; Prüfsumme sha256 des kompakten JSON im Browser und lokal verglichen). Werte als angezeigt (Text, „--“ = nicht angegeben). soldOut = Overlay „Ausverkauft“, Häkchen gesperrt → keine Werte; lastRead = die letzte Ablesung dieser Karte aus einem früheren Durchgang (mit Datum), als sie noch wählbar war. Kontrollquelle für node verify-compleat-shop.js; übernommen mit node verify-compleat-shop.js --save. Nicht von Hand ändern.",
- "readAt": "2026-10-21T06:09:54.740Z",
+ "readAt": "2026-10-21T11:06:28.256Z",
  "page": "https://compleat.vmos.io/store/bb51e8b9-3301-4bee-bb33-e063fac5ec64/menu/category/bae2cbce-c348-4807-9988-4c52556d68b2/bundle/afaa6fe6-4785-4bd7-b6e0-0ea9d4f12c22/bundleCustomization?menuUUID=9a7bd18b-9542-4768-b85a-c48740da87e9",
  "items": [
   {
@@ -60,15 +60,15 @@
    "group": "Base",
    "qty": 1,
    "shown": {
-    "kcal": "130",
-    "kj": "544",
-    "fat": "2.3",
-    "carbs": "21.3",
-    "sat": "0.3",
-    "sugars": "0.8",
-    "protein": "4.5",
-    "fibre": "4.0",
-    "salt": "2.50"
+    "kcal": "305",
+    "kj": "1276",
+    "fat": "5.0",
+    "carbs": "48.5",
+    "sat": "0.5",
+    "sugars": "1.8",
+    "protein": "11.8",
+    "fibre": "5.8",
+    "salt": "1.75"
    }
   },
   {
@@ -99,15 +99,15 @@
    "group": "Base",
    "qty": 1,
    "shown": {
-    "kcal": "65",
-    "kj": "272",
-    "fat": "1.1",
-    "carbs": "10.6",
-    "sat": "0.1",
-    "sugars": "0.4",
-    "protein": "1.1",
-    "fibre": "2.0",
-    "salt": "1.25"
+    "kcal": "153",
+    "kj": "640",
+    "fat": "2.5",
+    "carbs": "24.3",
+    "sat": "0.3",
+    "sugars": "0.9",
+    "protein": "5.9",
+    "fibre": "2.9",
+    "salt": "0.88"
    }
   },
   {
@@ -782,17 +782,22 @@
    "name": "Granatapfelkerne (15g)",
    "uuid": "ceafa76f-903c-4e7b-be24-0a66ad27ff82",
    "group": "Toppings",
-   "qty": 1,
-   "shown": {
-    "kcal": "15",
-    "kj": "63",
-    "fat": "0.1",
-    "carbs": "3.4",
-    "sat": "--",
-    "sugars": "3.3",
-    "protein": "0.1",
-    "fibre": "0.4",
-    "salt": "--"
+   "soldOut": true,
+   "overlay": "Ausverkauft",
+   "lastRead": {
+    "readAt": "2026-10-21T06:09:54.740Z",
+    "qty": 1,
+    "shown": {
+     "kcal": "15",
+     "kj": "63",
+     "fat": "0.1",
+     "carbs": "3.4",
+     "sat": "--",
+     "sugars": "3.3",
+     "protein": "0.1",
+     "fibre": "0.4",
+     "salt": "--"
+    }
    }
   },
   {

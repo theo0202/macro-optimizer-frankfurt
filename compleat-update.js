@@ -3,7 +3,7 @@
 // (Wolt „Build your Bowl", Uber Eats „Selbst zusammenstellen") mit Grundpreis, Preisen und fertigen Portionswerten je Option
 // (pro 100 × Plattform-Menge / 100).
 //
-// GESPERRTE Zutaten (raw.ingredients[].blocked, aktuell Bunter Bio Quinoa — User 15.09.2026) bleiben im Datensatz, werden
+// GESPERRTE Zutaten (raw.ingredients[].blocked; aktuell keine — Bunter Bio Quinoa war es vom 15.09. bis 20.10.2026) bleiben im Datensatz, werden
 // aber aus ALLEN Plattform-Menüs weggelassen → nie im Rechner, nie in der Suche, nie als Ausschluss-Option.
 "use strict";
 const path = require("path");

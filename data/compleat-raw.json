@@ -2,7 +2,7 @@
   "_meta": {
     "restaurant": "Compleat",
     "store": "Frankfurt Nordend (Glauburgstraße 5, 60318 Frankfurt am Main)",
-    "fetchedAt": "2026-10-21T06:14:23.021Z",
+    "fetchedAt": "2026-10-21T11:09:52.990Z",
     "sources": {
       "shop": {
         "url": "https://compleat.vmos.io",
@@ -39,7 +39,8 @@
     "woltRules": "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Keine Gruppe außer dem Dip ist Pflicht (min 0) → der Rechner verlangt weder Base noch Protein (User 11.10.2026). Grundpreis „Build your Bowl“ 3 €. Wolt: keine Vorauswahl — die Menükarte zeigt den Grundpreis 3 €.",
     "ubereatsRules": "Selbst zusammenstellen (Grundpreis 3 €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: keine Gruppe Pflicht (User 11.10.2026) · Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft). Uber Eats: keine Vorauswahl — die Menükarte zeigt den Grundpreis 3 €.",
     "decisions": [
-      "User 15.09.2026: Bunter Bio Quinoa bleibt im Datensatz, ist aber im Rechner ausgeschlossen (auch künftige Plattformen)",
+      "User 15.09.2026: Bunter Bio Quinoa bleibt im Datensatz, ist aber im Rechner ausgeschlossen (auch künftige Plattformen) — bis 20.10.2026",
+      "User 21.10.2026: Compleat hat die Quinoa-Werte geändert (vorher 52 kcal je 100 g, jetzt 122 kcal / 19,4 g KH / 4,7 g Eiweiß / 2 g Fett je 100 g, ganze und halbe Portion gleich; im Shop einzeln angeklickt) → „Baue bitte Quinoa ein mit nun neuen Werten“: nicht mehr gesperrt, auf Wolt und Uber Eats im Rechner",
       "User 11.10.2026: Keine Gruppe ist Pflicht — bei Compleat lässt sich auch ohne Basis, ohne Protein, ohne Extras bestellen (Wolt: Basis 0–5, Proteine 0–10; Uber Eats: 0–100; nur der Dip ist Pflicht und hat „Ohne Dip“). Der Rechner schlägt deshalb auch Bowls ohne Base oder ohne Protein vor; nur die ganz leere Bestellung nie. (Bis 10.10.2026: jede vorgeschlagene Bowl ≥1 Base und ≥1 Protein, User 15.09.2026)",
       "User 15.09.2026: „No dip“ Default AN, „No crunch“ (Erdnüsse, Walnusskerne, Röstzwiebeln, Schwarzer Sesam) Default AUS",
       "User 15.09.2026: Guacamole normal anbieten (enthält laut Zutatenliste Koriander, im Chat erwähnt)",
@@ -134,16 +135,6 @@
     ],
     "halfPortionDiffs": [
       {
-        "id": "bunter_bio_quinoa",
-        "name": "Bunter Bio Quinoa - Halbe Portion (125g)",
-        "halb": {
-          "protein": 0.9
-        },
-        "ganz": {
-          "protein": 1.8
-        }
-      },
-      {
         "id": "kuerbiswuerfel_mariniert",
         "name": "Kürbiswürfel mariniert - halbe Portion (100g)",
         "halb": {
@@ -160,14 +151,6 @@
         "name": "Kürbiswürfel mariniert (200g)",
         "issues": [
           "Halbe Portion „Kürbiswürfel mariniert - halbe Portion (100g)“ hat andere Werte je 100 g: sugars 1.7 statt 1.5 → unverändert übernommen, der Rechner nutzt die Werte der ganzen Portion"
-        ]
-      },
-      {
-        "id": "bunter_bio_quinoa",
-        "name": "Bunter Bio Quinoa (250g)",
-        "issues": [
-          "Portionswerte unplausibel niedrig (siehe BLOCKED)",
-          "Halbe Portion „Bunter Bio Quinoa - Halbe Portion (125g)“ hat andere Werte je 100 g: protein 0.9 statt 1.8 → unverändert übernommen, der Rechner nutzt die Werte der ganzen Portion"
         ]
       },
       {
@@ -235,6 +218,7 @@
     "soldOut": [
       "Protein-Pasta (200g)",
       "Protein-Pasta - Halbe Portion (100g)",
+      "Granatapfelkerne (15g)",
       "Trüffel Light (Inlead) (80g)"
     ],
     "removedIngredients": [
@@ -244,30 +228,86 @@
         "removedAt": "2026-10-03"
       }
     ],
+    "valueChanges": [
+      {
+        "name": "Bunter Bio Quinoa - Halbe Portion (125g)",
+        "changedAt": "2026-10-21",
+        "keys": [
+          "kcal",
+          "fat",
+          "sat",
+          "carbs",
+          "sugars",
+          "fibre",
+          "protein",
+          "salt"
+        ],
+        "old": {
+          "kcal": 52,
+          "fat": 0.9,
+          "sat": 0.1,
+          "carbs": 8.5,
+          "sugars": 0.3,
+          "fibre": 1.6,
+          "protein": 0.9,
+          "salt": 1
+        },
+        "new": {
+          "kcal": 122,
+          "fat": 2,
+          "sat": 0.2,
+          "carbs": 19.4,
+          "sugars": 0.7,
+          "fibre": 2.3,
+          "protein": 4.7,
+          "salt": 0.7
+        }
+      },
+      {
+        "name": "Bunter Bio Quinoa (250g)",
+        "changedAt": "2026-10-21",
+        "keys": [
+          "kcal",
+          "fat",
+          "sat",
+          "carbs",
+          "sugars",
+          "fibre",
+          "protein",
+          "salt"
+        ],
+        "old": {
+          "kcal": 52,
+          "fat": 0.9,
+          "sat": 0.1,
+          "carbs": 8.5,
+          "sugars": 0.3,
+          "fibre": 1.6,
+          "protein": 1.8,
+          "salt": 1
+        },
+        "new": {
+          "kcal": 122,
+          "fat": 2,
+          "sat": 0.2,
+          "carbs": 19.4,
+          "sugars": 0.7,
+          "fibre": 2.3,
+          "protein": 4.7,
+          "salt": 0.7
+        }
+      }
+    ],
     "lastChanges": {
-      "since": "2026-10-11T12:36:01.084Z",
+      "since": "2026-10-21T11:09:32.786Z",
       "shopAdded": [],
       "shopRemoved": [],
-      "woltAdded": [
-        "Dein Dip: Rotes Pesto, 80g"
-      ],
-      "woltRemoved": [
-        "Deine Basis: Protein Nudeln, 200 g",
-        "Dein Dip: Guacamole",
-        "Dein Dip: Trüffel Light (Inlead), 80 g"
-      ],
-      "ubereatsAdded": [
-        "Dips: Rotes Pesto (80g)",
-        "Base: Kürbiswürfel mariniert (200g)",
-        "Base: Kürbiswürfel mariniert - halbe Portion (100g)",
-        "Vitamine: Kürbiswürfel mariniert (50g)"
-      ],
-      "ubereatsRemoved": [
-        "Base: Protein-Pasta (200g)",
-        "Base: Protein-Pasta - Halbe Portion (100g)",
-        "Dips: Trüffel Light (Inlead) (80g)"
-      ],
-      "prices": []
+      "woltAdded": [],
+      "woltRemoved": [],
+      "ubereatsAdded": [],
+      "ubereatsRemoved": [],
+      "prices": [],
+      "values": []
     },
     "halfPortionAccepted": [
       "Kürbiswürfel mariniert - halbe Portion: Zucker 1,7 statt 1,5 g je 100 g (sonst identisch) → +0,2 g Zucker je halbe Portion; der Rechner nutzt die Werte der ganzen Portion (27.09.2026)"
@@ -284,6 +324,10 @@
         {
           "name": "Protein-Pasta - Halbe Portion (100g)",
           "readAt": "2026-10-11"
+        },
+        {
+          "name": "Granatapfelkerne (15g)",
+          "readAt": "2026-10-21"
         },
         {
           "name": "Trüffel Light (Inlead) (80g)",
@@ -309,6 +353,16 @@
           "ubereats": "Sojasauce (20ml)",
           "ubereatsKcal": 8,
           "shopKcal": 4.2
+        },
+        {
+          "ubereats": "Bunter Bio Quinoa (250g)",
+          "ubereatsKcal": 130,
+          "shopKcal": 305
+        },
+        {
+          "ubereats": "Bunter Bio Quinoa - Halbe Portion (125g)",
+          "ubereatsKcal": 65,
+          "shopKcal": 152.5
         },
         {
           "ubereats": "Granatapfelkerne (15g)",
@@ -475,24 +529,24 @@
       "portion": 250,
       "unit": "g",
       "per100": {
-        "kcal": 52,
-        "fat": 0.9,
-        "sat": 0.1,
-        "carbs": 8.5,
-        "sugars": 0.3,
-        "fibre": 1.6,
-        "protein": 1.8,
-        "salt": 1
+        "kcal": 122,
+        "fat": 2,
+        "sat": 0.2,
+        "carbs": 19.4,
+        "sugars": 0.7,
+        "fibre": 2.3,
+        "protein": 4.7,
+        "salt": 0.7
       },
       "perPortion": {
-        "kcal": 130,
-        "fat": 2.25,
-        "sat": 0.25,
-        "carbs": 21.25,
-        "sugars": 0.75,
-        "fibre": 4,
-        "protein": 4.5,
-        "salt": 2.5
+        "kcal": 305,
+        "fat": 5,
+        "sat": 0.5,
+        "carbs": 48.5,
+        "sugars": 1.75,
+        "fibre": 5.75,
+        "protein": 11.75,
+        "salt": 1.75
       },
       "allergens": [],
       "ingredients": "Bunter Bio Quinoa",
@@ -500,7 +554,6 @@
         "uuid": "e0a98460-cdca-4ca0-8eb8-14df54d4bf93",
         "displayAmount": 250
       },
-      "blocked": "Offizielle Werte unplausibel: 130 kcal / 21,3 g KH / 4,5 g Protein je 250 g (= 52 kcal je 100 g) entsprechen eher 100 g gekochter Quinoa (~120 kcal je 100 g). User 15.09.2026: bleibt im Datensatz, im Rechner ausgeschlossen — auch auf künftigen Plattformen (z.B. Uber Eats).",
       "halfPortion": 125
     },
     {
@@ -1522,7 +1575,8 @@
       "vmos": {
         "uuid": "ceafa76f-903c-4e7b-be24-0a66ad27ff82",
         "displayAmount": 20
-      }
+      },
+      "soldOut": true
     },
     {
       "id": "roestzwiebeln",
@@ -2281,14 +2335,14 @@
       "name": "Bunter Bio Quinoa - Halbe Portion (125g)",
       "group": "base",
       "per100": {
-        "kcal": 52,
-        "fat": 0.9,
-        "sat": 0.1,
-        "carbs": 8.5,
-        "sugars": 0.3,
-        "fibre": 1.6,
-        "protein": 0.9,
-        "salt": 1
+        "kcal": 122,
+        "fat": 2,
+        "sat": 0.2,
+        "carbs": 19.4,
+        "sugars": 0.7,
+        "fibre": 2.3,
+        "protein": 4.7,
+        "salt": 0.7
       },
       "displayAmount": 125
     },
@@ -2403,14 +2457,14 @@
       "name": "Bunter Bio Quinoa (250g)",
       "group": "base",
       "per100": {
-        "kcal": 52,
-        "fat": 0.9,
-        "sat": 0.1,
-        "carbs": 8.5,
-        "sugars": 0.3,
-        "fibre": 1.6,
-        "protein": 1.8,
-        "salt": 1
+        "kcal": 122,
+        "fat": 2,
+        "sat": 0.2,
+        "carbs": 19.4,
+        "sugars": 0.7,
+        "fibre": 2.3,
+        "protein": 4.7,
+        "salt": 0.7
       },
       "displayAmount": 250
     },
@@ -2937,7 +2991,8 @@
         "protein": 0.7,
         "salt": 0
       },
-      "displayAmount": 20
+      "displayAmount": 20,
+      "soldOut": true
     },
     {
       "name": "Röstzwiebeln (20g)",

@@ -15,7 +15,9 @@ const EXPECTED = new Set([
   "Menge|Power Pasta - High Protein|Protein-Pasta (200g)|250",                     // Anzeige rechnet 250 g statt 200 g (+95 kcal)
   "Bundle-Datensatz|Knackarsch - Low Carb",                                         // alter Nährwert-Datensatz am Bundle wird zusätzlich gezählt (+106 kcal)
   "Bundle-Datensatz|Mango Fire - Low Carb",                                         // dito (+201 kcal)
-  "Werte je 100 g|Bunter Bio Quinoa - Halbe Portion (125g)|protein",                // halbe Portion 0,9 g statt 1,8 g Eiweiß je 100 g (Quinoa ist gesperrt)
+  // Vitaminbombe (3×, halbe Quinoa): die Anzeige vom 16.09.2026 rechnet mit den alten Quinoa-Werten (52 kcal je 100 g, die halbe Portion
+  // sogar mit 0,9 statt 1,8 g Eiweiß); Compleat hat sie am 21.10.2026 auf 122 kcal / 19,4 g KH / 4,7 g Eiweiß je 100 g geändert (_meta.valueChanges)
+  "Werte je 100 g|Bunter Bio Quinoa - Halbe Portion (125g)|kcal,fat,sat,carbs,sugars,fibre,protein,salt",
   "fehlt|Joghurt Tzatziki Dip (100g)",                                              // nur in den Lachs-Nudeln, nicht in „Selbst zusammenstellen“
   "fehlt|Süßkartoffel (250g)",                                                      // seit 27.09.2026 aus dem Shop gestrichen (Super Bowl + High Protein, Stand 16.09.)
 ]);

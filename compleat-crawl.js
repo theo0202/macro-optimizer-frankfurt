@@ -98,13 +98,13 @@ const UE_HALF_NOT_DOUBLE = {
 
 // Im Rechner gesperrt — bleibt im Datensatz, wird aber auf KEINER Plattform (Wolt, Uber Eats …) vorgeschlagen,
 // gesucht oder als Ausschluss angeboten. compleat-update.js lässt gesperrte Zutaten aus allen Plattform-Menüs weg.
-const BLOCKED = {
-  bunter_bio_quinoa: "Offizielle Werte unplausibel: 130 kcal / 21,3 g KH / 4,5 g Protein je 250 g (= 52 kcal je 100 g) entsprechen eher 100 g gekochter Quinoa (~120 kcal je 100 g). User 15.09.2026: bleibt im Datensatz, im Rechner ausgeschlossen — auch auf künftigen Plattformen (z.B. Uber Eats).",
-};
+// Aktuell keine. Bis 20.10.2026 war Bunter Bio Quinoa gesperrt (User 15.09.2026: 130 kcal / 21,3 g KH / 4,5 g Eiweiß je 250 g =
+// 52 kcal je 100 g, unplausibel niedrig); am 21.10.2026 hat Compleat neue Werte veröffentlicht (122 kcal / 19,4 g KH / 4,7 g Eiweiß
+// je 100 g = 305 kcal je 250 g, passend zu gekochter Quinoa) → User 21.10.2026: wieder im Rechner.
+const BLOCKED = {};
 
 // Manuell geprüfte Auffälligkeiten der offiziellen Daten (Werte werden NICHT korrigiert, nur dokumentiert)
 const MANUAL_ANOMALIES = {
-  bunter_bio_quinoa: "Portionswerte unplausibel niedrig (siehe BLOCKED)",
   pulled_salmon: "Ballaststoffe 6 g je 100 g, obwohl die Zutaten nur „LACHS, Speisesalz, Rauch“ sind → Quellfehler, unverändert übernommen",
   honey_muscle_mustard: "Ballaststoffe 35 g je 100 g (28 g je 80 g) bei einem Öl-Wasser-Dip unplausibel → Quellfehler, unverändert übernommen",
   avocado: "217 kcal, 12,5 g Fett, davon 10 g gesättigt je 100 g: kcal passen nicht zu den Makros, der Anteil gesättigter Fettsäuren ist für Avocado untypisch → unverändert übernommen",
@@ -378,6 +378,19 @@ async function main() {
   }
   if (prev && prev.wolt && prev.wolt.itemPrice !== woltItemPrice) lastChanges.prices.unshift("Wolt · Grundpreis „" + WOLT_ITEM + "“: " + prev.wolt.itemPrice + " → " + woltItemPrice + " €");
   if (prev && prev.ubereats && prev.ubereats.itemPrice !== ueItemPrice) lastChanges.prices.unshift("Uber Eats · Grundpreis „" + UE_ITEM + "“: " + prev.ubereats.itemPrice + " → " + ueItemPrice + " €");
+  // Geänderte Nährwerte je 100 g gegenüber dem letzten Lauf — je Shop-Karte (auch halbe Portionen), kumuliert mit Datum in
+  // _meta.valueChanges (21.10.2026: Quinoa). Die Kontrolldateien vom 15./16.09.2026 (Word-Export, Fertig-Bowls) zeigen dann noch die alten
+  // Werte; verify-compleat.js erkennt das über valueChanges (die Shop-Anzeige-Kontrolle bricht dagegen ab, bis sie neu abgelesen ist)
+  const prevCards = new Map(((prev && prev.shopItems) || []).map(x => [x.name, x]));
+  const valuesNow = [];
+  for (const c of shopItems) {
+    const p = prevCards.get(c.name);
+    if (!p) continue;
+    const keys = U.KEYS.filter(k => Math.abs((p.per100[k] || 0) - (c.per100[k] || 0)) > 1e-9);
+    if (keys.length) valuesNow.push({ name: c.name, changedAt: today, keys, old: p.per100, new: c.per100 });
+  }
+  lastChanges.values = valuesNow.map(v => v.name + ": " + v.keys.map(k => k + " " + v.old[k] + " → " + v.new[k]).join(", "));
+  const valueChanges = [...((prev && prev._meta.valueChanges) || []), ...valuesNow];
 
   // ── Auffälligkeiten (automatisch + manuell) ──
   const anomalies = [];
@@ -411,7 +424,8 @@ async function main() {
       woltRules: "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Keine Gruppe außer dem Dip ist Pflicht (min 0) → der Rechner verlangt weder Base noch Protein (User 11.10.2026). Grundpreis „Build your Bowl“ " + woltItemPrice + " €. " + woltCardNote,
       ubereatsRules: "Selbst zusammenstellen (Grundpreis " + ueItemPrice + " €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: keine Gruppe Pflicht (User 11.10.2026) · Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft). " + ueCardNote,
       decisions: [
-        "User 15.09.2026: Bunter Bio Quinoa bleibt im Datensatz, ist aber im Rechner ausgeschlossen (auch künftige Plattformen)",
+        "User 15.09.2026: Bunter Bio Quinoa bleibt im Datensatz, ist aber im Rechner ausgeschlossen (auch künftige Plattformen) — bis 20.10.2026",
+        "User 21.10.2026: Compleat hat die Quinoa-Werte geändert (vorher 52 kcal je 100 g, jetzt 122 kcal / 19,4 g KH / 4,7 g Eiweiß / 2 g Fett je 100 g, ganze und halbe Portion gleich; im Shop einzeln angeklickt) → „Baue bitte Quinoa ein mit nun neuen Werten“: nicht mehr gesperrt, auf Wolt und Uber Eats im Rechner",
         "User 11.10.2026: Keine Gruppe ist Pflicht — bei Compleat lässt sich auch ohne Basis, ohne Protein, ohne Extras bestellen (Wolt: Basis 0–5, Proteine 0–10; Uber Eats: 0–100; nur der Dip ist Pflicht und hat „Ohne Dip“). Der Rechner schlägt deshalb auch Bowls ohne Base oder ohne Protein vor; nur die ganz leere Bestellung nie. (Bis 10.10.2026: jede vorgeschlagene Bowl ≥1 Base und ≥1 Protein, User 15.09.2026)",
         "User 15.09.2026: „No dip“ Default AN, „No crunch“ (Erdnüsse, Walnusskerne, Röstzwiebeln, Schwarzer Sesam) Default AUS",
         "User 15.09.2026: Guacamole normal anbieten (enthält laut Zutatenliste Koriander, im Chat erwähnt)",
@@ -421,7 +435,7 @@ async function main() {
         "User 27.09.2026: neue Compleat-Zutaten einbauen, soweit Wolt sie führt — Werte je Zutat durch einzelnes Auswählen im Shop bestätigt (data/compleat-shop-anzeige.json); Zutaten, die es dauerhaft nicht mehr gibt, raus, ausverkaufte drin (Skill „compleat-aktualisieren“)",
       ],
       portionDiffs, portionAssumed, displayBugs, halfPortionDiffs, anomalies, missingDeclared, notOnWolt, woltMapUnused, dislikes, shellfish,
-      soldOut, removedIngredients, lastChanges,
+      soldOut, removedIngredients, valueChanges, lastChanges,
       halfPortionAccepted: Object.values(HALF_DIFF_OK),
       shopControl: { readAt: shopControl.readAt, checked: shopControl.checked, values: shopControl.values, earlier: shopControl.earlier, soldOutNotChecked: shopControl.soldOutNotChecked, notInShop: shopControl.notInShop },
       ubereats: { noData: ueNoData, portionDiffs: uePortionDiffs, kcalDiffs: ueKcalDiffs, notOnUberEats, halfNotDouble: ueHalfNotDouble },
@@ -441,7 +455,7 @@ async function main() {
   L("Neu im Shop", lastChanges.shopAdded); L("Aus dem Shop gestrichen (raus)", lastChanges.shopRemoved);
   L("Neu bei Wolt", lastChanges.woltAdded); L("Nicht mehr bei Wolt", lastChanges.woltRemoved);
   L("Neu bei Uber Eats", lastChanges.ubereatsAdded); L("Nicht mehr bei Uber Eats", lastChanges.ubereatsRemoved);
-  L("Preise", lastChanges.prices); L("Im Shop gerade ausverkauft (bleibt drin)", soldOut);
+  L("Preise", lastChanges.prices); L("Geänderte Nährwerte je 100 g", lastChanges.values); L("Im Shop gerade ausverkauft (bleibt drin)", soldOut);
   console.log("Shop-Anzeige (" + shopControl.readAt + "): " + shopControl.checked + " Karten / " + shopControl.values + " Werte identisch" + (shopControl.earlier.length ? " · davon frühere Ablesung (heute ausverkauft): " + shopControl.earlier.map(x => x.name + " (" + x.readAt + ")").join(", ") : "") + (shopControl.soldOutNotChecked.length ? " · ausverkauft, nicht prüfbar: " + shopControl.soldOutNotChecked.join(", ") : ""));
   console.log("\n" + ingredients.length + " Zutaten (" + Object.entries(ingredients.reduce((o, x) => (o[x.group] = (o[x.group] || 0) + 1, o), {})).map(([k, v]) => k + " " + v).join(", ") + ") → " + path.relative(__dirname, OUT));
   console.log("Wolt (Grundpreis " + woltItemPrice + " €): " + woltGroups.map(g => g.name + " " + g.options.length + (g.noneOption ? " + „" + g.noneOption + "“" : "") + " (" + g.min + "–" + g.max + ")").join(" · "));
@@ -457,7 +471,7 @@ async function main() {
   console.log("kcal-Angaben Uber Eats ≠ eigene Rechnung: " + (ueKcalDiffs.map(d => d.ubereats + ": UE " + d.ubereatsKcal + " vs. " + d.shopKcal).join(" · ") || "keine"));
   console.log("Halbe Portionen mit anderen Werten je 100 g: " + (halfPortionDiffs.map(h => h.name + " (" + Object.keys(h.halb).map(k => k + " " + h.halb[k] + " statt " + h.ganz[k]).join(", ") + ")").join(", ") || "keine"));
   console.log("Anzeige-Bugs im Shop: " + (displayBugs.map(d => d.shopName + " (rechnet mit " + d.shopRechnetMit + " statt " + d.portion + " " + d.unit + ": " + d.shopZeigtKcal + " statt " + d.richtigKcal + " kcal)").join(", ") || "keine"));
-  console.log("Gesperrt: " + ingredients.filter(x => x.blocked).map(x => x.shopName).join(", "));
+  console.log("Gesperrt: " + (ingredients.filter(x => x.blocked).map(x => x.shopName).join(", ") || "keine"));
   console.log("Schalentier-Allergene: " + (shellfish.join(", ") || "keine") + " · Koriander/Minze: " + (dislikes.join(", ") || "keine"));
   console.log("Auffälligkeiten (" + anomalies.length + "): " + anomalies.map(a => a.name).join(", "));
 }
