@@ -1,6 +1,6 @@
 {
  "_source": "Compleat-Onlineshop, Bundle „Selbst zusammenstellen“ (Store Frankfurt Nordend): jede Zutat-Karte EINZELN ausgewählt (Menge 1) und die Anzeige „Nutrition facts per serving“ (Reiter „Nährwerte“) abgelesen, danach wieder abgewählt (compleat-shop-capture.js, im Browser; Prüfsumme sha256 des kompakten JSON im Browser und lokal verglichen). Werte als angezeigt (Text, „--“ = nicht angegeben). soldOut = Overlay „Ausverkauft“, Häkchen gesperrt → keine Werte; lastRead = die letzte Ablesung dieser Karte aus einem früheren Durchgang (mit Datum), als sie noch wählbar war. Kontrollquelle für node verify-compleat-shop.js; übernommen mit node verify-compleat-shop.js --save. Nicht von Hand ändern.",
- "readAt": "2026-10-11T12:20:32.277Z",
+ "readAt": "2026-10-21T06:09:54.740Z",
  "page": "https://compleat.vmos.io/store/bb51e8b9-3301-4bee-bb33-e063fac5ec64/menu/category/bae2cbce-c348-4807-9988-4c52556d68b2/bundle/afaa6fe6-4785-4bd7-b6e0-0ea9d4f12c22/bundleCustomization?menuUUID=9a7bd18b-9542-4768-b85a-c48740da87e9",
  "items": [
   {
@@ -24,22 +24,17 @@
    "name": "Kürbiswürfel mariniert (200g)",
    "uuid": "00aebe1f-d466-4d6c-ab34-45cf406184eb",
    "group": "Base",
-   "soldOut": true,
-   "overlay": "Ausverkauft",
-   "lastRead": {
-    "readAt": "2026-09-27T19:24:33.979Z",
-    "qty": 1,
-    "shown": {
-     "kcal": "113",
-     "kj": "473",
-     "fat": "5.2",
-     "carbs": "11.4",
-     "sat": "0.8",
-     "sugars": "3.0",
-     "protein": "1.6",
-     "fibre": "3.2",
-     "salt": "1.20"
-    }
+   "qty": 1,
+   "shown": {
+    "kcal": "113",
+    "kj": "473",
+    "fat": "5.2",
+    "carbs": "11.4",
+    "sat": "0.8",
+    "sugars": "3.0",
+    "protein": "1.6",
+    "fibre": "3.2",
+    "salt": "1.20"
    }
   },
   {
@@ -80,17 +75,22 @@
    "name": "Protein-Pasta (200g)",
    "uuid": "2cc29890-4d6f-434a-b552-00a56ef536ed",
    "group": "Base",
-   "qty": 1,
-   "shown": {
-    "kcal": "381",
-    "kj": "1594",
-    "fat": "5.5",
-    "carbs": "50.0",
-    "sat": "0.4",
-    "sugars": "1.5",
-    "protein": "26.0",
-    "fibre": "14.0",
-    "salt": "2.00"
+   "soldOut": true,
+   "overlay": "Ausverkauft",
+   "lastRead": {
+    "readAt": "2026-10-11T12:20:32.277Z",
+    "qty": 1,
+    "shown": {
+     "kcal": "381",
+     "kj": "1594",
+     "fat": "5.5",
+     "carbs": "50.0",
+     "sat": "0.4",
+     "sugars": "1.5",
+     "protein": "26.0",
+     "fibre": "14.0",
+     "salt": "2.00"
+    }
    }
   },
   {
@@ -131,17 +131,22 @@
    "name": "Protein-Pasta - Halbe Portion (100g)",
    "uuid": "20e25b0b-3c76-4fc6-97b0-8c54046667dc",
    "group": "Base",
-   "qty": 1,
-   "shown": {
-    "kcal": "191",
-    "kj": "799",
-    "fat": "2.8",
-    "carbs": "25.0",
-    "sat": "0.2",
-    "sugars": "0.8",
-    "protein": "13.0",
-    "fibre": "7.0",
-    "salt": "1.00"
+   "soldOut": true,
+   "overlay": "Ausverkauft",
+   "lastRead": {
+    "readAt": "2026-10-11T12:20:32.277Z",
+    "qty": 1,
+    "shown": {
+     "kcal": "191",
+     "kj": "799",
+     "fat": "2.8",
+     "carbs": "25.0",
+     "sat": "0.2",
+     "sugars": "0.8",
+     "protein": "13.0",
+     "fibre": "7.0",
+     "salt": "1.00"
+    }
    }
   },
   {
@@ -165,22 +170,17 @@
    "name": "Kürbiswürfel mariniert - halbe Portion (100g)",
    "uuid": "bfde53d2-fb2d-49b5-97a9-8e122afd437f",
    "group": "Base",
-   "soldOut": true,
-   "overlay": "Ausverkauft",
-   "lastRead": {
-    "readAt": "2026-09-27T19:24:33.979Z",
-    "qty": 1,
-    "shown": {
-     "kcal": "56",
-     "kj": "234",
-     "fat": "2.6",
-     "carbs": "5.7",
-     "sat": "0.4",
-     "sugars": "1.7",
-     "protein": "0.8",
-     "fibre": "1.6",
-     "salt": "0.60"
-    }
+   "qty": 1,
+   "shown": {
+    "kcal": "56",
+    "kj": "234",
+    "fat": "2.6",
+    "carbs": "5.7",
+    "sat": "0.4",
+    "sugars": "1.7",
+    "protein": "0.8",
+    "fibre": "1.6",
+    "salt": "0.60"
    }
   },
   {
@@ -527,22 +527,17 @@
    "name": "Kürbiswürfel mariniert (50g)",
    "uuid": "1ebc4c8c-65c0-4236-a130-f4bb9ac8a5c9",
    "group": "Vitamine",
-   "soldOut": true,
-   "overlay": "Ausverkauft",
-   "lastRead": {
-    "readAt": "2026-09-27T19:24:33.979Z",
-    "qty": 1,
-    "shown": {
-     "kcal": "28",
-     "kj": "117",
-     "fat": "1.3",
-     "carbs": "2.9",
-     "sat": "0.2",
-     "sugars": "0.8",
-     "protein": "0.4",
-     "fibre": "0.8",
-     "salt": "0.30"
-    }
+   "qty": 1,
+   "shown": {
+    "kcal": "28",
+    "kj": "117",
+    "fat": "1.3",
+    "carbs": "2.9",
+    "sat": "0.2",
+    "sugars": "0.8",
+    "protein": "0.4",
+    "fibre": "0.8",
+    "salt": "0.30"
    }
   },
   {
@@ -1059,24 +1054,39 @@
    "name": "Rotes Pesto (80g)",
    "uuid": "8de52e64-c12b-46c8-a681-ab8725528199",
    "group": "Dips",
-   "soldOut": true,
-   "overlay": "Ausverkauft"
+   "qty": 1,
+   "shown": {
+    "kcal": "264",
+    "kj": "1105",
+    "fat": "23.0",
+    "carbs": "10.2",
+    "sat": "3.1",
+    "sugars": "6.6",
+    "protein": "3.7",
+    "fibre": "1.6",
+    "salt": "1.92"
+   }
   },
   {
    "name": "Trüffel Light (Inlead) (80g)",
    "uuid": "c37abacb-445d-4be6-8556-c6b0179b08ed",
    "group": "Dips",
-   "qty": 1,
-   "shown": {
-    "kcal": "78",
-    "kj": "326",
-    "fat": "4.8",
-    "carbs": "8.0",
-    "sat": "0.7",
-    "sugars": "2.6",
-    "protein": "0.6",
-    "fibre": "0.2",
-    "salt": "1.51"
+   "soldOut": true,
+   "overlay": "Ausverkauft",
+   "lastRead": {
+    "readAt": "2026-10-11T12:20:32.277Z",
+    "qty": 1,
+    "shown": {
+     "kcal": "78",
+     "kj": "326",
+     "fat": "4.8",
+     "carbs": "8.0",
+     "sat": "0.7",
+     "sugars": "2.6",
+     "protein": "0.6",
+     "fibre": "0.2",
+     "salt": "1.51"
+    }
    }
   },
   {

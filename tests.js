@@ -831,7 +831,14 @@ if (valC.length) console.log(valC.join("\n"));
 check("bowlValidate(COMPLEAT) ohne Probleme (beide Menüs)", valC.length, 0);
 check("bowlValidate erkennt Fehler (Preis fehlt, Kern-Rolle in zwei Gruppen)", (() => { const bad = JSON.parse(JSON.stringify(T.COMPLEAT)); delete bad.ubereats.groups[0].options[0].price; bad.ubereats.groups[2].options.push({ ...bad.ubereats.groups[0].options[1], id: "x_dup", group: bad.ubereats.groups[2].id }); const P = T.bowlValidate(bad, ["ubereats"]); return P.some(x => /price fehlt/.test(x)) && P.some(x => /Rolle base steht in mehreren Gruppen/.test(x)); })(), true);
 // Wolt
-check("Wolt-Gruppen (Herbst-Karte, Stand 11.10.2026): Basis 4 (ohne Quinoa, mit Kürbis) · Proteine 6 (mit Mushroots) · Extras 30 · Dips 16 (Ajvar wieder dabei) + „Ohne Dip“", WG.base.options.length === 4 && WG.protein.options.length === 6 && WG.extra.options.length === 30 && WG.dip.options.length === 16 && WG.dip.none === "Ohne Dip", true);
+check("Wolt-Gruppen (Stand 21.10.2026): Basis 4 (ohne Quinoa, mit Kürbis und Protein Nudeln) · Proteine 6 (mit Mushroots) · Extras 30 · Dips 15 (Rotes Pesto wieder bei Wolt, Guacamole nicht mehr) + „Ohne Dip“", WG.base.options.length === 4 && WG.protein.options.length === 6 && WG.extra.options.length === 30 && WG.dip.options.length === 15 && WG.dip.none === "Ohne Dip", true);
+check("Wolt 21.10.2026: „Rotes Pesto, 80g“ unter „Dein Dip“ für 1,00 € = Shop-Werte je 100 g × 80 g (264 kcal / 22,96 g F / 10,24 g KH / 3,68 g E) · Guacamole führt Wolt nicht mehr (Zutat bleibt im Datensatz, bei Uber Eats weiter; der WOLT_MAP-Eintrag greift wieder, sobald Wolt sie führt)", (() => {
+  const rp = wopt("dip_rotes_pesto_80g"), ing = T.COMPLEAT.ingredients.find(x => x.id === "rotes_pesto");
+  return !!rp && rp.name === "Rotes Pesto, 80g" && rp.price === 1 && rp.amount === 80 && rp.role === "dip" && T.KEYS.every(k => Math.abs(rp[k] - Math.round(ing.per100[k] * rp.amount / 100 * 100) / 100) < 1e-9) &&
+    rp.kcal === 264 && rp.fat === 22.96 && rp.carbs === 10.24 && rp.protein === 3.68 &&
+    !W.groups.some(g => g.options.some(o => o.ing === "guacamole")) && UE.groups.some(g => g.options.some(o => o.ing === "guacamole")) && T.COMPLEAT.ingredients.some(x => x.id === "guacamole") &&
+    rawC._meta.notOnWolt.includes("Guacamole (100g)") && rawC._meta.woltMapUnused.join() === "Guacamole";
+})(), true);
 check("Wolt-Grenzen: Basis 0–5 · Proteine 0–10 · Extras 0–30 · Dip genau 1", WG.base.max === 5 && WG.protein.max === 10 && WG.extra.max === 30 && WG.dip.min === 1 && WG.dip.max === 1, true);
 check("Wolt-Mengen: Basmatireis/Salat-Mix bis 4×, Protein Nudeln 1×, Hähnchen bis 10×, Pulled Salmon 1×, Extras 1×", wopt("base_basmatireis_250_g").maxQty === 4 && wopt("base_salat_mix_100_g").maxQty === 4 && wopt("base_protein_nudeln_200_g").maxQty === 1 && wopt("protein_haehnchen_100_g").maxQty === 10 && wopt("protein_pulled_salmon_100_g").maxQty === 1 && WG.extra.options.every(o => o.maxQty === 1), true);
 check("Wolt: Grundpreis 3 € (seit 27.09.2026, vorher 2 €), jede Option mit Preis, Rolle = Gruppe", W.basePrice === 3 && W.item === "Build your Bowl" && W.groups.every(g => g.options.every(o => typeof o.price === "number" && o.role === g.id)), true);
@@ -863,9 +870,12 @@ check("Uber Eats: Portionswerte = pro 100 g × Menge / 100 (alle Optionen)", ueA
 check("Uber Eats: Kurznamen ohne Menge, halbe Portion als „½ …“", uopt("Basmati Reis (250g)").short === "Basmati Reis" && uopt("Hühnchen - Halbe Portion (50g)").short === "½ Hühnchen" && uopt("Olivenöl (20ml), Salz & halbe Zitrone").short === "Olivenöl, Salz & halbe Zitrone", true);
 check("Uber Eats: Quinoa (ganz + halb) nicht im Rechner-Menü, als gesperrt übersprungen", ueAll.every(o => o.ing !== "bunter_bio_quinoa") && updC.buildMenu(rawC, "ubereats").skipped.filter(s => /Quinoa/.test(s)).length === 2, true);
 check("Uber Eats: Halbe Limette (ohne offizielle Werte) gibt es dort seit 27.09.2026 nicht mehr → keine Option ohne Werte", !ueAll.some(o => /Limette/.test(o.name)) && rawC._meta.ubereats.noData.length === 0, true);
-check("Uber Eats: kcal-Angaben geprüft — Abweichungen nur Protein-Pasta halbe (238 statt 190,5), Granatapfelkerne (15 statt 11,1) und seit 27.09.2026 Sojasauce (8 statt 4,2 = Shop-Anzeige mit 40 ml)", rawC._meta.ubereats.kcalDiffs.map(d => d.ubereats + ":" + d.ubereatsKcal + ":" + d.shopKcal).sort().join("|") === "Granatapfelkerne (15g):15:11.1|Protein-Pasta - Halbe Portion (100g):238:190.5|Sojasauce (20ml):8:4.2", true);
+check("Uber Eats: kcal-Angaben geprüft — Abweichungen nur Granatapfelkerne (15 statt 11,1), seit 27.09.2026 Sojasauce (8 statt 4,2 = Shop-Anzeige mit 40 ml) und, solange Uber Eats sie zeigt, Protein-Pasta halbe (238 statt 190,5; am 21.10.2026 ausverkauft und ausgeblendet)", (() => {
+  const capU = U.readJSON(__dirname + "/data/compleat-ubereats-menu.json"), ppHalf = capU.groups.some(g => g.options.some(o => o.title === "Protein-Pasta - Halbe Portion (100g)"));
+  return rawC._meta.ubereats.kcalDiffs.map(d => d.ubereats + ":" + d.ubereatsKcal + ":" + d.shopKcal).sort().join("|") === ["Granatapfelkerne (15g):15:11.1", ...(ppHalf ? ["Protein-Pasta - Halbe Portion (100g):238:190.5"] : []), "Sojasauce (20ml):8:4.2"].join("|");
+})(), true);
 check("Uber Eats: einzige Mengenabweichung zum Shop = Hart gekochtes Ei (Uber Eats 50 g, Shop-Name 40 g), jede Shop-Zutat angeboten", rawC._meta.ubereats.portionDiffs.map(d => d.ubereats).join() === "Hart gekochtes Ei (50g)" && rawC._meta.ubereats.notOnUberEats.length === 0, true);
-check("Uber-Eats-Erfassung (11.10.2026): 65 Optionen inkl. 3 Seasonals-Werbung (maxPermitted 0, ignoriert; die drei ausverkauften Kürbis-Optionen und Rotes Pesto blendet Uber Eats aus), Zeitstempel und Produktseite, = raw.json", (() => { const capU = U.readJSON(__dirname + "/data/compleat-ubereats-menu.json"); return capU.groups.reduce((a, g) => a + g.options.length, 0) === 65 && /^2026-10-11T/.test(capU.capturedAt) && capU.groups.filter(g => g.maxPermitted === 0).length === 1 && capU.groups.find(g => g.maxPermitted === 0).options.length === 3 && /ubereats\.com\/de-en\/store\/compleat-frankfurt-nordend\//.test(capU.pageUrl) && rawC.ubereats.capturedAt === capU.capturedAt && rawC.ubereats.itemPrice === capU.item.price / 100; })(), true);
+check("Uber-Eats-Erfassung (21.10.2026): 65 Optionen inkl. 2 Seasonals-Werbung (maxPermitted 0, ignoriert; die im Shop ausverkauften Protein-Pasta ganz + halb und Trüffel Light blendet Uber Eats aus), Zeitstempel und Produktseite, = raw.json", (() => { const capU = U.readJSON(__dirname + "/data/compleat-ubereats-menu.json"); return capU.groups.reduce((a, g) => a + g.options.length, 0) === 65 && /^2026-10-21T/.test(capU.capturedAt) && capU.groups.filter(g => g.maxPermitted === 0).length === 1 && capU.groups.find(g => g.maxPermitted === 0).options.length === 2 && /ubereats\.com\/de-en\/store\/compleat-frankfurt-nordend\//.test(capU.pageUrl) && rawC.ubereats.capturedAt === capU.capturedAt && rawC.ubereats.itemPrice === capU.item.price / 100; })(), true);
 // beide Plattformen
 check("Crunch = Erdnüsse, Walnusskerne, Röstzwiebeln, Schwarzer Sesam + Functional Fall Crunch (Kürbiskerne, Nüsse; seit 27.09.2026) — beide Menüs", [...new Set([...W.groups, ...UE.groups].flatMap(g => g.options).filter(o => o.crunch).map(o => o.ing))].sort().join(",") === "erdnuesse,functional_fall_crunch,roestzwiebeln,schwarzer_sesam,walnusskerne", true);
 check("Hinweis am Schalter „No crunch“ nennt jede Crunch-Zutat beider Menüs (auch den Functional Fall Crunch)", (() => { const hint = CR.switches.find(s => s.id === "noCrunch").hint; return CR.switches === CU.switches && [...W.groups, ...UE.groups].flatMap(g => g.options).filter(o => o.crunch).every(o => hint.includes(o.short)); })(), true);
@@ -914,17 +924,18 @@ check("Kürbiswürfel mariniert: Base 200 g (+ halbe 100 g bei Uber Eats) und al
     uopt("Kürbiswürfel mariniert (50g)").ing === "kuerbiswuerfel_mariniert_50g" && uopt("Kürbiswürfel mariniert (50g)").role === "extra" && uopt("Kürbiswürfel mariniert - halbe Portion (100g)").ing === "kuerbiswuerfel_mariniert";
 })(), true);
 check("Hart gekochtes Ei: Shop heißt jetzt „(40g)“, Shop-Anzeige, Wolt und Uber Eats rechnen mit 50 g → beide Plattformen 77,5 kcal", T.COMPLEAT.ingredients.find(x => x.id === "hart_gekochtes_ei").portion === 40 && wopt("extra_hart_gekochtes_ei_50_g").kcal === 77.5 && uopt("Hart gekochtes Ei (50g)").kcal === 77.5 && /40g/.test(metaC.eggNote) && /50 g/.test(metaC.eggNote), true);
-check("Shop-Anzeige einzeln angeklickt (11.10.2026): alle 65 Karten durchgegangen, 64 Karten / 512 Werte = Shop-API × Anzeige-Menge (61 heute abgelesen + die 3 heute ausverkauften Kürbis-Karten mit ihrer Ablesung vom 27.09.2026), Rotes Pesto nie wählbar; verify-compleat-shop.js grün", (() => {
+check("Shop-Anzeige einzeln angeklickt (21.10.2026): alle 65 Karten durchgegangen, 65 Karten / 520 Werte = Shop-API × Anzeige-Menge (62 heute abgelesen — darunter erstmals Rotes Pesto — + die 3 heute ausverkauften Karten mit ihrer Ablesung vom 11.10.2026); verify-compleat-shop.js grün", (() => {
   const ctl = U.readJSON(__dirname + "/data/compleat-shop-anzeige.json"), r = require("./verify-compleat-shop.js").compare(rawC.shopItems, ctl);
   let ok = true; try { require("child_process").execFileSync(process.execPath, [__dirname + "/verify-compleat-shop.js"], { stdio: "pipe" }); } catch (e) { ok = false; }
   const read = ctl.items.filter(x => x.shown), last = ctl.items.filter(x => !x.shown && x.lastRead);
-  return ok && r.problems.length === 0 && /^2026-10-11T/.test(ctl.readAt) && ctl.items.length === 65 && read.length === 61 && last.length === 3 && last.every(x => /^Kürbiswürfel mariniert/.test(x.name) && x.soldOut === true && /^2026-09-27T/.test(x.lastRead.readAt)) &&
-    r.checked === read.length + last.length && r.values === 8 * r.checked && r.checked === 64 && r.earlier.length === 3 && r.earlier.every(e => e.readAt === "2026-09-27") && r.soldOutNotChecked.join() === "Rotes Pesto (80g)" &&
-    metaC.shopControl.checked === r.checked && metaC.shopControl.values === r.values && metaC.shopControl.earlier.length === 3 && rawC.shopItems.length >= 64;
+  return ok && r.problems.length === 0 && /^2026-10-21T/.test(ctl.readAt) && ctl.items.length === 65 && read.length === 62 && last.length === 3 && last.every(x => x.soldOut === true && /^2026-10-11T/.test(x.lastRead.readAt)) &&
+    r.checked === read.length + last.length && r.values === 8 * r.checked && r.checked === 65 && r.earlier.length === 3 && r.earlier.every(e => e.readAt === "2026-10-11") && r.soldOutNotChecked.length === 0 &&
+    metaC.shopControl.checked === r.checked && metaC.shopControl.values === r.values && metaC.shopControl.earlier.length === 3 && rawC.shopItems.length >= 65;
 })(), true);
-check("Shop-Anzeige vom 11.10.2026: Ajvar (105 kcal / 5,3 g F / 11,0 g KH / 1,4 g E), Guacamole (194 kcal, wieder wählbar) und Chili Gewürz (wieder wählbar; ausgewählt zeigt der Shop überall „--“ = 0) einzeln abgelesen", (() => {
+check("Shop-Anzeige vom 21.10.2026: Ajvar (105 kcal / 5,3 g F / 11,0 g KH / 1,4 g E), Guacamole (194 kcal), Rotes Pesto (erstmals wählbar: 264 kcal / 23,0 g F / 10,2 g KH / 3,7 g E) und Chili Gewürz (ausgewählt zeigt der Shop überall „--“ = 0) einzeln abgelesen", (() => {
   const ctl = U.readJSON(__dirname + "/data/compleat-shop-anzeige.json"), c = n => ctl.items.find(x => x.name === n);
-  const a = c("Ajvar (100g)"), g = c("Guacamole (100g)"), ch = c("Chili Gewürz (1g)");
+  const a = c("Ajvar (100g)"), g = c("Guacamole (100g)"), ch = c("Chili Gewürz (1g)"), rp = c("Rotes Pesto (80g)");
+  if (!(rp && rp.qty === 1 && rp.shown.kcal === "264" && rp.shown.fat === "23.0" && rp.shown.carbs === "10.2" && rp.shown.protein === "3.7" && rp.shown.salt === "1.92")) return false;
   return a.qty === 1 && a.shown.kcal === "105" && a.shown.fat === "5.3" && a.shown.carbs === "11.0" && a.shown.protein === "1.4" && a.shown.salt === "1.40" &&
     g.qty === 1 && g.shown.kcal === "194" && g.shown.protein === "1.7" && ch.qty === 1 && !ch.soldOut && U.KEYS.every(k => ch.shown[k] === "--") &&
     U.KEYS.every(k => rawC.shopItems.find(x => x.name === "Chili Gewürz (1g)").per100[k] === 0);
@@ -1221,7 +1232,7 @@ check("Uber Eats: Top 30 = vollständige Durchrechnung (Makro/Kalorien, halbe Po
 // Pflicht-Zutaten bei Compleat (User 16.09.2026)
 const runI = (R, t, st, ex, inc) => T.runOptimize(R, t, "macros", {}, st, ex || new Set(), new Set(inc));
 check("Compleat Wolt: Pflicht Pulled Salmon → in jeder Bowl, Regeln + Deckel bleiben", (() => { const r = runI(CR, tDef, stC, null, ["pulled_salmon"]); return r.length > 0 && r.every(x => x.items.some(y => y.ing === "pulled_salmon") && cntC(x, "base") >= 1 && !x.dip); })(), true);
-check("Pflicht geht am Schalter vorbei: „No dip“ AN + Pflicht Guacamole → Guacamole in jeder Bowl; „No crunch“ AN + Erdnüsse → drin", (() => { const a = runI(CR, tDef, stC, null, ["guacamole"]); const b = runI(CR, tDef, { ...stC, sw: { ...stC.sw, noCrunch: true } }, null, ["erdnuesse"]); return a.length > 0 && a.every(x => x.dip && x.dip.ing === "guacamole") && b.length > 0 && b.every(x => x.items.some(y => y.ing === "erdnuesse")); })(), true);
+check("Pflicht geht am Schalter vorbei: „No dip“ AN + Pflicht Curvy Curry → Curvy Curry in jeder Bowl; „No crunch“ AN + Erdnüsse → drin", (() => { const a = runI(CR, tDef, stC, null, ["curvy_curry"]); const b = runI(CR, tDef, { ...stC, sw: { ...stC.sw, noCrunch: true } }, null, ["erdnuesse"]); return a.length > 0 && a.every(x => x.dip && x.dip.ing === "curvy_curry") && b.length > 0 && b.every(x => x.items.some(y => y.ing === "erdnuesse")); })(), true);
 check("Pflicht nie gegen Ausschluss oder Sperre: ausgeschlossene Pflicht wird ignoriert, Quinoa bleibt gesperrt", (() => { const a = runI(CR, tDef, stC, new Set(["avocado"]), ["avocado"]); const b = runI(CR, tDef, stC, null, ["bunter_bio_quinoa"]); return a.length > 0 && a.every(x => x.items.every(y => y.ing !== "avocado")) && b.length > 0 && b.every(x => x.items.every(y => y.ing !== "bunter_bio_quinoa")); })(), true);
 check("Plattform-Unterschied: Pflicht Gemüsemix (nicht bei Wolt) → Wolt [] mit missing, Uber Eats Bowls mit Gemüsemix", (() => { const w = runI(CR, tDef, stC, null, ["gemuesemix"]); const u = runI(CU, tDef, stU, null, ["gemuesemix"]); return w.length === 0 && w.missing.join() === "gemuesemix" && u.length > 0 && u.every(x => x.items.some(y => y.ing === "gemuesemix")); })(), true);
 check("Uber Eats: Pflicht Hühnchen darf auch als halbe Portion erfüllt werden", (() => { const u = runI(CU, tgt(30, 70, 15), stU, null, ["huehnchen"]); return u.length > 0 && u.every(x => x.items.some(y => y.ing === "huehnchen")) && u.some(x => x.parts.some(pt => pt.opt.ing === "huehnchen" && pt.opt.half)); })(), true);
@@ -1255,10 +1266,10 @@ check("Stepper mit den Wolt-Grenzen: Extras höchstens 1×, „Deine Basis“ h�
   for (let i = 0; i < 4; i++) p = T.compleatPickStep(W, p, "base_basmatireis_250_g", 1);
   p = T.compleatPickStep(W, p, "base_salat_mix_100_g", 1); p = T.compleatPickStep(W, p, "base_salat_mix_100_g", 1);
   const bases = p.base_basmatireis_250_g + p.base_salat_mix_100_g;
-  p = T.compleatPickStep(W, p, "dip_curvy_curry_dip", 1); p = T.compleatPickStep(W, p, "dip_guacamole", 1);
+  p = T.compleatPickStep(W, p, "dip_curvy_curry_dip", 1); p = T.compleatPickStep(W, p, "dip_honey_muscle_mustard_dip", 1);
   const dips = Object.keys(p).filter(k => k.startsWith("dip_"));
   p = T.compleatPickStep(W, p, "extra_avocado_35_g", -1);
-  return a1 === 1 && a2 === 1 && p.base_basmatireis_250_g === 4 && bases === 5 && dips.join() === "dip_guacamole" && !("extra_avocado_35_g" in p) &&
+  return a1 === 1 && a2 === 1 && p.base_basmatireis_250_g === 4 && bases === 5 && dips.join() === "dip_honey_muscle_mustard_dip" && !("extra_avocado_35_g" in p) &&
     T.compleatCanAdd(W, p, W.groups.find(g => g.id === "base"), wopt("base_kuerbis_200_g")) === false;
 })(), true);
 check("Stepper mit den Uber-Eats-Grenzen: Extras bis 5×, mehrere Dips und ein Dip mehrfach erlaubt, Proteine bis 5×", (() => {
@@ -1269,8 +1280,8 @@ check("Stepper mit den Uber-Eats-Grenzen: Extras bis 5×, mehrere Dips und ein D
   return p.vitamine_avocado_35g === 5 && p.dip_curvy_curry_80g === 2 && p.dip_guacamole_100g === 1 && p.protein_huehnchen_100g === 5;
 })(), true);
 check("Gespeicherte Auswahl wird bereinigt: unbekannte Optionen fallen weg, Mengen auf maxQty und die Gruppen-Grenze gekürzt", (() => {
-  const c = T.compleatCleanPicks(W, { gibtsnicht: 2, extra_avocado_35_g: 3, base_basmatireis_250_g: 9, base_salat_mix_100_g: 4, dip_curvy_curry_dip: 1, dip_guacamole: 1, protein_haehnchen_100_g: "2" });
-  return !("gibtsnicht" in c) && c.extra_avocado_35_g === 1 && c.base_basmatireis_250_g === 4 && c.base_salat_mix_100_g === 1 && c.dip_curvy_curry_dip === 1 && !("dip_guacamole" in c) && c.protein_haehnchen_100_g === 2;
+  const c = T.compleatCleanPicks(W, { gibtsnicht: 2, extra_avocado_35_g: 3, base_basmatireis_250_g: 9, base_salat_mix_100_g: 4, dip_curvy_curry_dip: 1, dip_honey_muscle_mustard_dip: 1, protein_haehnchen_100_g: "2" });
+  return !("gibtsnicht" in c) && c.extra_avocado_35_g === 1 && c.base_basmatireis_250_g === 4 && c.base_salat_mix_100_g === 1 && c.dip_curvy_curry_dip === 1 && !("dip_honey_muscle_mustard_dip" in c) && c.protein_haehnchen_100_g === 2;
 })(), true);
 check("Schalter aus (Wolt): genau die Auswahl — Nährwerte = Summe, Preis = 3 € Grundpreis + Optionen, Order Guide wie im Wolt-Fenster", (() => {
   const picks = { base_basmatireis_250_g: 1, protein_haehnchen_100_g: 2, extra_edamame_50_g: 1, extra_avocado_35_g: 1 };

@@ -1,6 +1,6 @@
 {
-  "_source": "Uber Eats „Selbst zusammenstellen“ (Compleat Frankfurt Nordend), im Browser von der geöffneten Produktseite gelesen (__REACT_QUERY_STATE__ → customizationsList; Preise in Cent, maxPermitted = Stepper-Maximum je Option, subtitle = kcal-Angabe von Uber Eats, isSoldOut). Ausverkaufte Optionen blendet Uber Eats ganz aus (11.10.2026: Kürbiswürfel mariniert — 200 g, halbe Portion und 50 g — und Rotes Pesto; Guacamole und Chili Gewürz sind wieder da). Skript-Abrufe der Uber-Eats-API blockt Cloudflare → bei Menüänderungen mit ubereats-capture.js neu erfassen (Prüfsumme sha256 des kompakten JSON im Browser und lokal vergleichen). Nicht von Hand ändern.",
-  "capturedAt": "2026-10-11T12:15:16.087Z",
+  "_source": "Uber Eats „Selbst zusammenstellen“ (Compleat Frankfurt Nordend), im Browser von der geöffneten Produktseite gelesen (__REACT_QUERY_STATE__ → customizationsList; Preise in Cent, maxPermitted = Stepper-Maximum je Option, subtitle = kcal-Angabe von Uber Eats, isSoldOut). Ausverkaufte Optionen blendet Uber Eats ganz aus (21.10.2026: Protein-Pasta — ganz und halb — und Trüffel Light (Inlead); Kürbiswürfel mariniert und Rotes Pesto sind wieder da; seit dieser Erfassung steht die Pflicht-Gruppe „Dips“ als erste im Bestellfenster: Dips → Proteine → Base → Vitamine → Toppings). Skript-Abrufe der Uber-Eats-API blockt Cloudflare → bei Menüänderungen mit ubereats-capture.js neu erfassen (Prüfsumme sha256 des kompakten JSON im Browser und lokal vergleichen). Nicht von Hand ändern.",
+  "capturedAt": "2026-10-21T06:12:41.920Z",
   "pageUrl": "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440",
   "item": {
     "title": "Selbst zusammenstellen",
@@ -10,73 +10,137 @@
   },
   "groups": [
     {
-      "title": "Base",
-      "minPermitted": 0,
+      "title": "Dips",
+      "minPermitted": 1,
       "maxPermitted": 100,
       "options": [
         {
-          "title": "Basmati Reis (250g)",
-          "price": 250,
-          "maxPermitted": 10,
+          "title": "ohne Dip",
+          "price": 0,
+          "maxPermitted": 2,
           "defaultQuantity": 0,
           "isSoldOut": false,
-          "subtitle": "adds 330 Cal."
+          "subtitle": null
         },
         {
-          "title": "Salatmix (80g)",
-          "price": 250,
-          "maxPermitted": 10,
+          "title": "Power Peanut (80g)",
+          "price": 200,
+          "maxPermitted": 5,
           "defaultQuantity": 0,
           "isSoldOut": false,
-          "subtitle": "adds 14 Cal."
+          "subtitle": "adds 250 Cal."
         },
         {
-          "title": "Bunter Bio Quinoa (250g)",
-          "price": 350,
-          "maxPermitted": 10,
+          "title": "Honey Muscle Mustard (80g)",
+          "price": 200,
+          "maxPermitted": 5,
           "defaultQuantity": 0,
           "isSoldOut": false,
-          "subtitle": "adds 130 Cal."
+          "subtitle": "adds 200 Cal."
         },
         {
-          "title": "Protein-Pasta (200g)",
-          "price": 350,
-          "maxPermitted": 10,
+          "title": "Champion Chili (80g)",
+          "price": 200,
+          "maxPermitted": 5,
           "defaultQuantity": 0,
           "isSoldOut": false,
-          "subtitle": "adds 381 Cal."
+          "subtitle": "adds 218 Cal."
         },
         {
-          "title": "Bunter Bio Quinoa - Halbe Portion (125g)",
-          "price": 175,
-          "maxPermitted": 10,
+          "title": "Curvy Curry (80g)",
+          "price": 200,
+          "maxPermitted": 5,
           "defaultQuantity": 0,
           "isSoldOut": false,
-          "subtitle": "adds 65 Cal."
+          "subtitle": "adds 302 Cal."
         },
         {
-          "title": "Basmati Reis - Halbe Portion (125g)",
-          "price": 125,
-          "maxPermitted": 10,
+          "title": "Sexy Sesame (80g)",
+          "price": 200,
+          "maxPermitted": 5,
           "defaultQuantity": 0,
           "isSoldOut": false,
-          "subtitle": "adds 165 Cal."
+          "subtitle": "adds 294 Cal."
         },
         {
-          "title": "Protein-Pasta - Halbe Portion (100g)",
-          "price": 175,
-          "maxPermitted": 10,
+          "title": "Protein Tzatziki (100g)",
+          "price": 300,
+          "maxPermitted": 5,
           "defaultQuantity": 0,
           "isSoldOut": false,
-          "subtitle": "adds 238 Cal."
+          "subtitle": "adds 67 Cal."
         },
         {
-          "title": "Salatmix - Halbe Portion (40g)",
-          "price": 125,
-          "maxPermitted": 10,
+          "title": "Guacamole (100g)",
+          "price": 300,
+          "maxPermitted": 5,
           "defaultQuantity": 0,
           "isSoldOut": false,
-          "subtitle": "adds 7 Cal."
+          "subtitle": "adds 194 Cal."
+        },
+        {
+          "title": "Ajvar (100g)",
+          "price": 300,
+          "maxPermitted": 5,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 105 Cal."
+        },
+        {
+          "title": "Joghurt-Salatdressing (80g)",
+          "price": 200,
+          "maxPermitted": 5,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 114 Cal."
+        },
+        {
+          "title": "Sojasauce (20ml)",
+          "price": 100,
+          "maxPermitted": 5,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 8 Cal."
+        },
+        {
+          "title": "Olivenöl (20ml), Salz & halbe Zitrone",
+          "price": 200,
+          "maxPermitted": 5,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 180 Cal."
+        },
+        {
+          "title": "Balsamico Dressing (80g)",
+          "price": 200,
+          "maxPermitted": 5,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 46 Cal."
+        },
+        {
+          "title": "Rotes Pesto (80g)",
+          "price": 300,
+          "maxPermitted": 5,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 264 Cal."
+        },
+        {
+          "title": "Sriracha Light (Inlead) (80g)",
+          "price": 300,
+          "maxPermitted": 5,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 76 Cal."
+        },
+        {
+          "title": "Aioli Light (Inlead) (80g)",
+          "price": 300,
+          "maxPermitted": 5,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 78 Cal."
         }
       ]
     },
@@ -224,6 +288,77 @@
       ]
     },
     {
+      "title": "Base",
+      "minPermitted": 0,
+      "maxPermitted": 100,
+      "options": [
+        {
+          "title": "Basmati Reis (250g)",
+          "price": 250,
+          "maxPermitted": 10,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 330 Cal."
+        },
+        {
+          "title": "Kürbiswürfel mariniert (200g)",
+          "price": 350,
+          "maxPermitted": 10,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 113 Cal."
+        },
+        {
+          "title": "Salatmix (80g)",
+          "price": 250,
+          "maxPermitted": 10,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 14 Cal."
+        },
+        {
+          "title": "Bunter Bio Quinoa (250g)",
+          "price": 350,
+          "maxPermitted": 10,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 130 Cal."
+        },
+        {
+          "title": "Bunter Bio Quinoa - Halbe Portion (125g)",
+          "price": 175,
+          "maxPermitted": 10,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 65 Cal."
+        },
+        {
+          "title": "Basmati Reis - Halbe Portion (125g)",
+          "price": 125,
+          "maxPermitted": 10,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 165 Cal."
+        },
+        {
+          "title": "Salatmix - Halbe Portion (40g)",
+          "price": 125,
+          "maxPermitted": 10,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 7 Cal."
+        },
+        {
+          "title": "Kürbiswürfel mariniert - halbe Portion (100g)",
+          "price": 175,
+          "maxPermitted": 10,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 56 Cal."
+        }
+      ]
+    },
+    {
       "title": "Vitamine",
       "minPermitted": 0,
       "maxPermitted": 100,
@@ -251,6 +386,14 @@
           "defaultQuantity": 0,
           "isSoldOut": false,
           "subtitle": "adds 76 Cal."
+        },
+        {
+          "title": "Kürbiswürfel mariniert (50g)",
+          "price": 150,
+          "maxPermitted": 5,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 28 Cal."
         },
         {
           "title": "Rote Beete (70g)",
@@ -406,156 +549,13 @@
       ]
     },
     {
-      "title": "Dips",
-      "minPermitted": 1,
-      "maxPermitted": 100,
-      "options": [
-        {
-          "title": "ohne Dip",
-          "price": 0,
-          "maxPermitted": 2,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": null
-        },
-        {
-          "title": "Power Peanut (80g)",
-          "price": 200,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 250 Cal."
-        },
-        {
-          "title": "Honey Muscle Mustard (80g)",
-          "price": 200,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 200 Cal."
-        },
-        {
-          "title": "Champion Chili (80g)",
-          "price": 200,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 218 Cal."
-        },
-        {
-          "title": "Curvy Curry (80g)",
-          "price": 200,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 302 Cal."
-        },
-        {
-          "title": "Sexy Sesame (80g)",
-          "price": 200,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 294 Cal."
-        },
-        {
-          "title": "Protein Tzatziki (100g)",
-          "price": 300,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 67 Cal."
-        },
-        {
-          "title": "Guacamole (100g)",
-          "price": 300,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 194 Cal."
-        },
-        {
-          "title": "Ajvar (100g)",
-          "price": 300,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 105 Cal."
-        },
-        {
-          "title": "Joghurt-Salatdressing (80g)",
-          "price": 200,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 114 Cal."
-        },
-        {
-          "title": "Sojasauce (20ml)",
-          "price": 100,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 8 Cal."
-        },
-        {
-          "title": "Olivenöl (20ml), Salz & halbe Zitrone",
-          "price": 200,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 180 Cal."
-        },
-        {
-          "title": "Balsamico Dressing (80g)",
-          "price": 200,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 46 Cal."
-        },
-        {
-          "title": "Trüffel Light (Inlead) (80g)",
-          "price": 300,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 78 Cal."
-        },
-        {
-          "title": "Sriracha Light (Inlead) (80g)",
-          "price": 300,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 76 Cal."
-        },
-        {
-          "title": "Aioli Light (Inlead) (80g)",
-          "price": 300,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 78 Cal."
-        }
-      ]
-    },
-    {
       "title": "Bock auf unsere Seasonals?",
       "minPermitted": 0,
       "maxPermitted": 0,
       "options": [
         {
-          "title": "Apfeltasche \"Happy Hour\"",
-          "price": 390,
-          "maxPermitted": 0,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": null
-        },
-        {
-          "title": "Protein Milchreis - Apfel Zimt",
-          "price": 590,
+          "title": "SPRAGA Kombucha - Granatapfel",
+          "price": 349,
           "maxPermitted": 0,
           "defaultQuantity": 0,
           "isSoldOut": false,

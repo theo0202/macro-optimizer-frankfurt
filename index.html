@@ -42,15 +42,15 @@ function lsSet(key, value) {
 
 // ═══ Restaurant-Daten (generierte Blöcke — NIE von Hand editieren, immer über <key>-update.js) ═══
 // __COMPLEAT_DATA_START__ (generiert via: node compleat-update.js aus data/compleat-raw.json — nicht von Hand editieren)
-// Quelle: Compleat-Onlineshop (compleat.vmos.io, Frankfurt Nordend), Stand 2026-10-11 · Shop-Werte pro 100 g × Menge · Menüs + Preise: Wolt „Build your Bowl“, Uber Eats „Selbst zusammenstellen“ (erfasst 2026-10-11)
+// Quelle: Compleat-Onlineshop (compleat.vmos.io, Frankfurt Nordend), Stand 2026-10-21 · Shop-Werte pro 100 g × Menge · Menüs + Preise: Wolt „Build your Bowl“, Uber Eats „Selbst zusammenstellen“ (erfasst 2026-10-21)
 // GESPERRT (nie im Rechner, auf keiner Plattform): Bunter Bio Quinoa (250g) — Offizielle Werte unplausibel: 130 kcal / 21,3 g KH / 4,5 g Protein je 250 g (= 52 kcal je 100 g) entsprechen eher 100 g gekochter Quinoa (~120 kcal je 100 g). User 15.09.2026: bleibt im Datensatz, im Rechner ausgeschlossen — auch auf künftigen Plattformen (z.B. Uber Eats).
 const COMPLEAT = {
   // Kompletter Shop-Datensatz (auch Zutaten, die eine Plattform nicht anbietet)
   ingredients: [
     {id:"salatmix",name:"Salatmix",group:"base",portion:80,unit:"g",per100:{kcal:17,fat:0.3,sat:0.1,carbs:2.1,sugars:1.1,fibre:0,protein:1.5,salt:0.1},allergens:[],halfPortion:40},
-    {id:"protein_pasta",name:"Protein-Pasta",group:"base",portion:200,unit:"g",per100:{kcal:190.5,fat:2.75,sat:0.2,carbs:25,sugars:0.75,fibre:7,protein:13,salt:1},allergens:["Glutenhaltig"],halfPortion:100},
+    {id:"protein_pasta",name:"Protein-Pasta",group:"base",portion:200,unit:"g",per100:{kcal:190.5,fat:2.75,sat:0.2,carbs:25,sugars:0.75,fibre:7,protein:13,salt:1},allergens:["Glutenhaltig"],halfPortion:100,soldOut:true},
     {id:"basmati_reis",name:"Basmati Reis",group:"base",portion:250,unit:"g",per100:{kcal:132,fat:0.3,sat:0,carbs:28,sugars:0.1,fibre:0.6,protein:3,salt:1},allergens:[],halfPortion:125},
-    {id:"kuerbiswuerfel_mariniert",name:"Kürbiswürfel mariniert",group:"base",portion:200,unit:"g",per100:{kcal:56.4,fat:2.6,sat:0.4,carbs:5.7,sugars:1.5,fibre:1.6,protein:0.8,salt:0.6},allergens:[],halfPortion:100,soldOut:true},
+    {id:"kuerbiswuerfel_mariniert",name:"Kürbiswürfel mariniert",group:"base",portion:200,unit:"g",per100:{kcal:56.4,fat:2.6,sat:0.4,carbs:5.7,sugars:1.5,fibre:1.6,protein:0.8,salt:0.6},allergens:[],halfPortion:100},
     {id:"bunter_bio_quinoa",name:"Bunter Bio Quinoa",group:"base",portion:250,unit:"g",per100:{kcal:52,fat:0.9,sat:0.1,carbs:8.5,sugars:0.3,fibre:1.6,protein:1.8,salt:1},allergens:[],halfPortion:125,blocked:"Offizielle Werte unplausibel: 130 kcal / 21,3 g KH / 4,5 g Protein je 250 g (= 52 kcal je 100 g) entsprechen eher 100 g gekochter Quinoa (~120 kcal je 100 g). User 15.09.2026: bleibt im Datensatz, im Rechner ausgeschlossen — auch auf künftigen Plattformen (z.B. Uber Eats)."},
     {id:"erbsen",name:"Erbsen",group:"proteine",portion:50,unit:"g",per100:{kcal:69,fat:0.3,sat:0.1,carbs:9,sugars:3.1,fibre:5,protein:5.2,salt:1},allergens:[]},
     {id:"vegane_hackbaellchen",name:"Vegane Hackbällchen",group:"proteine",portion:100,unit:"g",per100:{kcal:154,fat:4.5,sat:0.5,carbs:7,sugars:1,fibre:7.5,protein:17.7,salt:1.4},allergens:["Glutenhaltig"],halfPortion:50},
@@ -67,7 +67,7 @@ const COMPLEAT = {
     {id:"gemuesemix",name:"Gemüsemix",group:"vitamine",portion:100,unit:"g",per100:{kcal:43,fat:0.3,sat:0.1,carbs:6.3,sugars:5.4,fibre:0.5,protein:2.1,salt:0.02},allergens:[]},
     {id:"rote_beete",name:"Rote Beete",group:"vitamine",portion:70,unit:"g",per100:{kcal:43,fat:0.1,sat:0,carbs:8.4,sugars:6.8,fibre:2.5,protein:1.5,salt:0},allergens:[]},
     {id:"tomaten",name:"Tomaten",group:"vitamine",portion:50,unit:"g",per100:{kcal:19,fat:0.1,sat:0,carbs:3.5,sugars:3.2,fibre:1,protein:0.7,salt:0},allergens:[]},
-    {id:"kuerbiswuerfel_mariniert_50g",name:"Kürbiswürfel mariniert (50 g)",group:"vitamine",portion:50,unit:"g",per100:{kcal:56.4,fat:2.6,sat:0.4,carbs:5.7,sugars:1.5,fibre:1.6,protein:0.8,salt:0.6},allergens:[],soldOut:true},
+    {id:"kuerbiswuerfel_mariniert_50g",name:"Kürbiswürfel mariniert (50 g)",group:"vitamine",portion:50,unit:"g",per100:{kcal:56.4,fat:2.6,sat:0.4,carbs:5.7,sugars:1.5,fibre:1.6,protein:0.8,salt:0.6},allergens:[]},
     {id:"mais",name:"Mais",group:"vitamine",portion:50,unit:"g",per100:{kcal:69,fat:1.2,sat:0.3,carbs:11,sugars:7,fibre:3.1,protein:2.5,salt:0.5},allergens:[]},
     {id:"baby_spinat",name:"Baby Spinat",group:"vitamine",portion:20,unit:"g",per100:{kcal:18,fat:0.6,sat:0.1,carbs:0.6,sugars:0,fibre:2,protein:4.4,salt:0},allergens:[]},
     {id:"gurke",name:"Gurke",group:"vitamine",portion:50,unit:"g",per100:{kcal:14,fat:0.1,sat:0,carbs:1.8,sugars:1.2,fibre:0.9,protein:0.6,salt:0},allergens:[]},
@@ -98,12 +98,12 @@ const COMPLEAT = {
     {id:"sriracha_light_inlead",name:"Sriracha Light (Inlead)",group:"dips",portion:80,unit:"g",per100:{kcal:95,fat:5.8,sat:0.9,carbs:9.5,sugars:4.4,fibre:0.2,protein:0.9,salt:1.9},allergens:["Ei"]},
     {id:"aioli_light_inlead",name:"Aioli Light (Inlead)",group:"dips",portion:80,unit:"g",per100:{kcal:97,fat:6,sat:0.9,carbs:9.7,sugars:5.1,fibre:0.2,protein:0.1,salt:1.9},allergens:["Senf","Ei"]},
     {id:"balsamico_dressing",name:"Balsamico Dressing",group:"dips",portion:80,unit:"g",per100:{kcal:58,fat:2.3,sat:0.2,carbs:8.8,sugars:8.4,fibre:0.21,protein:0.1,salt:2},allergens:["Sulfite"]},
-    {id:"trueffel_light_inlead",name:"Trüffel Light (Inlead)",group:"dips",portion:80,unit:"g",per100:{kcal:98,fat:6,sat:0.9,carbs:10,sugars:3.3,fibre:0.2,protein:0.7,salt:1.89},allergens:["Senf","Ei"]},
+    {id:"trueffel_light_inlead",name:"Trüffel Light (Inlead)",group:"dips",portion:80,unit:"g",per100:{kcal:98,fat:6,sat:0.9,carbs:10,sugars:3.3,fibre:0.2,protein:0.7,salt:1.89},allergens:["Senf","Ei"],soldOut:true},
     {id:"protein_tzatziki",name:"Protein Tzatziki",group:"dips",portion:100,unit:"g",per100:{kcal:66.8,fat:0.21,sat:0.1,carbs:4.95,sugars:4.67,fibre:0.1,protein:10.85,salt:1.13},allergens:["Milch"]},
-    {id:"rotes_pesto",name:"Rotes Pesto",group:"dips",portion:80,unit:"g",per100:{kcal:330,fat:28.7,sat:3.9,carbs:12.8,sugars:8.2,fibre:1.97,protein:4.6,salt:2.4},allergens:["Milch","Nüsse"],soldOut:true},
+    {id:"rotes_pesto",name:"Rotes Pesto",group:"dips",portion:80,unit:"g",per100:{kcal:330,fat:28.7,sat:3.9,carbs:12.8,sugars:8.2,fibre:1.97,protein:4.6,salt:2.4},allergens:["Milch","Nüsse"]},
   ],
   // Stand des letzten Crawls (Shop-Werte, Menüs, Ausverkauft-Status)
-  asOf: "2026-10-11",
+  asOf: "2026-10-21",
   wolt: {
     item: "Build your Bowl", page: "https://wolt.com/de/deu/frankfurt/restaurant/compleat-nordend", basePrice: 3,
     require: {base:false,protein:false}, // Pflicht-Rollen laut Plattform (Gruppen-Minimum; keine → jede Gruppe optional)
@@ -111,8 +111,8 @@ const COMPLEAT = {
       { id:"base",name:"Deine Basis",min:0,max:5,none:null,options:[
         {id:"base_basmatireis_250_g",name:"Basmatireis, 250 g",short:"Basmatireis",group:"base",role:"base",ing:"basmati_reis",amount:250,unit:"g",maxQty:4,price:2.5,kcal:330,fat:0.75,sat:0,carbs:70,sugars:0.25,fibre:1.5,protein:7.5,salt:2.5},
         {id:"base_salat_mix_100_g",name:"Salat-Mix, 100 g",short:"Salat-Mix",group:"base",role:"base",ing:"salatmix",amount:100,unit:"g",maxQty:4,price:2.5,kcal:17,fat:0.3,sat:0.1,carbs:2.1,sugars:1.1,fibre:0,protein:1.5,salt:0.1},
-        {id:"base_protein_nudeln_200_g",name:"Protein Nudeln, 200 g",short:"Protein Nudeln",group:"base",role:"base",ing:"protein_pasta",amount:200,unit:"g",maxQty:1,price:3.5,kcal:381,fat:5.5,sat:0.4,carbs:50,sugars:1.5,fibre:14,protein:26,salt:2},
         {id:"base_kuerbis_200_g",name:"Kürbis, 200 g",short:"Kürbis",group:"base",role:"base",ing:"kuerbiswuerfel_mariniert",amount:200,unit:"g",maxQty:1,price:3.5,kcal:112.8,fat:5.2,sat:0.8,carbs:11.4,sugars:3,fibre:3.2,protein:1.6,salt:1.2},
+        {id:"base_protein_nudeln_200_g",name:"Protein Nudeln, 200 g",short:"Protein Nudeln",group:"base",role:"base",ing:"protein_pasta",amount:200,unit:"g",maxQty:1,price:3.5,kcal:381,fat:5.5,sat:0.4,carbs:50,sugars:1.5,fibre:14,protein:26,salt:2},
       ] },
       { id:"protein",name:"Deine Proteine",min:0,max:10,none:null,options:[
         {id:"protein_haehnchen_100_g",name:"Hähnchen, 100 g",short:"Hähnchen",group:"protein",role:"protein",ing:"huehnchen",amount:100,unit:"g",maxQty:10,price:3,kcal:125,fat:2.7,sat:1.2,carbs:1.6,sugars:0.73,fibre:0,protein:23.2,salt:1.07},
@@ -162,15 +162,14 @@ const COMPLEAT = {
         {id:"dip_sexy_sesame_dip",name:"Sexy Sesame Dip",short:"Sexy Sesame Dip",group:"dip",role:"dip",ing:"sexy_sesame",amount:80,unit:"g",maxQty:1,price:2,kcal:293.6,fat:27.6,sat:2.56,carbs:9.52,sugars:0.56,fibre:0,protein:1.92,salt:2.4},
         {id:"dip_champion_chili_dip",name:"Champion Chili-Dip",short:"Champion Chili-Dip",group:"dip",role:"dip",ing:"champion_chili",amount:80,unit:"g",maxQty:1,price:2,kcal:218.4,fat:20.48,sat:1.52,carbs:7.76,sugars:1.92,fibre:2,protein:1.04,salt:2.4},
         {id:"dip_protein_tsatsiki_dip",name:"Protein Tsatsiki Dip",short:"Protein Tsatsiki Dip",group:"dip",role:"dip",ing:"protein_tzatziki",amount:100,unit:"g",maxQty:1,price:3,kcal:66.8,fat:0.21,sat:0.1,carbs:4.95,sugars:4.67,fibre:0.1,protein:10.85,salt:1.13},
-        {id:"dip_guacamole",name:"Guacamole",short:"Guacamole",group:"dip",role:"dip",ing:"guacamole",amount:100,unit:"g",maxQty:1,price:3,kcal:194,fat:17,sat:2.7,carbs:8.4,sugars:2.3,fibre:6,protein:1.7,salt:0.42},
+        {id:"dip_rotes_pesto_80g",name:"Rotes Pesto, 80g",short:"Rotes Pesto",group:"dip",role:"dip",ing:"rotes_pesto",amount:80,unit:"g",maxQty:1,price:1,kcal:264,fat:22.96,sat:3.12,carbs:10.24,sugars:6.56,fibre:1.58,protein:3.68,salt:1.92},
         {id:"dip_ajvar_100g",name:"Ajvar, 100g",short:"Ajvar",group:"dip",role:"dip",ing:"ajvar",amount:100,unit:"g",maxQty:1,price:3,kcal:105,fat:5.3,sat:0.6,carbs:11,sugars:9.2,fibre:3,protein:1.4,salt:1.4},
         {id:"dip_sojasosse_20ml",name:"Sojasoße , 20ml",short:"Sojasoße",group:"dip",role:"dip",ing:"sojasauce",amount:20,unit:"ml",maxQty:1,price:1,kcal:4.2,fat:0.04,sat:0.02,carbs:0.46,sugars:0.12,fibre:0,protein:0.48,salt:2.87},
         {id:"dip_olivenoel_und_halbe_zitrone",name:"Olivenöl und halbe Zitrone",short:"Olivenöl und halbe Zitrone",group:"dip",role:"dip",ing:"olivenoel_salz_halbe_zitrone",amount:20,unit:"ml",maxQty:1,price:2,kcal:180,fat:20,sat:2.6,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
         {id:"dip_balsamico_dressing_80g",name:"Balsamico Dressing , 80g",short:"Balsamico Dressing",group:"dip",role:"dip",ing:"balsamico_dressing",amount:80,unit:"g",maxQty:1,price:1,kcal:46.4,fat:1.84,sat:0.16,carbs:7.04,sugars:6.72,fibre:0.17,protein:0.08,salt:1.6},
-        {id:"dip_trueffel_light_inlead_80_g",name:"Trüffel Light (Inlead), 80 g",short:"Trüffel Light (Inlead)",group:"dip",role:"dip",ing:"trueffel_light_inlead",amount:80,unit:"g",maxQty:1,price:3,kcal:78.4,fat:4.8,sat:0.72,carbs:8,sugars:2.64,fibre:0.16,protein:0.56,salt:1.51},
         {id:"dip_siracha_mayo_light_inlead_80_g",name:"Siracha Mayo Light (Inlead), 80 g",short:"Siracha Mayo Light (Inlead)",group:"dip",role:"dip",ing:"sriracha_light_inlead",amount:80,unit:"g",maxQty:1,price:3,kcal:76,fat:4.64,sat:0.72,carbs:7.6,sugars:3.52,fibre:0.16,protein:0.72,salt:1.52},
         {id:"dip_aioli_light_inlead_80_g",name:"Aioli Light (Inlead), 80 g",short:"Aioli Light (Inlead)",group:"dip",role:"dip",ing:"aioli_light_inlead",amount:80,unit:"g",maxQty:1,price:3,kcal:77.6,fat:4.8,sat:0.72,carbs:7.76,sugars:4.08,fibre:0.16,protein:0.08,salt:1.52},
-        {id:"dip_rotes_pesto_80g",name:"Rotes Pesto, 80g",short:"Rotes Pesto",group:"dip",role:"dip",ing:"rotes_pesto",amount:80,unit:"g",maxQty:1,price:1,kcal:264,fat:22.96,sat:3.12,carbs:10.24,sugars:6.56,fibre:1.58,protein:3.68,salt:1.92},
+        {id:"dip_trueffel_light_inlead_80_g",name:"Trüffel Light (Inlead), 80 g",short:"Trüffel Light (Inlead)",group:"dip",role:"dip",ing:"trueffel_light_inlead",amount:80,unit:"g",maxQty:1,price:3,kcal:78.4,fat:4.8,sat:0.72,carbs:8,sugars:2.64,fibre:0.16,protein:0.56,salt:1.51},
       ] },
     ],
   },
@@ -180,13 +179,13 @@ const COMPLEAT = {
     groups: [
       { id:"base",name:"Base",min:0,max:100,none:null,options:[
         {id:"base_basmati_reis_250g",name:"Basmati Reis (250g)",short:"Basmati Reis",group:"base",role:"base",ing:"basmati_reis",amount:250,unit:"g",maxQty:10,price:2.5,kcal:330,fat:0.75,sat:0,carbs:70,sugars:0.25,fibre:1.5,protein:7.5,salt:2.5},
-        {id:"base_salatmix_80g",name:"Salatmix (80g)",short:"Salatmix",group:"base",role:"base",ing:"salatmix",amount:80,unit:"g",maxQty:10,price:2.5,kcal:13.6,fat:0.24,sat:0.08,carbs:1.68,sugars:0.88,fibre:0,protein:1.2,salt:0.08},
-        {id:"base_protein_pasta_200g",name:"Protein-Pasta (200g)",short:"Protein-Pasta",group:"base",role:"base",ing:"protein_pasta",amount:200,unit:"g",maxQty:10,price:3.5,kcal:381,fat:5.5,sat:0.4,carbs:50,sugars:1.5,fibre:14,protein:26,salt:2},
-        {id:"base_basmati_reis_halbe_portion_125g",name:"Basmati Reis - Halbe Portion (125g)",short:"½ Basmati Reis",group:"base",role:"base",ing:"basmati_reis",amount:125,unit:"g",maxQty:10,price:1.25,half:true,kcal:165,fat:0.38,sat:0,carbs:35,sugars:0.13,fibre:0.75,protein:3.75,salt:1.25},
-        {id:"base_protein_pasta_halbe_portion_100g",name:"Protein-Pasta - Halbe Portion (100g)",short:"½ Protein-Pasta",group:"base",role:"base",ing:"protein_pasta",amount:100,unit:"g",maxQty:10,price:1.75,half:true,kcal:190.5,fat:2.75,sat:0.2,carbs:25,sugars:0.75,fibre:7,protein:13,salt:1},
-        {id:"base_salatmix_halbe_portion_40g",name:"Salatmix - Halbe Portion (40g)",short:"½ Salatmix",group:"base",role:"base",ing:"salatmix",amount:40,unit:"g",maxQty:10,price:1.25,half:true,kcal:6.8,fat:0.12,sat:0.04,carbs:0.84,sugars:0.44,fibre:0,protein:0.6,salt:0.04},
         {id:"base_kuerbiswuerfel_mariniert_200g",name:"Kürbiswürfel mariniert (200g)",short:"Kürbiswürfel mariniert",group:"base",role:"base",ing:"kuerbiswuerfel_mariniert",amount:200,unit:"g",maxQty:10,price:3.5,kcal:112.8,fat:5.2,sat:0.8,carbs:11.4,sugars:3,fibre:3.2,protein:1.6,salt:1.2},
+        {id:"base_salatmix_80g",name:"Salatmix (80g)",short:"Salatmix",group:"base",role:"base",ing:"salatmix",amount:80,unit:"g",maxQty:10,price:2.5,kcal:13.6,fat:0.24,sat:0.08,carbs:1.68,sugars:0.88,fibre:0,protein:1.2,salt:0.08},
+        {id:"base_basmati_reis_halbe_portion_125g",name:"Basmati Reis - Halbe Portion (125g)",short:"½ Basmati Reis",group:"base",role:"base",ing:"basmati_reis",amount:125,unit:"g",maxQty:10,price:1.25,half:true,kcal:165,fat:0.38,sat:0,carbs:35,sugars:0.13,fibre:0.75,protein:3.75,salt:1.25},
+        {id:"base_salatmix_halbe_portion_40g",name:"Salatmix - Halbe Portion (40g)",short:"½ Salatmix",group:"base",role:"base",ing:"salatmix",amount:40,unit:"g",maxQty:10,price:1.25,half:true,kcal:6.8,fat:0.12,sat:0.04,carbs:0.84,sugars:0.44,fibre:0,protein:0.6,salt:0.04},
         {id:"base_kuerbiswuerfel_mariniert_halbe_portion_100g",name:"Kürbiswürfel mariniert - halbe Portion (100g)",short:"½ Kürbiswürfel mariniert",group:"base",role:"base",ing:"kuerbiswuerfel_mariniert",amount:100,unit:"g",maxQty:10,price:1.75,half:true,kcal:56.4,fat:2.6,sat:0.4,carbs:5.7,sugars:1.5,fibre:1.6,protein:0.8,salt:0.6},
+        {id:"base_protein_pasta_200g",name:"Protein-Pasta (200g)",short:"Protein-Pasta",group:"base",role:"base",ing:"protein_pasta",amount:200,unit:"g",maxQty:10,price:3.5,kcal:381,fat:5.5,sat:0.4,carbs:50,sugars:1.5,fibre:14,protein:26,salt:2},
+        {id:"base_protein_pasta_halbe_portion_100g",name:"Protein-Pasta - Halbe Portion (100g)",short:"½ Protein-Pasta",group:"base",role:"base",ing:"protein_pasta",amount:100,unit:"g",maxQty:10,price:1.75,half:true,kcal:190.5,fat:2.75,sat:0.2,carbs:25,sugars:0.75,fibre:7,protein:13,salt:1},
       ] },
       { id:"protein",name:"Proteine",min:0,max:100,none:null,options:[
         {id:"protein_huehnchen_100g",name:"Hühnchen (100g)",short:"Hühnchen",group:"protein",role:"protein",ing:"huehnchen",amount:100,unit:"g",maxQty:5,price:3,kcal:125,fat:2.7,sat:1.2,carbs:1.6,sugars:0.73,fibre:0,protein:23.2,salt:1.07},
@@ -211,6 +210,7 @@ const COMPLEAT = {
         {id:"vitamine_baby_spinat_20g",name:"Baby Spinat (20g)",short:"Baby Spinat",group:"vitamine",role:"extra",ing:"baby_spinat",amount:20,unit:"g",maxQty:5,price:1.5,kcal:3.6,fat:0.12,sat:0.02,carbs:0.12,sugars:0,fibre:0.4,protein:0.88,salt:0},
         {id:"vitamine_baby_gruenkohl_20g",name:"Baby-Grünkohl (20g)",short:"Baby-Grünkohl",group:"vitamine",role:"extra",ing:"baby_gruenkohl",amount:20,unit:"g",maxQty:5,price:1.5,kcal:7.4,fat:0.18,sat:0,carbs:0.5,sugars:0,fibre:0.84,protein:0.86,salt:0},
         {id:"vitamine_avocado_35g",name:"Avocado (35g)",short:"Avocado",group:"vitamine",role:"extra",ing:"avocado",amount:35,unit:"g",maxQty:5,price:1.5,kcal:75.95,fat:4.38,sat:3.5,carbs:1.26,sugars:0.49,fibre:1.44,protein:0.53,salt:0},
+        {id:"vitamine_kuerbiswuerfel_mariniert_50g",name:"Kürbiswürfel mariniert (50g)",short:"Kürbiswürfel mariniert",group:"vitamine",role:"extra",ing:"kuerbiswuerfel_mariniert_50g",amount:50,unit:"g",maxQty:5,price:1.5,kcal:28.2,fat:1.3,sat:0.2,carbs:2.85,sugars:0.75,fibre:0.8,protein:0.4,salt:0.3},
         {id:"vitamine_rote_beete_70g",name:"Rote Beete (70g)",short:"Rote Beete",group:"vitamine",role:"extra",ing:"rote_beete",amount:70,unit:"g",maxQty:5,price:1,kcal:30.1,fat:0.07,sat:0,carbs:5.88,sugars:4.76,fibre:1.75,protein:1.05,salt:0},
         {id:"vitamine_karotten_50g",name:"Karotten (50g)",short:"Karotten",group:"vitamine",role:"extra",ing:"karotten",amount:50,unit:"g",maxQty:5,price:1,kcal:16,fat:0.05,sat:0,carbs:2.5,sugars:2.5,fibre:2,protein:0.5,salt:0.08},
         {id:"vitamine_rotkohl_geraspelt_50g",name:"Rotkohl geraspelt (50g)",short:"Rotkohl geraspelt",group:"vitamine",role:"extra",ing:"rotkohl_geraspelt",amount:50,unit:"g",maxQty:5,price:1,kcal:13.5,fat:0.05,sat:0.05,carbs:2,sugars:1.5,fibre:1.25,protein:1,salt:0.02},
@@ -221,7 +221,6 @@ const COMPLEAT = {
         {id:"vitamine_gemuesemix_100g",name:"Gemüsemix (100g)",short:"Gemüsemix",group:"vitamine",role:"extra",ing:"gemuesemix",amount:100,unit:"g",maxQty:5,price:3,kcal:43,fat:0.3,sat:0.1,carbs:6.3,sugars:5.4,fibre:0.5,protein:2.1,salt:0.02},
         {id:"vitamine_rote_bete_falafel_100g",name:"Rote Bete Falafel (100g)",short:"Rote Bete Falafel",group:"vitamine",role:"extra",ing:"rote_bete_falafel",amount:100,unit:"g",maxQty:5,price:3,kcal:216,fat:13,sat:1.1,carbs:15,sugars:5,fibre:6.7,protein:6.5,salt:1.1},
         {id:"vitamine_brokkoli_100g",name:"Brokkoli (100g)",short:"Brokkoli",group:"vitamine",role:"extra",ing:"brokkoli",amount:100,unit:"g",maxQty:5,price:2.5,kcal:25,fat:0.2,sat:0,carbs:4.4,sugars:4.2,fibre:3,protein:3,salt:0.1},
-        {id:"vitamine_kuerbiswuerfel_mariniert_50g",name:"Kürbiswürfel mariniert (50g)",short:"Kürbiswürfel mariniert",group:"vitamine",role:"extra",ing:"kuerbiswuerfel_mariniert_50g",amount:50,unit:"g",maxQty:5,price:1.5,kcal:28.2,fat:1.3,sat:0.2,carbs:2.85,sugars:0.75,fibre:0.8,protein:0.4,salt:0.3},
       ] },
       { id:"toppings",name:"Toppings",min:0,max:100,none:null,options:[
         {id:"toppings_erdnuesse_20g",name:"Erdnüsse (20g)",short:"Erdnüsse",group:"toppings",role:"extra",ing:"erdnuesse",amount:20,unit:"g",maxQty:5,price:1,kcal:125.4,fat:10.6,sat:1.74,carbs:1.18,sugars:0.84,fibre:2.2,protein:5.6,salt:0.18,crunch:true},
@@ -246,10 +245,10 @@ const COMPLEAT = {
         {id:"dip_sojasauce_20ml",name:"Sojasauce (20ml)",short:"Sojasauce",group:"dip",role:"dip",ing:"sojasauce",amount:20,unit:"ml",maxQty:5,price:1,kcal:4.2,fat:0.04,sat:0.02,carbs:0.46,sugars:0.12,fibre:0,protein:0.48,salt:2.87},
         {id:"dip_olivenoel_20ml_salz_halbe_zitrone",name:"Olivenöl (20ml), Salz & halbe Zitrone",short:"Olivenöl, Salz & halbe Zitrone",group:"dip",role:"dip",ing:"olivenoel_salz_halbe_zitrone",amount:20,unit:"ml",maxQty:5,price:2,kcal:180,fat:20,sat:2.6,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
         {id:"dip_balsamico_dressing_80g",name:"Balsamico Dressing (80g)",short:"Balsamico Dressing",group:"dip",role:"dip",ing:"balsamico_dressing",amount:80,unit:"g",maxQty:5,price:2,kcal:46.4,fat:1.84,sat:0.16,carbs:7.04,sugars:6.72,fibre:0.17,protein:0.08,salt:1.6},
-        {id:"dip_trueffel_light_inlead_80g",name:"Trüffel Light (Inlead) (80g)",short:"Trüffel Light (Inlead)",group:"dip",role:"dip",ing:"trueffel_light_inlead",amount:80,unit:"g",maxQty:5,price:3,kcal:78.4,fat:4.8,sat:0.72,carbs:8,sugars:2.64,fibre:0.16,protein:0.56,salt:1.51},
+        {id:"dip_rotes_pesto_80g",name:"Rotes Pesto (80g)",short:"Rotes Pesto",group:"dip",role:"dip",ing:"rotes_pesto",amount:80,unit:"g",maxQty:5,price:3,kcal:264,fat:22.96,sat:3.12,carbs:10.24,sugars:6.56,fibre:1.58,protein:3.68,salt:1.92},
         {id:"dip_sriracha_light_inlead_80g",name:"Sriracha Light (Inlead) (80g)",short:"Sriracha Light (Inlead)",group:"dip",role:"dip",ing:"sriracha_light_inlead",amount:80,unit:"g",maxQty:5,price:3,kcal:76,fat:4.64,sat:0.72,carbs:7.6,sugars:3.52,fibre:0.16,protein:0.72,salt:1.52},
         {id:"dip_aioli_light_inlead_80g",name:"Aioli Light (Inlead) (80g)",short:"Aioli Light (Inlead)",group:"dip",role:"dip",ing:"aioli_light_inlead",amount:80,unit:"g",maxQty:5,price:3,kcal:77.6,fat:4.8,sat:0.72,carbs:7.76,sugars:4.08,fibre:0.16,protein:0.08,salt:1.52},
-        {id:"dip_rotes_pesto_80g",name:"Rotes Pesto (80g)",short:"Rotes Pesto",group:"dip",role:"dip",ing:"rotes_pesto",amount:80,unit:"g",maxQty:5,price:3,kcal:264,fat:22.96,sat:3.12,carbs:10.24,sugars:6.56,fibre:1.58,protein:3.68,salt:1.92},
+        {id:"dip_trueffel_light_inlead_80g",name:"Trüffel Light (Inlead) (80g)",short:"Trüffel Light (Inlead)",group:"dip",role:"dip",ing:"trueffel_light_inlead",amount:80,unit:"g",maxQty:5,price:3,kcal:78.4,fat:4.8,sat:0.72,carbs:8,sugars:2.64,fibre:0.16,protein:0.56,salt:1.51},
       ] },
     ],
   },
@@ -4698,11 +4697,11 @@ const RESTAURANTS = [
   // Onlineshop + Wolt-API + Uber-Eats-Erfassung data/compleat-ubereats-menu.json → data/compleat-raw.json) → node compleat-update.js
   compleatEntry({ key:"compleat", menuKey:"wolt", name:"Compleat (Wolt)", platform:"Wolt", label:"COMPLEAT · NORDEND · WOLT",
     gradient:["#d7192d","#6b0f1a"],
-    footer:"Data: Compleat online shop (official, per 100 g × Wolt portion; every ingredient selected one by one in the shop, last on 11.10.2026) · menu & prices: Wolt · "+deDate(COMPLEAT.asOf),
+    footer:"Data: Compleat online shop (official, per 100 g × Wolt portion; every ingredient selected one by one in the shop, last on 21.10.2026) · menu & prices: Wolt · "+deDate(COMPLEAT.asOf),
     note:m=>"Build your Bowl on Wolt (base price "+bowlEuro(m.basePrice)+"): no group is required — the optimizer also suggests bowls without a base or without a protein when that fits your target; one dip or none. Bunter Quinoa is never suggested (implausible official values)."+bowlPreselectNote(m,"Wolt")+compleatSoldOutNote(m) }),
   compleatEntry({ key:"compleatuber", menuKey:"ubereats", name:"Compleat (Uber Eats)", platform:"Uber Eats", label:"COMPLEAT · NORDEND · UBER EATS",
     gradient:["#b3121d","#141414"],
-    footer:"Data: Compleat online shop (official, per 100 g × Uber Eats portion; every ingredient selected one by one in the shop, last on 11.10.2026) · menu & prices: Uber Eats, captured 11.10.2026",
+    footer:"Data: Compleat online shop (official, per 100 g × Uber Eats portion; every ingredient selected one by one in the shop, last on 21.10.2026) · menu & prices: Uber Eats, captured 21.10.2026",
     note:m=>"Selbst zusammenstellen on Uber Eats (base price "+bowlEuro(m.basePrice)+"): no group is required — the optimizer also suggests bowls without a base or without a main protein when that fits your target; one dip or none. Egg, edamame, peas, feta and goat cheese count as extras; extras at most once each. Bunter Bio Quinoa is never suggested (implausible official values)."+bowlPreselectNote(m,"Uber Eats")+compleatSoldOutNote(m) }),
   // Dean & David Frankfurt (Wolt; Menü identisch in Welle, Mainzer Landstraße und Tower 185 — MyZeil ohne Marinierte Zwiebeln, Bockenheim nur Bowl).
   // Daten: py -3 deandavid-pdf.py (PDFs → data/) → node deandavid-crawl.js (→ data/deandavid-raw.json) → node deandavid-update.js
