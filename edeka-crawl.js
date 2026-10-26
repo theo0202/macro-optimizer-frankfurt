@@ -54,9 +54,8 @@ const PRODUCTS = [
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Basmatireis-220-g.html"],
   // Fertige Reis-Mischungen (User 13.10.2026: „Reis-Fertigmischungen, auch mit Bohnen oder Gemüse“): alle verzehrfertigen Beutel
   // (Mikrowelle/Pfanne) der Shop-Kategorien „Reis“ und „Fertiggerichte“, die eine Mischung sind — gewürzt, mit Gemüse/Hülsenfrüchten
-  // oder aus mehreren Reissorten. Nicht aufgenommen: sortenreine Express-Beutel (Langkorn, Jasmin, Natur, Sticky, Basmati anderer
-  // Marken) und die alten 250-g-Größen von Ben's Original, die der Shop neben den 220-g-Beuteln noch führt (Risi Bisi, Mexikanisch,
-  // Langkorn, Basmati) — siehe CLAUDE.md
+  // oder aus mehreren Reissorten. Die sortenreinen Express-Beutel und die alten 250-g-Größen von Ben's Original kamen am 26.10.2026 dazu
+  // (siehe unten)
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Fertiggerichte/Ben-s-Original-Express-Linsen-Curry-Bowl-Reis-220-g.html"],
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Fertiggerichte/Ben-s-Original-Express-Spicy-Curry-Bowl-Reis-220-g.html"],
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Griechisch-Djuvec-Reis-220-g.html"],
@@ -74,6 +73,22 @@ const PRODUCTS = [
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/GUT-GUeNSTIG-Expressreis-Djuvec-250-g.html"],
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/GUT-GUeNSTIG-Expressreis-Asia-250-g.html"],
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Tilda-Pure-Basmatireis-gedaempft-mit-Kokosnuss-Chili-und-Zitronengras-250-g.html"],
+  // Express-Reis (User 26.10.2026: „alle Ben's und weitere Express-Reis und Express-Reis/Bohnen-Mischungen, die noch nicht eingebaut sind —
+  // keine Kochbeutel und nichts, was noch Zubereitung braucht“): alle verzehrfertigen Beutel der Shop-Kategorie „Reis“, die noch fehlten —
+  // auch die sortenreinen (Natur-Reis, Langkorn, Jasmin, Sticky, Basmati, Parboiled) und die 250-g-Größen von Ben's Original neben den
+  // 220-g-Beuteln (Kategorie-Seiten „Reis“, „Fertiggerichte“, „Hülsenfrüchte“, „Gemüsekonserven“ und Kühl-„Convenience“ durchgesehen).
+  // Nicht aufgenommen: Kochbeutel (Ben's Original 6×, 10–20 Min. kochen), reis-fit 8 Minuten, Ebly vorgegarte Weizenkörner (kochen),
+  // trockener Reis; Ben's Original Express Basmatireis 250 g führt der Shop nicht mehr
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Natur-Reis-Vollkorn-220-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Langkornreis-220-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Jasminreis-220-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Sticky-Bowl-Reis-220-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Langkornreis-250-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-nach-Art-Risi-Bisi-250-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Reis-Mexikanisch-250-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/reis-fit-Express-Parboiled-Reis-250-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/GUT-GUeNSTIG-Expressreis-Basmati-250-g.html"],
+  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Tilda-Pure-Basmatireis-gedaempft-250-g.html"],
   // 2. Gegartes Chicken / Fleisch
   ["chicken", "/Bernard-Matthews-Oldenburg-Haehnchen-Filetstreifen-125-g.html"],
   ["chicken", "/Bernard-Matthews-Oldenburg-Puten-Filetstreifen-125-g.html"],
@@ -133,8 +148,8 @@ const PRODUCTS = [
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Kidneybohnen-400-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Alnatura-Bio-Kidney-Bohnen-360-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Bonduelle-Kidney-Bohnen-200-g.html"],
-  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Schwarze-Bohnen-400-g.html"],   // WAITING
-  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Bio-Cannellini-Bohnen-400g.html"],   // WAITING
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Schwarze-Bohnen-400-g.html"],   // bis 25.10.2026 in WAITING
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Bio-Cannellini-Bohnen-400g.html"],   // bis 25.10.2026 in WAITING
   // … in Soße (ganzer Inhalt)
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Chili-Bohnen-400-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Bio-Baked-Beans-350g.html"],
@@ -258,10 +273,9 @@ const PRODUCTS = [
 // Vom Shop gelistet, aber beim Aufnehmen gerade nicht verfügbar — dann zeigt die Seite weder Preis noch Nährwerte (19.10.2026).
 // Solange es noch keinen Lauf mit Werten gab, überspringt der Crawl sie (_meta.waiting) statt abzubrechen; sobald der Shop sie wieder
 // führt, kommen sie mit ihren Werten in den Tracker (danach gilt die normale Regel: letzter Preis + letzte Werte) — dann hier streichen
-const WAITING = new Set([
-  "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Schwarze-Bohnen-400-g.html",
-  "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Bio-Cannellini-Bohnen-400g.html",
-]);
+// Aktuell keine: EDEKA Herzstücke Schwarze Bohnen 400 g und EDEKA Bio Cannellini Bohnen 400 g (Bohnen-Konserven vom 19.10.2026) standen hier,
+// bis der Shop am 26.10.2026 Preis und Werte zeigte — seitdem sind sie im Tracker
+const WAITING = new Set([]);
 
 // Marken (längster Treffer am Namensanfang gewinnt) — für „Marke · Produkt“ in der Einkaufsliste
 const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Bazar", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle", "Diamond", "FEINKOST DITTMANN",
@@ -598,7 +612,18 @@ async function main() {
     seen.add(url);
     let html;
     try { html = await get(url); } catch (e) { problems.push(p + ": " + e.message); continue; }
-    const d = parsePage(html, url, problems);
+    // Produktseite gibt es nicht mehr: der Shop leitet auf die Startseite um (26.10.2026: Alnatura Bio Kichererbsenwaffeln, seit 20.10.2026
+    // nicht verfügbar, auch nicht mehr in ihrer Kategorie-Liste). Nicht still streichen — im Markt gibt es das Produkt vielleicht weiter —,
+    // sondern wie eine gerade nicht verfügbare Seite ohne Preis und Werte behandeln: letzter Stand aus dem vorigen Lauf, markiert als
+    // „nicht mehr im Onlineshop“ (gone = Datum der ersten Umleitung) und in _meta.unavailable genannt → dem User melden
+    const isStart = /<title>\s*(?:EDEKA\s*\|\s*)?Startseite\b/i.test(html);   // Titel „EDEKA | Startseite | EDEKA Abholservice“
+    const prevGone = isStart ? PREV && (PREV.items || []).find(x => x.url === url) : null;
+    if (isStart && !(prevGone && prevGone.price > 0)) { problems.push(p + ": die Produktseite gibt es nicht mehr (Umleitung auf die Startseite) und kein früherer Stand ist bekannt"); continue; }
+    const d = prevGone
+      ? { name: prevGone.name, url, sku: null, price: null, per100: Object.fromEntries(U.KEYS.map(k => [k, 0])), basis: prevGone.basis, noData: "die Produktseite gibt es nicht mehr",
+          packG: prevGone.packG, drainedG: null, unavailable: true, fibreDeclared: false, allergens: null, ingredients: null, legal: null, storage: null, company: null,
+          gone: prevGone.gone || fetchedAt.slice(0, 10) }
+      : parsePage(html, url, problems);
     if (!d) continue;
     // Umbenennung im Shop: die id bleibt beim ursprünglichen Namen (RENAMED); eine nicht eingetragene Umbenennung bricht ab
     if (RENAMED[d.name]) { d.formerName = RENAMED[d.name]; d.idName = RENAMED[d.name]; }
@@ -616,7 +641,8 @@ async function main() {
         // Bezeichnung (13.10.2026: Kidneybohnen ohne Abtropfgewicht → 400 statt 255 g, FRoSTA Nasi/Bami Goreng ohne Tiefkühl-Hinweis)
         // → alles, was die Seite gerade nicht nennt, aus dem vorigen Lauf
         for (const f of ["drainedG", "storage", "allergens", "ingredients", "legal", "company", "sku"]) if (d[f] == null && old[f] != null) d[f] = old[f];
-        d.priceNote = "temporarily not available in the online shop (" + fetchedAt.slice(0, 10) + ") — last known price";
+        d.priceNote = d.gone ? "no longer listed in the online shop (since " + d.gone + ") — last known price"
+          : "temporarily not available in the online shop (" + fetchedAt.slice(0, 10) + ") — last known price";
         let what = "Preis " + old.price.toFixed(2) + " €";
         if (d.noData && old.per100 && !old.noData && U.KEYS.some(k => old.per100[k] > 0)) {
           d.per100 = { ...old.per100 };
@@ -628,7 +654,7 @@ async function main() {
           d.valuesAsOf = old.valuesAsOf || (prevNote.match(/Nährwerte \((\d{4}-\d{2}-\d{2})\)/) || [])[1] || (PREV._meta.fetchedAt || "").slice(0, 10) || "voriger Lauf";
           what += " und Nährwerte (" + d.valuesAsOf + ")";
         }
-        unavailable.push(d.name + " — letzter bekannter " + what);
+        unavailable.push(d.name + " — " + (d.gone ? "nicht mehr im Onlineshop (die Produktseite leitet seit " + d.gone + " auf die Startseite um); " : "") + "letzter bekannter " + what);
       } else if (WAITING.has(p)) {
         waiting.push(d.name + " — gerade nicht verfügbar (" + fetchedAt.slice(0, 10) + "), noch nie mit Werten gelesen → kommt in den Tracker, sobald der Shop Preis und Nährwerte zeigt");
         continue;
@@ -815,6 +841,7 @@ async function main() {
         "User 19.10.2026 (Bowl-Zutaten): „Gibt es noch ähnliche Dosengemüse oder Hülsenfrüchte, die man gut zur Bowl mit Reis und Huhn hineinschmeißen kann? Wenn ja, füge sie hinzu“ → aus „Gemüsekonserven“ und „Sauerkonserven“: 5 Kichererbsen- und 3 Linsen-Dosen (Kategorie heißt jetzt „Beans, chickpeas & lentils (tins)“), 8 Mais-Dosen, 3 Mais-Mischungen, 5 Erbsen-Dosen, Bonduelle Edamame, 2 grüne Bohnen, 3 asiatische Gemüse (Diamond), 3 Artischocken in Lake, Kimchi und 10 Pilz-Dosen/-Gläser (neue Kategorie „Mushrooms (tins)“). Nach den Regeln vom selben Tag nicht: Dosen ab 600 g, Mehrfachpacks, Zuckerzusatz mit mehr als 4 g Zucker je 100 g (Rote Bete, geröstete Paprika, Paprikastreifen, Maiskölbchen, Chili Mix); dazu Artischocken in Öl, Oliven, getrocknete Tomaten, Gurken, Sauerkraut, Rotkohl, Kapern, Pfefferonen, Spargel, Kartoffeln",
         "User 20.10.2026 (Bowl-Zutaten, später): „Die Pilze können alle wieder raus und alles, was in der letzten Nachricht dazugekommen ist und pro ganzer Artikel mehr als 2 g Salz hat, soll auch raus“ → nicht mehr im Tracker: die 10 Pilz-Dosen und -Gläser (Kategorie „Mushrooms (tins)“ entfällt) und Korean Street Kimchi 160 g (3,4 g Salz je Glas) — als einzige der 44 Bowl-Zutaten über 2 g Salz je ganzer Packung (gezählt wie im Tracker: bei Konserven das Abtropfgewicht; knapp darunter EDEKA Herzstücke Artischockenherzen 400 g mit 1,9 g)",
         "User 13.10.2026: fertige Reis-Mischungen (auch mit Bohnen oder Gemüse) in „Carbs & bases“ — alle verzehrfertigen Beutel der Shop-Kategorien „Reis“ und „Fertiggerichte“, die eine Mischung sind (gewürzt, mit Gemüse/Hülsenfrüchten oder aus mehreren Reissorten): 11× Ben's Original, 3× reis-fit, 2× GUT&GÜNSTIG, 1× Tilda. Nicht aufgenommen: sortenreine Express-Beutel und die alten 250-g-Größen von Ben's Original",
+        "User 26.10.2026: Express-Reis — „alle Ben's und weitere Express-Reis und Express-Reis/Bohnen-Mischungen, die noch nicht eingebaut sind; keine Kochbeutel und nichts, was noch Zubereitung braucht“ → 10 verzehrfertige Beutel (Mikrowelle 2 Min. bzw. Pfanne) in „Carbs & bases“: Ben's Original Express Natur-Reis Vollkorn, Langkornreis und Jasminreis je 220 g, Sticky Bowl-Reis 220 g, Express Langkornreis, nach Art Risi Bisi und Reis Mexikanisch je 250 g, reis-fit Express Parboiled-Reis 250 g, GUT&GÜNSTIG Expressreis Basmati 250 g, Tilda Pure Basmatireis gedämpft 250 g (damit auch die sortenreinen Beutel und die 250-g-Größen, die am 13.10.2026 draußen blieben). Nicht aufgenommen: Kochbeutel, reis-fit 8 Minuten, Ebly, trockener Reis",
         "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere",
       ],
       store: STORE,

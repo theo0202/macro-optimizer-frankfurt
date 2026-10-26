@@ -2361,7 +2361,7 @@ const RICE_NEW = ["Ben's Original Express Linsen Curry Bowl-Reis 220 g", "Ben's 
   "GUT&GÜNSTIG Expressreis Djuvec 250 g", "GUT&GÜNSTIG Expressreis Asia 250 g", "Tilda Pure Basmatireis gedämpft mit Kokosnuss Chili und Zitronengras 250 g"];
 check("Fertige Reis-Mischungen (User 13.10.2026): 17 neue Beutel in „Carbs & bases“ (11× Ben's Original 220 g, 3× reis-fit, 2× GUT&GÜNSTIG, 1× Tilda je 250 g) hinter den 6 bisherigen — ganze Packung, Werte je 100 g = Produktseite, Preis und Link vom Markt", (() => {
   const carbs = EDD.items.filter(x => x.cat === "carbs"), neu = RICE_NEW.map(n => edItem(U.slugId(n)));
-  return carbs.length === 23 && carbs.slice(6).map(x => x.name).join("|") === RICE_NEW.join("|") &&
+  return carbs.length === 33 && carbs.slice(6, 23).map(x => x.name).join("|") === RICE_NEW.join("|") &&
     neu.every((x, i) => { const r = edRaw(RICE_NEW[i]); return !!x && !!r && x.cat === "carbs" && x.g === x.pack && x.g === (/^Ben's/.test(x.name) ? 220 : 250) && !x.drained && x.price > 0 && x.price === r.price &&
       /^https:\/\/graf-ffm\.edeka\.shop\/Nahrungsmittel-EDEKA\/Fertiggerichte-Beilagen\/(Reis|Fertiggerichte)\//.test(x.url) && /je\s*100\s*g/.test(r.basis) && !r.noData && !r.valuesFrom &&
       U.KEYS.every(k => x.p100[k] === U.round(r.per100[k] || 0, 2)) && x.p100.kcal >= 135 && x.p100.kcal <= 185 && !x.frozen && !x.fish && !x.tuna && !x.eathappy && !x.ref; }) &&
@@ -2375,13 +2375,42 @@ check("Reis-Mischungen, Beispiele je ganzer Packung: Linsen Curry Bowl-Reis 220 
     Math.abs(as.kcal - 410) < 0.05 && as.fibre === 0 && ["GUT&GÜNSTIG Expressreis Asia 250 g", "GUT&GÜNSTIG Expressreis Djuvec 250 g"].every(n => rawED._meta.noFibre.includes(n)) &&
     Math.abs(ti.kcal - 380) < 0.05 && Math.abs(ti.fat - 15) < 0.05;
 })(), true);
-check("Reis-Mischungen: Werte stimmig (kcal ↔ Makros), kein Schalentier; Koriander laut Zutaten nur in „Mexikanisch scharf“ und „Curryreis“ (dem User genannt); sortenreine Express-Beutel und die alten 250-g-Größen von Ben's Original sind nicht im Tracker", (() => {
+check("Reis-Mischungen: Werte stimmig (kcal ↔ Makros), kein Schalentier; Koriander laut Zutaten nur in „Mexikanisch scharf“ und „Curryreis“ (dem User genannt)", (() => {
   const raws = RICE_NEW.map(edRaw);
   return raws.every(r => U.checkItem({ ...r.per100, fibre: r.per100.fibre || 0 }).length === 0 && !r.shellfish && !!r.ingredients && /Zimmertemperatur|Raumtemperatur|trocken|Kühlschrank/i.test(r.storage || "")) &&
     raws.filter(r => r.herbs).map(r => r.name).join("|") === "Ben's Original Express Mexikanisch scharf 220 g|Ben's Original Express Curryreis 220 g" &&
     rawED._meta.coriander.filter(x => /Ben's Original/.test(x)).length === 2 &&
-    !EDD.items.some(x => /Express Langkornreis|Express Jasminreis|Natur-Reis Vollkorn|Sticky Bowl|Expressreis Basmati|Tilda Pure Basmatireis gedämpft 250 g$|Risi Bisi 250 g|Reis Mexikanisch 250 g|Express Basmatireis 250 g/.test(x.name)) &&
     rawED._meta.decisions.some(d => /^User 13[.]10[.]2026: fertige Reis-Mischungen/.test(d));
+})(), true);
+// Express-Reis (User 26.10.2026: „alle Ben's und weitere Express-Reis und Express-Reis/Bohnen-Mischungen, die noch nicht eingebaut sind —
+// keine Kochbeutel und nichts, was noch Zubereitung braucht“): die noch fehlenden verzehrfertigen Beutel der Shop-Kategorie „Reis“
+const RICE_EXPRESS = ["Ben's Original Express Natur-Reis Vollkorn 220 g", "Ben's Original Express Langkornreis 220 g", "Ben's Original Express Jasminreis 220 g",
+  "Ben's Original Sticky Bowl-Reis 220 g", "Ben's Original Express Langkornreis 250 g", "Ben's Original Express nach Art Risi Bisi 250 g",
+  "Ben's Original Express Reis Mexikanisch 250 g", "reis-fit Express Parboiled-Reis 250 g", "GUT&GÜNSTIG Expressreis Basmati 250 g", "Tilda Pure Basmatireis gedämpft 250 g"];
+check("Express-Reis (User 26.10.2026): 10 Beutel in „Carbs & bases“ hinter den Reis-Mischungen (Ben's Original 4× 220 g + 3× 250 g, reis-fit, GUT&GÜNSTIG, Tilda je 250 g) — ganze Packung, Werte je 100 g = Produktseite, Preis und Link vom Markt, verzehrfertig (Mikrowelle/Pfanne)", (() => {
+  const carbs = EDD.items.filter(x => x.cat === "carbs"), neu = RICE_EXPRESS.map(n => edItem(U.slugId(n)));
+  return carbs.length === 33 && carbs.slice(23).map(x => x.name).join("|") === RICE_EXPRESS.join("|") &&
+    neu.every((x, i) => { const r = edRaw(RICE_EXPRESS[i]); return !!x && !!r && x.cat === "carbs" && x.g === x.pack && x.g === Number(RICE_EXPRESS[i].match(/(\d+) g$/)[1]) && !x.drained &&
+      (x.unavailable ? x.price > 0 : x.price > 0 && x.price === r.price) &&
+      /^https:\/\/graf-ffm\.edeka\.shop\/Nahrungsmittel-EDEKA\/Fertiggerichte-Beilagen\/Reis\//.test(x.url) && /je\s*100\s*g/.test(r.basis) && !r.noData && !r.valuesFrom &&
+      U.KEYS.every(k => x.p100[k] === U.round(r.per100[k] || 0, 2)) && x.p100.kcal >= 130 && x.p100.kcal <= 185 && !x.frozen && !x.fish && !x.tuna && !x.eathappy && !x.ref &&
+      /vorgegart|dampfgegart|gedämpft|vorgekocht/i.test((r.legal || "") + " " + (r.ingredients || "")); }) &&
+    neu.filter(x => x.brand === "Ben's Original").length === 7 && neu.filter(x => x.brand === "reis-fit").length === 1 && neu.filter(x => x.brand === "GUT&GÜNSTIG").length === 1 && neu.filter(x => x.brand === "Tilda").length === 1;
+})(), true);
+check("Express-Reis, Beispiele je ganzer Packung: Natur-Reis Vollkorn 220 g = 358,6 kcal / 8,1 g E / 68,2 g KH / 5,5 g F / 4,2 g Ballaststoffe · Langkornreis 250 g = 335 kcal · GUT&GÜNSTIG Basmati 250 g = 375 kcal (Ballaststoffe nicht angegeben → 0) · Tilda Pure Basmati 250 g = 355 kcal / 4,25 g F · reis-fit Parboiled 250 g = 352,5 kcal", (() => {
+  const s = n => { const x = edItem(U.slugId(n)); return T.edekaScale(x, x.g); };
+  const na = s(RICE_EXPRESS[0]), la = s(RICE_EXPRESS[4]), gg = s(RICE_EXPRESS[8]), ti = s(RICE_EXPRESS[9]), rf = s(RICE_EXPRESS[7]);
+  return Math.abs(na.kcal - 358.6) < 0.05 && Math.abs(na.protein - 8.14) < 0.05 && Math.abs(na.carbs - 68.2) < 0.05 && Math.abs(na.fat - 5.5) < 0.05 && Math.abs(na.fibre - 4.18) < 0.05 &&
+    Math.abs(la.kcal - 335) < 0.05 && Math.abs(gg.kcal - 375) < 0.05 && gg.fibre === 0 && rawED._meta.noFibre.includes(RICE_EXPRESS[8]) &&
+    Math.abs(ti.kcal - 355) < 0.05 && Math.abs(ti.fat - 4.25) < 0.05 && Math.abs(rf.kcal - 352.5) < 0.05;
+})(), true);
+check("Express-Reis: Werte stimmig (kcal ↔ Makros), kein Schalentier, weder Koriander noch Minze, Lagerung bei Zimmertemperatur; die 250-g-Beutel von Ben's Original haben je 100 g dieselben kcal wie die 220-g-Beutel derselben Sorte; nicht im Tracker: Kochbeutel, reis-fit 8 Minuten, Ebly, Ben's Original Express Basmatireis 250 g (führt der Shop nicht mehr)", (() => {
+  const raws = RICE_EXPRESS.map(edRaw), k = n => edItem(U.slugId(n)).p100.kcal;
+  return raws.every(r => U.checkItem({ ...r.per100, fibre: r.per100.fibre || 0 }).length === 0 && !r.shellfish && !r.herbs && !!r.ingredients && /Zimmertemperatur|Raumtemperatur/i.test(r.storage || "")) &&
+    k("Ben's Original Express Langkornreis 250 g") === k("Ben's Original Express Langkornreis 220 g") && k("Ben's Original Express nach Art Risi Bisi 250 g") === k("Ben's Original Express nach Art Risi Bisi 220 g") &&
+    k("Ben's Original Express Reis Mexikanisch 250 g") === k("Ben's Original Mexikanisch 220 g") &&
+    !EDD.items.some(x => /Kochbeutel|8 Minuten|Ebly|Express Basmatireis 250 g/.test(x.name)) &&
+    rawED._meta.decisions.some(d => /^User 26[.]10[.]2026: Express-Reis/.test(d));
 })(), true);
 // Bohnen-Konserven (User 19.10.2026): alle Dosen mit gegarten Bohnen der Shop-Kategorie „Gemüsekonserven“ — in Wasser [Name, Packung, abgetropft], in Soße [Name, Packung]
 const BEANS_WATER = [["EDEKA Bio Kidney Bohnen 400 g", 400, 265], ["EDEKA Herzstücke Kidneybohnen 400 g", 400, 265], ["Alnatura Bio Kidney Bohnen 360 g", 360, 240],
@@ -2428,14 +2457,16 @@ check("Bohnen-Konserven, Beispiele je ganzer Dose: EDEKA Bio Kidney Bohnen 265 g
     near(bb.kcal, 297.5) && near(bb.protein, 16.8) && near(bb.carbs, 46.9) && near(bb.sugars, 11.2) && bb.name === "EDEKA Bio Baked Beans 350g" && !bb.drained &&
     near(ch.kcal, 348) && near(ch.protein, 20) && near(ch.carbs, 44) && near(gi.kcal, 280.6) && near(gi.fat, 10.4);
 })(), true);
-check("Abgetropft ist die richtige Basis (User-Rückfrage 19.10.2026): bezogen auf den Doseninhalt samt Aufguss hätten die abgetropften Bohnen 10,6–12,9 g Eiweiß je 100 g — mehr als gekochte Bohnen (USDA: Kidney 8,67 g, Great Northern 8,33 g); die deklarierten 6,6–8,2 g passen zu abgetropften Dosenbohnen (USDA 7,98 g), nicht zum Inhalt samt Aufguss (5,22 g)", (() => {
+check("Abgetropft ist die richtige Basis (User-Rückfrage 19.10.2026): bezogen auf den Doseninhalt samt Aufguss hätten die abgetropften Bohnen 10,2–12,9 g Eiweiß je 100 g — mehr als gekochte Bohnen (USDA: Kidney 8,67 g, Great Northern 8,33 g); die deklarierten 6,1–8,2 g passen zu abgetropften Dosenbohnen (USDA 7,98 g), nicht zum Inhalt samt Aufguss (5,22 g) — seit 26.10.2026 für 10 Dosen (dazu Schwarze Bohnen und Cannellini)", (() => {
   const tins = rawED.items.filter(x => x.cat === "beans" && /bohnen/i.test(x.name) && x.drainedG != null);
-  return tins.length === 8 && tins.every(x => x.drainedG < x.packG && x.per100.protein >= 6 && x.per100.protein <= 8.5 && x.per100.protein * x.packG / x.drainedG > 9.5);
+  return tins.length === 10 && tins.every(x => x.drainedG < x.packG && x.per100.protein >= 6 && x.per100.protein <= 8.5 && x.per100.protein * x.packG / x.drainedG > 9.5);
 })(), true);
-check("Beim Aufnehmen gerade nicht verfügbar (WAITING): EDEKA Herzstücke Schwarze Bohnen 400 g und EDEKA Bio Cannellini Bohnen 400 g — die Seite zeigt weder Preis noch Werte → noch nicht im Tracker, stehen in _meta.waiting und kommen mit dem ersten Lauf mit Werten von selbst dazu (kein Abbruch); der Crawl hält 2 s Abstand (robots.txt)", (() => {
+check("Beim Aufnehmen gerade nicht verfügbar (WAITING, 19.10.2026): EDEKA Herzstücke Schwarze Bohnen 400 g und EDEKA Bio Cannellini Bohnen 400 g zeigten weder Preis noch Werte → übersprungen statt Abbruch; am 26.10.2026 von selbst mit Werten dazugekommen (in Wasser, Abtropfgewicht: Schwarze Bohnen 265 g = 286,2 kcal / 20,9 g E, Cannellini 240 g = 206,4 kcal / 14,6 g E), WAITING ist wieder leer — der Mechanismus bleibt; der Crawl hält 2 s Abstand (robots.txt)", (() => {
   const src = fs.readFileSync(__dirname + "/edeka-crawl.js", "utf8"), w = rawED._meta.waiting || [];
-  return /const WAITING = new Set\(\[\s*"[^"]*\/EDEKA-Herzstuecke-Schwarze-Bohnen-400-g\.html",\s*"[^"]*\/EDEKA-Bio-Cannellini-Bohnen-400g\.html",\s*\]\)/.test(src) &&
-    BEANS_WAITING.every(n => w.some(s => s.indexOf(n + " — ") === 0) !== !!edItem(U.slugId(n))) && w.every(s => /noch nie mit Werten gelesen/.test(s)) &&
+  const s = n => { const x = edItem(U.slugId(n)); return x && T.edekaScale(x, x.g); }, sb = s(BEANS_WAITING[0]), ca = s(BEANS_WAITING[1]);
+  return /const WAITING = new Set\(\[\]\);/.test(src) && /else if \(WAITING\.has\(p\)\)/.test(src) && w.length === 0 &&
+    BEANS_WAITING.every(n => { const x = edItem(U.slugId(n)), r = edRaw(n); return !!x && x.cat === "beans" && x.drained === true && x.g === r.drainedG && x.pack === 400 && x.price > 0 && r.fibreDeclared && U.checkItem({ ...r.per100 }).length === 0; }) &&
+    Math.abs(sb.kcal - 286.2) < 0.05 && Math.abs(sb.protein - 20.9) < 0.05 && Math.abs(ca.kcal - 206.4) < 0.05 && Math.abs(ca.protein - 14.6) < 0.05 &&
     /CRAWL_DELAY_MS = 2000/.test(src) && !/cl=search/.test(src.replace(/^\s*\/\/.*$/gm, ""));
 })(), true);
 check("Bohnen-Konserven: Werte stimmig (kcal ↔ Makros), kein Schalentier, weder Koriander noch Minze; nicht im Tracker: Trockenbohnen, grüne Bohnen, Gemüsemischungen mit wenig Bohnen, Bohnen-Eintöpfe, der 3×200-g-Pack — und auf Wunsch (User 19.10.2026, später) die 800-g-Dosen und Baked Beans mit mehr als 4 g Zucker je 100 g", (() => {
@@ -2499,13 +2530,13 @@ check("Gerade nicht verfügbar ≠ Daten weg: jede Konserve in Aufguss behält i
     sauce.every(n => { const x = edItem(U.slugId(n)); return !!x && !x.drained && x.g === x.pack; }) && tk.length === 6 && tk.every(x => x.frozen === true) &&
     EDD.items.filter(x => x.drained).length === 56 + EDD.items.filter(x => BEANS_WAITING.includes(x.name)).length &&
     // nicht verfügbare Produkte: letzter Preis + Hinweis, Werte vorhanden, Zutaten/Lagerung aus dem vorigen Lauf übernommen
-    un.every(x => x.price > 0 && /temporarily not available/.test(x.priceNote) && U.KEYS.some(k => x.per100[k] > 0) && !x.noData && (!!x.storage || !!x.ingredients)) &&
+    un.every(x => x.price > 0 && /temporarily not available|no longer listed/.test(x.priceNote) && U.KEYS.some(k => x.per100[k] > 0) && !x.noData && (!!x.storage || !!x.ingredients)) &&
     rawED._meta.unavailable.length === un.length;
 })(), true);
-const ED_N = 173;   // Produkte des Marktes im Tracker (bis 12.10.2026: 114; 13.10.2026: + 17 fertige Reis-Mischungen; 19.10.2026: + 9 Bohnen-Konserven und 44 Bowl-Zutaten; 20.10.2026: − 10 Pilze und Kimchi)
-check("Alle 173 Produkte im Tracker, 22 Kategorien wie vom User gruppiert (22.09.2026 dazu: Fish 5; 24.09.2026: Eat Happy Bowls 5 + Sushi 2, 3 Burritos in „Sandwiches & Wraps“, Berries 2, Fresh vegetables 6; 13.10.2026: Carbs & bases 23; 19.10.2026: Beans, chickpeas & lentils 23, Edamame, peas & veg 37 und Mushrooms 10 — am 20.10.2026 ohne Pilze und Kimchi: Edamame, peas & veg 36), alle Chips an",
-  rawED.items.length === ED_N && EDD.items.length === ED_N && rawED._meta.noData.length === 0 && EDD.items.filter(x => x.cat === "carbs").length === 23 &&
-  EDD.items.filter(x => x.cat === "beans").length === 23 && EDD.items.filter(x => x.cat === "veg_tins").length === 36 &&
+const ED_N = 185;   // Produkte des Marktes im Tracker (bis 12.10.2026: 114; 13.10.2026: + 17 fertige Reis-Mischungen; 19.10.2026: + 9 Bohnen-Konserven und 44 Bowl-Zutaten; 20.10.2026: − 10 Pilze und Kimchi; 26.10.2026: + 10 Express-Reis-Beutel und die 2 Bohnen-Dosen aus WAITING)
+check("Alle 185 Produkte im Tracker, 22 Kategorien wie vom User gruppiert (22.09.2026 dazu: Fish 5; 24.09.2026: Eat Happy Bowls 5 + Sushi 2, 3 Burritos in „Sandwiches & Wraps“, Berries 2, Fresh vegetables 6; 13.10.2026: Carbs & bases 23, seit 26.10.2026 33; Beans, chickpeas & lentils seit 26.10.2026 25; 19.10.2026: Beans, chickpeas & lentils 23, Edamame, peas & veg 37 und Mushrooms 10 — am 20.10.2026 ohne Pilze und Kimchi: Edamame, peas & veg 36), alle Chips an",
+  rawED.items.length === ED_N && EDD.items.length === ED_N && rawED._meta.noData.length === 0 && EDD.items.filter(x => x.cat === "carbs").length === 33 &&
+  EDD.items.filter(x => x.cat === "beans").length === 25 && EDD.items.filter(x => x.cat === "veg_tins").length === 36 &&
   EDD.cats.length === 22 && EDD.cats.every(c => c.on === true) && EDD.cats[0].id === "carbs" && EDD.cats[21].id === "waffles" &&
   EDD.cats.map(c => c.id).join().indexOf("fresh_veg,berries,gyoza,eh_bowls,eh_sushi,maultaschen") > 0 &&
   EDD.items.filter(x => x.cat === "fresh_veg").length === 6 && EDD.items.filter(x => x.cat === "berries").length === 2 &&
@@ -2733,11 +2764,20 @@ check("Artikel „temporär nicht verfügbar“ (seit 22.09.2026, z.B. Karottens
     (!sticks.unavailable || edRaw("EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g").valuesAsOf === "2026-09-20") &&
     sticks.p100.kcal === 38 && noodles.p100.kcal === 38 && !noodles.unavailable;
 })(), true);
-check("_meta: Quelle, Rechenbasis (Abtropfgewicht, Bohnen in Soße mit ganzem Inhalt), Entscheidungen vom 19.–26.09., 13., 19. (drei) und 20.10.2026, eine Auffälligkeit (Zucchini), kein Schalentier, 6 Tiefkühl-Gerichte, 68 Produkte ohne Ballaststoff-Angabe",
-  /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && /Soße/.test(rawED._meta.basis) && rawED._meta.decisions.length === 18 &&
-  rawED._meta.decisions.every(d => /^User ((19|20|22|24|26)[.]09|(1[39]|20)[.]10)[.]2026/.test(d)) && rawED._meta.anomalies.length === 1 && rawED._meta.anomalies[0].name === "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g" &&
+check("Produktseite gibt es nicht mehr (der Shop leitet auf die Startseite um; 26.10.2026: Alnatura Bio Kichererbsenwaffeln): nicht still gestrichen und nicht als Umbenennung gedeutet — letzter Stand aus dem vorigen Lauf, als „nicht mehr im Onlineshop“ markiert (Datum der ersten Umleitung), in _meta.unavailable genannt", (() => {
+  const src = fs.readFileSync(__dirname + "/edeka-crawl.js", "utf8"), gone = rawED.items.filter(x => x.gone);
+  // welche Seiten gerade fehlen, kann sich ändern → nur die Regeln prüfen
+  return /const isStart = \/<title>[^\n]*Startseite/.test(src) && src.includes("no longer listed in the online shop") &&
+    gone.every(x => x.unavailable === true && /^\d{4}-\d{2}-\d{2}$/.test(x.gone) && x.price > 0 && U.KEYS.some(k => x.per100[k] > 0) && !x.noData &&
+      x.priceNote === "no longer listed in the online shop (since " + x.gone + ") — last known price" &&
+      rawED._meta.unavailable.some(n => n.indexOf(x.name + " — nicht mehr im Onlineshop (die Produktseite leitet seit " + x.gone + " auf die Startseite um)") === 0) &&
+      !!edItem(U.slugId(x.idName || x.name)) && T.edekaStatus(edItem(U.slugId(x.idName || x.name))) === "unavailable online");
+})(), true);
+check("_meta: Quelle, Rechenbasis (Abtropfgewicht, Bohnen in Soße mit ganzem Inhalt), Entscheidungen vom 19.–26.09., 13., 19. (drei), 20. und 26.10.2026, eine Auffälligkeit (Zucchini), kein Schalentier, 6 Tiefkühl-Gerichte, 69 Produkte ohne Ballaststoff-Angabe",
+  /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && /Soße/.test(rawED._meta.basis) && rawED._meta.decisions.length === 19 &&
+  rawED._meta.decisions.every(d => /^User ((19|20|22|24|26)[.]09|(1[39]|2[06])[.]10)[.]2026/.test(d)) && rawED._meta.anomalies.length === 1 && rawED._meta.anomalies[0].name === "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g" &&
   typeof rawED._meta.shellfish === "string" && Array.isArray(rawED._meta.coriander) && Array.isArray(rawED._meta.frozen) && rawED._meta.frozen.length === 6 &&
-  rawED._meta.noFibre.length === 68 && EDD.items.filter(x => x.p100.fibre === 0).length >= 68 && EDD.items.length === ED_N, true);
+  rawED._meta.noFibre.length === 69 && EDD.items.filter(x => x.p100.fibre === 0).length >= 69 && EDD.items.length === ED_N, true);
 
 // ── Eat Happy (Sushi-Theke) und Burritos von edeka.de (User 24.09.2026) ──
 const ehId = name => U.slugId("Eat Happy " + name);
