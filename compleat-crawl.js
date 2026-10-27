@@ -15,6 +15,7 @@
 // Datenbasis: vmos liefert je Zutat nutritionalMeta PRO 100 g (bzw. 100 ml) plus defaultQuantity (= Mengenangabe im Namen).
 // Portionswerte = pro 100 × Portion / 100 (LMIV-Umrechnung). Die Shop-Anzeige rechnet dagegen mit variations[0].value —
 // weicht das von der Portion ab, zeigt der Shop falsche Portionswerte an (→ _meta.displayBugs, z.B. Walnusskerne 7 kcal).
+// Ausnahme REFERENCE (User 27.10.2026): Sojasauce rechnet mit typischen Werten (USDA FoodData Central), die Shop-Werte bleiben als shopPer100.
 "use strict";
 const fs = require("fs");
 const path = require("path");
@@ -111,6 +112,27 @@ const MANUAL_ANOMALIES = {
   edamame: "Fett 0 g, aber 110 kcal je 100 g passen nicht zu 8,5 g KH + 10 g Protein → Fettangabe fehlt vermutlich, unverändert übernommen",
   olivenoel_salz_halbe_zitrone: "Salz 0 g, obwohl „Salz“ im Namen steht; die Zitrone ist nicht eingerechnet → unverändert übernommen",
   chili_gewuerz: "Alle Nährwerte 0 (1 g Gewürz) → unverändert übernommen",
+};
+
+// Offizielle Shop-Werte, die der User durch typische Werte ersetzt hat (wie die Referenzwerte im Edeka-Tab). Der Rechner nimmt die
+// Referenz (per100 der Zutat, umgerechnet auf die Einheit der Portion); die Shop-Werte bleiben als shopPer100 an der Zutat und in
+// shopItems — die Kontrollen gegen den Shop (Shop-Anzeige, Word-Export, Fertig-Bowls, kcal-Angaben von Uber Eats, Anzeige-Bugs) prüfen
+// weiter die offiziellen Werte. Referenz in USDA-Art: Kohlenhydrate „by difference“ minus Ballaststoffe (EU-Konvention), Salz = Natrium × 2,5.
+const REFERENCE = {
+  // User 27.10.2026: „die Nährwerte der Sojasoße bei Compleat scheinen nicht realistisch — nimm lieber die typischen Nährwerte für
+  // Sojasauce“. Shop je 100 ml: 21 kcal, 2,4 g Eiweiß, 2,3 g KH bei 14,35 g Salz — das Salz passt zu Sojasauce, Eiweiß und kcal liegen
+  // bei einem Drittel einer gebrauten Sojasauce (USDA: 8,14 g Eiweiß, 53 kcal je 100 g).
+  sojasauce: {
+    from: "USDA FoodData Central, SR Legacy #174277 „Soy sauce made from soy and wheat (shoyu)“ (gebraute Sojasauce aus Soja und Weizen)",
+    label: "USDA FoodData Central",
+    // je 100 g laut USDA (am 27.10.2026 auf fdc.nal.usda.gov abgelesen): 53 kcal, Fett 0,57 g (gesättigt 0,073 g), Kohlenhydrate „by
+    // difference“ 4,93 g − 0,8 g Ballaststoffe = 4,13 g, Zucker 0,4 g, Eiweiß 8,14 g, Natrium 5490 mg → Salz 13,725 g
+    per100g: { kcal: 53, fat: 0.57, sat: 0.073, carbs: 4.13, sugars: 0.4, fibre: 0.8, protein: 8.14, salt: 13.725 },
+    // Portion in ml → Gramm über das USDA-Portionsgewicht desselben Eintrags: 1 tbsp (14,7868 ml) = 16 g → 1,082 g/ml, 20 ml = 21,6 g
+    gPerMl: 16 / 14.78676478125,
+    density: "USDA-Portionsgewicht 1 tbsp (14,79 ml) = 16 g → 1,082 g je ml",
+    why: "Offizielle Shop-Werte je 100 ml (21 kcal, 2,4 g Eiweiß, 2,3 g KH, 14,35 g Salz) unplausibel: das Salz passt zu Sojasauce, Eiweiß und kcal liegen bei einem Drittel einer gebrauten Sojasauce → ersetzt durch typische Werte (USDA FoodData Central #174277), User 27.10.2026",
+  },
 };
 
 const DISLIKE_RE = /koriander|minze|pfefferminz|cilantro|coriander|\bmint\b/i;
@@ -251,7 +273,23 @@ async function main() {
       if (!ing.blocked && !HALF_DIFF_OK[ing.id]) problems.push("Halbe Portion „" + hp.name + "“ hat andere Werte je 100 g als die ganze Portion (" + diff.map(k => k + " " + hp.per100[k] + " statt " + ing.per100[k]).join(", ") + ") → Rechner würde die Werte der ganzen Portion nutzen: prüfen und in HALF_DIFF_OK begründen");
     }
   }
-  for (const id of [...CRUNCH, ...Object.keys(BLOCKED), ...Object.keys(MANUAL_ANOMALIES), ...PROTEIN_MAIN, ...Object.keys(HALF_DIFF_OK), ...Object.keys(UE_HALF_NOT_DOUBLE)]) if (!byId[id]) problems.push("Kuratierte id fehlt im Shop: " + id + " (aus dem Shop gestrichen? → Tabelle bereinigen)");
+  // Typische Werte statt der Shop-Werte (REFERENCE): per100 = Referenz je 100 g × g je ml (Portion in ml) bzw. je 100 g; shopPer100 = offiziell
+  const referenceValues = [];
+  for (const [id, ref] of Object.entries(REFERENCE)) {
+    const ing = byId[id];
+    if (!ing) continue; // fehlt → unten als „Kuratierte id fehlt im Shop“ gemeldet
+    if (ing.halfPortion) problems.push("REFERENCE " + id + ": Zutat hat eine halbe Portion → Referenz für beide Portionen prüfen");
+    if (U.checkItem({ ...ref.per100g }).length) problems.push("REFERENCE " + id + ": Referenzwerte unplausibel (" + U.checkItem({ ...ref.per100g }).join("; ") + ")");
+    const f = ing.unit === "ml" ? ref.gPerMl : ing.unit === "g" ? 1 : NaN;
+    if (!(f > 0)) { problems.push("REFERENCE " + id + ": Einheit " + ing.unit + " ohne Umrechnung (gPerMl fehlt)"); continue; }
+    ing.shopPer100 = ing.per100;
+    ing.per100 = Object.fromEntries(U.KEYS.map(k => [k, U.round(ref.per100g[k] * f, 2)]));
+    ing.perPortion = Object.fromEntries(U.KEYS.map(k => [k, U.round(ing.per100[k] * ing.portion / 100, 2)]));
+    ing.valuesFrom = ref.from;
+    ing.reference = { label: ref.label, per100g: ref.per100g, unitFactor: U.round(f, 4), density: ing.unit === "ml" ? ref.density : null };
+    referenceValues.push({ id, name: ing.shopName, from: ref.from, density: ing.unit === "ml" ? ref.density : null, per100g: ref.per100g, per100: ing.per100, shopPer100: ing.shopPer100, why: ref.why });
+  }
+  for (const id of [...CRUNCH, ...Object.keys(BLOCKED), ...Object.keys(MANUAL_ANOMALIES), ...PROTEIN_MAIN, ...Object.keys(HALF_DIFF_OK), ...Object.keys(UE_HALF_NOT_DOUBLE), ...Object.keys(REFERENCE)]) if (!byId[id]) problems.push("Kuratierte id fehlt im Shop: " + id + " (aus dem Shop gestrichen? → Tabelle bereinigen)");
   const soldOutIds = new Set(ingredients.filter(x => x.soldOut).map(x => x.id));
 
   // ── Abgleich mit der einzeln angeklickten Shop-Anzeige (data/compleat-shop-anzeige.json) ──
@@ -337,7 +375,7 @@ async function main() {
       if (sp.amount !== expected) uePortionDiffs.push({ ubereats: uname, shop: ing.shopName, ubereatsAmount: sp.amount, shopPortion: expected == null ? null : expected, unit: sp.unit });
       // kcal-Angabe von Uber Eats („adds 330 Cal.") gegen die eigene Rechnung (Rundung toleriert)
       const km = String(o.subtitle || "").match(/adds\s+(\d+(?:[.,]\d+)?)\s*Cal/i);
-      const own = ing.per100.kcal * sp.amount / 100;
+      const own = (ing.shopPer100 || ing.per100).kcal * sp.amount / 100; // offizielle Shop-Werte (auch bei Referenzwerten im Rechner)
       if (km && Math.abs(Number(km[1].replace(",", ".")) - own) >= 1) ueKcalDiffs.push({ ubereats: uname, ubereatsKcal: Number(km[1].replace(",", ".")), shopKcal: U.round(own, 1) });
       const role = gid === "protein" ? (PROTEIN_MAIN.has(id) ? "protein" : "extra") : (gid === "vitamine" || gid === "toppings") ? "extra" : gid;
       const opt = { name: uname, ingredient: id, role, amount: sp.amount, unit: sp.unit, maxQty: Math.max(1, o.maxPermitted || 0), price: U.round((o.price || 0) / 100, 2) };
@@ -397,6 +435,7 @@ async function main() {
   for (const ing of ingredients) {
     const issues = U.checkItem(ing.perPortion);
     if (MANUAL_ANOMALIES[ing.id]) issues.push(MANUAL_ANOMALIES[ing.id]);
+    if (REFERENCE[ing.id] && ing.shopPer100) issues.push(REFERENCE[ing.id].why);
     for (const h of halfPortionDiffs.filter(x => x.id === ing.id)) issues.push("Halbe Portion „" + h.name + "“ hat andere Werte je 100 g: " + Object.keys(h.halb).map(k => k + " " + h.halb[k] + " statt " + h.ganz[k]).join(", ") + " → unverändert übernommen, der Rechner nutzt die Werte der ganzen Portion");
     if (issues.length) anomalies.push({ id: ing.id, name: ing.shopName, issues });
   }
@@ -420,7 +459,7 @@ async function main() {
         shopDisplay: "data/compleat-shop-anzeige.json = jede Zutat einzeln im Shop ausgewählt und die Anzeige abgelesen (compleat-shop-capture.js, " + shopControl.readAt + ") → Abgleich: node verify-compleat-shop.js",
         stock: "Ausverkauft = mit ?forceStockStatus=1 im Bundle, ohne den Parameter nicht (27.09.2026 an den „Ausverkauft“-Karten des Shops bestätigt)",
       },
-      basis: "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Wolt-Mengen weichen nur beim Salat-Mix ab → mit Wolt-Menge gerechnet. Uber Eats nutzt die Shop-Namen und -Mengen (inkl. halber Portionen).",
+      basis: "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Wolt-Mengen weichen nur beim Salat-Mix ab → mit Wolt-Menge gerechnet. Uber Eats nutzt die Shop-Namen und -Mengen (inkl. halber Portionen). Ausnahme (User 27.10.2026): Sojasauce mit typischen Werten (USDA FoodData Central, _meta.referenceValues) statt der unplausiblen Shop-Werte.",
       woltRules: "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Keine Gruppe außer dem Dip ist Pflicht (min 0) → der Rechner verlangt weder Base noch Protein (User 11.10.2026). Grundpreis „Build your Bowl“ " + woltItemPrice + " €. " + woltCardNote,
       ubereatsRules: "Selbst zusammenstellen (Grundpreis " + ueItemPrice + " €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: keine Gruppe Pflicht (User 11.10.2026) · Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft). " + ueCardNote,
       decisions: [
@@ -433,9 +472,10 @@ async function main() {
         "User 15.09.2026: Rechner zusätzlich für Uber Eats („Selbst zusammenstellen“, Grundpreis 1 €)",
         "User 16.09.2026 (Rückfrage „Build your Bowl kostet 4 €“): damals 2 € Grundpreis + vorausgewählter Curvy Curry Dip; der Rechner rechnet Grundpreis + gewählte Optionen und nennt eine Vorauswahl im Hinweistext (seit 27.09.2026 wählt Wolt „Ohne Dip“ vor)",
         "User 27.09.2026: neue Compleat-Zutaten einbauen, soweit Wolt sie führt — Werte je Zutat durch einzelnes Auswählen im Shop bestätigt (data/compleat-shop-anzeige.json); Zutaten, die es dauerhaft nicht mehr gibt, raus, ausverkaufte drin (Skill „compleat-aktualisieren“)",
+        "User 27.10.2026: Sojasauce mit typischen Nährwerten statt der Shop-Werte („scheinen nicht realistisch — nimm lieber die typischen Nährwerte für Sojasauce“): USDA FoodData Central #174277 (gebraute Sojasauce, Shoyu), 20 ml = 21,6 g laut USDA-Portionsgewicht → 11,5 kcal / 1,76 g Eiweiß / 0,89 g KH / 2,97 g Salz je Portion (Shop: 4,2 kcal / 0,48 g Eiweiß / 0,46 g KH / 2,87 g Salz); Shop-Werte bleiben als shopPer100 dokumentiert",
       ],
       portionDiffs, portionAssumed, displayBugs, halfPortionDiffs, anomalies, missingDeclared, notOnWolt, woltMapUnused, dislikes, shellfish,
-      soldOut, removedIngredients, valueChanges, lastChanges,
+      soldOut, removedIngredients, valueChanges, lastChanges, referenceValues,
       halfPortionAccepted: Object.values(HALF_DIFF_OK),
       shopControl: { readAt: shopControl.readAt, checked: shopControl.checked, values: shopControl.values, earlier: shopControl.earlier, soldOutNotChecked: shopControl.soldOutNotChecked, notInShop: shopControl.notInShop },
       ubereats: { noData: ueNoData, portionDiffs: uePortionDiffs, kcalDiffs: ueKcalDiffs, notOnUberEats, halfNotDouble: ueHalfNotDouble },
@@ -472,6 +512,7 @@ async function main() {
   console.log("Halbe Portionen mit anderen Werten je 100 g: " + (halfPortionDiffs.map(h => h.name + " (" + Object.keys(h.halb).map(k => k + " " + h.halb[k] + " statt " + h.ganz[k]).join(", ") + ")").join(", ") || "keine"));
   console.log("Anzeige-Bugs im Shop: " + (displayBugs.map(d => d.shopName + " (rechnet mit " + d.shopRechnetMit + " statt " + d.portion + " " + d.unit + ": " + d.shopZeigtKcal + " statt " + d.richtigKcal + " kcal)").join(", ") || "keine"));
   console.log("Gesperrt: " + (ingredients.filter(x => x.blocked).map(x => x.shopName).join(", ") || "keine"));
+  console.log("Typische Werte statt Shop-Werte: " + (referenceValues.map(r => r.name + " ← " + r.from + " (je 100 " + (byId[r.id].unit) + ": " + r.per100.kcal + " kcal, " + r.per100.protein + " g Eiweiß; Shop " + r.shopPer100.kcal + " kcal, " + r.shopPer100.protein + " g)").join(" · ") || "keine"));
   console.log("Schalentier-Allergene: " + (shellfish.join(", ") || "keine") + " · Koriander/Minze: " + (dislikes.join(", ") || "keine"));
   console.log("Auffälligkeiten (" + anomalies.length + "): " + anomalies.map(a => a.name).join(", "));
 }

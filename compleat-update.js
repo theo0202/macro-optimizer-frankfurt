@@ -5,6 +5,9 @@
 //
 // GESPERRTE Zutaten (raw.ingredients[].blocked; aktuell keine — Bunter Bio Quinoa war es vom 15.09. bis 20.10.2026) bleiben im Datensatz, werden
 // aber aus ALLEN Plattform-Menüs weggelassen → nie im Rechner, nie in der Suche, nie als Ausschluss-Option.
+//
+// TYPISCHE WERTE statt der Shop-Werte (raw.ingredients[].reference, User 27.10.2026: Sojasauce): per100 ist dann schon die Referenz (der Crawl
+// rechnet sie um), die Optionen folgen automatisch; der Block trägt dazu ref (Quelle) und shopPer100 (offizielle Shop-Werte) für den Hinweis.
 "use strict";
 const path = require("path");
 const U = require("./update-lib.js");
@@ -78,6 +81,7 @@ function blockLines(raw) {
   const lines = [
     "// Quelle: Compleat-Onlineshop (compleat.vmos.io, Frankfurt Nordend), Stand " + raw._meta.fetchedAt.slice(0, 10) + " · Shop-Werte pro 100 g × Menge · Menüs + Preise: " +
       menus.map(([pf, m]) => (pf === "wolt" ? "Wolt" : "Uber Eats") + " „" + m.item + "“" + (raw[pf].capturedAt ? " (erfasst " + raw[pf].capturedAt.slice(0, 10) + ")" : "")).join(", "),
+    ...raw.ingredients.filter(x => x.reference).map(x => "// TYPISCHE WERTE statt der Shop-Werte: " + x.shopName + " — " + x.valuesFrom + (x.reference.density ? " (" + x.reference.density + ")" : "")),
     ...blocked.map(x => "// GESPERRT (nie im Rechner, auf keiner Plattform): " + x.shopName + " — " + x.blocked),
     "const " + KEY + " = {",
     "  // Kompletter Shop-Datensatz (auch Zutaten, die eine Plattform nicht anbietet)",
@@ -90,6 +94,7 @@ function blockLines(raw) {
     if (x.shellfish) o.shellfish = true;
     if (x.blocked) o.blocked = x.blocked;
     if (x.soldOut) o.soldOut = true; // beim letzten Crawl im Shop ausverkauft (bleibt im Menü, Hinweis in der App)
+    if (x.reference) { o.ref = x.reference.label; o.shopPer100 = x.shopPer100; } // typische Werte statt der Shop-Werte (Hinweis in der App)
     lines.push("    " + lit(o) + ",");
   }
   lines.push("  ],");

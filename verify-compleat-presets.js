@@ -52,11 +52,13 @@ function verifyPresets(raw, presets) {
       if (it.bundleBase) { explained.push({ per100: it.per100, q: it.shopAmount }); why.push("Bundle-Datensatz|" + b.name); continue; }
       const ing = byId[ingredientId(it.name)];
       if (!ing) { ours.push({ per100: it.per100, q: it.amount }); explained.push({ per100: it.per100, q: it.amount }); why.push("fehlt|" + it.name); continue; }
-      ours.push({ per100: ing.per100, q: it.amount });
-      const diff = U.KEYS.filter(k => Math.abs(it.per100[k] - ing.per100[k]) > 1e-9);
+      // Zutaten mit typischen Werten im Rechner (User 27.10.2026: Sojasauce): der Abgleich prüft den Shop-Datensatz → offizielle Shop-Werte
+      const per100 = ing.shopPer100 || ing.per100;
+      ours.push({ per100, q: it.amount });
+      const diff = U.KEYS.filter(k => Math.abs(it.per100[k] - per100[k]) > 1e-9);
       if (diff.length) why.push("Werte je 100 g|" + it.name + "|" + diff.join(","));
       if (Math.abs(it.shopAmount - it.amount) >= 1) why.push("Menge|" + b.name + "|" + it.name + "|" + it.shopAmount);
-      explained.push({ per100: diff.length ? it.per100 : ing.per100, q: Math.abs(it.shopAmount - it.amount) >= 1 ? it.shopAmount : it.amount });
+      explained.push({ per100: diff.length ? it.per100 : per100, q: Math.abs(it.shopAmount - it.amount) >= 1 ? it.shopAmount : it.amount });
     }
     const v = exactSum(ours), e = exactSum(explained);
     const direct = !why.length && withinRounding(v, b.shown, ours.length);

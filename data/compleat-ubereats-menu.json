@@ -1,6 +1,6 @@
 {
-  "_source": "Uber Eats „Selbst zusammenstellen“ (Compleat Frankfurt Nordend), im Browser von der geöffneten Produktseite gelesen (__REACT_QUERY_STATE__ → customizationsList; Preise in Cent, maxPermitted = Stepper-Maximum je Option, subtitle = kcal-Angabe von Uber Eats, isSoldOut). Ausverkaufte Optionen blendet Uber Eats ganz aus (21.10.2026: Protein-Pasta — ganz und halb — und Trüffel Light (Inlead); Kürbiswürfel mariniert und Rotes Pesto sind wieder da; seit dieser Erfassung steht die Pflicht-Gruppe „Dips“ als erste im Bestellfenster: Dips → Proteine → Base → Vitamine → Toppings). Skript-Abrufe der Uber-Eats-API blockt Cloudflare → bei Menüänderungen mit ubereats-capture.js neu erfassen (Prüfsumme sha256 des kompakten JSON im Browser und lokal vergleichen). Nicht von Hand ändern.",
-  "capturedAt": "2026-10-21T06:12:41.920Z",
+  "_source": "Uber Eats „Selbst zusammenstellen“ (Compleat Frankfurt Nordend), im Browser von der geöffneten Produktseite gelesen (__REACT_QUERY_STATE__ → customizationsList; Preise in Cent, maxPermitted = Stepper-Maximum je Option, subtitle = kcal-Angabe von Uber Eats, isSoldOut). Ausverkaufte Optionen blendet Uber Eats ganz aus (27.10.2026: keine ausgeblendet — Protein-Pasta, ganz und halb, und Trüffel Light (Inlead) sind wieder da; Grana Padano zeigt Uber Eats, obwohl der Compleat-Shop sie als ausverkauft führt; die Pflicht-Gruppe „Dips“ steht seit dem 21.10.2026 als erste im Bestellfenster: Dips → Proteine → Base → Vitamine → Toppings). Skript-Abrufe der Uber-Eats-API blockt Cloudflare → bei Menüänderungen mit ubereats-capture.js neu erfassen (Prüfsumme sha256 des kompakten JSON im Browser und lokal vergleichen). Nicht von Hand ändern.",
+  "capturedAt": "2026-10-27T07:38:17.209Z",
   "pageUrl": "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440",
   "item": {
     "title": "Selbst zusammenstellen",
@@ -125,6 +125,14 @@
           "defaultQuantity": 0,
           "isSoldOut": false,
           "subtitle": "adds 264 Cal."
+        },
+        {
+          "title": "Trüffel Light (Inlead) (80g)",
+          "price": 300,
+          "maxPermitted": 5,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 78 Cal."
         },
         {
           "title": "Sriracha Light (Inlead) (80g)",
@@ -325,6 +333,14 @@
           "subtitle": "adds 130 Cal."
         },
         {
+          "title": "Protein-Pasta (200g)",
+          "price": 350,
+          "maxPermitted": 10,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 381 Cal."
+        },
+        {
           "title": "Bunter Bio Quinoa - Halbe Portion (125g)",
           "price": 175,
           "maxPermitted": 10,
@@ -339,6 +355,14 @@
           "defaultQuantity": 0,
           "isSoldOut": false,
           "subtitle": "adds 165 Cal."
+        },
+        {
+          "title": "Protein-Pasta - Halbe Portion (100g)",
+          "price": 175,
+          "maxPermitted": 10,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 238 Cal."
         },
         {
           "title": "Salatmix - Halbe Portion (40g)",
@@ -553,6 +577,14 @@
       "minPermitted": 0,
       "maxPermitted": 0,
       "options": [
+        {
+          "title": "Protein Milchreis - Apfel Zimt",
+          "price": 590,
+          "maxPermitted": 0,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": null
+        },
         {
           "title": "SPRAGA Kombucha - Granatapfel",
           "price": 349,

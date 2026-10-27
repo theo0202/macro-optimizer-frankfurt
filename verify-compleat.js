@@ -31,6 +31,8 @@ const mismatches = [], notFound = [], outdated = [];
 // Hat Compleat die Werte einer Zutat seit dem Word-Export (15.09.2026) geändert, zeigt das Word-Dokument die alten: erkannt über
 // _meta.valueChanges (vom Crawl kumuliert) — der Word-Text muss dann vollständig zu einem alten Werte-Stand passen (21.10.2026: Quinoa)
 const shownFor = (per100, k, amount) => Number((per100[k] * amount / 100).toFixed(DEC[k]));
+// Zutaten mit typischen Werten im Rechner (User 27.10.2026: Sojasauce) tragen die offiziellen Shop-Werte als shopPer100 — die zeigt der Shop
+const shopValues = ing => ing.shopPer100 || ing.per100;
 for (const w of word) {
   const ing = byShopName[w.name];
   if (!ing) { notFound.push(w.name); continue; }
@@ -39,7 +41,7 @@ for (const w of word) {
   for (const k of U.KEYS) {
     if (w.vals[k] == null) { miss.push(w.name + " · " + k + ": fehlt im Word-Text"); continue; }
     // Der Shop rundet wie Number.toFixed inkl. Gleitkomma-Effekt (0.15 → "0.1", 0.075 → "0.07", 10.85 → "10.8")
-    const expected = shownFor(ing.per100, k, ing.vmos.displayAmount);
+    const expected = shownFor(shopValues(ing), k, ing.vmos.displayAmount);
     fields++;
     if (Math.abs(U.parseNum(w.vals[k]) - expected) > 1e-9) miss.push(w.name + " · " + k + ": Word " + w.vals[k] + " ≠ Shop-Anzeige " + expected);
   }
