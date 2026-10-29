@@ -54,8 +54,8 @@ const PRODUCTS = [
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Basmatireis-220-g.html"],
   // Fertige Reis-Mischungen (User 13.10.2026: „Reis-Fertigmischungen, auch mit Bohnen oder Gemüse“): alle verzehrfertigen Beutel
   // (Mikrowelle/Pfanne) der Shop-Kategorien „Reis“ und „Fertiggerichte“, die eine Mischung sind — gewürzt, mit Gemüse/Hülsenfrüchten
-  // oder aus mehreren Reissorten. Die sortenreinen Express-Beutel und die alten 250-g-Größen von Ben's Original kamen am 26.10.2026 dazu
-  // (siehe unten)
+  // oder aus mehreren Reissorten. Die sortenreinen Express-Beutel kamen am 26.10.2026 dazu, die alten 250-g-Größen von Ben's Original nur
+  // vom 26. bis 28.10.2026 (siehe unten)
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Fertiggerichte/Ben-s-Original-Express-Linsen-Curry-Bowl-Reis-220-g.html"],
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Fertiggerichte/Ben-s-Original-Express-Spicy-Curry-Bowl-Reis-220-g.html"],
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Griechisch-Djuvec-Reis-220-g.html"],
@@ -78,14 +78,13 @@ const PRODUCTS = [
   // auch die sortenreinen (Natur-Reis, Langkorn, Jasmin, Sticky, Basmati, Parboiled) und die 250-g-Größen von Ben's Original neben den
   // 220-g-Beuteln (Kategorie-Seiten „Reis“, „Fertiggerichte“, „Hülsenfrüchte“, „Gemüsekonserven“ und Kühl-„Convenience“ durchgesehen).
   // Nicht aufgenommen: Kochbeutel (Ben's Original 6×, 10–20 Min. kochen), reis-fit 8 Minuten, Ebly vorgegarte Weizenkörner (kochen),
-  // trockener Reis; Ben's Original Express Basmatireis 250 g führt der Shop nicht mehr
+  // trockener Reis; Ben's Original Express Basmatireis 250 g führt der Shop nicht mehr.
+  // Auf Wunsch wieder raus (User 29.10.2026: „im Edeka gibt es von Ben's Original nur die 220-g-Versionen“): die 250-g-Beutel von Ben's
+  // Original (Express Langkornreis, Express nach Art Risi Bisi, Express Reis Mexikanisch); die 250-g-Beutel anderer Marken bleiben
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Natur-Reis-Vollkorn-220-g.html"],
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Langkornreis-220-g.html"],
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Jasminreis-220-g.html"],
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Sticky-Bowl-Reis-220-g.html"],
-  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Langkornreis-250-g.html"],
-  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-nach-Art-Risi-Bisi-250-g.html"],
-  ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Ben-s-Original-Express-Reis-Mexikanisch-250-g.html"],
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/reis-fit-Express-Parboiled-Reis-250-g.html"],
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/GUT-GUeNSTIG-Expressreis-Basmati-250-g.html"],
   ["carbs", "/Nahrungsmittel-EDEKA/Fertiggerichte-Beilagen/Reis/Tilda-Pure-Basmatireis-gedaempft-250-g.html"],
@@ -279,7 +278,7 @@ const WAITING = new Set([]);
 
 // Marken (längster Treffer am Namensanfang gewinnt) — für „Marke · Produkt“ in der Einkaufsliste
 const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Bazar", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle", "Diamond", "FEINKOST DITTMANN",
-  "Bürger", "Driscoll's", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
+  "Bürger", "Driscoll's", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "G&G", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
   "Like MEAT", "LIKE", "Mestemacher", "MILRAM", "müller", "Müller", "planted", "Poensgen", "Rapunzel", "reis-fit", "Saupiquet",
   "Schwarzwaldmilch", "Taifun", "Tilda"];
 
@@ -375,6 +374,7 @@ const RENAMED = {
   "EDEKA Herzstücke Snackster, Minigurken Klasse I 230g": "EDEKA Herzstücke Minigurken Klasse I 230g",                        // 13.10.2026
   "EDEKA Herzstücke Snackster, Mini Pflaumen Tomaten Klasse I 250g": "EDEKA Herzstücke Mini Pflaumen Tomaten Klasse I 250g",  // 13.10.2026
   "LIKE Like Chicken 180 g": "Like MEAT Like Chicken 180 g",                                                                  // 13.10.2026 (Marke jetzt „LIKE“)
+  "G&G EXPRESSREIS ASIA 250G": "GUT&GÜNSTIG Expressreis Asia 250 g",                                                       // 29.10.2026 (Marke jetzt „G&G“)
 };
 
 // Produkte, die der Markt führt, die aber weder im Onlineshop noch auf edeka.de stehen (User 24.09.2026): Werte aus einer
@@ -649,6 +649,8 @@ async function main() {
           d.noData = null;
           d.fibreDeclared = !!old.fibreDeclared;
           if (old.valuesFrom) d.valuesFrom = old.valuesFrom;
+          // die Bezugsgröße („je 100 g (unzubereitet)“) steht in der ausgeblendeten Nährwerttabelle → kommt mit den Werten (29.10.2026)
+          if (old.basis) d.basis = old.basis;
           // Stand der Werte: vom Produkt selbst (valuesAsOf), sonst aus dem Hinweis des vorigen Laufs, sonst dessen Abrufdatum
           const prevNote = ((PREV._meta && PREV._meta.unavailable) || []).find(x => x.indexOf(d.name + " — ") === 0) || "";
           d.valuesAsOf = old.valuesAsOf || (prevNote.match(/Nährwerte \((\d{4}-\d{2}-\d{2})\)/) || [])[1] || (PREV._meta.fetchedAt || "").slice(0, 10) || "voriger Lauf";
@@ -842,6 +844,7 @@ async function main() {
         "User 20.10.2026 (Bowl-Zutaten, später): „Die Pilze können alle wieder raus und alles, was in der letzten Nachricht dazugekommen ist und pro ganzer Artikel mehr als 2 g Salz hat, soll auch raus“ → nicht mehr im Tracker: die 10 Pilz-Dosen und -Gläser (Kategorie „Mushrooms (tins)“ entfällt) und Korean Street Kimchi 160 g (3,4 g Salz je Glas) — als einzige der 44 Bowl-Zutaten über 2 g Salz je ganzer Packung (gezählt wie im Tracker: bei Konserven das Abtropfgewicht; knapp darunter EDEKA Herzstücke Artischockenherzen 400 g mit 1,9 g)",
         "User 13.10.2026: fertige Reis-Mischungen (auch mit Bohnen oder Gemüse) in „Carbs & bases“ — alle verzehrfertigen Beutel der Shop-Kategorien „Reis“ und „Fertiggerichte“, die eine Mischung sind (gewürzt, mit Gemüse/Hülsenfrüchten oder aus mehreren Reissorten): 11× Ben's Original, 3× reis-fit, 2× GUT&GÜNSTIG, 1× Tilda. Nicht aufgenommen: sortenreine Express-Beutel und die alten 250-g-Größen von Ben's Original",
         "User 26.10.2026: Express-Reis — „alle Ben's und weitere Express-Reis und Express-Reis/Bohnen-Mischungen, die noch nicht eingebaut sind; keine Kochbeutel und nichts, was noch Zubereitung braucht“ → 10 verzehrfertige Beutel (Mikrowelle 2 Min. bzw. Pfanne) in „Carbs & bases“: Ben's Original Express Natur-Reis Vollkorn, Langkornreis und Jasminreis je 220 g, Sticky Bowl-Reis 220 g, Express Langkornreis, nach Art Risi Bisi und Reis Mexikanisch je 250 g, reis-fit Express Parboiled-Reis 250 g, GUT&GÜNSTIG Expressreis Basmati 250 g, Tilda Pure Basmatireis gedämpft 250 g (damit auch die sortenreinen Beutel und die 250-g-Größen, die am 13.10.2026 draußen blieben). Nicht aufgenommen: Kochbeutel, reis-fit 8 Minuten, Ebly, trockener Reis",
+        "User 29.10.2026: „bitte bei Ben's Original Express-Reis-Mischungen alle 250-g-Versionen raus, im Edeka gibt es nur die 220-g-Versionen (nur auf Marke Ben's bezogen)“ → nicht mehr im Tracker: Ben's Original Express Langkornreis 250 g, Express nach Art Risi Bisi 250 g und Express Reis Mexikanisch 250 g; dieselben Sorten gibt es als 220-g-Beutel. Die 250-g-Beutel von reis-fit, GUT&GÜNSTIG und Tilda bleiben",
         "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere",
       ],
       store: STORE,
