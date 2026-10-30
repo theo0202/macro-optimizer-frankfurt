@@ -1,7 +1,7 @@
 {
   "_meta": {
     "source": "Produktseiten des EDEKA-Graf-Onlineshops https://graf-ffm.edeka.shop (EDEKA Graf, Frankfurt am Main): Name, Preis, Artikelnummer, Nährwerte je 100 g, Abtropfgewicht, Allergene, Zutaten",
-    "fetchedAt": "2026-10-30T10:28:15.653Z",
+    "fetchedAt": "2026-10-30T12:51:34.810Z",
     "basis": "Offizielle Werte **je 100 g** laut Produktseite × Menge. Die Menge ist **immer die ganze Packung** (User 19.09.2026) — bei Konserven das **Abtropfgewicht** (Bohnen in Soße nennen keins → ganzer Inhalt, die Soße isst man mit). Ballaststoffe sind freiwillig → fehlen sie, steht 0. Frisches Obst und Gemüse ohne Nährwertangabe bekommt Referenzwerte (FALLBACK/OFFLINE, Quelle je Produkt in _meta.referenceValues)",
     "rules": [
       "Produkte des Onlineshops, Namen exakt wie dort; dazu wenige, die der Markt führt, die online fehlen (Burritos von edeka.de, Kulturheidelbeeren) — ohne Preis",
@@ -28,6 +28,7 @@
       "User 13.10.2026: fertige Reis-Mischungen (auch mit Bohnen oder Gemüse) in „Carbs & bases“ — alle verzehrfertigen Beutel der Shop-Kategorien „Reis“ und „Fertiggerichte“, die eine Mischung sind (gewürzt, mit Gemüse/Hülsenfrüchten oder aus mehreren Reissorten): 11× Ben's Original, 3× reis-fit, 2× GUT&GÜNSTIG, 1× Tilda. Nicht aufgenommen: sortenreine Express-Beutel und die alten 250-g-Größen von Ben's Original",
       "User 26.10.2026: Express-Reis — „alle Ben's und weitere Express-Reis und Express-Reis/Bohnen-Mischungen, die noch nicht eingebaut sind; keine Kochbeutel und nichts, was noch Zubereitung braucht“ → 10 verzehrfertige Beutel (Mikrowelle 2 Min. bzw. Pfanne) in „Carbs & bases“: Ben's Original Express Natur-Reis Vollkorn, Langkornreis und Jasminreis je 220 g, Sticky Bowl-Reis 220 g, Express Langkornreis, nach Art Risi Bisi und Reis Mexikanisch je 250 g, reis-fit Express Parboiled-Reis 250 g, GUT&GÜNSTIG Expressreis Basmati 250 g, Tilda Pure Basmatireis gedämpft 250 g (damit auch die sortenreinen Beutel und die 250-g-Größen, die am 13.10.2026 draußen blieben). Nicht aufgenommen: Kochbeutel, reis-fit 8 Minuten, Ebly, trockener Reis",
       "User 30.10.2026: „alle ESN, Barebells und Premier Protein Proteinriegel, die bei Edeka Graf zu kaufen sind, als eigene Kategorie“ → neue Kategorie „Protein bars“ mit allen 20 Riegeln der drei Marken aus der Shop-Kategorie „Cerealienriegel“ (9 ESN Designer Bar à 45 g, 6 Barebells à 55 g, 5 Premier Protein à 40 bzw. 50 g), je Riegel die ganze Packung. Nicht aufgenommen: ESN All-in-One Men/Women (Kapseln). Gerade nicht verfügbare Riegel zeigt die Kategorie-Liste des Shops nicht — sie fehlen, bis der Shop sie wieder listet",
+      "User 30.10.2026 (Riesenbohnen): „Baue noch die EDEKA Herzstücke Weiße Riesenbohnen ein“ → EDEKA Herzstücke Weiße Riesenbohnen 400 g in „Beans, chickpeas & lentils (tins)“ hinter den übrigen Bohnen in Wasser (Weiße Riesenbohnen, Wasser, Speisesalz; Abtropfgewicht 240 von 400 g). Die Shop-Kategorie „Gemüsekonserven“ listet sie seit Ende Oktober (am 26.10.2026 noch nicht)",
       "User 29.10.2026: „bitte bei Ben's Original Express-Reis-Mischungen alle 250-g-Versionen raus, im Edeka gibt es nur die 220-g-Versionen (nur auf Marke Ben's bezogen)“ → nicht mehr im Tracker: Ben's Original Express Langkornreis 250 g, Express nach Art Risi Bisi 250 g und Express Reis Mexikanisch 250 g; dieselben Sorten gibt es als 220-g-Beutel. Die 250-g-Beutel von reis-fit, GUT&GÜNSTIG und Tilda bleiben",
       "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere"
     ],
@@ -251,6 +252,7 @@
       "Bonduelle Kidney Bohnen 200 g": "125 g von 200 g",
       "EDEKA Herzstücke Schwarze Bohnen 400 g": "265 g von 400 g",
       "EDEKA Bio Cannellini Bohnen 400g": "240 g von 400 g",
+      "EDEKA Herzstücke Weiße Riesenbohnen 400 g": "240 g von 400 g",
       "Alnatura Bio Kichererbsen 330 g": "220 g von 330 g",
       "EDEKA Bio Kichererbsen 350 g": "220 g von 350 g",
       "EDEKA Herzstücke Kichererbsen 300 g": "220 g von 300 g",
@@ -2963,6 +2965,38 @@
       "company": "EDEKA ZENTRALE Stiftung & Co. KG D-22291 Hamburg",
       "cat": "beans",
       "brand": "EDEKA Bio",
+      "portionG": 240,
+      "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
+    },
+    {
+      "name": "EDEKA Herzstücke Weiße Riesenbohnen 400 g",
+      "url": "https://graf-ffm.edeka.shop/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Weisse-Riesenbohnen-400-g.html",
+      "sku": "3432458007",
+      "price": 1.59,
+      "per100": {
+        "kcal": 102,
+        "fat": 0.9,
+        "sat": 0.2,
+        "carbs": 13.9,
+        "sugars": 0.9,
+        "fibre": 5.7,
+        "protein": 6.8,
+        "salt": 0.35
+      },
+      "basis": "je 100 g (unzubereitet)",
+      "noData": null,
+      "packG": 400,
+      "drainedG": 240,
+      "unavailable": false,
+      "fibreDeclared": true,
+      "polyols": null,
+      "allergens": null,
+      "ingredients": "Zutaten: Weiße Riesenbohnen, Wasser, Speisesalz.",
+      "legal": "Weiße Riesenbohnen",
+      "storage": "Trocken lagern. Nach dem Öffnen den Restinhalt der Dose in ein geeignetes Gefäß umfüllen, im Kühlschrank lagern und alsbald aufbrauchen.",
+      "company": "EDEKA ZENTRALE Stiftung & Co. KG D-22291 Hamburg",
+      "cat": "beans",
+      "brand": "EDEKA Herzstücke",
       "portionG": 240,
       "portionNote": "Abtropfgewicht laut Produktseite (ganze Dose)"
     },
