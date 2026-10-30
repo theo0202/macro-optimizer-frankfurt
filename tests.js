@@ -2473,6 +2473,61 @@ check("Ben's Original nur als 220-g-Beutel (User 29.10.2026: „im Edeka gibt es
     !/\["carbs", "[^"]*Ben-s-Original[^"]*-250-g\.html"\]/.test(src) &&
     rawED._meta.decisions.some(d => /^User 29[.]10[.]2026: /.test(d) && /Ben's Original/.test(d) && /220-g/.test(d));
 })(), true);
+// Proteinriegel (User 30.10.2026): alle ESN-, Barebells- und Premier-Protein-Riegel des Marktes in der neuen Kategorie „Protein bars“
+const BARS = ["ESN Designer Bar Almond Coconut 45 g", "ESN Designer Bar Dark Chocolate Raspberry 45 g", "ESN Designer Bar Fudge Brownie 45 g",
+  "ESN Designer Bar Hazelnut Nougat 45 g", "ESN Designer Bar Peanut Caramel 45 g", "ESN Designer Protein Bar Cinnamon Cereal Flavor 45 g",
+  "ESN Designer Protein Bar Dark Chocolate Salted Almond Flavor 45 g", "ESN Designer Protein Bar Dark Cookie White Choc Flavor 45 g",
+  "ESN Designer Protein Bar White Chocolate Pistachio Flavor 45 g",
+  "Barebells Protein Bar Cookies&Cream 55 g", "Barebells Protein Bar Peanut Butter 55 g", "Barebells Protein Bar Salty Caramel Crunch 55 g",
+  "Barebells Proteinriegel Caramel Choco 55 g", "Barebells Proteinriegel Soft Lemon Cheesecake 55 g", "Barebells Soft Proteinriegel Salted Peanut Caramel 55 g",
+  "Premier Protein Chocolate Brownie Karamell Bar 50 g", "Premier Protein Chocolate Caramel Proteinriegel 40 g", "Premier Protein Chocolate Peanut Butter Energieriegel 50 g",
+  "Premier Protein Deluxe White Chocolate Vanille Energieriegel 50 g", "Premier Protein Double Chocolate Cookie Proteinriegel 40 g"];
+check("Proteinriegel (User 30.10.2026: „alle ESN, Barebells und Premier Protein Proteinriegel, die bei Edeka Graf zu kaufen sind, als eigene Kategorie“): neue Kategorie „Protein bars“ direkt hinter „Protein puddings & desserts“ mit 20 Riegeln — 9 ESN Designer Bar à 45 g, 6 Barebells à 55 g, 5 Premier Protein à 40 bzw. 50 g; je Riegel die ganze Packung, Werte je 100 g = Produktseite, Preis und Link vom Markt", (() => {
+  const ids = EDD.cats.map(c => c.id), cat = EDD.cats.find(c => c.id === "bars"), bars = EDD.items.filter(x => x.cat === "bars");
+  return !!cat && cat.name === "Protein bars" && cat.on === true && ids.indexOf("bars") === ids.indexOf("desserts") + 1 &&
+    bars.map(x => x.name).join("|") === BARS.join("|") &&
+    bars.filter(x => x.brand === "ESN").length === 9 && bars.filter(x => x.brand === "Barebells").length === 6 && bars.filter(x => x.brand === "Premier Protein").length === 5 &&
+    ["ESN", "Barebells", "Premier Protein"].every(b => EDD.items.filter(x => x.brand === b).every(x => x.cat === "bars")) &&
+    bars.every(x => { const r = edRaw(x.name); return !!r && x.g === x.pack && x.g === Number(x.name.match(/(\d+) g$/)[1]) && !x.drained &&
+      (x.unavailable ? x.price > 0 : x.price > 0 && x.price === r.price) &&
+      /^https:\/\/graf-ffm\.edeka\.shop\/Suesswaren-Gebaeck-EDEKA\/Kuchen-Kekse\/Cerealienriegel\//.test(x.url) && /je\s*100\s*g/.test(r.basis) && !r.noData && !r.valuesFrom &&
+      U.KEYS.every(k => x.p100[k] === U.round(r.per100[k] || 0, 2)) && x.p100.protein >= 28 &&
+      !x.frozen && !x.fish && !x.tuna && !x.eathappy && !x.variable && !x.ref && !r.shellfish && !r.herbs && !!r.ingredients; });
+})(), true);
+check("Proteinriegel, Beispiele je Riegel: Barebells Cookies&Cream 55 g = 194,2 kcal / 19,8 g E / 17,1 g KH / 6,6 g F · ESN Designer Bar Fudge Brownie 45 g = 185,4 kcal / 14 g E / 14 g KH / 9,5 g F · Premier Protein Chocolate Caramel 40 g = 134,8 kcal / 20 g E / 10,4 g KH / 2,9 g F (Ballaststoffe nicht angegeben → 0) · am meisten Eiweiß je Riegel: Premier Protein Chocolate Brownie Karamell Bar 50 g mit 20,5 g", (() => {
+  const s = n => { const x = edItem(U.slugId(n)); return T.edekaScale(x, x.g); };
+  const bb = s("Barebells Protein Bar Cookies&Cream 55 g"), esn = s("ESN Designer Bar Fudge Brownie 45 g"), pp = s("Premier Protein Chocolate Caramel Proteinriegel 40 g");
+  const best = EDD.items.filter(x => x.cat === "bars").map(x => T.edekaScale(x, x.g)).sort((a, b) => b.protein - a.protein)[0];
+  return bb.kcal === 194.2 && bb.protein === 19.8 && bb.carbs === 17.1 && bb.fat === 6.6 && bb.name === "Barebells Protein Bar Cookies&Cream 55 g" &&
+    esn.kcal === 185.4 && esn.protein === 14 && esn.carbs === 14 && esn.fat === 9.5 &&
+    pp.kcal === 134.8 && pp.protein === 20 && pp.carbs === 10.4 && pp.fat === 2.9 && pp.fibre === 0 && rawED._meta.noFibre.includes("Premier Protein Chocolate Caramel Proteinriegel 40 g") &&
+    best.name === "Premier Protein Chocolate Brownie Karamell Bar 50 g" && best.protein === 20.5;
+})(), true);
+check("Proteinriegel, Plausibilität mit Polyolen (LMIV: Maltit, Glycerin & Co. zählen 2,4 statt 4 kcal/g): die 5 Premier-Protein-Riegel nennen ihre Polyole („davon mehrwertige Alkohole“, 24–26 g je 100 g) und sind damit stimmig — der Deluxe-Riegel fiele ohne sie auf; ESN Peanut Caramel, ESN Dark Cookie White Choc und Barebells Peanut Butter nennen keine Menge → Auffälligkeit mit Erklärung, Werte unverändert; alle 20 enthalten laut Zutaten Polyole", (() => {
+  const bars = BARS.map(edRaw), pp = bars.filter(r => /^Premier Protein /.test(r.name));
+  const flagged = ["Barebells Protein Bar Peanut Butter 55 g", "ESN Designer Bar Peanut Caramel 45 g", "ESN Designer Protein Bar Dark Cookie White Choc Flavor 45 g"];
+  const an = rawED._meta.anomalies.filter(a => BARS.includes(a.name));
+  return pp.length === 5 && pp.every(r => r.polyols >= 24 && r.polyols <= 26 && rawED._meta.polyols[r.name] === r.polyols && U.checkItem({ ...r.per100, polyols: r.polyols }).length === 0) &&
+    U.checkItem({ ...pp.find(r => /Deluxe/.test(r.name)).per100 }).length === 1 &&
+    bars.filter(r => r.polyols == null).length === 15 && Object.keys(rawED._meta.polyols).length === 5 &&
+    an.map(a => a.name).sort().join("|") === flagged.join("|") &&
+    an.every(a => /^kcal \d+ ≠ 4·C\+4·P\+9·F = \d+$/.test(a.issues[0]) && a.issues.length === 1 && /^enthält laut Zutaten Polyole \(maltit/.test(a.note) && /LMIV/.test(a.note) && /unverändert übernommen/.test(a.note)) &&
+    bars.every(r => /maltit/i.test(r.ingredients) && /Süßungsmittel/.test(r.legal || ""));
+})(), true);
+check("Proteinriegel: nicht im Tracker die ESN All-in-One Men/Women (Kapseln) und Riegel anderer Marken (More Nutrition, Maxbalance, Seitenbacher …); der Crawl führt die 20 Produktseiten unter „bars“; die Entscheidung steht in _meta", (() => {
+  const src = fs.readFileSync(__dirname + "/edeka-crawl.js", "utf8");
+  return !EDD.items.some(x => /All-in-One|More Nutrition|Maxbalance|Seitenbacher|Grenade|All Stars|KoRo|PowerBar|Multipower|CORNY|Mars Protein/.test(x.name)) &&
+    (src.match(/\["bars", "\/Suesswaren-Gebaeck-EDEKA\/Kuchen-Kekse\/Cerealienriegel\/[^"]+\.html"\]/g) || []).length === 20 &&
+    rawED._meta.decisions.some(d => /^User 30[.]10[.]2026: /.test(d) && /Protein bars/.test(d) && /ESN All-in-One/.test(d));
+})(), true);
+check("Proteinriegel in Suche, Listen und „✨ Ask Claude“: Suche „barebells“ findet die 6 Barebells, „Must include“/„Exclude items“ führen alle 20, Claudes Katalog nennt sie mit Kategorie „bars“", (() => {
+  const cat = T.edekaAiCatalog().split("\n"), bars = EDD.items.filter(x => x.cat === "bars");
+  const line = n => cat[T.EDEKA_ALL.items.findIndex(x => x.name === n)];
+  return T.edekaSearch("barebells", 30).length === 6 && T.edekaSearch("barebells", 30).every(x => x.cat === "bars") && T.edekaSearch("esn designer", 30).length === 9 &&
+    bars.every(x => T.includablesFor(ED).some(y => y.id === x.id) && T.excludablesFor(ED).some(y => y.id === x.id)) &&
+    line("ESN Designer Bar Fudge Brownie 45 g").includes("| bars | 45 g | 185 kcal · P 14 · C 14 · F 9.5") &&
+    JSON.stringify(T.edekaAiSchema()).includes("\"bars\"");
+})(), true);
 // Bohnen-Konserven (User 19.10.2026): alle Dosen mit gegarten Bohnen der Shop-Kategorie „Gemüsekonserven“ — in Wasser [Name, Packung, abgetropft], in Soße [Name, Packung]
 const BEANS_WATER = [["EDEKA Bio Kidney Bohnen 400 g", 400, 265], ["EDEKA Herzstücke Kidneybohnen 400 g", 400, 265], ["Alnatura Bio Kidney Bohnen 360 g", 360, 240],
   ["Bonduelle Kidney Bohnen 200 g", 200, 125]];
@@ -2597,11 +2652,12 @@ check("Gerade nicht verfügbar ≠ Daten weg: jede Konserve in Aufguss behält i
       !!x.valuesAsOf && /^je 100 g/.test(x.basis)) &&
     rawED._meta.unavailable.length === un.length;
 })(), true);
-const ED_N = 182;   // Produkte des Marktes im Tracker (bis 12.10.2026: 114; 13.10.2026: + 17 fertige Reis-Mischungen; 19.10.2026: + 9 Bohnen-Konserven und 44 Bowl-Zutaten; 20.10.2026: − 10 Pilze und Kimchi; 26.10.2026: + 10 Express-Reis-Beutel und die 2 Bohnen-Dosen aus WAITING; 29.10.2026: − 3 Ben's-Original-Beutel à 250 g)
-check("Alle 182 Produkte im Tracker, 22 Kategorien wie vom User gruppiert (22.09.2026 dazu: Fish 5; 24.09.2026: Eat Happy Bowls 5 + Sushi 2, 3 Burritos in „Sandwiches & Wraps“, Berries 2, Fresh vegetables 6; 13.10.2026: Carbs & bases 23, seit 26.10.2026 33, seit 29.10.2026 30; Beans, chickpeas & lentils seit 26.10.2026 25; 19.10.2026: Beans, chickpeas & lentils 23, Edamame, peas & veg 37 und Mushrooms 10 — am 20.10.2026 ohne Pilze und Kimchi: Edamame, peas & veg 36), alle Chips an",
+const ED_N = 202;   // Produkte des Marktes im Tracker (bis 12.10.2026: 114; 13.10.2026: + 17 fertige Reis-Mischungen; 19.10.2026: + 9 Bohnen-Konserven und 44 Bowl-Zutaten; 20.10.2026: − 10 Pilze und Kimchi; 26.10.2026: + 10 Express-Reis-Beutel und die 2 Bohnen-Dosen aus WAITING; 29.10.2026: − 3 Ben's-Original-Beutel à 250 g; 30.10.2026: + 20 Proteinriegel)
+check("Alle 202 Produkte im Tracker, 23 Kategorien wie vom User gruppiert (30.10.2026 dazu: Protein bars 20; 22.09.2026: Fish 5; 24.09.2026: Eat Happy Bowls 5 + Sushi 2, 3 Burritos in „Sandwiches & Wraps“, Berries 2, Fresh vegetables 6; 13.10.2026: Carbs & bases 23, seit 26.10.2026 33, seit 29.10.2026 30; Beans, chickpeas & lentils seit 26.10.2026 25; 19.10.2026: Beans, chickpeas & lentils 23, Edamame, peas & veg 37 und Mushrooms 10 — am 20.10.2026 ohne Pilze und Kimchi: Edamame, peas & veg 36), alle Chips an",
   rawED.items.length === ED_N && EDD.items.length === ED_N && rawED._meta.noData.length === 0 && EDD.items.filter(x => x.cat === "carbs").length === 30 &&
   EDD.items.filter(x => x.cat === "beans").length === 25 && EDD.items.filter(x => x.cat === "veg_tins").length === 36 &&
-  EDD.cats.length === 22 && EDD.cats.every(c => c.on === true) && EDD.cats[0].id === "carbs" && EDD.cats[21].id === "waffles" &&
+  EDD.cats.length === 23 && EDD.cats.every(c => c.on === true) && EDD.cats[0].id === "carbs" && EDD.cats[22].id === "waffles" &&
+  EDD.cats.map(c => c.id).join().indexOf("herbquark,desserts,bars,beans") > 0 && EDD.items.filter(x => x.cat === "bars").length === 20 &&
   EDD.cats.map(c => c.id).join().indexOf("fresh_veg,berries,gyoza,eh_bowls,eh_sushi,maultaschen") > 0 &&
   EDD.items.filter(x => x.cat === "fresh_veg").length === 6 && EDD.items.filter(x => x.cat === "berries").length === 2 &&
   EDD.items.filter(x => x.cat === "tkmeals").length === 6 &&
@@ -2717,6 +2773,18 @@ check("Einkaufsliste statt Order Guide: je Produkt Kategorie + Name (Marke steht
 check("Supermarkt bleibt aus All/Accurate heraus, steht aber im Such-Index von „Add own order“", (() => {
   const all = T.optimizeAll(tDef, "macros", {}, 5, false);
   return !all.some(r => r._resto === "edeka") && T.SEARCH_INDEX.some(x => x.resto === "Edeka Graf (In-Store)" && /Kidney Bohnen/.test(x.name) && Math.abs(x.kcal - 230) < 0.05);
+})(), true);
+check("Proteinriegel im Optimizer: nur „Protein bars“ an und „Max. products“ 1 → genau ein Riegel (bei 20 g Eiweiß / 10 g KH / 3 g Fett ein Premier Protein à 40 g); Kategorie aus → kein Riegel; als „Must include“ kommt ein Riegel auch bei ausgeschalteter Kategorie in jede Bestellung; ein Riegel lässt sich als Pick sperren", (() => {
+  const onlyBars = Object.fromEntries(EDD.cats.map(c => [c.id, c.id === "bars"]));
+  const one = runED(tgt(20, 10, 3), { ...edState(null, onlyBars), maxN: 1 });
+  const off = runED(tDef, edState(null, { bars: false }));
+  const id = U.slugId("Barebells Protein Bar Cookies&Cream 55 g");
+  const must = runED(tDef, edState(null, { bars: false }), null, [id]);
+  const pick = runED(tDef, { ...edState({ picks: [{ id, g: 55, qty: 1 }] }), maxN: 3 });
+  return one.length > 0 && one.every(r => r.items.length === 1 && r.items[0].cat === "bars") && /^Premier Protein .* 40 g$/.test(one[0].items[0].name) &&
+    off.length > 0 && off.every(r => r.items.every(x => x.cat !== "bars")) &&
+    must.length > 0 && must.every(r => r.items.some(x => x.id === id && x.must)) &&
+    pick.length > 0 && pick.every(r => r.items.filter(x => x.id === id && x.locked).length === 1 && r.items.length <= 3);
 })(), true);
 check("TK-Fertiggerichte (User 20.09.2026): 6 FRoSTA-Gerichte mit den Werten der verlinkten Herstellerseiten, Preis und Packung vom Markt, alle als Tiefkühl markiert", (() => {
   const ids = ["FRoSTA Hähnchen Geschnetzeltes 500 g", "FRoSTA Hähnchen Curry 500 g", "FRoSTA Nasi Goreng 500 g", "FRoSTA Bami Goreng 500 g", "FRoSTA Hähnchen Paella 500 g", "FRoSTA High Protein Hähnchen mit Reis & Brokkoli 500 g"];
@@ -2837,11 +2905,12 @@ check("Produktseite gibt es nicht mehr (der Shop leitet auf die Startseite um; 2
       rawED._meta.unavailable.some(n => n.indexOf(x.name + " — nicht mehr im Onlineshop (die Produktseite leitet seit " + x.gone + " auf die Startseite um)") === 0) &&
       !!edItem(U.slugId(x.idName || x.name)) && T.edekaStatus(edItem(U.slugId(x.idName || x.name))) === "unavailable online");
 })(), true);
-check("_meta: Quelle, Rechenbasis (Abtropfgewicht, Bohnen in Soße mit ganzem Inhalt), Entscheidungen vom 19.–26.09., 13., 19. (drei), 20., 26. und 29.10.2026, eine Auffälligkeit (Zucchini), kein Schalentier, 6 Tiefkühl-Gerichte, 69 Produkte ohne Ballaststoff-Angabe",
-  /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && /Soße/.test(rawED._meta.basis) && rawED._meta.decisions.length === 20 &&
-  rawED._meta.decisions.every(d => /^User ((19|20|22|24|26)[.]09|(1[39]|2[069])[.]10)[.]2026/.test(d)) && rawED._meta.anomalies.length === 1 && rawED._meta.anomalies[0].name === "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g" &&
+check("_meta: Quelle, Rechenbasis (Abtropfgewicht, Bohnen in Soße mit ganzem Inhalt), Entscheidungen vom 19.–26.09., 13., 19. (drei), 20., 26., 29. und 30.10.2026, vier Auffälligkeiten (Zucchini + 3 Proteinriegel mit Polyolen ohne Mengenangabe), kein Schalentier, 6 Tiefkühl-Gerichte, 73 Produkte ohne Ballaststoff-Angabe",
+  /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && /Soße/.test(rawED._meta.basis) && rawED._meta.decisions.length === 21 &&
+  rawED._meta.decisions.every(d => /^User ((19|20|22|24|26)[.]09|(1[39]|2[069]|30)[.]10)[.]2026/.test(d)) && rawED._meta.anomalies.length === 4 && rawED._meta.anomalies[0].name === "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g" &&
+  rawED._meta.anomalies.slice(1).every(a => BARS.includes(a.name) && /Polyole/.test(a.note)) &&
   typeof rawED._meta.shellfish === "string" && Array.isArray(rawED._meta.coriander) && Array.isArray(rawED._meta.frozen) && rawED._meta.frozen.length === 6 &&
-  rawED._meta.noFibre.length === 69 && EDD.items.filter(x => x.p100.fibre === 0).length >= 69 && EDD.items.length === ED_N, true);
+  rawED._meta.noFibre.length === 73 && EDD.items.filter(x => x.p100.fibre === 0).length >= 73 && EDD.items.length === ED_N, true);
 
 // ── Eat Happy (Sushi-Theke) und Burritos von edeka.de (User 24.09.2026) ──
 const ehId = name => U.slugId("Eat Happy " + name);
@@ -2918,7 +2987,7 @@ check("Ohne Online-Preis: Vorschläge dürfen einen Burrito enthalten (Preis = b
   T.edekaClearFix(tex.id);
   return okRun && okFix && T.edekaById(tex.id).price === null && T.edekaValidate().length === 0;
 })(), true);
-check("Stöbern nur auf Klick (User 24.09.2026): ohne Suchbegriff keine Produktliste, „▾ Browse …“ klappt sie auf; Suchbegriff → Treffer. Eat Happy im Warenkorb mit „＋ another“ statt Mengen-Stepper, „+ ?“ bei fehlendem Preis", (() => {
+check("Stöbern nur auf Klick (User 24.09.2026): ohne Suchbegriff keine Produktliste, „▾ Browse …“ klappt sie auf — mit allen Produkten der eingeschalteten Kategorien, auch über 200 (mit PrepMyMeal 275); Suchbegriff → Treffer. Eat Happy im Warenkorb mit „＋ another“ statt Mengen-Stepper, „+ ?“ bei fehlendem Preis", (() => {
   global.__h = (type, props, ...children) => ({ type, props: props || {}, children });
   const texts = st => { const out = []; const walk = n => { if (n == null || n === false || n === true) return; if (Array.isArray(n)) return n.forEach(walk); if (typeof n !== "object") return out.push(String(n)); walk(n.children); }; walk(T.edekaExtra({ st, tg: {}, update: () => {} })); return out; };
   const cnt = (st, re) => texts(st).filter(x => re.test(x)).length;
@@ -2926,6 +2995,8 @@ check("Stöbern nur auf Klick (User 24.09.2026): ohne Suchbegriff keine Produktl
   const basket = edState({ mode: "track", basket: [{ id: karaage, g: 355, qty: 1 }, { id: kidney, g: 250, qty: 1 }, { id: tex, g: 300, qty: 1 }] });
   const ok = cnt(edSt, /^🔒 Lock in$/) === 0 && cnt(edSt, new RegExp("^▾ Browse the categories you switched on \\(" + ED_N + " products\\)$")) === 1 &&
     cnt(edState({ browse: true }), /^🔒 Lock in$/) === ED_N && cnt(edState({ browse: true }), /^▴ Hide the list$/) === 1 &&
+    cnt(edState({ browse: true }, null, { prepMyMeal: true }), /^🔒 Lock in$/) === ED_N + 73 &&   // die ganze Liste, auch über 200 Produkte (bis 30.10.2026 abgeschnitten)
+    cnt(edState(null, null, { prepMyMeal: true }), new RegExp("^▾ Browse the categories you switched on \\(" + (ED_N + 73) + " products\\)$")) === 1 &&
     cnt(edState({ q: "donburi" }), /^🔒 Lock in$/) === 3 && cnt(edState({ q: "donburi" }), /Browse/) === 0 &&
     cnt(edState({ mode: "track" }), /^\+ Add$/) === 0 && cnt(edState({ mode: "track", browse: true }, { skyr: false }), /^\+ Add$/) === ED_N - 10 &&
     cnt(basket, /^＋ another$/) === 1 && cnt(basket, /^−$/) === 2 && cnt(basket, /weight varies: type in the grams from the label/) === 1 &&
@@ -3044,7 +3115,7 @@ check("Was Claude bekommt: Regeln + Kategorien + der ganze Katalog (Nummer = Pos
   T.edekaSaveFix(rice, { kcal: "999" });
   const same = T.edekaAiCatalog() === cat.join("\n");
   T.edekaClearFix(rice);
-  return sys === T.edekaAiSystem() && sys.endsWith(cat.join("\n")) && cat.length === T.EDEKA_ALL.items.length && cat.length === 255 &&
+  return sys === T.edekaAiSystem() && sys.endsWith(cat.join("\n")) && cat.length === T.EDEKA_ALL.items.length && cat.length === ED_N + 73 &&
     cat.every((l, i) => l.startsWith(i + " | " + T.EDEKA_ALL.items[i].name + " | " + T.EDEKA_ALL.items[i].cat + " | ")) &&
     it("Ben's Original Express Langkornreis 220 g").endsWith("| carbs | 220 g | 295 kcal · P 5.9 · C 61.6 · F 2") &&
     it("Bonduelle Kidney Bohnen 400 g").includes("| beans | 250 g drained | 230 kcal ·") &&
@@ -3621,6 +3692,11 @@ check("slugId: Umlaute + Sonderzeichen", U.slugId("Süßkartoffel-Pommes (groß)
 check("checkItem: stimmiges Item ok", U.checkItem({ kcal: 542, fat: 14, sat: 3, carbs: 62, sugars: 7, fibre: 6, protein: 42, salt: 2 }).length, 0);
 check("checkItem: kcal passt nicht zu den Makros", U.checkItem({ kcal: 900, fat: 14, sat: 3, carbs: 62, sugars: 7, fibre: 6, protein: 42, salt: 2 }).length, 1);
 check("checkItem: sat > fat und sugars > carbs", U.checkItem({ kcal: 100, fat: 2, sat: 3, carbs: 20, sugars: 25, fibre: 0, protein: 3.5, salt: 0 }).length, 2);
+check("checkItem: angegebene Polyole zählen 2,4 statt 4 kcal/g (LMIV) — Premier Protein Deluxe 367 kcal bei 30 g KH, davon 26 g Polyole: ohne Angabe auffällig, mit Angabe stimmig; eine echte Abweichung bleibt auffällig", (() => {
+  const deluxe = { kcal: 367, fat: 14, sat: 9, carbs: 30, sugars: 3.2, fibre: 0, protein: 40, salt: 0.6 };
+  return U.checkItem(deluxe).length === 1 && U.checkItem({ ...deluxe, polyols: 26 }).length === 0 && U.checkItem({ ...deluxe, polyols: 0 }).length === 1 &&
+    U.checkItem({ kcal: 900, fat: 14, sat: 3, carbs: 62, sugars: 7, fibre: 6, protein: 42, salt: 2, polyols: 10 }).length === 1;
+})(), true);
 const blk = U.wrapBlock("TEST", "node test.js", ["const TEST = 1;"]);
 const htmlLF = "a\n// __TEST_DATA_START__ alt\nconst TEST = 0;\n// __TEST_DATA_END__\nb";
 check("replaceBlock: ersetzt Block inkl. Marker (LF)", U.replaceBlock(htmlLF, "TEST", blk) === "a\n// __TEST_DATA_START__ (generiert via: node test.js — nicht von Hand editieren)\nconst TEST = 1;\n// __TEST_DATA_END__\nb", true);

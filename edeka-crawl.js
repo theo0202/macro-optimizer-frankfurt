@@ -27,6 +27,7 @@ const CATS = [
   { id: "skyr", name: "Skyr & quark" },
   { id: "herbquark", name: "Herb quark" },
   { id: "desserts", name: "Protein puddings & desserts" },
+  { id: "bars", name: "Protein bars" },   // ESN, Barebells, Premier Protein (User 30.10.2026)
   { id: "beans", name: "Beans, chickpeas & lentils (tins)" },   // bis 18.10.2026 „Beans & chickpeas (tins)“ — seit 19.10.2026 auch Linsen
   { id: "veg_tins", name: "Edamame, peas & veg (tins)" },
   { id: "fresh_veg", name: "Fresh vegetables" },
@@ -267,6 +268,30 @@ const PRODUCTS = [
   ["waffles", "/Suesswaren-Gebaeck-EDEKA/Knabberartikel/Popcorn-Puffreis/EDEKA-Bio-High-Protein-Kichererbsen-Waffel-100-g.html"],
   ["waffles", "/Suesswaren-Gebaeck-EDEKA/Knabberartikel/Popcorn-Puffreis/Alnatura-Bio-Dinkel-Waffeln-natur-100-g.html"],
   ["waffles", "/Suesswaren-Gebaeck-EDEKA/Knabberartikel/Popcorn-Puffreis/Alnatura-Bio-Kichererbsenwaffeln-100-g.html"],
+  // Proteinriegel (User 30.10.2026: „alle ESN, Barebells und Premier Protein Proteinriegel, die bei Edeka Graf zu kaufen sind, als eigene
+  // Kategorie“): alle Riegel der drei Marken — sie stehen in der Shop-Kategorie „Cerealienriegel“ (durchgesehen außerdem „Schokoriegel“,
+  // „Weitere Süßwaren“, Kühl-„Riegel“, „Nahrungsergänzungsmittel“ und „Sportgetränke“: dort keine Riegel dieser Marken; ESN All-in-One
+  // Men/Women sind Kapseln). Je Riegel = ganze Packung. Gerade nicht verfügbare Riegel blendet die Kategorie-Liste aus — die fehlen hier
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/ESN-Designer-Bar-Almond-Coconut-45-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/ESN-Designer-Bar-Dark-Chocolate-Raspberry-45-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/ESN-Designer-Bar-Fudge-Brownie-45-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/ESN-Designer-Bar-Hazelnut-Nougat-45-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/ESN-Designer-Bar-Peanut-Caramel-45-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/ESN-Designer-Protein-Bar-Cinnamon-Cereal-Flavor-45-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/ESN-Designer-Protein-Bar-Dark-Chocolate-Salted-Almond-Flavor-45-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/ESN-Designer-Protein-Bar-Dark-Cookie-White-Choc-Flavor-45-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/ESN-Designer-Protein-Bar-White-Chocolate-Pistachio-Flavor-45-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/Barebells-Protein-Bar-Cookies-Cream-55-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/Barebells-Protein-Bar-Peanut-Butter-55-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/Barebells-Protein-Bar-Salty-Caramel-Crunch-55-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/Barebells-Proteinriegel-Caramel-Choco-55-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/Barebells-Proteinriegel-Soft-Lemon-Cheesecake-55-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/Barebells-Soft-Proteinriegel-Salted-Peanut-Caramel-55-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/Premier-Protein-Chocolate-Brownie-Karamell-Bar-50-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/Premier-Protein-Chocolate-Caramel-Proteinriegel-40-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/Premier-Protein-Chocolate-Peanut-Butter-Energieriegel-50-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/Premier-Protein-Deluxe-White-Chocolate-Vanille-Energieriegel-50-g.html"],
+  ["bars", "/Suesswaren-Gebaeck-EDEKA/Kuchen-Kekse/Cerealienriegel/Premier-Protein-Double-Chocolate-Cookie-Proteinriegel-40-g.html"],
 ];
 
 // Vom Shop gelistet, aber beim Aufnehmen gerade nicht verfügbar — dann zeigt die Seite weder Preis noch Nährwerte (19.10.2026).
@@ -277,9 +302,9 @@ const PRODUCTS = [
 const WAITING = new Set([]);
 
 // Marken (längster Treffer am Namensanfang gewinnt) — für „Marke · Produkt“ in der Einkaufsliste
-const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Bazar", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle", "Diamond", "FEINKOST DITTMANN",
-  "Bürger", "Driscoll's", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "G&G", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
-  "Like MEAT", "LIKE", "Mestemacher", "MILRAM", "müller", "Müller", "planted", "Poensgen", "Rapunzel", "reis-fit", "Saupiquet",
+const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Barebells", "Bazar", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle", "Diamond", "FEINKOST DITTMANN",
+  "Bürger", "Driscoll's", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "ESN", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "G&G", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
+  "Like MEAT", "LIKE", "Mestemacher", "MILRAM", "müller", "Müller", "planted", "Poensgen", "Premier Protein", "Rapunzel", "reis-fit", "Saupiquet",
   "Schwarzwaldmilch", "Taifun", "Tilda"];
 
 // Eat Happy (Sushi-/Bowl-Theke im Markt, User 24.09.2026): Werte je 100 g, Standardgewicht und Grundpreis von eathappy.de.
@@ -394,6 +419,9 @@ const SHELLFISH_ALLERGEN_RE = /krebstier|weichtier/i;
 // „Cyclamat“ enthält „clam“ (Venusmuschel), „Austernpilz“ enthält „Auster“ — beides sind keine Schalentiere
 const SHELLFISH_SAFE = [/(natrium-?)?cyclamat/gi, /austernpilz(e|en)?/gi, /austern-?pilz/gi, /austernseitling(e)?/gi, /oyster mushroom/gi, /muschelnudel(n)?/gi, /muschelpasta/gi];
 const HERB_RE = /koriander|cilantro|minze|\bmint\b/i;
+// Süßungs- und Feuchthaltemittel aus der Gruppe der Polyole (Proteinriegel, 30.10.2026). Sie zählen laut LMIV (Anhang XIV) nur 2,4 kcal/g,
+// Erythrit 0 kcal/g — nennt die Seite ihre Menge nicht, liegen die deklarierten kcal unter 4·KH + 4·E + 9·F
+const POLYOL_RE = /maltit|glycerin|sorbit|xylit|erythrit|isomalt|lactit|mannit/gi;
 // Fisch und Thunfisch (Schalter „No fish“ / „No tuna“, User 22.09.2026): Fisch laut Allergenangabe („Fische und daraus
 // hergestellte Erzeugnisse“ = enthalten, Spuren stehen dort nicht) oder laut Name; Thunfisch laut Name, Bezeichnung oder Zutaten
 const FISH_ALLERGEN_RE = /\bFisch(e)?\b/i;
@@ -572,6 +600,10 @@ function parsePage(html, url, problems) {
   }
   if (!noData && missing.some(k => k !== "fibre")) problems.push(where + ": Nährwerte fehlen (" + missing.join(", ") + ")");
   if (!noData && missing.includes("fibre") && !NO_FIBRE_OK) problems.push(where + ": keine Ballaststoffe angegeben");
+  // Polyole („davon mehrwertige Alkohole“, freiwillige Angabe — z.B. Proteinriegel mit Maltit und Glycerin): nur für die Plausibilitätsprüfung
+  // (LMIV: 2,4 statt 4 kcal/g), im Tracker zählen sie wie auf der Packung zu den Kohlenhydraten
+  const polK = Object.keys(attrs).find(x => /^Kohlenhydrate, davon mehrwertige Alkohole in g$/.test(x));
+  const polyols = polK === undefined ? null : num(attrs[polK], where + " " + polK, problems);
 
   const priceRaw = (html.match(/itemprop="price"[^>]*>\s*([\d.,]+)/) || [])[1];
   const price = priceRaw == null ? null : U.round(Number(String(priceRaw).replace(",", ".")), 2);
@@ -590,6 +622,7 @@ function parsePage(html, url, problems) {
     name, url, sku, price, per100, basis, noData,
     packG: packSize(name, problems), drainedG: drained, unavailable,
     fibreDeclared: !missing.includes("fibre"),
+    polyols,
     allergens: info["Allergene"] || null,
     ingredients: info["Zutatenverzeichnis"] || null,
     legal: info["Rechtliche Bezeichnung"] || null,
@@ -651,6 +684,7 @@ async function main() {
           if (old.valuesFrom) d.valuesFrom = old.valuesFrom;
           // die Bezugsgröße („je 100 g (unzubereitet)“) steht in der ausgeblendeten Nährwerttabelle → kommt mit den Werten (29.10.2026)
           if (old.basis) d.basis = old.basis;
+          if (old.polyols != null) d.polyols = old.polyols;
           // Stand der Werte: vom Produkt selbst (valuesAsOf), sonst aus dem Hinweis des vorigen Laufs, sonst dessen Abrufdatum
           const prevNote = ((PREV._meta && PREV._meta.unavailable) || []).find(x => x.indexOf(d.name + " — ") === 0) || "";
           d.valuesAsOf = old.valuesAsOf || (prevNote.match(/Nährwerte \((\d{4}-\d{2}-\d{2})\)/) || [])[1] || (PREV._meta.fetchedAt || "").slice(0, 10) || "voriger Lauf";
@@ -725,7 +759,17 @@ async function main() {
     if (FISH_ALLERGEN_RE.test(d.allergens || "") || FISH_NAME_RE.test(d.name)) { d.fish = true; fish.push(d.name); }
     if (TUNA_RE.test(d.name + " " + (d.legal || "") + " " + (d.ingredients || ""))) { d.tuna = true; tuna.push(d.name); }
 
-    if (!d.noData) { const issues = U.checkItem({ ...d.per100, fibre: d.per100.fibre || 0 }); if (issues.length) anomalies.push({ name: d.name, issues }); }
+    if (!d.noData) {
+      const issues = U.checkItem({ ...d.per100, fibre: d.per100.fibre || 0, polyols: d.polyols || 0 });
+      if (issues.length) {
+        // kcal zu niedrig, Polyole laut Zutaten, aber ohne Mengenangabe → erklärt, nicht korrigiert (die Werte bleiben die der Packung)
+        const pol = [...new Set(((d.ingredients || "").match(POLYOL_RE) || []).map(s => s.toLowerCase()))];
+        const low = d.per100.kcal < 4 * d.per100.carbs + 4 * d.per100.protein + 9 * d.per100.fat;
+        anomalies.push(pol.length && d.polyols == null && low && issues.every(i => /^kcal /.test(i))
+          ? { name: d.name, issues, note: "enthält laut Zutaten Polyole (" + pol.join(", ") + "), die laut LMIV nur 2,4 kcal/g zählen (Erythrit 0 kcal/g); die Seite nennt ihre Menge („davon mehrwertige Alkohole“) nicht → weniger kcal als 4·KH + 4·E + 9·F, Werte unverändert übernommen" }
+          : { name: d.name, issues });
+      }
+    }
     items.push(d);
     process.stdout.write(".");
   }
@@ -844,6 +888,7 @@ async function main() {
         "User 20.10.2026 (Bowl-Zutaten, später): „Die Pilze können alle wieder raus und alles, was in der letzten Nachricht dazugekommen ist und pro ganzer Artikel mehr als 2 g Salz hat, soll auch raus“ → nicht mehr im Tracker: die 10 Pilz-Dosen und -Gläser (Kategorie „Mushrooms (tins)“ entfällt) und Korean Street Kimchi 160 g (3,4 g Salz je Glas) — als einzige der 44 Bowl-Zutaten über 2 g Salz je ganzer Packung (gezählt wie im Tracker: bei Konserven das Abtropfgewicht; knapp darunter EDEKA Herzstücke Artischockenherzen 400 g mit 1,9 g)",
         "User 13.10.2026: fertige Reis-Mischungen (auch mit Bohnen oder Gemüse) in „Carbs & bases“ — alle verzehrfertigen Beutel der Shop-Kategorien „Reis“ und „Fertiggerichte“, die eine Mischung sind (gewürzt, mit Gemüse/Hülsenfrüchten oder aus mehreren Reissorten): 11× Ben's Original, 3× reis-fit, 2× GUT&GÜNSTIG, 1× Tilda. Nicht aufgenommen: sortenreine Express-Beutel und die alten 250-g-Größen von Ben's Original",
         "User 26.10.2026: Express-Reis — „alle Ben's und weitere Express-Reis und Express-Reis/Bohnen-Mischungen, die noch nicht eingebaut sind; keine Kochbeutel und nichts, was noch Zubereitung braucht“ → 10 verzehrfertige Beutel (Mikrowelle 2 Min. bzw. Pfanne) in „Carbs & bases“: Ben's Original Express Natur-Reis Vollkorn, Langkornreis und Jasminreis je 220 g, Sticky Bowl-Reis 220 g, Express Langkornreis, nach Art Risi Bisi und Reis Mexikanisch je 250 g, reis-fit Express Parboiled-Reis 250 g, GUT&GÜNSTIG Expressreis Basmati 250 g, Tilda Pure Basmatireis gedämpft 250 g (damit auch die sortenreinen Beutel und die 250-g-Größen, die am 13.10.2026 draußen blieben). Nicht aufgenommen: Kochbeutel, reis-fit 8 Minuten, Ebly, trockener Reis",
+        "User 30.10.2026: „alle ESN, Barebells und Premier Protein Proteinriegel, die bei Edeka Graf zu kaufen sind, als eigene Kategorie“ → neue Kategorie „Protein bars“ mit allen 20 Riegeln der drei Marken aus der Shop-Kategorie „Cerealienriegel“ (9 ESN Designer Bar à 45 g, 6 Barebells à 55 g, 5 Premier Protein à 40 bzw. 50 g), je Riegel die ganze Packung. Nicht aufgenommen: ESN All-in-One Men/Women (Kapseln). Gerade nicht verfügbare Riegel zeigt die Kategorie-Liste des Shops nicht — sie fehlen, bis der Shop sie wieder listet",
         "User 29.10.2026: „bitte bei Ben's Original Express-Reis-Mischungen alle 250-g-Versionen raus, im Edeka gibt es nur die 220-g-Versionen (nur auf Marke Ben's bezogen)“ → nicht mehr im Tracker: Ben's Original Express Langkornreis 250 g, Express nach Art Risi Bisi 250 g und Express Reis Mexikanisch 250 g; dieselben Sorten gibt es als 220-g-Beutel. Die 250-g-Beutel von reis-fit, GUT&GÜNSTIG und Tilda bleiben",
         "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere",
       ],
@@ -864,6 +909,7 @@ async function main() {
       drained: Object.fromEntries(items.filter(x => x.drainedG != null).map(x => [x.name, x.drainedG + " g von " + x.packG + " g"])),
       noData,
       noFibre,
+      polyols: Object.fromEntries(items.filter(x => x.polyols != null).map(x => [x.name, x.polyols])),   // „davon mehrwertige Alkohole“ je 100 g (Plausibilität)
       frozen: frozen.length ? frozen : "kein Produkt mit Tiefkühl-Hinweis",
       unavailable,   // im Onlineshop gerade nicht verfügbar → letzter bekannter Preis
       waiting,   // neu aufgenommen, aber noch nie mit Werten gelesen (WAITING) → noch nicht im Tracker
@@ -896,7 +942,7 @@ async function main() {
   console.log("Tiefkühl: " + (Array.isArray(out._meta.frozen) ? out._meta.frozen.join(" · ") : out._meta.frozen));
   console.log("Schalentier: " + (Array.isArray(out._meta.shellfish) ? out._meta.shellfish.join(" · ") : out._meta.shellfish));
   console.log("Koriander/Minze: " + (Array.isArray(out._meta.coriander) ? out._meta.coriander.join(" · ") : out._meta.coriander));
-  console.log("Auffälligkeiten (" + anomalies.length + "):" + (anomalies.length ? "\n  " + anomalies.map(a => a.name + ": " + a.issues.join("; ")).join("\n  ") : " keine"));
+  console.log("Auffälligkeiten (" + anomalies.length + "):" + (anomalies.length ? "\n  " + anomalies.map(a => a.name + ": " + a.issues.join("; ") + (a.note ? " — " + a.note : "")).join("\n  ") : " keine"));
   if (infos.length) console.log("Hinweise:\n  " + infos.join("\n  "));
 }
 

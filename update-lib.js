@@ -54,7 +54,11 @@ function checkItem(x) {
   const out = [];
   const atw = 4 * x.carbs + 4 * x.protein + 9 * x.fat;
   const tol = Math.max(15, 0.1 * x.kcal);
-  if (Math.abs(x.kcal - atw) > tol && Math.abs(x.kcal - (atw + 2 * x.fibre)) > tol)
+  // Polyole (Angabe „davon mehrwertige Alkohole“, z.B. Maltit und Glycerin in Proteinriegeln) zählen laut LMIV Anhang XIV 2,4 statt 4 kcal/g
+  // — nur, wenn das Item sie angibt (x.polyols, je Bezugsmenge); ohne Angabe prüft die Funktion wie bisher
+  const pol = x.polyols > 0 ? 1.6 * x.polyols : 0;
+  if (Math.abs(x.kcal - atw) > tol && Math.abs(x.kcal - (atw + 2 * x.fibre)) > tol &&
+      !(pol && (Math.abs(x.kcal - (atw - pol)) <= tol || Math.abs(x.kcal - (atw - pol + 2 * x.fibre)) <= tol)))
     out.push("kcal " + x.kcal + " ≠ 4·C+4·P+9·F = " + Math.round(atw));
   if (x.sat > x.fat + 1e-9) out.push("sat " + x.sat + " > fat " + x.fat);
   if (x.sugars > x.carbs + 1e-9) out.push("sugars " + x.sugars + " > carbs " + x.carbs);
