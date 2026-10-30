@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, chidobaSnackMenu, chidobaSnackGroup, chidobaItemsMax, CHIDOBA_ITEMS_CAP, chidobaCard, chidobaConfigCard, chidobaStepEntries, chidobaCatOn, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, BURGERMEISTER, acAddonPlan, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition, SHARE_VIEWS, SHARE_VIEW, shareViewFrom, visibleTabs, VISIBLE_TABS, viewSearchIndex, VIEW_SEARCH_INDEX, viewShows, SHOW_SCREENSHOT_IMPORT, showTabRow, SHOW_TAB_ROW, APP_CODE, appNeedsCode, appUnlock, AppGate, compleatBuilderAvailable, compleatBuildMode, compleatCleanPicks, compleatPickList, compleatCanAdd, compleatPickStep, bowlAssemble, bowlRequireHint, compleatManualResult, compleatCompletionMenu, compleatComplete, compleatBuildLoad, compleatBuildSave, compleatConfigCard, compleatBuilder, OrderGuide, MacroBars, bowlPanel, bowlCard, bowlConfigParts, EDEKA_FIX_CODE, edekaFixToggle, edekaFixUnlock, edekaConfigCard };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, chidobaSnackMenu, chidobaSnackGroup, chidobaItemsMax, CHIDOBA_ITEMS_CAP, chidobaCard, chidobaConfigCard, chidobaStepEntries, chidobaCatOn, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, BURGERMEISTER, acAddonPlan, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition, SHARE_VIEWS, SHARE_VIEW, shareViewFrom, visibleTabs, VISIBLE_TABS, viewSearchIndex, VIEW_SEARCH_INDEX, viewShows, SHOW_SCREENSHOT_IMPORT, showTabRow, SHOW_TAB_ROW, APP_CODE, appNeedsCode, appUnlock, AppGate, compleatBuilderAvailable, compleatBuildMode, compleatCleanPicks, compleatPickList, compleatCanAdd, compleatPickStep, bowlAssemble, bowlRequireHint, compleatManualResult, compleatCompletionMenu, compleatComplete, compleatBuildLoad, compleatBuildSave, compleatConfigCard, compleatBuilder, OrderGuide, MacroBars, bowlPanel, bowlCard, bowlConfigParts, EDEKA_FIX_CODE, edekaFixToggle, edekaFixUnlock, edekaConfigCard, EDEKA_ALL, edekaCard, edekaPanel, edekaSetMode, EDEKA_AI_MODEL, EDEKA_AI_EFFORT, EDEKA_AI_SDK_URL, EDEKA_AI_KEYS, EDEKA_AI_TOP, edekaAiAvailable, edekaAiKey, edekaAiSetKey, edekaAiMaskKey, edekaAiClean, edekaAiLoad, edekaAiCatalog, edekaAiSystem, edekaAiSchema, edekaAiInfo, edekaAiUserText, edekaAiParams, edekaAiErrorText, edekaAiParse, edekaAiSanitize, edekaAiAsk, edekaAiRanges, edekaAiScore, edekaAiScoreV, edekaAiChecks, edekaAiSlotItems, edekaAiPool, edekaAiCombos, edekaAiSubmit, edekaAiCard };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -26,6 +26,9 @@ const check = (name, actual, expected) => {
   console.log(`${ok ? "PASS" : "FAIL"}  ${name}: ${actual}${typeof expected === "boolean" ? "" : ` (erwartet ${expected})`}`);
 };
 const sect = s => console.log("\n── " + s + " ──");
+// Asynchrone Prüfungen (Claude-Aufruf mit Test-Attrappe): laufen nacheinander nach den synchronen, die Zusammenfassung wartet auf sie
+let asyncChain = Promise.resolve();
+const checkAsync = (name, fn) => { asyncChain = asyncChain.then(fn).then(v => check(name, v, true), e => check(name + " — Fehler: " + (e && e.message), false, true)); };
 // Test-Helfer: Item mit stimmigen kcal (4·C + 4·P + 9·F), Ziel im Makro-Modus, sortierte id-Signatur eines Ergebnisses
 const it = (id, cat, carbs, protein, fat, extra) => Object.assign({ id, name: id, cat, kcal: 4 * carbs + 4 * protein + 9 * fat, fat, sat: 0, carbs, sugars: 0, fibre: 0, protein, salt: 0 }, extra || {});
 const tgt = (protein, carbs, fat, more) => Object.assign({ protein, carbs, fat, kcal: protein * 4 + carbs * 4 + fat * 9, fibMin: null, fibMax: null, sMin: null, sMax: null }, more || {});
@@ -2703,7 +2706,7 @@ check("Ausgeschlossene Picks fallen weg; Preislimit gilt auch mit Picks", (() =>
 check("Track basket: kein Optimizer (hideResults), Modus im State, Warenkorb und Picks werden gespeichert", (() => {
   const track = edState({ mode: "track" });
   return ED.hideResults(track) === true && ED.hideResults(edSt) === false && T.edekaMode(track) === "track" && T.edekaMode(edSt) === "build" &&
-    JSON.stringify(Object.keys(T.edekaLoad()).sort()) === JSON.stringify(["basket", "mode", "picks", "q"]);
+    JSON.stringify(Object.keys(T.edekaLoad()).sort()) === JSON.stringify(["ai", "basket", "mode", "picks", "q"]);
 })(), true);
 check("Einkaufsliste statt Order Guide: je Produkt Kategorie + Name (Marke steht schon im Namen), 🔒 für Picks", (() => {
   const it = edItem(U.slugId("Bonduelle Kidney Bohnen 400 g"));
@@ -2964,6 +2967,279 @@ check("Kulturheidelbeeren im Warenkorb: „no price online“, kein Link „open
 })(), true);
 
 // ── PrepMyMeal: die Tiefkühl-Gerichte, die es bei Edeka Graf gibt (Schalter „Include PrepMyMeal“) ──
+// ── EDEKA Graf: „✨ Ask Claude“ (User 30.10.2026) ──
+sect("EDEKA Graf: ✨ Ask Claude");
+// Test-Attrappe des Anthropic-SDK: dieselbe Fehlerklassen-Hierarchie (alle unter APIError), merkt sich Optionen und Anfrage
+class FakeAPIError extends Error { constructor(status, msg, type) { super(String(status) + " " + msg); this.status = status; this.type = type; this.error = { error: { message: msg, type } }; } }
+class FakeA {
+  constructor(o) { FakeA.opts = o; this.beta = { messages: { create: async p => { FakeA.params = p; FakeA.calls++; if (FakeA.fail) throw FakeA.fail; return FakeA.reply; } } }; }
+}
+FakeA.APIError = FakeAPIError;
+for (const n of ["BadRequestError", "AuthenticationError", "PermissionDeniedError", "NotFoundError", "RateLimitError", "InternalServerError", "APIConnectionError"]) FakeA[n] = class extends FakeAPIError {};
+FakeA.calls = 0; FakeA.fail = null; FakeA.reply = null;
+const aiReply = obj => ({ stop_reason: "end_turn", content: [{ type: "thinking", thinking: "" }, { type: "text", text: JSON.stringify(obj) }] });
+const aiIdx = id => T.EDEKA_ALL.items.findIndex(x => x.id === id);
+const noRange = { min: null, max: null };
+const aiRanges = o => Object.assign({ kcal: noRange, protein: noRange, carbs: noRange, fat: noRange, fibre: noRange, salt: noRange }, o || {});
+// Bauplan, wie Claude ihn zum Beispiel des Users liefern soll (Express-Reis + Hühnchen + Dosengemüse oder -Hülsenfrüchte)
+const AI_TEXT = "Express-Reis mit Hühnchen und Dosengemüse oder Dosen-Hülsenfrüchten, ca. 750–800 kcal, mind. 50 g Protein, 60–80 g KH, Rest Fett";
+const AI_RICE = T.EDEKA_ALL.items.filter(x => x.cat === "carbs" && /Express|Expres|Sticky|gedämpft|Ben's Original Mexikanisch/i.test(x.name)).map(x => x.id);
+const AI_CHICKEN = T.EDEKA_ALL.items.filter(x => x.cat === "chicken" && /Hähnchen/.test(x.name)).map(x => x.id);
+const aiSpec = chickenMax => ({ text: AI_TEXT, summary: "Express rice, chicken and tinned vegetables or pulses; 750–800 kcal, at least 50 g protein, 60–80 g carbs, fat open.",
+  ranges: aiRanges({ kcal: { min: 750, max: 800 }, protein: { min: 50, max: null }, carbs: { min: 60, max: 80 } }),
+  slots: [{ label: "Express rice", cats: [], ids: AI_RICE, exclude: [], min: 1, max: 1 }, { label: "Chicken", cats: [], ids: AI_CHICKEN, exclude: [], min: 1, max: chickenMax || 1 },
+    { label: "Tinned veg or pulses", cats: ["veg_tins", "beans"], ids: [], exclude: [], min: 1, max: 1 }], unmatched: [] });
+const aiRaw = () => ({ summary: aiSpec(1).summary, ranges: aiSpec(1).ranges,
+  slots: [{ label: "Express rice", categories: [], products: AI_RICE.map(aiIdx), excludeProducts: [], min: 1, max: 1 },
+    { label: "Chicken", categories: [], products: AI_CHICKEN.map(aiIdx), excludeProducts: [], min: 1, max: 2 },
+    { label: "Tinned veg or pulses", categories: ["veg_tins", "beans"], products: [], excludeProducts: [], min: 1, max: 1 }] });
+const aiState = (spec, sw) => edState({ mode: "ai", ai: { text: spec ? spec.text : "", spec } }, null, sw);
+const aiCtx = (st, more) => Object.assign({ st, R: ED, mode: "macros", targets: tDef, prefs: {}, ex: new Set(), tg: {}, update: () => {} }, more || {});
+// Texte und Eingabefelder eines gerenderten Baums (global.__h liefert die Knoten)
+const aiTree = node => { const out = { texts: [], inputs: [] }; const walk = n => { if (n == null || n === false || n === true) return; if (Array.isArray(n)) return n.forEach(walk); if (typeof n !== "object") return out.texts.push(String(n)); if (n.type === "input" || n.type === "textarea") out.inputs.push(Object.assign({ tag: n.type }, n.props)); walk(n.children); }; walk(node); return out; };
+const aiRender = f => { global.__h = (type, props, ...children) => ({ type, props: props || {}, children }); try { return f(); } finally { global.__h = null; } };
+// Vollständige Durchrechnung eines Bauplans (Vergleich für die Suche): alle Multimengen je Slot × alle Slots, gleiche Warenkörbe einmal
+const bruteAi = (spec, pool, R, maxPrice) => {
+  const S = spec.slots.map(sl => { const items = T.edekaAiSlotItems(sl, pool), out = [], pick = [];
+    const rec = start => { if (pick.length >= sl.min) out.push(pick.slice()); if (pick.length === sl.max) return; for (let i = start; i < items.length; i++) { pick.push(i); rec(i); pick.pop(); } };
+    rec(0); return { items, out }; });
+  const res = new Map();
+  const go = (d, acc) => {
+    if (d === S.length) {
+      const v = T.EDEKA_AI_KEYS.map(k => acc.reduce((s, x) => s + (x[k] || 0), 0)), price = acc.reduce((s, x) => s + (x.price || 0), 0);
+      if (maxPrice != null && price > maxPrice + 1e-9) return;
+      const key = acc.map(x => x.id).sort().join("|"), sc = T.edekaAiScoreV(v, R);
+      if (!res.has(key) || res.get(key) > sc) res.set(key, sc);
+      return;
+    }
+    for (const o of S[d].out) go(d + 1, acc.concat(o.map(i => S[d].items[i])));
+  };
+  go(0, []);
+  return [...res.entries()].sort((a, b) => a[1] - b[1]);
+};
+
+check("Dritter Modus „✨ Ask Claude“ nur in der vollen App (in keinem Freundes-Link): Knopf neben Build order / Track basket, im Modus Textfeld statt Kategorien und „Max. products“, „Must include“ ruht, kein Picks-/Warenkorb-Block, Ergebnisliste bleibt", (() => {
+  const st = aiState(null), views = Object.values(T.SHARE_VIEWS);
+  const card = aiRender(() => aiTree(T.edekaConfigCard(aiCtx(st)))), build = aiRender(() => aiTree(T.edekaConfigCard(aiCtx(edSt))));
+  const extra = aiRender(() => T.edekaExtra(aiCtx(st)));
+  return T.edekaAiAvailable(null) === true && views.length === 3 && views.every(v => T.edekaAiAvailable(v) === false) &&
+    T.edekaMode(st) === "ai" && ED.controls(st).include === false && ED.controls(edSt) === null && ED.hideResults(st) === false && extra === null &&
+    card.texts.includes("✨ Ask Claude") && card.texts.includes("🎯 Build order") && card.texts.includes("Describe your meal") && card.inputs.some(p => p.tag === "textarea") &&
+    !card.texts.includes("Max. products per order") && !card.texts.includes("Categories") &&
+    build.texts.includes("✨ Ask Claude") && build.texts.includes("Max. products per order") && !build.texts.includes("Describe your meal") &&
+    ED.inputHint(st) === "EDEKA Graf: used when your wish names no numbers" && ED.inputHint(edSt) === "EDEKA Graf: build a basket";
+})(), true);
+check("Moduswechsel: zu oder von „Ask Claude“ schließt das Detail-Panel (andere Ergebnisliste), Build ↔ Track nicht", (() => {
+  let st = Object.assign({}, edState({}), { sel: { items: [] } });
+  const ctx = { update: fn => { st = Object.assign({}, st, fn(st)); } };
+  T.edekaSetMode(ctx, "track"); const a = st.sel !== null && T.edekaMode(st) === "track";
+  T.edekaSetMode(ctx, "ai"); const b = st.sel === null && T.edekaMode(st) === "ai";
+  st.sel = { items: [] }; T.edekaSetMode(ctx, "build"); const c = st.sel === null && T.edekaMode(st) === "build";
+  return a && b && c;
+})(), true);
+check("Was Claude bekommt: Regeln + Kategorien + der ganze Katalog (Nummer = Position, Name, Kategorie, gezählte Menge, offizielle Werte, Flags) als fester Text für den Prompt-Cache — Label corrections ändern ihn nicht", (() => {
+  const sys = T.edekaAiSystem(), cat = T.edekaAiCatalog().split("\n");
+  const it = name => cat[T.EDEKA_ALL.items.findIndex(x => x.name === name)];
+  const rice = U.slugId("Ben's Original Express Langkornreis 220 g");
+  T.edekaSaveFix(rice, { kcal: "999" });
+  const same = T.edekaAiCatalog() === cat.join("\n");
+  T.edekaClearFix(rice);
+  return sys === T.edekaAiSystem() && sys.endsWith(cat.join("\n")) && cat.length === T.EDEKA_ALL.items.length && cat.length === 255 &&
+    cat.every((l, i) => l.startsWith(i + " | " + T.EDEKA_ALL.items[i].name + " | " + T.EDEKA_ALL.items[i].cat + " | ")) &&
+    it("Ben's Original Express Langkornreis 220 g").endsWith("| carbs | 220 g | 295 kcal · P 5.9 · C 61.6 · F 2") &&
+    it("Bonduelle Kidney Bohnen 400 g").includes("| beans | 250 g drained | 230 kcal ·") &&
+    T.EDEKA_ALL.items.every((x, i) => !x.prep || cat[i].endsWith("| PrepMyMeal")) && T.EDEKA_ALL.items.every((x, i) => !x.tuna || / \| .*tuna/.test(cat[i])) &&
+    /\| no price online$/.test(it("EDEKA Herzstücke Burrito Chicken BBQ 300 g")) && /unavailable online/.test(it("G&G EXPRESSREIS ASIA 250G")) &&
+    T.EDEKA_ALL.cats.every(c => sys.includes("\n" + c.id + " = " + c.name + "\n")) &&
+    /never compute or state nutrition values/.test(sys) && /Never invent products/.test(sys) && /allergic to crustaceans and molluscs/.test(sys) && same;
+})(), true);
+check("Antwort-Schema (structured outputs): jedes Objekt mit additionalProperties false und vollständigem required, Kategorien als enum, keine nicht unterstützten Grenzen (minimum, maxItems …)", (() => {
+  const sc = T.edekaAiSchema(), objs = new Set();
+  const walk = n => { if (!n || typeof n !== "object") return; if (n.type === "object") objs.add(n); Object.values(n).forEach(walk); };
+  walk(sc);
+  return objs.size === 4 && [...objs].every(o => o.additionalProperties === false && JSON.stringify(Object.keys(o.properties).sort()) === JSON.stringify(o.required.slice().sort())) &&
+    JSON.stringify(sc.properties.slots.items.properties.categories.items.enum) === JSON.stringify(T.EDEKA_ALL.cats.map(c => c.id)) &&
+    JSON.stringify(sc.properties.ranges.required) === JSON.stringify(["kcal", "protein", "carbs", "fat", "fibre", "salt"]) &&
+    !/"(minimum|maximum|minLength|maxLength|minItems|maxItems|multipleOf)"/.test(JSON.stringify(sc));
+})(), true);
+check("Anfrage nach der claude-api-Referenz: claude-opus-5-5, effort „medium“, Antwort als JSON-Schema, System-Prompt im Prompt-Cache, Server-Fallback „default“ (beta), ohne forced tool_choice, thinking-Budget und Sampling-Parameter; die Nachricht nennt Wunsch, Ziele, Preislimit, Schalter und Ausschlüsse", (() => {
+  const info = T.edekaAiInfo(aiCtx(edState(null, null, { noTuna: true, noFish: false }), { targets: tgt(65, 85, 20, { maxPrice: 12 }), ex: new Set([U.slugId("Bonduelle Kidney Bohnen 400 g")]) }));
+  const p = T.edekaAiParams("Express-Reis mit Hühnchen", info), msg = p.messages[0].content;
+  const cal = T.edekaAiUserText("x", Object.assign({}, info, { mode: "calories", targets: kcalT(450), prefs: { hp: true, lf: true } }));
+  return p.model === "claude-opus-5-5" && T.EDEKA_AI_MODEL === "claude-opus-5-5" && T.EDEKA_AI_EFFORT === "medium" && p.max_tokens === 16000 && p.output_config.effort === "medium" &&
+    p.output_config.format.type === "json_schema" && JSON.stringify(p.output_config.format.schema) === JSON.stringify(T.edekaAiSchema()) &&
+    p.system.length === 1 && p.system[0].type === "text" && p.system[0].text === T.edekaAiSystem() && p.system[0].cache_control.type === "ephemeral" &&
+    JSON.stringify(p.betas) === JSON.stringify(["server-side-fallback-2026-07-01"]) && p.fallbacks === "default" &&
+    ["tool_choice", "tools", "thinking", "temperature", "top_p", "top_k"].every(k => !(k in p)) &&
+    p.messages.length === 1 && p.messages[0].role === "user" && msg.startsWith("Wish: Express-Reis mit Hühnchen\n") &&
+    msg.includes("- Targets in the app: macros mode — carbs 85 g, protein 65 g, fat 20 g (≈ 780 kcal)") && msg.includes("- Price limit for the meal: €12.00") &&
+    msg.includes("- Switches on: No frozen food, No tuna, No Eat Happy · off: Include PrepMyMeal, No fish") && msg.includes("- Excluded by the shopper: Bonduelle Kidney Bohnen 400 g") &&
+    cal.includes("calories mode — 450 kcal; preferences: high protein, low fat") && cal.includes("Fibre/salt limits in the app: none") &&
+    T.EDEKA_AI_SDK_URL === "https://cdn.jsdelivr.net/npm/@anthropic-ai/sdk@0.135.0/+esm";
+})(), true);
+check("Antwort → Bauplan: Nummern werden Produkt-ids, falsche Nummern und Kategorien fallen weg, 0–3 Packungen mit min ≤ max, vertauschte/negative Bereiche bereinigt, Slots ohne Produkte als „Not in this shop“", (() => {
+  const i1 = T.EDEKA_ALL.items.findIndex(x => x.name === "Ben's Original Express Langkornreis 220 g"), i2 = T.EDEKA_ALL.items.findIndex(x => x.name === "EDEKA Herzstücke Hähnchenbrust-Filetstück Klassik 150 g");
+  const sp = T.edekaAiSanitize({ summary: "  ok  ", ranges: aiRanges({ kcal: { min: 800, max: 750 }, protein: { min: -5, max: null }, carbs: { min: 60, max: 80 } }),
+    slots: [{ label: "Rice", categories: ["carbs", "nope"], products: [i1, 9999, -1, 2.5], excludeProducts: [i1], min: 1, max: 1 },
+      { label: "Chicken", categories: [], products: [i2, i2], excludeProducts: [], min: 2, max: 9 },
+      { label: "Lobster", categories: [], products: [], excludeProducts: [], min: 1, max: 1 },
+      { label: "", categories: ["veg_tins"], products: [], excludeProducts: [], min: -1, max: 0 }] }, " Wunsch ");
+  return sp.summary === "ok" && sp.text === "Wunsch" && sp.model === "claude-opus-5-5" && typeof sp.at === "string" &&
+    sp.ranges.kcal.min === 750 && sp.ranges.kcal.max === 800 && sp.ranges.protein.min === null && sp.ranges.carbs.max === 80 && sp.ranges.fat.min === null &&
+    sp.slots.length === 2 && JSON.stringify(sp.slots[0].cats) === '["carbs"]' && JSON.stringify(sp.slots[0].ids) === JSON.stringify([T.EDEKA_ALL.items[i1].id]) &&
+    JSON.stringify(sp.slots[0].exclude) === JSON.stringify([T.EDEKA_ALL.items[i1].id]) && sp.slots[1].min === 2 && sp.slots[1].max === 3 && sp.slots[1].ids.length === 1 &&
+    JSON.stringify(sp.unmatched) === '["Lobster"]';
+})(), true);
+check("Antwort lesen: Ablehnung (refusal), abgeschnittene Antwort, kein Text, kaputtes JSON → je eine verständliche Meldung; nach einem Fallback-Block zählt der Text danach", (() => {
+  const msgOf = f => { try { f(); return null; } catch (e) { return e.aiText; } };
+  const ok = T.edekaAiParse({ stop_reason: "end_turn", content: [{ type: "text", text: '{"a":0}' }, { type: "fallback", from: {}, to: {} }, { type: "text", text: '{"a":1}' }] });
+  return ok.a === 1 &&
+    /declined/.test(msgOf(() => T.edekaAiParse({ stop_reason: "refusal", content: [] }))) &&
+    /cut off/.test(msgOf(() => T.edekaAiParse({ stop_reason: "max_tokens", content: [{ type: "text", text: "{" }] }))) &&
+    /no plan/.test(msgOf(() => T.edekaAiParse({ stop_reason: "end_turn", content: [{ type: "thinking", thinking: "" }] }))) &&
+    /couldn't be read/.test(msgOf(() => T.edekaAiParse({ stop_reason: "end_turn", content: [{ type: "text", text: "kein JSON" }] })));
+})(), true);
+check("SDK-Fehler → ein Satz für den User (typisierte Fehler, spezifischste zuerst): falscher Schlüssel (401), keine Berechtigung, Modell fehlt, Rate-Limit, überlastet (529), Serverfehler, kein Netz, 400 mit der Meldung der API, sonst Status + Meldung", (() => {
+  const A = FakeA, txt = e => T.edekaAiErrorText(e, A);
+  return /didn't accept the API key/.test(txt(new A.AuthenticationError(401, "invalid x-api-key", "authentication_error"))) &&
+    /isn't allowed/.test(txt(new A.PermissionDeniedError(403, "x", "permission_error"))) && /isn't available/.test(txt(new A.NotFoundError(404, "x", "not_found_error"))) &&
+    /Too many requests/.test(txt(new A.RateLimitError(429, "rate", "rate_limit_error"))) &&
+    /overloaded/.test(txt(new A.InternalServerError(529, "Overloaded", "overloaded_error"))) && /server error/.test(txt(new A.InternalServerError(500, "boom", "api_error"))) &&
+    /No connection/.test(txt(new A.APIConnectionError(undefined, "Connection error.", undefined))) &&
+    txt(new A.BadRequestError(400, "Your credit balance is too low", "invalid_request_error")) === "Claude rejected the request: Your credit balance is too low" &&
+    txt(new A.APIError(402, "billing problem", "billing_error")) === "Claude returned an error (402): billing problem" && /Couldn't reach Claude/.test(T.edekaAiErrorText(new Error("x"), null));
+})(), true);
+check("API-Schlüssel nur auf diesem Gerät (fra_ai_key): ohne Schlüssel zeigt die Karte das Passwortfeld, gespeichert nur maskiert („sk-ant-…XYZ9“) mit „Remove“; „✨ Suggest meals“ geht erst mit Schlüssel und Text; kein Schlüssel im Quelltext", (() => {
+  const before = lsStore.get("fra_ai_key"); lsStore.delete("fra_ai_key");
+  const st = aiState(null); st.extra.ai.text = AI_TEXT;
+  const findBtn = node => { let b = null; const walk = n => { if (!n || typeof n !== "object" || b) return; if (Array.isArray(n)) return n.forEach(walk); if (n.type === "button" && (n.children || []).some(c => /Suggest meals/.test(String(c)))) b = n; walk(n.children); }; walk(node); return b; };
+  const noKey = aiRender(() => T.edekaAiCard(aiCtx(st)));
+  const t1 = aiRender(() => aiTree(T.edekaAiCard(aiCtx(st))));
+  T.edekaAiSetKey("  sk-ant-api03-abcdefghijklmnop-XYZ9  ");
+  const k = T.edekaAiKey(), withKey = aiRender(() => T.edekaAiCard(aiCtx(st))), t2 = aiRender(() => aiTree(withKey));
+  const emptyText = aiState(null), noText = aiRender(() => T.edekaAiCard(aiCtx(emptyText)));
+  T.edekaAiSetKey("");
+  const gone = T.edekaAiKey() === null;
+  if (before != null) lsStore.set("fra_ai_key", before);
+  return t1.texts.includes("Claude API key") && t1.inputs.some(p => p.type === "password") && !t1.texts.some(x => /Remove/.test(x)) && findBtn(noKey).props.disabled === true &&
+    k === "sk-ant-api03-abcdefghijklmnop-XYZ9" && T.edekaAiMaskKey(k) === "sk-ant-…XYZ9" && t2.texts.includes("🔑 API key saved on this device (sk-ant-…XYZ9)") && t2.texts.includes("Remove") &&
+    !t2.texts.includes("Claude API key") && findBtn(withKey).props.disabled === false && findBtn(noText).props.disabled === true && gone &&
+    T.LS.aiKey === "ai_key" && !/sk-ant-[A-Za-z0-9_-]{8,}/.test(SCRIPT);
+})(), true);
+check("Ohne Bauplan: Hinweis statt Ergebnissen (mit bzw. ohne Schlüssel); der letzte Bauplan aus fra_edeka_ai kommt beim Start bereinigt zurück (unbekannte Produkte/Kategorien fallen weg)", (() => {
+  const before = lsStore.get("fra_ai_key"); lsStore.delete("fra_ai_key");
+  const none = runED(tDef, aiState(null));
+  T.edekaAiSetKey("sk-ant-test-0000000000000");
+  const none2 = runED(tDef, aiState(null));
+  T.edekaAiSetKey(""); if (before != null) lsStore.set("fra_ai_key", before);
+  lsStore.set("fra_edeka_ai", JSON.stringify({ text: "x", spec: Object.assign(aiSpec(1), { slots: [{ label: "A", cats: ["gibtsnicht"], ids: ["gibts_nicht", AI_RICE[0]], exclude: [], min: 1, max: 1 }, { label: "B", cats: [], ids: ["weg"], exclude: [], min: 1, max: 1 }] }) }));
+  const ld = T.edekaLoad().ai;
+  lsStore.delete("fra_edeka_ai");
+  return none.length === 0 && /Add your Claude API key/.test(none.empty) && /Suggest meals/.test(none2.empty) && T.LS.edekaAi === "edeka_ai" &&
+    ld.text === "x" && ld.spec.slots.length === 1 && JSON.stringify(ld.spec.slots[0].ids) === JSON.stringify([AI_RICE[0]]) && ld.spec.slots[0].cats.length === 0 && T.edekaLoad().ai.spec === null;
+})(), true);
+const rAI1 = runED(tDef, aiState(aiSpec(1))), rAI2 = runED(tDef, aiState(aiSpec(2)));
+check("Beispiel des Users (Bauplan wie von Claude): Express-Reis + Hühnchen + Dosengemüse oder -Hülsenfrüchte, 750–800 kcal, ≥ 50 g Protein, 60–80 g KH, Rest Fett → die besten Vorschläge treffen alle Bereiche; Produkte in der Reihenfolge der Slots, Preis = Packungspreise", (() => {
+  return rAI1.length >= 10 && rAI1.slice(0, 5).every(r => r.ai.checks.length === 3 && r.ai.checks.every(c => c.ok)) &&
+    rAI1.every(r => r.items.length === 3 && r.items[0].aiSlot === "Express rice" && AI_RICE.includes(r.items[0].id) && r.items[1].aiSlot === "Chicken" && AI_CHICKEN.includes(r.items[1].id) &&
+      r.items[2].aiSlot === "Tinned veg or pulses" && ["veg_tins", "beans"].includes(r.items[2].cat)) &&
+    rAI1.every(r => Math.abs(r.price - Math.round(r.items.reduce((s, x) => s + x.price * 100, 0)) / 100) < 1e-9 && Math.abs(r.nutrition.kcal - T.sumN(r.items, 1).kcal) < 1e-9) &&
+    rAI1.every((r, i) => i === 0 || rAI1[i - 1].score <= r.score + 1e-12) && !rAI1.approx &&
+    // 1. Vorschlag: Ben's Original Express Spicy Curry Bowl-Reis + Bernard Matthews Hähnchen-Filetstreifen + ITA-SAN Edamame (230 g abgetropft)
+    rAI1[0].items.map(x => x.name).join(" + ") === "Ben's Original Express Spicy Curry Bowl-Reis 220 g + Bernard Matthews Oldenburg Hähnchen-Filetstreifen 125 g + ITA-SAN Edamame Sojabohnen 400 g (230 g drained)" &&
+    Math.abs(rAI1[0].nutrition.kcal - 771.7) < 0.05 && Math.abs(rAI1[0].nutrition.protein - 59.2) < 0.05 && Math.abs(rAI1[0].nutrition.carbs - 70.4) < 0.05;
+})(), true);
+check("Zweite Hähnchen-Packung erlaubt (max 2): Vorschläge mit 2× Hähnchen; wertgleiche Warenkörbe (alle acht Werte und Preis gleich) erscheinen nur einmal — Hähnchen „Pikant“ und „Klassik“ bleiben getrennt (0,5 statt 0,1 g Zucker je 100 g)", (() => {
+  const vk = rAI2.map(r => T.KEYS.map(k => r.nutrition[k]).join("|") + "|" + r.price);
+  const pool = T.edekaAiPool(edSt, new Set(), tDef, ED).map(x => T.edekaScale(x, x.g));
+  const ck = pool.find(x => x.id === AI_CHICKEN[0]), twin = Object.assign({}, ck, { id: "zwilling", name: "Zwilling" });
+  const spec = { ranges: aiRanges({ protein: { min: 20, max: null } }), slots: [{ label: "C", cats: [], ids: [ck.id, "zwilling"], exclude: [], min: 1, max: 1 }] };
+  const merged = T.edekaAiCombos(spec, pool.concat([twin]), { maxMs: 1e9 }), apart = T.edekaAiCombos(spec, pool.concat([Object.assign({}, twin, { price: twin.price + 0.1 })]), { maxMs: 1e9 });
+  return rAI2.length > 0 && rAI2[0].ai.checks.every(c => c.ok) && new Set(vk).size === vk.length && rAI2.some(r => r.items.filter(x => x.aiSlot === "Chicken").length === 2) &&
+    merged.length === 1 && apart.length === 2 &&
+    rAI2.filter(r => /Curryreis 220 g/.test(r.items[0].name) && r.items.filter(x => /Hähnchenbrust-Filetstück/.test(x.name)).length === 2 && /Mungobohnenkeimlinge/.test(r.items[3].name)).length === 3;
+})(), true);
+check("Suche exakt: die besten Warenkörbe = vollständige Durchrechnung aller Kombinationen (25 Zufalls-Baupläne mit 1–3 Slots, 0–2 Packungen je Slot, Bereichen und Preislimit)", (() => {
+  let seed = 7; const rnd = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
+  const pool = T.edekaAiPool(edSt, new Set(), tDef, ED).map(x => T.edekaScale(x, x.g));
+  const pickN = n => { const out = new Set(); while (out.size < n) out.add(pool[Math.floor(rnd() * pool.length)].id); return [...out]; };
+  let ok = true;
+  for (let c = 0; c < 25 && ok; c++) {
+    const L = 1 + Math.floor(rnd() * 3);
+    const slots = Array.from({ length: L }, (_, i) => { const min = rnd() < 0.3 ? 0 : 1; return { label: "S" + i, cats: [], ids: pickN(3 + Math.floor(rnd() * 5)), exclude: [], min, max: Math.max(min, 1 + Math.floor(rnd() * 2)) }; });
+    const k = 500 + Math.floor(rnd() * 500);
+    const spec = { slots, ranges: aiRanges({ kcal: { min: k, max: k + 50 + Math.floor(rnd() * 100) }, protein: rnd() < 0.7 ? { min: 30 + Math.floor(rnd() * 30), max: null } : noRange,
+      carbs: rnd() < 0.5 ? { min: 40, max: 90 } : noRange, fat: rnd() < 0.3 ? { min: null, max: 25 } : noRange }) };
+    const maxPrice = rnd() < 0.3 ? 6 + Math.floor(rnd() * 6) : null;
+    const R = T.edekaAiRanges(spec, tDef, "macros");
+    const got = T.edekaAiCombos(spec, pool, { maxPrice, maxMs: 1e9, raw: true }), brute = bruteAi(spec, pool, R, maxPrice);
+    ok = got.length === Math.min(T.EDEKA_AI_TOP, brute.length) && !got.approx && got.every((g, i) => Math.abs(g.rawScore - brute[i][1]) < 1e-9);
+    if (!ok) console.log("  Fall " + c + ": " + got.length + " vs " + brute.length);
+  }
+  return ok;
+})(), true);
+check("Bewertung: außerhalb eines Bereichs zählt der Abstand (×100) — jeder Warenkorb in allen Bereichen liegt vor jedem, der einen verfehlt; ohne Bereiche gelten die Ziele der App als Punkt-Ziele; Zeitbudget → „approx“", (() => {
+  const R = T.edekaAiRanges(aiSpec(1), tDef, "macros");
+  const inside = T.edekaAiScore({ kcal: 751, protein: 50, carbs: 60.1, fat: 40 }, R), out = T.edekaAiScore({ kcal: 775, protein: 49.9, carbs: 70, fat: 20 }, R);
+  const R0 = T.edekaAiRanges({ ranges: aiRanges() }, tDef, "macros"), Rc = T.edekaAiRanges({ ranges: aiRanges() }, kcalT(450), "calories");
+  const pool = T.edekaAiPool(edSt, new Set(), tDef, ED).map(x => T.edekaScale(x, x.g));
+  const big = { ranges: aiRanges({ kcal: { min: 3000, max: 3100 } }), slots: [0, 1, 2].map(i => ({ label: "All " + i, cats: T.EDEKA_ALL.cats.map(c => c.id), ids: [], exclude: [], min: 1, max: 2 })) };
+  const tiny = T.edekaAiCombos(big, pool, { maxMs: 0 });
+  return inside < out && R0[1].min === 65 && R0[1].max === 65 && R0[2].min === 85 && R0[3].max === 20 && R0[0] === null && Rc[0].min === 450 && Rc[1] === null && tiny.approx === true;
+})(), true);
+check("Schalter, Ausschlüsse und Preislimit gelten auch für „Ask Claude“: „No tuna“ leert einen Thunfisch-Slot (die Meldung nennt Slot und Schalter), ausgeschlossene Produkte fallen weg, mit Preislimit nur Produkte mit Preis und kein Warenkorb über dem Limit", (() => {
+  const tunaIds = T.EDEKA_ALL.items.filter(x => x.tuna).map(x => x.id);
+  const spec = { text: "t", summary: "", ranges: aiRanges({ protein: { min: 25, max: null } }), slots: [{ label: "Tuna", cats: [], ids: tunaIds, exclude: [], min: 1, max: 1 }], unmatched: [] };
+  const blocked = runED(tDef, aiState(spec)), freed = runED(tDef, aiState(spec, { noTuna: false })), ex = runED(tDef, aiState(spec, { noTuna: false }), [tunaIds[0]]);
+  const capped = runED(Object.assign({}, tDef, { maxPrice: 9 }), aiState(aiSpec(1)));
+  return tunaIds.length === 2 && blocked.length === 0 && /“Tuna”/.test(blocked.empty) && /“No tuna”/.test(blocked.empty) &&
+    freed.length === 2 && ex.length === 1 && ex[0].items[0].id === tunaIds[1] &&
+    capped.length > 0 && capped.every(r => r.price <= 9 + 1e-9 && r.items.every(x => typeof x.price === "number"));
+})(), true);
+check("Karte, Panel und Bauplan: Karte „✓ all your ranges“ bzw. „✗ protein …“, Panel „Your wish“ mit ✓/✗ je Bereich und „for: <Slot>“ je Produkt, Untertitel nennt Claudes Plan; die Config-Karte zeigt Claudes Lesart, die Bereiche und je Slot die Zahl der Produkte", (() => {
+  const r = rAI1[0];
+  const bad = Object.assign({}, r, { ai: { checks: [{ k: "kcal", ok: true, text: "772 kcal (750–800)" }, { k: "protein", ok: false, text: "protein 46.2 g (≥ 50)" }] } });
+  const card = aiRender(() => T.edekaCard(r, { selected: false, onSelect: () => {} })), badCard = aiRender(() => T.edekaCard(bad, { selected: false, onSelect: () => {} }));
+  const panel = aiRender(() => aiTree(T.edekaPanel(r, {})));
+  const st = aiState(aiSpec(1)); st.extra.ai.text = AI_TEXT + " (geändert)";
+  const plan = aiRender(() => aiTree(T.edekaConfigCard(aiCtx(st))));
+  return card.props.sub === "3 products · ✓ all your ranges" && badCard.props.sub === "3 products · ✗ protein 46.2 g (≥ 50)" &&
+    panel.texts.includes("Your wish") && panel.texts.includes("✓ 772 kcal (750–800)") && panel.texts.includes("✓ protein 59.2 g (≥ 50)") && panel.texts.includes("for: Express rice") &&
+    ED.panelSubtitle(r).startsWith("EDEKA Graf · ✨ Claude's plan · 3 products") &&
+    plan.texts.includes("Claude's plan") && plan.texts.includes(aiSpec(1).summary) && ["750–800 kcal", "protein ≥ 50 g", "carbs 60–80 g", "fat: any"].every(x => plan.texts.includes(x)) &&
+    plan.texts.includes("1× Express rice · " + AI_RICE.length + " products") && plan.texts.some(x => /^1× Tinned veg or pulses · \d+ products$/.test(x)) &&
+    plan.texts.some(x => x.startsWith("Plan for: “Express-Reis mit Hühnchen"));
+})(), true);
+checkAsync("Wunsch an Claude (Test-Attrappe des SDK): Browser-Client mit dem Schlüssel des Geräts (dangerouslyAllowBrowser, 1 Wiederholung, 90 s), genau eine Anfrage, Antwort → Bauplan mit Produkt-ids; ohne Schlüssel keine Anfrage; Fehler des SDK als Satz", async () => {
+  FakeA.calls = 0; FakeA.fail = null; FakeA.reply = aiReply(aiRaw());
+  const info = T.edekaAiInfo(aiCtx(edSt));
+  const spec = await T.edekaAiAsk(AI_TEXT, info, { Anthropic: FakeA, apiKey: "sk-ant-test" });
+  let noKey = null; try { await T.edekaAiAsk("x", info, { Anthropic: FakeA, apiKey: null }); } catch (e) { noKey = e.aiText; }
+  FakeA.fail = new FakeA.AuthenticationError(401, "invalid x-api-key", "authentication_error");
+  let auth = null; try { await T.edekaAiAsk("x", info, { Anthropic: FakeA, apiKey: "sk-ant-test" }); } catch (e) { auth = e.aiText; }
+  FakeA.fail = null;
+  return FakeA.opts.apiKey === "sk-ant-test" && FakeA.opts.dangerouslyAllowBrowser === true && FakeA.opts.maxRetries === 1 && FakeA.opts.timeout === 90000 &&
+    FakeA.calls === 2 && FakeA.params.model === "claude-opus-5-5" && spec.slots.length === 3 && JSON.stringify(spec.slots[0].ids) === JSON.stringify(AI_RICE) &&
+    JSON.stringify(spec.slots[1].ids) === JSON.stringify(AI_CHICKEN) && spec.slots[1].max === 2 && JSON.stringify(spec.slots[2].cats) === '["veg_tins","beans"]' && spec.ranges.kcal.min === 750 &&
+    spec.text === AI_TEXT && noKey === "Add your Claude API key below first." && /didn't accept the API key/.test(auth);
+});
+checkAsync("„✨ Suggest meals“: während der Anfrage busy, danach Bauplan im State und in fra_edeka_ai (ohne busy/err), Detail-Panel zu; ein Fehler erscheint als Meldung und der alte Bauplan bleibt", async () => {
+  lsStore.delete("fra_edeka_ai");
+  let st = Object.assign({}, aiState(null), { sel: { items: [] } }); st.extra.ai = { text: AI_TEXT, spec: null };
+  const ctx = () => aiCtx(st, { update: fn => { st = Object.assign({}, st, fn(st)); } });
+  FakeA.fail = null; FakeA.reply = aiReply(aiRaw());
+  const p = T.edekaAiSubmit(ctx(), { Anthropic: FakeA, apiKey: "sk-ant-test" });
+  const busy = st.extra.ai.busy === true;
+  await p;
+  const saved = JSON.parse(lsStore.get("fra_edeka_ai"));
+  const okSpec = !!st.extra.ai.spec && st.extra.ai.busy === false && st.sel === null && saved.spec.slots.length === 3 && saved.text === AI_TEXT && !("busy" in saved) && !("err" in saved);
+  FakeA.fail = new FakeA.RateLimitError(429, "rate", "rate_limit_error");
+  await T.edekaAiSubmit(ctx(), { Anthropic: FakeA, apiKey: "sk-ant-test" });
+  const errShown = /Too many requests/.test(st.extra.ai.err) && !!st.extra.ai.spec && st.extra.ai.busy === false;
+  FakeA.fail = null; lsStore.delete("fra_edeka_ai");
+  return busy && okSpec && errShown;
+});
+
 sect("PrepMyMeal (im Edeka-Tab)");
 const PMM = T.PREPMYMEAL;
 const rawPMM = U.readJSON(__dirname + "/data/prepmymeal-raw.json");
@@ -3356,6 +3632,8 @@ const dl = U.acDataLines("X", [{ id: "k", name: "K", on: true }, { id: "d", name
 check("acDataLines: drink- und Flag-Felder im Block", dl.some(l => l.includes("drink:true")) && dl.some(l => l.includes("sauce:true")), true);
 check("buildAcItems: unbekannte Kategorie → Fehler", throws(() => U.buildAcItems([{ name: "X", cat: "nope", kcal: 1, fat: 0, sat: 0, carbs: 0, sugars: 0, fibre: 0, protein: 0, salt: 0 }], [{ id: "k" }])), true);
 
-console.log(`\n${passes} bestanden, ${failures} fehlgeschlagen`);
-if (failures) { console.log(failures + " Test(s) fehlgeschlagen"); process.exit(1); }
-console.log("Alle Tests bestanden");
+asyncChain.then(() => {
+  console.log(`\n${passes} bestanden, ${failures} fehlgeschlagen`);
+  if (failures) { console.log(failures + " Test(s) fehlgeschlagen"); process.exit(1); }
+  console.log("Alle Tests bestanden");
+});
