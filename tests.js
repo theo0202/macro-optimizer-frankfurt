@@ -1072,7 +1072,8 @@ check("Code-Abfrage der ganzen App: falscher Code speichert nichts, 1303 merkt s
   global.__h = null;
   const inp = find(tree, x => x.type === "input"), btn = find(tree, x => x.type === "button");
   return bad === false && afterBad === false && ok === true && stored === JSON.stringify("1303") &&
-    inp.length === 1 && inp[0].props.type === "password" && inp[0].props.inputMode === "numeric" && btn.length === 1 && texts(btn[0]).join("") === "Unlock" &&
+    inp.length === 1 && inp[0].props.type === "password" && inp[0].props.inputMode === "numeric" && !inp[0].props.autoFocus && inp[0].props.style.fontSize >= 16 &&
+    btn.filter(b => texts(b).join("") === "Unlock").length === 1 && btn.map(b => texts(b).join("")).filter(t => /^\d$/.test(t)).sort().join("") === "0123456789" && btn.some(b => texts(b).join("") === "⌫") &&
     texts(tree).includes("Enter the code") && /render\(h\(Root\)\)/.test(SCRIPT) && !/render\(h\(App\)\)/.test(SCRIPT) &&
     /appNeedsCode\(SHARE_VIEW, lsGet\(LS\.unlocked, null\)\)/.test(SCRIPT) && /locked \? h\(AppGate, \{ onUnlock:/.test(SCRIPT);
 })(), true);
