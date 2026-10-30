@@ -4423,10 +4423,10 @@ function edekaFixCodeCard(ctx) {
       h("button", { onClick:() => edekaFixToggle(ctx),
         style:{ background:"none", border:"none", color:"#777", fontSize:11, cursor:"pointer", fontFamily:S.mono, textDecoration:"underline", padding:0 } }, "Close")),
     h("div", { style:{ display:"flex", gap:8, alignItems:"center" } },
-      h("input", { type:"password", inputMode:"numeric", autoComplete:"off", value:ext.fixCode || "", placeholder:"Code",
+      h("input", { type:"text", inputMode:"numeric", ...NO_AUTOFILL, value:ext.fixCode || "", placeholder:"Code",
         onChange:e => edekaSetExt(ctx, { fixCode:e.target.value, fixCodeErr:false }),
         onKeyDown:e => { if (e.key === "Enter") edekaFixUnlock(ctx); },
-        style:{ flex:1, minWidth:0, background:"#151515", border:"1px solid #2a2a2a", borderRadius:10, padding:"10px 12px", color:"#fff", fontSize:13, fontFamily:S.mono, outline:"none" } }),
+        style:{ flex:1, minWidth:0, background:"#151515", border:"1px solid #2a2a2a", borderRadius:10, padding:"10px 12px", color:"#fff", fontSize:13, fontFamily:S.mono, outline:"none", ...HIDDEN_INPUT } }),
       h("button", { onClick:() => edekaFixUnlock(ctx),
         style:{ background:"#1f2937", border:"1px solid #333", borderRadius:10, padding:"10px 14px", color:"#e0e0e0", fontSize:12, cursor:"pointer", fontFamily:S.font } }, "Unlock")),
     ext.fixCodeErr ? h("div", { style:{ fontSize:11, color:"#f87171", marginTop:6 } }, "Wrong code.") : null);
@@ -5085,9 +5085,9 @@ function edekaAiKeyBlock(ctx) {
     h("div", { style:{ fontSize:11, color:"#888", lineHeight:1.5, marginBottom:8 } },
       "Needed once on this device. It stays in this browser and only goes to Anthropic. Create a key at console.anthropic.com → API keys — the API is billed separately from a Claude subscription, so set a monthly spend limit there."),
     h("div", { style:{ display:"flex", gap:8, alignItems:"center" } },
-      h("input", { type:"password", autoComplete:"off", value:ext.aiKeyDraft || "", placeholder:"sk-ant-…",
+      h("input", { type:"text", ...NO_AUTOFILL, value:ext.aiKeyDraft || "", placeholder:"sk-ant-…",
         onChange:e => edekaSetExt(ctx, { aiKeyDraft:e.target.value }), onKeyDown:e => { if (e.key === "Enter") save(); },
-        style:{ flex:1, minWidth:0, background:"#151515", border:"1px solid #2a2a2a", borderRadius:10, padding:"10px 12px", color:"#fff", fontSize:13, fontFamily:S.mono, outline:"none" } }),
+        style:{ flex:1, minWidth:0, background:"#151515", border:"1px solid #2a2a2a", borderRadius:10, padding:"10px 12px", color:"#fff", fontSize:13, fontFamily:S.mono, outline:"none", ...HIDDEN_INPUT } }),
       h("button", { onClick:save, style:{ background:"#1f2937", border:"1px solid #333", borderRadius:10, padding:"10px 14px", color:"#e0e0e0", fontSize:12, cursor:"pointer", fontFamily:S.font } }, "Save")));
 }
 // Bauplan von Claude: so gelesen, Zielbereiche, Slots mit der Zahl der Produkte, die nach Schaltern/Ausschlüssen übrig sind
@@ -6308,6 +6308,10 @@ function App() {
 // Ansicht und kommen ohne Code nicht in die ganze App. Eine einfache Sperre, kein Schutz der Daten: Code, Daten und Quelltext stehen im
 // öffentlichen GitHub-Repo. Ändert sich APP_CODE, fragt jedes Gerät neu.
 const APP_CODE = "1303";
+// Verdeckte Eingabe OHNE type="password" (30.10.2026): in der iPhone-Homescreen-App öffnete sich nach einem Passwortfeld (Code-Abfrage)
+// in keinem Feld mehr die Tastatur — auch nicht in den Suchfeldern; in Safari ging alles. Die Punkte macht -webkit-text-security
+const HIDDEN_INPUT = { WebkitTextSecurity:"disc", textSecurity:"disc" };
+const NO_AUTOFILL = { autoComplete:"off", autoCorrect:"off", autoCapitalize:"off", spellCheck:false, "data-lpignore":"true", "data-1p-ignore":"true" };
 // Braucht dieser Aufruf den Code? Nicht mit Freundes-Link, nicht wenn das Gerät ihn schon kennt
 function appNeedsCode(view, stored) { return !view && stored !== APP_CODE; }
 // Code prüfen; richtig → auf dem Gerät merken
@@ -6322,7 +6326,9 @@ function AppGate({ onUnlock }) {
   const submit = c => { if (appUnlock(c == null ? code : c)) onUnlock(); else { setErr(true); setCode(""); } };
   // Ziffernfeld auf der Seite (30.10.2026): in der Homescreen-App öffnete das iPhone für das Feld keine Tastatur (autoFocus beim Start
   // hinterlässt das Feld „fokussiert ohne Tastatur“, Antippen hilft dann nicht) → kein autoFocus mehr, und die Ziffern gehen auch ohne Tastatur
-  const press = d => { setErr(false); if (d === "⌫") return setCode(code.slice(0, -1)); const c = (code + d).slice(0, 8); setCode(c); if (c.length === APP_CODE.length && appUnlock(c)) onUnlock(); };
+  // funktionales Update: schnelles Tippen verliert keine Ziffer; nach der letzten richtigen Ziffer geht die App auf
+  const press = d => { setErr(false); setCode(prev => d === "⌫" ? prev.slice(0, -1) : (prev + d).slice(0, 8)); };
+  useEffect(() => { if (code.length === APP_CODE.length && appUnlock(code)) onUnlock(); }, [code]);
   const KEY = { background:"#1f2937", border:"1px solid #333", borderRadius:10, padding:"14px 0", color:"#e0e0e0", fontSize:20, fontFamily:S.mono, cursor:"pointer", touchAction:"manipulation" };
   return h("div", { style:{ minHeight:"100vh", background:S.bg, color:"#e0e0e0", fontFamily:S.font } },
     h("div", { style:{ background:"linear-gradient(135deg,#475569,#1e293b)", padding:"20px 20px 16px", position:"relative", overflow:"hidden" } },
@@ -6335,10 +6341,9 @@ function AppGate({ onUnlock }) {
         h("div", { style:{ fontSize:13, fontWeight:600, color:"#ddd", marginBottom:4 } }, "Enter the code"),
         h("div", { style:{ fontSize:11, color:"#777", lineHeight:1.4, marginBottom:12 } }, "This app is private. The code is asked once on each device."),
         h("div", { style:{ display:"flex", gap:8, alignItems:"center" } },
-          h("input", { type:"password", inputMode:"numeric", pattern:"[0-9]*", autoComplete:"off", value:code || "", placeholder:"Code",
-            onChange:e => { setCode(e.target.value); setErr(false); },
-            onKeyDown:e => { if (e.key === "Enter") submit(); },
-            style:{ flex:1, minWidth:0, background:"#151515", border:"1px solid #2a2a2a", borderRadius:10, padding:"10px 12px", color:"#fff", fontSize:16, fontFamily:S.mono, outline:"none" } }),
+          // kein Eingabefeld (siehe HIDDEN_INPUT): die Ziffern kommen nur über das Ziffernfeld, angezeigt als Punkte
+          h("div", { "aria-label":"Code", style:{ flex:1, minWidth:0, background:"#151515", border:"1px solid #2a2a2a", borderRadius:10, padding:"10px 12px", color:code ? "#fff" : "#555", fontSize:16, fontFamily:S.mono, letterSpacing:code ? 4 : 0, minHeight:20 } },
+            code ? "•".repeat(code.length) : "Code"),
           h("button", { onClick:() => submit(),
             style:{ background:"#1f2937", border:"1px solid #333", borderRadius:10, padding:"10px 14px", color:"#e0e0e0", fontSize:12, cursor:"pointer", fontFamily:S.font } }, "Unlock")),
         err ? h("div", { style:{ fontSize:11, color:"#f87171", marginTop:6 } }, "Wrong code.") : null,

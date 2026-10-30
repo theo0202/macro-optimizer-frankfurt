@@ -1070,9 +1070,9 @@ check("Code-Abfrage der ganzen App: falscher Code speichert nichts, 1303 merkt s
   const texts = n => { const out = []; const walk = x => { if (x == null || x === false || x === true) return; if (Array.isArray(x)) return x.forEach(walk); if (typeof x !== "object") return out.push(String(x)); walk(x.children); }; walk(n); return out; };
   const tree = T.AppGate({ onUnlock: () => {} });
   global.__h = null;
-  const inp = find(tree, x => x.type === "input"), btn = find(tree, x => x.type === "button");
+  const inp = find(tree, x => x.type === "input"), btn = find(tree, x => x.type === "button"), box = find(tree, x => x.props && x.props["aria-label"] === "Code");
   return bad === false && afterBad === false && ok === true && stored === JSON.stringify("1303") &&
-    inp.length === 1 && inp[0].props.type === "password" && inp[0].props.inputMode === "numeric" && !inp[0].props.autoFocus && inp[0].props.style.fontSize >= 16 &&
+    inp.length === 0 && box.length === 1 && texts(box[0]).join("") === "Code" && !/type:\s*"password"/.test(SCRIPT) &&   // kein Passwortfeld mehr (iPhone-Homescreen-App, 30.10.2026)
     btn.filter(b => texts(b).join("") === "Unlock").length === 1 && btn.map(b => texts(b).join("")).filter(t => /^\d$/.test(t)).sort().join("") === "0123456789" && btn.some(b => texts(b).join("") === "⌫") &&
     texts(tree).includes("Enter the code") && /render\(h\(Root\)\)/.test(SCRIPT) && !/render\(h\(App\)\)/.test(SCRIPT) &&
     /appNeedsCode\(SHARE_VIEW, lsGet\(LS\.unlocked, null\)\)/.test(SCRIPT) && /locked \? h\(AppGate, \{ onUnlock:/.test(SCRIPT);
@@ -2838,7 +2838,7 @@ check("Label correction mit Code (User 27.09.2026): Klick öffnet erst die Code-
   global.__h = (type, props, ...children) => ({ type, props: props || {}, children });
   const tree = () => { const out = { texts: [], inputs: [] }; const walk = n => { if (n == null || n === false || n === true) return; if (Array.isArray(n)) return n.forEach(walk); if (typeof n !== "object") return out.texts.push(String(n)); if (n.type === "input") out.inputs.push(n.props); walk(n.children); }; walk(T.edekaConfigCard(ctx())); return out; };
   T.edekaFixToggle(ctx());
-  const t1 = tree(), ask = !!st.extra.fixAsk && !st.extra.fix && t1.texts.includes("✎ Label correction · code") && t1.inputs.some(p => p.type === "password" && p.inputMode === "numeric") && !t1.texts.includes("✎ Label correction");
+  const t1 = tree(), ask = !!st.extra.fixAsk && !st.extra.fix && t1.texts.includes("✎ Label correction · code") && t1.inputs.some(p => p.type === "text" && p.inputMode === "numeric" && p.style.WebkitTextSecurity === "disc" && p.autoComplete === "off") && !t1.texts.includes("✎ Label correction");
   setCode("1234"); T.edekaFixUnlock(ctx());
   const wrong = st.extra.fixCodeErr === true && !st.extra.fix && tree().texts.includes("Wrong code.");
   setCode(T.EDEKA_FIX_CODE); T.edekaFixUnlock(ctx());
@@ -3193,7 +3193,7 @@ check("API-Schlüssel nur auf diesem Gerät (fra_ai_key): ohne Schlüssel zeigt 
   T.edekaAiSetKey("");
   const gone = T.edekaAiKey() === null;
   if (before != null) lsStore.set("fra_ai_key", before);
-  return t1.texts.includes("Claude API key") && t1.inputs.some(p => p.type === "password") && !t1.texts.some(x => /Remove/.test(x)) && findBtn(noKey).props.disabled === true &&
+  return t1.texts.includes("Claude API key") && t1.inputs.some(p => p.type === "text" && p.style.WebkitTextSecurity === "disc" && p.autoComplete === "off") && !t1.texts.some(x => /Remove/.test(x)) && findBtn(noKey).props.disabled === true &&
     k === "sk-ant-api03-abcdefghijklmnop-XYZ9" && T.edekaAiMaskKey(k) === "sk-ant-…XYZ9" && t2.texts.includes("🔑 API key saved on this device (sk-ant-…XYZ9)") && t2.texts.includes("Remove") &&
     !t2.texts.includes("Claude API key") && findBtn(withKey).props.disabled === false && findBtn(noText).props.disabled === true && gone &&
     T.LS.aiKey === "ai_key" && !/sk-ant-[A-Za-z0-9_-]{8,}/.test(SCRIPT);
