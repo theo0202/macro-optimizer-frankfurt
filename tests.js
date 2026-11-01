@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, bowlScoreKeys, switchForce, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, chidobaSnackMenu, chidobaSnackGroup, chidobaItemsMax, CHIDOBA_ITEMS_CAP, chidobaCard, chidobaConfigCard, chidobaStepEntries, chidobaCatOn, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, BURGERMEISTER, acAddonPlan, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition, SHARE_VIEWS, SHARE_VIEW, shareViewFrom, visibleTabs, VISIBLE_TABS, viewSearchIndex, VIEW_SEARCH_INDEX, viewShows, SHOW_SCREENSHOT_IMPORT, showTabRow, SHOW_TAB_ROW, APP_CODE, appNeedsCode, appUnlock, AppGate, compleatBuilderAvailable, compleatBuildMode, compleatCleanPicks, compleatPickList, compleatCanAdd, compleatPickStep, bowlAssemble, bowlRequireHint, compleatManualResult, compleatCompletionMenu, compleatComplete, compleatBuildLoad, compleatBuildSave, compleatConfigCard, compleatBuilder, OrderGuide, MacroBars, bowlPanel, bowlCard, bowlConfigParts, EDEKA_FIX_CODE, edekaFixToggle, edekaFixUnlock, edekaConfigCard, EDEKA_ALL, edekaCard, edekaPanel, edekaSetMode, EDEKA_AI_MODEL, EDEKA_AI_EFFORT, EDEKA_AI_SDK_URL, EDEKA_AI_KEYS, EDEKA_AI_TOP, edekaAiAvailable, edekaAiKey, edekaAiSetKey, edekaAiMaskKey, edekaAiClean, edekaAiLoad, edekaAiCatalog, edekaAiSystem, edekaAiSchema, edekaAiInfo, edekaAiUserText, edekaAiParams, edekaAiErrorText, edekaAiParse, edekaAiSanitize, edekaAiAsk, edekaAiRanges, edekaAiScore, edekaAiScoreV, edekaAiChecks, edekaAiSlotItems, edekaAiPool, edekaAiCombos, edekaAiSubmit, edekaAiCard };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, BOWL_INDEX_CACHE, BOWL_INDEX_MAX_POINTS, bowlScoreKeys, switchForce, switchForcePass, switchLimit, bowlExtrasChip, COMPLEAT_QUINOA, COMPLEAT_EXTRAS, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, chidobaSnackMenu, chidobaSnackGroup, chidobaItemsMax, CHIDOBA_ITEMS_CAP, chidobaCard, chidobaConfigCard, chidobaStepEntries, chidobaCatOn, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, BURGERMEISTER, acAddonPlan, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition, SHARE_VIEWS, SHARE_VIEW, shareViewFrom, visibleTabs, VISIBLE_TABS, viewSearchIndex, VIEW_SEARCH_INDEX, viewShows, SHOW_SCREENSHOT_IMPORT, showTabRow, SHOW_TAB_ROW, APP_CODE, appNeedsCode, appUnlock, AppGate, compleatBuilderAvailable, compleatBuildMode, compleatCleanPicks, compleatPickList, compleatCanAdd, compleatPickStep, bowlAssemble, bowlRequireHint, compleatManualResult, compleatCompletionMenu, compleatComplete, compleatBuildLoad, compleatBuildSave, compleatConfigCard, compleatBuilder, OrderGuide, MacroBars, bowlPanel, bowlCard, bowlConfigParts, EDEKA_FIX_CODE, edekaFixToggle, edekaFixUnlock, edekaConfigCard, EDEKA_ALL, edekaCard, edekaPanel, edekaSetMode, EDEKA_AI_MODEL, EDEKA_AI_EFFORT, EDEKA_AI_SDK_URL, EDEKA_AI_KEYS, EDEKA_AI_TOP, edekaAiAvailable, edekaAiKey, edekaAiSetKey, edekaAiMaskKey, edekaAiClean, edekaAiLoad, edekaAiCatalog, edekaAiSystem, edekaAiSchema, edekaAiInfo, edekaAiUserText, edekaAiParams, edekaAiErrorText, edekaAiParse, edekaAiSanitize, edekaAiAsk, edekaAiRanges, edekaAiScore, edekaAiScoreV, edekaAiChecks, edekaAiSlotItems, edekaAiPool, edekaAiCombos, edekaAiSubmit, edekaAiCard };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -553,7 +553,7 @@ function exhaustiveBowl(menu, t, mode, p, o) {
   if (budget < 0) return [];
   // Kern je Portionen-Rolle: je Zutat ganze Optionen (auch Varianten) je ≤ min(maxQty, cap) + halbe (≤ 1 neben erlaubter ganzer, sonst
   // ≤ min(maxQty, 2·cap)), 2·Σganze + halbe ≤ 2·cap; Pflicht-Zutaten der Rolle brauchen mindestens eine Portion
-  const capH = ing => Math.max(0, 2 * o.cap - ((o.capUsed || {})[ing] || 0)); // Rest-Deckel je Zutat (capUsed)
+  const capH = ing => Math.max(0, Math.min(2 * o.cap, (o.capMax || {})[ing] == null ? Infinity : o.capMax[ing]) - ((o.capUsed || {})[ing] || 0)); // Rest-Deckel je Zutat (capMax, capUsed)
   const coreCombos = r => {
     const byIng = new Map();
     for (const { x } of all) if (role(x) === r && keep(x)) { const e = byIng.get(x.ing) || { full: [], half: null }; if (x.half) e.half = x; else e.full.push(x); byIng.set(x.ing, e); }
@@ -762,6 +762,35 @@ check("bowlIndex mit Klassen: Punktzahl = Π Σ C(n,k), jede Teilmenge einmal, G
   const ok = masks.every(mask => { const c = [0, 0, 0]; ex.forEach((e, j) => { if ((mask >>> j) & 1) c[e.ci]++; }); return c[0] <= 1 && c[1] <= 2 && c[2] <= 1; });
   return idx.N === 3 * 7 * 2 && new Set(masks).size === idx.N && ok && T.bowlIndex(ex.map(e => ({ ...e, ci: 0 })), 2).N === 1 + 6 + 15;
 })(), true);
+check("Schlanker Index (01.11.2026): je Punkt nur die Bitmaske (Uint32), jede Teilmenge einmal; Summen und Preise aus den Byte-Tabellen = Summe der Extras; jede Box (Float32, nach außen gerundet) enthält die exakten Summen aller Punkte darunter (8 Werte), PMIN = billigster Punkt", (() => {
+  let sd = 4711; const rr = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+  const ex = Array.from({ length: 19 }, (_, j) => ({ opt: { id: "lx_" + j }, pc: Math.floor(rr() * 400), ci: j % 7 === 6 ? 1 : 0, v: T.KEYS.map(() => Math.round(rr() * 3000) / 100) }));
+  const idx = T.bowlIndex(ex, [5, 2]);
+  const sum = m => { const v = [0, 0, 0, 0, 0, 0, 0, 0]; let p = 0; ex.forEach((e, j) => { if ((m >>> j) & 1) { e.v.forEach((x, k) => { v[k] += x; }); p += e.pc; } }); return [v, p]; };
+  const tab = m => { const b = [m & 255, (m >>> 8) & 255, (m >>> 16) & 255, m >>> 24]; return [T.KEYS.map((_, k) => b.reduce((a, x, g) => a + idx.TV[g][x * 8 + k], 0)), b.reduce((a, x, g) => a + idx.TP[g][x], 0)]; };
+  let ok = true;
+  const visit = nd => {
+    const pts = [];
+    if (idx.NL[nd] < 0) for (let i = idx.NS[nd]; i < idx.NE[nd]; i++) pts.push(idx.M[i]);
+    else for (const c of [idx.NL[nd], idx.NR[nd]]) { if (!(c > nd)) ok = false; for (const m of visit(c)) pts.push(m); }
+    let pm = Infinity;
+    for (const m of pts) { const [v, p] = sum(m); pm = Math.min(pm, p); for (let k = 0; k < 8; k++) if (!(v[k] >= idx.LO[nd * 8 + k] && v[k] <= idx.HI[nd * 8 + k])) ok = false; }
+    if (pts.length && idx.PMIN[nd] !== pm) ok = false;
+    return pts;
+  };
+  const all = visit(0);
+  const tabOk = all.filter((_, i) => i % 97 === 0).every(m => { const [v, p] = sum(m), [w, q] = tab(m); return p === q && v.every((x, k) => Math.abs(x - w[k]) < 1e-9); });
+  return ok && tabOk && all.length === idx.N && new Set(all).size === idx.N && idx.M instanceof Uint32Array && idx.M.length === idx.N && idx.LO instanceof Float32Array && idx.N === (1 + 17 + 136 + 680 + 2380 + 6188) * 4;
+})(), true);
+// Exaktheit mit vielen Extras (7 und 8): Test-Menü mit 13 Extras gegen die vollständige Durchrechnung
+const TM8 = { item: "Test Bowl 8", basePrice: 2, groups: [
+  { id: "base", name: "Basis", min: 0, max: 5, none: null, options: [opt("r8", "base", 60, 6, 1, { maxQty: 4, price: 2.5 }), opt("q8", "base", 48, 12, 5, { maxQty: 4, price: 3.5 })] },
+  { id: "protein", name: "Proteine", min: 0, max: 10, none: null, options: [opt("h8", "protein", 1.6, 23, 2.7, { maxQty: 10, price: 3 })] },
+  { id: "extra", name: "Extras", min: 0, max: 30, none: null, options: [["t", 1.75, 0.35, 0.05], ["g", 0.9, 0.3, 0.05], ["k", 2.5, 0.5, 0.05], ["s", 0.12, 0.88, 0.12], ["rk", 2, 1, 0.05], ["gk", 0.5, 0.86, 0.18], ["gr", 2.55, 0.11, 0.09], ["er", 4.5, 2.6, 0.15], ["ed", 4.25, 5, 0], ["ma", 5.5, 1.25, 0.6], ["fe", 0.15, 8.4, 11.75], ["av", 1.26, 0.53, 4.38], ["ei", 0.3, 6.55, 5.6]].map(([id, c, p, f], i) => opt("x8" + id, "extra", c, p, f, { price: 1 + (i % 3) * 0.5, fibre: (i % 4) * 0.8 })) },
+] };
+const ex8 = [[tgt(45, 90, 18), "macros", {}, { cap: 2, maxExtras: 8 }], [tgt(30, 70, 25), "macros", {}, { cap: 2, maxExtras: 7 }], [kcalT(650), "calories", { hp: true, lf: true }, { cap: 2, maxExtras: 8 }],
+  [tgt(60, 110, 20), "macros", {}, { cap: 2, maxExtras: 8, maxPrice: 14 }], [kcalT(500, { fibMin: 6 }), "calories", { lc: true }, { cap: 1, maxExtras: 8 }]];
+check("Viele Extras (7 und 8, User 01.11.2026): Top 30 = vollständige Durchrechnung (Test-Menü mit 13 Extras; Makro/Kalorien, Preislimit, Ballaststoff-Minimum)", ex8.filter(([tt, md, pp, oo]) => sameTop(rawTop(TM8, tt, md, pp, oo), exhaustiveBowl(TM8, tt, md, pp, oo))).length, ex8.length);
 check("Bestellschritte: „Extra …“-Einträge zuerst, keine Menge bei Gruppen mit max 1, leere Pflicht-/Einzelauswahl-Gruppe → „ohne …“", (() => {
   const X = id => TSUB.groups.flatMap(g => g.options).find(o => o.id === id);
   const st1 = T.bowlOrderSteps(TSUB, { parts: [{ opt: X("italian"), qty: 1 }, { opt: X("s_huhn2"), qty: 1 }, { opt: X("bacon"), qty: 1 }], side: null, dip: null });
@@ -1110,8 +1139,11 @@ check("Compleat-Hinweistext: nennt die beim letzten Crawl ausverkauften Zutaten 
 
 // ── Compleat: Optimizer ──
 sect("Compleat: Optimizer (Wolt + Uber Eats)");
-const stC = T.defaultRestoState(CR);
-check("Default: No dip AN, No crunch AUS, max. 5 Extras, max. 2 Portionen", stC.sw.noDip === true && stC.sw.noCrunch === false && stC.extra.maxExtras === 5 && stC.extra.cap === 2, true);
+const stC0 = T.defaultRestoState(CR); // echte Defaults: „Quinoa base“ AN, 6 Extras (User 01.11.2026)
+const noQ = st => Object.assign({}, st, { sw: Object.assign({}, st.sw, { quinoa: false }) });
+const stC = noQ(stC0); // die folgenden Tests prüfen die übrigen Regeln ohne „Quinoa base“ (der Schalter hat einen eigenen Abschnitt weiter unten)
+check("Default: Quinoa base AN (User 01.11.2026), No dip AN, No crunch AUS, max. 6 Extras (Chip 0–8, vorher 5 von 0–6), max. 2 Portionen — beide Compleat-Tabs", stC0.sw.quinoa === true && stC0.sw.noDip === true && stC0.sw.noCrunch === false && stC0.extra.maxExtras === 6 && stC0.extra.cap === 2 &&
+  CR.extras.def === 6 && CR.extras.max === 8 && CU.extras === CR.extras && T.COMPLEAT_EXTRAS === CR.extras && T.bowlExtrasChip(CR).max === 8 && T.bowlExtrasChip({}).def === 5 && T.bowlExtrasChip({}).max === 6, true);
 const run = (t, st, ex, mode, p) => T.runOptimize(CR, t, mode || "macros", p || {}, st, ex || new Set());
 const cntC = (r, role) => r.parts.filter(pt => T.bowlRole(pt.opt) === role).reduce((s, pt) => s + pt.qty, 0);
 const priceC = (menu, r) => Math.round((menu.basePrice + r.parts.reduce((s, pt) => s + pt.opt.price * pt.qty, 0) + (r.dip ? r.dip.price : 0)) * 100) / 100;
@@ -1142,7 +1174,7 @@ check("Ohne Base (User 11.10.2026): Ziel = genau 2× Hähnchen → die beste Bes
 })(), true);
 check("Ohne Protein und ohne Extras: Ziel = genau 1× Basmatireis → die beste Bestellung ist nur „Basmatireis“ (Karte „no protein“); nur ein Extra geht auch (Ziel = Feta); Uber Eats: Ziel = Hühnchen (100g) → „Hühnchen“ ohne Base", (() => {
   const bb = wopt("base_basmatireis_250_g"), r = run(tgt(bb.protein, bb.carbs, bb.fat), stC), fe = wopt("extra_feta_50_g"), rf = run(tgt(fe.protein, fe.carbs, fe.fat), stC);
-  const uh = uopt("Hühnchen (100g)"), ru = T.runOptimize(CU, tgt(uh.protein, uh.carbs, uh.fat), "macros", {}, T.defaultRestoState(CU), new Set());
+  const uh = uopt("Hühnchen (100g)"), ru = T.runOptimize(CU, tgt(uh.protein, uh.carbs, uh.fat), "macros", {}, noQ(T.defaultRestoState(CU)), new Set());
   let sub = null; const old = global.__h; global.__h = (type, props) => { if (props && typeof props.sub === "string") sub = props.sub; return null; };
   try { CR.renderCard(r[0], { selected: false, onSelect: () => {} }); } finally { global.__h = old; }
   const stf = T.orderStepsFor(CR, rf[0]), stu = T.orderStepsFor(CU, ru[0]);
@@ -1170,7 +1202,7 @@ check("Ohne Pflicht-Gruppe bleibt die Suche exakt: Top 30 = vollständige Durchr
   return cases.every(([m, tt, md, pp, oo]) => sameTop(rawTop(m, tt, md, pp, oo), exhaustiveBowl(m, tt, md, pp, oo)));
 })(), true);
 check("No dip AN → nie ein Dip", rDef.every(r => !r.dip), true);
-check("Deckel: je Base/Protein ≤ 2, Extras ≤ 5 und je 1×", rDef.every(r => r.parts.every(pt => pt.qty <= (T.bowlRole(pt.opt) === "extra" ? 1 : 2)) && cntC(r, "extra") <= 5), true);
+check("Deckel: je Base/Protein ≤ 2, Extras ≤ 6 (Default-Chip) und je 1×", rDef.every(r => r.parts.every(pt => pt.qty <= (T.bowlRole(pt.opt) === "extra" ? 1 : 2)) && cntC(r, "extra") <= 6), true);
 check("nie Schalentier, nie eine gesperrte Zutat", rDef.every(r => r.items.every(x => !T.COMPLEAT_BLOCKED.has(x.ing) && !T.isShellfish(x))), true);
 check("Chili Gewürz (alle Werte 0) nie vorgeschlagen → keine Doppel-Ergebnisse", rDef.every(r => r.items.every(x => x.ing !== "chili_gewuerz")) && new Set(rDef.map(r => r.key.replace(/\+?extra_chili[^+|]*/g, ""))).size === rDef.length, true);
 const b1 = wopt("base_basmatireis_250_g"), p1 = wopt("protein_haehnchen_100_g"), d1 = wopt("dip_curvy_curry_dip");
@@ -1191,7 +1223,7 @@ check("No crunch AUS → Walnusskerne möglich", run(tCrunch, stC).some(r => r.p
 check("No crunch AN → nie Erdnüsse/Walnusskerne/Röstzwiebeln/Sesam", run(tCrunch, { ...stC, sw: { ...stC.sw, noCrunch: true } }).every(r => r.items.every(x => !x.crunch)), true);
 check("Ausschluss 'huehnchen' → nie Hähnchen (Proteine + Extras)", run(tDef, stC, new Set(["huehnchen"])).every(r => r.items.every(x => x.ing !== "huehnchen")), true);
 check("alle Basen ausgeschlossen → Bowls ohne Base (keine Pflicht-Gruppe, User 11.10.2026)", (() => { const r = run(tDef, stC, new Set(["basmati_reis", "salatmix", "protein_pasta", "kuerbiswuerfel_mariniert", "bunter_bio_quinoa"])); return r.length > 0 && r.every(x => cntC(x, "base") === 0 && x.items.length > 0); })(), true);
-check("Mushroots (27.09.2026) zählt als Haupt-Protein; das Duplikat unter „Deine Extras“ läuft nur über die Protein-Rolle (wie Hähnchen)", (() => { const r = run(tgt(50, 60, 20), stC, new Set(["huehnchen", "veganes_huehnchen_planted_chicken", "rinderhackbaellchen", "vegane_hackbaellchen", "pulled_salmon"])); return r.length > 0 && r.every(x => x.parts.some(pt => pt.opt.ing === "mushroots_pilzbaellchen" && T.bowlRole(pt.opt) === "protein") && !x.parts.some(pt => pt.opt.id === "extra_pilzbaellchen_mushroots_75_g")); })(), true);
+check("Mushroots (27.09.2026) zählt als Haupt-Protein; das Duplikat unter „Deine Extras“ läuft nur über die Protein-Rolle (wie Hähnchen) — mit 6 Extras darf eine Bowl auch ganz ohne Protein dabei sein (keine Pflicht-Gruppe)", (() => { const r = run(tgt(50, 60, 20), stC, new Set(["huehnchen", "veganes_huehnchen_planted_chicken", "rinderhackbaellchen", "vegane_hackbaellchen", "pulled_salmon"])); const mr = x => x.parts.some(pt => pt.opt.ing === "mushroots_pilzbaellchen" && T.bowlRole(pt.opt) === "protein"); return r.length > 0 && mr(r[0]) && r.filter(mr).length >= 15 && r.every(x => !x.parts.some(pt => pt.opt.id === "extra_pilzbaellchen_mushroots_75_g") && x.parts.every(pt => T.bowlRole(pt.opt) !== "protein" || pt.opt.ing === "mushroots_pilzbaellchen")); })(), true);
 check("Portionen-Chip 1 → keine Doppelportion", run(tgt(120, 150, 25), { ...stC, extra: { ...stC.extra, cap: 1 } }).every(r => r.parts.every(pt => pt.qty === 1)), true);
 check("Portionen-Chip 4 → Basis ≤ 5, Protein-Gruppe ≤ 10, Nudeln/Lachs ≤ 1", run(tgt(200, 350, 40), { ...stC, extra: { ...stC.extra, cap: 4 } }).every(r => cntC(r, "base") <= 5 && cntC(r, "protein") <= 10 && r.parts.every(pt => !["base_protein_nudeln_200_g", "protein_pulled_salmon_100_g"].includes(pt.opt.id) || pt.qty === 1)), true);
 check("Extras-Chip 0 → keine Extras", run(tDef, { ...stC, extra: { ...stC.extra, maxExtras: 0 } }).every(r => cntC(r, "extra") === 0), true);
@@ -1254,10 +1286,10 @@ const exC2 = T.excludablesFor(CR);
 check("Ausschluss-Liste (Wolt): jede Zutat einmal, Quinoa (seit 21.10.2026) dabei, Hähnchen unter „Deine Proteine“", new Set(exC2.map(x => x.id)).size === exC2.length && exC2.some(x => x.id === "bunter_bio_quinoa" && x.group === "Deine Basis") && exC2.find(x => x.id === "huehnchen").group === "Deine Proteine", true);
 
 // Uber Eats
-const stU = T.defaultRestoState(CU);
+const stU0 = T.defaultRestoState(CU), stU = noQ(stU0);
 const runU = (t, st, ex, mode, p) => T.runOptimize(CU, t, mode || "macros", p || {}, st || stU, ex || new Set());
 const rU = runU(tDef);
-check("Uber Eats: Defaults wie Wolt (No dip AN, No crunch AUS, 5 Extras, 2 Portionen)", stU.sw.noDip === true && stU.sw.noCrunch === false && stU.extra.maxExtras === 5 && stU.extra.cap === 2, true);
+check("Uber Eats: Defaults wie Wolt (Quinoa base AN, No dip AN, No crunch AUS, 6 Extras, 2 Portionen)", stU0.sw.quinoa === true && stU0.sw.noDip === true && stU0.sw.noCrunch === false && stU0.extra.maxExtras === 6 && stU0.extra.cap === 2, true);
 check("Uber Eats: Standardziele liefern Bowls — von selbst mit Base und Haupt-Protein, kein Dip", rU.length > 0 && rU.every(r => cntC(r, "base") >= 1 && cntC(r, "protein") >= 1 && !r.dip), true);
 check("Uber Eats: nie Limette, Chili, Schalentier oder eine gesperrte Zutat", rU.every(r => r.items.every(x => !T.COMPLEAT_BLOCKED.has(x.ing) && !/Limette/.test(x.name) && x.ing !== "chili_gewuerz" && !T.isShellfish(x))), true);
 const huC = r => { const m = {}; for (const pt of r.parts) if (["base", "protein"].includes(T.bowlRole(pt.opt))) m[pt.opt.ing] = (m[pt.opt.ing] || 0) + (pt.opt.half ? 1 : 2) * pt.qty; return m; };
@@ -1270,7 +1302,8 @@ check("Uber Eats: No dip AUS → passender Dip (Basmati + Hühnchen + Curvy Curr
 check("Uber Eats: Preis = 1 € Grundpreis + Σ Optionspreise", rU.every(r => typeof r.price === "number" && Math.abs(r.price - priceC(UE, r)) < 1e-9), true);
 const rUp = runU({ ...tDef, maxPrice: 10 });
 check("Uber Eats: Preislimit 10 € → Ergebnisse, keines teurer", rUp.length > 0 && rUp.every(r => r.price <= 10 + 1e-9), true);
-check("Uber Eats: Standard-Einstellungen bleiben im Arbeitsbudget (Makro- und Kalorien-Modus, kein approx)", !rU.approx && !runU(kcalT(450), stU, null, "calories", { hp: true, lf: true }).approx && !runU(tgt(40, 60, 15)).approx && !runU(kcalT(750), stU, null, "calories", { hc: true }).approx, true);
+check("Uber Eats: Standard-Einstellungen bleiben im Arbeitsbudget (Makro- und Kalorien-Modus, kein approx; mit und ohne „Quinoa base“)", !rU.approx && !runU(kcalT(450), stU, null, "calories", { hp: true, lf: true }).approx && !runU(tgt(40, 60, 15)).approx && !runU(kcalT(750), stU, null, "calories", { hc: true }).approx &&
+  !runU(tDef, stU0).approx && !runU(kcalT(450), stU0, null, "calories", { hp: true, lf: true }).approx && !runU(tgt(40, 60, 15), stU0).approx, true);
 check("Zeitbudget: maxMs 0 bei aufwendiger Uber-Eats-Suche → Abbruch mit approx, Bowls trotzdem gültig; Standard 500 ms", (() => { const r = T.bowlCombos(UE, tgt(140, 150, 50), "macros", {}, { cap: 4, maxExtras: 6, keep: x => !T.COMPLEAT_BLOCKED.has(x.ing), maxMs: 0 }); return r.approx === true && r.length > 0 && r.every(x => x.items.length > 0 && x.parts.every(pt => !pt.opt.half || pt.qty === 1)) && T.BOWL_MAX_MS === 500 && T.BOWL_MAX_WORK === Infinity; })(), true);
 check("Uber Eats: Ausschluss 'huehnchen' → nie Hühnchen (ganz + halb)", runU(tDef, stU, new Set(["huehnchen"])).every(r => r.items.every(x => x.ing !== "huehnchen")), true);
 const stepsU = T.orderStepsFor(CU, rU[0]);
@@ -1306,7 +1339,7 @@ check("Uber Eats mit Pflicht-Zutaten: Top 30 = vollständige Durchrechnung (3 F�
 // ── Compleat „Build my order“ (User 04.10.2026; nur in der vollen App) ──
 sect("Compleat: Build my order");
 const uoptId = id => UE.groups.flatMap(g => g.options).find(o => o.id === id);
-const stBuild = (R, picks, more) => { const s = T.defaultRestoState(R); s.extra = Object.assign({}, s.extra, { build: true, complete: true, picks }, more || {}); return s; };
+const stBuild = (R, picks, more, sw) => { const s = T.defaultRestoState(R); s.sw = Object.assign({}, s.sw, { quinoa: false }, sw || {}); s.extra = Object.assign({}, s.extra, { build: true, complete: true, picks }, more || {}); return s; };
 const runB = (R, t, st, ex, inc, mode, p) => T.runOptimize(R, t, mode || "macros", p || {}, st, ex || new Set(), new Set(inc || []));
 const qtyOf = (r, id) => r.parts.filter(pt => pt.opt.id === id).reduce((s, pt) => s + pt.qty, 0) + (r.dip && r.dip.id === id ? 1 : 0);
 const sumPrice = (menu, r) => Math.round((menu.basePrice + r.items.reduce((s, x) => s + x.price, 0)) * 100) / 100;
@@ -1490,6 +1523,105 @@ check("Detail-Panel einer ergänzten Bowl: 🔒 für die eigene Auswahl (mit „
   const t1 = texts(CR.renderPanel(more, { R: CR, st: stBuild(CR, {}), inc: new Set(["huehnchen"]) })), t0 = texts(CR.renderPanel(rDef[0], { R: CR, st: stC, inc: new Set() }));
   global.__h = null;
   return !!more && t1.includes("🔒 = your picks") && /🔒 \d× Hähnchen, 100 g \(1 yours\)/.test(t1) && !t1.includes("★") && !t0.includes("🔒");
+})(), true);
+// ── Compleat: „Quinoa base“ und Extras-Chip bis 8 (User 01.11.2026) ──
+sect("Compleat: Quinoa base + Extras bis 8 (User 01.11.2026)");
+const QW = wopt("base_bunter_quinoa_250_g"), QU = uoptId("base_bunter_bio_quinoa_250g"), QUh = uoptId("base_bunter_bio_quinoa_halbe_portion_125g");
+const quinoaParts = r => r.parts.filter(pt => pt.opt.ing === "bunter_bio_quinoa");
+const oneQuinoa = (r, full) => { const q = quinoaParts(r); return q.length === 1 && q[0].qty === 1 && q[0].opt === full; };
+check("Schalter „Quinoa base“: erster Compleat-Schalter, Default AN, legt Quinoa fest (force) mit höchstens 1 Portion (limit) und ohne halbe Portion (filter); Hinweis; derselbe für Wolt und Uber Eats; Registry ohne Probleme", (() => {
+  const s = CR.switches[0];
+  return s.id === "quinoa" && s.label === "Quinoa base" && s.def === true && s.inAll === undefined && T.COMPLEAT_QUINOA === "bunter_bio_quinoa" && JSON.stringify(s.force) === '["bunter_bio_quinoa"]' && JSON.stringify(s.limit) === '{"bunter_bio_quinoa":1}' &&
+    s.filter(QUh) === false && s.filter(QU) === true && s.filter(QW) === true && s.filter(wopt("base_basmatireis_250_g")) === true && /exactly one portion of quinoa \(250 g\)/.test(s.hint) &&
+    CR.switches === CU.switches && T.validateRegistry([CR, CU]).length === 0 && !!QW && !!QU && !!QUh && QW.price === 3.5 && QU.price === 3.5;
+})(), true);
+check("switchLimit / switchForcePass: limit in halben Portionen (1 Portion = 2), nur bei eingeschaltetem Schalter; der eigene filter gilt auch für die festgelegte Zutat, andere Optionen unberührt", (() => {
+  const on = T.switchLimit(CR, stC0), off = T.switchLimit(CR, stC), fp = T.switchForcePass(CR, stC0), fo = T.switchForcePass(CR, stC);
+  return JSON.stringify(on) === '{"bunter_bio_quinoa":2}' && JSON.stringify(off) === "{}" && fp(QUh) === false && fp(QU) === true && fp(uopt("Hühnchen - Halbe Portion (50g)")) === true && fo(QUh) === true &&
+    T.switchForce(CR, stC0).join() === "bunter_bio_quinoa" && T.switchForce(CR, stC).length === 0;
+})(), true);
+const rQ = T.runOptimize(CR, tDef, "macros", {}, stC0, new Set(), new Set());
+check("Default (Wolt, Standardziele): jede Bowl hat genau 1× „Bunter Quinoa, 250 g“; Order Guide „Deine Basis: … 1× Bunter Quinoa, 250 g …“; Preis inkl. 3,50 €; höchstens 6 Extras", rQ.length === 20 && rQ.every(r => oneQuinoa(r, QW) && Math.abs(r.price - priceC(W, r)) < 1e-9 && cntC(r, "extra") <= 6) &&
+  T.orderStepsFor(CR, rQ[0]).find(x => x.l === "Deine Basis").v.split(" · ").includes("1× Bunter Quinoa, 250 g"), true);
+check("Andere Basen bleiben möglich, aber nie eine zweite Quinoa-Portion — auch bei viel Kohlenhydraten und Portionen-Chip 4", (() => {
+  const r = T.runOptimize(CR, tgt(70, 200, 25), "macros", {}, Object.assign({}, stC0, { extra: Object.assign({}, stC0.extra, { cap: 4 }) }), new Set(), new Set());
+  return r.length > 0 && r.every(x => oneQuinoa(x, QW)) && r.some(x => cntC(x, "base") >= 2);
+})(), true);
+check("Ziel = genau 2× Quinoa: mit „Quinoa base“ nie 2×, ausgeschaltet ist „2× Bunter Quinoa“ die beste Bowl (Score 0); Ziel = 1× Quinoa → nur Quinoa", (() => {
+  const t2 = tgt(2 * QW.protein, 2 * QW.carbs, 2 * QW.fat), t1 = tgt(QW.protein, QW.carbs, QW.fat);
+  const on = T.runOptimize(CR, t2, "macros", {}, stC0, new Set(), new Set()), off = T.runOptimize(CR, t2, "macros", {}, stC, new Set(), new Set()), one = T.runOptimize(CR, t1, "macros", {}, stC0, new Set(), new Set());
+  return on.length > 0 && on.every(x => oneQuinoa(x, QW)) && off[0].parts.length === 1 && off[0].parts[0].opt === QW && off[0].parts[0].qty === 2 && off[0].rawScore < 1e-9 &&
+    one[0].items.length === 1 && one[0].items[0] === QW && one[0].rawScore < 1e-9 && T.bowlSummary(one[0]) === "Bunter Quinoa";
+})(), true);
+check("Uber Eats (Default): jede Bowl hat genau 1× „Bunter Bio Quinoa (250g)“, nie die halbe Portion — auch mit Pflicht Quinoa und einem Ziel, das die halbe träfe; ausgeschaltet nimmt die Pflicht die halbe", (() => {
+  const hh = uopt("Hühnchen (100g)"), tt = tgt(QUh.protein + hh.protein, QUh.carbs + hh.carbs, QUh.fat + hh.fat);
+  const r = T.runOptimize(CU, tDef, "macros", {}, stU0, new Set(), new Set());
+  const a = T.runOptimize(CU, tt, "macros", {}, stU0, new Set(), new Set(["bunter_bio_quinoa"])), b = T.runOptimize(CU, tt, "macros", {}, stU, new Set(), new Set(["bunter_bio_quinoa"]));
+  return r.length > 0 && r.every(x => oneQuinoa(x, QU)) && a.length > 0 && a.every(x => oneQuinoa(x, QU)) && b[0].rawScore < 1e-9 && quinoaParts(b[0]).length === 1 && quinoaParts(b[0])[0].opt === QUh &&
+    T.orderStepsFor(CU, r[0]).find(x => x.l === "Base").v.split(" · ").includes("1× Bunter Bio Quinoa (250g)");
+})(), true);
+check("Quinoa ausgeschlossen („Exclude items“) → der Schalter legt nichts fest, Bowls ohne Quinoa (Wolt + Uber Eats)", [[CR, stC0], [CU, stU0]].every(([R, st]) => { const r = T.runOptimize(R, tDef, "macros", {}, st, new Set(["bunter_bio_quinoa"]), new Set()); return r.length > 0 && r.every(x => quinoaParts(x).length === 0); }), true);
+check("All restaurants: Compleat (Wolt + Uber Eats) mit „Quinoa base“ wie im Tab (inAll = Default AN)", (() => {
+  const a = T.optimizeAll(tDef, "macros", {}, 5, false, undefined, {}, {});
+  const w = a.find(r => r._resto === "compleat"), u = a.find(r => r._resto === "compleatuber");
+  return !!w && !!u && oneQuinoa(w, QW) && oneQuinoa(u, QU);
+})(), true);
+check("„Build my order“ + Ergänzen mit „Quinoa base“: ohne Quinoa in der Auswahl kommt genau 1× dazu; gewählte Quinoa (1× bzw. 2×) bleibt, dazu kommt keine; Uber Eats: ½ gewählt → keine weitere", (() => {
+  const on = { quinoa: true }, qh = x => quinoaParts(x).reduce((a, pt) => a + (pt.opt.half ? 1 : 2) * pt.qty, 0);
+  const a = runB(CR, tDef, stBuild(CR, { protein_haehnchen_100_g: 1 }, null, on));
+  const b = runB(CR, tDef, stBuild(CR, { base_bunter_quinoa_250_g: 1 }, null, on));
+  const c = runB(CR, tgt(80, 160, 25), stBuild(CR, { base_bunter_quinoa_250_g: 2 }, null, on));
+  const d = runB(CU, tDef, stBuild(CU, { base_bunter_bio_quinoa_halbe_portion_125g: 1 }, null, on));
+  return a.length > 0 && a.every(x => oneQuinoa(x, QW) && qtyOf(x, "protein_haehnchen_100_g") >= 1) && b.length > 0 && b.every(x => qtyOf(x, "base_bunter_quinoa_250_g") === 1) &&
+    c.length > 0 && c.every(x => qtyOf(x, "base_bunter_quinoa_250_g") === 2) && d.length > 0 && d.every(x => qh(x) === 1);
+})(), true);
+check("„Build my order“: Basis-Gruppe schon voll (5 Portionen) → keine Quinoa erzwungen, trotzdem Vorschläge; Quinoa ausgeschlossen → keine dazu; Hinweis im Baukasten", (() => {
+  const on = { quinoa: true };
+  const a = runB(CR, tDef, stBuild(CR, { base_basmatireis_250_g: 4, base_salat_mix_100_g: 1 }, null, on));
+  const b = runB(CR, tDef, stBuild(CR, { protein_haehnchen_100_g: 1 }, null, on), new Set(["bunter_bio_quinoa"]));
+  global.__h = (type, props, ...children) => ({ type, props: props || {}, children });
+  const out = []; const walk = x => { if (x == null || x === false || x === true) return; if (Array.isArray(x)) return x.forEach(walk); if (typeof x !== "object") return out.push(String(x)); walk(x.children); };
+  walk(CR.renderConfig({ R: CR, st: stBuild(CR, {}, null, on), update: () => {} }));
+  global.__h = null;
+  return a.length > 0 && a.every(x => quinoaParts(x).length === 0) && b.length > 0 && b.every(x => quinoaParts(x).length === 0) && /“Quinoa base” adds one portion only if you haven't picked quinoa yourself/.test(out.join(" "));
+})(), true);
+check("capMax (Schalter mit limit): Top 30 = vollständige Durchrechnung — Test-Menü mit/ohne Pflicht und capUsed, Compleat Wolt klein mit Quinoa-Pflicht und 1 Portion (Makro + Kalorien)", (() => {
+  const ok = (m, tt, md, pp, oo) => sameTop(rawTop(m, tt, md, pp, oo), exhaustiveBowl(m, tt, md, pp, oo));
+  const kW = x => !T.COMPLEAT_BLOCKED.has(x.ing) && T.bowlRole(x) !== "dip";
+  const qO = { cap: 2, maxExtras: 2, capMax: { bunter_bio_quinoa: 2 }, include: ["bunter_bio_quinoa"], keep: kW };
+  return ok(TMENU, tB, "macros", {}, { cap: 3, maxExtras: 3, capMax: { reis: 2 } }) && ok(TMENU, tgt(40, 150, 15), "macros", {}, { cap: 3, maxExtras: 2, capMax: { reis: 1, huhn: 2 } }) &&
+    ok(TMENU, tB, "macros", {}, { cap: 2, maxExtras: 3, capMax: { reis: 2 }, include: ["reis"], keep: x => !x.half }) && ok(TMENU, kcalT(650), "calories", { hp: true }, { cap: 2, maxExtras: 3, capMax: { reis: 3 }, capUsed: { reis: 1 } }) &&
+    ok(W, tDef, "macros", {}, qO) && ok(W, kcalT(700), "calories", { hp: true, lf: true }, qO) &&
+    T.bowlCombos(TMENU, tgt(30, 250, 10), "macros", {}, { cap: 4, maxExtras: 1, capMax: { reis: 2 } }).every(x => x.parts.filter(pt => pt.opt.ing === "reis").reduce((a, pt) => a + (pt.opt.half ? 1 : 2) * pt.qty, 0) <= 2);
+})(), true);
+check("Extras-Chip: Compleat 0–8 (beide Tabs, auch beim Ergänzen), Dean & David weiter 0–6 mit Default 5", (() => {
+  global.__h = (type, props, ...children) => ({ type, props: props || {}, children });
+  const chips = n => { const out = []; const walk = x => { if (x == null || typeof x !== "object") return; if (Array.isArray(x)) return x.forEach(walk); if (x.props && x.props.small && /^\d$/.test(String(x.props.label))) out.push(x.props.label); walk(x.children); }; walk(n); return out.join(","); };
+  const DS = T.RESTO_BY_KEY.deandavidsalad;
+  const w = chips(CR.renderConfig({ R: CR, st: stC0, update: () => {} })), u = chips(CU.renderConfig({ R: CU, st: stU0, update: () => {} })), b = chips(CR.renderConfig({ R: CR, st: stBuild(CR, {}), update: () => {} }));
+  const d = chips(DS.renderConfig({ R: DS, st: T.defaultRestoState(DS), update: () => {} }));
+  global.__h = null;
+  return w === "0,1,2,3,4,5,6,7,8,1,2,3,4" && u === w && b === w && d === "0,1,2,3,4,5,6,1,2,3,4" && T.defaultRestoState(DS).extra.maxExtras === 5 && DS.extras.def === 5 && DS.extras.max === 6 &&
+    T.bowlValidate(T.COMPLEAT, null, 8).length === 0 && T.bowlValidate({ ingredients: TMENU.groups.flatMap(g => g.options).map(o => ({ id: o.ing, per100: Object.fromEntries(T.KEYS.map(k => [k, 0])) })), m: { ...TMENU, groups: TMENU.groups.map(g => g.id === "extra" ? { ...g, max: 7 } : g) } }, ["m"], 8).some(x => /max < 8 \(Extras-Chip bis 8\)/.test(x));
+})(), true);
+check("Extras-Chip 8: Ziel = Quinoa + 8 kleine Extras → genau diese Bowl (Score 0, 8 Extras im Order Guide); mit dem Default 6 nicht erreichbar (höchstens 6 Extras)", (() => {
+  const ids = ["extra_tomaten_50_g", "extra_gurken_50_g", "extra_karotten_50_g", "extra_babyspinat_20_g", "extra_rotkohl_geraspelt_50_g", "extra_gruenkohl_20_g", "extra_granatapfelkerne_15_g", "extra_erbsen_50_g"].map(wopt);
+  const all = [QW, ...ids], tt = tgt(all.reduce((a, o) => a + o.protein, 0), all.reduce((a, o) => a + o.carbs, 0), all.reduce((a, o) => a + o.fat, 0));
+  const r8 = T.runOptimize(CR, tt, "macros", {}, Object.assign({}, stC0, { extra: Object.assign({}, stC0.extra, { maxExtras: 8 }) }), new Set(), new Set());
+  const r6 = T.runOptimize(CR, tt, "macros", {}, stC0, new Set(), new Set());
+  const ex = T.orderStepsFor(CR, r8[0]).find(x => x.l === "Deine Extras");
+  return ids.every(Boolean) && r8[0].rawScore < 1e-9 && cntC(r8[0], "extra") === 8 && oneQuinoa(r8[0], QW) && ids.every(o => qtyOf(r8[0], o.id) === 1) && !!ex && ex.v.split(" · ").length === 8 &&
+    r6.length > 0 && r6.every(x => cntC(x, "extra") <= 6) && r6[0].rawScore > 1e-6;
+})(), true);
+check("8 Extras im Zeitbudget (Standardziele, Wolt + Uber Eats, Makro- und Kalorien-Modus, kein approx); Index schlank: Uber Eats 2 533 987 Teilmengen in < 25 Byte je Teilmenge (bisher 150); Cache bleibt unter seiner Punkt-Grenze", (() => {
+  const st8 = st => Object.assign({}, st, { extra: Object.assign({}, st.extra, { maxExtras: 8 }) });
+  const rw = T.runOptimize(CR, tDef, "macros", {}, st8(stC0), new Set(), new Set()), ru = T.runOptimize(CU, tDef, "macros", {}, st8(stU0), new Set(), new Set());
+  const ku = T.runOptimize(CU, kcalT(780), "calories", { hp: true, lf: true }, st8(stU0), new Set(), new Set());
+  const idx = [...T.BOWL_INDEX_CACHE.values()].find(x => x.N === 2533987);
+  const bytes = x => [x.M, x.LO, x.HI, x.PMIN, x.NL, x.NR, x.NS, x.NE, ...x.TV, ...x.TP].reduce((a, y) => a + y.byteLength, 0);
+  const total = [...T.BOWL_INDEX_CACHE.values()].reduce((a, x) => a + x.N, 0);
+  return !rw.approx && !ru.approx && !ku.approx && rw.length > 0 && ru.length > 0 && rw.every(x => cntC(x, "extra") <= 8 && oneQuinoa(x, QW)) && ru.every(x => cntC(x, "extra") <= 8 && oneQuinoa(x, QU)) &&
+    !!idx && bytes(idx) / idx.N < 25 && (total <= T.BOWL_INDEX_MAX_POINTS || T.BOWL_INDEX_CACHE.size === 1);
 })(), true);
 // plattformübergreifend
 check("Such-Index: beide Plattformen mit eigenen Namen (Hähnchen, 100 g · Hühnchen (100g)), Quinoa seit 21.10.2026 dabei, keine Limette", T.SEARCH_INDEX.filter(x => x.resto === "Compleat (Wolt)" && x.name === "Hähnchen, 100 g").length === 1 && T.SEARCH_INDEX.filter(x => x.resto === "Compleat (Uber Eats)" && x.name === "Hühnchen (100g)").length === 1 && T.SEARCH_INDEX.some(x => x.resto === "Compleat (Wolt)" && x.name === "Bunter Quinoa, 250 g") && T.SEARCH_INDEX.some(x => x.resto === "Compleat (Uber Eats)" && x.name === "Bunter Bio Quinoa (250g)") && !T.SEARCH_INDEX.some(x => /^Compleat/.test(x.resto) && /limette/i.test(x.name)), true);

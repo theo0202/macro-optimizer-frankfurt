@@ -2595,18 +2595,23 @@ function bowlBoxLB(c, LO, HI, off, t, mode, p) {
   return s;
 }
 
-// k-d-Baum über alle Extras-Teilmengen (Punkte = 8 Nährwert-Summen, M = Bitmaske der Extras, PR = Preis in Cent; PMIN = billigster Punkt je
-// Knoten → Preislimit schneidet ganze Teilbäume ab). caps = Obergrenze je Extras-Klasse (Zahl = nur Klasse 0; Klasse je Extra in e.ci, Default 0):
-// Klasse 0 = Extras-Chip, weitere Klassen = Gruppen mit eigener Plattform-Grenze (z.B. Subway: Saucen bis 2)
+// k-d-Baum über alle Extras-Teilmengen. Schlank seit 01.11.2026 (Compleat bis 8 Extras: 2,5 Mio. Teilmengen bei Uber Eats — mit 8 Summen je
+// Punkt wären das 380 MB und 17 s Aufbau): ein Punkt ist nur seine Bitmaske M (in Baum-Reihenfolge); Nährwert-Summen und Preis einer
+// Teilmenge kommen exakt aus Tabellen je Byte der Maske (TV[g]: 8 Werte, TP[g]: Cent der Extras 8g … 8g+7, 4 Tabellen à 256 Einträge).
+// Knoten: Box LO/HI (Float32, nach außen gerundet → gültige Schranken für die exakten Summen), PMIN = billigster Punkt (Preislimit schneidet
+// ganze Teilbäume ab), Kinder NL/NR (−1 = Blatt), Bereich NS/NE in M. Geteilt wird am Median nach kcal / Fett / KH / Protein (typische Skalen,
+// Teilungswerte als Float32 nur während des Aufbaus, Blätter ≤ 16 Punkte). caps = Obergrenze je Extras-Klasse (Zahl = nur Klasse 0; Klasse je Extra in e.ci,
+// Default 0): Klasse 0 = Extras-Chip, weitere Klassen = Gruppen mit eigener Plattform-Grenze (z.B. Subway: Saucen bis 2)
 const BOWL_INDEX_CACHE = new Map();
+const BOWL_INDEX_MAX_POINTS = 3e6; // Cache: höchstens so viele Punkte in allen Indizes zusammen (≈ 18 Byte je Punkt); der neueste bleibt immer
 function bowlIndex(extras, caps) {
-  const E = extras.length, LEAF = 8;
+  const E = extras.length, LEAF = 16;
   if (E > 30) throw new Error("bowlIndex: höchstens 30 Extras");
   const cls = extras.map(e => e.ci || 0), NC = Math.max(1, Array.isArray(caps) ? caps.length : 1, ...cls.map(c => c + 1));
   const cap = Array.from({ length: NC }, (_, c) => Math.max(0, Math.min(Array.isArray(caps) ? (caps[c] || 0) : (c === 0 ? caps : 0), cls.filter(x => x === c).length)));
   const ckey = extras.map((e, j) => e.opt.id + ":" + (e.pc || 0) + ":" + cls[j]).join(",") + "#" + cap.join("/");
   const hit = BOWL_INDEX_CACHE.get(ckey);
-  if (hit) return hit;
+  if (hit) { BOWL_INDEX_CACHE.delete(ckey); BOWL_INDEX_CACHE.set(ckey, hit); return hit; } // zuletzt benutzt → bleibt am längsten
   // Anzahl Punkte: die Klassen sind unabhängig → Produkt über die Klassen von Σ_{k ≤ Grenze} C(n, k)
   let N = 1;
   for (let c = 0; c < NC; c++) {
@@ -2616,18 +2621,30 @@ function bowlIndex(extras, caps) {
     N *= sum;
   }
   const maxD = cap.reduce((a, b) => a + b, 0);
-  const P = new Float64Array(N * 8), M = new Uint32Array(N), PR = new Int32Array(N);
-  const SD = Array.from({ length: maxD + 2 }, () => new Float64Array(8)), SP = new Int32Array(maxD + 2), CNT = new Int32Array(NC);
+  // Tabellen: Summe eines Bytes = Summe ohne sein niedrigstes Bit + dieses Extra
+  const TV = [], TP = [];
+  for (let g = 0; g < 4; g++) {
+    const tv = new Float64Array(256 * 8), tp = new Int32Array(256);
+    for (let b = 1; b < 256; b++) {
+      const e = extras[8 * g + 31 - Math.clz32(b & -b)], prev = b & (b - 1);
+      for (let k = 0; k < 8; k++) tv[b * 8 + k] = tv[prev * 8 + k] + (e ? e.v[k] : 0);
+      tp[b] = tp[prev] + (e ? (e.pc || 0) : 0);
+    }
+    TV.push(tv); TP.push(tp);
+  }
+  const [TV0, TV1, TV2, TV3] = TV, [TP0, TP1, TP2, TP3] = TP;
+  // Punkte aufzählen: Maske + Teilungswerte (kcal, Fett, KH, Protein)
+  const M = new Uint32Array(N), X = new Float32Array(N * 4), SD = new Float64Array((maxD + 2) * 4), CNT = new Int32Array(NC);
   let w = 0;
   const rec = (start, depth, mask) => {
-    P.set(SD[depth], w * 8); M[w] = mask; PR[w] = SP[depth]; w++;
+    const a = depth * 4, o = w * 4;
+    M[w] = mask; X[o] = SD[a]; X[o + 1] = SD[a + 1]; X[o + 2] = SD[a + 2]; X[o + 3] = SD[a + 3]; w++;
     if (depth >= maxD) return;
     for (let j = start; j < E; j++) {
       const c = cls[j];
       if (CNT[c] >= cap[c]) continue;
-      const v = extras[j].v, a = SD[depth], b = SD[depth + 1];
-      for (let k = 0; k < 8; k++) b[k] = a[k] + v[k];
-      SP[depth + 1] = SP[depth] + (extras[j].pc || 0);
+      const v = extras[j].v, b = a + 4;
+      SD[b] = SD[a] + v[0]; SD[b + 1] = SD[a + 1] + v[1]; SD[b + 2] = SD[a + 2] + v[3]; SD[b + 3] = SD[a + 3] + v[6];
       CNT[c]++;
       rec(j + 1, depth + 1, (mask | (1 << j)) >>> 0);
       CNT[c]--;
@@ -2635,51 +2652,110 @@ function bowlIndex(extras, caps) {
   };
   rec(0, 0, 0);
   if (w !== N) throw new Error("bowlIndex: " + w + " statt " + N + " Punkte");
-  const maxNodes = 4 * Math.ceil(N / LEAF) + 4;
-  const LO = new Float64Array(maxNodes * 8), HI = new Float64Array(maxNodes * 8), PMIN = new Int32Array(maxNodes);
-  const NL = new Int32Array(maxNodes), NR = new Int32Array(maxNodes), NS = new Int32Array(maxNodes), NE = new Int32Array(maxNodes);
-  const perm = new Int32Array(N);
-  for (let i = 0; i < N; i++) perm[i] = i;
-  const SPLIT = [1 / 800, 1 / 25, 0, 1 / 90, 0, 0, 1 / 70, 0]; // geteilt wird nach kcal / Fett / KH / Protein (typische Skalen)
-  const select = (dim, s, e, k) => { // Quickselect: perm[s..e) so ordnen, dass Position k den Median trägt
-    let lo = s, hi = e - 1;
-    while (lo < hi) {
-      const pv = P[perm[(lo + hi) >> 1] * 8 + dim];
-      let i = lo, j = hi;
-      while (i <= j) {
-        while (P[perm[i] * 8 + dim] < pv) i++;
-        while (P[perm[j] * 8 + dim] > pv) j--;
-        if (i <= j) { const tmp = perm[i]; perm[i] = perm[j]; perm[j] = tmp; i++; j--; }
-      }
-      if (k <= j) hi = j; else if (k >= i) lo = i; else break;
-    }
+  // Baum: je Knoten EINE Partition am Median einer Stichprobe (statt Quickselect über alle Punkte). Die Teilungs-Dimension folgt aus geschätzten
+  // Spannweiten (Wurzel exakt; ein Kind erbt die des Elternknotens, nur die Teilungs-Dimension wird schmaler) — sie bestimmt nur die Form des
+  // Baums, die Boxen unten sind exakt. Knoten in Vor-Reihenfolge (Kinder haben größere ids), die Knoten-Arrays wachsen bei Bedarf
+  let room = Math.max(64, (N >> 3) + 16);
+  let LO = new Float32Array(room * 8), HI = new Float32Array(room * 8), PMIN = new Int32Array(room);
+  let NL = new Int32Array(room), NR = new Int32Array(room), NS = new Int32Array(room), NE = new Int32Array(room);
+  const grow = () => {
+    room *= 2;
+    const g = (A, n) => { const B = new A.constructor(n); B.set(A); return B; };
+    LO = g(LO, room * 8); HI = g(HI, room * 8); PMIN = g(PMIN, room); NL = g(NL, room); NR = g(NR, room); NS = g(NS, room); NE = g(NE, room);
   };
-  let cnt = 0;
-  const build = (s, e) => {
-    const id = cnt++, off = id * 8;
-    for (let k = 0; k < 8; k++) { LO[off + k] = Infinity; HI[off + k] = -Infinity; }
-    let pm = 2147483647;
-    for (let i = s; i < e; i++) {
-      const b = perm[i] * 8;
-      for (let k = 0; k < 8; k++) { const v = P[b + k]; if (v < LO[off + k]) LO[off + k] = v; if (v > HI[off + k]) HI[off + k] = v; }
-      if (PR[perm[i]] < pm) pm = PR[perm[i]];
+  const SPLIT = [1 / 800, 1 / 25, 1 / 90, 1 / 70];
+  const swap = (i, j) => {
+    const tm = M[i]; M[i] = M[j]; M[j] = tm;
+    const a = i * 4, b = j * 4;
+    let x = X[a]; X[a] = X[b]; X[b] = x; x = X[a + 1]; X[a + 1] = X[b + 1]; X[b + 1] = x;
+    x = X[a + 2]; X[a + 2] = X[b + 2]; X[b + 2] = x; x = X[a + 3]; X[a + 3] = X[b + 3]; X[b + 3] = x;
+  };
+  // Spannweiten S = [min0, max0, min1, max1, min2, max2, min3, max3] der Teilungswerte (exakt nur für die Wurzel)
+  const into = (S, p) => {
+    const x0 = X[p], x1 = X[p + 1], x2 = X[p + 2], x3 = X[p + 3];
+    if (x0 < S[0]) S[0] = x0; if (x0 > S[1]) S[1] = x0; if (x1 < S[2]) S[2] = x1; if (x1 > S[3]) S[3] = x1;
+    if (x2 < S[4]) S[4] = x2; if (x2 > S[5]) S[5] = x2; if (x3 < S[6]) S[6] = x3; if (x3 > S[7]) S[7] = x3;
+  };
+  const EMPTY = [Infinity, -Infinity, Infinity, -Infinity, Infinity, -Infinity, Infinity, -Infinity];
+  let STK = new Float64Array(64 * 11), sp = 0; // Stapel je Eintrag: id, s, e, Spannweiten (8)
+  const push = (id, s, e, S) => {
+    if ((sp + 1) * 11 > STK.length) { const B = new Float64Array(STK.length * 2); B.set(STK); STK = B; }
+    const o = sp++ * 11;
+    STK[o] = id; STK[o + 1] = s; STK[o + 2] = e;
+    for (let q = 0; q < 8; q++) STK[o + 3 + q] = S[q];
+  };
+  const LS = new Float64Array(8), RS = new Float64Array(8), SAMP = new Float64Array(15);
+  LS.set(EMPTY);
+  for (let i = 0; i < N; i++) into(LS, i * 4);
+  let cnt = 1;
+  NS[0] = 0; NE[0] = N; NL[0] = -1; NR[0] = -1;
+  push(0, 0, N, LS);
+  while (sp) {
+    const o = --sp * 11, id = STK[o], s = STK[o + 1], e = STK[o + 2];
+    if (e - s <= LEAF) continue;
+    let d = -1, best = 0;
+    for (let q = 0; q < 4; q++) { const wq = (STK[o + 4 + 2 * q] - STK[o + 3 + 2 * q]) * SPLIT[q]; if (wq > best) { best = wq; d = q; } }
+    if (d < 0) continue; // Teilungswerte alle gleich → Blatt
+    // Pivot = Median einer Stichprobe; ist er das Minimum, gehen die Punkte „≤ Pivot“ nach links, sonst „< Pivot“ → keine Seite bleibt leer
+    const n = e - s, ns = Math.min(15, n);
+    for (let q = 0; q < ns; q++) {
+      const v = X[(s + Math.floor((q + 0.5) * n / ns)) * 4 + d];
+      let b = q - 1;
+      while (b >= 0 && SAMP[b] > v) { SAMP[b + 1] = SAMP[b]; b--; }
+      SAMP[b + 1] = v;
     }
-    PMIN[id] = pm;
-    NS[id] = s; NE[id] = e; NL[id] = -1; NR[id] = -1;
-    if (e - s <= LEAF) return id;
-    let dim = 0, best = 0;
-    for (let k = 0; k < 8; k++) { const sp = (HI[off + k] - LO[off + k]) * SPLIT[k]; if (sp > best) { best = sp; dim = k; } }
-    if (best <= 0) return id; // Punkte in den Split-Dimensionen identisch → Blatt
-    const mid = (s + e) >> 1;
-    select(dim, s, e, mid);
-    const l = build(s, mid), r = build(mid, e);
+    const pv = SAMP[ns >> 1], le = !(pv > STK[o + 3 + 2 * d]);
+    for (let q = 0; q < 8; q++) { LS[q] = STK[o + 3 + q]; RS[q] = STK[o + 3 + q]; }
+    LS[2 * d + 1] = pv; RS[2 * d] = pv; // geschätzt: nur die Teilungs-Dimension wird schmaler
+    let i = s, j = e - 1;
+    for (;;) {
+      while (i <= j) { const v = X[i * 4 + d]; if (le ? v > pv : v >= pv) break; i++; }
+      while (i <= j) { const v = X[j * 4 + d]; if (le ? v <= pv : v < pv) break; j--; }
+      if (i > j) break;
+      swap(i, j); i++; j--;
+    }
+    if (i === s || i === e) { push(id, s, e, i === s ? RS : LS); continue; } // eine Seite leer (Schätzung zu breit): schmaler neu teilen
+    if (cnt + 2 > room) grow();
+    const l = cnt++, r = cnt++;
     NL[id] = l; NR[id] = r;
-    return id;
-  };
-  build(0, N);
-  const idx = { N, P, M, PR, perm, LO, HI, PMIN, NL, NR, NS, NE };
+    NS[l] = s; NE[l] = i; NL[l] = -1; NR[l] = -1;
+    NS[r] = i; NE[r] = e; NL[r] = -1; NR[r] = -1;
+    push(r, i, e, RS); push(l, s, i, LS);
+  }
+  // Boxen von unten nach oben (Kinder haben größere ids): Blätter aus den exakten Summen, immer etwas nach außen auf Float32 gerundet — der
+  // Abstand (10⁻⁶ relativ) deckt die Float32-Rundung UND andere Summier-Reihenfolgen (56,5 gegen 56,4999…) ab
+  const down = v => Math.fround(v - Math.abs(v) * 1e-6 - 1e-9), up = v => Math.fround(v + Math.abs(v) * 1e-6 + 1e-9);
+  const mn = new Float64Array(8), mx = new Float64Array(8);
+  for (let id = cnt - 1; id >= 0; id--) {
+    const off = id * 8;
+    if (NL[id] < 0) {
+      mn.fill(Infinity); mx.fill(-Infinity);
+      let pm = 2147483647;
+      for (let i = NS[id]; i < NE[id]; i++) {
+        const m = M[i], b0 = m & 255, b1 = (m >>> 8) & 255, b2 = (m >>> 16) & 255, b3 = m >>> 24;
+        const o0 = b0 * 8, o1 = b1 * 8, o2 = b2 * 8, o3 = b3 * 8;
+        for (let k = 0; k < 8; k++) { const v = TV0[o0 + k] + TV1[o1 + k] + TV2[o2 + k] + TV3[o3 + k]; if (v < mn[k]) mn[k] = v; if (v > mx[k]) mx[k] = v; }
+        const pr = TP0[b0] + TP1[b1] + TP2[b2] + TP3[b3];
+        if (pr < pm) pm = pr;
+      }
+      for (let k = 0; k < 8; k++) { LO[off + k] = down(mn[k]); HI[off + k] = up(mx[k]); }
+      PMIN[id] = pm;
+    } else {
+      const a = NL[id] * 8, b = NR[id] * 8;
+      for (let k = 0; k < 8; k++) { LO[off + k] = Math.min(LO[a + k], LO[b + k]); HI[off + k] = Math.max(HI[a + k], HI[b + k]); }
+      PMIN[id] = Math.min(PMIN[NL[id]], PMIN[NR[id]]);
+    }
+  }
+  const cut = (A, n) => (A.length === n ? A : A.slice(0, n)); // Knoten-Arrays auf die tatsächliche Zahl kürzen
+  const idx = { N, M, LO: cut(LO, cnt * 8), HI: cut(HI, cnt * 8), PMIN: cut(PMIN, cnt), NL: cut(NL, cnt), NR: cut(NR, cnt), NS: cut(NS, cnt), NE: cut(NE, cnt), TV, TP, nodes: cnt };
   if (BOWL_INDEX_CACHE.size >= 24) BOWL_INDEX_CACHE.delete(BOWL_INDEX_CACHE.keys().next().value);
   BOWL_INDEX_CACHE.set(ckey, idx);
+  let total = 0;
+  for (const v of BOWL_INDEX_CACHE.values()) total += v.N;
+  for (const [k, v] of BOWL_INDEX_CACHE) { // älteste zuerst raus, bis die Grenze passt (der neue bleibt)
+    if (total <= BOWL_INDEX_MAX_POINTS || k === ckey) break;
+    BOWL_INDEX_CACHE.delete(k); total -= v.N;
+  }
   return idx;
 }
 
@@ -2703,7 +2779,9 @@ const BOWL_MAX_WORK = Infinity; // Arbeitsbudget in Baum-Knoten (Standard: keins
 //          · maxPrice: Preislimit in € inkl. Grundpreis (null/undefined = keins) · maxMs: Zeitbudget (Default BOWL_MAX_MS)
 //          · maxWork: Arbeitsbudget in Baum-Knoten (Default ∞, deterministisch für Tests)
 //          · raw: true → nur die ungerundete Rangliste [{ key, rawScore, price }] (Top 30; für Tests und Benchmarks)
-//          · capUsed: { [Zutat-id]: halbe Portionen } schon belegt — kürzen den Portionen-Deckel je Zutat (Compleat „Build my order“) }
+//          · capUsed: { [Zutat-id]: halbe Portionen } schon belegt — kürzen den Portionen-Deckel je Zutat (Compleat „Build my order“)
+//          · capMax: { [Zutat-id]: halbe Portionen } höchstens so viel von dieser Zutat, auch unter dem Portionen-Chip (Schalter mit limit, z.B.
+//            Compleat „Quinoa base“: 1 Portion); capUsed zählt dabei mit }
 // Jede Bowl hat die Portionen-Rollen aus require (≥1; { base:false, protein:false } = keine Pflicht-Rolle, dann darf der Kern leer sein —
 // nur die ganz leere Bestellung ohne jede Zutat gibt es nie), je Einzelauswahl-Rolle höchstens eine Option, Extras je 1×. Extras, deren Zutat auch als
 // Protein angeboten wird (Wolt-Duplikat), laufen nur über die Protein-Rolle. Die Kern-Rollen stehen je in genau einer Gruppe (bowlValidate).
@@ -2715,7 +2793,8 @@ const BOWL_MAX_WORK = Infinity; // Arbeitsbudget in Baum-Knoten (Standard: keins
 function bowlCombos(menu, t, mode, p, opts) {
   const o = opts || {};
   const cap = Math.max(1, o.cap || 1), keep = o.keep || (() => true), K = 30, capHU = 2 * cap;
-  const usedHU = o.capUsed || {}, capOf = ing => Math.max(0, capHU - (usedHU[ing] || 0)); // Rest-Deckel je Zutat in halben Portionen
+  const usedHU = o.capUsed || {}, maxHU = o.capMax || {}; // Rest-Deckel je Zutat in halben Portionen (Chip bzw. capMax, minus capUsed)
+  const capOf = ing => Math.max(0, Math.min(capHU, maxHU[ing] == null ? Infinity : maxHU[ing]) - (usedHU[ing] || 0));
   const ok = x => !isShellfish(x) && keep(x); // Schalentier permanent raus (Allergie)
   const need = Object.assign({ base: true, protein: true }, menu.require || {});
   const fixed = menu.fixed || [];
@@ -2867,7 +2946,7 @@ function bowlCombos(menu, t, mode, p, opts) {
     if (top.length > KT) top.pop();
     if (top.length === KT) thr = top[KT - 1].s;
   };
-  const { P, M, PR, perm, LO, HI, PMIN, NL, NR, NS, NE } = idx;
+  const { M, LO, HI, PMIN, NL, NR, NS, NE } = idx, [TV0, TV1, TV2, TV3] = idx.TV, [TP0, TP1, TP2, TP3] = idx.TP;
   const tot = new Float64Array(8), stack = new Int32Array(256);
   const query = (c, rem) => { // alle Extras-Teilmengen für Kern c unter der Schwelle und im Preisrahmen rem (Branch & Bound im Baum)
     let sp = 0;
@@ -2877,13 +2956,14 @@ function bowlCombos(menu, t, mode, p, opts) {
       const nd = stack[--sp];
       if (PMIN[nd] > rem || bowlBoxLB(c, LO, HI, nd * 8, t, mode, p) >= thr) continue;
       if (NL[nd] < 0) {
-        for (let i = NS[nd]; i < NE[nd]; i++) {
-          const pi = perm[i];
-          if (PR[pi] > rem) continue;
-          const b = pi * 8;
-          for (let k = 0; k < 8; k++) tot[k] = c[k] + P[b + k];
+        for (let i = NS[nd]; i < NE[nd]; i++) { // Punkt = Maske: Preis und Summen exakt aus den Byte-Tabellen
+          const m = M[i], b0 = m & 255, b1 = (m >>> 8) & 255, b2 = (m >>> 16) & 255, b3 = m >>> 24;
+          const pr = TP0[b0] + TP1[b1] + TP2[b2] + TP3[b3];
+          if (pr > rem) continue;
+          const o0 = b0 * 8, o1 = b1 * 8, o2 = b2 * 8, o3 = b3 * 8;
+          for (let k = 0; k < 8; k++) tot[k] = c[k] + TV0[o0 + k] + TV1[o1 + k] + TV2[o2 + k] + TV3[o3 + k];
           const s = scoreVec(tot, t, mode, p);
-          if (s < thr) insert(s, q.slice(), M[pi], cp + PR[pi]);
+          if (s < thr) insert(s, q.slice(), m, cp + pr);
         }
       } else {
         const l = NL[nd], r = NR[nd];
@@ -3140,7 +3220,8 @@ function addInclude(list, id, includables) {
   return [...list.filter(x => x !== id && !(single && roleOf(x) === r)), id];
 }
 // Datenprüfung eines BYO-Datenblocks mit Plattform-Menüs (validateRegistry ruft das über r.validate() auf); keys = geprüfte Menüs
-function bowlValidate(data, keys) {
+function bowlValidate(data, keys, chipMax) {
+  const xMax = chipMax || 6; // höchste Stufe des Extras-Chips: jede Extras-Gruppe muss so viele erlauben
   const P = [], ing = new Set(data.ingredients.map(x => x.id)), blocked = new Set(data.ingredients.filter(x => x.blocked).map(x => x.id));
   const isNum = v => typeof v === "number" && isFinite(v) && v >= 0;
   for (const x of data.ingredients) {
@@ -3187,7 +3268,7 @@ function bowlValidate(data, keys) {
         for (const e of o.order || []) if (!allG.has(e.group) || typeof e.name !== "string" || !e.name) P.push(tag + "Option " + o.id + ": Bestellschritt ohne gültige Gruppe");
         for (const k of KEYS) if (!isNum(o[k])) P.push(tag + "Option " + o.id + ": " + k + " keine Zahl ≥ 0");
       }
-      if (hasExtra && g.max < 6 && !g.own) P.push(tag + "Gruppe " + g.id + ": enthält Extras, aber max < 6 (Extras-Chip bis 6)");
+      if (hasExtra && g.max < xMax && !g.own) P.push(tag + "Gruppe " + g.id + ": enthält Extras, aber max < " + xMax + " (Extras-Chip bis " + xMax + ")");
     }
     for (const r of Object.keys(roleGroups)) {
       if (!roleGroups[r].size && ((r === "base" && need.base) || (r === "protein" && need.protein))) P.push(tag + "keine Option mit Rolle " + r);
@@ -3208,6 +3289,18 @@ function switchPass(r, st) {
 function switchForce(r, st) {
   return (r.switches || []).filter(s => s.force && st && st.sw && st.sw[s.id]).flatMap(s => s.force);
 }
+// force-Zutaten gehen an den übrigen Schaltern vorbei, der eigene filter des force-Schalters gilt aber auch für sie (Compleat „Quinoa base“:
+// nur die ganze Portion, nie die halbe) → Prädikat je Option
+function switchForcePass(r, st) {
+  const act = (r.switches || []).filter(s => s.force && s.filter && st && st.sw && st.sw[s.id]);
+  return x => act.every(s => !s.force.includes(x.ing) || s.filter(x));
+}
+// limit aktiver Schalter: höchstens n Portionen einer Zutat (halbe = ½) → capMax der Bowl-Engine in halben Portionen
+function switchLimit(r, st) {
+  const out = {};
+  for (const s of r.switches || []) if (s.limit && st && st.sw && st.sw[s.id]) for (const [ing, n] of Object.entries(s.limit)) out[ing] = Math.min(out[ing] == null ? Infinity : out[ing], 2 * n);
+  return out;
+}
 
 // ═══ Compleat (Frankfurt Nordend): Wolt „Build your Bowl" + Uber Eats „Selbst zusammenstellen" ═══
 // GESPERRT = bleibt im Datensatz, wird aber NIE vorgeschlagen, gesucht oder als Ausschluss angeboten — auf allen Plattformen
@@ -3221,17 +3314,26 @@ function bowlOptimize(t, mode, p, st, ex, r, inc, blocked) {
   const pass = switchPass(r, st), picks = inc || new Set();
   const allowed = id => !(ex && ex.has(id)) && !(blocked && blocked.has(id));
   const inMenu = new Set(r.menu.groups.flatMap(g => g.options.map(o => o.ing)));
-  const force = new Set(switchForce(r, st).filter(id => allowed(id) && inMenu.has(id)));
+  const force = new Set(switchForce(r, st).filter(id => allowed(id) && inMenu.has(id))), own = switchForcePass(r, st);
   return bowlCombos(r.menu, t, mode, p, {
-    cap: x0.cap || 2, maxExtras: x0.maxExtras == null ? 5 : x0.maxExtras, maxPrice: t && t.maxPrice,
+    cap: x0.cap || 2, maxExtras: x0.maxExtras == null ? bowlExtrasChip(r).def : x0.maxExtras, maxPrice: t && t.maxPrice,
     include: [...new Set([...[...picks].filter(allowed), ...force])],
-    keep: x => allowed(x.ing) && (picks.has(x.ing) || force.has(x.ing) || pass(x)),
+    keep: x => allowed(x.ing) && own(x) && (picks.has(x.ing) || force.has(x.ing) || pass(x)),
+    capMax: switchLimit(r, st),
   });
 }
+// Extras-Chip je Eintrag: Default und höchste Stufe (Default 5 von 0–6; Compleat 6 von 0–8, User 01.11.2026)
+const bowlExtrasChip = r => (r && r.extras) || { def: 5, max: 6 };
 // Compleat: keine Gruppe ist Pflicht (User 11.10.2026 — bei Wolt und Uber Eats lässt sich auch ohne Basis oder ohne Protein bestellen; bis
 // dahin galt „≥1 Base + ≥1 Protein“, User 15.09.2026) → menu.require { base:false, protein:false } im Datenblock; Dip einer oder keiner
 function compleatOptimize(t, mode, p, st, ex, r, inc) { return bowlOptimize(t, mode, p, st, ex, r, inc, COMPLEAT_BLOCKED); }
+// „Quinoa base“ (User 01.11.2026: Default AN): jede Bowl hat genau eine ganze Portion Quinoa (Wolt „Bunter Quinoa, 250 g“, Uber Eats „Bunter Bio
+// Quinoa (250g)“) — force legt sie in jede Bowl, limit verbietet eine zweite Portion, der filter die halbe (Uber Eats); andere Basen bleiben
+// möglich, wenn sie zum Ziel passen. Ausgeschlossen (Exclude items) fällt sie still weg wie jede force-Zutat
+const COMPLEAT_QUINOA = "bunter_bio_quinoa";
 const COMPLEAT_SWITCHES = [
+  { id:"quinoa", label:"Quinoa base", def:true, force:[COMPLEAT_QUINOA], limit:{ [COMPLEAT_QUINOA]:1 }, filter:x=>!(x.ing===COMPLEAT_QUINOA && x.half),
+    hint:"Every bowl gets exactly one portion of quinoa (250 g) as its base — never a second or a half one; other bases only if they still fit your target." },
   { id:"noDip", label:"No dip", def:true, filter:x=>bowlRole(x)!=="dip" },                          // User 15.09.2026: Default AN
   { id:"noCrunch", label:"No crunch", def:false, filter:x=>!x.crunch,                                // User 15.09.2026: Default AUS
     hint:"Hides Erdnüsse, Walnusskerne, Röstzwiebeln, Schwarzer Sesam and the Functional Fall Crunch." },
@@ -3242,16 +3344,17 @@ function bowlRequireHint(menu) {
   return [need.base && "1+ base", need.protein && "1+ protein"].filter(Boolean).join(", ") || "every group optional";
 }
 // Registry-Eintrag für ein Bowl-Menü: o = { key, name, platform, label, gradient, footer, data, menuKey, exclusionKey, switches, blocked,
-// note(menu), labels?, inputHint?, initState? } — Ausschluss- und Pflicht-Listen teilen sich exclusionKey (ein Restaurant, mehrere Tabs)
+// note(menu), labels?, inputHint?, initState?, extras? } — Ausschluss- und Pflicht-Listen teilen sich exclusionKey (ein Restaurant, mehrere Tabs);
+// extras = { def, max }: Extras-Chip (Default 5 von 0–6)
 function bowlEntry(o) {
-  const menu = o.data[o.menuKey];
+  const menu = o.data[o.menuKey], extras = o.extras || { def: 5, max: 6 };
   return {
     key: o.key, name: o.name, kind: "byo", data: o.data, menu, exclusionKey: o.exclusionKey,
     gradient: o.gradient, label: o.label, platform: o.platform, accurate: true, maxN: 5, footer: o.footer,
-    switches: o.switches,
-    initState: o.initState || (() => ({ maxExtras: 5, cap: 2 })),
+    switches: o.switches, extras,
+    initState: o.initState || (() => ({ maxExtras: extras.def, cap: 2 })),
     optimize: (t, mode, p, st, ex, r, inc) => bowlOptimize(t, mode, p, st, ex, r, inc, o.blocked),
-    renderConfig: ctx => bowlConfigCard(ctx, o.note(menu), menu, o.labels),
+    renderConfig: ctx => bowlConfigCard(ctx, o.note(menu), menu, o.labels, extras.max),
     renderCard: (res, ctx) => bowlCard(res, ctx, menu, o.labels),
     renderPanel: (sel, ctx) => bowlPanel(menu, sel, ctx),
     orderSteps: sel => bowlOrderSteps(menu, sel),
@@ -3261,17 +3364,19 @@ function bowlEntry(o) {
     summary: bowlSummary,
     panelSubtitle: sel => bowlSubtitle(menu, sel),
     inputHint: () => o.inputHint || menu.item + ": " + bowlRequireHint(menu),
-    validate: () => bowlValidate(o.data, [o.menuKey]),
+    validate: () => bowlValidate(o.data, [o.menuKey], extras.max),
   };
 }
 // Compleat je Plattform: gleiche Regeln, Schalter und Listen (exclusionKey "compleat" — ausverkauft ist ausverkauft, egal über welche App);
 // eigenes Menü mit eigenen Mengen und Preisen. Dazu „Build my order“ (nur volle App, siehe unten): Baukasten als renderExtra, Schalter
 // „Complete to my macros“ in der Config-Karte; aus → keine Ergebnisliste (hideResults) und keine Schalter/Listen (controls), an → Ergänzen
 // der eigenen Auswahl statt freier Vorschläge („Must include“ ruht, auch keine ★ im Panel)
+// Extras-Chip: Default 6, höchstens 8 (User 01.11.2026; vorher 5 von 0–6)
+const COMPLEAT_EXTRAS = { def: 6, max: 8 };
 function compleatEntry(o) {
-  const e = bowlEntry(Object.assign({ data: COMPLEAT, exclusionKey: "compleat", switches: COMPLEAT_SWITCHES, blocked: COMPLEAT_BLOCKED }, o));
+  const e = bowlEntry(Object.assign({ data: COMPLEAT, exclusionKey: "compleat", switches: COMPLEAT_SWITCHES, blocked: COMPLEAT_BLOCKED, extras: COMPLEAT_EXTRAS }, o));
   return Object.assign(e, {
-    initState: () => Object.assign({ maxExtras: 5, cap: 2, build: false }, compleatBuildLoad(e.key, e.menu)),
+    initState: () => Object.assign({ maxExtras: COMPLEAT_EXTRAS.def, cap: 2, build: false }, compleatBuildLoad(e.key, e.menu)),
     optimize: (t, mode, p, st, ex, r, inc) => (compleatBuildMode(st) ? compleatComplete(r, t, mode, p, st, ex) : bowlOptimize(t, mode, p, st, ex, r, inc, COMPLEAT_BLOCKED)),
     renderConfig: ctx => compleatConfigCard(ctx, e, o.note(e.menu)),
     renderExtra: ctx => (compleatBuildMode(ctx.st) ? compleatBuilder(ctx, e) : null),
@@ -3409,13 +3514,18 @@ function compleatCompletionMenu(menu, picks) {
   return { menu: Object.assign({}, menu, { groups, fixed, require: { base: need.base && !has("base"), protein: need.protein && !has("protein") } }), capUsed, extrasPicked, list };
 }
 // Ergänzen: exakte Suche (bowlCombos) im Restraum, danach Auswahl + Ergänztes zu einer Bowl zusammenführen (locked = Mengen der Auswahl)
+// force-Schalter („Quinoa base“): die Zutat kommt dazu, wenn die Auswahl sie nicht schon hat und ihre Gruppe noch Platz hat; ihr limit zählt die
+// Auswahl mit (capUsed) — gewählte 2× Quinoa bleiben, dazu kommt keine mehr
 function compleatComplete(r, t, mode, p, st, ex) {
   const x0 = (st && st.extra) || {};
   const cm = compleatCompletionMenu(r.menu, x0.picks || {});
-  const pass = switchPass(r, st), allowed = id => !(ex && ex.has(id)) && !COMPLEAT_BLOCKED.has(id);
+  const pass = switchPass(r, st), own = switchForcePass(r, st), allowed = id => !(ex && ex.has(id)) && !COMPLEAT_BLOCKED.has(id);
+  const picked = new Set(cm.list.map(c => c.opt.ing));
+  const room = id => cm.menu.groups.some(g => g.max >= 1 && g.options.some(o => o.ing === id && own(o)));
+  const force = new Set(switchForce(r, st).filter(id => allowed(id) && !picked.has(id) && room(id)));
   const res = bowlCombos(cm.menu, t, mode, p, {
-    cap: x0.cap || 2, maxExtras: Math.max(0, (x0.maxExtras == null ? 5 : x0.maxExtras) - cm.extrasPicked), maxPrice: t && t.maxPrice,
-    keep: x => allowed(x.ing) && pass(x), capUsed: cm.capUsed,
+    cap: x0.cap || 2, maxExtras: Math.max(0, (x0.maxExtras == null ? bowlExtrasChip(r).def : x0.maxExtras) - cm.extrasPicked), maxPrice: t && t.maxPrice,
+    include: [...force], keep: x => allowed(x.ing) && own(x) && (force.has(x.ing) || pass(x)), capUsed: cm.capUsed, capMax: switchLimit(r, st),
   });
   const locked = Object.fromEntries(cm.list.map(c => [c.opt.id, c.qty]));
   const out = res.map(x => {
@@ -3448,7 +3558,7 @@ function compleatBuildSet(ctx, R, patch) {
 function compleatConfigCard(ctx, R, note) {
   const menu = R.menu, x = (ctx.st && ctx.st.extra) || {}, build = compleatBuildMode(ctx.st), complete = build && !!x.complete;
   const buildNote = "Pick your ingredients like in the " + R.platform + " order dialog — same groups, amounts and limits (" + menu.item + ", base price " + bowlEuro(menu.basePrice) + "). " +
-    (complete ? "Your picks stay in every suggestion; the optimizer adds what's missing for your target (no group is required, extras once each, one dip at most). The switches and “Exclude items” only apply to what it adds, the chips above count your picks, “Must include” is paused while you build."
+    (complete ? "Your picks stay in every suggestion; the optimizer adds what's missing for your target (no group is required, extras once each, one dip at most). The switches and “Exclude items” only apply to what it adds (“Quinoa base” adds one portion only if you haven't picked quinoa yourself), the chips above count your picks, “Must include” is paused while you build."
       : "Nothing is added: you get exactly your order with its totals, price and order guide.") + compleatRefNote(menu) + compleatSoldOutNote(menu);
   return h("div", { style: CARD },
     compleatBuilderOn() && h("div", { style: { display: "flex", gap: 8, marginBottom: 12 } },
@@ -3459,7 +3569,7 @@ function compleatConfigCard(ctx, R, note) {
       "✨ Complete to my macros"),
     build && h("div", { style: { fontSize: 11, color: "#7a7", fontStyle: "italic", lineHeight: 1.4, margin: "0 0 12px 24px" } },
       complete ? "On: every suggestion below keeps your picks and adds the rest." : "Off: exactly your picks — nothing is added."),
-    ...(build && !complete ? [h("div", { key: "note", style: { fontSize: 10, color: "#666", lineHeight: 1.4 } }, buildNote)] : bowlConfigParts(ctx, build ? buildNote : note, menu)));
+    ...(build && !complete ? [h("div", { key: "note", style: { fontSize: 10, color: "#666", lineHeight: 1.4 } }, buildNote)] : bowlConfigParts(ctx, build ? buildNote : note, menu, null, bowlExtrasChip(R).max)));
 }
 // Baukasten (renderExtra im Modus „Build my order“): Gruppen wie im Bestellfenster mit Stepper je Option, darunter die Bestellung
 // (Schalter aus) bzw. die Summe der Auswahl (Schalter an; die Vorschläge stehen dann in der Ergebnisliste)
@@ -5436,7 +5546,8 @@ function validateRegistry(restos) {
       if (s.require && typeof s.require !== "function") P.push(tag + "require ist keine Funktion: " + s.id);
       if (s.force && (!Array.isArray(s.force) || s.force.some(id => typeof id !== "string") || r.kind !== "byo")) P.push(tag + "force muss eine Liste von Zutat-ids sein (nur Build-Your-Own): " + s.id);
       if (s.allow && typeof s.allow !== "function") P.push(tag + "allow ist keine Funktion: " + s.id);
-      if (!s.filter && !s.require && !s.overridesCats && !s.force && !s.allow) P.push(tag + "Schalter ohne Wirkung: " + s.id);
+      if (s.limit && (typeof s.limit !== "object" || r.kind !== "byo" || !Object.values(s.limit).every(n => typeof n === "number" && n >= 0.5 && Number.isInteger(2 * n)))) P.push(tag + "limit muss { Zutat-id: Portionen ≥ ½ } sein (nur Build-Your-Own): " + s.id);
+      if (!s.filter && !s.require && !s.overridesCats && !s.force && !s.allow && !s.limit) P.push(tag + "Schalter ohne Wirkung: " + s.id);
       if (s.group) {
         const g = groups[s.group] || (groups[s.group] = { def: 0, all: 0 });
         if (s.def) g.def++;
@@ -5844,11 +5955,11 @@ function IncludeCard({ list, included, nameOf, platform, onAdd, onRemove, onClea
 // labels: Anzeigenamen der Rollen auf Karten und in der Config-Karte (Default unten, z.B. Dean & David: dip = "dressing")
 const BOWL_LABELS = { base: "base", protein: "protein", dip: "dip", side: "bread" };
 function bowlHas(menu, role) { return !!(menu && menu.groups.some(g => g.options.some(o => bowlRole(o) === role))); }
-function bowlConfigCard(ctx, note, menu, labels) {
-  return h("div", { style: CARD }, ...bowlConfigParts(ctx, note, menu, labels));
+function bowlConfigCard(ctx, note, menu, labels, xMax) {
+  return h("div", { style: CARD }, ...bowlConfigParts(ctx, note, menu, labels, xMax));
 }
-// Inhalt der Config-Karte: Extras-Chip, Portionen-Chip, Hinweis (auch für Karten mit eigenem Kopf, z.B. Compleat „Build my order“)
-function bowlConfigParts(ctx, note, menu, labels) {
+// Inhalt der Config-Karte: Extras-Chip (0 … xMax, Default 6), Portionen-Chip, Hinweis (auch für Karten mit eigenem Kopf, z.B. Compleat „Build my order“)
+function bowlConfigParts(ctx, note, menu, labels, xMax) {
   const L = Object.assign({}, BOWL_LABELS, labels || {});
   const x = (ctx.st && ctx.st.extra) || {};
   const set = patch => ctx.update(s => ({ extra: { ...(s.extra || {}), ...patch } }));
@@ -5858,7 +5969,7 @@ function bowlConfigParts(ctx, note, menu, labels) {
   return [
     h("div", { style: LBL }, "Max. extras per bowl"),
     h("div", { style: { display: "flex", gap: 5, flexWrap: "wrap", marginBottom: stepRoles.length || note ? 12 : 0 } },
-      ...[0, 1, 2, 3, 4, 5, 6].map(n => h(Chip, { key: String(n), label: String(n), active: x.maxExtras === n, onClick: () => set({ maxExtras: n }), small: true }))),
+      ...Array.from({ length: (xMax || 6) + 1 }, (_, n) => h(Chip, { key: String(n), label: String(n), active: x.maxExtras === n, onClick: () => set({ maxExtras: n }), small: true }))),
     stepRoles.length > 0 && h("div", { style: LBL }, "Max. portions of the same " + stepRoles.map(r => L[r]).join(" / ") + (halves ? " · half portion = ½" : "")),
     stepRoles.length > 0 && h("div", { style: { display: "flex", gap: 5, marginBottom: note ? 10 : 0 } },
       ...[1, 2, 3, 4].map(n => h(Chip, { key: String(n), label: String(n), active: x.cap === n, onClick: () => set({ cap: n }), small: true }))),
