@@ -18,6 +18,7 @@ ausverkauft. Bei Problemen schreibt er `data/compleat-raw.json` nicht und nennt 
 | Meldung | Was tun |
 |---|---|
 | „Nicht zugeordnete Wolt-Optionen (WOLT_MAP ergänzen)“ | `WOLT_MAP` in compleat-crawl.js: Wolt-Name exakt (inkl. Wolts Leerzeichen und Anführungszeichen) → Zutat-id = `slugId` des Shop-Namens ohne Menge. Haupt-Protein → `PROTEIN_MAIN`, Nüsse/Kerne/Röstzwiebeln/Sesam/Crunch → `CRUNCH`. Unklare Zuordnung (anderer Name als im Shop) begründen und dem User nennen, nicht raten |
+| „Nicht zugeordnete Wolt-Optionen“ mit gleichem Namen und neuer Menge (02.11.2026: „Hähnchen, 80 g“) + „… fehlt in der Shop-Anzeige“ mit neuer Menge im Namen | Compleat hat Portionen geändert: Schlüssel in `WOLT_MAP` anpassen (Zutat-id bleibt), Schritte 2 und 3 ausführen. Der Crawl meldet es unter „Geänderte Mengen“ (`_meta.portionChanges`). Nennt eine Plattform noch die alte Menge, rechnet ihr Tab damit und die App sagt es in der Config-Karte (`compleatStaleNote`) → dem User nennen |
 | „… fehlt in der Shop-Anzeige“ / „… ist im Shop wählbar, wurde aber noch nie abgelesen“ / „Shop zeigt …, die API ergibt …“ | Schritt 2 (Shop-Anzeige neu ablesen). Weicht eine Anzeige danach immer noch ab: dem User melden |
 | „Uber-Eats-Optionen ohne Shop-Zutat“ | Schritt 3 (Uber Eats neu erfassen); bleibt eine Option ohne offizielle Werte → `UE_NO_DATA` mit Grund |
 | „Halbe Portion … andere Werte je 100 g“ | prüfen; geringe Abweichung → `HALF_DIFF_OK` mit Begründung (der Rechner nutzt die Werte der ganzen Portion), sonst dem User melden |

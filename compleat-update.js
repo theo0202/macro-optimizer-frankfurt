@@ -57,6 +57,9 @@ function buildMenu(raw, platform) {
       for (const k of U.KEYS) opt[k] = U.round(ing.per100[k] * o.amount / 100, 2);
       if (ing.crunch) opt.crunch = true;
       if (ing.shellfish) opt.shellfish = true;
+      // Plattform nennt noch die alte Menge, nachdem Compleat sie im Shop geändert hat (02.11.2026: Uber Eats Hühnchen 100 g, Shop und Wolt 80 g):
+      // gerechnet wird mit der Menge der Plattform, shopAmount trägt die Shop-Menge für den Hinweis in der App (compleatStaleNote)
+      if (!o.half && o.amount !== ing.portion && (raw._meta.portionChanges || []).some(c => c.where === "Shop" && c.name === ing.shopName)) opt.shopAmount = ing.portion;
       return opt;
     }),
   }));

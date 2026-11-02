@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, BOWL_INDEX_CACHE, BOWL_INDEX_MAX_POINTS, bowlScoreKeys, switchForce, switchForcePass, switchLimit, bowlExtrasChip, COMPLEAT_QUINOA, COMPLEAT_EXTRAS, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, chidobaSnackMenu, chidobaSnackGroup, chidobaItemsMax, CHIDOBA_ITEMS_CAP, chidobaCard, chidobaConfigCard, chidobaStepEntries, chidobaCatOn, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, BURGERMEISTER, acAddonPlan, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition, SHARE_VIEWS, SHARE_VIEW, shareViewFrom, visibleTabs, VISIBLE_TABS, viewSearchIndex, VIEW_SEARCH_INDEX, viewShows, SHOW_SCREENSHOT_IMPORT, showTabRow, SHOW_TAB_ROW, APP_CODE, appNeedsCode, appUnlock, AppGate, compleatBuilderAvailable, compleatBuildMode, compleatCleanPicks, compleatPickList, compleatCanAdd, compleatPickStep, bowlAssemble, bowlRequireHint, compleatManualResult, compleatCompletionMenu, compleatComplete, compleatBuildLoad, compleatBuildSave, compleatConfigCard, compleatBuilder, OrderGuide, MacroBars, bowlPanel, bowlCard, bowlConfigParts, EDEKA_FIX_CODE, edekaFixToggle, edekaFixUnlock, edekaConfigCard, EDEKA_ALL, edekaCard, edekaPanel, edekaSetMode, EDEKA_AI_MODEL, EDEKA_AI_EFFORT, EDEKA_AI_SDK_URL, EDEKA_AI_KEYS, EDEKA_AI_TOP, edekaAiAvailable, edekaAiKey, edekaAiSetKey, edekaAiMaskKey, edekaAiClean, edekaAiLoad, edekaAiCatalog, edekaAiSystem, edekaAiSchema, edekaAiInfo, edekaAiUserText, edekaAiParams, edekaAiErrorText, edekaAiParse, edekaAiSanitize, edekaAiAsk, edekaAiRanges, edekaAiScore, edekaAiScoreV, edekaAiChecks, edekaAiSlotItems, edekaAiPool, edekaAiCombos, edekaAiSubmit, edekaAiCard };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, BOWL_INDEX_CACHE, BOWL_INDEX_MAX_POINTS, bowlScoreKeys, switchForce, switchForcePass, switchLimit, bowlExtrasChip, COMPLEAT_QUINOA, COMPLEAT_EXTRAS, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, chidobaSnackMenu, chidobaSnackGroup, chidobaItemsMax, CHIDOBA_ITEMS_CAP, chidobaCard, chidobaConfigCard, chidobaStepEntries, chidobaCatOn, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, BURGERMEISTER, acAddonPlan, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition, SHARE_VIEWS, SHARE_VIEW, shareViewFrom, visibleTabs, VISIBLE_TABS, viewSearchIndex, VIEW_SEARCH_INDEX, viewShows, SHOW_SCREENSHOT_IMPORT, showTabRow, SHOW_TAB_ROW, APP_CODE, appNeedsCode, appUnlock, AppGate, compleatBuilderAvailable, compleatBuildMode, compleatCleanPicks, compleatStaleNote, compleatPickList, compleatCanAdd, compleatPickStep, bowlAssemble, bowlRequireHint, compleatManualResult, compleatCompletionMenu, compleatComplete, compleatBuildLoad, compleatBuildSave, compleatConfigCard, compleatBuilder, OrderGuide, MacroBars, bowlPanel, bowlCard, bowlConfigParts, EDEKA_FIX_CODE, edekaFixToggle, edekaFixUnlock, edekaConfigCard, EDEKA_ALL, edekaCard, edekaPanel, edekaSetMode, EDEKA_AI_MODEL, EDEKA_AI_EFFORT, EDEKA_AI_SDK_URL, EDEKA_AI_KEYS, EDEKA_AI_TOP, edekaAiAvailable, edekaAiKey, edekaAiSetKey, edekaAiMaskKey, edekaAiClean, edekaAiLoad, edekaAiCatalog, edekaAiSystem, edekaAiSchema, edekaAiInfo, edekaAiUserText, edekaAiParams, edekaAiErrorText, edekaAiParse, edekaAiSanitize, edekaAiAsk, edekaAiRanges, edekaAiScore, edekaAiScoreV, edekaAiChecks, edekaAiSlotItems, edekaAiPool, edekaAiCombos, edekaAiSubmit, edekaAiCard };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -863,18 +863,18 @@ if (valC.length) console.log(valC.join("\n"));
 check("bowlValidate(COMPLEAT) ohne Probleme (beide Menüs)", valC.length, 0);
 check("bowlValidate erkennt Fehler (Preis fehlt, Kern-Rolle in zwei Gruppen)", (() => { const bad = JSON.parse(JSON.stringify(T.COMPLEAT)); delete bad.ubereats.groups[0].options[0].price; bad.ubereats.groups[2].options.push({ ...bad.ubereats.groups[0].options[1], id: "x_dup", group: bad.ubereats.groups[2].id }); const P = T.bowlValidate(bad, ["ubereats"]); return P.some(x => /price fehlt/.test(x)) && P.some(x => /Rolle base steht in mehreren Gruppen/.test(x)); })(), true);
 // Wolt
-check("Wolt-Gruppen (Stand 27.10.2026): Basis 5 (mit Quinoa, Kürbis und Protein Nudeln) · Proteine 6 (mit Mushroots) · Extras 30 · Dips 16 (Rotes Pesto seit 21.10., Guacamole seit 27.10.2026 wieder bei Wolt) + „Ohne Dip“", WG.base.options.length === 5 && WG.protein.options.length === 6 && WG.extra.options.length === 30 && WG.dip.options.length === 16 && WG.dip.none === "Ohne Dip", true);
+check("Wolt-Gruppen (Stand 02.11.2026): Basis 5 (mit Quinoa, Kürbis und Protein Nudeln) · Proteine 6 (mit Mushroots) · Extras 30 · Dips 15 (Rotes Pesto seit 21.10.2026 wieder bei Wolt; Ajvar führt Wolt seit 02.11.2026 nicht mehr; im Shop ausverkaufte Dips kommen aus dem letzten Lauf) + „Ohne Dip“", WG.base.options.length === 5 && WG.protein.options.length === 6 && WG.extra.options.length === 30 && WG.dip.options.length === 15 && WG.dip.none === "Ohne Dip", true);
 check("Wolt: „Rotes Pesto, 80g“ (seit 21.10.2026 wieder) unter „Dein Dip“ für 1,00 € = Shop-Werte je 100 g × 80 g (264 kcal / 22,96 g F / 10,24 g KH / 3,68 g E) · Guacamole: vom 21. bis 26.10.2026 nicht bei Wolt, seit 27.10.2026 wieder („Guacamole“ ohne Mengenangabe → Shop-Portion 100 g = 194 kcal, 3,00 €) — der stehen gebliebene WOLT_MAP-Eintrag hat sie von selbst wieder aufgenommen", (() => {
   const rp = wopt("dip_rotes_pesto_80g"), ing = T.COMPLEAT.ingredients.find(x => x.id === "rotes_pesto");
   return !!rp && rp.name === "Rotes Pesto, 80g" && rp.price === 1 && rp.amount === 80 && rp.role === "dip" && T.KEYS.every(k => Math.abs(rp[k] - Math.round(ing.per100[k] * rp.amount / 100 * 100) / 100) < 1e-9) &&
     rp.kcal === 264 && rp.fat === 22.96 && rp.carbs === 10.24 && rp.protein === 3.68 &&
     (() => { const g = W.groups.flatMap(x => x.options).filter(o => o.ing === "guacamole"), gi = T.COMPLEAT.ingredients.find(x => x.id === "guacamole");
       return g.length === 1 && g[0].name === "Guacamole" && g[0].group === "dip" && g[0].amount === 100 && g[0].price === 3 && g[0].kcal === gi.per100.kcal && g[0].kcal === 194; })() &&
-    UE.groups.some(g => g.options.some(o => o.ing === "guacamole")) && !rawC._meta.notOnWolt.includes("Guacamole (100g)") && rawC._meta.woltMapUnused.length === 0 &&
-    rawC._meta.portionAssumed.some(p => /^„Guacamole“: .*100 g$/.test(p));
+    UE.groups.some(g => g.options.some(o => o.ing === "guacamole")) && !rawC._meta.notOnWolt.includes("Guacamole (100g)") && rawC._meta.woltMapUnused.join() === "Ajvar, 100g" &&
+    rawC._meta.portionAssumed.some(p => /^„Protein Tsatsiki Dip“: .*100 g$/.test(p));
 })(), true);
 check("Wolt-Grenzen: Basis 0–5 · Proteine 0–10 · Extras 0–30 · Dip genau 1", WG.base.max === 5 && WG.protein.max === 10 && WG.extra.max === 30 && WG.dip.min === 1 && WG.dip.max === 1, true);
-check("Wolt-Mengen: Basmatireis/Salat-Mix bis 4×, Protein Nudeln 1×, Hähnchen bis 10×, Pulled Salmon 1×, Extras 1×", wopt("base_basmatireis_250_g").maxQty === 4 && wopt("base_salat_mix_100_g").maxQty === 4 && wopt("base_protein_nudeln_200_g").maxQty === 1 && wopt("protein_haehnchen_100_g").maxQty === 10 && wopt("protein_pulled_salmon_100_g").maxQty === 1 && WG.extra.options.every(o => o.maxQty === 1), true);
+check("Wolt-Mengen: Basmatireis/Salat-Mix bis 4×, Protein Nudeln 1×, Hähnchen bis 10×, Pulled Salmon 1×, Extras 1×", wopt("base_basmatireis_250_g").maxQty === 4 && wopt("base_salat_mix_80_g").maxQty === 4 && wopt("base_protein_nudeln_200_g").maxQty === 1 && wopt("protein_haehnchen_80_g").maxQty === 10 && wopt("protein_pulled_salmon_80_g").maxQty === 1 && WG.extra.options.every(o => o.maxQty === 1), true);
 check("Wolt: Grundpreis 3 € (seit 27.09.2026, vorher 2 €), jede Option mit Preis, Rolle = Gruppe", W.basePrice === 3 && W.item === "Build your Bowl" && W.groups.every(g => g.options.every(o => typeof o.price === "number" && o.role === g.id)), true);
 // Bis 26.09.2026 zeigte Wolt 4 € auf der Menükarte (Grundpreis 2 € + im Pflicht-Dip vorausgewählter „Curvy Curry Dip“, User-Rückfrage 16.09.2026).
 // Seit 27.09.2026 ist „Ohne Dip“ die Standard-Option (Wolt-Web-UI: Button 3,00 € = Grundpreis) → keine Vorauswahl mit Aufpreis, kein Hinweis.
@@ -883,8 +883,8 @@ check("bowlPreselectNote: wählt eine Plattform etwas mit Aufpreis vor, nennt de
 check("bowlPreselectNote (Uber Eats): keine Vorauswahl → kein Hinweis", T.bowlPreselectNote(UE, "Uber Eats") === "" && !(UE.preselected && UE.preselected.length) && rawC.ubereats.cardPrice === rawC.ubereats.itemPrice, true);
 check("Hinweistext beider Compleat-Tabs bindet bowlPreselectNote ein", (SCRIPT.match(/bowlPreselectNote\(m,/g) || []).length === 2, true);
 check("bowlValidate meldet Vorauswahl auf unbekannte Gruppe", (() => { const bad = JSON.parse(JSON.stringify(T.COMPLEAT)); bad.wolt.preselected = [{ group: "gibtsnicht", name: "X", price: 1 }]; return T.bowlValidate(bad, ["wolt"]).some(x => /preselected: unbekannte Gruppe/.test(x)); })(), true);
-check("Wolt-Preise: Basmatireis 2,50 € · Hähnchen 3,00 € · Pulled Salmon 4,00 €", wopt("base_basmatireis_250_g").price === 2.5 && wopt("protein_haehnchen_100_g").price === 3 && wopt("protein_pulled_salmon_100_g").price === 4, true);
-check("Salat-Mix: Wolt 100 g statt Shop 80 g → pro-100-g-Werte (17 kcal)", wopt("base_salat_mix_100_g").amount === 100 && wopt("base_salat_mix_100_g").kcal === 17 && T.COMPLEAT.ingredients.find(x => x.id === "salatmix").portion === 80, true);
+check("Wolt-Preise: Basmatireis 2,50 € · Hähnchen 3,00 € · Pulled Salmon 4,00 €", wopt("base_basmatireis_250_g").price === 2.5 && wopt("protein_haehnchen_80_g").price === 3 && wopt("protein_pulled_salmon_80_g").price === 4, true);
+check("Salat-Mix: seit 02.11.2026 auch bei Wolt 80 g wie im Shop (13,6 kcal; bis dahin nannte Wolt 100 g = 17 kcal), weder ×1,25 noch andere Werte je 100 g", wopt("base_salat_mix_80_g").name === "Salat-Mix, 80 g" && wopt("base_salat_mix_80_g").amount === 80 && wopt("base_salat_mix_80_g").kcal === 13.6 && T.COMPLEAT.ingredients.find(x => x.id === "salatmix").portion === 80 && T.COMPLEAT.ingredients.find(x => x.id === "salatmix").per100.kcal === 17, true);
 check("Basmatireis 250 g: 330 kcal · 70 g KH · 7,5 g P", wopt("base_basmatireis_250_g").kcal === 330 && wopt("base_basmatireis_250_g").carbs === 70 && wopt("base_basmatireis_250_g").protein === 7.5, true);
 check("Walnusskerne 20 g: 140,8 kcal (Shop zeigt fälschlich 7 kcal)", wopt("extra_walnusskerne_20_g").kcal, 140.8);
 check("Röstzwiebeln 20 g: 118 kcal (Shop rechnet mit 18 g)", wopt("extra_roestzwiebeln_20_g").kcal, 118);
@@ -908,8 +908,8 @@ check("Uber Eats: kcal-Angaben geprüft — Abweichungen nur Granatapfelkerne (1
   const capU = U.readJSON(__dirname + "/data/compleat-ubereats-menu.json"), ppHalf = capU.groups.some(g => g.options.some(o => o.title === "Protein-Pasta - Halbe Portion (100g)"));
   return rawC._meta.ubereats.kcalDiffs.map(d => d.ubereats + ":" + d.ubereatsKcal + ":" + d.shopKcal).sort().join("|") === ["Bunter Bio Quinoa (250g):130:305", "Bunter Bio Quinoa - Halbe Portion (125g):65:152.5", "Granatapfelkerne (15g):15:11.1", ...(ppHalf ? ["Protein-Pasta - Halbe Portion (100g):238:190.5"] : []), "Sojasauce (20ml):8:4.2"].join("|");
 })(), true);
-check("Uber Eats: einzige Mengenabweichung zum Shop = Hart gekochtes Ei (Uber Eats 50 g, Shop-Name 40 g), jede Shop-Zutat angeboten", rawC._meta.ubereats.portionDiffs.map(d => d.ubereats).join() === "Hart gekochtes Ei (50g)" && rawC._meta.ubereats.notOnUberEats.length === 0, true);
-check("Uber-Eats-Erfassung (27.10.2026): 69 Optionen inkl. 3 Seasonals-Werbung (maxPermitted 0, ignoriert); Protein-Pasta (ganz + halb) und Trüffel Light wieder da, nichts ausgeblendet; Zeitstempel und Produktseite, = raw.json", (() => { const capU = U.readJSON(__dirname + "/data/compleat-ubereats-menu.json"); return capU.groups.reduce((a, g) => a + g.options.length, 0) === 69 && /^2026-10-27T/.test(capU.capturedAt) && capU.groups.filter(g => g.maxPermitted === 0).length === 1 && capU.groups.find(g => g.maxPermitted === 0).options.length === 3 &&
+check("Uber Eats: Mengenabweichungen zum Shop = die alten Mengen (Stand 02.11.2026: Hühnchen, Vegane Hackbällchen, Rinderhackbällchen, Pulled Salmon je 100 g, halbe je 50 g außer Rinderhack) + Hart gekochtes Ei (Uber Eats 50 g, Shop-Name 40 g), jede Shop-Zutat angeboten", rawC._meta.ubereats.portionDiffs.map(d => d.ubereats).sort().join("|") === ["Hart gekochtes Ei (50g)", "Hühnchen (100g)", "Hühnchen - Halbe Portion (50g)", "Pulled Salmon (100g)", "Pulled Salmon - Halbe Portion (50g)", "Rinderhackbällchen (100g)", "Vegane Hackbällchen (100g)", "Vegane Hackbällchen - Halbe Portion (50g)"].sort().join("|") && rawC._meta.ubereats.notOnUberEats.length === 0, true);
+check("Uber-Eats-Erfassung (02.11.2026): 63 Optionen inkl. 1 Seasonals-Werbung (maxPermitted 0, ignoriert); ausgeblendet die vier im Shop ausverkauften (aus dem letzten Lauf übernommen); Zeitstempel und Produktseite, = raw.json", (() => { const capU = U.readJSON(__dirname + "/data/compleat-ubereats-menu.json"); return capU.groups.reduce((a, g) => a + g.options.length, 0) === 63 && /^2026-11-02T/.test(capU.capturedAt) && capU.groups.filter(g => g.maxPermitted === 0).length === 1 && capU.groups.find(g => g.maxPermitted === 0).options.length === 1 &&
     ["Protein-Pasta (200g)", "Protein-Pasta - Halbe Portion (100g)", "Trüffel Light (Inlead) (80g)"].every(n => capU.groups.some(g => g.options.some(o => o.title === n))) && /ubereats\.com\/de-en\/store\/compleat-frankfurt-nordend\//.test(capU.pageUrl) && rawC.ubereats.capturedAt === capU.capturedAt && rawC.ubereats.itemPrice === capU.item.price / 100; })(), true);
 // Sojasauce mit typischen Werten (User 27.10.2026: „die Nährwerte der Sojasoße bei Compleat scheinen nicht realistisch — nimm lieber die typischen
 // Nährwerte für Sojasauce“): USDA FoodData Central #174277 statt der Shop-Werte; die Shop-Werte bleiben für alle Kontrollen gegen den Shop
@@ -953,7 +953,7 @@ check("App: die Config-Karte beider Compleat-Tabs (auch im Baukasten „Build my
 })(), true);
 check("verify-compleat.js und verify-compleat-presets.js prüfen den Shop-Datensatz (bei Referenzwerten die offiziellen shopPer100): Word-Export der Sojasauce = Shop-Werte × 40 ml (8 kcal / 5,74 g Salz)", (() => {
   const src = fs.readFileSync(__dirname + "/verify-compleat.js", "utf8"), srcP = fs.readFileSync(__dirname + "/verify-compleat-presets.js", "utf8");
-  return /const shopValues = ing => ing\.shopPer100 \|\| ing\.per100;/.test(src) && /shownFor\(shopValues\(ing\), k, ing\.vmos\.displayAmount\)/.test(src) &&
+  return /const shopValues = ing => ing\.shopPer100 \|\| ing\.per100;/.test(src) && /shownFor\(shopValues\(ing\), k, amount\)/.test(src) &&
     /const per100 = ing\.shopPer100 \|\| ing\.per100;/.test(srcP) && Number((sojaC.shopPer100.kcal * 40 / 100).toFixed(0)) === 8 && Number((sojaC.shopPer100.salt * 40 / 100).toFixed(2)) === 5.74;
 })(), true);
 // beide Plattformen
@@ -974,7 +974,7 @@ check("Kein Schalentier bei Compleat (Allergene + Namen, beide Menüs)", T.COMPL
 const metaC = rawC._meta;
 check("_meta: 8 dokumentierte Auffälligkeiten (Quinoa seit den neuen Werten vom 21.10.2026 nicht mehr; halbe Kürbis-Portion mit anderem Zucker je 100 g; seit 27.10.2026 die Shop-Werte der Sojasauce, im Rechner ersetzt)", metaC.anomalies.map(a => a.id).sort().join(",") === "avocado,chili_gewuerz,edamame,honey_muscle_mustard,kuerbiswuerfel_mariniert,olivenoel_salz_halbe_zitrone,pulled_salmon,sojasauce", true);
 check("_meta: 6 Anzeige-Bugs im Shop dokumentiert (neu: Functional Fall Crunch mit 1 statt 20 g, Ei mit 50 statt 40 g)", metaC.displayBugs.map(b => b.id).sort().join(",") === "functional_fall_crunch,granatapfelkerne,hart_gekochtes_ei,roestzwiebeln,sojasauce,walnusskerne", true);
-check("_meta: Mengenabweichungen Wolt ↔ Shop: Salat-Mix (100 statt 80 g) und Hart gekochtes Ei (50 statt 40 g)", metaC.portionDiffs.map(d => d.wolt).join("|") === "Salat-Mix, 100 g|Hart gekochtes Ei, 50 g", true);
+check("_meta: Mengenabweichung Wolt ↔ Shop: nur noch Hart gekochtes Ei (50 statt 40 g; der Salat-Mix hat seit 02.11.2026 bei beiden 80 g)", metaC.portionDiffs.map(d => d.wolt).join("|") === "Hart gekochtes Ei, 50 g", true);
 check("_meta: Koriander in der Guacamole vermerkt", metaC.dislikes.some(d => /Guacamole/.test(d) && /Koriander/i.test(d)), true);
 check("_meta: Entscheidungen des Users mit Datum (inkl. Preislimit + Uber Eats)", metaC.decisions.length >= 7 && metaC.decisions.every(d => /^User [0-9]{2}[.][0-9]{2}[.][0-9]{4}/.test(d)) && metaC.decisions.some(d => /Preislimit/.test(d)) && metaC.decisions.some(d => /Uber Eats/.test(d)), true);
 check("_meta: 4-€-Rückfrage dokumentiert (damals 2 € + vorausgewählter Dip, seit 27.09.2026 „Ohne Dip“) + Entscheidung 27.09.2026 (neue Zutaten, ausverkauft drin, gestrichen raus)", metaC.decisions.some(d => /User 16[.]09[.]2026/.test(d) && /4 €/.test(d) && /damals 2 € Grundpreis/.test(d) && /Ohne Dip/.test(d)) && metaC.decisions.some(d => /^User 27[.]09[.]2026/.test(d) && /ausverkaufte drin/.test(d)) && /keine Vorauswahl/.test(metaC.woltRules) && /keine Vorauswahl/.test(metaC.ubereatsRules), true);
@@ -1011,22 +1011,22 @@ check("Kürbiswürfel mariniert: Base 200 g (+ halbe 100 g bei Uber Eats) und al
     uopt("Kürbiswürfel mariniert (50g)").ing === "kuerbiswuerfel_mariniert_50g" && uopt("Kürbiswürfel mariniert (50g)").role === "extra" && uopt("Kürbiswürfel mariniert - halbe Portion (100g)").ing === "kuerbiswuerfel_mariniert";
 })(), true);
 check("Hart gekochtes Ei: Shop heißt jetzt „(40g)“, Shop-Anzeige, Wolt und Uber Eats rechnen mit 50 g → beide Plattformen 77,5 kcal", T.COMPLEAT.ingredients.find(x => x.id === "hart_gekochtes_ei").portion === 40 && wopt("extra_hart_gekochtes_ei_50_g").kcal === 77.5 && uopt("Hart gekochtes Ei (50g)").kcal === 77.5 && /40g/.test(metaC.eggNote) && /50 g/.test(metaC.eggNote), true);
-check("Shop-Anzeige einzeln angeklickt (21.10.2026, morgens und nach der Quinoa-Änderung noch einmal): alle 65 Karten durchgegangen, 65 Karten / 520 Werte = Shop-API × Anzeige-Menge (heute abgelesen + die heute ausverkauften Karten mit ihrer letzten Ablesung); Quinoa mit den neuen Werten (305 kcal je 250 g); verify-compleat-shop.js grün", (() => {
+check("Shop-Anzeige einzeln angeklickt (zuletzt 02.11.2026 nach der Mengenänderung): alle 65 Karten durchgegangen, 65 Karten / 520 Werte = Shop-API × Anzeige-Menge (heute abgelesen + die heute ausverkauften Karten mit ihrer letzten Ablesung); Quinoa mit den neuen Werten (305 kcal je 250 g); verify-compleat-shop.js grün", (() => {
   const ctl = U.readJSON(__dirname + "/data/compleat-shop-anzeige.json"), r = require("./verify-compleat-shop.js").compare(rawC.shopItems, ctl);
   let ok = true; try { require("child_process").execFileSync(process.execPath, [__dirname + "/verify-compleat-shop.js"], { stdio: "pipe" }); } catch (e) { ok = false; }
   const read = ctl.items.filter(x => x.shown), last = ctl.items.filter(x => !x.shown && x.lastRead);
   const q = ctl.items.find(x => x.name === "Bunter Bio Quinoa (250g)"), qh = ctl.items.find(x => x.name === "Bunter Bio Quinoa - Halbe Portion (125g)");
-  return ok && r.problems.length === 0 && /^2026-10-21T/.test(ctl.readAt) && ctl.items.length === 65 && read.length + last.length === 65 && last.every(x => x.soldOut === true && /^2026-10-(11|21)T/.test(x.lastRead.readAt)) &&
+  return ok && r.problems.length === 0 && /^2026-11-02T/.test(ctl.readAt) && ctl.items.length === 65 && read.length + last.length === 65 && last.every(x => x.soldOut === true && /^2026-10-(11|21)T/.test(x.lastRead.readAt)) &&
     r.checked === read.length + last.length && r.values === 8 * r.checked && r.checked === 65 && r.earlier.length === last.length && r.soldOutNotChecked.length === 0 &&
     metaC.shopControl.checked === r.checked && metaC.shopControl.values === r.values && metaC.shopControl.earlier.length === last.length && rawC.shopItems.length >= 65 &&
     !!q.shown && q.shown.kcal === "305" && q.shown.protein === "11.8" && q.shown.carbs === "48.5" && q.shown.fat === "5.0" && !!qh.shown && qh.shown.kcal === "153" && qh.shown.protein === "5.9";
 })(), true);
-check("Shop-Anzeige vom 21.10.2026: Ajvar (105 kcal / 5,3 g F / 11,0 g KH / 1,4 g E), Guacamole (194 kcal), Rotes Pesto (erstmals wählbar: 264 kcal / 23,0 g F / 10,2 g KH / 3,7 g E) und Chili Gewürz (ausgewählt zeigt der Shop überall „--“ = 0) einzeln abgelesen", (() => {
-  const ctl = U.readJSON(__dirname + "/data/compleat-shop-anzeige.json"), c = n => ctl.items.find(x => x.name === n);
+check("Shop-Anzeige: Ajvar (105 kcal / 5,3 g F / 11,0 g KH / 1,4 g E), Guacamole (194 kcal), Rotes Pesto (264 kcal / 23,0 g F / 10,2 g KH / 3,7 g E) und Chili Gewürz (ausgewählt zeigt der Shop überall „--“ = 0) einzeln abgelesen (gerade ausverkaufte Karten mit ihrer letzten Ablesung)", (() => {
+  const ctl = U.readJSON(__dirname + "/data/compleat-shop-anzeige.json"), c = n => { const x = ctl.items.find(y => y.name === n); return x.shown ? x : x.lastRead; };
   const a = c("Ajvar (100g)"), g = c("Guacamole (100g)"), ch = c("Chili Gewürz (1g)"), rp = c("Rotes Pesto (80g)");
   if (!(rp && rp.qty === 1 && rp.shown.kcal === "264" && rp.shown.fat === "23.0" && rp.shown.carbs === "10.2" && rp.shown.protein === "3.7" && rp.shown.salt === "1.92")) return false;
   return a.qty === 1 && a.shown.kcal === "105" && a.shown.fat === "5.3" && a.shown.carbs === "11.0" && a.shown.protein === "1.4" && a.shown.salt === "1.40" &&
-    g.qty === 1 && g.shown.kcal === "194" && g.shown.protein === "1.7" && ch.qty === 1 && !ch.soldOut && U.KEYS.every(k => ch.shown[k] === "--") &&
+    g.qty === 1 && g.shown.kcal === "194" && g.shown.protein === "1.7" && ch.qty === 1 && U.KEYS.every(k => ch.shown[k] === "--") &&
     U.KEYS.every(k => rawC.shopItems.find(x => x.name === "Chili Gewürz (1g)").per100[k] === 0);
 })(), true);
 check("Shop-Anzeige übernehmen (merge): heute ausverkaufte Karte behält ihre letzte Ablesung als lastRead (auch über mehrere Durchgänge), heute abgelesene Karten bleiben unverändert; wählbar, aber nie abgelesen → Problem", (() => {
@@ -1040,12 +1040,12 @@ check("Shop-Anzeige übernehmen (merge): heute ausverkaufte Karte behält ihre l
     m2.items[0].lastRead.readAt === old.readAt && m2.readAt === "2026-03-01T10:00:00.000Z" && typeof m1._source === "string" &&
     vs.compare(rawC.shopItems, never).problems.some(p => /Ziegenkäse/.test(p) && /noch nie abgelesen/.test(p));
 })(), true);
-check("Ajvar wieder bei Wolt (User 11.10.2026): „Ajvar, 100g“ unter „Dein Dip“, 3 €, 105 kcal / 1,4 g E / 11 g KH / 5,3 g F = Shop-Werte je 100 g × 100 g; steht nicht mehr unter „nicht bei Wolt“; Uber Eats „Ajvar (100g)“ mit denselben Werten und 3 €", (() => {
-  const a = wopt("dip_ajvar_100g"), u = uopt("Ajvar (100g)"), ing = rawC.ingredients.find(x => x.id === "ajvar");
-  return !!a && a.name === "Ajvar, 100g" && a.short === "Ajvar" && a.group === "dip" && a.role === "dip" && a.ing === "ajvar" && a.amount === 100 && a.maxQty === 1 && a.price === 3 &&
-    a.kcal === 105 && a.protein === 1.4 && a.carbs === 11 && a.fat === 5.3 && a.sat === 0.6 && a.sugars === 9.2 && a.fibre === 3 && a.salt === 1.4 &&
-    !!ing && !ing.soldOut && ing.portion === 100 && U.KEYS.every(k => Math.abs(ing.per100[k] - a[k]) < 1e-9) && !metaC.notOnWolt.some(x => /Ajvar/.test(x)) && !metaC.woltMapUnused.some(x => /Ajvar/.test(x)) &&
-    rawC.wolt.groups.find(g => g.id === "dip").options.some(o => o.name === "Ajvar, 100g" && !o.soldOut) && !!u && u.ing === "ajvar" && u.price === 3 && U.KEYS.every(k => u[k] === a[k]);
+check("Ajvar: seit 02.11.2026 wieder nicht bei Wolt (vom 11.10. bis 01.11.2026 „Ajvar, 100g“ für 3 €), im Shop wählbar und bei Uber Eats „Ajvar (100g)“ für 3 €, 105 kcal / 1,4 g E / 11 g KH / 5,3 g F = Shop-Werte je 100 g × 100 g; der WOLT_MAP-Eintrag bleibt für die Rückkehr stehen, die Ausschluss-Liste des Wolt-Tabs nennt ihn nicht", (() => {
+  const u = uopt("Ajvar (100g)"), ing = rawC.ingredients.find(x => x.id === "ajvar"), src = fs.readFileSync(__dirname + "/compleat-crawl.js", "utf8");
+  return !wopt("dip_ajvar_100g") && !!u && u.ing === "ajvar" && u.group === "dip" && u.role === "dip" && u.amount === 100 && u.price === 3 &&
+    u.kcal === 105 && u.protein === 1.4 && u.carbs === 11 && u.fat === 5.3 && u.sat === 0.6 && u.sugars === 9.2 && u.fibre === 3 && u.salt === 1.4 &&
+    !!ing && !ing.soldOut && ing.portion === 100 && U.KEYS.every(k => Math.abs(ing.per100[k] - u[k]) < 1e-9) && metaC.notOnWolt.includes("Ajvar (100g)") && metaC.woltMapUnused.includes("Ajvar, 100g") &&
+    src.includes('"Ajvar, 100g": "ajvar"') && !T.excludablesFor(CR).some(x => x.id === "ajvar") && T.excludablesFor(CU).some(x => x.id === "ajvar");
 })(), true);
 check("Shop-Anzeige-Abgleich erkennt Fehler: verfälschter Wert → Abweichung; fehlende Karte einer verfügbaren Zutat → Problem", (() => {
   const vs = require("./verify-compleat-shop.js"), ctl = U.readJSON(__dirname + "/data/compleat-shop-anzeige.json");
@@ -1053,7 +1053,43 @@ check("Shop-Anzeige-Abgleich erkennt Fehler: verfälschter Wert → Abweichung; 
   const miss = JSON.parse(JSON.stringify(ctl)); miss.items = miss.items.filter(x => x.name !== "Rote Beete (70g)");
   return vs.compare(rawC.shopItems, bad).problems.some(p => /Ziegenkäse/.test(p) && /protein/.test(p)) && vs.compare(rawC.shopItems, miss).problems.some(p => /Rote Beete/.test(p));
 })(), true);
-check("Änderungsbericht des Crawls vorhanden (_meta.lastChanges: Shop, Wolt, Uber Eats, Preise)", ["since", "shopAdded", "shopRemoved", "woltAdded", "woltRemoved", "ubereatsAdded", "ubereatsRemoved", "prices"].every(k => k in metaC.lastChanges), true);
+check("Änderungsbericht des Crawls vorhanden (_meta.lastChanges: Shop, Wolt, Uber Eats, Preise, Mengen, Werte)", ["since", "shopAdded", "shopRemoved", "woltAdded", "woltRemoved", "ubereatsAdded", "ubereatsRemoved", "prices", "portions", "values"].every(k => k in metaC.lastChanges), true);
+// Neue Mengen (User 02.11.2026: „Compleat hat seine Gramm-Auswahl verändert … bspw. Hähnchen und Rinderhackbällchen“)
+check("Neue Mengen im Shop (02.11.2026): Hühnchen, Vegane Hackbällchen, Pulled Salmon 80 g (halbe 40 g), Rinderhackbällchen 90 g (halbe weiter 50 g); Veganes Hühnchen 80 g und Mushroots 75 g unverändert; Werte je 100 g dieselben wie vorher", (() => {
+  const ing = id => T.COMPLEAT.ingredients.find(x => x.id === id);
+  return ing("huehnchen").portion === 80 && ing("huehnchen").halfPortion === 40 && ing("vegane_hackbaellchen").portion === 80 && ing("vegane_hackbaellchen").halfPortion === 40 && ing("pulled_salmon").portion === 80 && ing("pulled_salmon").halfPortion === 40 &&
+    ing("rinderhackbaellchen").portion === 90 && ing("rinderhackbaellchen").halfPortion === 50 && ing("veganes_huehnchen_planted_chicken").portion === 80 && ing("mushroots_pilzbaellchen").portion === 75 &&
+    ing("huehnchen").per100.kcal === 125 && ing("huehnchen").per100.protein === 23.2 && ing("rinderhackbaellchen").per100.kcal === 222 && ing("rinderhackbaellchen").per100.protein === 14 && ing("vegane_hackbaellchen").per100.kcal === 154 && ing("pulled_salmon").per100.kcal === 215;
+})(), true);
+check("Neue Mengen bei Wolt (02.11.2026), alle Werte = Shop je 100 g × Wolt-Menge, Preise unverändert: Hähnchen, 80 g 100 kcal / 18,56 g E, 3 € · Rinderhackbällchen, 90 g 199,8 kcal / 12,6 g E, 3 € · Vegane Hackbällchen, 80 g 123,2 kcal, 3 € · Pulled Salmon, 80 g 172 kcal, 4 € · Salat-Mix, 80 g 13,6 kcal, 2,50 €; auch die Duplikate unter „Deine Extras“", (() => {
+  const a = wopt("protein_haehnchen_80_g"), b = wopt("protein_rinderhackbaellchen_90_g"), c = wopt("protein_vegane_hackbaellchen_80_g"), d = wopt("protein_pulled_salmon_80_g"), e = wopt("base_salat_mix_80_g");
+  const scaled = o => { const i = T.COMPLEAT.ingredients.find(x => x.id === o.ing); return T.KEYS.every(k => Math.abs(o[k] - Math.round(i.per100[k] * o.amount) / 100) < 1e-9); };
+  return a.name === "Hähnchen, 80 g" && a.amount === 80 && a.kcal === 100 && a.protein === 18.56 && a.price === 3 && b.name === "Rinderhackbällchen, 90 g" && b.amount === 90 && b.kcal === 199.8 && b.protein === 12.6 && b.price === 3 &&
+    c.name === "Vegane Hackbällchen, 80 g" && c.amount === 80 && c.kcal === 123.2 && c.price === 3 && d.name === "Pulled Salmon, 80 g" && d.amount === 80 && d.kcal === 172 && d.price === 4 && d.maxQty === 1 && e.price === 2.5 && [a, b, c, d, e].every(scaled) &&
+    wopt("extra_haehnchen_80_g").kcal === 100 && wopt("extra_rinderhackbaellchen_90_g").kcal === 199.8 && wopt("extra_vegane_hackbaellchen_80_g").kcal === 123.2 && !W.groups.flatMap(g => g.options).some(o => /, 100 g$/.test(o.name) && ["huehnchen", "rinderhackbaellchen", "vegane_hackbaellchen", "pulled_salmon", "salatmix"].includes(o.ing));
+})(), true);
+check("Neue Mengen in der Shop-Anzeige einzeln abgelesen (02.11.2026): Hühnchen (80g) 100 kcal / 2,2 g F / 1,3 g KH / 18,6 g E · halbe (40g) 50 kcal · Rinderhackbällchen (90g) 200 kcal / 12,6 g E · halbe (50g) 111 kcal · Vegane Hackbällchen (80g) 123 kcal · Pulled Salmon (80g) 172 kcal", (() => {
+  const ctl = U.readJSON(__dirname + "/data/compleat-shop-anzeige.json"), c = n => (ctl.items.find(x => x.name === n) || {}).shown || {};
+  const h = c("Hühnchen (80g)"), r = c("Rinderhackbällchen (90g)");
+  return h.kcal === "100" && h.fat === "2.2" && h.carbs === "1.3" && h.protein === "18.6" && h.salt === "0.86" && c("Hühnchen - Halbe Portion (40g)").kcal === "50" && r.kcal === "200" && r.protein === "12.6" && r.fat === "12.6" && r.carbs === "9.0" &&
+    c("Rinderhackbällchen - Halbe Portion (50g)").kcal === "111" && c("Vegane Hackbällchen (80g)").kcal === "123" && c("Vegane Hackbällchen - Halbe Portion (40g)").kcal === "62" && c("Pulled Salmon (80g)").kcal === "172" && c("Pulled Salmon - Halbe Portion (40g)").kcal === "86" && !ctl.items.some(x => /^(Hühnchen|Rinderhackbällchen|Vegane Hackbällchen|Pulled Salmon) \(100g\)$/.test(x.name));
+})(), true);
+check("_meta.portionChanges (kumuliert): Shop 7 Karten mit altem und neuem Namen und alter Anzeige-Menge, Wolt 8 Optionen (Basis, Proteine, Extras); Uber Eats keine — lastChanges nennt sie im Änderungsbericht; Preise und Werte je 100 g unverändert", (() => {
+  const pc = (metaC.portionChanges || []).filter(c => c.changedAt === "2026-11-02"), sh = pc.filter(c => c.where === "Shop"), wo = pc.filter(c => c.where === "Wolt");
+  const hu = sh.find(c => c.name === "Hühnchen (80g)"), rh = sh.find(c => c.name === "Rinderhackbällchen (90g)");
+  return sh.length === 7 && wo.length === 8 && pc.filter(c => c.where === "Uber Eats").length === 0 && hu.oldName === "Hühnchen (100g)" && hu.old === 100 && hu.new === 80 && hu.oldDisplay === 100 && hu.newDisplay === 80 && rh.old === 100 && rh.new === 90 &&
+    !sh.some(c => /Rinderhackbällchen - Halbe/.test(c.name)) && wo.some(c => c.group === "Deine Basis" && c.oldName === "Salat-Mix, 100 g" && c.name === "Salat-Mix, 80 g") && !(metaC.valueChanges || []).some(v => v.changedAt === "2026-11-02");
+})(), true);
+check("Uber Eats nennt noch die alten Mengen (02.11.2026): der Tab rechnet mit dem, was Uber Eats nennt (Hühnchen (100g) 125 kcal / 23,2 g E, halbe (50g) 62,5 kcal, 2× halb = ganz bei Menge und Preis), die Option trägt die Shop-Menge → Hinweis in der Config-Karte; bei Wolt kein Hinweis", (() => {
+  const h = uopt("Hühnchen (100g)"), hh = uopt("Hühnchen - Halbe Portion (50g)"), r = uopt("Rinderhackbällchen (100g)"), rr = uopt("Rinderhackbällchen - Halbe Portion (50g)");
+  const stale = T.compleatStaleNote(UE, "Uber Eats"), staleW = T.compleatStaleNote(W, "Wolt");
+  const cfgText = (R, st) => { const out = [], old = global.__h; global.__h = (type, props, ...kids) => { for (const k of kids.flat(Infinity)) if (typeof k === "string") out.push(k); return null; }; try { R.renderConfig({ R, st, tg: {}, update: () => {} }); } finally { global.__h = old; } return out.join(" "); };
+  return h.amount === 100 && h.kcal === 125 && h.protein === 23.2 && h.price === 3 && h.shopAmount === 80 && hh.amount === 50 && hh.kcal === 62.5 && hh.price === 1.5 && hh.shopAmount === undefined && r.amount === 100 && r.shopAmount === 90 && 2 * rr.amount === r.amount && 2 * rr.price === r.price &&
+    uopt("Veganes Hühnchen planted.chicken (80g)").shopAmount === undefined && uopt("Hart gekochtes Ei (50g)").shopAmount === undefined &&
+    ["Hühnchen with 100 g (Compleat shop: 80 g)", "Rinderhackbällchen with 100 g (Compleat shop: 90 g)", "Vegane Hackbällchen with 100 g (Compleat shop: 80 g)", "Pulled Salmon with 100 g (Compleat shop: 80 g)"].every(x => stale.includes(x)) && !/½|Ei with/.test(stale) && staleW === "" &&
+    cfgText(CU, T.defaultRestoState(CU)).includes("Hühnchen with 100 g (Compleat shop: 80 g)") && !cfgText(CR, T.defaultRestoState(CR)).includes("still lists");
+})(), true);
+check("verify-compleat.js gleicht auch die Karten mit neuer Menge ab: Word-Text „Hühnchen (100g)“ über _meta.portionChanges → Hühnchen (80g), mit der damaligen Menge 100 g; 41 von 42 Produkten (nur die gestrichene Süßkartoffel fehlt)", (() => { try { const out = String(require("child_process").execFileSync(process.execPath, [__dirname + "/verify-compleat.js"], { stdio: "pipe" })); return /abgeglichen: 41 \(328 Werte\)/.test(out) && /Nicht im Shop-Datensatz: Süßkartoffel \(250g\)\n/.test(out.replace(/\r/g, "")) && /Hühnchen \(100g\) → Hühnchen \(80g\)/.test(out) && /Rinderhackbällchen \(100g\) → Rinderhackbällchen \(90g\)/.test(out); } catch (e) { return false; } })(), true);
 check("Skill „compleat-aktualisieren“: SKILL.md mit Auslösern und dem Ablauf (Crawl, Shop-Anzeige, Uber-Eats-Erfassung, Abgleiche, Tests)", (() => { const p = __dirname + "/.claude/skills/compleat-aktualisieren/SKILL.md"; if (!fs.existsSync(p)) return false; const t = fs.readFileSync(p, "utf8"); return /^---\nname: compleat-aktualisieren\n/.test(t.replace(/\r/g, "")) && /aktualisiere compleat/i.test(t) && ["compleat-crawl.js", "compleat-shop-capture.js", "ubereats-capture.js", "verify-compleat-shop.js", "node tests.js"].every(x => t.includes(x)); })(), true);
 
 check("Freundes-Link (User 27.09.2026): ?view=compleat zeigt nur Compleat (Wolt) und Edeka Graf — kein Uber Eats, keine anderen Restaurants, keine Spezial-Tabs; ohne Parameter alles; unbekannte Ansicht → volle App", (() => {
@@ -1163,13 +1199,13 @@ check("Keine Pflicht-Gruppe (User 11.10.2026): beide Compleat-Menüs mit require
     });
 })(), true);
 check("Standardziele (C 85 / P 65 / F 20): die Vorschläge haben von selbst Base und Protein — nie eine leere Bestellung", rDef.every(r => cntC(r, "base") >= 1 && cntC(r, "protein") >= 1 && r.items.length > 0), true);
-check("Ohne Base (User 11.10.2026): Ziel = genau 2× Hähnchen → die beste Bestellung ist „2× Hähnchen“ ohne Base und ohne Extras (Score 0); Karte „no base“, Order Guide ohne „Deine Basis“, Preis = Grundpreis + 2 Portionen", (() => {
-  const h1 = wopt("protein_haehnchen_100_g"), r = run(tgt(2 * h1.protein, 2 * h1.carbs, 2 * h1.fat), stC), st = T.orderStepsFor(CR, r[0]);
+check("Ohne Base (User 11.10.2026): Ziel = genau 2× Hähnchen → die beste Bestellung ist „2× Hähnchen“ ohne Base und ohne Extras (Score ≈ 0, die Nährwerte der Ergebnisse sind auf 1 Dezimale gerundet); Karte „no base“, Order Guide ohne „Deine Basis“, Preis = Grundpreis + 2 Portionen", (() => {
+  const h1 = wopt("protein_haehnchen_80_g"), r = run(tgt(2 * h1.protein, 2 * h1.carbs, 2 * h1.fat), stC), st = T.orderStepsFor(CR, r[0]);
   let sub = null; const old = global.__h; global.__h = (type, props) => { if (props && typeof props.sub === "string") sub = props.sub; return null; };
   try { CR.renderCard(r[0], { selected: false, onSelect: () => {} }); } finally { global.__h = old; }
-  return r.length === 20 && r[0].parts.length === 1 && r[0].parts[0].opt.id === h1.id && r[0].parts[0].qty === 2 && !r[0].dip && r[0].score < 1e-9 && cntC(r[0], "base") === 0 &&
+  return r.length === 20 && r[0].parts.length === 1 && r[0].parts[0].opt.id === h1.id && r[0].parts[0].qty === 2 && !r[0].dip && r[0].score < 0.1 && cntC(r[0], "base") === 0 &&
     sub === "Build your Bowl · no base · 2 protein · 0 extras · no dip" && T.bowlSummary(r[0]) === "2× Hähnchen" &&
-    st.length === 3 && st[0].v === "Build your Bowl" && st[1].l === "Deine Proteine" && st[1].v === "2× Hähnchen, 100 g" && st[2].l === "Dein Dip" && st[2].v === "Ohne Dip" &&
+    st.length === 3 && st[0].v === "Build your Bowl" && st[1].l === "Deine Proteine" && st[1].v === "2× Hähnchen, 80 g" && st[2].l === "Dein Dip" && st[2].v === "Ohne Dip" &&
     Math.abs(r[0].price - (W.basePrice + 2 * h1.price)) < 1e-9 && r.some(x => cntC(x, "base") >= 1) && r.every(x => x.items.length > 0);
 })(), true);
 check("Ohne Protein und ohne Extras: Ziel = genau 1× Basmatireis → die beste Bestellung ist nur „Basmatireis“ (Karte „no protein“); nur ein Extra geht auch (Ziel = Feta); Uber Eats: Ziel = Hühnchen (100g) → „Hühnchen“ ohne Base", (() => {
@@ -1205,19 +1241,19 @@ check("No dip AN → nie ein Dip", rDef.every(r => !r.dip), true);
 check("Deckel: je Base/Protein ≤ 2, Extras ≤ 6 (Default-Chip) und je 1×", rDef.every(r => r.parts.every(pt => pt.qty <= (T.bowlRole(pt.opt) === "extra" ? 1 : 2)) && cntC(r, "extra") <= 6), true);
 check("nie Schalentier, nie eine gesperrte Zutat", rDef.every(r => r.items.every(x => !T.COMPLEAT_BLOCKED.has(x.ing) && !T.isShellfish(x))), true);
 check("Chili Gewürz (alle Werte 0) nie vorgeschlagen → keine Doppel-Ergebnisse", rDef.every(r => r.items.every(x => x.ing !== "chili_gewuerz")) && new Set(rDef.map(r => r.key.replace(/\+?extra_chili[^+|]*/g, ""))).size === rDef.length, true);
-const b1 = wopt("base_basmatireis_250_g"), p1 = wopt("protein_haehnchen_100_g"), d1 = wopt("dip_curvy_curry_dip");
+const b1 = wopt("base_basmatireis_250_g"), p1 = wopt("protein_haehnchen_80_g"), d1 = wopt("dip_curvy_curry_dip");
 const tDip = tgt(b1.protein + p1.protein + d1.protein, b1.carbs + p1.carbs + d1.carbs, b1.fat + p1.fat + d1.fat);
 const stDipOn = { ...stC, sw: { ...stC.sw, noDip: false } };
 check("No dip AUS → passender Dip wird genommen (Basmatireis + Hähnchen + Curvy Curry)", (() => { const r0 = run(tDip, stDipOn)[0]; return !!r0.dip && r0.dip.id === "dip_curvy_curry_dip"; })(), true);
 check("No dip AN → derselbe Zielwert ohne Dip", run(tDip, stC).every(r => !r.dip), true);
-check("Ajvar (seit 11.10.2026 wieder bei Wolt): in „Must include“ und „Exclude items“ wählbar; als Pflicht steckt er in jeder Bowl (auch mit No dip AN), Preis inkl. 3 €, Order Guide „Dein Dip: Ajvar, 100g“; ausgeschlossen kommt er nie", (() => {
-  const aj = wopt("dip_ajvar_100g"), rs = T.runOptimize(CR, tDef, "macros", {}, stC, new Set(), new Set(["ajvar"])), rx = T.runOptimize(CR, tDip, "macros", {}, stDipOn, new Set(["ajvar"]), new Set());
+check("Pflicht-Dip auf Wolt (Protein Tsatsiki Dip): in „Must include“ und „Exclude items“ wählbar; als Pflicht steckt er in jeder Bowl (auch mit No dip AN), Preis inkl. 3 €, Order Guide „Dein Dip: Protein Tsatsiki Dip“; ausgeschlossen kommt er nie", (() => {
+  const dp = W.groups.flatMap(g => g.options).find(o => o.ing === "protein_tzatziki"), rs = T.runOptimize(CR, tDef, "macros", {}, stC, new Set(), new Set(["protein_tzatziki"])), rx = T.runOptimize(CR, tDip, "macros", {}, stDipOn, new Set(["protein_tzatziki"]), new Set());
   const st = T.orderStepsFor(CR, rs[0]);
-  return T.includablesFor(CR).some(x => x.id === "ajvar" && x.role === "dip") && T.excludablesFor(CR).some(x => x.id === "ajvar" && x.group === "Dein Dip") &&
-    rs.length > 0 && !rs.missing && rs.every(r => !!r.dip && r.dip.id === aj.id && Math.abs(r.price - priceC(W, r)) < 1e-9 && r.price >= W.basePrice + 3) &&
-    st[st.length - 1].l === "Dein Dip" && st[st.length - 1].v === "Ajvar, 100g" && rx.length > 0 && rx.every(r => !r.dip || r.dip.ing !== "ajvar");
+  return T.includablesFor(CR).some(x => x.id === "protein_tzatziki" && x.role === "dip") && T.excludablesFor(CR).some(x => x.id === "protein_tzatziki" && x.group === "Dein Dip") &&
+    rs.length > 0 && !rs.missing && rs.every(r => !!r.dip && r.dip.id === dp.id && Math.abs(r.price - priceC(W, r)) < 1e-9 && r.price >= W.basePrice + 3) &&
+    st[st.length - 1].l === "Dein Dip" && st[st.length - 1].v === "Protein Tsatsiki Dip" && rx.length > 0 && rx.every(r => !r.dip || r.dip.ing !== "protein_tzatziki");
 })(), true);
-const s1 = wopt("base_salat_mix_100_g"), wn = wopt("extra_walnusskerne_20_g");
+const s1 = wopt("base_salat_mix_80_g"), wn = wopt("extra_walnusskerne_20_g");
 const tCrunch = tgt(s1.protein + p1.protein + wn.protein, s1.carbs + p1.carbs + wn.carbs, s1.fat + p1.fat + wn.fat);
 check("No crunch AUS → Walnusskerne möglich", run(tCrunch, stC).some(r => r.parts.some(pt => pt.opt.crunch)), true);
 check("No crunch AN → nie Erdnüsse/Walnusskerne/Röstzwiebeln/Sesam", run(tCrunch, { ...stC, sw: { ...stC.sw, noCrunch: true } }).every(r => r.items.every(x => !x.crunch)), true);
@@ -1225,7 +1261,7 @@ check("Ausschluss 'huehnchen' → nie Hähnchen (Proteine + Extras)", run(tDef, 
 check("alle Basen ausgeschlossen → Bowls ohne Base (keine Pflicht-Gruppe, User 11.10.2026)", (() => { const r = run(tDef, stC, new Set(["basmati_reis", "salatmix", "protein_pasta", "kuerbiswuerfel_mariniert", "bunter_bio_quinoa"])); return r.length > 0 && r.every(x => cntC(x, "base") === 0 && x.items.length > 0); })(), true);
 check("Mushroots (27.09.2026) zählt als Haupt-Protein; das Duplikat unter „Deine Extras“ läuft nur über die Protein-Rolle (wie Hähnchen) — mit 6 Extras darf eine Bowl auch ganz ohne Protein dabei sein (keine Pflicht-Gruppe)", (() => { const r = run(tgt(50, 60, 20), stC, new Set(["huehnchen", "veganes_huehnchen_planted_chicken", "rinderhackbaellchen", "vegane_hackbaellchen", "pulled_salmon"])); const mr = x => x.parts.some(pt => pt.opt.ing === "mushroots_pilzbaellchen" && T.bowlRole(pt.opt) === "protein"); return r.length > 0 && mr(r[0]) && r.filter(mr).length >= 15 && r.every(x => !x.parts.some(pt => pt.opt.id === "extra_pilzbaellchen_mushroots_75_g") && x.parts.every(pt => T.bowlRole(pt.opt) !== "protein" || pt.opt.ing === "mushroots_pilzbaellchen")); })(), true);
 check("Portionen-Chip 1 → keine Doppelportion", run(tgt(120, 150, 25), { ...stC, extra: { ...stC.extra, cap: 1 } }).every(r => r.parts.every(pt => pt.qty === 1)), true);
-check("Portionen-Chip 4 → Basis ≤ 5, Protein-Gruppe ≤ 10, Nudeln/Lachs ≤ 1", run(tgt(200, 350, 40), { ...stC, extra: { ...stC.extra, cap: 4 } }).every(r => cntC(r, "base") <= 5 && cntC(r, "protein") <= 10 && r.parts.every(pt => !["base_protein_nudeln_200_g", "protein_pulled_salmon_100_g"].includes(pt.opt.id) || pt.qty === 1)), true);
+check("Portionen-Chip 4 → Basis ≤ 5, Protein-Gruppe ≤ 10, Nudeln/Lachs ≤ 1", run(tgt(200, 350, 40), { ...stC, extra: { ...stC.extra, cap: 4 } }).every(r => cntC(r, "base") <= 5 && cntC(r, "protein") <= 10 && r.parts.every(pt => !["base_protein_nudeln_200_g", "protein_pulled_salmon_80_g"].includes(pt.opt.id) || pt.qty === 1)), true);
 check("Extras-Chip 0 → keine Extras", run(tDef, { ...stC, extra: { ...stC.extra, maxExtras: 0 } }).every(r => cntC(r, "extra") === 0), true);
 check("Kalorien-Modus (450 kcal, HP + LF) liefert gültige Bowls", (() => { const r = run(kcalT(450), stC, null, "calories", { hp: true, lf: true }); return r.length > 0 && r.every(x => x.items.length > 0 && !x.dip && x.parts.every(pt => pt.qty <= (T.bowlRole(pt.opt) === "extra" ? 1 : 2))); })(), true);
 // Preise (Wolt)
@@ -1358,8 +1394,8 @@ check("Stepper mit den Wolt-Grenzen: Extras höchstens 1×, „Deine Basis“ h�
   p = T.compleatPickStep(W, p, "extra_avocado_35_g", 1); const a1 = p.extra_avocado_35_g;
   p = T.compleatPickStep(W, p, "extra_avocado_35_g", 1); const a2 = p.extra_avocado_35_g;
   for (let i = 0; i < 4; i++) p = T.compleatPickStep(W, p, "base_basmatireis_250_g", 1);
-  p = T.compleatPickStep(W, p, "base_salat_mix_100_g", 1); p = T.compleatPickStep(W, p, "base_salat_mix_100_g", 1);
-  const bases = p.base_basmatireis_250_g + p.base_salat_mix_100_g;
+  p = T.compleatPickStep(W, p, "base_salat_mix_80_g", 1); p = T.compleatPickStep(W, p, "base_salat_mix_80_g", 1);
+  const bases = p.base_basmatireis_250_g + p.base_salat_mix_80_g;
   p = T.compleatPickStep(W, p, "dip_curvy_curry_dip", 1); p = T.compleatPickStep(W, p, "dip_honey_muscle_mustard_dip", 1);
   const dips = Object.keys(p).filter(k => k.startsWith("dip_"));
   p = T.compleatPickStep(W, p, "extra_avocado_35_g", -1);
@@ -1373,18 +1409,23 @@ check("Stepper mit den Uber-Eats-Grenzen: Extras bis 5×, mehrere Dips und ein D
   for (let i = 0; i < 7; i++) p = T.compleatPickStep(UE, p, "protein_huehnchen_100g", 1);
   return p.vitamine_avocado_35g === 5 && p.dip_curvy_curry_80g === 2 && p.dip_guacamole_100g === 1 && p.protein_huehnchen_100g === 5;
 })(), true);
+check("Gespeicherte Auswahl übersteht eine reine Mengenänderung (02.11.2026): die alte id protein_haehnchen_100_g wird zur neuen protein_haehnchen_80_g, Mengen und Grenzen gelten weiter; eine id ohne Entsprechung fällt weg; dieselbe Zutat in einer anderen Gruppe wird nicht getroffen; Uber Eats unverändert", (() => {
+  const c = T.compleatCleanPicks(W, { protein_haehnchen_100_g: 2, base_salat_mix_100_g: 1, extra_rinderhackbaellchen_100_g: 1, protein_gibtsnicht_100_g: 3 }), u = T.compleatCleanPicks(UE, { protein_huehnchen_100g: 2, protein_huehnchen_halbe_portion_50g: 1 });
+  return JSON.stringify(c) === JSON.stringify({ base_salat_mix_80_g: 1, protein_haehnchen_80_g: 2, extra_rinderhackbaellchen_90_g: 1 }) && !("extra_haehnchen_80_g" in c) && u.protein_huehnchen_100g === 2 && u.protein_huehnchen_halbe_portion_50g === 1 &&
+    T.compleatCleanPicks(W, { protein_haehnchen_100_g: 99 }).protein_haehnchen_80_g === 10;
+})(), true);
 check("Gespeicherte Auswahl wird bereinigt: unbekannte Optionen fallen weg, Mengen auf maxQty und die Gruppen-Grenze gekürzt", (() => {
-  const c = T.compleatCleanPicks(W, { gibtsnicht: 2, extra_avocado_35_g: 3, base_basmatireis_250_g: 9, base_salat_mix_100_g: 4, dip_curvy_curry_dip: 1, dip_honey_muscle_mustard_dip: 1, protein_haehnchen_100_g: "2" });
-  return !("gibtsnicht" in c) && c.extra_avocado_35_g === 1 && c.base_basmatireis_250_g === 4 && c.base_salat_mix_100_g === 1 && c.dip_curvy_curry_dip === 1 && !("dip_honey_muscle_mustard_dip" in c) && c.protein_haehnchen_100_g === 2;
+  const c = T.compleatCleanPicks(W, { gibtsnicht: 2, extra_avocado_35_g: 3, base_basmatireis_250_g: 9, base_salat_mix_80_g: 4, dip_curvy_curry_dip: 1, dip_honey_muscle_mustard_dip: 1, protein_haehnchen_80_g: "2" });
+  return !("gibtsnicht" in c) && c.extra_avocado_35_g === 1 && c.base_basmatireis_250_g === 4 && c.base_salat_mix_80_g === 1 && c.dip_curvy_curry_dip === 1 && !("dip_honey_muscle_mustard_dip" in c) && c.protein_haehnchen_80_g === 2;
 })(), true);
 check("Schalter aus (Wolt): genau die Auswahl — Nährwerte = Summe, Preis = 3 € Grundpreis + Optionen, Order Guide wie im Wolt-Fenster", (() => {
-  const picks = { base_basmatireis_250_g: 1, protein_haehnchen_100_g: 2, extra_edamame_50_g: 1, extra_avocado_35_g: 1 };
+  const picks = { base_basmatireis_250_g: 1, protein_haehnchen_80_g: 2, extra_edamame_50_g: 1, extra_avocado_35_g: 1 };
   const r = T.compleatManualResult(W, picks, tDef, "macros", {});
-  const items = [wopt("base_basmatireis_250_g"), wopt("protein_haehnchen_100_g"), wopt("protein_haehnchen_100_g"), wopt("extra_edamame_50_g"), wopt("extra_avocado_35_g")];
+  const items = [wopt("base_basmatireis_250_g"), wopt("protein_haehnchen_80_g"), wopt("protein_haehnchen_80_g"), wopt("extra_edamame_50_g"), wopt("extra_avocado_35_g")];
   const n = T.sumN(items, 1), steps = T.bowlOrderSteps(W, r).map(s => s.l + ": " + s.v);
   return Math.abs(r.nutrition.kcal - n.kcal) < 1e-9 && Math.abs(r.nutrition.protein - n.protein) < 1e-9 && Math.abs(r.price - (3 + 2.5 + 2 * 3 + 1.5 + 1.5)) < 1e-9 &&
     r.dip === null && T.bowlSummary(r) === "Basmatireis + 2× Hähnchen + Edamame + Avocado" &&
-    steps.join(" | ") === "Item: Build your Bowl | Deine Basis: 1× Basmatireis, 250 g | Deine Proteine: 2× Hähnchen, 100 g | Deine Extras: Edamame, 50 g · Avocado, 35 g | Dein Dip: Ohne Dip";
+    steps.join(" | ") === "Item: Build your Bowl | Deine Basis: 1× Basmatireis, 250 g | Deine Proteine: 2× Hähnchen, 80 g | Deine Extras: Edamame, 50 g · Avocado, 35 g | Dein Dip: Ohne Dip";
 })(), true);
 check("Schalter aus (Uber Eats): 2× Avocado, 2× Curvy Curry + Guacamole, ½ Hühnchen — alles mit Menge im Order Guide, die Karte zählt 3 Dips", (() => {
   const picks = { base_salatmix_80g: 1, protein_huehnchen_halbe_portion_50g: 1, vitamine_avocado_35g: 2, dip_curvy_curry_80g: 2, dip_guacamole_100g: 1 };
@@ -1404,16 +1445,16 @@ check("Schalter aus: keine Ergebnisliste (hideResults), keine Schalter und Liste
     CR.hideResults(on) === false && c1.switches === true && c1.include === false && c1.exclude === true && CU.hideResults(stBuild(CU, {}, { complete: false })) === true;
 })(), true);
 check("Schalter an: jede Bowl enthält die Auswahl (mindestens deren Mengen), bei den Standardzielen von selbst mit Base, Preis = Grundpreis + Optionen, Nährwerte = Summe, 🔒-Mengen", (() => {
-  const picks = { protein_haehnchen_100_g: 1, extra_avocado_35_g: 1 };
+  const picks = { protein_haehnchen_80_g: 1, extra_avocado_35_g: 1 };
   const r = runB(CR, tDef, stBuild(CR, picks));
-  return r.length > 0 && r.every(x => qtyOf(x, "protein_haehnchen_100_g") >= 1 && qtyOf(x, "extra_avocado_35_g") === 1 && cntC(x, "base") >= 1 && cntC(x, "protein") >= 1 &&
+  return r.length > 0 && r.every(x => qtyOf(x, "protein_haehnchen_80_g") >= 1 && qtyOf(x, "extra_avocado_35_g") === 1 && cntC(x, "base") >= 1 && cntC(x, "protein") >= 1 &&
     Math.abs(x.price - sumPrice(W, x)) < 1e-9 && Math.abs(x.nutrition.kcal - T.sumN(x.items, 1).kcal) < 1e-9 && JSON.stringify(x.locked) === JSON.stringify(picks)) &&
     r.some(x => x.parts.length > 2);
 })(), true);
 check("Portionen-Chip zählt die Auswahl: 2× Hähnchen gewählt, Chip 2 → nie mehr Hähnchen; Chip 3 → höchstens 3", (() => {
-  const picks = { protein_haehnchen_100_g: 2 }, t = tgt(120, 90, 20);
+  const picks = { protein_haehnchen_80_g: 2 }, t = tgt(120, 90, 20);
   const a = runB(CR, t, stBuild(CR, picks, { cap: 2 })), b = runB(CR, t, stBuild(CR, picks, { cap: 3 }));
-  return a.length > 0 && a.every(x => qtyOf(x, "protein_haehnchen_100_g") === 2) && b.length > 0 && b.every(x => qtyOf(x, "protein_haehnchen_100_g") <= 3) && b.some(x => qtyOf(x, "protein_haehnchen_100_g") === 3);
+  return a.length > 0 && a.every(x => qtyOf(x, "protein_haehnchen_80_g") === 2) && b.length > 0 && b.every(x => qtyOf(x, "protein_haehnchen_80_g") <= 3) && b.some(x => qtyOf(x, "protein_haehnchen_80_g") === 3);
 })(), true);
 check("Uber Eats: eine gewählte halbe Portion zählt ½ zum Chip (Chip 1 + ½ Hühnchen → höchstens noch ½ Hühnchen dazu)", (() => {
   const r = runB(CU, tgt(70, 80, 20), stBuild(CU, { protein_huehnchen_halbe_portion_50g: 1 }, { cap: 1 }));
@@ -1421,12 +1462,12 @@ check("Uber Eats: eine gewählte halbe Portion zählt ½ zum Chip (Chip 1 + ½ H
   return r.length > 0 && r.every(x => hu(x) <= 2 && hu(x) >= 1 && !x.parts.some(pt => pt.opt.ing === "huehnchen" && !pt.opt.half));
 })(), true);
 check("Extras-Chip zählt die Auswahl: 3 Extras gewählt + Chip 3 → keine weiteren Extras; Chip 5 → höchstens 2 dazu", (() => {
-  const picks = { protein_haehnchen_100_g: 1, extra_edamame_50_g: 1, extra_mais_50_g: 1, extra_brokkoli_100_g: 1 };
+  const picks = { protein_haehnchen_80_g: 1, extra_edamame_50_g: 1, extra_mais_50_g: 1, extra_brokkoli_100_g: 1 };
   const a = runB(CR, tDef, stBuild(CR, picks, { maxExtras: 3 })), b = runB(CR, tDef, stBuild(CR, picks, { maxExtras: 5 }));
   return a.length > 0 && a.every(x => cntC(x, "extra") === 3) && b.length > 0 && b.every(x => cntC(x, "extra") <= 5) && b.some(x => cntC(x, "extra") > 3);
 })(), true);
 check("Dip gewählt → genau dieser Dip in jeder Bowl (auch mit „No dip“ AN); ohne gewählten Dip und „No dip“ AN → kein Dip", (() => {
-  const a = runB(CR, tDef, stBuild(CR, { dip_curvy_curry_dip: 1 })), b = runB(CR, tDef, stBuild(CR, { protein_haehnchen_100_g: 1 }));
+  const a = runB(CR, tDef, stBuild(CR, { dip_curvy_curry_dip: 1 })), b = runB(CR, tDef, stBuild(CR, { protein_haehnchen_80_g: 1 }));
   return a.length > 0 && a.every(x => x.dip && x.dip.id === "dip_curvy_curry_dip" && !x.parts.some(pt => T.bowlRole(pt.opt) === "dip")) && b.length > 0 && b.every(x => !x.dip);
 })(), true);
 check("Ausschlüsse und Schalter gelten nur fürs Ergänzte: ausgeschlossene, aber gewählte Avocado bleibt; ausgeschlossener Mais wird nie ergänzt; „No crunch“ AN, gewählte Walnüsse bleiben", (() => {
@@ -1435,20 +1476,20 @@ check("Ausschlüsse und Schalter gelten nur fürs Ergänzte: ausgeschlossene, ab
   return r.length > 0 && r.every(x => qtyOf(x, "extra_avocado_35_g") === 1 && qtyOf(x, "extra_walnusskerne_20_g") === 1 && !x.items.some(y => y.ing === "mais") && x.items.filter(y => y.crunch).length === 1);
 })(), true);
 check("„Must include“ ruht im Baukasten: Pflicht Pulled Salmon ändert die Vorschläge nicht", (() => {
-  const st = stBuild(CR, { protein_haehnchen_100_g: 1 });
+  const st = stBuild(CR, { protein_haehnchen_80_g: 1 });
   return JSON.stringify(runB(CR, tDef, st, null, ["pulled_salmon"]).map(x => x.key)) === JSON.stringify(runB(CR, tDef, st).map(x => x.key));
 })(), true);
 check("Protein-Duplikate unter „Deine Extras“ kommen auch beim Ergänzen nicht dazu — selbst wenn das Protein ausgeschöpft ist (Pulled Salmon 1× gewählt)", (() => {
-  const r = runB(CR, tgt(90, 90, 25), stBuild(CR, { protein_pulled_salmon_100_g: 1 }, { cap: 4 }));
-  return r.length > 0 && r.every(x => !x.parts.some(pt => ["extra_haehnchen_100_g", "extra_veganes_haehnchen_80_g", "extra_rinderhackbaellchen_100_g", "extra_vegane_hackbaellchen_100_g", "extra_pilzbaellchen_mushroots_75_g"].includes(pt.opt.id)) && qtyOf(x, "protein_pulled_salmon_100_g") === 1);
+  const r = runB(CR, tgt(90, 90, 25), stBuild(CR, { protein_pulled_salmon_80_g: 1 }, { cap: 4 }));
+  return r.length > 0 && r.every(x => !x.parts.some(pt => ["extra_haehnchen_80_g", "extra_veganes_haehnchen_80_g", "extra_rinderhackbaellchen_90_g", "extra_vegane_hackbaellchen_80_g", "extra_pilzbaellchen_mushroots_75_g"].includes(pt.opt.id)) && qtyOf(x, "protein_pulled_salmon_80_g") === 1);
 })(), true);
 check("Preislimit gilt für die ganze Bowl inkl. Auswahl; Auswahl schon über dem Limit → keine Bowl", (() => {
-  const picks = { protein_pulled_salmon_100_g: 1, extra_feta_50_g: 1 };
+  const picks = { protein_pulled_salmon_80_g: 1, extra_feta_50_g: 1 };
   const a = runB(CR, Object.assign({}, tDef, { maxPrice: 14 }), stBuild(CR, picks)), b = runB(CR, Object.assign({}, tDef, { maxPrice: 8 }), stBuild(CR, picks));
   return a.length > 0 && a.every(x => x.price <= 14 + 1e-9) && b.length === 0;
 })(), true);
 check("Ergänzen ohne Pflicht-Gruppe: nur ein Extra gewählt (Avocado) + Low-Carb-Ziel → es kommt keine Base dazu; nur eine Base gewählt + Ziel fast ohne Eiweiß → kein Protein dazu; die Auswahl allein kann schon die beste Bowl sein", (() => {
-  const a = runB(CR, tgt(60, 6, 20), stBuild(CR, { extra_avocado_35_g: 1 })), b = runB(CR, tgt(8, 75, 3), stBuild(CR, { base_basmatireis_250_g: 1 }));
+  const a = runB(CR, tgt(54, 4, 20), stBuild(CR, { extra_avocado_35_g: 1 })), b = runB(CR, tgt(8, 75, 3), stBuild(CR, { base_basmatireis_250_g: 1 }));
   const only = runB(CR, tgt(7.5, 70, 0.8), stBuild(CR, { base_basmatireis_250_g: 1 }));
   return a.length > 0 && cntC(a[0], "base") === 0 && a.every(x => qtyOf(x, "extra_avocado_35_g") === 1) && b.length > 0 && cntC(b[0], "protein") === 0 && b.every(x => qtyOf(x, "base_basmatireis_250_g") >= 1) &&
     only.length > 0 && only[0].items.length === 1 && only[0].items[0].id === "base_basmatireis_250_g" && T.compleatCompletionMenu(W, { extra_avocado_35_g: 1 }).menu.require.base === false &&
@@ -1461,8 +1502,8 @@ check("Leere Auswahl + Schalter an → ganze Bowls (dieselben Regeln wie die Vor
 // Exaktheit des Ergänzens: Restraum + capUsed in der Bowl-Suche = vollständige Durchrechnung (exhaustiveBowl kennt capUsed)
 let exBld = 0;
 const exBldC = [
-  [W, { protein_haehnchen_100_g: 1, extra_avocado_35_g: 1 }, tgt(65, 85, 20), "macros", {}, 2],
-  [W, { base_basmatireis_250_g: 1, protein_haehnchen_100_g: 2 }, tgt(90, 110, 25), "macros", {}, 2],
+  [W, { protein_haehnchen_80_g: 1, extra_avocado_35_g: 1 }, tgt(65, 85, 20), "macros", {}, 2],
+  [W, { base_basmatireis_250_g: 1, protein_haehnchen_80_g: 2 }, tgt(90, 110, 25), "macros", {}, 2],
   [W, { dip_curvy_curry_dip: 1, extra_edamame_50_g: 1 }, kcalT(700), "calories", { hp: true, lf: true }, 2],
   [UE, { protein_huehnchen_halbe_portion_50g: 1, base_salatmix_80g: 1 }, tgt(60, 90, 20), "macros", {}, 1],
   [UE, { protein_huehnchen_100g: 1, vitamine_avocado_35g: 2 }, kcalT(650), "calories", { hp: true }, 1],
@@ -1485,12 +1526,12 @@ check("capUsed: ohne Angabe unverändert; belegte halbe Portionen kürzen den De
 })(), true);
 check("Gespeichert je Tab unter „fra_compleat_build“ (Auswahl + Schalter, nicht der Modus); der Start lädt sie bereinigt", (() => {
   const before = lsStore.has("fra_compleat_build") ? lsStore.get("fra_compleat_build") : null;
-  T.compleatBuildSave("compleat", { build: true, complete: true, picks: { protein_haehnchen_100_g: 2, gibtsnicht: 1 } });
+  T.compleatBuildSave("compleat", { build: true, complete: true, picks: { protein_haehnchen_80_g: 2, gibtsnicht: 1 } });
   T.compleatBuildSave("compleatuber", { build: true, complete: false, picks: { vitamine_avocado_35g: 2 } });
   const raw = JSON.parse(lsStore.get("fra_compleat_build")), w = T.defaultRestoState(CR).extra, u = T.defaultRestoState(CU).extra;
   lsStore.delete("fra_compleat_build"); if (before != null) lsStore.set("fra_compleat_build", before);
   return T.LS.compleatBuild === "compleat_build" && !("build" in raw.compleat) && raw.compleat.complete === true && w.build === false && w.complete === true &&
-    JSON.stringify(w.picks) === JSON.stringify({ protein_haehnchen_100_g: 2 }) && u.complete === false && u.picks.vitamine_avocado_35g === 2 && T.defaultRestoState(CR).extra.complete === false;
+    JSON.stringify(w.picks) === JSON.stringify({ protein_haehnchen_80_g: 2 }) && u.complete === false && u.picks.vitamine_avocado_35g === 2 && T.defaultRestoState(CR).extra.complete === false;
 })(), true);
 check("Config-Karte: Umschalter „Suggest bowls“ / „Build my order“; im Baukasten der Schalter „Complete to my macros“, Chips nur mit Ergänzen", (() => {
   global.__h = (type, props, ...children) => ({ type, props: props || {}, children });
@@ -1506,23 +1547,23 @@ check("Baukasten: Gruppen wie im Wolt-Fenster mit Stepper; Schalter aus → Best
   global.__h = (type, props, ...children) => ({ type, props: props || {}, children });
   const find = (n, pred, out = []) => { if (n == null || typeof n !== "object") return out; if (Array.isArray(n)) { n.forEach(x => find(x, pred, out)); return out; } if (pred(n)) out.push(n); find(n.children, pred, out); return out; };
   const texts = n => { const out = []; const walk = x => { if (x == null || x === false || x === true) return; if (Array.isArray(x)) return x.forEach(walk); if (typeof x !== "object") return out.push(String(x)); walk(x.children); }; walk(n); return out.join(" "); };
-  const picks = { base_basmatireis_250_g: 1, protein_haehnchen_100_g: 2 };
+  const picks = { base_basmatireis_250_g: 1, protein_haehnchen_80_g: 2 };
   const mk = st => CR.renderExtra({ R: CR, st, tg: { kcal: 780, carbs: 85, protein: 65, fat: 20, fibre: 0, salt: 0 }, targets: tDef, mode: "macros", prefs: {}, inc: new Set(), update: () => {} });
   const off = mk(stBuild(CR, picks, { complete: false })), on = mk(stBuild(CR, picks)), empty = mk(stBuild(CR, {}, { complete: false }));
   global.__h = null;
   const og = find(off, x => x.type === T.OrderGuide), cp = find(off, x => x.type === T.CopyNutrition);
   return texts(off).includes("Deine Basis") && texts(off).includes("Deine Proteine") && texts(off).includes("▸ Deine Extras") && texts(off).includes("Your order") &&
-    og.length === 1 && og[0].props.steps.map(s => s.v).join(" | ") === "Build your Bowl | 1× Basmatireis, 250 g | 2× Hähnchen, 100 g | Ohne Dip" && cp.length === 1 &&
+    og.length === 1 && og[0].props.steps.map(s => s.v).join(" | ") === "Build your Bowl | 1× Basmatireis, 250 g | 2× Hähnchen, 80 g | Ohne Dip" && cp.length === 1 &&
     find(on, x => x.type === T.OrderGuide).length === 0 && texts(on).includes("Your picks") && texts(empty).includes("Nothing picked yet");
 })(), true);
 check("Detail-Panel einer ergänzten Bowl: 🔒 für die eigene Auswahl (mit „N yours“, wenn der Optimizer mehr davon nimmt), Legende; ohne Auswahl keine 🔒", (() => {
   global.__h = (type, props, ...children) => ({ type, props: props || {}, children });
   const texts = n => { const out = []; const walk = x => { if (x == null || x === false || x === true) return; if (Array.isArray(x)) return x.forEach(walk); if (typeof x !== "object") return out.push(String(x)); walk(x.children); }; walk(n); return out.join(" "); };
-  const r = runB(CR, tgt(120, 90, 20), stBuild(CR, { protein_haehnchen_100_g: 1 }, { cap: 3 }));
-  const more = r.find(x => qtyOf(x, "protein_haehnchen_100_g") > 1);
+  const r = runB(CR, tgt(120, 90, 20), stBuild(CR, { protein_haehnchen_80_g: 1 }, { cap: 3 }));
+  const more = r.find(x => qtyOf(x, "protein_haehnchen_80_g") > 1);
   const t1 = texts(CR.renderPanel(more, { R: CR, st: stBuild(CR, {}), inc: new Set(["huehnchen"]) })), t0 = texts(CR.renderPanel(rDef[0], { R: CR, st: stC, inc: new Set() }));
   global.__h = null;
-  return !!more && t1.includes("🔒 = your picks") && /🔒 \d× Hähnchen, 100 g \(1 yours\)/.test(t1) && !t1.includes("★") && !t0.includes("🔒");
+  return !!more && t1.includes("🔒 = your picks") && /🔒 \d× Hähnchen, 80 g \(1 yours\)/.test(t1) && !t1.includes("★") && !t0.includes("🔒");
 })(), true);
 // ── Compleat: „Quinoa base“ und Extras-Chip bis 8 (User 01.11.2026) ──
 sect("Compleat: Quinoa base + Extras bis 8 (User 01.11.2026)");
@@ -1568,17 +1609,17 @@ check("All restaurants: Compleat (Wolt + Uber Eats) mit „Quinoa base“ wie im
 })(), true);
 check("„Build my order“ + Ergänzen mit „Quinoa base“: ohne Quinoa in der Auswahl kommt genau 1× dazu; gewählte Quinoa (1× bzw. 2×) bleibt, dazu kommt keine; Uber Eats: ½ gewählt → keine weitere", (() => {
   const on = { quinoa: true }, qh = x => quinoaParts(x).reduce((a, pt) => a + (pt.opt.half ? 1 : 2) * pt.qty, 0);
-  const a = runB(CR, tDef, stBuild(CR, { protein_haehnchen_100_g: 1 }, null, on));
+  const a = runB(CR, tDef, stBuild(CR, { protein_haehnchen_80_g: 1 }, null, on));
   const b = runB(CR, tDef, stBuild(CR, { base_bunter_quinoa_250_g: 1 }, null, on));
   const c = runB(CR, tgt(80, 160, 25), stBuild(CR, { base_bunter_quinoa_250_g: 2 }, null, on));
   const d = runB(CU, tDef, stBuild(CU, { base_bunter_bio_quinoa_halbe_portion_125g: 1 }, null, on));
-  return a.length > 0 && a.every(x => oneQuinoa(x, QW) && qtyOf(x, "protein_haehnchen_100_g") >= 1) && b.length > 0 && b.every(x => qtyOf(x, "base_bunter_quinoa_250_g") === 1) &&
+  return a.length > 0 && a.every(x => oneQuinoa(x, QW) && qtyOf(x, "protein_haehnchen_80_g") >= 1) && b.length > 0 && b.every(x => qtyOf(x, "base_bunter_quinoa_250_g") === 1) &&
     c.length > 0 && c.every(x => qtyOf(x, "base_bunter_quinoa_250_g") === 2) && d.length > 0 && d.every(x => qh(x) === 1);
 })(), true);
 check("„Build my order“: Basis-Gruppe schon voll (5 Portionen) → keine Quinoa erzwungen, trotzdem Vorschläge; Quinoa ausgeschlossen → keine dazu; Hinweis im Baukasten", (() => {
   const on = { quinoa: true };
-  const a = runB(CR, tDef, stBuild(CR, { base_basmatireis_250_g: 4, base_salat_mix_100_g: 1 }, null, on));
-  const b = runB(CR, tDef, stBuild(CR, { protein_haehnchen_100_g: 1 }, null, on), new Set(["bunter_bio_quinoa"]));
+  const a = runB(CR, tDef, stBuild(CR, { base_basmatireis_250_g: 4, base_salat_mix_80_g: 1 }, null, on));
+  const b = runB(CR, tDef, stBuild(CR, { protein_haehnchen_80_g: 1 }, null, on), new Set(["bunter_bio_quinoa"]));
   global.__h = (type, props, ...children) => ({ type, props: props || {}, children });
   const out = []; const walk = x => { if (x == null || x === false || x === true) return; if (Array.isArray(x)) return x.forEach(walk); if (typeof x !== "object") return out.push(String(x)); walk(x.children); };
   walk(CR.renderConfig({ R: CR, st: stBuild(CR, {}, null, on), update: () => {} }));
@@ -1624,8 +1665,8 @@ check("8 Extras im Zeitbudget (Standardziele, Wolt + Uber Eats, Makro- und Kalor
     !!idx && bytes(idx) / idx.N < 25 && (total <= T.BOWL_INDEX_MAX_POINTS || T.BOWL_INDEX_CACHE.size === 1);
 })(), true);
 // plattformübergreifend
-check("Such-Index: beide Plattformen mit eigenen Namen (Hähnchen, 100 g · Hühnchen (100g)), Quinoa seit 21.10.2026 dabei, keine Limette", T.SEARCH_INDEX.filter(x => x.resto === "Compleat (Wolt)" && x.name === "Hähnchen, 100 g").length === 1 && T.SEARCH_INDEX.filter(x => x.resto === "Compleat (Uber Eats)" && x.name === "Hühnchen (100g)").length === 1 && T.SEARCH_INDEX.some(x => x.resto === "Compleat (Wolt)" && x.name === "Bunter Quinoa, 250 g") && T.SEARCH_INDEX.some(x => x.resto === "Compleat (Uber Eats)" && x.name === "Bunter Bio Quinoa (250g)") && !T.SEARCH_INDEX.some(x => /^Compleat/.test(x.resto) && /limette/i.test(x.name)), true);
-check("Suche 'haehnchen' findet Hähnchen + Veganes Hähnchen (Wolt)", (() => { const nm = T.searchItems("haehnchen").map(x => x.name); return nm.includes("Hähnchen, 100 g") && nm.includes("Veganes Hähnchen, 80 g"); })(), true);
+check("Such-Index: beide Plattformen mit eigenen Namen (Hähnchen, 80 g · Hühnchen (100g)), Quinoa seit 21.10.2026 dabei, keine Limette", T.SEARCH_INDEX.filter(x => x.resto === "Compleat (Wolt)" && x.name === "Hähnchen, 80 g").length === 1 && T.SEARCH_INDEX.filter(x => x.resto === "Compleat (Uber Eats)" && x.name === "Hühnchen (100g)").length === 1 && T.SEARCH_INDEX.some(x => x.resto === "Compleat (Wolt)" && x.name === "Bunter Quinoa, 250 g") && T.SEARCH_INDEX.some(x => x.resto === "Compleat (Uber Eats)" && x.name === "Bunter Bio Quinoa (250g)") && !T.SEARCH_INDEX.some(x => /^Compleat/.test(x.resto) && /limette/i.test(x.name)), true);
+check("Suche 'haehnchen' findet Hähnchen + Veganes Hähnchen (Wolt)", (() => { const nm = T.searchItems("haehnchen").map(x => x.name); return nm.includes("Hähnchen, 80 g") && nm.includes("Veganes Hähnchen, 80 g"); })(), true);
 check("Suche 'huehnchen uber' findet Uber-Eats-Hühnchen (ganz + halb)", (() => { const nm = T.searchItems("huehnchen uber").map(x => x.name); return nm.includes("Hühnchen (100g)") && nm.includes("Hühnchen - Halbe Portion (50g)"); })(), true);
 const allC = T.optimizeAll(tDef, "macros", {}, 5, false);
 check("All: beide Compleat-Einträge mit je einem Treffer und Preis", allC.filter(r => r._resto === "compleat").length === 1 && allC.filter(r => r._resto === "compleatuber").length === 1 && allC.every(r => typeof r.price === "number"), true);

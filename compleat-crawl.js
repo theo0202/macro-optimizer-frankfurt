@@ -53,10 +53,11 @@ const UE_NO_DATA = {
 // Wolt-Optionsname (Leerraum normalisiert) → Zutat-id (slug des Shop-Namens ohne Mengenangabe).
 // Unbekannte/umbenannte Wolt-Optionen brechen den Crawl ab → Tabelle ergänzen, nicht raten.
 // (Uber Eats braucht keine Tabelle: dort heißen die Optionen wie im Shop, inkl. „… - Halbe Portion (125g)".)
+// (Mengen im Namen seit 02.11.2026: Salat-Mix 80 statt 100 g, Hähnchen, Vegane Hackbällchen und Pulled Salmon 80 statt 100 g, Rinderhackbällchen 90 statt 100 g)
 const WOLT_MAP = {
-  "Basmatireis, 250 g": "basmati_reis", "Salat-Mix, 100 g": "salatmix", "Bunter Quinoa, 250 g": "bunter_bio_quinoa", "Protein Nudeln, 200 g": "protein_pasta",
-  "Hähnchen, 100 g": "huehnchen", "Veganes Hähnchen, 80 g": "veganes_huehnchen_planted_chicken", "Vegane Hackbällchen, 100 g": "vegane_hackbaellchen",
-  "Rinderhackbällchen, 100 g": "rinderhackbaellchen", "Pulled Salmon, 100 g": "pulled_salmon",
+  "Basmatireis, 250 g": "basmati_reis", "Salat-Mix, 80 g": "salatmix", "Bunter Quinoa, 250 g": "bunter_bio_quinoa", "Protein Nudeln, 200 g": "protein_pasta",
+  "Hähnchen, 80 g": "huehnchen", "Veganes Hähnchen, 80 g": "veganes_huehnchen_planted_chicken", "Vegane Hackbällchen, 80 g": "vegane_hackbaellchen",
+  "Rinderhackbällchen, 90 g": "rinderhackbaellchen", "Pulled Salmon, 80 g": "pulled_salmon",
   "Erbsen, 50 g": "erbsen", "Babyspinat, 20 g": "baby_spinat", "Tomaten, 50 g": "tomaten", "Edamame, 50 g": "edamame", "Brokkoli, 100 g": "brokkoli",
   "Avocado, 35 g": "avocado", "Karotten, 50 g": "karotten", "Mais, 50 g": "mais", "Gurken, 50 g": "gurke", "Mango, 70 g": "mango", "Feta, 50 g": "feta_kaese",
   "Rote Beete-Falafel, 100 g": "rote_bete_falafel", "Rotkohl, geraspelt, 50 g": "rotkohl_geraspelt", "Schwarzer Sesam, 3 g": "schwarzer_sesam",
@@ -419,16 +420,32 @@ async function main() {
   // Geänderte Nährwerte je 100 g gegenüber dem letzten Lauf — je Shop-Karte (auch halbe Portionen), kumuliert mit Datum in
   // _meta.valueChanges (21.10.2026: Quinoa). Die Kontrolldateien vom 15./16.09.2026 (Word-Export, Fertig-Bowls) zeigen dann noch die alten
   // Werte; verify-compleat.js erkennt das über valueChanges (die Shop-Anzeige-Kontrolle bricht dagegen ab, bis sie neu abgelesen ist)
-  const prevCards = new Map(((prev && prev.shopItems) || []).map(x => [x.name, x]));
-  const valuesNow = [];
+  // Karten werden über Gruppe + Name ohne Menge zugeordnet: dieselbe Karte heißt nach einer Mengenänderung anders (02.11.2026: „Hühnchen (100g)“ → „Hühnchen (80g)“)
+  const cardKey = c => c.group + "|" + c.name.replace(/\s*\(\d+(?:[.,]\d+)?\s*(?:g|ml)\)/i, "");
+  const prevCards = new Map(((prev && prev.shopItems) || []).map(x => [cardKey(x), x]));
+  const valuesNow = [], portionsNow = [];
   for (const c of shopItems) {
-    const p = prevCards.get(c.name);
+    const p = prevCards.get(cardKey(c));
     if (!p) continue;
     const keys = U.KEYS.filter(k => Math.abs((p.per100[k] || 0) - (c.per100[k] || 0)) > 1e-9);
     if (keys.length) valuesNow.push({ name: c.name, changedAt: today, keys, old: p.per100, new: c.per100 });
+    if (p.name !== c.name || p.displayAmount !== c.displayAmount) {
+      const a = splitHalf(p.name) || splitPortion(p.name), b = splitHalf(c.name) || splitPortion(c.name);
+      portionsNow.push({ where: "Shop", name: c.name, oldName: p.name, unit: b.unit, old: a.amount, new: b.amount, oldDisplay: p.displayAmount, newDisplay: c.displayAmount, changedAt: today });
+    }
+  }
+  // Mengen der Plattform-Optionen: dieselbe Zutat in derselben Gruppe (ganz bzw. halb) mit anderer Menge
+  for (const [pf, cur, old] of [["Wolt", woltGroups, prev && prev.wolt], ["Uber Eats", ueGroups, prev && prev.ubereats]]) for (const g of cur) {
+    const og = old && (old.groups || []).find(x => x.id === g.id && x.name === g.name);
+    for (const o of g.options) {
+      const po = og && og.options.find(x => x.ingredient === o.ingredient && !!x.half === !!o.half);
+      if (po && po.amount !== o.amount) portionsNow.push({ where: pf, group: g.name, name: o.name, oldName: po.name, unit: o.unit, old: po.amount, new: o.amount, changedAt: today });
+    }
   }
   lastChanges.values = valuesNow.map(v => v.name + ": " + v.keys.map(k => k + " " + v.old[k] + " → " + v.new[k]).join(", "));
+  lastChanges.portions = portionsNow.map(x => x.where + (x.group ? " · " + x.group : "") + ": " + x.oldName + " → " + x.name + (x.old === x.new ? " (Anzeige-Menge " + x.oldDisplay + " → " + x.newDisplay + ")" : " (" + x.old + " → " + x.new + " " + x.unit + ")"));
   const valueChanges = [...((prev && prev._meta.valueChanges) || []), ...valuesNow];
+  const portionChanges = [...((prev && prev._meta.portionChanges) || []), ...portionsNow];
 
   // ── Auffälligkeiten (automatisch + manuell) ──
   const anomalies = [];
@@ -459,7 +476,7 @@ async function main() {
         shopDisplay: "data/compleat-shop-anzeige.json = jede Zutat einzeln im Shop ausgewählt und die Anzeige abgelesen (compleat-shop-capture.js, " + shopControl.readAt + ") → Abgleich: node verify-compleat-shop.js",
         stock: "Ausverkauft = mit ?forceStockStatus=1 im Bundle, ohne den Parameter nicht (27.09.2026 an den „Ausverkauft“-Karten des Shops bestätigt)",
       },
-      basis: "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Wolt-Mengen weichen nur beim Salat-Mix ab → mit Wolt-Menge gerechnet. Uber Eats nutzt die Shop-Namen und -Mengen (inkl. halber Portionen). Ausnahme (User 27.10.2026): Sojasauce mit typischen Werten (USDA FoodData Central, _meta.referenceValues) statt der unplausiblen Shop-Werte.",
+      basis: "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Gerechnet wird immer mit der Menge der jeweiligen Plattform: Wolt nennt seit 02.11.2026 dieselben Mengen wie der Shop (außer dem Ei, 50 statt 40 g; der Salat-Mix hatte bis dahin 100 statt 80 g), Uber Eats nutzt die Namen des Shops, kann aber hinterherhinken (am 02.11.2026 noch 100 g bei Hühnchen, Vegane Hackbällchen, Rinderhackbällchen und Pulled Salmon, _meta.ubereats.portionDiffs). Ausnahme (User 27.10.2026): Sojasauce mit typischen Werten (USDA FoodData Central, _meta.referenceValues) statt der unplausiblen Shop-Werte.",
       woltRules: "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Keine Gruppe außer dem Dip ist Pflicht (min 0) → der Rechner verlangt weder Base noch Protein (User 11.10.2026). Grundpreis „Build your Bowl“ " + woltItemPrice + " €. " + woltCardNote,
       ubereatsRules: "Selbst zusammenstellen (Grundpreis " + ueItemPrice + " €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: keine Gruppe Pflicht (User 11.10.2026) · Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft). " + ueCardNote,
       decisions: [
@@ -472,10 +489,11 @@ async function main() {
         "User 15.09.2026: Rechner zusätzlich für Uber Eats („Selbst zusammenstellen“, Grundpreis 1 €)",
         "User 16.09.2026 (Rückfrage „Build your Bowl kostet 4 €“): damals 2 € Grundpreis + vorausgewählter Curvy Curry Dip; der Rechner rechnet Grundpreis + gewählte Optionen und nennt eine Vorauswahl im Hinweistext (seit 27.09.2026 wählt Wolt „Ohne Dip“ vor)",
         "User 27.09.2026: neue Compleat-Zutaten einbauen, soweit Wolt sie führt — Werte je Zutat durch einzelnes Auswählen im Shop bestätigt (data/compleat-shop-anzeige.json); Zutaten, die es dauerhaft nicht mehr gibt, raus, ausverkaufte drin (Skill „compleat-aktualisieren“)",
+        "User 02.11.2026: Compleat hat die Mengen geändert → Shop und Wolt: Hähnchen, Vegane Hackbällchen, Pulled Salmon 80 statt 100 g, Rinderhackbällchen 90 statt 100 g (halbe im Shop: Hühnchen, Vegane Hackbällchen, Pulled Salmon 40 statt 50 g, Rinderhackbällchen weiter 50 g), Wolt-Salat-Mix 80 statt 100 g; Werte je 100 g und Preise unverändert (_meta.portionChanges). Uber Eats nennt noch die alten Mengen → der Uber-Eats-Tab rechnet weiter mit dem, was Uber Eats nennt (dem User genannt)",
         "User 27.10.2026: Sojasauce mit typischen Nährwerten statt der Shop-Werte („scheinen nicht realistisch — nimm lieber die typischen Nährwerte für Sojasauce“): USDA FoodData Central #174277 (gebraute Sojasauce, Shoyu), 20 ml = 21,6 g laut USDA-Portionsgewicht → 11,5 kcal / 1,76 g Eiweiß / 0,89 g KH / 2,97 g Salz je Portion (Shop: 4,2 kcal / 0,48 g Eiweiß / 0,46 g KH / 2,87 g Salz); Shop-Werte bleiben als shopPer100 dokumentiert",
       ],
       portionDiffs, portionAssumed, displayBugs, halfPortionDiffs, anomalies, missingDeclared, notOnWolt, woltMapUnused, dislikes, shellfish,
-      soldOut, removedIngredients, valueChanges, lastChanges, referenceValues,
+      soldOut, removedIngredients, valueChanges, portionChanges, lastChanges, referenceValues,
       halfPortionAccepted: Object.values(HALF_DIFF_OK),
       shopControl: { readAt: shopControl.readAt, checked: shopControl.checked, values: shopControl.values, earlier: shopControl.earlier, soldOutNotChecked: shopControl.soldOutNotChecked, notInShop: shopControl.notInShop },
       ubereats: { noData: ueNoData, portionDiffs: uePortionDiffs, kcalDiffs: ueKcalDiffs, notOnUberEats, halfNotDouble: ueHalfNotDouble },
@@ -495,7 +513,7 @@ async function main() {
   L("Neu im Shop", lastChanges.shopAdded); L("Aus dem Shop gestrichen (raus)", lastChanges.shopRemoved);
   L("Neu bei Wolt", lastChanges.woltAdded); L("Nicht mehr bei Wolt", lastChanges.woltRemoved);
   L("Neu bei Uber Eats", lastChanges.ubereatsAdded); L("Nicht mehr bei Uber Eats", lastChanges.ubereatsRemoved);
-  L("Preise", lastChanges.prices); L("Geänderte Nährwerte je 100 g", lastChanges.values); L("Im Shop gerade ausverkauft (bleibt drin)", soldOut);
+  L("Preise", lastChanges.prices); L("Geänderte Mengen", lastChanges.portions); L("Geänderte Nährwerte je 100 g", lastChanges.values); L("Im Shop gerade ausverkauft (bleibt drin)", soldOut);
   console.log("Shop-Anzeige (" + shopControl.readAt + "): " + shopControl.checked + " Karten / " + shopControl.values + " Werte identisch" + (shopControl.earlier.length ? " · davon frühere Ablesung (heute ausverkauft): " + shopControl.earlier.map(x => x.name + " (" + x.readAt + ")").join(", ") : "") + (shopControl.soldOutNotChecked.length ? " · ausverkauft, nicht prüfbar: " + shopControl.soldOutNotChecked.join(", ") : ""));
   console.log("\n" + ingredients.length + " Zutaten (" + Object.entries(ingredients.reduce((o, x) => (o[x.group] = (o[x.group] || 0) + 1, o), {})).map(([k, v]) => k + " " + v).join(", ") + ") → " + path.relative(__dirname, OUT));
   console.log("Wolt (Grundpreis " + woltItemPrice + " €): " + woltGroups.map(g => g.name + " " + g.options.length + (g.noneOption ? " + „" + g.noneOption + "“" : "") + " (" + g.min + "–" + g.max + ")").join(" · "));

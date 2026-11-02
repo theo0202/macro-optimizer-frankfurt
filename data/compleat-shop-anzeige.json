@@ -1,6 +1,6 @@
 {
  "_source": "Compleat-Onlineshop, Bundle „Selbst zusammenstellen“ (Store Frankfurt Nordend): jede Zutat-Karte EINZELN ausgewählt (Menge 1) und die Anzeige „Nutrition facts per serving“ (Reiter „Nährwerte“) abgelesen, danach wieder abgewählt (compleat-shop-capture.js, im Browser; Prüfsumme sha256 des kompakten JSON im Browser und lokal verglichen). Werte als angezeigt (Text, „--“ = nicht angegeben). soldOut = Overlay „Ausverkauft“, Häkchen gesperrt → keine Werte; lastRead = die letzte Ablesung dieser Karte aus einem früheren Durchgang (mit Datum), als sie noch wählbar war. Kontrollquelle für node verify-compleat-shop.js; übernommen mit node verify-compleat-shop.js --save. Nicht von Hand ändern.",
- "readAt": "2026-10-21T11:06:28.256Z",
+ "readAt": "2026-11-02T22:43:52.663Z",
  "page": "https://compleat.vmos.io/store/bb51e8b9-3301-4bee-bb33-e063fac5ec64/menu/category/bae2cbce-c348-4807-9988-4c52556d68b2/bundle/afaa6fe6-4785-4bd7-b6e0-0ea9d4f12c22/bundleCustomization?menuUUID=9a7bd18b-9542-4768-b85a-c48740da87e9",
  "items": [
   {
@@ -75,22 +75,17 @@
    "name": "Protein-Pasta (200g)",
    "uuid": "2cc29890-4d6f-434a-b552-00a56ef536ed",
    "group": "Base",
-   "soldOut": true,
-   "overlay": "Ausverkauft",
-   "lastRead": {
-    "readAt": "2026-10-11T12:20:32.277Z",
-    "qty": 1,
-    "shown": {
-     "kcal": "381",
-     "kj": "1594",
-     "fat": "5.5",
-     "carbs": "50.0",
-     "sat": "0.4",
-     "sugars": "1.5",
-     "protein": "26.0",
-     "fibre": "14.0",
-     "salt": "2.00"
-    }
+   "qty": 1,
+   "shown": {
+    "kcal": "381",
+    "kj": "1594",
+    "fat": "5.5",
+    "carbs": "50.0",
+    "sat": "0.4",
+    "sugars": "1.5",
+    "protein": "26.0",
+    "fibre": "14.0",
+    "salt": "2.00"
    }
   },
   {
@@ -131,22 +126,17 @@
    "name": "Protein-Pasta - Halbe Portion (100g)",
    "uuid": "20e25b0b-3c76-4fc6-97b0-8c54046667dc",
    "group": "Base",
-   "soldOut": true,
-   "overlay": "Ausverkauft",
-   "lastRead": {
-    "readAt": "2026-10-11T12:20:32.277Z",
-    "qty": 1,
-    "shown": {
-     "kcal": "191",
-     "kj": "799",
-     "fat": "2.8",
-     "carbs": "25.0",
-     "sat": "0.2",
-     "sugars": "0.8",
-     "protein": "13.0",
-     "fibre": "7.0",
-     "salt": "1.00"
-    }
+   "qty": 1,
+   "shown": {
+    "kcal": "191",
+    "kj": "799",
+    "fat": "2.8",
+    "carbs": "25.0",
+    "sat": "0.2",
+    "sugars": "0.8",
+    "protein": "13.0",
+    "fibre": "7.0",
+    "salt": "1.00"
    }
   },
   {
@@ -184,20 +174,20 @@
    }
   },
   {
-   "name": "Hühnchen (100g)",
+   "name": "Hühnchen (80g)",
    "uuid": "199fd192-f999-432f-96ba-069cd1237ce9",
    "group": "Proteine",
    "qty": 1,
    "shown": {
-    "kcal": "125",
-    "kj": "523",
-    "fat": "2.7",
-    "carbs": "1.6",
-    "sat": "1.2",
-    "sugars": "0.7",
-    "protein": "23.2",
+    "kcal": "100",
+    "kj": "418",
+    "fat": "2.2",
+    "carbs": "1.3",
+    "sat": "1.0",
+    "sugars": "0.6",
+    "protein": "18.6",
     "fibre": "--",
-    "salt": "1.07"
+    "salt": "0.86"
    }
   },
   {
@@ -235,54 +225,54 @@
    }
   },
   {
-   "name": "Rinderhackbällchen (100g)",
+   "name": "Rinderhackbällchen (90g)",
    "uuid": "e2f09f25-8914-4a53-bed5-844a98bae172",
    "group": "Proteine",
    "qty": 1,
    "shown": {
-    "kcal": "222",
-    "kj": "929",
-    "fat": "14.0",
-    "carbs": "10.0",
-    "sat": "5.2",
-    "sugars": "1.0",
-    "protein": "14.0",
-    "fibre": "2.0",
-    "salt": "1.80"
+    "kcal": "200",
+    "kj": "837",
+    "fat": "12.6",
+    "carbs": "9.0",
+    "sat": "4.7",
+    "sugars": "0.9",
+    "protein": "12.6",
+    "fibre": "1.8",
+    "salt": "1.62"
    }
   },
   {
-   "name": "Vegane Hackbällchen (100g)",
+   "name": "Vegane Hackbällchen (80g)",
    "uuid": "82e42a4e-51ee-4d2c-b9cc-f6ac88e72bdc",
    "group": "Proteine",
    "qty": 1,
    "shown": {
-    "kcal": "154",
-    "kj": "644",
-    "fat": "4.5",
-    "carbs": "7.0",
-    "sat": "0.5",
-    "sugars": "1.0",
-    "protein": "17.7",
-    "fibre": "7.5",
-    "salt": "1.40"
+    "kcal": "123",
+    "kj": "515",
+    "fat": "3.6",
+    "carbs": "5.6",
+    "sat": "0.4",
+    "sugars": "0.8",
+    "protein": "14.2",
+    "fibre": "6.0",
+    "salt": "1.12"
    }
   },
   {
-   "name": "Pulled Salmon (100g)",
+   "name": "Pulled Salmon (80g)",
    "uuid": "1f8fe554-f525-4df5-ad65-1825ee40ca70",
    "group": "Proteine",
    "qty": 1,
    "shown": {
-    "kcal": "215",
-    "kj": "900",
-    "fat": "14.4",
+    "kcal": "172",
+    "kj": "720",
+    "fat": "11.5",
     "carbs": "--",
-    "sat": "3.5",
+    "sat": "2.8",
     "sugars": "--",
-    "protein": "20.3",
-    "fibre": "6.0",
-    "salt": "2.20"
+    "protein": "16.2",
+    "fibre": "4.8",
+    "salt": "1.76"
    }
   },
   {
@@ -371,37 +361,37 @@
    }
   },
   {
-   "name": "Hühnchen - Halbe Portion (50g)",
+   "name": "Hühnchen - Halbe Portion (40g)",
    "uuid": "efd9473d-21cb-4631-b352-862a9f202cab",
    "group": "Proteine",
    "qty": 1,
    "shown": {
-    "kcal": "63",
-    "kj": "264",
-    "fat": "1.4",
-    "carbs": "0.8",
-    "sat": "0.6",
-    "sugars": "0.4",
-    "protein": "11.6",
+    "kcal": "50",
+    "kj": "209",
+    "fat": "1.1",
+    "carbs": "0.6",
+    "sat": "0.5",
+    "sugars": "0.3",
+    "protein": "9.3",
     "fibre": "--",
-    "salt": "0.54"
+    "salt": "0.43"
    }
   },
   {
-   "name": "Vegane Hackbällchen - Halbe Portion (50g)",
+   "name": "Vegane Hackbällchen - Halbe Portion (40g)",
    "uuid": "3d1b14a3-433b-4e18-bf94-e0b1af4c2637",
    "group": "Proteine",
    "qty": 1,
    "shown": {
-    "kcal": "77",
-    "kj": "322",
-    "fat": "2.3",
-    "carbs": "3.5",
-    "sat": "0.3",
-    "sugars": "0.5",
-    "protein": "8.8",
-    "fibre": "3.8",
-    "salt": "0.70"
+    "kcal": "62",
+    "kj": "259",
+    "fat": "1.8",
+    "carbs": "2.8",
+    "sat": "0.2",
+    "sugars": "0.4",
+    "protein": "7.1",
+    "fibre": "3.0",
+    "salt": "0.56"
    }
   },
   {
@@ -439,20 +429,20 @@
    }
   },
   {
-   "name": "Pulled Salmon - Halbe Portion (50g)",
+   "name": "Pulled Salmon - Halbe Portion (40g)",
    "uuid": "b88ff4d3-13c1-4873-bc02-5b7e42c2ec50",
    "group": "Proteine",
    "qty": 1,
    "shown": {
-    "kcal": "108",
-    "kj": "452",
-    "fat": "7.2",
+    "kcal": "86",
+    "kj": "360",
+    "fat": "5.8",
     "carbs": "--",
-    "sat": "1.8",
+    "sat": "1.4",
     "sugars": "--",
-    "protein": "10.2",
-    "fibre": "3.0",
-    "salt": "1.10"
+    "protein": "8.1",
+    "fibre": "2.4",
+    "salt": "0.88"
    }
   },
   {
@@ -782,22 +772,17 @@
    "name": "Granatapfelkerne (15g)",
    "uuid": "ceafa76f-903c-4e7b-be24-0a66ad27ff82",
    "group": "Toppings",
-   "soldOut": true,
-   "overlay": "Ausverkauft",
-   "lastRead": {
-    "readAt": "2026-10-21T06:09:54.740Z",
-    "qty": 1,
-    "shown": {
-     "kcal": "15",
-     "kj": "63",
-     "fat": "0.1",
-     "carbs": "3.4",
-     "sat": "--",
-     "sugars": "3.3",
-     "protein": "0.1",
-     "fibre": "0.4",
-     "salt": "--"
-    }
+   "qty": 1,
+   "shown": {
+    "kcal": "15",
+    "kj": "63",
+    "fat": "0.1",
+    "carbs": "3.4",
+    "sat": "--",
+    "sugars": "3.3",
+    "protein": "0.1",
+    "fibre": "0.4",
+    "salt": "--"
    }
   },
   {
@@ -821,17 +806,22 @@
    "name": "Chili Gewürz (1g)",
    "uuid": "640972df-0ad3-4ca2-8d1c-23f61cb997b6",
    "group": "Toppings",
-   "qty": 1,
-   "shown": {
-    "kcal": "--",
-    "kj": "--",
-    "fat": "--",
-    "carbs": "--",
-    "sat": "--",
-    "sugars": "--",
-    "protein": "--",
-    "fibre": "--",
-    "salt": "--"
+   "soldOut": true,
+   "overlay": "Ausverkauft",
+   "lastRead": {
+    "readAt": "2026-10-21T11:06:28.256Z",
+    "qty": 1,
+    "shown": {
+     "kcal": "--",
+     "kj": "--",
+     "fat": "--",
+     "carbs": "--",
+     "sat": "--",
+     "sugars": "--",
+     "protein": "--",
+     "fibre": "--",
+     "salt": "--"
+    }
    }
   },
   {
@@ -957,17 +947,22 @@
    "name": "Guacamole (100g)",
    "uuid": "0852c6c2-64fd-4917-a550-d3cbd0ebd60a",
    "group": "Dips",
-   "qty": 1,
-   "shown": {
-    "kcal": "194",
-    "kj": "812",
-    "fat": "17.0",
-    "carbs": "8.4",
-    "sat": "2.7",
-    "sugars": "2.3",
-    "protein": "1.7",
-    "fibre": "6.0",
-    "salt": "0.42"
+   "soldOut": true,
+   "overlay": "Heute ausverkauft",
+   "lastRead": {
+    "readAt": "2026-10-21T11:06:28.256Z",
+    "qty": 1,
+    "shown": {
+     "kcal": "194",
+     "kj": "812",
+     "fat": "17.0",
+     "carbs": "8.4",
+     "sat": "2.7",
+     "sugars": "2.3",
+     "protein": "1.7",
+     "fibre": "6.0",
+     "salt": "0.42"
+    }
    }
   },
   {
@@ -991,17 +986,22 @@
    "name": "Joghurt-Salatdressing (80g)",
    "uuid": "411e51ee-7477-4456-9bea-f0733a0004eb",
    "group": "Dips",
-   "qty": 1,
-   "shown": {
-    "kcal": "114",
-    "kj": "477",
-    "fat": "10.9",
-    "carbs": "3.7",
-    "sat": "1.3",
-    "sugars": "2.0",
-    "protein": "0.9",
-    "fibre": "--",
-    "salt": "1.04"
+   "soldOut": true,
+   "overlay": "Heute ausverkauft",
+   "lastRead": {
+    "readAt": "2026-10-21T11:06:28.256Z",
+    "qty": 1,
+    "shown": {
+     "kcal": "114",
+     "kj": "477",
+     "fat": "10.9",
+     "carbs": "3.7",
+     "sat": "1.3",
+     "sugars": "2.0",
+     "protein": "0.9",
+     "fibre": "--",
+     "salt": "1.04"
+    }
    }
   },
   {
@@ -1042,17 +1042,22 @@
    "name": "Balsamico Dressing (80g)",
    "uuid": "5a7afe09-179e-4b5b-87b5-0b3468cf6de4",
    "group": "Dips",
-   "qty": 1,
-   "shown": {
-    "kcal": "46",
-    "kj": "192",
-    "fat": "1.8",
-    "carbs": "7.0",
-    "sat": "0.2",
-    "sugars": "6.7",
-    "protein": "0.1",
-    "fibre": "0.2",
-    "salt": "1.60"
+   "soldOut": true,
+   "overlay": "Heute ausverkauft",
+   "lastRead": {
+    "readAt": "2026-10-21T11:06:28.256Z",
+    "qty": 1,
+    "shown": {
+     "kcal": "46",
+     "kj": "192",
+     "fat": "1.8",
+     "carbs": "7.0",
+     "sat": "0.2",
+     "sugars": "6.7",
+     "protein": "0.1",
+     "fibre": "0.2",
+     "salt": "1.60"
+    }
    }
   },
   {
@@ -1076,22 +1081,17 @@
    "name": "Trüffel Light (Inlead) (80g)",
    "uuid": "c37abacb-445d-4be6-8556-c6b0179b08ed",
    "group": "Dips",
-   "soldOut": true,
-   "overlay": "Ausverkauft",
-   "lastRead": {
-    "readAt": "2026-10-11T12:20:32.277Z",
-    "qty": 1,
-    "shown": {
-     "kcal": "78",
-     "kj": "326",
-     "fat": "4.8",
-     "carbs": "8.0",
-     "sat": "0.7",
-     "sugars": "2.6",
-     "protein": "0.6",
-     "fibre": "0.2",
-     "salt": "1.51"
-    }
+   "qty": 1,
+   "shown": {
+    "kcal": "78",
+    "kj": "326",
+    "fat": "4.8",
+    "carbs": "8.0",
+    "sat": "0.7",
+    "sugars": "2.6",
+    "protein": "0.6",
+    "fibre": "0.2",
+    "salt": "1.51"
    }
   },
   {
