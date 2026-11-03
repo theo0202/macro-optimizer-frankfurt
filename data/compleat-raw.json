@@ -2,7 +2,7 @@
   "_meta": {
     "restaurant": "Compleat",
     "store": "Frankfurt Nordend (Glauburgstraße 5, 60318 Frankfurt am Main)",
-    "fetchedAt": "2026-11-03T07:14:25.646Z",
+    "fetchedAt": "2026-11-03T07:33:40.044Z",
     "sources": {
       "shop": {
         "url": "https://compleat.vmos.io",
@@ -49,6 +49,7 @@
       "User 15.09.2026: Rechner zusätzlich für Uber Eats („Selbst zusammenstellen“, Grundpreis 1 €)",
       "User 16.09.2026 (Rückfrage „Build your Bowl kostet 4 €“): damals 2 € Grundpreis + vorausgewählter Curvy Curry Dip; der Rechner rechnet Grundpreis + gewählte Optionen und nennt eine Vorauswahl im Hinweistext (seit 27.09.2026 wählt Wolt „Ohne Dip“ vor)",
       "User 27.09.2026: neue Compleat-Zutaten einbauen, soweit Wolt sie führt — Werte je Zutat durch einzelnes Auswählen im Shop bestätigt (data/compleat-shop-anzeige.json); Zutaten, die es dauerhaft nicht mehr gibt, raus, ausverkaufte drin (Skill „compleat-aktualisieren“)",
+      "User 03.11.2026: Optionen, die eine Plattform gerade nicht führt, bleiben mit ihren Nährwerten im Tab („tu sie wieder rein“) und in Baukasten, Must include und Exclude wählbar; der Schalter „Exclude unavailable ingredients“ (Default AN) lässt sie aus den Vorschlägen. Raus nur, wenn die Zutat aus dem Shop-Sortiment gestrichen ist",
       "User 03.11.2026 (Rückfrage „Hast du die Wolt-Bestellfenster-Gramm-Angaben gecheckt?“): Bestellfenster von „Build your Bowl“ im Browser geöffnet — Namen, Mengen und Preise = Wolt-API; die Produktinfo nennt für 8 Optionen eigene Nährwerte, die zur Rechnung passen (_meta.woltProductInfo, ab jetzt Teil des Crawls)",
       "User 02.11.2026: Compleat hat die Mengen geändert → Shop und Wolt: Hähnchen, Vegane Hackbällchen, Pulled Salmon 80 statt 100 g, Rinderhackbällchen 90 statt 100 g (halbe im Shop: Hühnchen, Vegane Hackbällchen, Pulled Salmon 40 statt 50 g, Rinderhackbällchen weiter 50 g), Wolt-Salat-Mix 80 statt 100 g; Werte je 100 g und Preise unverändert (_meta.portionChanges). Uber Eats nennt noch die alten Mengen → der Uber-Eats-Tab rechnet weiter mit dem, was Uber Eats nennt (dem User genannt)",
       "User 27.10.2026: Sojasauce mit typischen Nährwerten statt der Shop-Werte („scheinen nicht realistisch — nimm lieber die typischen Nährwerte für Sojasauce“): USDA FoodData Central #174277 (gebraute Sojasauce, Shoyu), 20 ml = 21,6 g laut USDA-Portionsgewicht → 11,5 kcal / 1,76 g Eiweiß / 0,89 g KH / 2,97 g Salz je Portion (Shop: 4,2 kcal / 0,48 g Eiweiß / 0,46 g KH / 2,87 g Salz); Shop-Werte bleiben als shopPer100 dokumentiert"
@@ -463,16 +464,12 @@
       }
     ],
     "lastChanges": {
-      "since": "2026-11-02T22:48:14.537Z",
+      "since": "2026-11-03T07:14:25.646Z",
       "shopAdded": [],
       "shopRemoved": [],
       "woltAdded": [],
       "woltRemoved": [],
-      "ubereatsAdded": [
-        "Dips: Guacamole (100g)",
-        "Dips: Joghurt-Salatdressing (80g)",
-        "Dips: Balsamico Dressing (80g)"
-      ],
+      "ubereatsAdded": [],
       "ubereatsRemoved": [],
       "prices": [],
       "values": [],
@@ -766,6 +763,37 @@
         }
       ]
     },
+    "notListed": {
+      "wolt": [
+        {
+          "group": "Dein Dip",
+          "name": "Joghurt-Salatdressing",
+          "since": "2026-11-02"
+        },
+        {
+          "group": "Dein Dip",
+          "name": "Guacamole",
+          "since": "2026-11-02"
+        },
+        {
+          "group": "Dein Dip",
+          "name": "Ajvar, 100g",
+          "since": "2026-11-02"
+        },
+        {
+          "group": "Dein Dip",
+          "name": "Balsamico Dressing , 80g",
+          "since": "2026-11-02"
+        }
+      ],
+      "ubereats": [
+        {
+          "group": "Toppings",
+          "name": "Chili Gewürz (1g)",
+          "since": "2026-11-03"
+        }
+      ]
+    },
     "halfPortionAccepted": [
       "Kürbiswürfel mariniert - halbe Portion: Zucker 1,7 statt 1,5 g je 100 g (sonst identisch) → +0,2 g Zucker je halbe Portion; der Rechner nutzt die Werte der ganzen Portion (27.09.2026)"
     ],
@@ -869,7 +897,9 @@
           "shopKcal": 11.1
         }
       ],
-      "notOnUberEats": [],
+      "notOnUberEats": [
+        "Chili Gewürz (1g)"
+      ],
       "halfNotDouble": [
         "Mushroots Pilzbällchen - Halbe Portion (45g) — Mushroots - Halbe Portion = 45 g für 2,00 €, ganze Portion 75 g für 3,00 € (2 halbe = 90 g / 4,00 €) → der Rechner nimmt höchstens eine halbe neben der ganzen; 2 halbe statt einer ganzen schlägt er nicht vor (27.09.2026)"
       ]
@@ -4345,6 +4375,50 @@
             "unit": "g",
             "maxQty": 1,
             "price": 3
+          },
+          {
+            "name": "Joghurt-Salatdressing",
+            "ingredient": "joghurt_salatdressing",
+            "role": "dip",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 1,
+            "price": 2,
+            "notListed": true,
+            "notListedSince": "2026-11-02"
+          },
+          {
+            "name": "Guacamole",
+            "ingredient": "guacamole",
+            "role": "dip",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 1,
+            "price": 3,
+            "notListed": true,
+            "notListedSince": "2026-11-02"
+          },
+          {
+            "name": "Ajvar, 100g",
+            "ingredient": "ajvar",
+            "role": "dip",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 1,
+            "price": 3,
+            "notListed": true,
+            "notListedSince": "2026-11-02"
+          },
+          {
+            "name": "Balsamico Dressing , 80g",
+            "ingredient": "balsamico_dressing",
+            "role": "dip",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 1,
+            "price": 1,
+            "notListed": true,
+            "notListedSince": "2026-11-02"
           }
         ]
       }
@@ -4996,7 +5070,8 @@
             "unit": "g",
             "maxQty": 5,
             "price": 0,
-            "soldOut": true
+            "notListed": true,
+            "notListedSince": "2026-11-03"
           }
         ]
       }

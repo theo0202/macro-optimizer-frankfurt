@@ -8,9 +8,9 @@
 //
 // Ausverkauft vs. gestrichen (User 27.09.2026: „Zutaten, die es dauerhaft nicht mehr gibt, raus — wenn nur gerade ausverkauft, drinlassen“):
 // die Shop-API liefert mit ?forceStockStatus=1 das ganze Sortiment, ohne den Parameter nur das gerade Verfügbare. Im ersten, nicht im
-// zweiten = ausverkauft (bleibt, soldOut). In keinem = aus dem Shop gestrichen (fliegt raus, _meta.removedIngredients). Fehlt eine Option
-// auf einer Plattform, deren Zutat im Shop nur ausverkauft ist, wird sie aus dem letzten Lauf übernommen (Uber Eats blendet Ausverkauftes
-// komplett aus); fehlt sie bei verfügbarer Shop-Zutat, gibt es sie auf der Plattform nicht mehr (bleibt im Datensatz für die andere).
+// zweiten = ausverkauft (bleibt, soldOut). In keinem = aus dem Shop gestrichen (fliegt raus, _meta.removedIngredients). Fehlt eine Option auf
+// einer Plattform, bleibt sie mit Menge, Preis und Nährwerten vom letzten Stand im Menü (notListed + notListedSince; User 03.11.2026) — die
+// App lässt sie mit dem Schalter „Exclude unavailable ingredients“ (Default AN) aus den Vorschlägen; siehe carryNotListed.
 //
 // Datenbasis: vmos liefert je Zutat nutritionalMeta PRO 100 g (bzw. 100 ml) plus defaultQuantity (= Mengenangabe im Namen).
 // Portionswerte = pro 100 × Portion / 100 (LMIV-Umrechnung). Die Shop-Anzeige rechnet dagegen mit variations[0].value —
@@ -189,6 +189,20 @@ function parseWoltProductInfo(html) {
   return out;
 }
 
+// Option fehlt auf der Plattform (Wolt und Uber Eats blenden Ausverkauftes aus; User 03.11.2026: „tu sie wieder rein“, Schalter statt Verschwinden):
+// sie bleibt mit Menge, Preis und Nährwerten vom letzten Stand im Menü — solange die Zutat im Shop-Sortiment ist (aus dem Shop gestrichen = raus)
+// und die Plattform dieselbe Zutat in dieser Gruppe nicht unter neuem Namen führt (neue Menge: „Hähnchen, 100 g“ → „Hähnchen, 80 g“).
+// Ohne Mengenangabe im Namen („Guacamole“) gilt die aktuelle Shop-Portion. notListedSince = seit wann die Plattform sie nicht führt
+function carryNotListed(grp, prevOptions, byId, day) {
+  for (const o of prevOptions || []) {
+    const ing = byId[o.ingredient];
+    if (!ing || grp.options.some(x => x.name === o.name || (x.ingredient === o.ingredient && !!x.half === !!o.half))) continue;
+    const { soldOut, ...rest } = o;
+    if (!o.half && !/\d\s*(?:g|ml)\)?$/i.test(o.name)) { rest.amount = ing.portion; rest.unit = ing.unit; }
+    grp.options.push(Object.assign(rest, { notListed: true, notListedSince: o.notListedSince || day }));
+  }
+}
+
 async function discoverMenu() {
   try {
     const j = await getJSON(VMOS + "/catalog/v2/menu", vmosHeaders(null));
@@ -315,7 +329,6 @@ async function main() {
     referenceValues.push({ id, name: ing.shopName, from: ref.from, density: ing.unit === "ml" ? ref.density : null, per100g: ref.per100g, per100: ing.per100, shopPer100: ing.shopPer100, why: ref.why });
   }
   for (const id of [...CRUNCH, ...Object.keys(BLOCKED), ...Object.keys(MANUAL_ANOMALIES), ...PROTEIN_MAIN, ...Object.keys(HALF_DIFF_OK), ...Object.keys(UE_HALF_NOT_DOUBLE), ...Object.keys(REFERENCE)]) if (!byId[id]) problems.push("Kuratierte id fehlt im Shop: " + id + " (aus dem Shop gestrichen? → Tabelle bereinigen)");
-  const soldOutIds = new Set(ingredients.filter(x => x.soldOut).map(x => x.id));
 
   // ── Abgleich mit der einzeln angeklickten Shop-Anzeige (data/compleat-shop-anzeige.json) ──
   const shopControl = require("./verify-compleat-shop.js").compare(shopItems, U.readJSON(SHOP_CTL));
@@ -356,9 +369,8 @@ async function main() {
       const role = gid === "protein" ? (PROTEIN_MAIN.has(id) ? "protein" : "extra") : gid;
       grp.options.push({ name: wname, ingredient: id, role, amount, unit, maxQty: Math.max(1, rawMax || 0), price: U.round((v.price || 0) / 100, 2) });
     }
-    // Option fehlt bei Wolt, Zutat im Shop nur ausverkauft → aus dem letzten Lauf übernehmen (ausverkauft ≠ gestrichen)
     const prevG = prev && prev.wolt && (prev.wolt.groups || []).find(x => x.id === gid);
-    for (const o of (prevG ? prevG.options : [])) if (soldOutIds.has(o.ingredient) && !grp.options.some(x => x.name === o.name)) grp.options.push(Object.assign({}, o, { soldOut: true }));
+    carryNotListed(grp, prevG && prevG.options, byId, fetchedAt.slice(0, 10));
     woltGroups.push(grp);
   }
   if (unmapped.length) problems.push("Nicht zugeordnete Wolt-Optionen (WOLT_MAP ergänzen): " + unmapped.join(" · "));
@@ -387,10 +399,10 @@ async function main() {
   // Vorausgewählt ist die Standard-Option jeder PFLICHT-Gruppe (min ≥ 1); in optionalen Gruppen wählt Wolt nichts vor.
   const woltPreselect = woltGroups.filter(g => g.min >= 1 && g.defaultOption).map(g => ({ group: g.id, groupName: g.name, name: g.defaultOption.name, price: g.defaultOption.price }));
   const woltCardPrice = U.round(woltItemPrice + woltPreselect.reduce((sum, x) => sum + x.price, 0), 2);
-  const onWolt = new Set(woltGroups.flatMap(g => g.options.map(o => o.ingredient)));
+  const onWolt = new Set(woltGroups.flatMap(g => g.options.filter(o => !o.notListed).map(o => o.ingredient)));
   const notOnWolt = ingredients.filter(x => !onWolt.has(x.id)).map(x => x.shopName);
   // Einträge der WOLT_MAP, die Wolt nicht mehr anbietet (Option entfernt/umbenannt) → sichtbar machen statt still ignorieren
-  const woltNames = new Set(woltGroups.flatMap(g => g.options.map(o => o.name)));
+  const woltNames = new Set(woltGroups.flatMap(g => g.options.filter(o => !o.notListed).map(o => o.name)));
   const woltMapUnused = Object.keys(WOLT_MAP).filter(n => !woltNames.has(n));
 
   // ── Uber Eats „Selbst zusammenstellen" (im Browser erfasst, siehe ubereats-capture.js) ──
@@ -429,7 +441,7 @@ async function main() {
       grp.options.push(opt);
     }
     const prevG = prev && prev.ubereats && (prev.ubereats.groups || []).find(x => x.id === gid && x.name === gname);
-    for (const o of (prevG ? prevG.options : [])) if (soldOutIds.has(o.ingredient) && !grp.options.some(x => x.name === o.name)) grp.options.push(Object.assign({}, o, { soldOut: true }));
+    carryNotListed(grp, prevG && prevG.options, byId, fetchedAt.slice(0, 10));
     ueGroups.push(grp);
   }
   if (ueUnknown.length) problems.push("Uber-Eats-Optionen ohne Shop-Zutat (Namen prüfen oder in UE_NO_DATA begründen): " + ueUnknown.join(" · "));
@@ -445,12 +457,12 @@ async function main() {
   }
   const ueItemPrice = U.round(((ue.item && ue.item.price) || 0) / 100, 2);
   const ueCardPrice = U.round(ueItemPrice + uePreselect.reduce((sum, x) => sum + x.price * (x.qty || 1), 0), 2);
-  const onUE = new Set(ueGroups.flatMap(g => g.options.map(o => o.ingredient)));
+  const onUE = new Set(ueGroups.flatMap(g => g.options.filter(o => !o.notListed).map(o => o.ingredient)));
   const notOnUberEats = ingredients.filter(x => !onUE.has(x.id)).map(x => x.shopName);
 
   // ── Änderungen gegenüber dem letzten Lauf (für „aktualisiere Compleat“) ──
   const today = fetchedAt.slice(0, 10);
-  const optNames = (m, pf) => new Map(((m && m.groups) || []).flatMap(g => g.options.filter(o => !o.soldOut).map(o => [pf + " · " + g.name + ": " + o.name, o.price])));
+  const optNames = (m, pf) => new Map(((m && m.groups) || []).flatMap(g => g.options.filter(o => !o.soldOut && !o.notListed).map(o => [pf + " · " + g.name + ": " + o.name, o.price])));
   const prevIds = new Set(prev ? prev.ingredients.map(x => x.id) : []);
   const removedNow = prev ? prev.ingredients.filter(x => !byId[x.id]).map(x => ({ name: x.shopName, id: x.id, removedAt: today })) : [];
   const removedIngredients = [...((prev && prev._meta.removedIngredients) || []).filter(r => !byId[r.id]), ...removedNow];
@@ -511,6 +523,7 @@ async function main() {
   const woltCardNote = preselectNote("Wolt", WOLT_ITEM, woltItemPrice, woltCardPrice, woltPreselect, (woltGroups.find(g => g.id === "dip") || {}).noneOption || "Ohne Dip");
   const ueCardNote = preselectNote("Uber Eats", UE_ITEM, ueItemPrice, ueCardPrice, uePreselect, (ueGroups.find(g => g.id === "dip") || {}).noneOption || "ohne Dip");
 
+  const notListedOf = groups => groups.flatMap(g => g.options.filter(o => o.notListed).map(o => ({ group: g.name, name: o.name, since: o.notListedSince })));
   const raw = {    _meta: {
       restaurant: "Compleat", store: "Frankfurt Nordend (Glauburgstraße 5, 60318 Frankfurt am Main)", fetchedAt,
       sources: {
@@ -534,12 +547,14 @@ async function main() {
         "User 15.09.2026: Rechner zusätzlich für Uber Eats („Selbst zusammenstellen“, Grundpreis 1 €)",
         "User 16.09.2026 (Rückfrage „Build your Bowl kostet 4 €“): damals 2 € Grundpreis + vorausgewählter Curvy Curry Dip; der Rechner rechnet Grundpreis + gewählte Optionen und nennt eine Vorauswahl im Hinweistext (seit 27.09.2026 wählt Wolt „Ohne Dip“ vor)",
         "User 27.09.2026: neue Compleat-Zutaten einbauen, soweit Wolt sie führt — Werte je Zutat durch einzelnes Auswählen im Shop bestätigt (data/compleat-shop-anzeige.json); Zutaten, die es dauerhaft nicht mehr gibt, raus, ausverkaufte drin (Skill „compleat-aktualisieren“)",
+        "User 03.11.2026: Optionen, die eine Plattform gerade nicht führt, bleiben mit ihren Nährwerten im Tab („tu sie wieder rein“) und in Baukasten, Must include und Exclude wählbar; der Schalter „Exclude unavailable ingredients“ (Default AN) lässt sie aus den Vorschlägen. Raus nur, wenn die Zutat aus dem Shop-Sortiment gestrichen ist",
         "User 03.11.2026 (Rückfrage „Hast du die Wolt-Bestellfenster-Gramm-Angaben gecheckt?“): Bestellfenster von „Build your Bowl“ im Browser geöffnet — Namen, Mengen und Preise = Wolt-API; die Produktinfo nennt für 8 Optionen eigene Nährwerte, die zur Rechnung passen (_meta.woltProductInfo, ab jetzt Teil des Crawls)",
         "User 02.11.2026: Compleat hat die Mengen geändert → Shop und Wolt: Hähnchen, Vegane Hackbällchen, Pulled Salmon 80 statt 100 g, Rinderhackbällchen 90 statt 100 g (halbe im Shop: Hühnchen, Vegane Hackbällchen, Pulled Salmon 40 statt 50 g, Rinderhackbällchen weiter 50 g), Wolt-Salat-Mix 80 statt 100 g; Werte je 100 g und Preise unverändert (_meta.portionChanges). Uber Eats nennt noch die alten Mengen → der Uber-Eats-Tab rechnet weiter mit dem, was Uber Eats nennt (dem User genannt)",
         "User 27.10.2026: Sojasauce mit typischen Nährwerten statt der Shop-Werte („scheinen nicht realistisch — nimm lieber die typischen Nährwerte für Sojasauce“): USDA FoodData Central #174277 (gebraute Sojasauce, Shoyu), 20 ml = 21,6 g laut USDA-Portionsgewicht → 11,5 kcal / 1,76 g Eiweiß / 0,89 g KH / 2,97 g Salz je Portion (Shop: 4,2 kcal / 0,48 g Eiweiß / 0,46 g KH / 2,87 g Salz); Shop-Werte bleiben als shopPer100 dokumentiert",
       ],
       portionDiffs, portionAssumed, displayBugs, halfPortionDiffs, anomalies, missingDeclared, notOnWolt, woltMapUnused, dislikes, shellfish,
       soldOut, removedIngredients, valueChanges, portionChanges, lastChanges, referenceValues, woltProductInfo: woltInfo,
+      notListed: { wolt: notListedOf(woltGroups), ubereats: notListedOf(ueGroups) },
       halfPortionAccepted: Object.values(HALF_DIFF_OK),
       shopControl: { readAt: shopControl.readAt, checked: shopControl.checked, values: shopControl.values, earlier: shopControl.earlier, soldOutNotChecked: shopControl.soldOutNotChecked, notInShop: shopControl.notInShop },
       ubereats: { noData: ueNoData, portionDiffs: uePortionDiffs, kcalDiffs: ueKcalDiffs, notOnUberEats, halfNotDouble: ueHalfNotDouble },
@@ -567,6 +582,7 @@ async function main() {
   console.log("Vorauswahl: " + woltCardNote);
   console.log("Vorauswahl: " + ueCardNote);
   console.log("Wolt-Produktinfo: " + woltInfo.options + " Optionen, " + woltInfo.values.length + " mit eigenen Nährwerten — alle = Rechnung (" + woltInfo.values.map(v => v.name + " " + v.wolt.kcal + " kcal").join(" · ") + ")");
+  console.log("Gerade nicht gelistet (bleibt mit Nährwerten, Schalter „Exclude unavailable ingredients“): Wolt: " + (notListedOf(woltGroups).map(x => x.name + " (seit " + x.since + ")").join(", ") || "—") + " · Uber Eats: " + (notListedOf(ueGroups).map(x => x.name + " (seit " + x.since + ")").join(", ") || "—"));
   console.log("Nicht bei Wolt: " + notOnWolt.join(", "));
   console.log("Nicht bei Uber Eats: " + (notOnUberEats.join(", ") || "—"));
   if (woltMapUnused.length) console.log("⚠ WOLT_MAP-Einträge, die Wolt nicht mehr anbietet: " + woltMapUnused.join(", "));
@@ -582,5 +598,5 @@ async function main() {
   console.log("Auffälligkeiten (" + anomalies.length + "): " + anomalies.map(a => a.name).join(", "));
 }
 
-module.exports = { parseWoltProductInfo };
+module.exports = { parseWoltProductInfo, carryNotListed };
 if (require.main === module) main().catch(e => { console.error("FEHLER: " + e.message); process.exit(1); });

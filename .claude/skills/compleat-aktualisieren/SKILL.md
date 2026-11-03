@@ -29,8 +29,8 @@ ausverkauft. Bei Problemen schreibt er `data/compleat-raw.json` nicht und nennt 
 **Ausverkauft ≠ gestrichen** (User 27.09.2026), das erkennt der Crawl selbst:
 - Die Shop-API liefert mit `?forceStockStatus=1` das ganze Sortiment, ohne den Parameter nur das gerade Verfügbare. Was im ersten, aber nicht im zweiten Ergebnis steht, ist **ausverkauft** (`soldOut`, bleibt drin).
 - Was in keinem von beiden steht, ist **gestrichen** und fliegt raus (`_meta.removedIngredients`).
-- Fehlt eine Plattform-Option, deren Shop-Zutat nur ausverkauft ist, übernimmt der Crawl sie aus dem letzten Lauf. Uber Eats blendet Ausverkauftes komplett aus.
-- Fehlt eine Option, obwohl die Zutat im Shop verfügbar ist, führt die Plattform sie nicht mehr. Die Zutat bleibt im Datensatz, der `WOLT_MAP`-Eintrag bleibt stehen und greift automatisch, sobald Wolt sie wieder führt.
+- **Eine Zutat verschwindet nie still aus einem Tab** (User 03.11.2026): fehlt eine Plattform-Option, behält der Crawl sie mit Menge, Preis und Nährwerten vom letzten Stand (`carryNotListed`: `notListed` + `notListedSince`, `_meta.notListed`), auch wenn der Shop sie gerade anbietet — Wolt und Uber Eats blenden Ausverkauftes aus und schalten es nicht immer sofort frei. Der `WOLT_MAP`-Eintrag bleibt stehen, sobald die Plattform sie wieder führt, ist die Markierung weg. Neue Menge derselben Zutat ersetzt die alte Option.
+- In der App bleiben solche Zutaten wählbar (Baukasten, Must include, Exclude); der Schalter **„Exclude unavailable ingredients“** (Default AN) lässt sie und im Shop ausverkaufte Zutaten aus den Vorschlägen. Dem User nennen, welche es gerade sind (Konsolenzeile „Gerade nicht gelistet“).
 - Gesperrte Zutaten (`BLOCKED`, z.B. Quinoa) bleiben gesperrt.
 
 ## 2. Shop-Anzeige einzeln anklicken (neue und geänderte Zutaten — am einfachsten alle)

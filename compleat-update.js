@@ -59,6 +59,8 @@ function buildMenu(raw, platform) {
       if (ing.shellfish) opt.shellfish = true;
       // Plattform nennt noch die alte Menge, nachdem Compleat sie im Shop geändert hat (02.11.2026: Uber Eats Hühnchen 100 g, Shop und Wolt 80 g):
       // gerechnet wird mit der Menge der Plattform, shopAmount trägt die Shop-Menge für den Hinweis in der App (compleatStaleNote)
+      // Plattform führt die Option gerade nicht (User 03.11.2026): Datum für die App → Schalter „Exclude unavailable ingredients“
+      if (o.notListed) opt.notListed = o.notListedSince || raw._meta.fetchedAt.slice(0, 10);
       if (!o.half && o.amount !== ing.portion && (raw._meta.portionChanges || []).some(c => c.where === "Shop" && c.name === ing.shopName)) opt.shopAmount = ing.portion;
       return opt;
     }),
