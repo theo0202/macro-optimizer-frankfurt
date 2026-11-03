@@ -42,7 +42,7 @@ function lsSet(key, value) {
 
 // ═══ Restaurant-Daten (generierte Blöcke — NIE von Hand editieren, immer über <key>-update.js) ═══
 // __COMPLEAT_DATA_START__ (generiert via: node compleat-update.js aus data/compleat-raw.json — nicht von Hand editieren)
-// Quelle: Compleat-Onlineshop (compleat.vmos.io, Frankfurt Nordend), Stand 2026-11-02 · Shop-Werte pro 100 g × Menge · Menüs + Preise: Wolt „Build your Bowl“, Uber Eats „Selbst zusammenstellen“ (erfasst 2026-11-02)
+// Quelle: Compleat-Onlineshop (compleat.vmos.io, Frankfurt Nordend), Stand 2026-11-03 · Shop-Werte pro 100 g × Menge · Menüs + Preise: Wolt „Build your Bowl“, Uber Eats „Selbst zusammenstellen“ (erfasst 2026-11-03)
 // TYPISCHE WERTE statt der Shop-Werte: Sojasauce (20ml) — USDA FoodData Central, SR Legacy #174277 „Soy sauce made from soy and wheat (shoyu)“ (gebraute Sojasauce aus Soja und Weizen) (USDA-Portionsgewicht 1 tbsp (14,79 ml) = 16 g → 1,082 g je ml)
 const COMPLEAT = {
   // Kompletter Shop-Datensatz (auch Zutaten, die eine Plattform nicht anbietet)
@@ -92,18 +92,18 @@ const COMPLEAT = {
     {id:"protein_tzatziki",name:"Protein Tzatziki",group:"dips",portion:100,unit:"g",per100:{kcal:66.8,fat:0.21,sat:0.1,carbs:4.95,sugars:4.67,fibre:0.1,protein:10.85,salt:1.13},allergens:["Milch"]},
     {id:"rotes_pesto",name:"Rotes Pesto",group:"dips",portion:80,unit:"g",per100:{kcal:330,fat:28.7,sat:3.9,carbs:12.8,sugars:8.2,fibre:1.97,protein:4.6,salt:2.4},allergens:["Milch","Nüsse"]},
     {id:"sexy_sesame",name:"Sexy Sesame",group:"dips",portion:80,unit:"g",per100:{kcal:367,fat:34.5,sat:3.2,carbs:11.9,sugars:0.7,fibre:0,protein:2.4,salt:3},allergens:["Weizen","Glutenhaltig","Senf","Soja","Sesam"]},
-    {id:"balsamico_dressing",name:"Balsamico Dressing",group:"dips",portion:80,unit:"g",per100:{kcal:58,fat:2.3,sat:0.2,carbs:8.8,sugars:8.4,fibre:0.21,protein:0.1,salt:2},allergens:["Sulfite"],soldOut:true},
+    {id:"balsamico_dressing",name:"Balsamico Dressing",group:"dips",portion:80,unit:"g",per100:{kcal:58,fat:2.3,sat:0.2,carbs:8.8,sugars:8.4,fibre:0.21,protein:0.1,salt:2},allergens:["Sulfite"]},
     {id:"ajvar",name:"Ajvar",group:"dips",portion:100,unit:"g",per100:{kcal:105,fat:5.3,sat:0.6,carbs:11,sugars:9.2,fibre:3,protein:1.4,salt:1.4},allergens:[]},
     {id:"olivenoel_salz_halbe_zitrone",name:"Olivenöl, Salz & halbe Zitrone",group:"dips",portion:20,unit:"ml",per100:{kcal:900,fat:100,sat:13,carbs:0,sugars:0,fibre:0,protein:0,salt:0},allergens:[]},
-    {id:"joghurt_salatdressing",name:"Joghurt-Salatdressing",group:"dips",portion:80,unit:"g",per100:{kcal:143,fat:13.6,sat:1.6,carbs:4.6,sugars:2.5,fibre:0,protein:1.1,salt:1.3},allergens:["Milch"],soldOut:true},
+    {id:"joghurt_salatdressing",name:"Joghurt-Salatdressing",group:"dips",portion:80,unit:"g",per100:{kcal:143,fat:13.6,sat:1.6,carbs:4.6,sugars:2.5,fibre:0,protein:1.1,salt:1.3},allergens:["Milch"]},
     {id:"trueffel_light_inlead",name:"Trüffel Light (Inlead)",group:"dips",portion:80,unit:"g",per100:{kcal:98,fat:6,sat:0.9,carbs:10,sugars:3.3,fibre:0.2,protein:0.7,salt:1.89},allergens:["Senf","Ei"]},
-    {id:"guacamole",name:"Guacamole",group:"dips",portion:100,unit:"g",per100:{kcal:194,fat:17,sat:2.7,carbs:8.4,sugars:2.3,fibre:6,protein:1.7,salt:0.42},allergens:[],soldOut:true},
+    {id:"guacamole",name:"Guacamole",group:"dips",portion:100,unit:"g",per100:{kcal:194,fat:17,sat:2.7,carbs:8.4,sugars:2.3,fibre:6,protein:1.7,salt:0.42},allergens:[]},
     {id:"power_peanut",name:"Power Peanut",group:"dips",portion:80,unit:"g",per100:{kcal:312,fat:27,sat:2.7,carbs:13.8,sugars:2.4,fibre:0,protein:3.7,salt:2.7},allergens:["Weizen","Glutenhaltig","Soja","Erdnüsse"]},
     {id:"honey_muscle_mustard",name:"Honey Muscle Mustard",group:"dips",portion:80,unit:"g",per100:{kcal:250,fat:23,sat:1.6,carbs:10.6,sugars:2.3,fibre:35,protein:0.7,salt:2.4},allergens:["Senf"]},
     {id:"champion_chili",name:"Champion Chili",group:"dips",portion:80,unit:"g",per100:{kcal:273,fat:25.6,sat:1.9,carbs:9.7,sugars:2.4,fibre:2.5,protein:1.3,salt:3},allergens:["Senf"]},
   ],
   // Stand des letzten Crawls (Shop-Werte, Menüs, Ausverkauft-Status)
-  asOf: "2026-11-02",
+  asOf: "2026-11-03",
   wolt: {
     item: "Build your Bowl", page: "https://wolt.com/de/deu/frankfurt/restaurant/compleat-nordend", basePrice: 3,
     require: {base:false,protein:false}, // Pflicht-Rollen laut Plattform (Gruppen-Minimum; keine → jede Gruppe optional)
@@ -168,9 +168,6 @@ const COMPLEAT = {
         {id:"dip_trueffel_light_inlead_80_g",name:"Trüffel Light (Inlead), 80 g",short:"Trüffel Light (Inlead)",group:"dip",role:"dip",ing:"trueffel_light_inlead",amount:80,unit:"g",maxQty:1,price:3,kcal:78.4,fat:4.8,sat:0.72,carbs:8,sugars:2.64,fibre:0.16,protein:0.56,salt:1.51},
         {id:"dip_siracha_mayo_light_inlead_80_g",name:"Siracha Mayo Light (Inlead), 80 g",short:"Siracha Mayo Light (Inlead)",group:"dip",role:"dip",ing:"sriracha_light_inlead",amount:80,unit:"g",maxQty:1,price:3,kcal:76,fat:4.64,sat:0.72,carbs:7.6,sugars:3.52,fibre:0.16,protein:0.72,salt:1.52},
         {id:"dip_aioli_light_inlead_80_g",name:"Aioli Light (Inlead), 80 g",short:"Aioli Light (Inlead)",group:"dip",role:"dip",ing:"aioli_light_inlead",amount:80,unit:"g",maxQty:1,price:3,kcal:77.6,fat:4.8,sat:0.72,carbs:7.76,sugars:4.08,fibre:0.16,protein:0.08,salt:1.52},
-        {id:"dip_joghurt_salatdressing",name:"Joghurt-Salatdressing",short:"Joghurt-Salatdressing",group:"dip",role:"dip",ing:"joghurt_salatdressing",amount:80,unit:"g",maxQty:1,price:2,kcal:114.4,fat:10.88,sat:1.28,carbs:3.68,sugars:2,fibre:0,protein:0.88,salt:1.04},
-        {id:"dip_guacamole",name:"Guacamole",short:"Guacamole",group:"dip",role:"dip",ing:"guacamole",amount:100,unit:"g",maxQty:1,price:3,kcal:194,fat:17,sat:2.7,carbs:8.4,sugars:2.3,fibre:6,protein:1.7,salt:0.42},
-        {id:"dip_balsamico_dressing_80g",name:"Balsamico Dressing , 80g",short:"Balsamico Dressing",group:"dip",role:"dip",ing:"balsamico_dressing",amount:80,unit:"g",maxQty:1,price:1,kcal:46.4,fat:1.84,sat:0.16,carbs:7.04,sugars:6.72,fibre:0.17,protein:0.08,salt:1.6},
       ] },
     ],
   },
@@ -242,16 +239,16 @@ const COMPLEAT = {
         {id:"dip_curvy_curry_80g",name:"Curvy Curry (80g)",short:"Curvy Curry",group:"dip",role:"dip",ing:"curvy_curry",amount:80,unit:"g",maxQty:5,price:2,kcal:301.6,fat:30,sat:2.16,carbs:8.48,sugars:1.68,fibre:0.8,protein:0.32,salt:1.12},
         {id:"dip_sexy_sesame_80g",name:"Sexy Sesame (80g)",short:"Sexy Sesame",group:"dip",role:"dip",ing:"sexy_sesame",amount:80,unit:"g",maxQty:5,price:2,kcal:293.6,fat:27.6,sat:2.56,carbs:9.52,sugars:0.56,fibre:0,protein:1.92,salt:2.4},
         {id:"dip_protein_tzatziki_100g",name:"Protein Tzatziki (100g)",short:"Protein Tzatziki",group:"dip",role:"dip",ing:"protein_tzatziki",amount:100,unit:"g",maxQty:5,price:3,kcal:66.8,fat:0.21,sat:0.1,carbs:4.95,sugars:4.67,fibre:0.1,protein:10.85,salt:1.13},
+        {id:"dip_guacamole_100g",name:"Guacamole (100g)",short:"Guacamole",group:"dip",role:"dip",ing:"guacamole",amount:100,unit:"g",maxQty:5,price:3,kcal:194,fat:17,sat:2.7,carbs:8.4,sugars:2.3,fibre:6,protein:1.7,salt:0.42},
         {id:"dip_ajvar_100g",name:"Ajvar (100g)",short:"Ajvar",group:"dip",role:"dip",ing:"ajvar",amount:100,unit:"g",maxQty:5,price:3,kcal:105,fat:5.3,sat:0.6,carbs:11,sugars:9.2,fibre:3,protein:1.4,salt:1.4},
+        {id:"dip_joghurt_salatdressing_80g",name:"Joghurt-Salatdressing (80g)",short:"Joghurt-Salatdressing",group:"dip",role:"dip",ing:"joghurt_salatdressing",amount:80,unit:"g",maxQty:5,price:2,kcal:114.4,fat:10.88,sat:1.28,carbs:3.68,sugars:2,fibre:0,protein:0.88,salt:1.04},
         {id:"dip_sojasauce_20ml",name:"Sojasauce (20ml)",short:"Sojasauce",group:"dip",role:"dip",ing:"sojasauce",amount:20,unit:"ml",maxQty:5,price:1,kcal:11.47,fat:0.12,sat:0.02,carbs:0.89,sugars:0.09,fibre:0.17,protein:1.76,salt:2.97},
         {id:"dip_olivenoel_20ml_salz_halbe_zitrone",name:"Olivenöl (20ml), Salz & halbe Zitrone",short:"Olivenöl, Salz & halbe Zitrone",group:"dip",role:"dip",ing:"olivenoel_salz_halbe_zitrone",amount:20,unit:"ml",maxQty:5,price:2,kcal:180,fat:20,sat:2.6,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
+        {id:"dip_balsamico_dressing_80g",name:"Balsamico Dressing (80g)",short:"Balsamico Dressing",group:"dip",role:"dip",ing:"balsamico_dressing",amount:80,unit:"g",maxQty:5,price:2,kcal:46.4,fat:1.84,sat:0.16,carbs:7.04,sugars:6.72,fibre:0.17,protein:0.08,salt:1.6},
         {id:"dip_rotes_pesto_80g",name:"Rotes Pesto (80g)",short:"Rotes Pesto",group:"dip",role:"dip",ing:"rotes_pesto",amount:80,unit:"g",maxQty:5,price:3,kcal:264,fat:22.96,sat:3.12,carbs:10.24,sugars:6.56,fibre:1.58,protein:3.68,salt:1.92},
         {id:"dip_trueffel_light_inlead_80g",name:"Trüffel Light (Inlead) (80g)",short:"Trüffel Light (Inlead)",group:"dip",role:"dip",ing:"trueffel_light_inlead",amount:80,unit:"g",maxQty:5,price:3,kcal:78.4,fat:4.8,sat:0.72,carbs:8,sugars:2.64,fibre:0.16,protein:0.56,salt:1.51},
         {id:"dip_sriracha_light_inlead_80g",name:"Sriracha Light (Inlead) (80g)",short:"Sriracha Light (Inlead)",group:"dip",role:"dip",ing:"sriracha_light_inlead",amount:80,unit:"g",maxQty:5,price:3,kcal:76,fat:4.64,sat:0.72,carbs:7.6,sugars:3.52,fibre:0.16,protein:0.72,salt:1.52},
         {id:"dip_aioli_light_inlead_80g",name:"Aioli Light (Inlead) (80g)",short:"Aioli Light (Inlead)",group:"dip",role:"dip",ing:"aioli_light_inlead",amount:80,unit:"g",maxQty:5,price:3,kcal:77.6,fat:4.8,sat:0.72,carbs:7.76,sugars:4.08,fibre:0.16,protein:0.08,salt:1.52},
-        {id:"dip_guacamole_100g",name:"Guacamole (100g)",short:"Guacamole",group:"dip",role:"dip",ing:"guacamole",amount:100,unit:"g",maxQty:5,price:3,kcal:194,fat:17,sat:2.7,carbs:8.4,sugars:2.3,fibre:6,protein:1.7,salt:0.42},
-        {id:"dip_joghurt_salatdressing_80g",name:"Joghurt-Salatdressing (80g)",short:"Joghurt-Salatdressing",group:"dip",role:"dip",ing:"joghurt_salatdressing",amount:80,unit:"g",maxQty:5,price:2,kcal:114.4,fat:10.88,sat:1.28,carbs:3.68,sugars:2,fibre:0,protein:0.88,salt:1.04},
-        {id:"dip_balsamico_dressing_80g",name:"Balsamico Dressing (80g)",short:"Balsamico Dressing",group:"dip",role:"dip",ing:"balsamico_dressing",amount:80,unit:"g",maxQty:5,price:2,kcal:46.4,fat:1.84,sat:0.16,carbs:7.04,sugars:6.72,fibre:0.17,protein:0.08,salt:1.6},
       ] },
     ],
   },
@@ -5365,11 +5362,11 @@ const RESTAURANTS = [
   // Onlineshop + Wolt-API + Uber-Eats-Erfassung data/compleat-ubereats-menu.json → data/compleat-raw.json) → node compleat-update.js
   compleatEntry({ key:"compleat", menuKey:"wolt", name:"Compleat (Wolt)", platform:"Wolt", label:"COMPLEAT · NORDEND · WOLT",
     gradient:["#d7192d","#6b0f1a"],
-    footer:"Data: Compleat online shop (official, per 100 g × Wolt portion; every ingredient selected one by one in the shop, last on 02.11.2026)"+compleatRefFooter("wolt")+" · menu & prices: Wolt · "+deDate(COMPLEAT.asOf),
+    footer:"Data: Compleat online shop (official, per 100 g × Wolt portion; every ingredient selected one by one in the shop, last on 03.11.2026)"+compleatRefFooter("wolt")+" · menu & prices: Wolt · "+deDate(COMPLEAT.asOf),
     note:m=>"Build your Bowl on Wolt (base price "+bowlEuro(m.basePrice)+"): no group is required — the optimizer also suggests bowls without a base or without a protein when that fits your target; one dip or none."+bowlPreselectNote(m,"Wolt")+compleatStaleNote(m,"Wolt")+compleatRefNote(m)+compleatSoldOutNote(m) }),
   compleatEntry({ key:"compleatuber", menuKey:"ubereats", name:"Compleat (Uber Eats)", platform:"Uber Eats", label:"COMPLEAT · NORDEND · UBER EATS",
     gradient:["#b3121d","#141414"],
-    footer:"Data: Compleat online shop (official, per 100 g × Uber Eats portion; every ingredient selected one by one in the shop, last on 02.11.2026)"+compleatRefFooter("ubereats")+" · menu & prices: Uber Eats, captured 02.11.2026",
+    footer:"Data: Compleat online shop (official, per 100 g × Uber Eats portion; every ingredient selected one by one in the shop, last on 03.11.2026)"+compleatRefFooter("ubereats")+" · menu & prices: Uber Eats, captured 03.11.2026",
     note:m=>"Selbst zusammenstellen on Uber Eats (base price "+bowlEuro(m.basePrice)+"): no group is required — the optimizer also suggests bowls without a base or without a main protein when that fits your target; one dip or none. Egg, edamame, peas, feta and goat cheese count as extras; extras at most once each."+bowlPreselectNote(m,"Uber Eats")+compleatStaleNote(m,"Uber Eats")+compleatRefNote(m)+compleatSoldOutNote(m) }),
   // Dean & David Frankfurt (Wolt; Menü identisch in Welle, Mainzer Landstraße und Tower 185 — MyZeil ohne Marinierte Zwiebeln, Bockenheim nur Bowl).
   // Daten: py -3 deandavid-pdf.py (PDFs → data/) → node deandavid-crawl.js (→ data/deandavid-raw.json) → node deandavid-update.js

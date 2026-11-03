@@ -57,6 +57,17 @@ liefert `{ sha256, length, options, json }` (kompakt: je Gruppe title und min/ma
 JSON unverändert in eine Scratch-Datei schreiben, sha256 lokal vergleichen und mit `_source` davor als `data/compleat-ubereats-menu.json` speichern.
 Prüfen, ob sich nichts geändert hat: `await window.UE_CAPTURE("<capturedAt der bisherigen Datei>")`. Gleiche sha256 = unverändert, dann die Datei lassen.
 
+## 3b. Wolt-Bestellfenster ansehen (User 03.11.2026: die Wolt-Mengen zählen)
+
+Die Wolt-Seite aus dem Kopf von `compleat-crawl.js` öffnen (`WOLT_PAGE`), „Build your Bowl“ anklicken und die Texte des Fensters gegen den Wolt-Tab
+vergleichen: Namen, Mengen, Preise, Dips. Nichts in den Warenkorb. Option mit neuer Menge → Schritt 1. Dips ohne Mengenangabe rechnet der Tab mit der
+Shop-Portion (`_meta.portionAssumed`): dem User nennen. Wolts „Produktinfo“ im Fenster nennt für einige Optionen eigene Nährwerte (teils mit „pro 100 g“,
+die Zahlen gelten aber für die Portion); der Crawl vergleicht sie automatisch (`_meta.woltProductInfo`) und bricht bei mehr als 1 kcal bzw. 0,15 g Abweichung ab.
+
+Bei Zutaten, deren Shop-Anzeige mit einer anderen Menge rechnet (`_meta.displayBugs`: Walnusskerne, Crunch, Röstzwiebeln, Granatapfelkerne, Sojasauce), zeigt
+die einzelne Karte nicht die Wolt-Menge: Fertig-Bowls mit dieser Zutat öffnen (Reiter „Nährwerte“) und mit der Shop-Rechnung vergleichen. Dem User ehrlich
+sagen, was direkt abgelesen wurde und was nicht (gesperrte Karten, Plattform-Mengen nur aus der API).
+
 ## 4. Daten bauen und prüfen
 
 `node compleat-crawl.js` → `node compleat-update.js` → `node verify-compleat.js` (Word-Export 15.09.2026; gestrichene Zutaten werden nur

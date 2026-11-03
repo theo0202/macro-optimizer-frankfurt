@@ -1,6 +1,6 @@
 {
  "_source": "Compleat-Onlineshop, Bundle „Selbst zusammenstellen“ (Store Frankfurt Nordend): jede Zutat-Karte EINZELN ausgewählt (Menge 1) und die Anzeige „Nutrition facts per serving“ (Reiter „Nährwerte“) abgelesen, danach wieder abgewählt (compleat-shop-capture.js, im Browser; Prüfsumme sha256 des kompakten JSON im Browser und lokal verglichen). Werte als angezeigt (Text, „--“ = nicht angegeben). soldOut = Overlay „Ausverkauft“, Häkchen gesperrt → keine Werte; lastRead = die letzte Ablesung dieser Karte aus einem früheren Durchgang (mit Datum), als sie noch wählbar war. Kontrollquelle für node verify-compleat-shop.js; übernommen mit node verify-compleat-shop.js --save. Nicht von Hand ändern.",
- "readAt": "2026-11-02T22:43:52.663Z",
+ "readAt": "2026-11-03T07:07:09.199Z",
  "page": "https://compleat.vmos.io/store/bb51e8b9-3301-4bee-bb33-e063fac5ec64/menu/category/bae2cbce-c348-4807-9988-4c52556d68b2/bundle/afaa6fe6-4785-4bd7-b6e0-0ea9d4f12c22/bundleCustomization?menuUUID=9a7bd18b-9542-4768-b85a-c48740da87e9",
  "items": [
   {
@@ -947,22 +947,17 @@
    "name": "Guacamole (100g)",
    "uuid": "0852c6c2-64fd-4917-a550-d3cbd0ebd60a",
    "group": "Dips",
-   "soldOut": true,
-   "overlay": "Heute ausverkauft",
-   "lastRead": {
-    "readAt": "2026-10-21T11:06:28.256Z",
-    "qty": 1,
-    "shown": {
-     "kcal": "194",
-     "kj": "812",
-     "fat": "17.0",
-     "carbs": "8.4",
-     "sat": "2.7",
-     "sugars": "2.3",
-     "protein": "1.7",
-     "fibre": "6.0",
-     "salt": "0.42"
-    }
+   "qty": 1,
+   "shown": {
+    "kcal": "194",
+    "kj": "812",
+    "fat": "17.0",
+    "carbs": "8.4",
+    "sat": "2.7",
+    "sugars": "2.3",
+    "protein": "1.7",
+    "fibre": "6.0",
+    "salt": "0.42"
    }
   },
   {
@@ -986,22 +981,17 @@
    "name": "Joghurt-Salatdressing (80g)",
    "uuid": "411e51ee-7477-4456-9bea-f0733a0004eb",
    "group": "Dips",
-   "soldOut": true,
-   "overlay": "Heute ausverkauft",
-   "lastRead": {
-    "readAt": "2026-10-21T11:06:28.256Z",
-    "qty": 1,
-    "shown": {
-     "kcal": "114",
-     "kj": "477",
-     "fat": "10.9",
-     "carbs": "3.7",
-     "sat": "1.3",
-     "sugars": "2.0",
-     "protein": "0.9",
-     "fibre": "--",
-     "salt": "1.04"
-    }
+   "qty": 1,
+   "shown": {
+    "kcal": "114",
+    "kj": "477",
+    "fat": "10.9",
+    "carbs": "3.7",
+    "sat": "1.3",
+    "sugars": "2.0",
+    "protein": "0.9",
+    "fibre": "--",
+    "salt": "1.04"
    }
   },
   {
@@ -1042,22 +1032,17 @@
    "name": "Balsamico Dressing (80g)",
    "uuid": "5a7afe09-179e-4b5b-87b5-0b3468cf6de4",
    "group": "Dips",
-   "soldOut": true,
-   "overlay": "Heute ausverkauft",
-   "lastRead": {
-    "readAt": "2026-10-21T11:06:28.256Z",
-    "qty": 1,
-    "shown": {
-     "kcal": "46",
-     "kj": "192",
-     "fat": "1.8",
-     "carbs": "7.0",
-     "sat": "0.2",
-     "sugars": "6.7",
-     "protein": "0.1",
-     "fibre": "0.2",
-     "salt": "1.60"
-    }
+   "qty": 1,
+   "shown": {
+    "kcal": "46",
+    "kj": "192",
+    "fat": "1.8",
+    "carbs": "7.0",
+    "sat": "0.2",
+    "sugars": "6.7",
+    "protein": "0.1",
+    "fibre": "0.2",
+    "salt": "1.60"
    }
   },
   {

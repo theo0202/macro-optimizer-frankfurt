@@ -2,7 +2,7 @@
   "_meta": {
     "restaurant": "Compleat",
     "store": "Frankfurt Nordend (Glauburgstraße 5, 60318 Frankfurt am Main)",
-    "fetchedAt": "2026-11-02T22:48:14.537Z",
+    "fetchedAt": "2026-11-03T07:14:25.646Z",
     "sources": {
       "shop": {
         "url": "https://compleat.vmos.io",
@@ -20,19 +20,20 @@
         "api": "https://consumer-api.wolt.com/consumer-api/consumer-assortment/v1/venues/slug/compleat-nordend/assortment",
         "item": "Build your Bowl",
         "itemPrice": 3,
-        "cardPrice": 3
+        "cardPrice": 3,
+        "productInfo": "https://prodinfo.wolt.com/de/6537b03e8fb9ce1db9714e2d/21e057f4508797cc8ef70efe?lang=de"
       },
       "ubereats": {
         "page": "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440",
         "file": "data/compleat-ubereats-menu.json",
-        "capturedAt": "2026-11-02T22:45:30.307Z",
+        "capturedAt": "2026-11-03T07:12:41.432Z",
         "item": "Selbst zusammenstellen",
         "itemPrice": 3,
         "cardPrice": 3,
         "how": "Uber Eats blockt Skript-Abrufe (Cloudflare) → Produktseite im Browser geöffnet, __REACT_QUERY_STATE__ gelesen (ubereats-capture.js)"
       },
       "word": "data/compleat-word.txt = Word-Copy-Paste des Users (Shop-Anzeige, 15.09.2026) → Abgleich: node verify-compleat.js",
-      "shopDisplay": "data/compleat-shop-anzeige.json = jede Zutat einzeln im Shop ausgewählt und die Anzeige abgelesen (compleat-shop-capture.js, 2026-11-02) → Abgleich: node verify-compleat-shop.js",
+      "shopDisplay": "data/compleat-shop-anzeige.json = jede Zutat einzeln im Shop ausgewählt und die Anzeige abgelesen (compleat-shop-capture.js, 2026-11-03) → Abgleich: node verify-compleat-shop.js",
       "stock": "Ausverkauft = mit ?forceStockStatus=1 im Bundle, ohne den Parameter nicht (27.09.2026 an den „Ausverkauft“-Karten des Shops bestätigt)"
     },
     "basis": "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Gerechnet wird immer mit der Menge der jeweiligen Plattform: Wolt nennt seit 02.11.2026 dieselben Mengen wie der Shop (außer dem Ei, 50 statt 40 g; der Salat-Mix hatte bis dahin 100 statt 80 g), Uber Eats nutzt die Namen des Shops, kann aber hinterherhinken (am 02.11.2026 noch 100 g bei Hühnchen, Vegane Hackbällchen, Rinderhackbällchen und Pulled Salmon, _meta.ubereats.portionDiffs). Ausnahme (User 27.10.2026): Sojasauce mit typischen Werten (USDA FoodData Central, _meta.referenceValues) statt der unplausiblen Shop-Werte.",
@@ -48,6 +49,7 @@
       "User 15.09.2026: Rechner zusätzlich für Uber Eats („Selbst zusammenstellen“, Grundpreis 1 €)",
       "User 16.09.2026 (Rückfrage „Build your Bowl kostet 4 €“): damals 2 € Grundpreis + vorausgewählter Curvy Curry Dip; der Rechner rechnet Grundpreis + gewählte Optionen und nennt eine Vorauswahl im Hinweistext (seit 27.09.2026 wählt Wolt „Ohne Dip“ vor)",
       "User 27.09.2026: neue Compleat-Zutaten einbauen, soweit Wolt sie führt — Werte je Zutat durch einzelnes Auswählen im Shop bestätigt (data/compleat-shop-anzeige.json); Zutaten, die es dauerhaft nicht mehr gibt, raus, ausverkaufte drin (Skill „compleat-aktualisieren“)",
+      "User 03.11.2026 (Rückfrage „Hast du die Wolt-Bestellfenster-Gramm-Angaben gecheckt?“): Bestellfenster von „Build your Bowl“ im Browser geöffnet — Namen, Mengen und Preise = Wolt-API; die Produktinfo nennt für 8 Optionen eigene Nährwerte, die zur Rechnung passen (_meta.woltProductInfo, ab jetzt Teil des Crawls)",
       "User 02.11.2026: Compleat hat die Mengen geändert → Shop und Wolt: Hähnchen, Vegane Hackbällchen, Pulled Salmon 80 statt 100 g, Rinderhackbällchen 90 statt 100 g (halbe im Shop: Hühnchen, Vegane Hackbällchen, Pulled Salmon 40 statt 50 g, Rinderhackbällchen weiter 50 g), Wolt-Salat-Mix 80 statt 100 g; Werte je 100 g und Preise unverändert (_meta.portionChanges). Uber Eats nennt noch die alten Mengen → der Uber-Eats-Tab rechnet weiter mit dem, was Uber Eats nennt (dem User genannt)",
       "User 27.10.2026: Sojasauce mit typischen Nährwerten statt der Shop-Werte („scheinen nicht realistisch — nimm lieber die typischen Nährwerte für Sojasauce“): USDA FoodData Central #174277 (gebraute Sojasauce, Shoyu), 20 ml = 21,6 g laut USDA-Portionsgewicht → 11,5 kcal / 1,76 g Eiweiß / 0,89 g KH / 2,97 g Salz je Portion (Shop: 4,2 kcal / 0,48 g Eiweiß / 0,46 g KH / 2,87 g Salz); Shop-Werte bleiben als shopPer100 dokumentiert"
     ],
@@ -206,9 +208,15 @@
     "notOnWolt": [
       "Kürbiswürfel mariniert (50g)",
       "Gemüsemix (100g)",
-      "Ajvar (100g)"
+      "Balsamico Dressing (80g)",
+      "Ajvar (100g)",
+      "Joghurt-Salatdressing (80g)",
+      "Guacamole (100g)"
     ],
     "woltMapUnused": [
+      "Joghurt-Salatdressing",
+      "Guacamole",
+      "Balsamico Dressing , 80g",
       "Ajvar, 100g"
     ],
     "dislikes": [
@@ -216,10 +224,7 @@
     ],
     "shellfish": [],
     "soldOut": [
-      "Chili Gewürz (1g)",
-      "Balsamico Dressing (80g)",
-      "Joghurt-Salatdressing (80g)",
-      "Guacamole (100g)"
+      "Chili Gewürz (1g)"
     ],
     "removedIngredients": [
       {
@@ -458,60 +463,20 @@
       }
     ],
     "lastChanges": {
-      "since": "2026-10-27T07:40:27.061Z",
+      "since": "2026-11-02T22:48:14.537Z",
       "shopAdded": [],
       "shopRemoved": [],
-      "woltAdded": [
-        "Deine Basis: Salat-Mix, 80 g",
-        "Deine Proteine: Hähnchen, 80 g",
-        "Deine Proteine: Vegane Hackbällchen, 80 g",
-        "Deine Proteine: Rinderhackbällchen, 90 g",
-        "Deine Proteine: Pulled Salmon, 80 g",
-        "Deine Extras: Hähnchen, 80 g",
-        "Deine Extras: Rinderhackbällchen, 90 g",
-        "Deine Extras: Vegane Hackbällchen, 80 g",
-        "Deine Extras: Grana Padano, 20 g"
-      ],
-      "woltRemoved": [
-        "Deine Basis: Salat-Mix, 100 g",
-        "Deine Proteine: Hähnchen, 100 g",
-        "Deine Proteine: Vegane Hackbällchen, 100 g",
-        "Deine Proteine: Rinderhackbällchen, 100 g",
-        "Deine Proteine: Pulled Salmon, 100 g",
-        "Deine Extras: Hähnchen, 100 g",
-        "Deine Extras: Rinderhackbällchen, 100 g",
-        "Deine Extras: Vegane Hackbällchen, 100 g",
-        "Dein Dip: Joghurt-Salatdressing",
-        "Dein Dip: Guacamole",
-        "Dein Dip: Ajvar, 100g",
-        "Dein Dip: Balsamico Dressing , 80g"
-      ],
-      "ubereatsAdded": [],
-      "ubereatsRemoved": [
+      "woltAdded": [],
+      "woltRemoved": [],
+      "ubereatsAdded": [
         "Dips: Guacamole (100g)",
         "Dips: Joghurt-Salatdressing (80g)",
-        "Dips: Balsamico Dressing (80g)",
-        "Toppings: Chili Gewürz (1g)"
+        "Dips: Balsamico Dressing (80g)"
       ],
+      "ubereatsRemoved": [],
       "prices": [],
       "values": [],
-      "portions": [
-        "Shop: Hühnchen (100g) → Hühnchen (80g) (100 → 80 g)",
-        "Shop: Pulled Salmon - Halbe Portion (50g) → Pulled Salmon - Halbe Portion (40g) (50 → 40 g)",
-        "Shop: Vegane Hackbällchen - Halbe Portion (50g) → Vegane Hackbällchen - Halbe Portion (40g) (50 → 40 g)",
-        "Shop: Rinderhackbällchen (100g) → Rinderhackbällchen (90g) (100 → 90 g)",
-        "Shop: Pulled Salmon (100g) → Pulled Salmon (80g) (100 → 80 g)",
-        "Shop: Hühnchen - Halbe Portion (50g) → Hühnchen - Halbe Portion (40g) (50 → 40 g)",
-        "Shop: Vegane Hackbällchen (100g) → Vegane Hackbällchen (80g) (100 → 80 g)",
-        "Wolt · Deine Basis: Salat-Mix, 100 g → Salat-Mix, 80 g (100 → 80 g)",
-        "Wolt · Deine Proteine: Hähnchen, 100 g → Hähnchen, 80 g (100 → 80 g)",
-        "Wolt · Deine Proteine: Vegane Hackbällchen, 100 g → Vegane Hackbällchen, 80 g (100 → 80 g)",
-        "Wolt · Deine Proteine: Rinderhackbällchen, 100 g → Rinderhackbällchen, 90 g (100 → 90 g)",
-        "Wolt · Deine Proteine: Pulled Salmon, 100 g → Pulled Salmon, 80 g (100 → 80 g)",
-        "Wolt · Deine Extras: Hähnchen, 100 g → Hähnchen, 80 g (100 → 80 g)",
-        "Wolt · Deine Extras: Rinderhackbällchen, 100 g → Rinderhackbällchen, 90 g (100 → 90 g)",
-        "Wolt · Deine Extras: Vegane Hackbällchen, 100 g → Vegane Hackbällchen, 80 g (100 → 80 g)"
-      ]
+      "portions": []
     },
     "referenceValues": [
       {
@@ -552,28 +517,265 @@
         "why": "Offizielle Shop-Werte je 100 ml (21 kcal, 2,4 g Eiweiß, 2,3 g KH, 14,35 g Salz) unplausibel: das Salz passt zu Sojasauce, Eiweiß und kcal liegen bei einem Drittel einer gebrauten Sojasauce → ersetzt durch typische Werte (USDA FoodData Central #174277), User 27.10.2026"
       }
     ],
+    "woltProductInfo": {
+      "url": "https://prodinfo.wolt.com/de/6537b03e8fb9ce1db9714e2d/21e057f4508797cc8ef70efe?lang=de",
+      "options": 42,
+      "values": [
+        {
+          "group": "Deine Basis",
+          "name": "Kürbis, 200 g",
+          "amount": 200,
+          "unit": "g",
+          "label": "pro 100 g",
+          "wolt": {
+            "kcal": 112.8,
+            "fat": 5.3,
+            "sat": 0.9,
+            "carbs": 11.4,
+            "sugars": 3,
+            "fibre": 3.2,
+            "protein": 1.5,
+            "salt": 1.1
+          },
+          "ours": {
+            "kcal": 112.8,
+            "fat": 5.2,
+            "sat": 0.8,
+            "carbs": 11.4,
+            "sugars": 3,
+            "fibre": 3.2,
+            "protein": 1.6,
+            "salt": 1.2
+          }
+        },
+        {
+          "group": "Deine Proteine",
+          "name": "Pilzbällchen „Mushroots“, 75 g",
+          "amount": 75,
+          "unit": "g",
+          "label": "pro 100 g",
+          "wolt": {
+            "kcal": 155.3,
+            "fat": 7.5,
+            "sat": 0.6,
+            "carbs": 4.2,
+            "sugars": 1.1,
+            "fibre": 2.5,
+            "protein": 16.5,
+            "salt": 1.1
+          },
+          "ours": {
+            "kcal": 155.25,
+            "fat": 7.5,
+            "sat": 0.6,
+            "carbs": 4.2,
+            "sugars": 1.13,
+            "fibre": 2.48,
+            "protein": 16.5,
+            "salt": 1.13
+          }
+        },
+        {
+          "group": "Deine Extras",
+          "name": "Pilzbällchen \"Mushroots\", 75 g",
+          "amount": 75,
+          "unit": "g",
+          "label": "pro 100 g",
+          "wolt": {
+            "kcal": 155.3,
+            "fat": 7.5,
+            "sat": 0.6,
+            "carbs": 4.2,
+            "sugars": 1.1,
+            "fibre": 2.5,
+            "protein": 16.5,
+            "salt": 1.1
+          },
+          "ours": {
+            "kcal": 155.25,
+            "fat": 7.5,
+            "sat": 0.6,
+            "carbs": 4.2,
+            "sugars": 1.13,
+            "fibre": 2.48,
+            "protein": 16.5,
+            "salt": 1.13
+          }
+        },
+        {
+          "group": "Deine Extras",
+          "name": "Rote Beete, 70 g",
+          "amount": 70,
+          "unit": "g",
+          "label": "pro 100 g",
+          "wolt": {
+            "kcal": 30.1,
+            "fat": 0.1,
+            "sat": null,
+            "carbs": 5.9,
+            "sugars": 4.8,
+            "fibre": 1.8,
+            "protein": 1.1,
+            "salt": 0
+          },
+          "ours": {
+            "kcal": 30.1,
+            "fat": 0.07,
+            "sat": 0,
+            "carbs": 5.88,
+            "sugars": 4.76,
+            "fibre": 1.75,
+            "protein": 1.05,
+            "salt": 0
+          }
+        },
+        {
+          "group": "Deine Extras",
+          "name": "Ziegenkäse, 60 g",
+          "amount": 60,
+          "unit": "g",
+          "label": "pro 100 g",
+          "wolt": {
+            "kcal": 174.6,
+            "fat": 13.8,
+            "sat": 9.7,
+            "carbs": 0.6,
+            "sugars": 0.6,
+            "fibre": null,
+            "protein": 12,
+            "salt": 0.9
+          },
+          "ours": {
+            "kcal": 174.6,
+            "fat": 13.8,
+            "sat": 9.66,
+            "carbs": 0.6,
+            "sugars": 0.6,
+            "fibre": 0,
+            "protein": 12,
+            "salt": 0.9
+          }
+        },
+        {
+          "group": "Deine Extras",
+          "name": "Grünkohl, 20 g",
+          "amount": 20,
+          "unit": "g",
+          "label": "pro 100 g",
+          "wolt": {
+            "kcal": 7.4,
+            "fat": 0.2,
+            "sat": null,
+            "carbs": 0.5,
+            "sugars": 0,
+            "fibre": 0.8,
+            "protein": 0.9,
+            "salt": 0
+          },
+          "ours": {
+            "kcal": 7.4,
+            "fat": 0.18,
+            "sat": 0,
+            "carbs": 0.5,
+            "sugars": 0,
+            "fibre": 0.84,
+            "protein": 0.86,
+            "salt": 0
+          }
+        },
+        {
+          "group": "Dein Dip",
+          "name": "Trüffel Light (Inlead), 80 g",
+          "amount": 80,
+          "unit": "g",
+          "label": "pro 80 g",
+          "wolt": {
+            "kcal": 78,
+            "fat": 4.8,
+            "sat": 0.7,
+            "carbs": 8,
+            "sugars": 2.6,
+            "fibre": 0.2,
+            "protein": 0.6,
+            "salt": 1.5
+          },
+          "ours": {
+            "kcal": 78.4,
+            "fat": 4.8,
+            "sat": 0.72,
+            "carbs": 8,
+            "sugars": 2.64,
+            "fibre": 0.16,
+            "protein": 0.56,
+            "salt": 1.51
+          }
+        },
+        {
+          "group": "Dein Dip",
+          "name": "Siracha Mayo Light (Inlead), 80 g",
+          "amount": 80,
+          "unit": "g",
+          "label": "pro 80 g",
+          "wolt": {
+            "kcal": 76,
+            "fat": 4.6,
+            "sat": 0.7,
+            "carbs": 7.6,
+            "sugars": 3.5,
+            "fibre": 0.2,
+            "protein": 0.7,
+            "salt": 1.5
+          },
+          "ours": {
+            "kcal": 76,
+            "fat": 4.64,
+            "sat": 0.72,
+            "carbs": 7.6,
+            "sugars": 3.52,
+            "fibre": 0.16,
+            "protein": 0.72,
+            "salt": 1.52
+          }
+        },
+        {
+          "group": "Dein Dip",
+          "name": "Aioli Light (Inlead), 80 g",
+          "amount": 80,
+          "unit": "g",
+          "label": "pro 80 g",
+          "wolt": {
+            "kcal": 78,
+            "fat": 4.8,
+            "sat": 0.7,
+            "carbs": 7.8,
+            "sugars": 4.1,
+            "fibre": 0.2,
+            "protein": 0.1,
+            "salt": 1.5
+          },
+          "ours": {
+            "kcal": 77.6,
+            "fat": 4.8,
+            "sat": 0.72,
+            "carbs": 7.76,
+            "sugars": 4.08,
+            "fibre": 0.16,
+            "protein": 0.08,
+            "salt": 1.52
+          }
+        }
+      ]
+    },
     "halfPortionAccepted": [
       "Kürbiswürfel mariniert - halbe Portion: Zucker 1,7 statt 1,5 g je 100 g (sonst identisch) → +0,2 g Zucker je halbe Portion; der Rechner nutzt die Werte der ganzen Portion (27.09.2026)"
     ],
     "shopControl": {
-      "readAt": "2026-11-02",
+      "readAt": "2026-11-03",
       "checked": 65,
       "values": 520,
       "earlier": [
         {
           "name": "Chili Gewürz (1g)",
-          "readAt": "2026-10-21"
-        },
-        {
-          "name": "Balsamico Dressing (80g)",
-          "readAt": "2026-10-21"
-        },
-        {
-          "name": "Joghurt-Salatdressing (80g)",
-          "readAt": "2026-10-21"
-        },
-        {
-          "name": "Guacamole (100g)",
           "readAt": "2026-10-21"
         }
       ],
@@ -2347,8 +2549,7 @@
       "vmos": {
         "uuid": "5a7afe09-179e-4b5b-87b5-0b3468cf6de4",
         "displayAmount": 80
-      },
-      "soldOut": true
+      }
     },
     {
       "id": "ajvar",
@@ -2452,8 +2653,7 @@
       "vmos": {
         "uuid": "411e51ee-7477-4456-9bea-f0733a0004eb",
         "displayAmount": 80
-      },
-      "soldOut": true
+      }
     },
     {
       "id": "trueffel_light_inlead",
@@ -2524,8 +2724,7 @@
       "vmos": {
         "uuid": "0852c6c2-64fd-4917-a550-d3cbd0ebd60a",
         "displayAmount": 100
-      },
-      "soldOut": true
+      }
     },
     {
       "id": "power_peanut",
@@ -3494,8 +3693,7 @@
         "protein": 0.1,
         "salt": 2
       },
-      "displayAmount": 80,
-      "soldOut": true
+      "displayAmount": 80
     },
     {
       "name": "Ajvar (100g)",
@@ -3540,8 +3738,7 @@
         "protein": 1.1,
         "salt": 1.3
       },
-      "displayAmount": 80,
-      "soldOut": true
+      "displayAmount": 80
     },
     {
       "name": "Trüffel Light (Inlead) (80g)",
@@ -3571,8 +3768,7 @@
         "protein": 1.7,
         "salt": 0.42
       },
-      "displayAmount": 100,
-      "soldOut": true
+      "displayAmount": 100
     },
     {
       "name": "Power Peanut (80g)",
@@ -4149,36 +4345,6 @@
             "unit": "g",
             "maxQty": 1,
             "price": 3
-          },
-          {
-            "name": "Joghurt-Salatdressing",
-            "ingredient": "joghurt_salatdressing",
-            "role": "dip",
-            "amount": 80,
-            "unit": "g",
-            "maxQty": 1,
-            "price": 2,
-            "soldOut": true
-          },
-          {
-            "name": "Guacamole",
-            "ingredient": "guacamole",
-            "role": "dip",
-            "amount": 100,
-            "unit": "g",
-            "maxQty": 1,
-            "price": 3,
-            "soldOut": true
-          },
-          {
-            "name": "Balsamico Dressing , 80g",
-            "ingredient": "balsamico_dressing",
-            "role": "dip",
-            "amount": 80,
-            "unit": "g",
-            "maxQty": 1,
-            "price": 1,
-            "soldOut": true
           }
         ]
       }
@@ -4190,7 +4356,7 @@
     "itemPrice": 3,
     "cardPrice": 3,
     "preselected": [],
-    "capturedAt": "2026-11-02T22:45:30.307Z",
+    "capturedAt": "2026-11-03T07:12:41.432Z",
     "groups": [
       {
         "id": "dip",
@@ -4254,6 +4420,15 @@
             "price": 3
           },
           {
+            "name": "Guacamole (100g)",
+            "ingredient": "guacamole",
+            "role": "dip",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 3
+          },
+          {
             "name": "Ajvar (100g)",
             "ingredient": "ajvar",
             "role": "dip",
@@ -4261,6 +4436,15 @@
             "unit": "g",
             "maxQty": 5,
             "price": 3
+          },
+          {
+            "name": "Joghurt-Salatdressing (80g)",
+            "ingredient": "joghurt_salatdressing",
+            "role": "dip",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 2
           },
           {
             "name": "Sojasauce (20ml)",
@@ -4277,6 +4461,15 @@
             "role": "dip",
             "amount": 20,
             "unit": "ml",
+            "maxQty": 5,
+            "price": 2
+          },
+          {
+            "name": "Balsamico Dressing (80g)",
+            "ingredient": "balsamico_dressing",
+            "role": "dip",
+            "amount": 80,
+            "unit": "g",
             "maxQty": 5,
             "price": 2
           },
@@ -4315,36 +4508,6 @@
             "unit": "g",
             "maxQty": 5,
             "price": 3
-          },
-          {
-            "name": "Guacamole (100g)",
-            "ingredient": "guacamole",
-            "role": "dip",
-            "amount": 100,
-            "unit": "g",
-            "maxQty": 5,
-            "price": 3,
-            "soldOut": true
-          },
-          {
-            "name": "Joghurt-Salatdressing (80g)",
-            "ingredient": "joghurt_salatdressing",
-            "role": "dip",
-            "amount": 80,
-            "unit": "g",
-            "maxQty": 5,
-            "price": 2,
-            "soldOut": true
-          },
-          {
-            "name": "Balsamico Dressing (80g)",
-            "ingredient": "balsamico_dressing",
-            "role": "dip",
-            "amount": 80,
-            "unit": "g",
-            "maxQty": 5,
-            "price": 2,
-            "soldOut": true
           }
         ]
       },

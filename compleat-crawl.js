@@ -32,6 +32,7 @@ const WOLT_SLUG = "compleat-nordend";
 const WOLT_API = "https://consumer-api.wolt.com/consumer-api/consumer-assortment/v1/venues/slug/" + WOLT_SLUG + "/assortment";
 const WOLT_PAGE = "https://wolt.com/de/deu/frankfurt/restaurant/" + WOLT_SLUG;
 const WOLT_ITEM = "Build your Bowl";
+const WOLT_VENUE_ID = "6537b03e8fb9ce1db9714e2d"; // Compleat Nordend, für die Produktinfo-Seite (im Bestellfenster hinter „Produktinfo“)
 const UE_FILE = path.join(__dirname, "data", "compleat-ubereats-menu.json");
 const UE_ITEM = "Selbst zusammenstellen";
 const OUT = path.join(__dirname, "data", "compleat-raw.json");
@@ -163,6 +164,29 @@ function splitPortion(name) {
 function splitHalf(name) {
   const m = name.match(/^(.*) - Halbe Portion \((\d+(?:[.,]\d+)?)\s*(g|ml)\)$/i);
   return m ? { base: normName(m[1]), amount: parseFloat(m[2].replace(",", ".")), unit: m[3].toLowerCase() } : null;
+}
+
+// Wolt-Produktinfo (prodinfo.wolt.com, im Bestellfenster hinter „Produktinfo“; serverseitig gerendert): <h2> Gruppe, <h3> Option, <p> Angaben.
+// Für einige Optionen nennt Wolt eigene Nährwerte — eine direkte Kontrolle der Wolt-Mengen (am 03.11.2026 bemerkt: Kürbis, Mushroots, Rote Beete,
+// Ziegenkäse, Grünkohl, die drei Inlead-Dips). Die Angabe heißt teils „pro 100 g“, die Zahlen gelten aber für die Portion der Option
+// (Mushroots, 75 g: 155,3 kcal = Shop 207 kcal je 100 g × 75 g; Kürbis, 200 g: 112,8 kcal = 56,4 × 200 g)
+function parseWoltProductInfo(html) {
+  const dec = t => normName(String(t).replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'"));
+  const out = [], re = /<h2[^>]*>([\s\S]*?)<\/h2>|<h3[^>]*>([\s\S]*?)<\/h3>|<p[^>]*>([\s\S]*?)<\/p>/g;
+  let group = null, opt = null, m;
+  while ((m = re.exec(html))) {
+    if (m[1] != null) { group = dec(m[1]); opt = null; continue; }
+    if (m[2] != null) { opt = { group, name: dec(m[2]), allergens: null, nutrition: null }; out.push(opt); continue; }
+    const t = dec(m[3]);
+    if (!opt) continue;
+    if (/^Allergene:/.test(t)) opt.allergens = t;
+    const nw = t.match(/^Nährwertangaben:\s*(pro\s+\d+\s*(?:g|ml))/i);
+    if (nw) {
+      const num = r => { const x = t.match(r); return x ? Number(x[1].replace(",", ".")) : null; };
+      opt.nutrition = { label: nw[1], kcal: num(/([\d.,]+)\s*kcal/i), fat: num(/Fett:?\s*([\d.,]+)\s*g/), sat: num(/gesättigte Fettsäuren:?\s*([\d.,]+)/), carbs: num(/Kohlenhydrate:?\s*([\d.,]+)/), sugars: num(/Zucker:?\s*([\d.,]+)/), fibre: num(/Ballaststoffe:?\s*([\d.,]+)/), protein: num(/Eiweiß:?\s*([\d.,]+)/), salt: num(/Salz:?\s*([\d.,]+)/) };
+    }
+  }
+  return out;
 }
 
 async function discoverMenu() {
@@ -338,6 +362,27 @@ async function main() {
     woltGroups.push(grp);
   }
   if (unmapped.length) problems.push("Nicht zugeordnete Wolt-Optionen (WOLT_MAP ergänzen): " + unmapped.join(" · "));
+  // Kontrolle gegen Wolts eigene Angaben in der Produktinfo: Werte der Option (Shop je 100 g × Wolt-Menge) gegen die dort genannten Zahlen
+  // (Toleranz: Wolt rundet und nennt teils leicht andere Werte, z.B. Kürbis 5,3 statt 5,2 g Fett → 1 kcal, 0,15 g)
+  const woltInfoUrl = "https://prodinfo.wolt.com/de/" + WOLT_VENUE_ID + "/" + byo.id + "?lang=de";
+  const woltInfo = { url: woltInfoUrl, options: 0, values: [] };
+  try {
+    const r = await fetch(woltInfoUrl, { headers: { "User-Agent": "Mozilla/5.0", "Accept-Language": "de-DE", Accept: "text/html" } });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const parsed = parseWoltProductInfo(await r.text());
+    woltInfo.options = parsed.length;
+    if (!parsed.length) problems.push("Wolt-Produktinfo: keine Optionen gelesen (" + woltInfoUrl + ")");
+    for (const p of parsed) {
+      if (p.allergens && /krebstier|weichtier/i.test(p.allergens)) problems.push("Wolt-Produktinfo nennt Schalentier: " + p.name + " — " + p.allergens);
+      if (!p.nutrition) continue;
+      const grp = woltGroups.find(g => g.name === p.group), o = grp && grp.options.find(x => x.name === p.name);
+      if (!o) { problems.push("Wolt-Produktinfo: Option mit Nährwerten nicht im Menü: " + p.group + " · " + p.name); continue; }
+      const per100 = byId[o.ingredient].per100, ours = Object.fromEntries(U.KEYS.map(k => [k, U.round(per100[k] * o.amount / 100, 2)]));
+      const diffs = U.KEYS.filter(k => p.nutrition[k] != null && Math.abs(p.nutrition[k] - ours[k]) > (k === "kcal" ? 1 : 0.15));
+      if (diffs.length) problems.push("Wolt-Produktinfo ≠ Rechnung bei „" + p.name + "“ (" + o.amount + " " + o.unit + "): " + diffs.map(k => k + " Wolt " + p.nutrition[k] + ", Rechnung " + ours[k]).join(", "));
+      woltInfo.values.push({ group: p.group, name: p.name, amount: o.amount, unit: o.unit, label: p.nutrition.label, wolt: Object.fromEntries(U.KEYS.map(k => [k, p.nutrition[k]])), ours });
+    }
+  } catch (e) { problems.push("Wolt-Produktinfo nicht lesbar: " + e.message + " (" + woltInfoUrl + ")"); }
   const woltItemPrice = U.round((byo.price || 0) / 100, 2);
   // Vorausgewählt ist die Standard-Option jeder PFLICHT-Gruppe (min ≥ 1); in optionalen Gruppen wählt Wolt nichts vor.
   const woltPreselect = woltGroups.filter(g => g.min >= 1 && g.defaultOption).map(g => ({ group: g.id, groupName: g.name, name: g.defaultOption.name, price: g.defaultOption.price }));
@@ -470,7 +515,7 @@ async function main() {
       restaurant: "Compleat", store: "Frankfurt Nordend (Glauburgstraße 5, 60318 Frankfurt am Main)", fetchedAt,
       sources: {
         shop: { url: SHOP, api: VMOS, tenant: TENANT, store: STORE, menu: menu.uuid, menuName: menu.name, bundle: bundle.uuid, bundleName: BUNDLE_NAME, discovered: menu.discovered && bundle.discovered },
-        wolt: { page: WOLT_PAGE, api: WOLT_API, item: WOLT_ITEM, itemPrice: woltItemPrice, cardPrice: woltCardPrice },
+        wolt: { page: WOLT_PAGE, api: WOLT_API, item: WOLT_ITEM, itemPrice: woltItemPrice, cardPrice: woltCardPrice, productInfo: woltInfoUrl },
         ubereats: { page: ue.pageUrl, file: "data/compleat-ubereats-menu.json", capturedAt: ue.capturedAt, item: UE_ITEM, itemPrice: ueItemPrice, cardPrice: ueCardPrice, how: "Uber Eats blockt Skript-Abrufe (Cloudflare) → Produktseite im Browser geöffnet, __REACT_QUERY_STATE__ gelesen (ubereats-capture.js)" },
         word: "data/compleat-word.txt = Word-Copy-Paste des Users (Shop-Anzeige, 15.09.2026) → Abgleich: node verify-compleat.js",
         shopDisplay: "data/compleat-shop-anzeige.json = jede Zutat einzeln im Shop ausgewählt und die Anzeige abgelesen (compleat-shop-capture.js, " + shopControl.readAt + ") → Abgleich: node verify-compleat-shop.js",
@@ -489,11 +534,12 @@ async function main() {
         "User 15.09.2026: Rechner zusätzlich für Uber Eats („Selbst zusammenstellen“, Grundpreis 1 €)",
         "User 16.09.2026 (Rückfrage „Build your Bowl kostet 4 €“): damals 2 € Grundpreis + vorausgewählter Curvy Curry Dip; der Rechner rechnet Grundpreis + gewählte Optionen und nennt eine Vorauswahl im Hinweistext (seit 27.09.2026 wählt Wolt „Ohne Dip“ vor)",
         "User 27.09.2026: neue Compleat-Zutaten einbauen, soweit Wolt sie führt — Werte je Zutat durch einzelnes Auswählen im Shop bestätigt (data/compleat-shop-anzeige.json); Zutaten, die es dauerhaft nicht mehr gibt, raus, ausverkaufte drin (Skill „compleat-aktualisieren“)",
+        "User 03.11.2026 (Rückfrage „Hast du die Wolt-Bestellfenster-Gramm-Angaben gecheckt?“): Bestellfenster von „Build your Bowl“ im Browser geöffnet — Namen, Mengen und Preise = Wolt-API; die Produktinfo nennt für 8 Optionen eigene Nährwerte, die zur Rechnung passen (_meta.woltProductInfo, ab jetzt Teil des Crawls)",
         "User 02.11.2026: Compleat hat die Mengen geändert → Shop und Wolt: Hähnchen, Vegane Hackbällchen, Pulled Salmon 80 statt 100 g, Rinderhackbällchen 90 statt 100 g (halbe im Shop: Hühnchen, Vegane Hackbällchen, Pulled Salmon 40 statt 50 g, Rinderhackbällchen weiter 50 g), Wolt-Salat-Mix 80 statt 100 g; Werte je 100 g und Preise unverändert (_meta.portionChanges). Uber Eats nennt noch die alten Mengen → der Uber-Eats-Tab rechnet weiter mit dem, was Uber Eats nennt (dem User genannt)",
         "User 27.10.2026: Sojasauce mit typischen Nährwerten statt der Shop-Werte („scheinen nicht realistisch — nimm lieber die typischen Nährwerte für Sojasauce“): USDA FoodData Central #174277 (gebraute Sojasauce, Shoyu), 20 ml = 21,6 g laut USDA-Portionsgewicht → 11,5 kcal / 1,76 g Eiweiß / 0,89 g KH / 2,97 g Salz je Portion (Shop: 4,2 kcal / 0,48 g Eiweiß / 0,46 g KH / 2,87 g Salz); Shop-Werte bleiben als shopPer100 dokumentiert",
       ],
       portionDiffs, portionAssumed, displayBugs, halfPortionDiffs, anomalies, missingDeclared, notOnWolt, woltMapUnused, dislikes, shellfish,
-      soldOut, removedIngredients, valueChanges, portionChanges, lastChanges, referenceValues,
+      soldOut, removedIngredients, valueChanges, portionChanges, lastChanges, referenceValues, woltProductInfo: woltInfo,
       halfPortionAccepted: Object.values(HALF_DIFF_OK),
       shopControl: { readAt: shopControl.readAt, checked: shopControl.checked, values: shopControl.values, earlier: shopControl.earlier, soldOutNotChecked: shopControl.soldOutNotChecked, notInShop: shopControl.notInShop },
       ubereats: { noData: ueNoData, portionDiffs: uePortionDiffs, kcalDiffs: ueKcalDiffs, notOnUberEats, halfNotDouble: ueHalfNotDouble },
@@ -520,6 +566,7 @@ async function main() {
   console.log("Uber Eats (Grundpreis " + ueItemPrice + " €, erfasst " + ue.capturedAt + "): " + ueGroups.map(g => g.name + " " + g.options.length + (g.noneOption ? " + „" + g.noneOption + "“" : "") + " (" + g.min + "–" + g.max + ")").join(" · "));
   console.log("Vorauswahl: " + woltCardNote);
   console.log("Vorauswahl: " + ueCardNote);
+  console.log("Wolt-Produktinfo: " + woltInfo.options + " Optionen, " + woltInfo.values.length + " mit eigenen Nährwerten — alle = Rechnung (" + woltInfo.values.map(v => v.name + " " + v.wolt.kcal + " kcal").join(" · ") + ")");
   console.log("Nicht bei Wolt: " + notOnWolt.join(", "));
   console.log("Nicht bei Uber Eats: " + (notOnUberEats.join(", ") || "—"));
   if (woltMapUnused.length) console.log("⚠ WOLT_MAP-Einträge, die Wolt nicht mehr anbietet: " + woltMapUnused.join(", "));
@@ -535,4 +582,5 @@ async function main() {
   console.log("Auffälligkeiten (" + anomalies.length + "): " + anomalies.map(a => a.name).join(", "));
 }
 
-main().catch(e => { console.error("FEHLER: " + e.message); process.exit(1); });
+module.exports = { parseWoltProductInfo };
+if (require.main === module) main().catch(e => { console.error("FEHLER: " + e.message); process.exit(1); });
