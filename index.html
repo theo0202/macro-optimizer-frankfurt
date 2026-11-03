@@ -3340,10 +3340,11 @@ function compleatOptimize(t, mode, p, st, ex, r, inc) { return bowlOptimize(t, m
 // möglich, wenn sie zum Ziel passen. Ausgeschlossen (Exclude items) fällt sie still weg wie jede force-Zutat
 const COMPLEAT_QUINOA = "bunter_bio_quinoa";
 // Gerade nicht bestellbar (User 03.11.2026): die Plattform führt die Option beim letzten Abruf nicht (notListed = seit wann; Menge, Preis und Nährwerte
-// vom letzten Stand) oder der Shop meldet die Zutat als ausverkauft. Sie bleiben in den Listen und im Baukasten wählbar; nur der Optimizer lässt sie
-// mit „Exclude unavailable ingredients“ (Default AN) weg — außer als „Must include“ oder eigene Auswahl
+// vom letzten Stand). Sie bleibt in den Listen und im Baukasten wählbar; nur der Optimizer lässt sie mit „Exclude unavailable ingredients“ (Default AN)
+// weg — außer als „Must include“ oder eigene Auswahl. Im Shop Ausverkauftes zählt NICHT dazu und taucht normal auf: die App weiß nicht täglich live, was
+// ausverkauft ist (User 03.11.2026), der Stand vom letzten Abruf steht nur als Hinweis da
 const COMPLEAT_SOLD_OUT = new Set(COMPLEAT.ingredients.filter(x => x.soldOut).map(x => x.id));
-const compleatUnavailable = x => !!x.notListed || COMPLEAT_SOLD_OUT.has(x.ing);
+const compleatUnavailable = x => !!x.notListed;
 const COMPLEAT_SWITCHES = [
   { id:"quinoa", label:"Quinoa base", def:true, force:[COMPLEAT_QUINOA], limit:{ [COMPLEAT_QUINOA]:1 }, filter:x=>!(x.ing===COMPLEAT_QUINOA && x.half),
     hint:"Every bowl gets exactly one portion of quinoa (250 g) as its base — never a second or a half one; other bases only if they still fit your target." },
@@ -3351,7 +3352,7 @@ const COMPLEAT_SWITCHES = [
   { id:"noCrunch", label:"No crunch", def:false, filter:x=>!x.crunch,                                // User 15.09.2026: Default AUS
     hint:"Hides Erdnüsse, Walnusskerne, Röstzwiebeln, Schwarzer Sesam and the Functional Fall Crunch." },
   { id:"noUnavailable", label:"Exclude unavailable ingredients", def:true, overridesForce:true, filter:x=>!compleatUnavailable(x), // User 03.11.2026: Default AN
-    hint:"Leaves out what the platform doesn't list right now or the Compleat shop has sold out (named above). Switch it off to use them anyway; “Must include” and your own picks always work." },
+    hint:"Leaves out what the platform doesn't list right now (named above). Switch it off to use them anyway; “Must include” and your own picks always work." },
 ];
 // Kurzhinweis unter den Zielen: welche Portionen-Rollen das Menü verlangt (menu.require, Default base + protein)
 function bowlRequireHint(menu) {
@@ -3408,15 +3409,17 @@ function compleatPanel(R, sel, ctx) {
 }
 // „03.10.2026“ aus „2026-10-03“ (Datenstand in Hinweis und Fußzeile)
 const deDate = iso => iso ? iso.slice(8, 10) + "." + iso.slice(5, 7) + "." + iso.slice(0, 4) : "";
-// Gerade nicht bestellbar (User 03.11.2026, siehe compleatUnavailable): Hinweis mit den Kurznamen der Plattform — was sie nicht führt, was der Shop als ausverkauft meldet
+// Gerade nicht bestellbar (User 03.11.2026, siehe compleatUnavailable): Hinweis mit den Kurznamen der Plattform
 function compleatUnavailableNote(m, platform) {
-  const off = [], sold = [];
-  for (const g of m.groups) for (const o of g.options) {
-    if (o.notListed) { if (!off.includes(o.short)) off.push(o.short); }
-    else if (COMPLEAT_SOLD_OUT.has(o.ing) && !sold.includes(o.short)) sold.push(o.short);
-  }
-  if (!off.length && !sold.length) return "";
-  return " Not available on " + deDate(COMPLEAT.asOf) + ": " + [off.length && off.join(", ") + " (not on " + platform + " right now)", sold.length && sold.join(", ") + " (sold out in the Compleat shop)"].filter(Boolean).join("; ") + " — “Exclude unavailable ingredients” keeps them out of the suggestions; switch it off to use them, or pick them yourself.";
+  const off = [];
+  for (const g of m.groups) for (const o of g.options) if (o.notListed && !off.includes(o.short)) off.push(o.short);
+  return off.length ? " Not on " + platform + " on " + deDate(COMPLEAT.asOf) + ": " + off.join(", ") + " — “Exclude unavailable ingredients” keeps them out of the suggestions; switch it off to use them, or pick them yourself." : "";
+}
+// Beim letzten Abruf im Shop ausverkauft: nur ein Hinweis mit Datum, die Zutaten tauchen normal auf (User 03.11.2026: die App weiß nicht täglich live, was ausverkauft ist)
+function compleatSoldOutNote(m) {
+  const names = [];
+  for (const g of m.groups) for (const o of g.options) if (!o.notListed && COMPLEAT_SOLD_OUT.has(o.ing) && !names.includes(o.short)) names.push(o.short);
+  return names.length ? " Sold out in the Compleat shop on " + deDate(COMPLEAT.asOf) + ": " + names.join(", ") + " — this may be out of date, so they stay in the suggestions; exclude them below if they're still out." : "";
 }
 // Typische Werte statt der Shop-Werte (User 27.10.2026: Sojasauce mit USDA-Werten, die Shop-Werte sind unplausibel) → Hinweis mit Quelle
 // und den offiziellen Shop-Werten (Block: ref + shopPer100) bzw. kurz in der Fußzeile
@@ -3593,7 +3596,7 @@ function compleatConfigCard(ctx, R, note) {
   const menu = R.menu, x = (ctx.st && ctx.st.extra) || {}, build = compleatBuildMode(ctx.st), complete = build && !!x.complete;
   const buildNote = "Pick your ingredients like in the " + R.platform + " order dialog — same groups, amounts and limits (" + menu.item + ", base price " + bowlEuro(menu.basePrice) + "). " +
     (complete ? "Your picks stay in every suggestion; the optimizer adds what's missing for your target (no group is required, extras once each, one dip at most). The switches and “Exclude items” only apply to what it adds (“Quinoa base” adds one portion only if you haven't picked quinoa yourself), the chips above count your picks, “Must include” is paused while you build."
-      : "Nothing is added: you get exactly your order with its totals, price and order guide.") + compleatStaleNote(menu, R.platform) + compleatRefNote(menu) + compleatUnavailableNote(menu, R.platform);
+      : "Nothing is added: you get exactly your order with its totals, price and order guide.") + compleatStaleNote(menu, R.platform) + compleatRefNote(menu) + compleatUnavailableNote(menu, R.platform) + compleatSoldOutNote(menu);
   return h("div", { style: CARD },
     compleatBuilderOn() && h("div", { style: { display: "flex", gap: 8, marginBottom: 12 } },
       h("button", { onClick: () => compleatBuildSet(ctx, R, { build: false }), style: EDEKA_BTN(!build) }, "🎯 Suggest bowls"),
@@ -5391,11 +5394,11 @@ const RESTAURANTS = [
   compleatEntry({ key:"compleat", menuKey:"wolt", name:"Compleat (Wolt)", platform:"Wolt", label:"COMPLEAT · NORDEND · WOLT",
     gradient:["#d7192d","#6b0f1a"],
     footer:"Data: Compleat online shop (official, per 100 g × Wolt portion; every ingredient selected one by one in the shop, last on 03.11.2026)"+compleatRefFooter("wolt")+" · menu & prices: Wolt · "+deDate(COMPLEAT.asOf),
-    note:m=>"Build your Bowl on Wolt (base price "+bowlEuro(m.basePrice)+"): no group is required — the optimizer also suggests bowls without a base or without a protein when that fits your target; one dip or none."+bowlPreselectNote(m,"Wolt")+compleatStaleNote(m,"Wolt")+compleatRefNote(m)+compleatUnavailableNote(m,"Wolt") }),
+    note:m=>"Build your Bowl on Wolt (base price "+bowlEuro(m.basePrice)+"): no group is required — the optimizer also suggests bowls without a base or without a protein when that fits your target; one dip or none."+bowlPreselectNote(m,"Wolt")+compleatStaleNote(m,"Wolt")+compleatRefNote(m)+compleatUnavailableNote(m,"Wolt")+compleatSoldOutNote(m) }),
   compleatEntry({ key:"compleatuber", menuKey:"ubereats", name:"Compleat (Uber Eats)", platform:"Uber Eats", label:"COMPLEAT · NORDEND · UBER EATS",
     gradient:["#b3121d","#141414"],
     footer:"Data: Compleat online shop (official, per 100 g × Uber Eats portion; every ingredient selected one by one in the shop, last on 03.11.2026)"+compleatRefFooter("ubereats")+" · menu & prices: Uber Eats, captured 03.11.2026",
-    note:m=>"Selbst zusammenstellen on Uber Eats (base price "+bowlEuro(m.basePrice)+"): no group is required — the optimizer also suggests bowls without a base or without a main protein when that fits your target; one dip or none. Egg, edamame, peas, feta and goat cheese count as extras; extras at most once each."+bowlPreselectNote(m,"Uber Eats")+compleatStaleNote(m,"Uber Eats")+compleatRefNote(m)+compleatUnavailableNote(m,"Uber Eats") }),
+    note:m=>"Selbst zusammenstellen on Uber Eats (base price "+bowlEuro(m.basePrice)+"): no group is required — the optimizer also suggests bowls without a base or without a main protein when that fits your target; one dip or none. Egg, edamame, peas, feta and goat cheese count as extras; extras at most once each."+bowlPreselectNote(m,"Uber Eats")+compleatStaleNote(m,"Uber Eats")+compleatRefNote(m)+compleatUnavailableNote(m,"Uber Eats")+compleatSoldOutNote(m) }),
   // Dean & David Frankfurt (Wolt; Menü identisch in Welle, Mainzer Landstraße und Tower 185 — MyZeil ohne Marinierte Zwiebeln, Bockenheim nur Bowl).
   // Daten: py -3 deandavid-pdf.py (PDFs → data/) → node deandavid-crawl.js (→ data/deandavid-raw.json) → node deandavid-update.js
   deanDavidEntry({ key:"deandavidsalad", menuKey:"salad", name:"Dean & David Salad (Wolt)", platform:"Wolt", label:"DEAN&DAVID · MIX YOUR OWN SALAD · WOLT",
