@@ -153,6 +153,7 @@ const PRODUCTS = [
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Weisse-Riesenbohnen-400-g.html"],   // User 30.10.2026 (am 26.10. noch nicht gelistet)
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Rapunzel-Bio-Schwarze-Bohnen-400-g.html"],   // User 03.11.2026
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Rapunzel-Bio-Weisse-Canellini-Bohnen-400-g.html"],   // User 03.11.2026
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/HAK-Schwarze-Bohnen-225-g.html"],   // User 04.11.2026 (am 02.11. noch nicht gelistet; 200 von 225 g abgetropft)
   // … in Soße (ganzer Inhalt)
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Chili-Bohnen-400-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Bio-Baked-Beans-350g.html"],
@@ -307,7 +308,7 @@ const WAITING = new Set([]);
 
 // Marken (längster Treffer am Namensanfang gewinnt) — für „Marke · Produkt“ in der Einkaufsliste
 const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Barebells", "Bazar", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle", "Diamond", "FEINKOST DITTMANN",
-  "Bürger", "Driscoll's", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "ESN", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "G&G", "GUT&GÜNSTIG", "Herta Finesse", "ITA-SAN", "LAC",
+  "Bürger", "Driscoll's", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "ESN", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "G&G", "GUT&GÜNSTIG", "HAK", "Herta Finesse", "ITA-SAN", "LAC",
   "Like MEAT", "LIKE", "Mestemacher", "MILRAM", "müller", "Müller", "planted", "Poensgen", "Premier Protein", "Rapunzel", "reis-fit", "Saupiquet",
   "Schwarzwaldmilch", "Taifun", "Tilda"];
 
@@ -895,6 +896,7 @@ async function main() {
         "User 30.10.2026: „alle ESN, Barebells und Premier Protein Proteinriegel, die bei Edeka Graf zu kaufen sind, als eigene Kategorie“ → neue Kategorie „Protein bars“ mit allen 20 Riegeln der drei Marken aus der Shop-Kategorie „Cerealienriegel“ (9 ESN Designer Bar à 45 g, 6 Barebells à 55 g, 5 Premier Protein à 40 bzw. 50 g), je Riegel die ganze Packung. Nicht aufgenommen: ESN All-in-One Men/Women (Kapseln). Gerade nicht verfügbare Riegel zeigt die Kategorie-Liste des Shops nicht — sie fehlen, bis der Shop sie wieder listet",
         "User 30.10.2026 (Riesenbohnen): „Baue noch die EDEKA Herzstücke Weiße Riesenbohnen ein“ → EDEKA Herzstücke Weiße Riesenbohnen 400 g in „Beans, chickpeas & lentils (tins)“ hinter den übrigen Bohnen in Wasser (Weiße Riesenbohnen, Wasser, Speisesalz; Abtropfgewicht 240 von 400 g). Die Shop-Kategorie „Gemüsekonserven“ listet sie seit Ende Oktober (am 26.10.2026 noch nicht)",
         "User 03.11.2026 (Rapunzel-Dosen): „Baue diese Lebensmittel bei Edeka Graf im Tracker ein. Check vorher nochmal die Nährwerte bei Edeka Graf“ → Rapunzel Bio Schwarze Bohnen 400 g, Rapunzel Bio Weiße Canellini Bohnen 400 g und Rapunzel Bio Grüne Linsen 400 g in „Beans, chickpeas & lentils (tins)“, je 1,99 €, Abtropfgewicht 240 von 400 g (Hülsenfrucht, Wasser, Salz); Nährwerte vorher auf den Produktseiten im Browser abgelesen",
+        "User 04.11.2026 (HAK): „Mach HAK schwarze Bohnen rein“ → HAK Schwarze Bohnen 225 g in „Beans, chickpeas & lentils (tins)“ hinter den übrigen Bohnen in Wasser (schwarze Bohnen, Wasser, Meersalz; Abtropfgewicht 200 von 225 g laut Produktseite); Nährwerte vorher auf der Produktseite im Browser abgelesen. Die Eiweiß-Probe „Werte gelten fürs Abgetropfte“ der übrigen Bohnen-Dosen trennt hier nicht (wenig Aufguss: 8,1 g deklariert, bezogen auf den Inhalt samt Aufguss 9,1 g; gekochte schwarze Bohnen laut USDA 8,86 g) → es zählt wie bei allen Konserven das Abtropfgewicht, der ganze Inhalt wären höchstens 35 kcal mehr",
         "User 29.10.2026: „bitte bei Ben's Original Express-Reis-Mischungen alle 250-g-Versionen raus, im Edeka gibt es nur die 220-g-Versionen (nur auf Marke Ben's bezogen)“ → nicht mehr im Tracker: Ben's Original Express Langkornreis 250 g, Express nach Art Risi Bisi 250 g und Express Reis Mexikanisch 250 g; dieselben Sorten gibt es als 220-g-Beutel. Die 250-g-Beutel von reis-fit, GUT&GÜNSTIG und Tilda bleiben",
         "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere",
       ],

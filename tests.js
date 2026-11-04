@@ -2838,7 +2838,7 @@ const BOWL_REMOVED = ["Korean Street Kimchi 160 g", "EDEKA Herzstücke Champigno
   "EDEKA Herzstücke Champignons Minis 330 g", "GUT&GÜNSTIG Champignons geschnitten 290 g", "GUT&GÜNSTIG Champignons, ganze Köpfe 400 g", "EDEKA Herzstücke Pilz Melange, waldfrisch 290 g",
   "GUT&GÜNSTIG Feine Pilzmischung 290 g", "EDEKA Herzstücke Pfifferlinge 180 g", "Waldschatz Pfifferlinge 290 g"];
 const BEANS_WAITING = ["EDEKA Herzstücke Schwarze Bohnen 400 g", "EDEKA Bio Cannellini Bohnen 400g"];   // beim Aufnehmen gerade nicht verfügbar (WAITING)
-const BEANS_ADDED = ["EDEKA Herzstücke Weiße Riesenbohnen 400 g", "Rapunzel Bio Schwarze Bohnen 400 g", "Rapunzel Bio Weiße Canellini Bohnen 400 g", "Rapunzel Bio Grüne Linsen 400 g"];   // später einzeln dazu (User 30.10. und 03.11.2026)
+const BEANS_ADDED = ["EDEKA Herzstücke Weiße Riesenbohnen 400 g", "Rapunzel Bio Schwarze Bohnen 400 g", "Rapunzel Bio Weiße Canellini Bohnen 400 g", "Rapunzel Bio Grüne Linsen 400 g", "HAK Schwarze Bohnen 225 g"];   // später einzeln dazu (User 30.10., 03.11. und 04.11.2026)
 check("Bohnen-Konserven (User 19.10.2026): 9 neue Dosen in „Beans, chickpeas & lentils (tins)“ hinter den 6 bisherigen (danach die 8 Kichererbsen-/Linsen-Dosen der Bowl-Zutaten) — 4 in Wasser mit dem Abtropfgewicht, 5 in Soße mit dem ganzen Inhalt; Werte je 100 g = Produktseite, Preis und Link vom Markt", (() => {
   const beans = EDD.items.filter(x => x.cat === "beans"), names = beans.slice(6).map(x => x.name).filter(n => !BEANS_WAITING.includes(n) && !BEANS_ADDED.includes(n));
   const one = (n, g, pack, drained) => { const x = edItem(U.slugId(n)), r = edRaw(n);
@@ -2863,7 +2863,8 @@ check("Bohnen-Konserven, Beispiele je ganzer Dose: EDEKA Bio Kidney Bohnen 265 g
     near(ch.kcal, 348) && near(ch.protein, 20) && near(ch.carbs, 44) && near(gi.kcal, 280.6) && near(gi.fat, 10.4);
 })(), true);
 check("Abgetropft ist die richtige Basis (User-Rückfrage 19.10.2026): bezogen auf den Doseninhalt samt Aufguss hätten die abgetropften Bohnen 10,2–12,9 g Eiweiß je 100 g — mehr als gekochte Bohnen (USDA: Kidney 8,67 g, Great Northern 8,33 g); die deklarierten 6,1–8,2 g passen zu abgetropften Dosenbohnen (USDA 7,98 g), nicht zum Inhalt samt Aufguss (5,22 g) — seit 26.10.2026 für 10 Dosen (dazu Schwarze Bohnen und Cannellini)", (() => {
-  const tins = rawED.items.filter(x => x.cat === "beans" && /bohnen/i.test(x.name) && x.drainedG != null);
+  // ohne HAK (User 04.11.2026): wenig Aufguss (200 von 225 g), die Probe trennt dort nicht (eigener Test)
+  const tins = rawED.items.filter(x => x.cat === "beans" && /bohnen/i.test(x.name) && x.drainedG != null && x.brand !== "HAK");
   return tins.length === 13 && tins.every(x => x.drainedG < x.packG && x.per100.protein >= 6 && x.per100.protein <= 8.5 && x.per100.protein * x.packG / x.drainedG > 9.5);
 })(), true);
 check("EDEKA Herzstücke Weiße Riesenbohnen 400 g (User 30.10.2026): in „Beans, chickpeas & lentils (tins)“ hinter den übrigen Bohnen in Wasser — Weiße Riesenbohnen, Wasser, Salz; Abtropfgewicht 240 von 400 g = 244,8 kcal / 16,3 g E / 33,4 g KH / 2,2 g F je Dose; Werte = Produktseite, Preis und Link vom Markt, stimmig, weder Koriander noch Minze", (() => {
@@ -2891,6 +2892,17 @@ check("Drei Rapunzel-Dosen (User 03.11.2026), Abtropfgewicht 240 von 400 g, in �
       new RegExp("Gemuesekonserven/" + w.file + "\\.html$").test(x.url) && U.KEYS.every(k => r.per100[k] === w.per[k] && x.p100[k] === U.round(w.per[k], 2)) && U.checkItem({ ...r.per100 }).length === 0 && r.fibreDeclared && !r.shellfish && !r.herbs && !r.fish && !r.frozen && w.zut.test(r.ingredients) &&
       beans.indexOf(n) === beans.indexOf(w.after) + 1 && sc.name === n + " (240 g drained)" && near(sc.kcal, w.tin[0]) && near(sc.protein, w.tin[1]) && near(sc.carbs, w.tin[2]) && near(sc.fat, w.tin[3]) && near(sc.fibre, w.tin[4]) && near(sc.salt, w.tin[5]);
   }) && rawED._meta.decisions.some(d => /^User 03[.]11[.]2026 \(Rapunzel-Dosen\)/.test(d));
+})(), true);
+check("HAK Schwarze Bohnen 225 g (User 04.11.2026), hinter den übrigen Bohnen in Wasser: Abtropfgewicht 200 von 225 g = 280 kcal / 16,2 g E / 45,4 g KH / 1,0 g F / 11,8 g Ballaststoffe / 0,5 g Salz, kein Zucker; Werte je 100 g wie auf der Produktseite abgelesen, stimmig, nur schwarze Bohnen, Wasser, Meersalz, Marke HAK, Preis und Link vom Markt, weder Schalentier noch Koriander/Minze; die Eiweiß-Probe der übrigen Dosen trennt hier nicht, das steht in der Entscheidung", (() => {
+  const n = "HAK Schwarze Bohnen 225 g", x = edItem(U.slugId(n)), r = edRaw(n), beans = EDD.items.filter(y => y.cat === "beans").map(y => y.name), near = (a, b) => Math.abs(a - b) < 0.011;
+  const per = { kcal: 140, fat: 0.5, sat: 0.2, carbs: 22.7, sugars: 0, fibre: 5.9, protein: 8.1, salt: 0.27 };
+  if (!x || !r) return false;
+  const sc = T.edekaScale(x, x.g), d = rawED._meta.decisions.find(y => /^User 04[.]11[.]2026 [(]HAK[)]/.test(y));
+  return x.cat === "beans" && x.brand === "HAK" && r.brand === "HAK" && x.drained === true && x.g === 200 && x.pack === 225 && r.drainedG === 200 && r.packG === 225 && (x.unavailable ? x.price > 0 : x.price > 0 && x.price === r.price) &&
+    x.url.endsWith("/Gemuesekonserven/HAK-Schwarze-Bohnen-225-g.html") &&U.KEYS.every(k => r.per100[k] === per[k] && x.p100[k] === U.round(per[k], 2)) && U.checkItem({ ...r.per100 }).length === 0 && r.fibreDeclared && !r.shellfish && !r.herbs && !r.fish && !x.frozen &&
+    /schwarze Bohnen,[ ]*Wasser,[ ]*Meersalz/.test(r.ingredients) &&beans.indexOf(n) === beans.indexOf("Rapunzel Bio Weiße Canellini Bohnen 400 g") + 1 && !T.isShellfish(x) &&
+    sc.name === n + " (200 g drained)" && near(sc.kcal, 280) && near(sc.protein, 16.2) && near(sc.carbs, 45.4) && near(sc.fat, 1) && near(sc.fibre, 11.8) && near(sc.salt, 0.5) && sc.sugars === 0 &&
+    !!d && /trennt hier nicht/.test(d) && /Abtropfgewicht 200 von 225 g/.test(d);
 })(), true);
 check("Beim Aufnehmen gerade nicht verfügbar (WAITING, 19.10.2026): EDEKA Herzstücke Schwarze Bohnen 400 g und EDEKA Bio Cannellini Bohnen 400 g zeigten weder Preis noch Werte → übersprungen statt Abbruch; am 26.10.2026 von selbst mit Werten dazugekommen (in Wasser, Abtropfgewicht: Schwarze Bohnen 265 g = 286,2 kcal / 20,9 g E, Cannellini 240 g = 206,4 kcal / 14,6 g E), WAITING ist wieder leer — der Mechanismus bleibt; der Crawl hält 2 s Abstand (robots.txt)", (() => {
   const src = fs.readFileSync(__dirname + "/edeka-crawl.js", "utf8"), w = rawED._meta.waiting || [];
@@ -2923,13 +2935,13 @@ check("Bowl-Zutaten (User 19.10.2026, am 20.10.2026 ohne Pilze und Kimchi): 33 n
     cat("veg_tins").slice(11).join("|") === BOWL_VEG.join("|") &&
     BOWL_PULSES.every(n => one(n, "beans")) && BOWL_VEG.every(n => one(n, "veg_tins"));
 })(), true);
-check("Bowl-Zutaten, Beispiele je ganzer Dose: Alnatura Kichererbsen 220 g abgetropft = 281,6 kcal / 19,8 g E · GUT&GÜNSTIG Kichererbsen 265 g = 310,1 kcal / 18 g E · Bonduelle Linsen 265 g = 241,2 kcal / 18,3 g E · GUT&GÜNSTIG Erbsen 280 g = 201,6 kcal / 15,4 g E · Bonduelle Edamame 130 g = 161,2 kcal / 14,3 g E · EDEKA Herzstücke Artischockenherzen 240 g = 64,8 kcal / 1,9 g Salz (knapp unter der 2-g-Grenze)", (() => {
+check("Bowl-Zutaten, Beispiele je ganzer Dose: Alnatura Kichererbsen 220 g abgetropft = 281,6 kcal / 19,8 g E · GUT&GÜNSTIG Kichererbsen 265 g = 310,1 kcal / 18 g E · Bonduelle Linsen 265 g = 241,2 kcal / 18,3 g E · GUT&GÜNSTIG Erbsen 280 g = 207,2 kcal / 14,6 g E (Shop-Werte seit 04.11.2026, vorher 201,6 / 15,4) · Bonduelle Edamame 130 g = 161,2 kcal / 14,3 g E · EDEKA Herzstücke Artischockenherzen 240 g = 64,8 kcal / 1,9 g Salz (knapp unter der 2-g-Grenze)", (() => {
   const s = n => { const x = edItem(U.slugId(n)); return T.edekaScale(x, x.g); };
   const near = (a, b) => Math.abs(a - b) < 0.051;
   const al = s("Alnatura Bio Kichererbsen 330 g"), gg = s("GUT&GÜNSTIG Kichererbsen 400 g"), li = s("Bonduelle Linsen 400 g"), er = s("GUT&GÜNSTIG Junge Erbsen sehr fein 400 g");
   const ed = s("Bonduelle Edamame 155 g"), ar = s("EDEKA Herzstücke Artischockenherzen 400 g");
   return near(al.kcal, 281.6) && near(al.protein, 19.8) && /\(220 g drained\)$/.test(al.name) && near(gg.kcal, 310.1) && near(gg.protein, 18) &&
-    near(li.kcal, 241.2) && near(li.protein, 18.3) && near(er.kcal, 201.6) && near(er.protein, 15.4) && near(ed.kcal, 161.2) && near(ed.protein, 14.3) &&
+    near(li.kcal, 241.2) && near(li.protein, 18.3) && near(er.kcal, 207.2) && near(er.protein, 14.6) && near(ed.kcal, 161.2) && near(ed.protein, 14.3) &&
     near(ar.kcal, 64.8) && near(ar.salt, 1.9) && /\(240 g drained\)$/.test(ar.name);
 })(), true);
 check("Bowl-Zutaten: Werte stimmig, kein Schalentier, weder Koriander noch Minze, kein Fisch, höchstens 2 g Salz je ganzer Packung (User 20.10.2026; gezählt wie im Tracker, also abgetropft) — Pilze und Kimchi (3,4 g Salz) wieder raus, die Kategorie „Mushrooms (tins)“ entfällt. Nach den Regeln vom 19.10.2026 nicht drin: Dosen ab 600 g, Mehrfachpacks, Zuckerzusatz mit mehr als 4 g Zucker je 100 g (Rote Bete, geröstete Paprika, Paprikastreifen, Maiskölbchen, Chili Mix); dazu Artischocken in Öl", (() => {
@@ -2967,10 +2979,10 @@ check("Gerade nicht verfügbar ≠ Daten weg: jede Konserve in Aufguss behält i
       !!x.valuesAsOf && /^je 100 g/.test(x.basis)) &&
     rawED._meta.unavailable.length === un.length;
 })(), true);
-const ED_N = 206;   // Produkte des Marktes im Tracker (03.11.2026: + 3 Rapunzel-Dosen; 30.10.2026: + Weiße Riesenbohnen; bis 12.10.2026: 114; 13.10.2026: + 17 fertige Reis-Mischungen; 19.10.2026: + 9 Bohnen-Konserven und 44 Bowl-Zutaten; 20.10.2026: − 10 Pilze und Kimchi; 26.10.2026: + 10 Express-Reis-Beutel und die 2 Bohnen-Dosen aus WAITING; 29.10.2026: − 3 Ben's-Original-Beutel à 250 g; 30.10.2026: + 20 Proteinriegel)
-check("Alle 206 Produkte im Tracker, 23 Kategorien wie vom User gruppiert (03.11.2026 dazu: 3 Rapunzel-Dosen — Beans, chickpeas & lentils 29; 30.10.2026 dazu: Protein bars 20 und die Weißen Riesenbohnen — Beans, chickpeas & lentils 26; 22.09.2026: Fish 5; 24.09.2026: Eat Happy Bowls 5 + Sushi 2, 3 Burritos in „Sandwiches & Wraps“, Berries 2, Fresh vegetables 6; 13.10.2026: Carbs & bases 23, seit 26.10.2026 33, seit 29.10.2026 30; Beans, chickpeas & lentils seit 26.10.2026 25; 19.10.2026: Beans, chickpeas & lentils 23, Edamame, peas & veg 37 und Mushrooms 10 — am 20.10.2026 ohne Pilze und Kimchi: Edamame, peas & veg 36), alle Chips an",
+const ED_N = 207;   // Produkte des Marktes im Tracker (04.11.2026: + HAK Schwarze Bohnen; 03.11.2026: + 3 Rapunzel-Dosen; 30.10.2026: + Weiße Riesenbohnen; bis 12.10.2026: 114; 13.10.2026: + 17 fertige Reis-Mischungen; 19.10.2026: + 9 Bohnen-Konserven und 44 Bowl-Zutaten; 20.10.2026: − 10 Pilze und Kimchi; 26.10.2026: + 10 Express-Reis-Beutel und die 2 Bohnen-Dosen aus WAITING; 29.10.2026: − 3 Ben's-Original-Beutel à 250 g; 30.10.2026: + 20 Proteinriegel)
+check("Alle 207 Produkte im Tracker, 23 Kategorien wie vom User gruppiert (04.11.2026 dazu: HAK Schwarze Bohnen — Beans, chickpeas & lentils 30; 03.11.2026 dazu: 3 Rapunzel-Dosen; 30.10.2026 dazu: Protein bars 20 und die Weißen Riesenbohnen — Beans, chickpeas & lentils 26; 22.09.2026: Fish 5; 24.09.2026: Eat Happy Bowls 5 + Sushi 2, 3 Burritos in „Sandwiches & Wraps“, Berries 2, Fresh vegetables 6; 13.10.2026: Carbs & bases 23, seit 26.10.2026 33, seit 29.10.2026 30; Beans, chickpeas & lentils seit 26.10.2026 25; 19.10.2026: Beans, chickpeas & lentils 23, Edamame, peas & veg 37 und Mushrooms 10 — am 20.10.2026 ohne Pilze und Kimchi: Edamame, peas & veg 36), alle Chips an",
   rawED.items.length === ED_N && EDD.items.length === ED_N && rawED._meta.noData.length === 0 && EDD.items.filter(x => x.cat === "carbs").length === 30 &&
-  EDD.items.filter(x => x.cat === "beans").length === 29 && EDD.items.filter(x => x.cat === "veg_tins").length === 36 &&
+  EDD.items.filter(x => x.cat === "beans").length === 30 && EDD.items.filter(x => x.cat === "veg_tins").length === 36 &&
   EDD.cats.length === 23 && EDD.cats.every(c => c.on === true) && EDD.cats[0].id === "carbs" && EDD.cats[22].id === "waffles" &&
   EDD.cats.map(c => c.id).join().indexOf("herbquark,desserts,bars,beans") > 0 && EDD.items.filter(x => x.cat === "bars").length === 20 &&
   EDD.cats.map(c => c.id).join().indexOf("fresh_veg,berries,gyoza,eh_bowls,eh_sushi,maultaschen") > 0 &&
@@ -3220,9 +3232,9 @@ check("Produktseite gibt es nicht mehr (der Shop leitet auf die Startseite um; 2
       rawED._meta.unavailable.some(n => n.indexOf(x.name + " — nicht mehr im Onlineshop (die Produktseite leitet seit " + x.gone + " auf die Startseite um)") === 0) &&
       !!edItem(U.slugId(x.idName || x.name)) && T.edekaStatus(edItem(U.slugId(x.idName || x.name))) === "unavailable online");
 })(), true);
-check("_meta: Quelle, Rechenbasis (Abtropfgewicht, Bohnen in Soße mit ganzem Inhalt), Entscheidungen vom 19.–26.09., 13., 19. (drei), 20., 26., 29. und 30.10. und 03.11.2026, vier Auffälligkeiten (Zucchini + 3 Proteinriegel mit Polyolen ohne Mengenangabe), kein Schalentier, 6 Tiefkühl-Gerichte, 73 Produkte ohne Ballaststoff-Angabe",
-  /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && /Soße/.test(rawED._meta.basis) && rawED._meta.decisions.length === 23 &&
-  rawED._meta.decisions.every(d => /^User ((19|20|22|24|26)[.]09|(1[39]|2[069]|30)[.]10|03[.]11)[.]2026/.test(d)) && rawED._meta.anomalies.length === 4 && rawED._meta.anomalies[0].name === "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g" &&
+check("_meta: Quelle, Rechenbasis (Abtropfgewicht, Bohnen in Soße mit ganzem Inhalt), Entscheidungen vom 19.–26.09., 13., 19. (drei), 20., 26., 29. und 30.10., 03. und 04.11.2026, vier Auffälligkeiten (Zucchini + 3 Proteinriegel mit Polyolen ohne Mengenangabe), kein Schalentier, 6 Tiefkühl-Gerichte, 73 Produkte ohne Ballaststoff-Angabe",
+  /graf-ffm\.edeka\.shop/.test(rawED._meta.source) && /Abtropfgewicht/.test(rawED._meta.basis) && /Soße/.test(rawED._meta.basis) && rawED._meta.decisions.length === 24 &&
+  rawED._meta.decisions.every(d => /^User ((19|20|22|24|26)[.]09|(1[39]|2[069]|30)[.]10|0[34][.]11)[.]2026/.test(d)) && rawED._meta.anomalies.length === 4 && rawED._meta.anomalies[0].name === "EDEKA Herzstücke Gemüsenudeln Zucchini 250 g" &&
   rawED._meta.anomalies.slice(1).every(a => BARS.includes(a.name) && /Polyole/.test(a.note)) &&
   typeof rawED._meta.shellfish === "string" && Array.isArray(rawED._meta.coriander) && Array.isArray(rawED._meta.frozen) && rawED._meta.frozen.length === 6 &&
   rawED._meta.noFibre.length === 73 && EDD.items.filter(x => x.p100.fibre === 0).length >= 73 && EDD.items.length === ED_N, true);
