@@ -3119,14 +3119,27 @@ const rbSt = (extra, cats, sw, maxN) => Object.assign(edState(extra, cats, Objec
 const rbN = (r, cats) => r.items.filter(x => cats.includes(x.cat)).length;
 const rbOk = r => rbN(r, RB_RICE) === 1 && rbN(r, RB_PROT) === 1 && rbN(r, RB_TINS) >= 1 && rbN(r, RB_TINS) <= 2 && r.items.length === rbN(r, RB_RICE) + rbN(r, RB_PROT) + rbN(r, RB_TINS);
 const rbRender = f => { global.__h = (type, props, ...children) => ({ type, props: props || {}, children }); try { return f(); } finally { global.__h = null; } };
-check("Schalter „Rice + protein + tins“ (User 06.11.2026): Default AUS, nur in Build order sichtbar; Bausteine Reis-Beutel (Carbs & bases, 1), Protein (Cooked chicken & meat oder Vegan protein & tofu, 1 — kein Aufschnitt, kein Fisch) und Konserven (beide Dosen-Kategorien, 1–2, die zweite mit Aufschlag 0,1); die Proteine sind gegartes Hähnchen bzw. Pute oder vegan", (() => {
-  const s = ED.switches.find(x => x.id === "riceBowl");
+check("Schalter „Rice + protein + tins“ (User 06.11.2026): Default AUS, nur in Build order sichtbar; Bausteine Reis-Beutel (Carbs & bases, 1), Protein (Cooked chicken & meat oder Vegan protein & tofu, 1 — kein Aufschnitt, kein Fisch) und Konserven (beide Dosen-Kategorien, 1–2, die zweite mit Aufschlag 0,1); vom Fleisch füllen nur die zwei Hähnchenbrust-Filetstücke den Protein-Baustein, die Bernard-Matthews-Filetstreifen nicht", (() => {
+  const s = ED.switches.find(x => x.id === "riceBowl"), skip = s.slots[1].skip;
   return !!s && s.def === false && s.label === "Rice + protein + tins" && T.EDEKA_SLOTS === s.slots &&
     JSON.stringify(s.slots.map(x => [x.id, x.cats, x.min, x.max, x.extra || 0])) === JSON.stringify([["rice", ["carbs"], 1, 1, 0], ["protein", ["chicken", "vegan"], 1, 1, 0], ["tins", ["beans", "veg_tins"], 1, 2, 0.1]]) &&
     s.visible(edSt) === true && s.visible(edState({ mode: "track" })) === false && s.visible(edState({ mode: "ai" })) === false &&
-    !s.slots.some(sl => sl.cats.some(c => ["coldcuts", "fish", "skyr", "cottage", "prep"].includes(c))) &&
-    EDD.items.filter(x => x.cat === "chicken").every(x => /Hähnchen|Puten/.test(x.name)) &&
-    /no cold cuts/.test(s.hint) && /two when one tin can't get close enough/.test(s.hint) && /at 3 there is always just one tin/.test(s.hint);
+    !s.slots.some(sl => sl.cats.some(c => ["coldcuts", "fish", "skyr", "cottage", "prep"].includes(c))) && !s.slots[0].skip && !s.slots[2].skip &&
+    JSON.stringify(EDD.items.filter(x => skip.includes(x.id)).map(x => x.name)) === JSON.stringify(["Bernard Matthews Oldenburg Hähnchen-Filetstreifen 125 g", "Bernard Matthews Oldenburg Puten-Filetstreifen 125 g"]) &&
+    JSON.stringify(EDD.items.filter(x => x.cat === "chicken" && !skip.includes(x.id)).map(x => x.name)) === JSON.stringify(["EDEKA Herzstücke Hähnchenbrust-Filetstücke Pikant 150 g", "EDEKA Herzstücke Hähnchenbrust-Filetstück Klassik 150 g"]) &&
+    /no Bernard Matthews strips, no cold cuts/.test(s.hint) && /two when one tin can't get close enough/.test(s.hint) && /at 3 there is always just one tin/.test(s.hint);
+})(), true);
+check("Bernard-Matthews-Filetstreifen (User 06.11.2026: „Diese Hähnchenstreifen und Putenbruststreifen bitte dort nicht berücksichtigen“): mit dem Schalter in keinem Vorschlag — auch nicht mit nur Fleisch als Protein-Kategorie; als Pick sind sie das Protein (kein weiteres); ohne den Schalter schlägt Build order sie weiter vor; validateRegistry meldet skip-Produkte, die fehlen oder nicht zum Baustein gehören", (() => {
+  const bm = EDD.items.filter(x => /^Bernard Matthews/.test(x.name)).map(x => x.id);
+  const meatOnly = Object.fromEntries(EDD.cats.map(c => [c.id, ["carbs", "chicken", "beans", "veg_tins"].includes(c.id)]));
+  const many = [tDef, tgt(50, 70, 20), tgt(80, 110, 25), tgt(40, 60, 12), tgt(60, 50, 25)].flatMap(t => runED(t, rbSt(null, meatOnly)));
+  const pick = runED(tDef, rbSt({ picks: [{ id: bm[1], g: 125, qty: 1 }] }));
+  const plain = runED(tgt(28, 1, 2), { ...edState(null, Object.fromEntries(EDD.cats.map(c => [c.id, c.id === "chicken"]))), maxN: 1 });
+  const badSkip = T.validateRegistry([Object.assign({}, ED, { switches: [{ id: "x", label: "x", def: false, slots: [{ id: "p", label: "p", plural: "ps", cats: ["vegan"], min: 1, max: 1, skip: [bm[0], "gibtsnicht"] }] }] })]);
+  return bm.length === 2 && JSON.stringify(T.EDEKA_SLOTS[1].skip) === JSON.stringify(bm) &&
+    many.length > 0 && many.every(r => rbOk(r) && r.items.every(x => !bm.includes(x.id)) && r.items.some(x => /^EDEKA Herzstücke Hähnchenbrust-Filetstück/.test(x.name))) &&
+    pick.length > 0 && pick.every(r => rbOk(r) && r.items.filter(x => RB_PROT.includes(x.cat)).length === 1 && r.items.some(x => x.id === bm[1] && x.locked)) &&
+    plain.some(r => bm.includes(r.items[0].id)) && badSkip.filter(p => /skip-Produkt/.test(p)).length === 2;
 })(), true);
 check("Schalter aus (Default): Build order wie bisher — die Vorschläge halten sich nicht an Reis + Protein + Dose und tragen keine Bausteine", rED.some(r => !rbOk(r)) && rED.every(r => !r.slotInfo), true);
 check("Schalter an: jede Bestellung genau 1 Reis-Beutel + 1 Protein + 1–2 Konserven (3–4 Produkte), sonst nichts; Preis = Summe der Packungen; bei den Standard-Zielen vorn eine Dose, bei großen Zielen zwei; Karte „rice pouch + protein + tin“ bzw. „… + 2 tins“; Score = score(Werte) + 0,1 je zweiter Dose", (() => {
@@ -3209,7 +3222,7 @@ check("„Max. products“ deckelt die Gesamtzahl: 3 → genau eine Dose; 4 mit 
     two.length === 0 && two.empty === "“Rice + protein + tins” needs 3 products here — raise “Max. products per order”." &&
     pk3.length === 0 && pk3.empty === "“Rice + protein + tins” needs 4 products here — raise “Max. products per order” or lock in fewer products.";
 })(), true);
-check("Die Kategorie-Chips wählen, was einen Baustein füllt: ohne Vegan nur Hähnchen/Pute, ohne Fleisch nur vegan, ohne Bohnen nur Gemüse-Dosen; ohne „Carbs & bases“ ein Hinweis — ein Pflicht-Reis geht auch dann", (() => {
+check("Die Kategorie-Chips wählen, was einen Baustein füllt: ohne Vegan nur die Hähnchenbrust-Filetstücke, ohne Fleisch nur vegan, ohne Bohnen nur Gemüse-Dosen; ohne „Carbs & bases“ ein Hinweis — ein Pflicht-Reis geht auch dann", (() => {
   const noVegan = runED(tDef, rbSt(null, { vegan: false })), noMeat = runED(tDef, rbSt(null, { chicken: false })), noBeans = runED(tDef, rbSt(null, { beans: false }));
   const noRice = runED(tDef, rbSt(null, { carbs: false })), rice = U.slugId("Ben's Original Express Langkornreis 220 g");
   const must = runED(tDef, rbSt(null, { carbs: false }), null, [rice]);

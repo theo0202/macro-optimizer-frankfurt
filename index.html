@@ -4388,7 +4388,8 @@ function summarizeResult(r, res) { return (r.kind === "byo" && r.summary) ? r.su
 //     filter = wirkt auf den Pool · require = wirkt aufs Ergebnis („must include X") · force = BYO: diese Zutaten in jeder Bestellung
 //     (Subway „Standard veggies“) · overridesCats = „only X"-Modus, ignoriert die Chips · group = UI-exklusiv · inAll = Wert in All/Accurate
 //     (Default: def) · hint = Erklärtext · visible(st) = false blendet den Schalter in der Schalter-Zeile aus (Edeka „Rice + protein + tins“ nur in
-//     Build order) · slots = [{ id, label, plural, cats, min, max }] feste Bausteine je Bestellung (nur Build-Your-Own mit eigener Suche: Edeka)
+//     Build order) · slots = [{ id, label, plural, cats, min, max, extra?, skip? }] feste Bausteine je Bestellung (nur Build-Your-Own mit eigener
+//     Suche: Edeka; skip = Produkt-ids, die den Baustein nie von selbst füllen)
 // kind:"byo" — Pflicht-Methoden am Eintrag:
 //   optimize(t, mode, p, st, ex, r) → sortierte Ergebnisse [{items? | key?, nutrition, score, price?, …}], max 20
 //     (isShellfish im eigenen Pool! ex = Set ausgeschlossener ids aus der Ausschluss-Liste; t.maxPrice = Preislimit in € oder null)
@@ -4454,13 +4455,16 @@ const edekaCats = st => EDEKA_ALL.cats.filter(c => c.id !== "prep" || edekaPrepO
 const EDEKA_LS = LS.edeka;                                    // localStorage: { picks:[{id,g,qty}], basket:[{id,g,qty}] }
 const EDEKA_NOTE = "Official values per 100 g from the product pages of the EDEKA Graf online shop. Every product counts as the whole pack — for tins in water that is the drained weight (Abtropfgewicht); beans in sauce (baked beans, chili beans) count the whole tin, sauce included. Every gram figure can be changed in the basket and in your picks. Prices are the online-shop prices of this store — in the shop they can differ. Fresh fruit and vegetables publish no nutrition (they need none): they use the values of the same food elsewhere in the shop (carrot sticks) or of USDA FoodData Central — each product says where its values come from. The Kulturheidelbeeren are not in the online shop at all: no link, no price. The Eat Happy boxes from the sushi counter use the values and the standard weight from eathappy.de (whole box including the sauces). Their weight changes from day to day: type in the grams from the label and the values follow (the box price stays). The three burritos are listed on edeka.de but not in the online shop, so they have no price — with a price limit they only come in when you lock them in. Protein bars use the kcal from their label: sweeteners such as maltitol and glycerol count only 2.4 kcal per gram, so the kcal are lower than 4 × carbs + 4 × protein + 9 × fat. Tap “Browse” under the search box to list everything in the categories you have switched on.";
 // Bausteine des Schalters „Rice + protein + tins“ (User 06.11.2026): je Baustein die Kategorien, aus denen er sich füllt, und wie viele Produkte
-// (min–max). Reis = alle verzehrfertigen Beutel aus „Carbs & bases“ (auch die Alnatura-Getreidemischungen); Protein = gegartes Hähnchen bzw.
-// Pute aus „Cooked chicken & meat“ (der Aufschnitt steht in „Chicken breast slices“) oder vegan; Konserven = beide Dosen-Kategorien.
+// (min–max). Reis = alle verzehrfertigen Beutel aus „Carbs & bases“ (auch die Alnatura-Getreidemischungen); Protein = die Hähnchenbrust-Filetstücke
+// aus „Cooked chicken & meat“ (der Aufschnitt steht in „Chicken breast slices“) oder vegan; Konserven = beide Dosen-Kategorien.
+// skip = Produkte, die den Baustein nie von selbst füllen (User 06.11.2026: „Diese Hähnchenstreifen und Putenbruststreifen bitte dort nicht
+// berücksichtigen“ → die Bernard-Matthews-Filetstreifen); als Pick oder „Must include“ zählen sie weiter zu ihrem Baustein.
 // extra = Aufschlag auf den Score je Produkt über der Mindestzahl: „eine Konserve oder zur Not auch zwei“ → die zweite Dose muss die Bestellung
 // um mehr als 0,1 näher ans Ziel bringen (bei den Standard-Zielen ≈ 2 g Eiweiß, 4 g KH oder 1 g Fett; im Kalorien-Modus ≈ 2,5 % der kcal)
 const EDEKA_SLOTS = [
   { id:"rice", label:"rice pouch", plural:"rice pouches", cats:["carbs"], min:1, max:1 },
-  { id:"protein", label:"protein", plural:"proteins", cats:["chicken", "vegan"], min:1, max:1 },
+  { id:"protein", label:"protein", plural:"proteins", cats:["chicken", "vegan"], min:1, max:1,
+    skip:["bernard_matthews_oldenburg_haehnchen_filetstreifen_125_g", "bernard_matthews_oldenburg_puten_filetstreifen_125_g"] },
   { id:"tins", label:"tin", plural:"tins", cats:["beans", "veg_tins"], min:1, max:2, extra:0.1 },
 ];
 const EDEKA_SWITCHES = [
@@ -4478,7 +4482,7 @@ const EDEKA_SWITCHES = [
   // Proteinquelle wie diese Like-Dinger) und eine Gemüse-/Hülsenfrüchte-/Bohnen-/Mais-Konserve oder zur Not auch zwei Konserven“.
   // Default AUS (restriktiver Modus); nur in „Build order“ sichtbar und wirksam — Ask Claude baut nach seinem eigenen Bauplan
   { id:"riceBowl", label:"Rice + protein + tins", def:false, slots:EDEKA_SLOTS, visible:st => edekaMode(st) === "build",
-    hint:"Every suggestion is one rice pouch (Carbs & bases), one protein — cooked chicken or turkey strips, no cold cuts, or vegan (LIKE, planted, tofu) — and one tin (beans, chickpeas, lentils, corn, peas, edamame, veg), or two when one tin can't get close enough to your targets. The category chips choose what may fill each part; your picks and “Must include” take their part's place, anything else comes on top. With “Max. products” at 3 there is always just one tin." },
+    hint:"Every suggestion is one rice pouch (Carbs & bases), one protein — the EDEKA Herzstücke chicken breast pieces (no Bernard Matthews strips, no cold cuts) or vegan (LIKE, planted, tofu) — and one tin (beans, chickpeas, lentils, corn, peas, edamame, veg), or two when one tin can't get close enough to your targets. The category chips choose what may fill each part; your picks and “Must include” take their part's place, anything else comes on top. With “Max. products” at 3 there is always just one tin." },
 ];
 
 const edekaG = g => (Math.round(g * 10) / 10) + " g";
@@ -4567,7 +4571,9 @@ function edekaSlotOptimize(sw, t, mode, p, cats, base, pool, maxN) {
   const catName = id => (EDEKA_ALL.cats.find(c => c.id === id) || {}).name || id;
   const slots = sw.slots.map(sl => {
     const have = base.filter(x => inSlot(sl, x)).length;
-    return { sl, min:Math.max(0, sl.min - have), max:Math.max(0, sl.max - have), extra:sl.extra || 0, items:pool.filter(x => inSlot(sl, x)).map(x => edekaScale(x, x.g)) };
+    // skip-Produkte füllen den Baustein nie von selbst (als Pick/Pflicht zählen sie über have trotzdem)
+    const skip = new Set(sl.skip || []);
+    return { sl, min:Math.max(0, sl.min - have), max:Math.max(0, sl.max - have), extra:sl.extra || 0, items:pool.filter(x => inSlot(sl, x) && !skip.has(x.id)).map(x => edekaScale(x, x.g)) };
   });
   const need = slots.reduce((a, s) => a + s.min, 0), room = maxN === Infinity ? Infinity : maxN - base.length;
   if (need > room) return Object.assign([], { empty:"“" + sw.label + "” needs " + (base.length + need) + " products here — raise “Max. products per order”" + (base.length ? " or lock in fewer products." : ".") });
@@ -5709,6 +5715,10 @@ function validateRegistry(restos) {
           Number.isInteger(sl.min) && Number.isInteger(sl.max) && sl.min >= 0 && sl.max >= Math.max(1, sl.min) &&
           (sl.extra == null || (typeof sl.extra === "number" && isFinite(sl.extra) && sl.extra >= 0)));
         if (!ok) P.push(tag + "slots muss [{ id, label, plural, cats:[Kategorie-ids, je Kategorie nur ein Baustein], min, max ≥ 1 }] sein (nur Build-Your-Own): " + s.id);
+        // skip: nur Produkte, die es gibt und die zu einer Kategorie des Bausteins gehören (sonst wirkt der Eintrag nicht, z.B. nach einer Umbenennung)
+        const byId = new Map(((r.data && r.data.items) || []).map(x => [x.id, x]));
+        for (const sl of Array.isArray(s.slots) ? s.slots : []) for (const id of (sl && sl.skip) || [])
+          if (!byId.has(id) || !(sl.cats || []).includes(byId.get(id).cat)) P.push(tag + "slots: skip-Produkt fehlt oder gehört nicht zum Baustein " + sl.id + ": " + id);
       }
       if (!s.filter && !s.require && !s.overridesCats && !s.force && !s.allow && !s.limit && !s.slots) P.push(tag + "Schalter ohne Wirkung: " + s.id);
       if (s.group) {
