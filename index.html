@@ -4387,7 +4387,8 @@ function summarizeResult(r, res) { return (r.kind === "byo" && r.summary) ? r.su
 //   switches  [{ id, label, def, filter?(item), require?(items), force?:[Zutat-ids], overridesCats?, group?, inAll?, hint? }]
 //     filter = wirkt auf den Pool · require = wirkt aufs Ergebnis („must include X") · force = BYO: diese Zutaten in jeder Bestellung
 //     (Subway „Standard veggies“) · overridesCats = „only X"-Modus, ignoriert die Chips · group = UI-exklusiv · inAll = Wert in All/Accurate
-//     (Default: def) · hint = Erklärtext
+//     (Default: def) · hint = Erklärtext · visible(st) = false blendet den Schalter in der Schalter-Zeile aus (Edeka „Rice + protein + tins“ nur in
+//     Build order) · slots = [{ id, label, plural, cats, min, max }] feste Bausteine je Bestellung (nur Build-Your-Own mit eigener Suche: Edeka)
 // kind:"byo" — Pflicht-Methoden am Eintrag:
 //   optimize(t, mode, p, st, ex, r) → sortierte Ergebnisse [{items? | key?, nutrition, score, price?, …}], max 20
 //     (isShellfish im eigenen Pool! ex = Set ausgeschlossener ids aus der Ausschluss-Liste; t.maxPrice = Preislimit in € oder null)
@@ -4452,6 +4453,16 @@ const edekaCatalog = st => { const fx = edekaFixes(); return EDEKA_ALL.items.fil
 const edekaCats = st => EDEKA_ALL.cats.filter(c => c.id !== "prep" || edekaPrepOn(st));
 const EDEKA_LS = LS.edeka;                                    // localStorage: { picks:[{id,g,qty}], basket:[{id,g,qty}] }
 const EDEKA_NOTE = "Official values per 100 g from the product pages of the EDEKA Graf online shop. Every product counts as the whole pack — for tins in water that is the drained weight (Abtropfgewicht); beans in sauce (baked beans, chili beans) count the whole tin, sauce included. Every gram figure can be changed in the basket and in your picks. Prices are the online-shop prices of this store — in the shop they can differ. Fresh fruit and vegetables publish no nutrition (they need none): they use the values of the same food elsewhere in the shop (carrot sticks) or of USDA FoodData Central — each product says where its values come from. The Kulturheidelbeeren are not in the online shop at all: no link, no price. The Eat Happy boxes from the sushi counter use the values and the standard weight from eathappy.de (whole box including the sauces). Their weight changes from day to day: type in the grams from the label and the values follow (the box price stays). The three burritos are listed on edeka.de but not in the online shop, so they have no price — with a price limit they only come in when you lock them in. Protein bars use the kcal from their label: sweeteners such as maltitol and glycerol count only 2.4 kcal per gram, so the kcal are lower than 4 × carbs + 4 × protein + 9 × fat. Tap “Browse” under the search box to list everything in the categories you have switched on.";
+// Bausteine des Schalters „Rice + protein + tins“ (User 06.11.2026): je Baustein die Kategorien, aus denen er sich füllt, und wie viele Produkte
+// (min–max). Reis = alle verzehrfertigen Beutel aus „Carbs & bases“ (auch die Alnatura-Getreidemischungen); Protein = gegartes Hähnchen bzw.
+// Pute aus „Cooked chicken & meat“ (der Aufschnitt steht in „Chicken breast slices“) oder vegan; Konserven = beide Dosen-Kategorien.
+// extra = Aufschlag auf den Score je Produkt über der Mindestzahl: „eine Konserve oder zur Not auch zwei“ → die zweite Dose muss die Bestellung
+// um mehr als 0,1 näher ans Ziel bringen (bei den Standard-Zielen ≈ 2 g Eiweiß, 4 g KH oder 1 g Fett; im Kalorien-Modus ≈ 2,5 % der kcal)
+const EDEKA_SLOTS = [
+  { id:"rice", label:"rice pouch", plural:"rice pouches", cats:["carbs"], min:1, max:1 },
+  { id:"protein", label:"protein", plural:"proteins", cats:["chicken", "vegan"], min:1, max:1 },
+  { id:"tins", label:"tin", plural:"tins", cats:["beans", "veg_tins"], min:1, max:2, extra:0.1 },
+];
 const EDEKA_SWITCHES = [
   { id:"noFrozen", label:"No frozen food", def:true, filter:x => !x.frozen || x.prep,   // User 19.09.2026: Default AN
     hint:"Leaves out anything the product page stores at −18 °C. PrepMyMeal meals are frozen too, but they have their own switch below." },
@@ -4463,6 +4474,11 @@ const EDEKA_SWITCHES = [
     hint:"Leaves out everything that contains fish — the smoked trout and salmon, the tuna tins, the salmon sandwich and the Eat Happy salmon boxes (fish as an allergen on the product page)." },
   { id:"noEatHappy", label:"No Eat Happy", def:true, filter:x => !x.eathappy,               // User 24.09.2026: Default AN
     hint:"Leaves the Eat Happy sushi and bowls from the counter out of the suggestions. You can still search them, lock one in or add it to the basket — and set its weight from the label." },
+  // User 06.11.2026: „Schalter, der immer drei bis vier Sachen nimmt: eine Reistüte, eine Proteinquelle (Huhn, kein Aufschnitt; oder vegane
+  // Proteinquelle wie diese Like-Dinger) und eine Gemüse-/Hülsenfrüchte-/Bohnen-/Mais-Konserve oder zur Not auch zwei Konserven“.
+  // Default AUS (restriktiver Modus); nur in „Build order“ sichtbar und wirksam — Ask Claude baut nach seinem eigenen Bauplan
+  { id:"riceBowl", label:"Rice + protein + tins", def:false, slots:EDEKA_SLOTS, visible:st => edekaMode(st) === "build",
+    hint:"Every suggestion is one rice pouch (Carbs & bases), one protein — cooked chicken or turkey strips, no cold cuts, or vegan (LIKE, planted, tofu) — and one tin (beans, chickpeas, lentils, corn, peas, edamame, veg), or two when one tin can't get close enough to your targets. The category chips choose what may fill each part; your picks and “Must include” take their part's place, anything else comes on top. With “Max. products” at 3 there is always just one tin." },
 ];
 
 const edekaG = g => (Math.round(g * 10) / 10) + " g";
@@ -4534,9 +4550,105 @@ function edekaOptimize(t, mode, p, st, ex, r, inc) {
   // Mit Preislimit bleiben Produkte ohne bekannten Preis draußen (ihr Preis lässt sich nicht prüfen); gesperrte Picks zählen mit 0 €
   if (t && t.maxPrice != null && t.maxPrice !== "" && isFinite(Number(t.maxPrice))) pool = pool.filter(x => typeof x.price === "number");
   const maxN = st.maxN || r.maxN || 5;
+  // „Rice + protein + tins“: feste Bausteine statt freier Auswahl (User 06.11.2026)
+  const slotSw = active.find(s => s.slots);
+  if (slotSw) return edekaSlotOptimize(slotSw, t, mode, p, cats, base, pool, maxN);
   const budget = maxN === Infinity ? Infinity : Math.max(0, maxN - base.length);
   return alaCarteCombos(t, mode, p, pool.map(x => edekaScale(x, x.g)), budget,
     { baseItems: base, priced: true, maxPrice: t ? t.maxPrice : null });
+}
+
+// ── „Rice + protein + tins“ (User 06.11.2026): jede Bestellung aus festen Bausteinen ──
+// Picks und Pflicht-Produkte (base) füllen ihren Baustein (ein gepickter Reis = kein weiterer Reis, eine Pflicht-Dose = höchstens eine weitere);
+// was zu keinem Baustein gehört, kommt obendrauf. Die Kategorie-Chips, Schalter, Ausschlüsse und das Preislimit wirken über den Pool, aus dem
+// sich die Bausteine füllen; „Max. products“ deckelt die Gesamtzahl (bei 3 bleibt eine Dose). Ein Baustein ohne Produkt → Hinweis statt Liste
+function edekaSlotOptimize(sw, t, mode, p, cats, base, pool, maxN) {
+  const inSlot = (sl, x) => sl.cats.includes(x.cat);
+  const catName = id => (EDEKA_ALL.cats.find(c => c.id === id) || {}).name || id;
+  const slots = sw.slots.map(sl => {
+    const have = base.filter(x => inSlot(sl, x)).length;
+    return { sl, min:Math.max(0, sl.min - have), max:Math.max(0, sl.max - have), extra:sl.extra || 0, items:pool.filter(x => inSlot(sl, x)).map(x => edekaScale(x, x.g)) };
+  });
+  const need = slots.reduce((a, s) => a + s.min, 0), room = maxN === Infinity ? Infinity : maxN - base.length;
+  if (need > room) return Object.assign([], { empty:"“" + sw.label + "” needs " + (base.length + need) + " products here — raise “Max. products per order”" + (base.length ? " or lock in fewer products." : ".") });
+  const dry = slots.filter(s => s.min > 0 && !s.items.length);
+  if (dry.length) {
+    const off = [...new Set(dry.flatMap(s => s.sl.cats.filter(c => !cats[c])))].map(c => "“" + catName(c) + "”");
+    return Object.assign([], { empty:"Nothing left for the " + dry.map(s => s.sl.label).join(" and the ") + " in “" + sw.label + "” — " +
+      (off.length ? "switch on " + off.join(" or ") + ", or " : "") + "relax the switches, exclusions or the price limit." });
+  }
+  // Obergrenze je Baustein: höchstens so viele, dass die Mindestzahl der übrigen noch Platz hat
+  for (const s of slots) s.max = Math.max(s.min, Math.min(s.max, room - (need - s.min)));
+  const res = edekaSlotCombos(t, mode, p, base, slots, { maxPrice:t ? t.maxPrice : null });
+  // Karte: welche Bausteine die Bestellung füllt („rice pouch + protein + 2 tins“, dazu Picks außerhalb der Bausteine als „+ 1 more“)
+  for (const r of res) {
+    const parts = sw.slots.map(sl => { const n = r.items.filter(x => inSlot(sl, x)).length; return n === 1 ? sl.label : n + " " + sl.plural; });
+    const more = r.items.filter(x => !sw.slots.some(sl => inSlot(sl, x))).length;
+    r.slotInfo = parts.join(" + ") + (more ? " + " + more + " more" : "");
+  }
+  return res;
+}
+// Exakte Suche über Bausteine: jede Kombination aus je min–max Produkten je Baustein (Mehrfachmengen erlaubt, z.B. zweimal dieselbe Dose).
+// Die Summen laufen in derselben Additions-Reihenfolge wie sumN über die fertige Bestellung (Basis, dann die Bausteine in ihrer Reihenfolge,
+// innerhalb eines Bausteins nach Pool-Reihenfolge) → derselbe Score wie score(sumN(…)), keine Rundungs-Abweichung. Preislimit als harte Grenze
+// in Cent. Score = score(…) + extra je Produkt über der Mindestzahl eines Bausteins (zweite Dose nur, wenn sie deutlich näher ans Ziel bringt).
+// Rangliste: Score, bei Gleichstand der günstigere Preis, dann die Aufzähl-Reihenfolge; wertgleiche Bestellungen (alle acht Werte und der Preis
+// gleich) erscheinen einmal. Größe heute: 30 Beutel × 13 Proteine × (66 + 2211) Dosen-Kombinationen ≈ 0,9 Mio. Bewertungen
+function edekaSlotCombos(t, mode, p, base, slots, opts) {
+  const o = opts || {}, KN = KEYS.length, B = base || [], KEEP = o.keep || 200;
+  const cents = x => Math.round((x.price || 0) * 100);
+  const mp = o.maxPrice == null || o.maxPrice === "" ? NaN : Number(o.maxPrice);
+  const budget = isFinite(mp) ? Math.round(mp * 100) : Infinity;
+  const c0 = B.reduce((a, x) => a + cents(x), 0);
+  if (c0 > budget) return [];
+  const S = slots.map(s => ({ min:s.min, max:s.max, extra:s.extra || 0, items:s.items, vec:s.items.map(x => KEYS.map(k => x[k] || 0)), pc:s.items.map(cents) }));
+  if (S.some(s => s.min > 0 && !s.items.length)) return [];
+  // billigster Rest ab Baustein i (Mindestzahl × billigstes Produkt) für die Preisgrenze
+  const cheap = S.map(s => (s.pc.length ? Math.min(...s.pc) : 0)), rest = new Array(S.length + 1).fill(0);
+  for (let i = S.length - 1; i >= 0; i--) rest[i] = rest[i + 1] + S[i].min * cheap[i];
+  if (c0 + rest[0] > budget) return [];
+  const D = S.reduce((a, s) => a + s.max, 0), lvl = Array.from({ length:D + 1 }, () => new Float64Array(KN));
+  for (const x of B) for (let q = 0; q < KN; q++) lvl[0][q] += (x[KEYS[q]] || 0);
+  const cmp = (a, b) => a.s - b.s || a.c - b.c || a.g - b.g;
+  const rv = new Array(KN), chosen = [];
+  let best = [], thr = Infinity, gen = 0;
+  const leaf = (acc, c, pen) => {
+    for (let q = 0; q < KN; q++) rv[q] = Math.round(acc[q] * 10) / 10;
+    const s = scoreVec(rv, t, mode, p) + pen, g = gen++;
+    if (s > thr) return;
+    best.push({ s, c, g, pen, pick:chosen.slice() });
+    if (best.length >= 2 * KEEP) { best.sort(cmp); best.length = KEEP; thr = best[KEEP - 1].s; }
+  };
+  const walk = (si, d, c, pen) => {            // si = Baustein, d = Produkte bisher (Ebene in lvl), c = Cent bisher, pen = Aufschlag bisher
+    if (si === S.length) return leaf(lvl[d], c, pen);
+    const s = S[si];
+    const rec = (start, n, d2, c2, pen2) => {  // n Produkte aus Baustein si gewählt, Indizes nicht fallend
+      if (n >= s.min) walk(si + 1, d2, c2, pen2);
+      if (n === s.max) return;
+      const a = lvl[d2], b = lvl[d2 + 1], left = Math.max(0, s.min - n - 1) * cheap[si] + rest[si + 1], pen3 = pen2 + (n + 1 > s.min ? s.extra : 0);
+      for (let i = start; i < s.items.length; i++) {
+        const c3 = c2 + s.pc[i];
+        if (c3 + left > budget) continue;
+        const v = s.vec[i];
+        for (let q = 0; q < KN; q++) b[q] = a[q] + v[q];
+        chosen.push(s.items[i]);
+        rec(i, n + 1, d2 + 1, c3, pen3);
+        chosen.pop();
+      }
+    };
+    rec(0, 0, d, c, pen);
+  };
+  walk(0, 0, c0, 0);
+  best.sort(cmp);
+  const out = [], seen = new Set();
+  for (const b of best) {
+    const items = [...B, ...b.pick], n = sumN(items, 1), key = KEYS.map(k => n[k]).join("|") + "|" + b.c;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push({ items, nutrition:n, score:score(n, t, mode, p) + b.pen, price:b.c / 100 });
+    if (out.length >= 20) break;
+  }
+  return out;
 }
 
 // ── Renderer ──
@@ -4616,7 +4728,8 @@ function edekaCard(res, ctx) {
   const cats = [...new Set((res.items || []).map(x => (EDEKA_ALL.cats.find(c => c.id === x.cat) || {}).name || x.cat))];
   // „Ask Claude“: statt der Kategorien, ob die Bestellung die Bereiche des Wunsches trifft
   const checks = res.ai ? res.ai.checks : [], fail = checks.filter(c => !c.ok);
-  const tail = checks.length ? (fail.length ? "✗ " + fail.map(c => c.text).join(" · ") : "✓ all your ranges") : cats.join(" · ");
+  // „Rice + protein + tins“: statt der Kategorien die Bausteine („rice pouch + protein + 2 tins“)
+  const tail = checks.length ? (fail.length ? "✗ " + fail.map(c => c.text).join(" · ") : "✓ all your ranges") : res.slotInfo || cats.join(" · ");
   return h(ResultCard, { title:edekaSummary(res), sub:res.items.length + (res.items.length === 1 ? " product · " : " products · ") + tail,
     n:res.nutrition, price:res.price, pricePlus:(res.items || []).some(x => x.price == null) ? " + ?" : "", selected:ctx.selected, onClick:ctx.onSelect });
 }
@@ -4910,7 +5023,8 @@ function edekaAiSchema() {
 function edekaAiInfo(ctx) {
   const st = ctx.st || {}, sw = st.sw || {};
   return { mode:ctx.mode, targets:ctx.targets || {}, prefs:ctx.prefs || {},
-    switches:((ctx.R && ctx.R.switches) || []).map(s => ({ label:s.label, on:!!sw[s.id] })),
+    // „Rice + protein + tins“ gilt nur für Build order — Claude baut nach seinem eigenen Bauplan, der Schalter gehört nicht in die Nachricht
+    switches:((ctx.R && ctx.R.switches) || []).filter(s => !s.slots).map(s => ({ label:s.label, on:!!sw[s.id] })),
     excluded:[...(ctx.ex || [])].map(id => (EDEKA_BY_ID[id] || {}).name).filter(Boolean) };
 }
 function edekaAiUserText(text, info) {
@@ -5587,7 +5701,16 @@ function validateRegistry(restos) {
       if (s.force && (!Array.isArray(s.force) || s.force.some(id => typeof id !== "string") || r.kind !== "byo")) P.push(tag + "force muss eine Liste von Zutat-ids sein (nur Build-Your-Own): " + s.id);
       if (s.allow && typeof s.allow !== "function") P.push(tag + "allow ist keine Funktion: " + s.id);
       if (s.limit && (typeof s.limit !== "object" || r.kind !== "byo" || !Object.values(s.limit).every(n => typeof n === "number" && n >= 0.5 && Number.isInteger(2 * n)))) P.push(tag + "limit muss { Zutat-id: Portionen ≥ ½ } sein (nur Build-Your-Own): " + s.id);
-      if (!s.filter && !s.require && !s.overridesCats && !s.force && !s.allow && !s.limit) P.push(tag + "Schalter ohne Wirkung: " + s.id);
+      if (s.visible && typeof s.visible !== "function") P.push(tag + "visible ist keine Funktion: " + s.id);
+      if (s.slots) {
+        const catIds = new Set(((r.data && r.data.cats) || []).map(c => c.id)), used = new Set();
+        const ok = r.kind === "byo" && Array.isArray(s.slots) && s.slots.length > 0 && s.slots.every(sl => sl && typeof sl.id === "string" && typeof sl.label === "string" && sl.label &&
+          typeof sl.plural === "string" && sl.plural && Array.isArray(sl.cats) && sl.cats.length > 0 && sl.cats.every(c => catIds.has(c) && !used.has(c) && used.add(c)) &&
+          Number.isInteger(sl.min) && Number.isInteger(sl.max) && sl.min >= 0 && sl.max >= Math.max(1, sl.min) &&
+          (sl.extra == null || (typeof sl.extra === "number" && isFinite(sl.extra) && sl.extra >= 0)));
+        if (!ok) P.push(tag + "slots muss [{ id, label, plural, cats:[Kategorie-ids, je Kategorie nur ein Baustein], min, max ≥ 1 }] sein (nur Build-Your-Own): " + s.id);
+      }
+      if (!s.filter && !s.require && !s.overridesCats && !s.force && !s.allow && !s.limit && !s.slots) P.push(tag + "Schalter ohne Wirkung: " + s.id);
       if (s.group) {
         const g = groups[s.group] || (groups[s.group] = { def: 0, all: 0 });
         if (s.def) g.def++;
@@ -6314,7 +6437,7 @@ function App() {
 
       // Schalter (deklarativ aus der Registry; group = UI-exklusiv)
       ctl.switches&&h("div",{style:{display:"flex",gap:16,marginBottom:16,alignItems:"center",flexWrap:"wrap"}},
-        ...(R?(R.switches||[]):[]).flatMap(s=>[
+        ...(R?(R.switches||[]):[]).filter(s=>!s.visible||s.visible(st)).flatMap(s=>[
           h("label",{key:s.id,style:{display:"flex",alignItems:"center",gap:6,cursor:"pointer",fontSize:12,color:"#999"}},
             h("input",{type:"checkbox",checked:!!st.sw[s.id],onChange:e=>{const on=e.target.checked;updRS(R.key,x=>({sw:toggleSwitch(R,x.sw,s.id,on)}));},style:{accentColor:S.green,width:16,height:16}}),
             s.label),

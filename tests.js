@@ -14,7 +14,7 @@ global.document = { getElementById: () => null };
 const lsStore = new Map();
 global.localStorage = { getItem: k => (lsStore.has(k) ? lsStore.get(k) : null), setItem: (k, v) => lsStore.set(k, String(v)), removeItem: k => lsStore.delete(k) };
 
-(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, BOWL_INDEX_CACHE, BOWL_INDEX_MAX_POINTS, bowlScoreKeys, switchForce, switchForcePass, switchLimit, bowlExtrasChip, COMPLEAT_QUINOA, COMPLEAT_EXTRAS, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, chidobaSnackMenu, chidobaSnackGroup, chidobaItemsMax, CHIDOBA_ITEMS_CAP, chidobaCard, chidobaConfigCard, chidobaStepEntries, chidobaCatOn, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, BURGERMEISTER, acAddonPlan, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition, SHARE_VIEWS, SHARE_VIEW, shareViewFrom, visibleTabs, VISIBLE_TABS, viewSearchIndex, VIEW_SEARCH_INDEX, viewShows, SHOW_SCREENSHOT_IMPORT, showTabRow, SHOW_TAB_ROW, APP_CODE, appNeedsCode, appUnlock, AppGate, compleatBuilderAvailable, compleatBuildMode, compleatCleanPicks, compleatStaleNote, compleatUnavailable, compleatUnavailableNote, compleatSoldOutNote, compleatPickList, compleatCanAdd, compleatPickStep, bowlAssemble, bowlRequireHint, compleatManualResult, compleatCompletionMenu, compleatComplete, compleatBuildLoad, compleatBuildSave, compleatConfigCard, compleatBuilder, OrderGuide, MacroBars, bowlPanel, bowlCard, bowlConfigParts, EDEKA_FIX_CODE, edekaFixToggle, edekaFixUnlock, edekaConfigCard, EDEKA_ALL, edekaCard, edekaPanel, edekaSetMode, EDEKA_AI_MODEL, EDEKA_AI_EFFORT, EDEKA_AI_SDK_URL, EDEKA_AI_KEYS, EDEKA_AI_TOP, edekaAiAvailable, edekaAiKey, edekaAiSetKey, edekaAiMaskKey, edekaAiClean, edekaAiLoad, edekaAiCatalog, edekaAiSystem, edekaAiSchema, edekaAiInfo, edekaAiUserText, edekaAiParams, edekaAiErrorText, edekaAiParse, edekaAiSanitize, edekaAiAsk, edekaAiRanges, edekaAiScore, edekaAiScoreV, edekaAiChecks, edekaAiSlotItems, edekaAiPool, edekaAiCombos, edekaAiSubmit, edekaAiCard };");
+(0, eval)(SCRIPT + "\n;globalThis.__t = { LS_PREFIX, LS, lsGet, lsSet, COMPLEAT, DEANDAVID, KEYS, sumN, score, scoreVec, sortResults, parseMacroScreenshot, SHELLFISH_RE, SHELLFISH_NAMES, SHELLFISH_SAFE, isShellfish, comboLabel, acOrderSteps, resultKey, alaCarteCombos, bowlCombos, bowlShareL, bowlShareLB, bowlKcalShareMin, BOWL_MAX_WORK, BOWL_MAX_MS, bowlOverLB, bowlRole, bowlEuro, bowlPreselectNote, bowlSubtitle, compleatEntry, bowlSummary, bowlOrderSteps, bowlSearchEntries, bowlExcludables, bowlIncludables, addInclude, includablesFor, bowlOptimize, bowlEntry, BOWL_LABELS, bowlValidate, switchPass, COMPLEAT_BLOCKED, compleatOptimize, RESERVED_TABS, defaultRestoState, initRestoStates, allState, toggleSwitch, optimizeAC, runOptimize, orderStepsFor, searchEntriesFor, summarizeResult, RESTAURANTS, RESTO_BY_KEY, validateRegistry, optimizeAll, buildSearchIndex, SEARCH_INDEX, foldVariants, searchItems, orderTotal, matchesQuery, excludablesFor, SPECIAL_TABS, DEFAULT_TAB, bowlIndex, BOWL_INDEX_CACHE, BOWL_INDEX_MAX_POINTS, bowlScoreKeys, switchForce, switchForcePass, switchLimit, bowlExtrasChip, COMPLEAT_QUINOA, COMPLEAT_EXTRAS, SUBWAY, SUBWAY_BLOCKED, SUBWAY_SWITCHES, SUBWAY_NOTE, subwayCombos, subwayOptimize, subwaySummary, subwayOrderSteps, subwaySearchEntries, subwayMenu, subwayMenuOf, subwayValidate, bowlSameKey, bowlDedupe, MCDONALDS, CHIDOBA, CHIDOBA_SWITCHES, CHIDOBA_TYPES, CHIDOBA_NOTE, chidobaMenu, chidobaCombos, chidobaOptimize, chidobaSummary, chidobaOrderSteps, chidobaRemovals, chidobaSearchEntries, chidobaListEntries, chidobaValidate, chidobaSnackMenu, chidobaSnackGroup, chidobaItemsMax, CHIDOBA_ITEMS_CAP, chidobaCard, chidobaConfigCard, chidobaStepEntries, chidobaCatOn, subwaySetVeggies, subwayVeggieIngs, LORYS, KAFFEEBOHNE, acVariantKey, acExcluded, STADTSALAT, STADTSALAT_SWITCHES, STADTSALAT_KIND, STADTSALAT_NOTE, stadtsalatMenus, stadtsalatCombos, stadtsalatSameKey, stadtsalatSummary, stadtsalatOrderSteps, stadtsalatSearchEntries, stadtsalatListEntries, stadtsalatValidate, BEETSROOTS, FITKITCHEN, BURGERMEISTER, acAddonPlan, EDEKA, PREPMYMEAL, edekaCats, edekaCatalog, edekaScale, edekaSearch, edekaFixes, edekaSaveFix, edekaClearFix, edekaApplyFix, edekaById, edekaTotal, edekaItemsOf, edekaLoad, edekaSave, edekaMode, edekaOptimize, edekaValidate, edekaListEntries, edekaSearchEntries, edekaExtra, edekaStatus, MEALS, mealProductList, MEALS_ASOF, MEALS_BOXES, mealsConfigCard, mealSearchText, mealsOptimize, mealsValidate, mealItems, mealsOrderSteps, nutritionCopyText, CopyNutrition, SHARE_VIEWS, SHARE_VIEW, shareViewFrom, visibleTabs, VISIBLE_TABS, viewSearchIndex, VIEW_SEARCH_INDEX, viewShows, SHOW_SCREENSHOT_IMPORT, showTabRow, SHOW_TAB_ROW, APP_CODE, appNeedsCode, appUnlock, AppGate, compleatBuilderAvailable, compleatBuildMode, compleatCleanPicks, compleatStaleNote, compleatUnavailable, compleatUnavailableNote, compleatSoldOutNote, compleatPickList, compleatCanAdd, compleatPickStep, bowlAssemble, bowlRequireHint, compleatManualResult, compleatCompletionMenu, compleatComplete, compleatBuildLoad, compleatBuildSave, compleatConfigCard, compleatBuilder, OrderGuide, MacroBars, bowlPanel, bowlCard, bowlConfigParts, EDEKA_FIX_CODE, edekaFixToggle, edekaFixUnlock, edekaConfigCard, EDEKA_ALL, edekaCard, edekaPanel, edekaSetMode, EDEKA_AI_MODEL, EDEKA_AI_EFFORT, EDEKA_AI_SDK_URL, EDEKA_AI_KEYS, EDEKA_AI_TOP, edekaAiAvailable, edekaAiKey, edekaAiSetKey, edekaAiMaskKey, edekaAiClean, edekaAiLoad, edekaAiCatalog, edekaAiSystem, edekaAiSchema, edekaAiInfo, edekaAiUserText, edekaAiParams, edekaAiErrorText, edekaAiParse, edekaAiSanitize, edekaAiAsk, edekaAiRanges, edekaAiScore, edekaAiScoreV, edekaAiChecks, edekaAiSlotItems, edekaAiPool, edekaAiCombos, edekaAiSubmit, edekaAiCard, edekaSlotCombos, edekaSlotOptimize, EDEKA_SLOTS };");
 const T = globalThis.__t;
 const U = require("./update-lib.js");
 
@@ -2685,9 +2685,9 @@ const rawED = U.readJSON(__dirname + "/data/edeka-raw.json");
 const updED = require("./edeka-update.js");
 const edItem = id => EDD.items.find(x => x.id === id);
 const edRaw = name => rawED.items.find(x => x.name === name) || rawED.items.find(x => x.idName === name);   // auch über den ursprünglichen Namen (RENAMED)
-check("Registry: Edeka Graf (In-Store) — eigener Supermarkt-Tab (byo), accurate, nicht in All/Accurate, Einkaufsliste statt Order Guide, Schalter „No frozen food“ AN, „Include PrepMyMeal“ AUS, „No tuna“ AN, „No fish“ AUS, „No Eat Happy“ AN",
+check("Registry: Edeka Graf (In-Store) — eigener Supermarkt-Tab (byo), accurate, nicht in All/Accurate, Einkaufsliste statt Order Guide, Schalter „No frozen food“ AN, „Include PrepMyMeal“ AUS, „No tuna“ AN, „No fish“ AUS, „No Eat Happy“ AN, „Rice + protein + tins“ AUS",
   !!ED && ED.kind === "byo" && ED.platform === "In-Store" && ED.accurate === true && ED.skipAll === true && ED.guideLabel === "🛒 Shopping list (EDEKA Graf)" &&
-  ED.switches.map(x => x.id + ":" + x.def).join() === "noFrozen:true,prepMyMeal:false,noTuna:true,noFish:false,noEatHappy:true" && typeof ED.hideResults === "function" && typeof ED.renderExtra === "function" && typeof ED.initState === "function", true);
+  ED.switches.map(x => x.id + ":" + x.def).join() === "noFrozen:true,prepMyMeal:false,noTuna:true,noFish:false,noEatHappy:true,riceBowl:false" && typeof ED.hideResults === "function" && typeof ED.renderExtra === "function" && typeof ED.initState === "function", true);
 check("EDEKA-Block = edeka-update.js(data/edeka-raw.json) (Block aktuell)", (() => {
   const d = updED.buildData(rawED);
   return JSON.stringify(d.cats) === JSON.stringify(EDD.cats) && JSON.stringify(d.items) === JSON.stringify(EDD.items);
@@ -3112,6 +3112,136 @@ check("Proteinriegel im Optimizer: nur „Protein bars“ an und „Max. product
     off.length > 0 && off.every(r => r.items.every(x => x.cat !== "bars")) &&
     must.length > 0 && must.every(r => r.items.some(x => x.id === id && x.must)) &&
     pick.length > 0 && pick.every(r => r.items.filter(x => x.id === id && x.locked).length === 1 && r.items.length <= 3);
+})(), true);
+// ── „Rice + protein + tins“ (User 06.11.2026): je Bestellung 1 Reis-/Getreidebeutel + 1 Protein (gegartes Hähnchen/Pute oder vegan) + 1–2 Konserven ──
+const RB_RICE = ["carbs"], RB_PROT = ["chicken", "vegan"], RB_TINS = ["beans", "veg_tins"];
+const rbSt = (extra, cats, sw, maxN) => Object.assign(edState(extra, cats, Object.assign({ riceBowl: true }, sw || {})), maxN ? { maxN } : {});
+const rbN = (r, cats) => r.items.filter(x => cats.includes(x.cat)).length;
+const rbOk = r => rbN(r, RB_RICE) === 1 && rbN(r, RB_PROT) === 1 && rbN(r, RB_TINS) >= 1 && rbN(r, RB_TINS) <= 2 && r.items.length === rbN(r, RB_RICE) + rbN(r, RB_PROT) + rbN(r, RB_TINS);
+const rbRender = f => { global.__h = (type, props, ...children) => ({ type, props: props || {}, children }); try { return f(); } finally { global.__h = null; } };
+check("Schalter „Rice + protein + tins“ (User 06.11.2026): Default AUS, nur in Build order sichtbar; Bausteine Reis-Beutel (Carbs & bases, 1), Protein (Cooked chicken & meat oder Vegan protein & tofu, 1 — kein Aufschnitt, kein Fisch) und Konserven (beide Dosen-Kategorien, 1–2, die zweite mit Aufschlag 0,1); die Proteine sind gegartes Hähnchen bzw. Pute oder vegan", (() => {
+  const s = ED.switches.find(x => x.id === "riceBowl");
+  return !!s && s.def === false && s.label === "Rice + protein + tins" && T.EDEKA_SLOTS === s.slots &&
+    JSON.stringify(s.slots.map(x => [x.id, x.cats, x.min, x.max, x.extra || 0])) === JSON.stringify([["rice", ["carbs"], 1, 1, 0], ["protein", ["chicken", "vegan"], 1, 1, 0], ["tins", ["beans", "veg_tins"], 1, 2, 0.1]]) &&
+    s.visible(edSt) === true && s.visible(edState({ mode: "track" })) === false && s.visible(edState({ mode: "ai" })) === false &&
+    !s.slots.some(sl => sl.cats.some(c => ["coldcuts", "fish", "skyr", "cottage", "prep"].includes(c))) &&
+    EDD.items.filter(x => x.cat === "chicken").every(x => /Hähnchen|Puten/.test(x.name)) &&
+    /no cold cuts/.test(s.hint) && /two when one tin can't get close enough/.test(s.hint) && /at 3 there is always just one tin/.test(s.hint);
+})(), true);
+check("Schalter aus (Default): Build order wie bisher — die Vorschläge halten sich nicht an Reis + Protein + Dose und tragen keine Bausteine", rED.some(r => !rbOk(r)) && rED.every(r => !r.slotInfo), true);
+check("Schalter an: jede Bestellung genau 1 Reis-Beutel + 1 Protein + 1–2 Konserven (3–4 Produkte), sonst nichts; Preis = Summe der Packungen; bei den Standard-Zielen vorn eine Dose, bei großen Zielen zwei; Karte „rice pouch + protein + tin“ bzw. „… + 2 tins“; Score = score(Werte) + 0,1 je zweiter Dose", (() => {
+  const r = runED(tDef, rbSt()), big = runED(tgt(80, 110, 25), rbSt());
+  const card = rbRender(() => ED.renderCard(r[0], { selected: false, onSelect: () => {} }));
+  const two = r.find(x => x.items.length === 4);
+  return r.length === 20 && r.every(rbOk) && big.length === 20 && big.every(rbOk) &&
+    r.every(x => Math.abs(x.price - Math.round(x.items.reduce((s, y) => s + y.price * 100, 0)) / 100) < 1e-9) &&
+    r[0].items.length === 3 && r[0].slotInfo === "rice pouch + protein + tin" && card.props.sub === "3 products · rice pouch + protein + tin" &&
+    !!two && two.slotInfo === "rice pouch + protein + 2 tins" && big[0].items.length === 4 &&
+    r.every(x => Math.abs(x.score - (T.score(x.nutrition, tDef, "macros", {}) + (x.items.length === 4 ? 0.1 : 0))) < 1e-9);
+})(), true);
+check("„Rice + protein + tins“ exakt: die besten 20 = vollständige Durchrechnung aller Kombinationen (25 Zufallsfälle aus den echten Bausteinen: Makro- und Kalorien-Modus, Salz-Grenze, Basis aus Picks/Pflicht, Preislimit, Mindest- und Höchstzahlen, Aufschlag); Reihenfolge Score → Preis, wertgleiche einmal", (() => {
+  let seed = 20261106; const rnd = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
+  const pickN = (arr, n) => { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a.slice(0, n); };
+  const sc = x => T.edekaScale(x, x.g), of = cats => EDD.items.filter(x => cats.includes(x.cat)).map(sc);
+  const R0 = of(RB_RICE), P0 = of(RB_PROT), D0 = of(RB_TINS), X0 = EDD.items.filter(x => x.cat === "skyr" || x.cat === "bars").map(sc);
+  const cents = x => Math.round((x.price || 0) * 100);
+  const brute = (t, mode, p, B, S, maxPrice) => {
+    const all = [], budget = maxPrice == null ? Infinity : Math.round(maxPrice * 100);
+    let g = 0;
+    const go = (si, picks, pen) => {
+      if (si === S.length) {
+        const items = [...B, ...picks], c = items.reduce((a, x) => a + cents(x), 0);
+        if (c > budget) return;
+        const n = T.sumN(items, 1);
+        all.push({ items, n, s: T.score(n, t, mode, p) + pen, c, g: g++ });
+        return;
+      }
+      const s = S[si];
+      const rec = (start, chosen) => {
+        if (chosen.length >= s.min) { let pp = pen; for (let k = s.min; k < chosen.length; k++) pp += s.extra; go(si + 1, [...picks, ...chosen], pp); }
+        if (chosen.length === s.max) return;
+        for (let i = start; i < s.items.length; i++) rec(i, [...chosen, s.items[i]]);
+      };
+      rec(0, []);
+    };
+    go(0, [], 0);
+    all.sort((a, b) => a.s - b.s || a.c - b.c || a.g - b.g);
+    const out = [], seen = new Set();
+    for (const r of all) { const k = U.KEYS.map(q => r.n[q]).join("|") + "|" + r.c; if (seen.has(k)) continue; seen.add(k); out.push(r); if (out.length >= 20) break; }
+    return out;
+  };
+  let ok = 0;
+  for (let k = 0; k < 25; k++) {
+    const mode = rnd() < 0.7 ? "macros" : "calories";
+    const t = mode === "macros" ? tgt(30 + rnd() * 60, 40 + rnd() * 90, 8 + rnd() * 25, rnd() < 0.3 ? { sMax: 3 + rnd() * 3 } : {}) : kcalT(450 + rnd() * 600);
+    const p = mode === "calories" ? { hp: rnd() < 0.6, lf: rnd() < 0.5 } : {};
+    const tinsMin = rnd() < 0.8 ? 1 : 0, tinsMax = tinsMin + 1 + Math.floor(rnd() * 2);
+    const S = [
+      { min: 1, max: 1, extra: 0, items: pickN(R0, 5) },
+      { min: rnd() < 0.8 ? 1 : 0, max: 1, extra: 0, items: pickN(P0, 4) },
+      { min: tinsMin, max: tinsMax, extra: [0, 0.1, 0.3][Math.floor(rnd() * 3)], items: pickN(D0, 8) },
+    ];
+    const B = pickN(X0, Math.floor(rnd() * 3)).map((x, i) => Object.assign({}, x, i ? { must: true } : { locked: true }));
+    const maxPrice = rnd() < 0.4 ? 6 + rnd() * 8 : null;
+    const mine = T.edekaSlotCombos(t, mode, p, B, S, { maxPrice }), ref = brute(t, mode, p, B, S, maxPrice);
+    if (mine.length === ref.length && mine.every((r, i) => r.items.map(x => x.id).join() === ref[i].items.map(x => x.id).join() && Math.abs(r.score - ref[i].s) < 1e-12 &&
+      Math.abs(r.price * 100 - ref[i].c) < 1e-6 && JSON.stringify(r.nutrition) === JSON.stringify(ref[i].n))) ok++;
+  }
+  return ok;
+})(), 25);
+check("Picks und „Must include“ füllen ihren Baustein: gepickter Reis → kein weiterer Reis; zwei gepickte Dosen → keine weitere; Pflicht-Protein → kein anderes Protein; ein Pick außerhalb der Bausteine (Skyr) kommt obendrauf („+ 1 more“)", (() => {
+  // LIKE Like Chicken behält seit der Umbenennung im Shop (13.10.2026) die id des ursprünglichen Namens → über den Namen suchen
+  const rice = U.slugId("Ben's Original Express Langkornreis 220 g"), tin = U.slugId("Bonduelle Kidney Bohnen 400 g"), like = EDD.items.find(x => x.name === "LIKE Like Chicken 180 g").id, skyr = U.slugId("GUT&GÜNSTIG Skyr Natur 500 g");
+  const a = runED(tDef, rbSt({ picks: [{ id: rice, g: 220, qty: 1 }] }));
+  const b = runED(tDef, rbSt({ picks: [{ id: tin, g: 250, qty: 2 }] }));
+  const c = runED(tDef, rbSt(), null, [like]);
+  const d = runED(tgt(90, 100, 25), rbSt({ picks: [{ id: skyr, g: 500, qty: 1 }] }));
+  return a.length > 0 && a.every(r => rbOk(r) && r.items.filter(x => x.cat === "carbs").every(x => x.id === rice && x.locked)) &&
+    b.length > 0 && b.every(r => rbOk(r) && rbN(r, RB_TINS) === 2 && r.items.filter(x => x.id === tin && x.locked).length === 2) &&
+    c.length > 0 && c.every(r => rbOk(r) && r.items.filter(x => RB_PROT.includes(x.cat)).every(x => x.id === like && x.must)) &&
+    d.length > 0 && d.every(r => r.items.some(x => x.id === skyr && x.locked) && rbN(r, RB_RICE) === 1 && rbN(r, RB_PROT) === 1 && rbN(r, RB_TINS) >= 1 && r.items.length <= 5 && / \+ 1 more$/.test(r.slotInfo));
+})(), true);
+check("„Max. products“ deckelt die Gesamtzahl: 3 → genau eine Dose; 4 mit Skyr-Pick → eine Dose; 2 → Hinweis statt Liste; mit Pick und 3 → Hinweis mit „lock in fewer products“", (() => {
+  const skyr = U.slugId("GUT&GÜNSTIG Skyr Natur 500 g"), pk = { picks: [{ id: skyr, g: 500, qty: 1 }] };
+  const three = runED(tDef, rbSt(null, null, null, 3)), four = runED(tDef, rbSt(pk, null, null, 4));
+  const two = runED(tDef, rbSt(null, null, null, 2)), pk3 = runED(tDef, rbSt(pk, null, null, 3));
+  return three.length > 0 && three.every(r => r.items.length === 3 && rbOk(r)) && four.length > 0 && four.every(r => r.items.length === 4 && rbN(r, RB_TINS) === 1) &&
+    two.length === 0 && two.empty === "“Rice + protein + tins” needs 3 products here — raise “Max. products per order”." &&
+    pk3.length === 0 && pk3.empty === "“Rice + protein + tins” needs 4 products here — raise “Max. products per order” or lock in fewer products.";
+})(), true);
+check("Die Kategorie-Chips wählen, was einen Baustein füllt: ohne Vegan nur Hähnchen/Pute, ohne Fleisch nur vegan, ohne Bohnen nur Gemüse-Dosen; ohne „Carbs & bases“ ein Hinweis — ein Pflicht-Reis geht auch dann", (() => {
+  const noVegan = runED(tDef, rbSt(null, { vegan: false })), noMeat = runED(tDef, rbSt(null, { chicken: false })), noBeans = runED(tDef, rbSt(null, { beans: false }));
+  const noRice = runED(tDef, rbSt(null, { carbs: false })), rice = U.slugId("Ben's Original Express Langkornreis 220 g");
+  const must = runED(tDef, rbSt(null, { carbs: false }), null, [rice]);
+  return noVegan.length > 0 && noVegan.every(r => rbOk(r) && r.items.some(x => x.cat === "chicken")) &&
+    noMeat.length > 0 && noMeat.every(r => rbOk(r) && r.items.some(x => x.cat === "vegan")) &&
+    noBeans.length > 0 && noBeans.every(r => rbOk(r) && r.items.every(x => x.cat !== "beans")) &&
+    noRice.length === 0 && noRice.empty === "Nothing left for the rice pouch in “Rice + protein + tins” — switch on “Carbs & bases”, or relax the switches, exclusions or the price limit." &&
+    must.length > 0 && must.every(r => rbOk(r) && r.items.some(x => x.id === rice && x.must));
+})(), true);
+check("Ausschlüsse und Preislimit gelten: ein ausgeschlossenes Protein kommt nie; mit 7 € nur Bestellungen bis 7 €; ohne passende Kombination (2 €) keine Ergebnisse; alle Proteine ausgeschlossen → Hinweis", (() => {
+  const like = U.slugId("LIKE Like Grilled Chicken 180 g");
+  const ex = runED(tDef, rbSt(), [like]), cheap = runED({ ...tDef, maxPrice: 7 }, rbSt()), none = runED({ ...tDef, maxPrice: 2 }, rbSt());
+  const noProt = runED(tDef, rbSt(), EDD.items.filter(x => RB_PROT.includes(x.cat)).map(x => x.id));
+  return ex.length > 0 && ex.every(r => rbOk(r) && r.items.every(x => x.id !== like)) &&
+    cheap.length > 0 && cheap.every(r => rbOk(r) && r.price <= 7 + 1e-9) && none.length === 0 && !none.empty &&
+    noProt.length === 0 && noProt.empty === "Nothing left for the protein in “Rice + protein + tins” — relax the switches, exclusions or the price limit.";
+})(), true);
+check("Nur in Build order: in Ask Claude und Track basket ohne Wirkung; die Nachricht an Claude nennt den Schalter nicht", (() => {
+  const info = T.edekaAiInfo({ st: edState(null, null, { riceBowl: true }), R: ED, mode: "macros", targets: tDef, prefs: {}, ex: new Set() });
+  const ai = T.edekaOptimize(tDef, "macros", {}, edState({ mode: "ai" }, null, { riceBowl: true }), new Set(), ED, new Set());
+  return !info.switches.some(x => x.label === "Rice + protein + tins") && info.switches.length === 5 && Array.isArray(ai) && ai.every(r => !r.slotInfo) &&
+    ED.hideResults(edState({ mode: "track" }, null, { riceBowl: true })) === true;
+})(), true);
+check("validateRegistry prüft slots und visible: unbekannte Kategorie, Kategorie in zwei Bausteinen, max < 1, negativer Aufschlag, visible keine Funktion → Problem", (() => {
+  const bad = (slots, visible) => T.validateRegistry([Object.assign({}, ED, { switches: [{ id: "x", label: "x", def: false, slots, visible: visible || (() => true) }] })]);
+  const sl = (cats, min, max, extra) => ({ id: "a" + cats.join(""), label: "a", plural: "as", cats, min, max, extra });
+  return bad([sl(["carbs"], 1, 1)]).length === 0 && bad([sl(["nope"], 1, 1)]).some(p => /slots muss/.test(p)) &&
+    bad([sl(["carbs"], 1, 1), sl(["carbs", "beans"], 1, 2)]).some(p => /slots muss/.test(p)) && bad([sl(["beans"], 0, 0)]).some(p => /slots muss/.test(p)) &&
+    bad([sl(["beans"], 1, 2, -1)]).some(p => /slots muss/.test(p)) && bad([sl(["carbs"], 1, 1)], "yes").some(p => /visible ist keine Funktion/.test(p));
+})(), true);
+check("Laufzeit „Rice + protein + tins“ mit allen Bausteinen (30 Beutel × 13 Proteine × 66 Dosen, Node): unter 1,5 s je Suche", (() => {
+  const t0 = performance.now(); runED(tgt(70, 90, 22), rbSt()); runED(tgt(45, 60, 15), rbSt()); return (performance.now() - t0) / 2 < 1500;
 })(), true);
 check("TK-Fertiggerichte (User 20.09.2026): 6 FRoSTA-Gerichte mit den Werten der verlinkten Herstellerseiten, Preis und Packung vom Markt, alle als Tiefkühl markiert", (() => {
   const ids = ["FRoSTA Hähnchen Geschnetzeltes 500 g", "FRoSTA Hähnchen Curry 500 g", "FRoSTA Nasi Goreng 500 g", "FRoSTA Bami Goreng 500 g", "FRoSTA Hähnchen Paella 500 g", "FRoSTA High Protein Hähnchen mit Reis & Brokkoli 500 g"];
