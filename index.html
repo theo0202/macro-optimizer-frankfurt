@@ -4458,14 +4458,16 @@ const EDEKA_NOTE = "Official values per 100 g from the product pages of the EDEK
 // (min–max). Reis = alle verzehrfertigen Beutel aus „Carbs & bases“ (auch die Alnatura-Getreidemischungen); Protein = die Hähnchenbrust-Filetstücke
 // aus „Cooked chicken & meat“ (der Aufschnitt steht in „Chicken breast slices“) oder vegan; Konserven = beide Dosen-Kategorien.
 // skip = Produkte, die den Baustein nie von selbst füllen (User 06.11.2026: „Diese Hähnchenstreifen und Putenbruststreifen bitte dort nicht
-// berücksichtigen“ → die Bernard-Matthews-Filetstreifen); als Pick oder „Must include“ zählen sie weiter zu ihrem Baustein.
+// berücksichtigen“ → die Bernard-Matthews-Filetstreifen; „Mungobohnenkeimlinge und Bambusstreifen bitte auch nicht berücksichtigen“ → die zwei
+// Diamond-Dosen, das Diamond China Gemüse bleibt); als Pick oder „Must include“ zählen sie weiter zu ihrem Baustein.
 // extra = Aufschlag auf den Score je Produkt über der Mindestzahl: „eine Konserve oder zur Not auch zwei“ → die zweite Dose muss die Bestellung
 // um mehr als 0,1 näher ans Ziel bringen (bei den Standard-Zielen ≈ 2 g Eiweiß, 4 g KH oder 1 g Fett; im Kalorien-Modus ≈ 2,5 % der kcal)
 const EDEKA_SLOTS = [
   { id:"rice", label:"rice pouch", plural:"rice pouches", cats:["carbs"], min:1, max:1 },
   { id:"protein", label:"protein", plural:"proteins", cats:["chicken", "vegan"], min:1, max:1,
     skip:["bernard_matthews_oldenburg_haehnchen_filetstreifen_125_g", "bernard_matthews_oldenburg_puten_filetstreifen_125_g"] },
-  { id:"tins", label:"tin", plural:"tins", cats:["beans", "veg_tins"], min:1, max:2, extra:0.1 },
+  { id:"tins", label:"tin", plural:"tins", cats:["beans", "veg_tins"], min:1, max:2, extra:0.1,
+    skip:["diamond_bambusstreifen_330_g", "diamond_mungobohnenkeimlinge_fein_330_g"] },
 ];
 const EDEKA_SWITCHES = [
   { id:"noFrozen", label:"No frozen food", def:true, filter:x => !x.frozen || x.prep,   // User 19.09.2026: Default AN
@@ -4482,7 +4484,7 @@ const EDEKA_SWITCHES = [
   // Proteinquelle wie diese Like-Dinger) und eine Gemüse-/Hülsenfrüchte-/Bohnen-/Mais-Konserve oder zur Not auch zwei Konserven“.
   // Default AUS (restriktiver Modus); nur in „Build order“ sichtbar und wirksam — Ask Claude baut nach seinem eigenen Bauplan
   { id:"riceBowl", label:"Rice + protein + tins", def:false, slots:EDEKA_SLOTS, visible:st => edekaMode(st) === "build",
-    hint:"Every suggestion is one rice pouch (Carbs & bases), one protein — the EDEKA Herzstücke chicken breast pieces (no Bernard Matthews strips, no cold cuts) or vegan (LIKE, planted, tofu) — and one tin (beans, chickpeas, lentils, corn, peas, edamame, veg), or two when one tin can't get close enough to your targets. The category chips choose what may fill each part; your picks and “Must include” take their part's place, anything else comes on top. With “Max. products” at 3 there is always just one tin." },
+    hint:"Every suggestion is one rice pouch (Carbs & bases), one protein — the EDEKA Herzstücke chicken breast pieces (no Bernard Matthews strips, no cold cuts) or vegan (LIKE, planted, tofu) — and one tin (beans, chickpeas, lentils, corn, peas, edamame, veg; no bamboo shoots or mung bean sprouts), or two when one tin can't get close enough to your targets. The category chips choose what may fill each part; your picks and “Must include” take their part's place, anything else comes on top. With “Max. products” at 3 there is always just one tin." },
 ];
 
 const edekaG = g => (Math.round(g * 10) / 10) + " g";
@@ -4599,7 +4601,7 @@ function edekaSlotOptimize(sw, t, mode, p, cats, base, pool, maxN) {
 // innerhalb eines Bausteins nach Pool-Reihenfolge) → derselbe Score wie score(sumN(…)), keine Rundungs-Abweichung. Preislimit als harte Grenze
 // in Cent. Score = score(…) + extra je Produkt über der Mindestzahl eines Bausteins (zweite Dose nur, wenn sie deutlich näher ans Ziel bringt).
 // Rangliste: Score, bei Gleichstand der günstigere Preis, dann die Aufzähl-Reihenfolge; wertgleiche Bestellungen (alle acht Werte und der Preis
-// gleich) erscheinen einmal. Größe heute: 30 Beutel × 13 Proteine × (66 + 2211) Dosen-Kombinationen ≈ 0,9 Mio. Bewertungen
+// gleich) erscheinen einmal. Größe heute: 30 Beutel × 11 Proteine × (64 + 2080) Dosen-Kombinationen ≈ 0,7 Mio. Bewertungen
 function edekaSlotCombos(t, mode, p, base, slots, opts) {
   const o = opts || {}, KN = KEYS.length, B = base || [], KEEP = o.keep || 200;
   const cents = x => Math.round((x.price || 0) * 100);

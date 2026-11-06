@@ -3124,7 +3124,9 @@ check("Schalter „Rice + protein + tins“ (User 06.11.2026): Default AUS, nur 
   return !!s && s.def === false && s.label === "Rice + protein + tins" && T.EDEKA_SLOTS === s.slots &&
     JSON.stringify(s.slots.map(x => [x.id, x.cats, x.min, x.max, x.extra || 0])) === JSON.stringify([["rice", ["carbs"], 1, 1, 0], ["protein", ["chicken", "vegan"], 1, 1, 0], ["tins", ["beans", "veg_tins"], 1, 2, 0.1]]) &&
     s.visible(edSt) === true && s.visible(edState({ mode: "track" })) === false && s.visible(edState({ mode: "ai" })) === false &&
-    !s.slots.some(sl => sl.cats.some(c => ["coldcuts", "fish", "skyr", "cottage", "prep"].includes(c))) && !s.slots[0].skip && !s.slots[2].skip &&
+    !s.slots.some(sl => sl.cats.some(c => ["coldcuts", "fish", "skyr", "cottage", "prep"].includes(c))) && !s.slots[0].skip &&
+    JSON.stringify(EDD.items.filter(x => s.slots[2].skip.includes(x.id)).map(x => x.name)) === JSON.stringify(["Diamond Bambusstreifen 330 g", "Diamond Mungobohnenkeimlinge fein 330 g"]) &&
+    /no bamboo shoots or mung bean sprouts/.test(s.hint) &&
     JSON.stringify(EDD.items.filter(x => skip.includes(x.id)).map(x => x.name)) === JSON.stringify(["Bernard Matthews Oldenburg Hähnchen-Filetstreifen 125 g", "Bernard Matthews Oldenburg Puten-Filetstreifen 125 g"]) &&
     JSON.stringify(EDD.items.filter(x => x.cat === "chicken" && !skip.includes(x.id)).map(x => x.name)) === JSON.stringify(["EDEKA Herzstücke Hähnchenbrust-Filetstücke Pikant 150 g", "EDEKA Herzstücke Hähnchenbrust-Filetstück Klassik 150 g"]) &&
     /no Bernard Matthews strips, no cold cuts/.test(s.hint) && /two when one tin can't get close enough/.test(s.hint) && /at 3 there is always just one tin/.test(s.hint);
@@ -3140,6 +3142,17 @@ check("Bernard-Matthews-Filetstreifen (User 06.11.2026: „Diese Hähnchenstreif
     many.length > 0 && many.every(r => rbOk(r) && r.items.every(x => !bm.includes(x.id)) && r.items.some(x => /^EDEKA Herzstücke Hähnchenbrust-Filetstück/.test(x.name))) &&
     pick.length > 0 && pick.every(r => rbOk(r) && r.items.filter(x => RB_PROT.includes(x.cat)).length === 1 && r.items.some(x => x.id === bm[1] && x.locked)) &&
     plain.some(r => bm.includes(r.items[0].id)) && badSkip.filter(p => /skip-Produkt/.test(p)).length === 2;
+})(), true);
+check("Diamond Bambusstreifen und Mungobohnenkeimlinge (User 06.11.2026: „bitte auch nicht berücksichtigen“): mit dem Schalter in keinem Vorschlag — auch ohne Bohnen-Dosen und bei kleinen Zielen; das Diamond China Gemüse bleibt im Baustein; als Pick zählen sie als Dose; ohne den Schalter schlägt Build order sie weiter vor", (() => {
+  const dia = ["Diamond Bambusstreifen 330 g", "Diamond Mungobohnenkeimlinge fein 330 g"].map(n => EDD.items.find(x => x.name === n).id);
+  const china = EDD.items.find(x => x.name === "Diamond China Gemüse 330 g").id;
+  const many = [tDef, tgt(50, 70, 20), tgt(35, 60, 10), tgt(40, 50, 12), tgt(60, 80, 15)].flatMap(t => runED(t, rbSt(null, { beans: false })));
+  const pick = runED(tDef, rbSt({ picks: [{ id: dia[0], g: 175, qty: 1 }] }));
+  const plain = runED(tgt(1.6, 0.9, 0.9), { ...edState(null, Object.fromEntries(EDD.cats.map(c => [c.id, c.id === "veg_tins"]))), maxN: 1 });
+  return JSON.stringify(T.EDEKA_SLOTS[2].skip) === JSON.stringify(dia) && !T.EDEKA_SLOTS[2].skip.includes(china) &&
+    many.length > 0 && many.every(r => rbOk(r) && r.items.every(x => !dia.includes(x.id))) &&
+    pick.length > 0 && pick.every(r => rbOk(r) && r.items.some(x => x.id === dia[0] && x.locked)) &&
+    plain.some(r => dia.includes(r.items[0].id));
 })(), true);
 check("Schalter aus (Default): Build order wie bisher — die Vorschläge halten sich nicht an Reis + Protein + Dose und tragen keine Bausteine", rED.some(r => !rbOk(r)) && rED.every(r => !r.slotInfo), true);
 check("Schalter an: jede Bestellung genau 1 Reis-Beutel + 1 Protein + 1–2 Konserven (3–4 Produkte), sonst nichts; Preis = Summe der Packungen; bei den Standard-Zielen vorn eine Dose, bei großen Zielen zwei; Karte „rice pouch + protein + tin“ bzw. „… + 2 tins“; Score = score(Werte) + 0,1 je zweiter Dose", (() => {
@@ -3253,7 +3266,7 @@ check("validateRegistry prüft slots und visible: unbekannte Kategorie, Kategori
     bad([sl(["carbs"], 1, 1), sl(["carbs", "beans"], 1, 2)]).some(p => /slots muss/.test(p)) && bad([sl(["beans"], 0, 0)]).some(p => /slots muss/.test(p)) &&
     bad([sl(["beans"], 1, 2, -1)]).some(p => /slots muss/.test(p)) && bad([sl(["carbs"], 1, 1)], "yes").some(p => /visible ist keine Funktion/.test(p));
 })(), true);
-check("Laufzeit „Rice + protein + tins“ mit allen Bausteinen (30 Beutel × 13 Proteine × 66 Dosen, Node): unter 1,5 s je Suche", (() => {
+check("Laufzeit „Rice + protein + tins“ mit allen Bausteinen (30 Beutel × 11 Proteine × 64 Dosen, Node): unter 1,5 s je Suche", (() => {
   const t0 = performance.now(); runED(tgt(70, 90, 22), rbSt()); runED(tgt(45, 60, 15), rbSt()); return (performance.now() - t0) / 2 < 1500;
 })(), true);
 check("TK-Fertiggerichte (User 20.09.2026): 6 FRoSTA-Gerichte mit den Werten der verlinkten Herstellerseiten, Preis und Packung vom Markt, alle als Tiefkühl markiert", (() => {
