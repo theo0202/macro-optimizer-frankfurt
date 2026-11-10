@@ -61,6 +61,9 @@ function buildMenu(raw, platform) {
       // gerechnet wird mit der Menge der Plattform, shopAmount trägt die Shop-Menge für den Hinweis in der App (compleatStaleNote)
       // Plattform führt die Option gerade nicht (User 03.11.2026): Datum für die App → Schalter „Exclude unavailable ingredients“
       if (o.notListed) opt.notListed = o.notListedSince || raw._meta.fetchedAt.slice(0, 10);
+      // Menge im Namen passt nicht zur kcal-Angabe der Plattform (10.11.2026: Uber Eats „Hart gekochtes Ei (40g)“ mit 78 kcal = 50 g):
+      // gerechnet wird mit amount, nameAmount trägt die Menge im Namen für den Hinweis in der App (compleatAmountNote)
+      if (o.nameAmount != null) opt.nameAmount = o.nameAmount;
       if (!o.half && o.amount !== ing.portion && (raw._meta.portionChanges || []).some(c => c.where === "Shop" && c.name === ing.shopName)) opt.shopAmount = ing.portion;
       return opt;
     }),

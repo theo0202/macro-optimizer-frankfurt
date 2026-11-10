@@ -43,12 +43,19 @@ function movedCard(name) {
 const shownFor = (per100, k, amount) => Number((per100[k] * amount / 100).toFixed(DEC[k]));
 // Zutaten mit typischen Werten im Rechner (User 27.10.2026: Sojasauce) tragen die offiziellen Shop-Werte als shopPer100 — die zeigt der Shop
 const shopValues = ing => ing.shopPer100 || ing.per100;
+// Hat Compleat nur die Anzeige-Menge einer Karte geändert (Name gleich; 10.11.2026: Röstzwiebeln (20g) 18 → 20 g — Anzeige-Bug behoben),
+// zeigt das Word-Dokument die Anzeige mit der damaligen Menge: abgeglichen wird mit der ältesten oldDisplay aus _meta.portionChanges
+const displayMoves = (raw._meta.portionChanges || []).filter(c => c.where === "Shop" && c.name === c.oldName && c.oldDisplay !== c.newDisplay);
+const oldDisplayOf = name => displayMoves.filter(c => c.name === name).sort((a, b) => String(a.changedAt).localeCompare(String(b.changedAt)))[0] || null;
+const displayChanged = [];
 for (const w of word) {
   const moved = byShopName[w.name] ? null : movedCard(w.name);
   const ing = byShopName[w.name] || (moved && moved.ing);
   if (!ing) { notFound.push(w.name); continue; }
-  const amount = moved ? moved.amount : ing.vmos.displayAmount;
+  const dmove = moved ? null : oldDisplayOf(w.name);
+  const amount = moved ? moved.amount : dmove ? dmove.oldDisplay : ing.vmos.displayAmount;
   if (moved) renamed.push(w.name + " → " + moved.now);
+  if (dmove) displayChanged.push(w.name + " (Anzeige " + dmove.oldDisplay + " → " + dmove.newDisplay + " " + (ing.unit || "g") + " am " + dmove.changedAt + ")");
   compared++;
   const miss = [];
   for (const k of U.KEYS) {
@@ -68,6 +75,7 @@ console.log("Word-Produkte: " + word.length + " · abgeglichen: " + compared + "
 if (notFound.length) console.log("Nicht im Shop-Datensatz: " + notFound.join(", "));
 if (outdated.length) console.log("Seit dem Word-Export geändert: " + outdated.join(", "));
 if (renamed.length) console.log("Menge seit dem Word-Export geändert (mit der damaligen Menge abgeglichen): " + renamed.join(", "));
+if (displayChanged.length) console.log("Anzeige-Menge seit dem Word-Export geändert (mit der damaligen Anzeige-Menge abgeglichen): " + displayChanged.join(", "));
 const bugs = raw._meta.displayBugs || [];
 if (bugs.length) console.log("Hinweis: Die Shop-Anzeige (und damit das Word-Dokument) rechnet bei " + bugs.map(b => b.shopName + " mit " + b.shopRechnetMit + " " + b.unit).join(", ") + " — die App rechnet mit der Portion laut Name.");
 if (mismatches.length) { console.log("\nABWEICHUNGEN (" + mismatches.length + "):\n  " + mismatches.join("\n  ")); process.exit(1); }

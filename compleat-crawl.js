@@ -97,6 +97,15 @@ const HALF_DIFF_OK = {
 // Uber Eats: halbe Portionen, die NICHT die halbe Menge zum halben Preis sind → „höchstens eine halbe neben der ganzen“ lässt 2 halbe aus
 const UE_HALF_NOT_DOUBLE = {
   mushroots_pilzbaellchen: "Mushroots - Halbe Portion = 45 g für 2,00 €, ganze Portion 75 g für 3,00 € (2 halbe = 90 g / 4,00 €) → der Rechner nimmt höchstens eine halbe neben der ganzen; 2 halbe statt einer ganzen schlägt er nicht vor (27.09.2026)",
+  rinderhackbaellchen: "Rinderhackbällchen - Halbe Portion = 50 g für 1,50 €, ganze Portion 90 g für 3,00 € (2 halbe = 100 g / 3,00 €; seit Uber Eats am 10.11.2026 die neue ganze Portion nennt, die halbe blieb bei 50 g wie im Shop) → der Rechner nimmt höchstens eine halbe neben der ganzen; 2 halbe statt einer ganzen schlägt er nicht vor (10.11.2026)",
+};
+// Uber Eats: Optionen, deren Mengenangabe im Namen nicht zur kcal-Angabe von Uber Eats passt — der Rechner nimmt die Menge, zu der die
+// kcal-Angabe passt. Der Crawl bricht ab, wenn sich Name oder kcal-Angabe ändern (dann neu prüfen). Die Option trägt nameAmount (Menge im
+// Namen) → Hinweis in der App (compleatAmountNote)
+const UE_AMOUNT = {
+  // 10.11.2026: Uber Eats nennt das Ei jetzt wie der Shop „Hart gekochtes Ei (40g)“ (bis 03.11.2026 „(50g)“), gibt aber „adds 78 Cal.“ an
+  // = 155 kcal je 100 g × 50 g (40 g wären 62 kcal); die Shop-Anzeige (78 kcal) und Wolt („Hart gekochtes Ei, 50 g“) rechnen ebenfalls mit 50 g
+  "Hart gekochtes Ei (40g)": { amount: 50, kcal: 78, why: "Uber Eats nennt „Hart gekochtes Ei (40g)“ wie der Shop-Name, gibt aber „adds 78 Cal.“ an (= 50 g × 155 kcal je 100 g; 40 g wären 62 kcal); Shop-Anzeige (78 kcal) und Wolt („Hart gekochtes Ei, 50 g“) rechnen ebenfalls mit 50 g → der Rechner bleibt bei 50 g wie bisher (10.11.2026)" },
 };
 
 // Im Rechner gesperrt — bleibt im Datensatz, wird aber auf KEINER Plattform (Wolt, Uber Eats …) vorgeschlagen,
@@ -409,7 +418,7 @@ async function main() {
   console.log("Uber Eats: " + path.relative(__dirname, UE_FILE) + " …");
   const ue = U.readJSON(UE_FILE);
   if (!ue.item || normName(ue.item.title) !== UE_ITEM) problems.push("Uber-Eats-Erfassung: Item „" + UE_ITEM + "“ fehlt");
-  const ueGroups = [], ueNoData = [], uePortionDiffs = [], ueKcalDiffs = [], ueUnknown = [], uePreselect = [];
+  const ueGroups = [], ueNoData = [], uePortionDiffs = [], ueKcalDiffs = [], ueUnknown = [], uePreselect = [], ueAmountFixed = [];
   for (const g of ue.groups || []) {
     const gname = normName(g.title), gid = UE_GROUPS[gname];
     if (!gid) { if (g.maxPermitted > 0) problems.push("Unbekannte Uber-Eats-Gruppe: " + gname); continue; }
@@ -429,14 +438,22 @@ async function main() {
       if (!ing) { ueUnknown.push(grp.name + ": „" + uname + "“"); continue; }
       if (sp.amount == null) { problems.push("Uber Eats: keine Mengenangabe: " + uname); continue; }
       if (sp.unit !== ing.unit) problems.push("Uber Eats: Einheit passt nicht: " + uname + " vs. " + ing.shopName);
-      const expected = half ? ing.halfPortion : ing.portion;
-      if (sp.amount !== expected) uePortionDiffs.push({ ubereats: uname, shop: ing.shopName, ubereatsAmount: sp.amount, shopPortion: expected == null ? null : expected, unit: sp.unit });
-      // kcal-Angabe von Uber Eats („adds 330 Cal.") gegen die eigene Rechnung (Rundung toleriert)
+      // kcal-Angabe von Uber Eats („adds 330 Cal.")
       const km = String(o.subtitle || "").match(/adds\s+(\d+(?:[.,]\d+)?)\s*Cal/i);
-      const own = (ing.shopPer100 || ing.per100).kcal * sp.amount / 100; // offizielle Shop-Werte (auch bei Referenzwerten im Rechner)
-      if (km && Math.abs(Number(km[1].replace(",", ".")) - own) >= 1) ueKcalDiffs.push({ ubereats: uname, ubereatsKcal: Number(km[1].replace(",", ".")), shopKcal: U.round(own, 1) });
+      const ueKcal = km ? Number(km[1].replace(",", ".")) : null;
+      // Menge im Namen passt nicht zur kcal-Angabe (UE_AMOUNT, geprüft): gerechnet wird mit der Menge der kcal-Angabe
+      const fix = UE_AMOUNT[uname];
+      if (fix && ueKcal !== fix.kcal) problems.push("Uber Eats: „" + uname + "“ nennt jetzt " + ueKcal + " statt " + fix.kcal + " kcal → UE_AMOUNT neu prüfen");
+      const amount = fix ? fix.amount : sp.amount;
+      if (fix) ueAmountFixed.push({ ubereats: uname, nameAmount: sp.amount, amount, unit: sp.unit, ubereatsKcal: ueKcal, why: fix.why });
+      const expected = half ? ing.halfPortion : ing.portion;
+      if (amount !== expected) uePortionDiffs.push({ ubereats: uname, shop: ing.shopName, ubereatsAmount: amount, shopPortion: expected == null ? null : expected, unit: sp.unit });
+      // kcal-Angabe von Uber Eats gegen die eigene Rechnung (Rundung toleriert)
+      const own = (ing.shopPer100 || ing.per100).kcal * amount / 100; // offizielle Shop-Werte (auch bei Referenzwerten im Rechner)
+      if (km && Math.abs(ueKcal - own) >= 1) ueKcalDiffs.push({ ubereats: uname, ubereatsKcal: ueKcal, shopKcal: U.round(own, 1) });
       const role = gid === "protein" ? (PROTEIN_MAIN.has(id) ? "protein" : "extra") : (gid === "vitamine" || gid === "toppings") ? "extra" : gid;
-      const opt = { name: uname, ingredient: id, role, amount: sp.amount, unit: sp.unit, maxQty: Math.max(1, o.maxPermitted || 0), price: U.round((o.price || 0) / 100, 2) };
+      const opt = { name: uname, ingredient: id, role, amount, unit: sp.unit, maxQty: Math.max(1, o.maxPermitted || 0), price: U.round((o.price || 0) / 100, 2) };
+      if (fix) opt.nameAmount = sp.amount;
       if (half) opt.half = true;
       grp.options.push(opt);
     }
@@ -444,6 +461,7 @@ async function main() {
     carryNotListed(grp, prevG && prevG.options, byId, fetchedAt.slice(0, 10));
     ueGroups.push(grp);
   }
+  for (const n of Object.keys(UE_AMOUNT)) if (!ueAmountFixed.some(f => f.ubereats === n) && !ueGroups.some(g => g.options.some(o => o.name === n))) console.warn("  Hinweis: UE_AMOUNT-Eintrag „" + n + "“ trifft keine Uber-Eats-Option mehr → Tabelle bereinigen");
   if (ueUnknown.length) problems.push("Uber-Eats-Optionen ohne Shop-Zutat (Namen prüfen oder in UE_NO_DATA begründen): " + ueUnknown.join(" · "));
   // Halbe Portion = halbe Menge zum halben Preis der ganzen? Nur dann ist „halbe Portion höchstens 1× neben der ganzen" im Rechner verlustfrei
   const ueHalfNotDouble = [];
@@ -534,9 +552,9 @@ async function main() {
         shopDisplay: "data/compleat-shop-anzeige.json = jede Zutat einzeln im Shop ausgewählt und die Anzeige abgelesen (compleat-shop-capture.js, " + shopControl.readAt + ") → Abgleich: node verify-compleat-shop.js",
         stock: "Ausverkauft = mit ?forceStockStatus=1 im Bundle, ohne den Parameter nicht (27.09.2026 an den „Ausverkauft“-Karten des Shops bestätigt)",
       },
-      basis: "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Gerechnet wird immer mit der Menge der jeweiligen Plattform: Wolt nennt seit 02.11.2026 dieselben Mengen wie der Shop (außer dem Ei, 50 statt 40 g; der Salat-Mix hatte bis dahin 100 statt 80 g), Uber Eats nutzt die Namen des Shops, kann aber hinterherhinken (am 02.11.2026 noch 100 g bei Hühnchen, Vegane Hackbällchen, Rinderhackbällchen und Pulled Salmon, _meta.ubereats.portionDiffs). Ausnahme (User 27.10.2026): Sojasauce mit typischen Werten (USDA FoodData Central, _meta.referenceValues) statt der unplausiblen Shop-Werte.",
+      basis: "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Gerechnet wird immer mit der Menge der jeweiligen Plattform: Wolt nennt seit 02.11.2026 dieselben Mengen wie der Shop (außer dem Ei, 50 statt 40 g; der Salat-Mix hatte bis dahin 100 statt 80 g), Uber Eats nutzt die Namen des Shops, kann aber hinterherhinken (am 02./03.11.2026 noch 100 g bei Hühnchen, Vegane Hackbällchen, Rinderhackbällchen und Pulled Salmon, seit der Erfassung vom 10.11.2026 dieselben Mengen wie der Shop; _meta.ubereats.portionDiffs). Ausnahme Ei bei Uber Eats: Name „(40g)“, kcal-Angabe = 50 g → 50 g (UE_AMOUNT, _meta.ubereats.amountFixed). Ausnahme (User 27.10.2026): Sojasauce mit typischen Werten (USDA FoodData Central, _meta.referenceValues) statt der unplausiblen Shop-Werte.",
       woltRules: "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Keine Gruppe außer dem Dip ist Pflicht (min 0) → der Rechner verlangt weder Base noch Protein (User 11.10.2026). Grundpreis „Build your Bowl“ " + woltItemPrice + " €. " + woltCardNote,
-      ubereatsRules: "Selbst zusammenstellen (Grundpreis " + ueItemPrice + " €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: keine Gruppe Pflicht (User 11.10.2026) · Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft). " + ueCardNote,
+      ubereatsRules: "Selbst zusammenstellen (Grundpreis " + ueItemPrice + " €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: keine Gruppe Pflicht (User 11.10.2026) · Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft; Ausnahmen Mushroots und seit 10.11.2026 Rinderhackbällchen, _meta.ubereats.halfNotDouble). " + ueCardNote,
       decisions: [
         "User 15.09.2026: Bunter Bio Quinoa bleibt im Datensatz, ist aber im Rechner ausgeschlossen (auch künftige Plattformen) — bis 20.10.2026",
         "User 21.10.2026: Compleat hat die Quinoa-Werte geändert (vorher 52 kcal je 100 g, jetzt 122 kcal / 19,4 g KH / 4,7 g Eiweiß / 2 g Fett je 100 g, ganze und halbe Portion gleich; im Shop einzeln angeklickt) → „Baue bitte Quinoa ein mit nun neuen Werten“: nicht mehr gesperrt, auf Wolt und Uber Eats im Rechner",
@@ -549,6 +567,7 @@ async function main() {
         "User 27.09.2026: neue Compleat-Zutaten einbauen, soweit Wolt sie führt — Werte je Zutat durch einzelnes Auswählen im Shop bestätigt (data/compleat-shop-anzeige.json); Zutaten, die es dauerhaft nicht mehr gibt, raus, ausverkaufte drin (Skill „compleat-aktualisieren“)",
         "User 03.11.2026: Optionen, die eine Plattform gerade nicht führt, bleiben mit ihren Nährwerten im Tab („tu sie wieder rein“) und in Baukasten, Must include und Exclude wählbar; der Schalter „Exclude unavailable ingredients“ (Default AN) lässt sie aus den Vorschlägen. Raus nur, wenn die Zutat aus dem Shop-Sortiment gestrichen ist",
         "User 03.11.2026 (Rückfrage „Hast du die Wolt-Bestellfenster-Gramm-Angaben gecheckt?“): Bestellfenster von „Build your Bowl“ im Browser geöffnet — Namen, Mengen und Preise = Wolt-API; die Produktinfo nennt für 8 Optionen eigene Nährwerte, die zur Rechnung passen (_meta.woltProductInfo, ab jetzt Teil des Crawls)",
+        "User 10.11.2026 („prüfe ob Compleat-Gramm-Angaben aktuell“): Shop-API, Shop-Anzeige (jede Karte einzeln), Wolt-API, Wolt-Bestellfenster und Uber Eats neu geprüft — Shop und Wolt mit denselben Mengen wie am 03.11.2026, Uber Eats jetzt auch (Hühnchen, Vegane Hackbällchen, Pulled Salmon 80 g, Rinderhackbällchen 90 g; halbe Rinderhack weiter 50 g); das Ei heißt bei Uber Eats jetzt „(40g)“, die kcal-Angabe dort passt zu 50 g → bleibt 50 g (dem User genannt). Der Shop rechnet Walnusskerne, Functional Fall Crunch und Röstzwiebeln in der Anzeige jetzt mit 20 g (Anzeige-Bugs behoben)",
         "User 02.11.2026: Compleat hat die Mengen geändert → Shop und Wolt: Hähnchen, Vegane Hackbällchen, Pulled Salmon 80 statt 100 g, Rinderhackbällchen 90 statt 100 g (halbe im Shop: Hühnchen, Vegane Hackbällchen, Pulled Salmon 40 statt 50 g, Rinderhackbällchen weiter 50 g), Wolt-Salat-Mix 80 statt 100 g; Werte je 100 g und Preise unverändert (_meta.portionChanges). Uber Eats nennt noch die alten Mengen → der Uber-Eats-Tab rechnet weiter mit dem, was Uber Eats nennt (dem User genannt)",
         "User 27.10.2026: Sojasauce mit typischen Nährwerten statt der Shop-Werte („scheinen nicht realistisch — nimm lieber die typischen Nährwerte für Sojasauce“): USDA FoodData Central #174277 (gebraute Sojasauce, Shoyu), 20 ml = 21,6 g laut USDA-Portionsgewicht → 11,5 kcal / 1,76 g Eiweiß / 0,89 g KH / 2,97 g Salz je Portion (Shop: 4,2 kcal / 0,48 g Eiweiß / 0,46 g KH / 2,87 g Salz); Shop-Werte bleiben als shopPer100 dokumentiert",
       ],
@@ -557,8 +576,8 @@ async function main() {
       notListed: { wolt: notListedOf(woltGroups), ubereats: notListedOf(ueGroups) },
       halfPortionAccepted: Object.values(HALF_DIFF_OK),
       shopControl: { readAt: shopControl.readAt, checked: shopControl.checked, values: shopControl.values, earlier: shopControl.earlier, soldOutNotChecked: shopControl.soldOutNotChecked, notInShop: shopControl.notInShop },
-      ubereats: { noData: ueNoData, portionDiffs: uePortionDiffs, kcalDiffs: ueKcalDiffs, notOnUberEats, halfNotDouble: ueHalfNotDouble },
-      eggNote: "Hart gekochtes Ei: offizielle Shop-Werte (155 kcal je 100 g). Seit 27.09.2026 heißt die Shop-Zutat „Hart gekochtes Ei (40g)“ (defaultQuantity 40), die Shop-Anzeige rechnet aber weiter mit 50 g (78 kcal), und Wolt („Hart gekochtes Ei, 50 g“) wie Uber Eats („Hart gekochtes Ei (50g)“) nennen 50 g → der Rechner nimmt auf beiden Plattformen 50 g (77,5 kcal).",
+      ubereats: { noData: ueNoData, portionDiffs: uePortionDiffs, kcalDiffs: ueKcalDiffs, notOnUberEats, halfNotDouble: ueHalfNotDouble, amountFixed: ueAmountFixed },
+      eggNote: "Hart gekochtes Ei: offizielle Shop-Werte (155 kcal je 100 g). Seit 27.09.2026 heißt die Shop-Zutat „Hart gekochtes Ei (40g)“ (defaultQuantity 40), die Shop-Anzeige rechnet aber weiter mit 50 g (78 kcal), und Wolt nennt „Hart gekochtes Ei, 50 g“ → der Rechner nimmt auf beiden Plattformen 50 g (77,5 kcal). Uber Eats nannte bis zum 03.11.2026 „Hart gekochtes Ei (50g)“, seit der Erfassung vom 10.11.2026 wie der Shop „Hart gekochtes Ei (40g)“ — die kcal-Angabe von Uber Eats bleibt aber 78 (= 50 g) → auch dort weiter 50 g (UE_AMOUNT; Hinweis in der App).",
     },
     ingredients,
     shopItems,
@@ -587,7 +606,8 @@ async function main() {
   console.log("Nicht bei Uber Eats: " + (notOnUberEats.join(", ") || "—"));
   if (woltMapUnused.length) console.log("⚠ WOLT_MAP-Einträge, die Wolt nicht mehr anbietet: " + woltMapUnused.join(", "));
   console.log("Mengen-Abweichungen Wolt ↔ Shop: " + (portionDiffs.map(d => d.wolt + " statt " + d.shopPortion + " " + d.unit + " (×" + d.factor + ")").join(", ") || "keine"));
-  console.log("Mengen-Abweichungen Uber Eats ↔ Shop: " + (uePortionDiffs.map(d => d.ubereats + " statt " + d.shopPortion + " " + d.unit).join(", ") || "keine"));
+  console.log("Mengen-Abweichungen Uber Eats ↔ Shop: " + (uePortionDiffs.map(d => d.ubereats + (/\(\d/.test(d.ubereats) && !d.ubereats.includes("(" + d.ubereatsAmount + d.unit + ")") ? " (gerechnet " + d.ubereatsAmount + " " + d.unit + ")" : "") + " statt " + d.shopPortion + " " + d.unit).join(", ") || "keine"));
+  if (ueAmountFixed.length) console.log("Uber Eats: Menge laut kcal-Angabe statt laut Name: " + ueAmountFixed.map(f => f.ubereats + " → " + f.amount + " " + f.unit + " (Uber Eats " + f.ubereatsKcal + " kcal)").join(", "));
   console.log("Uber Eats ohne offizielle Nährwerte: " + (ueNoData.join(" · ") || "—"));
   console.log("kcal-Angaben Uber Eats ≠ eigene Rechnung: " + (ueKcalDiffs.map(d => d.ubereats + ": UE " + d.ubereatsKcal + " vs. " + d.shopKcal).join(" · ") || "keine"));
   console.log("Halbe Portionen mit anderen Werten je 100 g: " + (halfPortionDiffs.map(h => h.name + " (" + Object.keys(h.halb).map(k => k + " " + h.halb[k] + " statt " + h.ganz[k]).join(", ") + ")").join(", ") || "keine"));

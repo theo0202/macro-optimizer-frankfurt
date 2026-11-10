@@ -1,6 +1,6 @@
 {
  "_source": "Compleat-Onlineshop, Bundle „Selbst zusammenstellen“ (Store Frankfurt Nordend): jede Zutat-Karte EINZELN ausgewählt (Menge 1) und die Anzeige „Nutrition facts per serving“ (Reiter „Nährwerte“) abgelesen, danach wieder abgewählt (compleat-shop-capture.js, im Browser; Prüfsumme sha256 des kompakten JSON im Browser und lokal verglichen). Werte als angezeigt (Text, „--“ = nicht angegeben). soldOut = Overlay „Ausverkauft“, Häkchen gesperrt → keine Werte; lastRead = die letzte Ablesung dieser Karte aus einem früheren Durchgang (mit Datum), als sie noch wählbar war. Kontrollquelle für node verify-compleat-shop.js; übernommen mit node verify-compleat-shop.js --save. Nicht von Hand ändern.",
- "readAt": "2026-11-03T07:07:09.199Z",
+ "readAt": "2026-11-10T07:17:01.034Z",
  "page": "https://compleat.vmos.io/store/bb51e8b9-3301-4bee-bb33-e063fac5ec64/menu/category/bae2cbce-c348-4807-9988-4c52556d68b2/bundle/afaa6fe6-4785-4bd7-b6e0-0ea9d4f12c22/bundleCustomization?menuUUID=9a7bd18b-9542-4768-b85a-c48740da87e9",
  "items": [
   {
@@ -483,17 +483,22 @@
    "name": "Baby-Grünkohl (20g)",
    "uuid": "368709c3-7701-4619-83f6-8608220a995f",
    "group": "Vitamine",
-   "qty": 1,
-   "shown": {
-    "kcal": "7",
-    "kj": "29",
-    "fat": "0.2",
-    "carbs": "0.5",
-    "sat": "--",
-    "sugars": "--",
-    "protein": "0.9",
-    "fibre": "0.8",
-    "salt": "--"
+   "soldOut": true,
+   "overlay": "Ausverkauft",
+   "lastRead": {
+    "readAt": "2026-11-03T07:07:09.199Z",
+    "qty": 1,
+    "shown": {
+     "kcal": "7",
+     "kj": "29",
+     "fat": "0.2",
+     "carbs": "0.5",
+     "sat": "--",
+     "sugars": "--",
+     "protein": "0.9",
+     "fibre": "0.8",
+     "salt": "--"
+    }
    }
   },
   {
@@ -723,14 +728,14 @@
    "group": "Toppings",
    "qty": 1,
    "shown": {
-    "kcal": "7",
-    "kj": "29",
-    "fat": "0.7",
-    "carbs": "0.1",
-    "sat": "0.1",
-    "sugars": "0.0",
-    "protein": "0.2",
-    "fibre": "0.1",
+    "kcal": "141",
+    "kj": "590",
+    "fat": "13.4",
+    "carbs": "1.4",
+    "sat": "1.3",
+    "sugars": "0.4",
+    "protein": "3.2",
+    "fibre": "1.3",
     "salt": "--"
    }
   },
@@ -740,15 +745,15 @@
    "group": "Toppings",
    "qty": 1,
    "shown": {
-    "kcal": "106",
-    "kj": "444",
-    "fat": "7.9",
-    "carbs": "7.2",
-    "sat": "3.8",
-    "sugars": "1.6",
-    "protein": "1.1",
-    "fibre": "0.8",
-    "salt": "0.22"
+    "kcal": "118",
+    "kj": "494",
+    "fat": "8.8",
+    "carbs": "8.0",
+    "sat": "4.2",
+    "sugars": "1.8",
+    "protein": "1.2",
+    "fibre": "0.9",
+    "salt": "0.24"
    }
   },
   {
@@ -806,22 +811,17 @@
    "name": "Chili Gewürz (1g)",
    "uuid": "640972df-0ad3-4ca2-8d1c-23f61cb997b6",
    "group": "Toppings",
-   "soldOut": true,
-   "overlay": "Ausverkauft",
-   "lastRead": {
-    "readAt": "2026-10-21T11:06:28.256Z",
-    "qty": 1,
-    "shown": {
-     "kcal": "--",
-     "kj": "--",
-     "fat": "--",
-     "carbs": "--",
-     "sat": "--",
-     "sugars": "--",
-     "protein": "--",
-     "fibre": "--",
-     "salt": "--"
-    }
+   "qty": 1,
+   "shown": {
+    "kcal": "--",
+    "kj": "--",
+    "fat": "--",
+    "carbs": "--",
+    "sat": "--",
+    "sugars": "--",
+    "protein": "--",
+    "fibre": "--",
+    "salt": "--"
    }
   },
   {
@@ -830,15 +830,15 @@
    "group": "Toppings",
    "qty": 1,
    "shown": {
-    "kcal": "5",
-    "kj": "21",
-    "fat": "0.2",
-    "carbs": "0.6",
-    "sat": "0.0",
-    "sugars": "0.2",
-    "protein": "0.2",
-    "fibre": "0.1",
-    "salt": "0.00"
+    "kcal": "101",
+    "kj": "423",
+    "fat": "4.8",
+    "carbs": "12.2",
+    "sat": "0.7",
+    "sugars": "3.2",
+    "protein": "3.2",
+    "fibre": "1.6",
+    "salt": "0.08"
    }
   },
   {
@@ -947,17 +947,22 @@
    "name": "Guacamole (100g)",
    "uuid": "0852c6c2-64fd-4917-a550-d3cbd0ebd60a",
    "group": "Dips",
-   "qty": 1,
-   "shown": {
-    "kcal": "194",
-    "kj": "812",
-    "fat": "17.0",
-    "carbs": "8.4",
-    "sat": "2.7",
-    "sugars": "2.3",
-    "protein": "1.7",
-    "fibre": "6.0",
-    "salt": "0.42"
+   "soldOut": true,
+   "overlay": "Ausverkauft",
+   "lastRead": {
+    "readAt": "2026-11-03T07:07:09.199Z",
+    "qty": 1,
+    "shown": {
+     "kcal": "194",
+     "kj": "812",
+     "fat": "17.0",
+     "carbs": "8.4",
+     "sat": "2.7",
+     "sugars": "2.3",
+     "protein": "1.7",
+     "fibre": "6.0",
+     "salt": "0.42"
+    }
    }
   },
   {
