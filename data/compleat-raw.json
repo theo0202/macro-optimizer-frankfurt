@@ -2,7 +2,7 @@
   "_meta": {
     "restaurant": "Compleat",
     "store": "Frankfurt Nordend (Glauburgstraße 5, 60318 Frankfurt am Main)",
-    "fetchedAt": "2026-11-10T07:20:56.338Z",
+    "fetchedAt": "2026-11-11T07:36:28.661Z",
     "sources": {
       "shop": {
         "url": "https://compleat.vmos.io",
@@ -36,7 +36,7 @@
       "shopDisplay": "data/compleat-shop-anzeige.json = jede Zutat einzeln im Shop ausgewählt und die Anzeige abgelesen (compleat-shop-capture.js, 2026-11-10) → Abgleich: node verify-compleat-shop.js",
       "stock": "Ausverkauft = mit ?forceStockStatus=1 im Bundle, ohne den Parameter nicht (27.09.2026 an den „Ausverkauft“-Karten des Shops bestätigt)"
     },
-    "basis": "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Gerechnet wird immer mit der Menge der jeweiligen Plattform: Wolt nennt seit 02.11.2026 dieselben Mengen wie der Shop (außer dem Ei, 50 statt 40 g; der Salat-Mix hatte bis dahin 100 statt 80 g), Uber Eats nutzt die Namen des Shops, kann aber hinterherhinken (am 02./03.11.2026 noch 100 g bei Hühnchen, Vegane Hackbällchen, Rinderhackbällchen und Pulled Salmon, seit der Erfassung vom 10.11.2026 dieselben Mengen wie der Shop; _meta.ubereats.portionDiffs). Ausnahme Ei bei Uber Eats: Name „(40g)“, kcal-Angabe = 50 g → 50 g (UE_AMOUNT, _meta.ubereats.amountFixed). Ausnahme (User 27.10.2026): Sojasauce mit typischen Werten (USDA FoodData Central, _meta.referenceValues) statt der unplausiblen Shop-Werte.",
+    "basis": "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Gerechnet wird immer mit der Menge der jeweiligen Plattform: Wolt nennt seit 02.11.2026 dieselben Mengen wie der Shop (außer dem Ei, 50 statt 40 g; der Salat-Mix hatte bis dahin 100 statt 80 g), Uber Eats nutzt die Namen des Shops, kann aber hinterherhinken (am 02./03.11.2026 noch 100 g bei Hühnchen, Vegane Hackbällchen, Rinderhackbällchen und Pulled Salmon, seit der Erfassung vom 10.11.2026 dieselben Mengen wie der Shop; _meta.ubereats.portionDiffs). Ausnahme Ei bei Uber Eats: Name „(40g)“, kcal-Angabe = 50 g → 50 g (UE_AMOUNT, _meta.ubereats.amountFixed). Ausnahme (User 27.10.2026): Sojasauce mit typischen Werten (USDA FoodData Central, _meta.referenceValues) statt der unplausiblen Shop-Werte. Ausnahme (User 11.11.2026): Pulled Salmon mit 0 statt 6 g Ballaststoffen je 100 g (Lachs, Salz, Rauch — sonst die Shop-Werte; _meta.corrections).",
     "woltRules": "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Keine Gruppe außer dem Dip ist Pflicht (min 0) → der Rechner verlangt weder Base noch Protein (User 11.10.2026). Grundpreis „Build your Bowl“ 3 €. Wolt: keine Vorauswahl — die Menükarte zeigt den Grundpreis 3 €.",
     "ubereatsRules": "Selbst zusammenstellen (Grundpreis 3 €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: keine Gruppe Pflicht (User 11.10.2026) · Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft; Ausnahmen Mushroots und seit 10.11.2026 Rinderhackbällchen, _meta.ubereats.halfNotDouble). Uber Eats: keine Vorauswahl — die Menükarte zeigt den Grundpreis 3 €.",
     "decisions": [
@@ -53,7 +53,8 @@
       "User 03.11.2026 (Rückfrage „Hast du die Wolt-Bestellfenster-Gramm-Angaben gecheckt?“): Bestellfenster von „Build your Bowl“ im Browser geöffnet — Namen, Mengen und Preise = Wolt-API; die Produktinfo nennt für 8 Optionen eigene Nährwerte, die zur Rechnung passen (_meta.woltProductInfo, ab jetzt Teil des Crawls)",
       "User 10.11.2026 („prüfe ob Compleat-Gramm-Angaben aktuell“): Shop-API, Shop-Anzeige (jede Karte einzeln), Wolt-API, Wolt-Bestellfenster und Uber Eats neu geprüft — Shop und Wolt mit denselben Mengen wie am 03.11.2026, Uber Eats jetzt auch (Hühnchen, Vegane Hackbällchen, Pulled Salmon 80 g, Rinderhackbällchen 90 g; halbe Rinderhack weiter 50 g); das Ei heißt bei Uber Eats jetzt „(40g)“, die kcal-Angabe dort passt zu 50 g → bleibt 50 g (dem User genannt). Der Shop rechnet Walnusskerne, Functional Fall Crunch und Röstzwiebeln in der Anzeige jetzt mit 20 g (Anzeige-Bugs behoben)",
       "User 02.11.2026: Compleat hat die Mengen geändert → Shop und Wolt: Hähnchen, Vegane Hackbällchen, Pulled Salmon 80 statt 100 g, Rinderhackbällchen 90 statt 100 g (halbe im Shop: Hühnchen, Vegane Hackbällchen, Pulled Salmon 40 statt 50 g, Rinderhackbällchen weiter 50 g), Wolt-Salat-Mix 80 statt 100 g; Werte je 100 g und Preise unverändert (_meta.portionChanges). Uber Eats nennt noch die alten Mengen → der Uber-Eats-Tab rechnet weiter mit dem, was Uber Eats nennt (dem User genannt)",
-      "User 27.10.2026: Sojasauce mit typischen Nährwerten statt der Shop-Werte („scheinen nicht realistisch — nimm lieber die typischen Nährwerte für Sojasauce“): USDA FoodData Central #174277 (gebraute Sojasauce, Shoyu), 20 ml = 21,6 g laut USDA-Portionsgewicht → 11,5 kcal / 1,76 g Eiweiß / 0,89 g KH / 2,97 g Salz je Portion (Shop: 4,2 kcal / 0,48 g Eiweiß / 0,46 g KH / 2,87 g Salz); Shop-Werte bleiben als shopPer100 dokumentiert"
+      "User 27.10.2026: Sojasauce mit typischen Nährwerten statt der Shop-Werte („scheinen nicht realistisch — nimm lieber die typischen Nährwerte für Sojasauce“): USDA FoodData Central #174277 (gebraute Sojasauce, Shoyu), 20 ml = 21,6 g laut USDA-Portionsgewicht → 11,5 kcal / 1,76 g Eiweiß / 0,89 g KH / 2,97 g Salz je Portion (Shop: 4,2 kcal / 0,48 g Eiweiß / 0,46 g KH / 2,87 g Salz); Shop-Werte bleiben als shopPer100 dokumentiert",
+      "User 11.11.2026 („Mache die Ballaststoffe bei dem Pulled Salmon bei Compleat raus. Sind bestimmt falsch oder“): ja — 6 g Ballaststoffe je 100 g bei „LACHS, Speisesalz, Rauch“ sind ein Quellfehler (Ballaststoffe gibt es nur in Pflanzen; die kcal des Shops passen ohne sie besser zu den Makros) → der Rechner nimmt 0 g, auf Wolt und Uber Eats, ganze und halbe Portion; alle übrigen Werte bleiben die des Shops, die Shop-Werte als shopPer100 dokumentiert (CORRECTED)"
     ],
     "portionDiffs": [
       {
@@ -135,7 +136,7 @@
         "id": "pulled_salmon",
         "name": "Pulled Salmon (80g)",
         "issues": [
-          "Ballaststoffe 6 g je 100 g, obwohl die Zutaten nur „LACHS, Speisesalz, Rauch“ sind → Quellfehler, unverändert übernommen"
+          "Ballaststoffe 6 g je 100 g, obwohl die Zutaten nur „LACHS, Speisesalz, Rauch“ sind (Ballaststoffe gibt es nur in Pflanzen; die 215 kcal je 100 g passen ohne sie besser zu den Makros: 210,8, mit 2 kcal je g Ballaststoffe 222,8) → Quellfehler; der Rechner nimmt 0 g, die übrigen Werte und die Shop-Werte (shopPer100) bleiben, User 11.11.2026"
         ]
       },
       {
@@ -184,7 +185,6 @@
       "Salatmix (80g)",
       "Gemüsemix (100g)",
       "Kürbiswürfel mariniert (50g)",
-      "Baby-Grünkohl (20g)",
       "Ajvar (100g)",
       "Balsamico Dressing (80g)",
       "Joghurt-Salatdressing (80g)",
@@ -192,7 +192,6 @@
     ],
     "woltMapUnused": [
       "Salat-Mix, 80 g",
-      "Grünkohl, 20 g",
       "Joghurt-Salatdressing",
       "Guacamole",
       "Balsamico Dressing , 80g",
@@ -203,7 +202,6 @@
     ],
     "shellfish": [],
     "soldOut": [
-      "Baby-Grünkohl (20g)",
       "Guacamole (100g)"
     ],
     "removedIngredients": [
@@ -546,51 +544,18 @@
       }
     ],
     "lastChanges": {
-      "since": "2026-11-03T07:33:40.044Z",
+      "since": "2026-11-10T07:20:56.338Z",
       "shopAdded": [],
       "shopRemoved": [],
-      "woltAdded": [],
-      "woltRemoved": [
-        "Deine Basis: Salat-Mix, 80 g",
+      "woltAdded": [
         "Deine Extras: Grünkohl, 20 g"
       ],
-      "ubereatsAdded": [
-        "Proteine: Hühnchen (80g)",
-        "Proteine: Rinderhackbällchen (90g)",
-        "Proteine: Vegane Hackbällchen (80g)",
-        "Proteine: Pulled Salmon (80g)",
-        "Proteine: Hart gekochtes Ei (40g)",
-        "Proteine: Hühnchen - Halbe Portion (40g)",
-        "Proteine: Vegane Hackbällchen - Halbe Portion (40g)",
-        "Proteine: Pulled Salmon - Halbe Portion (40g)",
-        "Toppings: Chili Gewürz (1g)"
-      ],
-      "ubereatsRemoved": [
-        "Dips: Guacamole (100g)",
-        "Proteine: Hühnchen (100g)",
-        "Proteine: Rinderhackbällchen (100g)",
-        "Proteine: Vegane Hackbällchen (100g)",
-        "Proteine: Pulled Salmon (100g)",
-        "Proteine: Hart gekochtes Ei (50g)",
-        "Proteine: Hühnchen - Halbe Portion (50g)",
-        "Proteine: Vegane Hackbällchen - Halbe Portion (50g)",
-        "Proteine: Pulled Salmon - Halbe Portion (50g)",
-        "Vitamine: Baby-Grünkohl (20g)"
-      ],
+      "woltRemoved": [],
+      "ubereatsAdded": [],
+      "ubereatsRemoved": [],
       "prices": [],
       "values": [],
-      "portions": [
-        "Shop: Walnusskerne (20g) → Walnusskerne (20g) (Anzeige-Menge 1 → 20)",
-        "Shop: Functional Fall Crunch (20g) → Functional Fall Crunch (20g) (Anzeige-Menge 1 → 20)",
-        "Shop: Röstzwiebeln (20g) → Röstzwiebeln (20g) (Anzeige-Menge 18 → 20)",
-        "Uber Eats · Proteine: Hühnchen (100g) → Hühnchen (80g) (100 → 80 g)",
-        "Uber Eats · Proteine: Rinderhackbällchen (100g) → Rinderhackbällchen (90g) (100 → 90 g)",
-        "Uber Eats · Proteine: Vegane Hackbällchen (100g) → Vegane Hackbällchen (80g) (100 → 80 g)",
-        "Uber Eats · Proteine: Pulled Salmon (100g) → Pulled Salmon (80g) (100 → 80 g)",
-        "Uber Eats · Proteine: Hühnchen - Halbe Portion (50g) → Hühnchen - Halbe Portion (40g) (50 → 40 g)",
-        "Uber Eats · Proteine: Vegane Hackbällchen - Halbe Portion (50g) → Vegane Hackbällchen - Halbe Portion (40g) (50 → 40 g)",
-        "Uber Eats · Proteine: Pulled Salmon - Halbe Portion (50g) → Pulled Salmon - Halbe Portion (40g) (50 → 40 g)"
-      ]
+      "portions": []
     },
     "referenceValues": [
       {
@@ -631,9 +596,23 @@
         "why": "Offizielle Shop-Werte je 100 ml (21 kcal, 2,4 g Eiweiß, 2,3 g KH, 14,35 g Salz) unplausibel: das Salz passt zu Sojasauce, Eiweiß und kcal liegen bei einem Drittel einer gebrauten Sojasauce → ersetzt durch typische Werte (USDA FoodData Central #174277), User 27.10.2026"
       }
     ],
+    "corrections": [
+      {
+        "id": "pulled_salmon",
+        "name": "Pulled Salmon (80g)",
+        "unit": "g",
+        "shop": {
+          "fibre": 6
+        },
+        "values": {
+          "fibre": 0
+        },
+        "why": "Ballaststoffe 6 g je 100 g, obwohl die Zutaten nur „LACHS, Speisesalz, Rauch“ sind (Ballaststoffe gibt es nur in Pflanzen; die 215 kcal je 100 g passen ohne sie besser zu den Makros: 210,8, mit 2 kcal je g Ballaststoffe 222,8) → Quellfehler; der Rechner nimmt 0 g, die übrigen Werte und die Shop-Werte (shopPer100) bleiben, User 11.11.2026"
+      }
+    ],
     "woltProductInfo": {
       "url": "https://prodinfo.wolt.com/de/6537b03e8fb9ce1db9714e2d/21e057f4508797cc8ef70efe?lang=de",
-      "options": 41,
+      "options": 42,
       "values": [
         {
           "group": "Deine Basis",
@@ -771,6 +750,33 @@
           }
         },
         {
+          "group": "Deine Extras",
+          "name": "Grünkohl, 20 g",
+          "amount": 20,
+          "unit": "g",
+          "label": "pro 100 g",
+          "wolt": {
+            "kcal": 7.4,
+            "fat": 0.2,
+            "sat": null,
+            "carbs": 0.5,
+            "sugars": 0,
+            "fibre": 0.8,
+            "protein": 0.9,
+            "salt": 0
+          },
+          "ours": {
+            "kcal": 7.4,
+            "fat": 0.18,
+            "sat": 0,
+            "carbs": 0.5,
+            "sugars": 0,
+            "fibre": 0.84,
+            "protein": 0.86,
+            "salt": 0
+          }
+        },
+        {
           "group": "Dein Dip",
           "name": "Trüffel Light (Inlead), 80 g",
           "amount": 80,
@@ -858,11 +864,6 @@
         {
           "group": "Deine Basis",
           "name": "Salat-Mix, 80 g",
-          "since": "2026-11-10"
-        },
-        {
-          "group": "Deine Extras",
-          "name": "Grünkohl, 20 g",
           "since": "2026-11-10"
         },
         {
@@ -1487,7 +1488,7 @@
         "sat": 3.5,
         "carbs": 0,
         "sugars": 0,
-        "fibre": 6,
+        "fibre": 0,
         "protein": 20.3,
         "salt": 2.2
       },
@@ -1497,7 +1498,7 @@
         "sat": 2.8,
         "carbs": 0,
         "sugars": 0,
-        "fibre": 4.8,
+        "fibre": 0,
         "protein": 16.24,
         "salt": 1.76
       },
@@ -1509,7 +1510,23 @@
         "uuid": "1f8fe554-f525-4df5-ad65-1825ee40ca70",
         "displayAmount": 80
       },
-      "halfPortion": 40
+      "halfPortion": 40,
+      "shopPer100": {
+        "kcal": 215,
+        "fat": 14.4,
+        "sat": 3.5,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 6,
+        "protein": 20.3,
+        "salt": 2.2
+      },
+      "corrected": {
+        "keys": [
+          "fibre"
+        ],
+        "note": "salmon, salt and smoke contain no fibre"
+      }
     },
     {
       "id": "vegane_hackbaellchen",
@@ -2023,8 +2040,7 @@
       "vmos": {
         "uuid": "368709c3-7701-4619-83f6-8608220a995f",
         "displayAmount": 20
-      },
-      "soldOut": true
+      }
     },
     {
       "id": "walnusskerne",
@@ -3545,8 +3561,7 @@
         "protein": 4.3,
         "salt": 0
       },
-      "displayAmount": 20,
-      "soldOut": true
+      "displayAmount": 20
     },
     {
       "name": "Walnusskerne (20g)",
@@ -4241,6 +4256,15 @@
             "price": 1
           },
           {
+            "name": "Grünkohl, 20 g",
+            "ingredient": "baby_gruenkohl",
+            "role": "extra",
+            "amount": 20,
+            "unit": "g",
+            "maxQty": 1,
+            "price": 1.5
+          },
+          {
             "name": "Schwarzer Sesam, 3 g",
             "ingredient": "schwarzer_sesam",
             "role": "extra",
@@ -4311,17 +4335,6 @@
             "unit": "g",
             "maxQty": 1,
             "price": 1
-          },
-          {
-            "name": "Grünkohl, 20 g",
-            "ingredient": "baby_gruenkohl",
-            "role": "extra",
-            "amount": 20,
-            "unit": "g",
-            "maxQty": 1,
-            "price": 1.5,
-            "notListed": true,
-            "notListedSince": "2026-11-10"
           }
         ],
         "defaultOption": {

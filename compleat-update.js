@@ -8,6 +8,8 @@
 //
 // TYPISCHE WERTE statt der Shop-Werte (raw.ingredients[].reference, User 27.10.2026: Sojasauce): per100 ist dann schon die Referenz (der Crawl
 // rechnet sie um), die Optionen folgen automatisch; der Block trägt dazu ref (Quelle) und shopPer100 (offizielle Shop-Werte) für den Hinweis.
+// KORRIGIERTE Shop-Werte (raw.ingredients[].corrected, User 11.11.2026: Pulled Salmon ohne Ballaststoffe): per100 ist schon korrigiert, der
+// Block trägt shopPer100 und fix (Begründung, Englisch) für den Hinweis in der App (compleatFixNote, compleatFixFooter).
 "use strict";
 const path = require("path");
 const U = require("./update-lib.js");
@@ -90,6 +92,7 @@ function blockLines(raw) {
     "// Quelle: Compleat-Onlineshop (compleat.vmos.io, Frankfurt Nordend), Stand " + raw._meta.fetchedAt.slice(0, 10) + " · Shop-Werte pro 100 g × Menge · Menüs + Preise: " +
       menus.map(([pf, m]) => (pf === "wolt" ? "Wolt" : "Uber Eats") + " „" + m.item + "“" + (raw[pf].capturedAt ? " (erfasst " + raw[pf].capturedAt.slice(0, 10) + ")" : "")).join(", "),
     ...raw.ingredients.filter(x => x.reference).map(x => "// TYPISCHE WERTE statt der Shop-Werte: " + x.shopName + " — " + x.valuesFrom + (x.reference.density ? " (" + x.reference.density + ")" : "")),
+    ...raw.ingredients.filter(x => x.corrected).map(x => "// KORRIGIERT (Shop-Wert sicher falsch): " + x.shopName + " — " + x.corrected.keys.map(k => k + " " + x.shopPer100[k] + " → " + x.per100[k]).join(", ") + " je 100 " + x.unit + " (" + x.corrected.note + ")"),
     ...blocked.map(x => "// GESPERRT (nie im Rechner, auf keiner Plattform): " + x.shopName + " — " + x.blocked),
     "const " + KEY + " = {",
     "  // Kompletter Shop-Datensatz (auch Zutaten, die eine Plattform nicht anbietet)",
@@ -103,12 +106,16 @@ function blockLines(raw) {
     if (x.blocked) o.blocked = x.blocked;
     if (x.soldOut) o.soldOut = true; // beim letzten Crawl im Shop ausverkauft (bleibt im Menü, Hinweis in der App)
     if (x.reference) { o.ref = x.reference.label; o.shopPer100 = x.shopPer100; } // typische Werte statt der Shop-Werte (Hinweis in der App)
+    if (x.corrected) { o.fix = x.corrected.note; o.shopPer100 = x.shopPer100; } // einzelne Shop-Werte korrigiert (Hinweis in der App)
     lines.push("    " + lit(o) + ",");
   }
   lines.push("  ],");
   lines.push("  // Stand des letzten Crawls (Shop-Werte, Menüs, Ausverkauft-Status)", "  asOf: " + JSON.stringify(raw._meta.fetchedAt.slice(0, 10)) + ",");
+  // Shop-Anzeige zuletzt Karte für Karte abgelesen (data/compleat-shop-anzeige.json) → Fußzeile der App
+  lines.push("  shopCheckedAt: " + JSON.stringify(String(raw._meta.shopControl.readAt || "").slice(0, 10)) + ",");
   for (const [pf, m] of menus) {
-    lines.push("  " + pf + ": {", "    item: " + JSON.stringify(m.item) + ", page: " + JSON.stringify(m.page) + ", basePrice: " + m.basePrice + ",");
+    // capturedAt = Menü im Browser erfasst (Uber Eats) → Fußzeile der App
+    lines.push("  " + pf + ": {", "    item: " + JSON.stringify(m.item) + ", page: " + JSON.stringify(m.page) + ", basePrice: " + m.basePrice + "," + (raw[pf].capturedAt ? " capturedAt: " + JSON.stringify(raw[pf].capturedAt.slice(0, 10)) + "," : ""));
     lines.push("    require: " + lit(m.require) + ", // Pflicht-Rollen laut Plattform (Gruppen-Minimum; keine → jede Gruppe optional)");
     // Vorausgewählte Pflicht-Optionen der Plattform (nur für den Hinweistext „Menükarte zeigt …“)
     if (m.preselected.length) lines.push("    preselected: [" + m.preselected.map(lit).join(",") + "],");

@@ -25,13 +25,14 @@ ausverkauft. Bei Problemen schreibt er `data/compleat-raw.json` nicht und nennt 
 | „Uber Eats: 2× halbe ≠ ganze“ | `UE_HALF_NOT_DOUBLE` mit Menge und Preis begründen |
 | „Kuratierte id fehlt im Shop“ | Zutat gestrichen → Eintrag aus der Tabelle entfernen |
 | „Doppelte Zutat-id“ | gleicher Name in zwei Gruppen mit anderen Werten je 100 g → dem User melden |
+| „CORRECTED …: der Shop nennt jetzt …“ | Compleat hat einen Wert geändert, den der Tracker auf Wunsch des Users korrigiert (seit 11.11.2026: Pulled Salmon, Ballaststoffe 6 → 0 g je 100 g). Neuen Shop-Wert prüfen: stimmt er jetzt (z.B. 0 g), den Eintrag aus `CORRECTED` streichen; sonst `shop` auf den neuen Wert setzen und dem User melden |
 
 **Ausverkauft ≠ gestrichen** (User 27.09.2026), das erkennt der Crawl selbst:
 - Die Shop-API liefert mit `?forceStockStatus=1` das ganze Sortiment, ohne den Parameter nur das gerade Verfügbare. Was im ersten, aber nicht im zweiten Ergebnis steht, ist **ausverkauft** (`soldOut`, bleibt drin).
 - Was in keinem von beiden steht, ist **gestrichen** und fliegt raus (`_meta.removedIngredients`).
 - **Eine Zutat verschwindet nie still aus einem Tab** (User 03.11.2026): fehlt eine Plattform-Option, behält der Crawl sie mit Menge, Preis und Nährwerten vom letzten Stand (`carryNotListed`: `notListed` + `notListedSince`, `_meta.notListed`), auch wenn der Shop sie gerade anbietet — Wolt und Uber Eats blenden Ausverkauftes aus und schalten es nicht immer sofort frei. Der `WOLT_MAP`-Eintrag bleibt stehen, sobald die Plattform sie wieder führt, ist die Markierung weg. Neue Menge derselben Zutat ersetzt die alte Option.
 - In der App bleiben solche Zutaten wählbar (Baukasten, Must include, Exclude); der Schalter **„Exclude unavailable ingredients“** (Default AN) lässt sie aus den Vorschlägen. Im Shop Ausverkauftes taucht dagegen immer normal auf (User 03.11.2026: die App weiß nicht täglich live, was ausverkauft ist) und steht nur als Hinweis mit Datum da. Dem User nennen, welche es gerade sind (Konsolenzeile „Gerade nicht gelistet“).
-- Gesperrte Zutaten (`BLOCKED`, z.B. Quinoa) bleiben gesperrt.
+- Gesperrte Zutaten (`BLOCKED`, z.B. Quinoa) bleiben gesperrt. Typische Werte (`REFERENCE`, Sojasauce) und korrigierte Werte (`CORRECTED`, Pulled Salmon ohne Ballaststoffe) bleiben, solange der User nichts anderes sagt; die Kontrollen prüfen dabei weiter die offiziellen Shop-Werte (`shopPer100`).
 
 ## 2. Shop-Anzeige einzeln anklicken (neue und geänderte Zutaten — am einfachsten alle)
 
@@ -86,7 +87,7 @@ Dabei melden und in `_meta` belassen:
 
 ## 5. App, Doku, Veröffentlichung
 
-- **App-Texte:** in index.html Hinweistext (`note`) und Fußzeile (`footer`) der beiden Compleat-Einträge prüfen: Datenstand, Grundpreis, Sonderfälle. Der Hinweis auf eine Vorauswahl entsteht automatisch über `bowlPreselectNote`.
+- **App-Texte:** in index.html Hinweistext (`note`) und Fußzeile (`footer`) der beiden Compleat-Einträge prüfen: Grundpreis, Sonderfälle. Die Daten in der Fußzeile (Abruf, Shop-Anzeige zuletzt abgelesen, Uber Eats erfasst) kommen seit 11.11.2026 aus dem Block (`asOf`, `shopCheckedAt`, `ubereats.capturedAt`) — nichts von Hand nachziehen. Der Hinweis auf eine Vorauswahl entsteht automatisch über `bowlPreselectNote`.
 - **Preview:** bei 375×700 prüfen. Im Compleat-Tab müssen die neuen Zutaten in Vorschlägen und „Must include“ auftauchen, die Konsole muss fehlerfrei sein.
 - **CLAUDE.md:** Datenquellen-Zeile, Pipeline, Befunde (neue Zutaten mit Wolt-Preis und Werten, gestrichen, ausverkauft, Preise), Bestellabläufe, Tests und Entscheidungen (mit Datum).
 - **Commit:** auf Deutsch, Nachricht per Datei (`git commit -F`), Dateien einzeln adden: compleat-crawl.js, data/compleat-raw.json, data/compleat-shop-anzeige.json, data/compleat-ubereats-menu.json, index.html, tests.js, CLAUDE.md und geänderte verify-Skripte. Danach push und live prüfen.

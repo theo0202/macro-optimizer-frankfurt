@@ -16,6 +16,7 @@
 // Portionswerte = pro 100 × Portion / 100 (LMIV-Umrechnung). Die Shop-Anzeige rechnet dagegen mit variations[0].value —
 // weicht das von der Portion ab, zeigt der Shop falsche Portionswerte an (→ _meta.displayBugs, z.B. Walnusskerne 7 kcal).
 // Ausnahme REFERENCE (User 27.10.2026): Sojasauce rechnet mit typischen Werten (USDA FoodData Central), die Shop-Werte bleiben als shopPer100.
+// Ausnahme CORRECTED (User 11.11.2026): Pulled Salmon ohne die 6 g Ballaststoffe je 100 g des Shops (Lachs, Salz, Rauch), Shop-Werte als shopPer100.
 "use strict";
 const fs = require("fs");
 const path = require("path");
@@ -115,9 +116,9 @@ const UE_AMOUNT = {
 // je 100 g = 305 kcal je 250 g, passend zu gekochter Quinoa) → User 21.10.2026: wieder im Rechner.
 const BLOCKED = {};
 
-// Manuell geprüfte Auffälligkeiten der offiziellen Daten (Werte werden NICHT korrigiert, nur dokumentiert)
+// Manuell geprüfte Auffälligkeiten der offiziellen Daten (Werte werden NICHT korrigiert, nur dokumentiert). Pulled Salmon (6 g Ballaststoffe
+// je 100 g) stand hier bis 10.11.2026 — seit 11.11.2026 korrigiert (CORRECTED, die Auffälligkeit kommt von dort)
 const MANUAL_ANOMALIES = {
-  pulled_salmon: "Ballaststoffe 6 g je 100 g, obwohl die Zutaten nur „LACHS, Speisesalz, Rauch“ sind → Quellfehler, unverändert übernommen",
   honey_muscle_mustard: "Ballaststoffe 35 g je 100 g (28 g je 80 g) bei einem Öl-Wasser-Dip unplausibel → Quellfehler, unverändert übernommen",
   avocado: "217 kcal, 12,5 g Fett, davon 10 g gesättigt je 100 g: kcal passen nicht zu den Makros, der Anteil gesättigter Fettsäuren ist für Avocado untypisch → unverändert übernommen",
   edamame: "Fett 0 g, aber 110 kcal je 100 g passen nicht zu 8,5 g KH + 10 g Protein → Fettangabe fehlt vermutlich, unverändert übernommen",
@@ -143,6 +144,25 @@ const REFERENCE = {
     gPerMl: 16 / 14.78676478125,
     density: "USDA-Portionsgewicht 1 tbsp (14,79 ml) = 16 g → 1,082 g je ml",
     why: "Offizielle Shop-Werte je 100 ml (21 kcal, 2,4 g Eiweiß, 2,3 g KH, 14,35 g Salz) unplausibel: das Salz passt zu Sojasauce, Eiweiß und kcal liegen bei einem Drittel einer gebrauten Sojasauce → ersetzt durch typische Werte (USDA FoodData Central #174277), User 27.10.2026",
+  },
+};
+
+// Einzelne offizielle Shop-Werte, die sicher falsch sind und die der User ersetzt haben will (wie REFERENCE, aber nur einzelne Werte; die
+// übrigen bleiben die des Shops). Der Rechner nimmt die korrigierten Werte (per100 der Zutat — gilt damit auch für die halbe Portion, die
+// je 100 g dieselben Shop-Werte hat), die Shop-Werte bleiben als shopPer100 an der Zutat und in shopItems: die Kontrollen gegen den Shop
+// (Shop-Anzeige, Word-Export, Fertig-Bowls, kcal-Angaben von Uber Eats, Wolt-Produktinfo) prüfen weiter die offiziellen Werte.
+// shop = was der Shop beim Einbau nannte (je 100 g): ändert Compleat den Wert, bricht der Crawl ab → prüfen, ob die Korrektur noch nötig ist.
+// note = Begründung für den Hinweis in der App (Englisch).
+const CORRECTED = {
+  // User 11.11.2026: „Mache die Ballaststoffe bei dem Pulled Salmon bei Compleat raus. Sind bestimmt falsch oder“ — ja: der Shop nennt 6 g
+  // Ballaststoffe je 100 g (Anzeige am 10.11.2026: 4,8 g je 80 g, 2,4 g je 40 g), die Zutaten sind aber nur „LACHS, Speisesalz, Rauch“, und
+  // Ballaststoffe gibt es nur in Pflanzen. Die 215 kcal des Shops passen ohne sie besser zu den Makros (4·20,3 + 9·14,4 = 210,8; mit 2 kcal
+  // je g Ballaststoffe wären es 222,8)
+  pulled_salmon: {
+    shop: { fibre: 6 },
+    values: { fibre: 0 },
+    note: "salmon, salt and smoke contain no fibre",
+    why: "Ballaststoffe 6 g je 100 g, obwohl die Zutaten nur „LACHS, Speisesalz, Rauch“ sind (Ballaststoffe gibt es nur in Pflanzen; die 215 kcal je 100 g passen ohne sie besser zu den Makros: 210,8, mit 2 kcal je g Ballaststoffe 222,8) → Quellfehler; der Rechner nimmt 0 g, die übrigen Werte und die Shop-Werte (shopPer100) bleiben, User 11.11.2026",
   },
 };
 
@@ -337,7 +357,22 @@ async function main() {
     ing.reference = { label: ref.label, per100g: ref.per100g, unitFactor: U.round(f, 4), density: ing.unit === "ml" ? ref.density : null };
     referenceValues.push({ id, name: ing.shopName, from: ref.from, density: ing.unit === "ml" ? ref.density : null, per100g: ref.per100g, per100: ing.per100, shopPer100: ing.shopPer100, why: ref.why });
   }
-  for (const id of [...CRUNCH, ...Object.keys(BLOCKED), ...Object.keys(MANUAL_ANOMALIES), ...PROTEIN_MAIN, ...Object.keys(HALF_DIFF_OK), ...Object.keys(UE_HALF_NOT_DOUBLE), ...Object.keys(REFERENCE)]) if (!byId[id]) problems.push("Kuratierte id fehlt im Shop: " + id + " (aus dem Shop gestrichen? → Tabelle bereinigen)");
+  // Einzelne Shop-Werte korrigiert (CORRECTED): per100 = Shop-Werte mit den korrigierten Werten; shopPer100 = offiziell
+  const corrections = [];
+  for (const [id, c] of Object.entries(CORRECTED)) {
+    const ing = byId[id];
+    if (!ing) continue; // fehlt → unten als „Kuratierte id fehlt im Shop“ gemeldet
+    if (REFERENCE[id]) { problems.push("CORRECTED " + id + ": hat schon typische Werte (REFERENCE) → nur eine der beiden Tabellen"); continue; }
+    const moved = Object.keys(c.shop).filter(k => ing.per100[k] !== c.shop[k]);
+    if (moved.length) { problems.push("CORRECTED " + id + ": der Shop nennt jetzt " + moved.map(k => LABEL[k] + " " + ing.per100[k] + " statt " + c.shop[k]).join(", ") + " je 100 " + ing.unit + " → prüfen, ob die Korrektur noch nötig ist"); continue; }
+    ing.shopPer100 = ing.per100;
+    ing.per100 = Object.assign({}, ing.per100, c.values);
+    if (U.checkItem({ ...ing.per100 }).length) problems.push("CORRECTED " + id + ": korrigierte Werte unplausibel (" + U.checkItem({ ...ing.per100 }).join("; ") + ")");
+    ing.perPortion = Object.fromEntries(U.KEYS.map(k => [k, U.round(ing.per100[k] * ing.portion / 100, 2)]));
+    ing.corrected = { keys: Object.keys(c.values), note: c.note };
+    corrections.push({ id, name: ing.shopName, unit: ing.unit, shop: Object.fromEntries(Object.keys(c.values).map(k => [k, ing.shopPer100[k]])), values: c.values, why: c.why });
+  }
+  for (const id of [...CRUNCH, ...Object.keys(BLOCKED), ...Object.keys(MANUAL_ANOMALIES), ...PROTEIN_MAIN, ...Object.keys(HALF_DIFF_OK), ...Object.keys(UE_HALF_NOT_DOUBLE), ...Object.keys(REFERENCE), ...Object.keys(CORRECTED)]) if (!byId[id]) problems.push("Kuratierte id fehlt im Shop: " + id + " (aus dem Shop gestrichen? → Tabelle bereinigen)");
 
   // ── Abgleich mit der einzeln angeklickten Shop-Anzeige (data/compleat-shop-anzeige.json) ──
   const shopControl = require("./verify-compleat-shop.js").compare(shopItems, U.readJSON(SHOP_CTL));
@@ -398,7 +433,8 @@ async function main() {
       if (!p.nutrition) continue;
       const grp = woltGroups.find(g => g.name === p.group), o = grp && grp.options.find(x => x.name === p.name);
       if (!o) { problems.push("Wolt-Produktinfo: Option mit Nährwerten nicht im Menü: " + p.group + " · " + p.name); continue; }
-      const per100 = byId[o.ingredient].per100, ours = Object.fromEntries(U.KEYS.map(k => [k, U.round(per100[k] * o.amount / 100, 2)]));
+      // offizielle Shop-Werte (auch bei typischen oder korrigierten Werten im Rechner): Wolts Angaben stammen von Compleat
+      const per100 = byId[o.ingredient].shopPer100 || byId[o.ingredient].per100, ours = Object.fromEntries(U.KEYS.map(k => [k, U.round(per100[k] * o.amount / 100, 2)]));
       const diffs = U.KEYS.filter(k => p.nutrition[k] != null && Math.abs(p.nutrition[k] - ours[k]) > (k === "kcal" ? 1 : 0.15));
       if (diffs.length) problems.push("Wolt-Produktinfo ≠ Rechnung bei „" + p.name + "“ (" + o.amount + " " + o.unit + "): " + diffs.map(k => k + " Wolt " + p.nutrition[k] + ", Rechnung " + ours[k]).join(", "));
       woltInfo.values.push({ group: p.group, name: p.name, amount: o.amount, unit: o.unit, label: p.nutrition.label, wolt: Object.fromEntries(U.KEYS.map(k => [k, p.nutrition[k]])), ours });
@@ -528,6 +564,7 @@ async function main() {
     const issues = U.checkItem(ing.perPortion);
     if (MANUAL_ANOMALIES[ing.id]) issues.push(MANUAL_ANOMALIES[ing.id]);
     if (REFERENCE[ing.id] && ing.shopPer100) issues.push(REFERENCE[ing.id].why);
+    if (CORRECTED[ing.id] && ing.corrected) issues.push(CORRECTED[ing.id].why);
     for (const h of halfPortionDiffs.filter(x => x.id === ing.id)) issues.push("Halbe Portion „" + h.name + "“ hat andere Werte je 100 g: " + Object.keys(h.halb).map(k => k + " " + h.halb[k] + " statt " + h.ganz[k]).join(", ") + " → unverändert übernommen, der Rechner nutzt die Werte der ganzen Portion");
     if (issues.length) anomalies.push({ id: ing.id, name: ing.shopName, issues });
   }
@@ -552,7 +589,7 @@ async function main() {
         shopDisplay: "data/compleat-shop-anzeige.json = jede Zutat einzeln im Shop ausgewählt und die Anzeige abgelesen (compleat-shop-capture.js, " + shopControl.readAt + ") → Abgleich: node verify-compleat-shop.js",
         stock: "Ausverkauft = mit ?forceStockStatus=1 im Bundle, ohne den Parameter nicht (27.09.2026 an den „Ausverkauft“-Karten des Shops bestätigt)",
       },
-      basis: "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Gerechnet wird immer mit der Menge der jeweiligen Plattform: Wolt nennt seit 02.11.2026 dieselben Mengen wie der Shop (außer dem Ei, 50 statt 40 g; der Salat-Mix hatte bis dahin 100 statt 80 g), Uber Eats nutzt die Namen des Shops, kann aber hinterherhinken (am 02./03.11.2026 noch 100 g bei Hühnchen, Vegane Hackbällchen, Rinderhackbällchen und Pulled Salmon, seit der Erfassung vom 10.11.2026 dieselben Mengen wie der Shop; _meta.ubereats.portionDiffs). Ausnahme Ei bei Uber Eats: Name „(40g)“, kcal-Angabe = 50 g → 50 g (UE_AMOUNT, _meta.ubereats.amountFixed). Ausnahme (User 27.10.2026): Sojasauce mit typischen Werten (USDA FoodData Central, _meta.referenceValues) statt der unplausiblen Shop-Werte.",
+      basis: "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Gerechnet wird immer mit der Menge der jeweiligen Plattform: Wolt nennt seit 02.11.2026 dieselben Mengen wie der Shop (außer dem Ei, 50 statt 40 g; der Salat-Mix hatte bis dahin 100 statt 80 g), Uber Eats nutzt die Namen des Shops, kann aber hinterherhinken (am 02./03.11.2026 noch 100 g bei Hühnchen, Vegane Hackbällchen, Rinderhackbällchen und Pulled Salmon, seit der Erfassung vom 10.11.2026 dieselben Mengen wie der Shop; _meta.ubereats.portionDiffs). Ausnahme Ei bei Uber Eats: Name „(40g)“, kcal-Angabe = 50 g → 50 g (UE_AMOUNT, _meta.ubereats.amountFixed). Ausnahme (User 27.10.2026): Sojasauce mit typischen Werten (USDA FoodData Central, _meta.referenceValues) statt der unplausiblen Shop-Werte. Ausnahme (User 11.11.2026): Pulled Salmon mit 0 statt 6 g Ballaststoffen je 100 g (Lachs, Salz, Rauch — sonst die Shop-Werte; _meta.corrections).",
       woltRules: "Deine Basis 0–5 Portionen (Basmatireis/Salat-Mix/Quinoa je bis 4×, Protein Nudeln 1×) · Deine Proteine 0–10 (Hähnchen & Co. je bis 10×, Pulled Salmon 1×) · Deine Extras 0–30 (je 1×) · Dein Dip genau 1 (inkl. „Ohne Dip“). maxQty aus der Wolt-API (0 = Checkbox = 1×), im Wolt-UI am 15.09.2026 per Stepper verifiziert. Keine Gruppe außer dem Dip ist Pflicht (min 0) → der Rechner verlangt weder Base noch Protein (User 11.10.2026). Grundpreis „Build your Bowl“ " + woltItemPrice + " €. " + woltCardNote,
       ubereatsRules: "Selbst zusammenstellen (Grundpreis " + ueItemPrice + " €): Base, Proteine, Vitamine, Toppings je bis 100 Auswahlen, Dips 1–100 (Pflicht, inkl. „ohne Dip“); je Option Stepper bis 10× (Base) bzw. 5× (sonst). Rechner: keine Gruppe Pflicht (User 11.10.2026) · Rolle base = Base (auch halbe Portionen) · protein = Haupt-Proteine (Hühnchen, Veganes Hühnchen, Rinder-/Vegane Hackbällchen, Pulled Salmon, auch halb) · extra = Ei, Edamame, Erbsen, Feta (bei Uber Eats unter „Proteine“) + Vitamine + Toppings, je höchstens 1× · dip = höchstens ein Dip. Halbe Portion höchstens 1× neben der ganzen (2 halbe = 1 ganze, gleicher Preis — geprüft; Ausnahmen Mushroots und seit 10.11.2026 Rinderhackbällchen, _meta.ubereats.halfNotDouble). " + ueCardNote,
       decisions: [
@@ -570,9 +607,10 @@ async function main() {
         "User 10.11.2026 („prüfe ob Compleat-Gramm-Angaben aktuell“): Shop-API, Shop-Anzeige (jede Karte einzeln), Wolt-API, Wolt-Bestellfenster und Uber Eats neu geprüft — Shop und Wolt mit denselben Mengen wie am 03.11.2026, Uber Eats jetzt auch (Hühnchen, Vegane Hackbällchen, Pulled Salmon 80 g, Rinderhackbällchen 90 g; halbe Rinderhack weiter 50 g); das Ei heißt bei Uber Eats jetzt „(40g)“, die kcal-Angabe dort passt zu 50 g → bleibt 50 g (dem User genannt). Der Shop rechnet Walnusskerne, Functional Fall Crunch und Röstzwiebeln in der Anzeige jetzt mit 20 g (Anzeige-Bugs behoben)",
         "User 02.11.2026: Compleat hat die Mengen geändert → Shop und Wolt: Hähnchen, Vegane Hackbällchen, Pulled Salmon 80 statt 100 g, Rinderhackbällchen 90 statt 100 g (halbe im Shop: Hühnchen, Vegane Hackbällchen, Pulled Salmon 40 statt 50 g, Rinderhackbällchen weiter 50 g), Wolt-Salat-Mix 80 statt 100 g; Werte je 100 g und Preise unverändert (_meta.portionChanges). Uber Eats nennt noch die alten Mengen → der Uber-Eats-Tab rechnet weiter mit dem, was Uber Eats nennt (dem User genannt)",
         "User 27.10.2026: Sojasauce mit typischen Nährwerten statt der Shop-Werte („scheinen nicht realistisch — nimm lieber die typischen Nährwerte für Sojasauce“): USDA FoodData Central #174277 (gebraute Sojasauce, Shoyu), 20 ml = 21,6 g laut USDA-Portionsgewicht → 11,5 kcal / 1,76 g Eiweiß / 0,89 g KH / 2,97 g Salz je Portion (Shop: 4,2 kcal / 0,48 g Eiweiß / 0,46 g KH / 2,87 g Salz); Shop-Werte bleiben als shopPer100 dokumentiert",
+        "User 11.11.2026 („Mache die Ballaststoffe bei dem Pulled Salmon bei Compleat raus. Sind bestimmt falsch oder“): ja — 6 g Ballaststoffe je 100 g bei „LACHS, Speisesalz, Rauch“ sind ein Quellfehler (Ballaststoffe gibt es nur in Pflanzen; die kcal des Shops passen ohne sie besser zu den Makros) → der Rechner nimmt 0 g, auf Wolt und Uber Eats, ganze und halbe Portion; alle übrigen Werte bleiben die des Shops, die Shop-Werte als shopPer100 dokumentiert (CORRECTED)",
       ],
       portionDiffs, portionAssumed, displayBugs, halfPortionDiffs, anomalies, missingDeclared, notOnWolt, woltMapUnused, dislikes, shellfish,
-      soldOut, removedIngredients, valueChanges, portionChanges, lastChanges, referenceValues, woltProductInfo: woltInfo,
+      soldOut, removedIngredients, valueChanges, portionChanges, lastChanges, referenceValues, corrections, woltProductInfo: woltInfo,
       notListed: { wolt: notListedOf(woltGroups), ubereats: notListedOf(ueGroups) },
       halfPortionAccepted: Object.values(HALF_DIFF_OK),
       shopControl: { readAt: shopControl.readAt, checked: shopControl.checked, values: shopControl.values, earlier: shopControl.earlier, soldOutNotChecked: shopControl.soldOutNotChecked, notInShop: shopControl.notInShop },
@@ -614,6 +652,7 @@ async function main() {
   console.log("Anzeige-Bugs im Shop: " + (displayBugs.map(d => d.shopName + " (rechnet mit " + d.shopRechnetMit + " statt " + d.portion + " " + d.unit + ": " + d.shopZeigtKcal + " statt " + d.richtigKcal + " kcal)").join(", ") || "keine"));
   console.log("Gesperrt: " + (ingredients.filter(x => x.blocked).map(x => x.shopName).join(", ") || "keine"));
   console.log("Typische Werte statt Shop-Werte: " + (referenceValues.map(r => r.name + " ← " + r.from + " (je 100 " + (byId[r.id].unit) + ": " + r.per100.kcal + " kcal, " + r.per100.protein + " g Eiweiß; Shop " + r.shopPer100.kcal + " kcal, " + r.shopPer100.protein + " g)").join(" · ") || "keine"));
+  console.log("Korrigierte Shop-Werte: " + (corrections.map(c => c.name + ": " + Object.keys(c.values).map(k => LABEL[k] + " " + c.shop[k] + " → " + c.values[k]).join(", ") + " je 100 " + c.unit).join(" · ") || "keine"));
   console.log("Schalentier-Allergene: " + (shellfish.join(", ") || "keine") + " · Koriander/Minze: " + (dislikes.join(", ") || "keine"));
   console.log("Auffälligkeiten (" + anomalies.length + "): " + anomalies.map(a => a.name).join(", "));
 }

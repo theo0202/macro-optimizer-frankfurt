@@ -42,8 +42,9 @@ function lsSet(key, value) {
 
 // ═══ Restaurant-Daten (generierte Blöcke — NIE von Hand editieren, immer über <key>-update.js) ═══
 // __COMPLEAT_DATA_START__ (generiert via: node compleat-update.js aus data/compleat-raw.json — nicht von Hand editieren)
-// Quelle: Compleat-Onlineshop (compleat.vmos.io, Frankfurt Nordend), Stand 2026-11-10 · Shop-Werte pro 100 g × Menge · Menüs + Preise: Wolt „Build your Bowl“, Uber Eats „Selbst zusammenstellen“ (erfasst 2026-11-10)
+// Quelle: Compleat-Onlineshop (compleat.vmos.io, Frankfurt Nordend), Stand 2026-11-11 · Shop-Werte pro 100 g × Menge · Menüs + Preise: Wolt „Build your Bowl“, Uber Eats „Selbst zusammenstellen“ (erfasst 2026-11-10)
 // TYPISCHE WERTE statt der Shop-Werte: Sojasauce (20ml) — USDA FoodData Central, SR Legacy #174277 „Soy sauce made from soy and wheat (shoyu)“ (gebraute Sojasauce aus Soja und Weizen) (USDA-Portionsgewicht 1 tbsp (14,79 ml) = 16 g → 1,082 g je ml)
+// KORRIGIERT (Shop-Wert sicher falsch): Pulled Salmon (80g) — fibre 6 → 0 je 100 g (salmon, salt and smoke contain no fibre)
 const COMPLEAT = {
   // Kompletter Shop-Datensatz (auch Zutaten, die eine Plattform nicht anbietet)
   ingredients: [
@@ -61,7 +62,7 @@ const COMPLEAT = {
     {id:"veganes_huehnchen_planted_chicken",name:"Veganes Hühnchen planted.chicken",group:"proteine",portion:80,unit:"g",per100:{kcal:195,fat:10,sat:1,carbs:2.2,sugars:0.5,fibre:4,protein:21,salt:1.9},allergens:["Senf"],halfPortion:40},
     {id:"mushroots_pilzbaellchen",name:"Mushroots Pilzbällchen",group:"proteine",portion:75,unit:"g",per100:{kcal:207,fat:10,sat:0.8,carbs:5.6,sugars:1.5,fibre:3.3,protein:22,salt:1.5},allergens:["Weizen","Glutenhaltig","Ei"],halfPortion:45},
     {id:"feta_kaese",name:"Feta Käse",group:"proteine",portion:50,unit:"g",per100:{kcal:280,fat:23.5,sat:14,carbs:0.3,sugars:0.3,fibre:0,protein:16.8,salt:2.4},allergens:["Milch"]},
-    {id:"pulled_salmon",name:"Pulled Salmon",group:"proteine",portion:80,unit:"g",per100:{kcal:215,fat:14.4,sat:3.5,carbs:0,sugars:0,fibre:6,protein:20.3,salt:2.2},allergens:["Fisch"],halfPortion:40},
+    {id:"pulled_salmon",name:"Pulled Salmon",group:"proteine",portion:80,unit:"g",per100:{kcal:215,fat:14.4,sat:3.5,carbs:0,sugars:0,fibre:0,protein:20.3,salt:2.2},allergens:["Fisch"],halfPortion:40,fix:"salmon, salt and smoke contain no fibre",shopPer100:{kcal:215,fat:14.4,sat:3.5,carbs:0,sugars:0,fibre:6,protein:20.3,salt:2.2}},
     {id:"vegane_hackbaellchen",name:"Vegane Hackbällchen",group:"proteine",portion:80,unit:"g",per100:{kcal:154,fat:4.5,sat:0.5,carbs:7,sugars:1,fibre:7.5,protein:17.7,salt:1.4},allergens:["Glutenhaltig"],halfPortion:40},
     {id:"mais",name:"Mais",group:"vitamine",portion:50,unit:"g",per100:{kcal:69,fat:1.2,sat:0.3,carbs:11,sugars:7,fibre:3.1,protein:2.5,salt:0.5},allergens:[]},
     {id:"karotten",name:"Karotten",group:"vitamine",portion:50,unit:"g",per100:{kcal:32,fat:0.1,sat:0,carbs:5,sugars:5,fibre:4,protein:1,salt:0.15},allergens:[]},
@@ -76,7 +77,7 @@ const COMPLEAT = {
     {id:"gemuesemix",name:"Gemüsemix",group:"vitamine",portion:100,unit:"g",per100:{kcal:43,fat:0.3,sat:0.1,carbs:6.3,sugars:5.4,fibre:0.5,protein:2.1,salt:0.02},allergens:[]},
     {id:"mango",name:"Mango",group:"vitamine",portion:70,unit:"g",per100:{kcal:66,fat:0,sat:0,carbs:14.1,sugars:12.2,fibre:1.4,protein:1.6,salt:0.01},allergens:[]},
     {id:"kuerbiswuerfel_mariniert_50g",name:"Kürbiswürfel mariniert (50 g)",group:"vitamine",portion:50,unit:"g",per100:{kcal:56.4,fat:2.6,sat:0.4,carbs:5.7,sugars:1.5,fibre:1.6,protein:0.8,salt:0.6},allergens:[]},
-    {id:"baby_gruenkohl",name:"Baby-Grünkohl",group:"vitamine",portion:20,unit:"g",per100:{kcal:37,fat:0.9,sat:0,carbs:2.5,sugars:0,fibre:4.2,protein:4.3,salt:0},allergens:[],soldOut:true},
+    {id:"baby_gruenkohl",name:"Baby-Grünkohl",group:"vitamine",portion:20,unit:"g",per100:{kcal:37,fat:0.9,sat:0,carbs:2.5,sugars:0,fibre:4.2,protein:4.3,salt:0},allergens:[]},
     {id:"walnusskerne",name:"Walnusskerne",group:"toppings",portion:20,unit:"g",per100:{kcal:704,fat:67,sat:6.3,carbs:7,sugars:2,fibre:6.7,protein:16,salt:0},allergens:["Nüsse"],crunch:true},
     {id:"functional_fall_crunch",name:"Functional Fall Crunch",group:"toppings",portion:20,unit:"g",per100:{kcal:507,fat:24,sat:3.3,carbs:61,sugars:16,fibre:8,protein:16,salt:0.4},allergens:["Weizen","Glutenhaltig","Dinkel","Erdnüsse","Nüsse","Hafer"],crunch:true},
     {id:"roestzwiebeln",name:"Röstzwiebeln",group:"toppings",portion:20,unit:"g",per100:{kcal:590,fat:44,sat:21,carbs:40,sugars:9,fibre:4.5,protein:6,salt:1.2},allergens:["Glutenhaltig"],crunch:true},
@@ -103,7 +104,8 @@ const COMPLEAT = {
     {id:"sriracha_light_inlead",name:"Sriracha Light (Inlead)",group:"dips",portion:80,unit:"g",per100:{kcal:95,fat:5.8,sat:0.9,carbs:9.5,sugars:4.4,fibre:0.2,protein:0.9,salt:1.9},allergens:["Ei"]},
   ],
   // Stand des letzten Crawls (Shop-Werte, Menüs, Ausverkauft-Status)
-  asOf: "2026-11-10",
+  asOf: "2026-11-11",
+  shopCheckedAt: "2026-11-10",
   wolt: {
     item: "Build your Bowl", page: "https://wolt.com/de/deu/frankfurt/restaurant/compleat-nordend", basePrice: 3,
     require: {base:false,protein:false}, // Pflicht-Rollen laut Plattform (Gruppen-Minimum; keine → jede Gruppe optional)
@@ -120,7 +122,7 @@ const COMPLEAT = {
         {id:"protein_veganes_haehnchen_80_g",name:"Veganes Hähnchen, 80 g",short:"Veganes Hähnchen",group:"protein",role:"protein",ing:"veganes_huehnchen_planted_chicken",amount:80,unit:"g",maxQty:10,price:3,kcal:156,fat:8,sat:0.8,carbs:1.76,sugars:0.4,fibre:3.2,protein:16.8,salt:1.52},
         {id:"protein_vegane_hackbaellchen_80_g",name:"Vegane Hackbällchen, 80 g",short:"Vegane Hackbällchen",group:"protein",role:"protein",ing:"vegane_hackbaellchen",amount:80,unit:"g",maxQty:10,price:3,kcal:123.2,fat:3.6,sat:0.4,carbs:5.6,sugars:0.8,fibre:6,protein:14.16,salt:1.12},
         {id:"protein_rinderhackbaellchen_90_g",name:"Rinderhackbällchen, 90 g",short:"Rinderhackbällchen",group:"protein",role:"protein",ing:"rinderhackbaellchen",amount:90,unit:"g",maxQty:10,price:3,kcal:199.8,fat:12.6,sat:4.68,carbs:9,sugars:0.9,fibre:1.8,protein:12.6,salt:1.62},
-        {id:"protein_pulled_salmon_80_g",name:"Pulled Salmon, 80 g",short:"Pulled Salmon",group:"protein",role:"protein",ing:"pulled_salmon",amount:80,unit:"g",maxQty:1,price:4,kcal:172,fat:11.52,sat:2.8,carbs:0,sugars:0,fibre:4.8,protein:16.24,salt:1.76},
+        {id:"protein_pulled_salmon_80_g",name:"Pulled Salmon, 80 g",short:"Pulled Salmon",group:"protein",role:"protein",ing:"pulled_salmon",amount:80,unit:"g",maxQty:1,price:4,kcal:172,fat:11.52,sat:2.8,carbs:0,sugars:0,fibre:0,protein:16.24,salt:1.76},
         {id:"protein_pilzbaellchen_mushroots_75_g",name:"Pilzbällchen „Mushroots“, 75 g",short:"Pilzbällchen „Mushroots“",group:"protein",role:"protein",ing:"mushroots_pilzbaellchen",amount:75,unit:"g",maxQty:1,price:3,kcal:155.25,fat:7.5,sat:0.6,carbs:4.2,sugars:1.13,fibre:2.48,protein:16.5,salt:1.13},
       ] },
       { id:"extra",name:"Deine Extras",min:0,max:30,none:null,options:[
@@ -145,6 +147,7 @@ const COMPLEAT = {
         {id:"extra_ziegenkaese_60_g",name:"Ziegenkäse, 60 g",short:"Ziegenkäse",group:"extra",role:"extra",ing:"ziegenkaese",amount:60,unit:"g",maxQty:1,price:2.5,kcal:174.6,fat:13.8,sat:9.66,carbs:0.6,sugars:0.6,fibre:0,protein:12,salt:0.9},
         {id:"extra_rote_beete_falafel_100_g",name:"Rote Beete-Falafel, 100 g",short:"Rote Beete-Falafel",group:"extra",role:"extra",ing:"rote_bete_falafel",amount:100,unit:"g",maxQty:1,price:3,kcal:216,fat:13,sat:1.1,carbs:15,sugars:5,fibre:6.7,protein:6.5,salt:1.1},
         {id:"extra_rotkohl_geraspelt_50_g",name:"Rotkohl, geraspelt, 50 g",short:"Rotkohl",group:"extra",role:"extra",ing:"rotkohl_geraspelt",amount:50,unit:"g",maxQty:1,price:1,kcal:13.5,fat:0.05,sat:0.05,carbs:2,sugars:1.5,fibre:1.25,protein:1,salt:0.02},
+        {id:"extra_gruenkohl_20_g",name:"Grünkohl, 20 g",short:"Grünkohl",group:"extra",role:"extra",ing:"baby_gruenkohl",amount:20,unit:"g",maxQty:1,price:1.5,kcal:7.4,fat:0.18,sat:0,carbs:0.5,sugars:0,fibre:0.84,protein:0.86,salt:0},
         {id:"extra_schwarzer_sesam_3_g",name:"Schwarzer Sesam, 3 g",short:"Schwarzer Sesam",group:"extra",role:"extra",ing:"schwarzer_sesam",amount:3,unit:"g",maxQty:1,price:1,kcal:17.79,fat:1.5,sat:0.24,carbs:0.3,sugars:0.01,fibre:0.33,protein:0.63,salt:0,crunch:true},
         {id:"extra_granatapfelkerne_15_g",name:"Granatapfelkerne, 15 g",short:"Granatapfelkerne",group:"extra",role:"extra",ing:"granatapfelkerne",amount:15,unit:"g",maxQty:1,price:1,kcal:11.1,fat:0.09,sat:0,carbs:2.55,sugars:2.51,fibre:0.33,protein:0.11,salt:0},
         {id:"extra_erdnuesse_20_g",name:"Erdnüsse, 20 g",short:"Erdnüsse",group:"extra",role:"extra",ing:"erdnuesse",amount:20,unit:"g",maxQty:1,price:1,kcal:125.4,fat:10.6,sat:1.74,carbs:1.18,sugars:0.84,fibre:2.2,protein:5.6,salt:0.18,crunch:true},
@@ -153,7 +156,6 @@ const COMPLEAT = {
         {id:"extra_functional_fall_crunch_20_g",name:"Functional Fall Crunch, 20 g",short:"Functional Fall Crunch",group:"extra",role:"extra",ing:"functional_fall_crunch",amount:20,unit:"g",maxQty:1,price:1,kcal:101.4,fat:4.8,sat:0.66,carbs:12.2,sugars:3.2,fibre:1.6,protein:3.2,salt:0.08,crunch:true},
         {id:"extra_chili_gewuerz_1_g",name:"Chili Gewürz, 1 g",short:"Chili Gewürz",group:"extra",role:"extra",ing:"chili_gewuerz",amount:1,unit:"g",maxQty:1,price:0,kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
         {id:"extra_grana_padano_20_g",name:"Grana Padano, 20 g",short:"Grana Padano",group:"extra",role:"extra",ing:"grana_padano",amount:20,unit:"g",maxQty:1,price:1,kcal:79.6,fat:5.8,sat:3.6,carbs:0,sugars:0,fibre:0,protein:6.6,salt:0.3},
-        {id:"extra_gruenkohl_20_g",name:"Grünkohl, 20 g",short:"Grünkohl",group:"extra",role:"extra",ing:"baby_gruenkohl",amount:20,unit:"g",maxQty:1,price:1.5,kcal:7.4,fat:0.18,sat:0,carbs:0.5,sugars:0,fibre:0.84,protein:0.86,salt:0,notListed:"2026-11-10"},
       ] },
       { id:"dip",name:"Dein Dip",min:1,max:1,none:"Ohne Dip",options:[
         {id:"dip_curvy_curry_dip",name:"Curvy Curry Dip",short:"Curvy Curry Dip",group:"dip",role:"dip",ing:"curvy_curry",amount:80,unit:"g",maxQty:1,price:2,kcal:301.6,fat:30,sat:2.16,carbs:8.48,sugars:1.68,fibre:0.8,protein:0.32,salt:1.12},
@@ -176,7 +178,7 @@ const COMPLEAT = {
     ],
   },
   ubereats: {
-    item: "Selbst zusammenstellen", page: "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440", basePrice: 3,
+    item: "Selbst zusammenstellen", page: "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440", basePrice: 3, capturedAt: "2026-11-10",
     require: {base:false,protein:false}, // Pflicht-Rollen laut Plattform (Gruppen-Minimum; keine → jede Gruppe optional)
     groups: [
       { id:"base",name:"Base",min:0,max:100,none:null,options:[
@@ -197,7 +199,7 @@ const COMPLEAT = {
         {id:"protein_mushroots_pilzbaellchen_75g",name:"Mushroots Pilzbällchen (75g)",short:"Mushroots Pilzbällchen",group:"protein",role:"protein",ing:"mushroots_pilzbaellchen",amount:75,unit:"g",maxQty:5,price:3,kcal:155.25,fat:7.5,sat:0.6,carbs:4.2,sugars:1.13,fibre:2.48,protein:16.5,salt:1.13},
         {id:"protein_rinderhackbaellchen_90g",name:"Rinderhackbällchen (90g)",short:"Rinderhackbällchen",group:"protein",role:"protein",ing:"rinderhackbaellchen",amount:90,unit:"g",maxQty:5,price:3,kcal:199.8,fat:12.6,sat:4.68,carbs:9,sugars:0.9,fibre:1.8,protein:12.6,salt:1.62},
         {id:"protein_vegane_hackbaellchen_80g",name:"Vegane Hackbällchen (80g)",short:"Vegane Hackbällchen",group:"protein",role:"protein",ing:"vegane_hackbaellchen",amount:80,unit:"g",maxQty:5,price:3,kcal:123.2,fat:3.6,sat:0.4,carbs:5.6,sugars:0.8,fibre:6,protein:14.16,salt:1.12},
-        {id:"protein_pulled_salmon_80g",name:"Pulled Salmon (80g)",short:"Pulled Salmon",group:"protein",role:"protein",ing:"pulled_salmon",amount:80,unit:"g",maxQty:5,price:4,kcal:172,fat:11.52,sat:2.8,carbs:0,sugars:0,fibre:4.8,protein:16.24,salt:1.76},
+        {id:"protein_pulled_salmon_80g",name:"Pulled Salmon (80g)",short:"Pulled Salmon",group:"protein",role:"protein",ing:"pulled_salmon",amount:80,unit:"g",maxQty:5,price:4,kcal:172,fat:11.52,sat:2.8,carbs:0,sugars:0,fibre:0,protein:16.24,salt:1.76},
         {id:"protein_hart_gekochtes_ei_40g",name:"Hart gekochtes Ei (40g)",short:"Hart gekochtes Ei",group:"protein",role:"extra",ing:"hart_gekochtes_ei",amount:50,unit:"g",maxQty:5,price:1,kcal:77.5,fat:5.6,sat:1.65,carbs:0.3,sugars:0.15,fibre:0.25,protein:6.55,salt:0.38,nameAmount:40},
         {id:"protein_edamame_50g",name:"Edamame (50g)",short:"Edamame",group:"protein",role:"extra",ing:"edamame",amount:50,unit:"g",maxQty:5,price:1.5,kcal:55,fat:0,sat:0,carbs:4.25,sugars:1.2,fibre:1.2,protein:5,salt:1},
         {id:"protein_erbsen_50g",name:"Erbsen (50g)",short:"Erbsen",group:"protein",role:"extra",ing:"erbsen",amount:50,unit:"g",maxQty:5,price:1,kcal:34.5,fat:0.15,sat:0.05,carbs:4.5,sugars:1.55,fibre:2.5,protein:2.6,salt:0.5},
@@ -207,7 +209,7 @@ const COMPLEAT = {
         {id:"protein_vegane_hackbaellchen_halbe_portion_40g",name:"Vegane Hackbällchen - Halbe Portion (40g)",short:"½ Vegane Hackbällchen",group:"protein",role:"protein",ing:"vegane_hackbaellchen",amount:40,unit:"g",maxQty:5,price:1.5,half:true,kcal:61.6,fat:1.8,sat:0.2,carbs:2.8,sugars:0.4,fibre:3,protein:7.08,salt:0.56},
         {id:"protein_rinderhackbaellchen_halbe_portion_50g",name:"Rinderhackbällchen - Halbe Portion (50g)",short:"½ Rinderhackbällchen",group:"protein",role:"protein",ing:"rinderhackbaellchen",amount:50,unit:"g",maxQty:5,price:1.5,half:true,kcal:111,fat:7,sat:2.6,carbs:5,sugars:0.5,fibre:1,protein:7,salt:0.9},
         {id:"protein_veganes_huehnchen_planted_chicken_halbe_portion_40g",name:"Veganes Hühnchen planted.chicken - Halbe Portion (40g)",short:"½ Veganes Hühnchen planted.chicken",group:"protein",role:"protein",ing:"veganes_huehnchen_planted_chicken",amount:40,unit:"g",maxQty:5,price:1.5,half:true,kcal:78,fat:4,sat:0.4,carbs:0.88,sugars:0.2,fibre:1.6,protein:8.4,salt:0.76},
-        {id:"protein_pulled_salmon_halbe_portion_40g",name:"Pulled Salmon - Halbe Portion (40g)",short:"½ Pulled Salmon",group:"protein",role:"protein",ing:"pulled_salmon",amount:40,unit:"g",maxQty:5,price:2,half:true,kcal:86,fat:5.76,sat:1.4,carbs:0,sugars:0,fibre:2.4,protein:8.12,salt:0.88},
+        {id:"protein_pulled_salmon_halbe_portion_40g",name:"Pulled Salmon - Halbe Portion (40g)",short:"½ Pulled Salmon",group:"protein",role:"protein",ing:"pulled_salmon",amount:40,unit:"g",maxQty:5,price:2,half:true,kcal:86,fat:5.76,sat:1.4,carbs:0,sugars:0,fibre:0,protein:8.12,salt:0.88},
         {id:"protein_mushroots_pilzbaellchen_halbe_portion_45g",name:"Mushroots Pilzbällchen - Halbe Portion (45g)",short:"½ Mushroots Pilzbällchen",group:"protein",role:"protein",ing:"mushroots_pilzbaellchen",amount:45,unit:"g",maxQty:5,price:2,half:true,kcal:93.15,fat:4.5,sat:0.36,carbs:2.52,sugars:0.68,fibre:1.49,protein:9.9,salt:0.68},
       ] },
       { id:"vitamine",name:"Vitamine",min:0,max:100,none:null,options:[
@@ -3453,6 +3455,28 @@ function compleatRefFooter(menuKey) {
   for (const x of COMPLEAT.ingredients) { const o = x.ref && opts.find(y => y.ing === x.id); if (o) names.push(o.short + ": " + x.ref); }
   return names.length ? " · typical values for " + names.join(", ") : "";
 }
+// Einzelne Shop-Werte korrigiert (User 11.11.2026: Pulled Salmon hat laut Shop 6 g Ballaststoffe je 100 g, besteht aber nur aus Lachs, Salz
+// und Rauch) → Hinweis mit dem Shop-Wert und dem Grund (Block: fix + shopPer100) bzw. kurz in der Fußzeile
+const COMPLEAT_FIX_LABEL = { kcal: "kcal", fat: "fat", sat: "saturated fat", carbs: "carbs", sugars: "sugar", fibre: "fibre", protein: "protein", salt: "salt" };
+const compleatFixKeys = x => KEYS.filter(k => x.per100[k] !== x.shopPer100[k]);
+const compleatFixVal = (k, v) => k === "kcal" ? v + " kcal" : v + " g " + COMPLEAT_FIX_LABEL[k];
+function compleatFixNote(m) {
+  const opts = m.groups.flatMap(g => g.options), out = [];
+  for (const x of COMPLEAT.ingredients) {
+    const o = x.fix && x.shopPer100 && opts.find(y => y.ing === x.id);
+    if (o) out.push(o.short + " counts " + compleatFixKeys(x).map(k => compleatFixVal(k, x.per100[k])).join(", ") + " instead of the Compleat shop's " +
+      compleatFixKeys(x).map(k => compleatFixVal(k, x.shopPer100[k])).join(", ") + " per 100 " + x.unit + " — " + x.fix + ".");
+  }
+  return out.length ? " " + out.join(" ") : "";
+}
+function compleatFixFooter(menuKey) {
+  const opts = COMPLEAT[menuKey].groups.flatMap(g => g.options), names = [];
+  for (const x of COMPLEAT.ingredients) {
+    const o = x.fix && x.shopPer100 && opts.find(y => y.ing === x.id);
+    if (o) names.push(o.short + " " + compleatFixKeys(x).map(k => COMPLEAT_FIX_LABEL[k] + " " + x.per100[k] + " instead of " + x.shopPer100[k] + (k === "kcal" ? "" : " g")).join(", ") + " per 100 " + x.unit);
+  }
+  return names.length ? " · corrected: " + names.join(", ") : "";
+}
 
 // ═══ Compleat „Build my order“ (User 04.10.2026; nur in der vollen App, nicht in den Freundes-Links) ═══
 // Die eigene Bestellung Zutat für Zutat zusammenstellen wie im Bestellfenster der Plattform: gleiche Gruppen, Mengen und Grenzen (je Option
@@ -3606,7 +3630,7 @@ function compleatConfigCard(ctx, R, note) {
   const menu = R.menu, x = (ctx.st && ctx.st.extra) || {}, build = compleatBuildMode(ctx.st), complete = build && !!x.complete;
   const buildNote = "Pick your ingredients like in the " + R.platform + " order dialog — same groups, amounts and limits (" + menu.item + ", base price " + bowlEuro(menu.basePrice) + "). " +
     (complete ? "Your picks stay in every suggestion; the optimizer adds what's missing for your target (no group is required, extras once each, one dip at most). The switches and “Exclude items” only apply to what it adds (“Quinoa base” adds one portion only if you haven't picked quinoa yourself), the chips above count your picks, “Must include” is paused while you build."
-      : "Nothing is added: you get exactly your order with its totals, price and order guide.") + compleatStaleNote(menu, R.platform) + compleatAmountNote(menu, R.platform) + compleatRefNote(menu) + compleatUnavailableNote(menu, R.platform) + compleatSoldOutNote(menu);
+      : "Nothing is added: you get exactly your order with its totals, price and order guide.") + compleatStaleNote(menu, R.platform) + compleatAmountNote(menu, R.platform) + compleatRefNote(menu) + compleatFixNote(menu) + compleatUnavailableNote(menu, R.platform) + compleatSoldOutNote(menu);
   return h("div", { style: CARD },
     compleatBuilderOn() && h("div", { style: { display: "flex", gap: 8, marginBottom: 12 } },
       h("button", { onClick: () => compleatBuildSet(ctx, R, { build: false }), style: EDEKA_BTN(!build) }, "🎯 Suggest bowls"),
@@ -5526,12 +5550,12 @@ const RESTAURANTS = [
   // Onlineshop + Wolt-API + Uber-Eats-Erfassung data/compleat-ubereats-menu.json → data/compleat-raw.json) → node compleat-update.js
   compleatEntry({ key:"compleat", menuKey:"wolt", name:"Compleat (Wolt)", platform:"Wolt", label:"COMPLEAT · NORDEND · WOLT",
     gradient:["#d7192d","#6b0f1a"],
-    footer:"Data: Compleat online shop (official, per 100 g × Wolt portion; every ingredient selected one by one in the shop, last on 03.11.2026)"+compleatRefFooter("wolt")+" · menu & prices: Wolt · "+deDate(COMPLEAT.asOf),
-    note:m=>"Build your Bowl on Wolt (base price "+bowlEuro(m.basePrice)+"): no group is required — the optimizer also suggests bowls without a base or without a protein when that fits your target; one dip or none."+bowlPreselectNote(m,"Wolt")+compleatStaleNote(m,"Wolt")+compleatAmountNote(m,"Wolt")+compleatRefNote(m)+compleatUnavailableNote(m,"Wolt")+compleatSoldOutNote(m) }),
+    footer:"Data: Compleat online shop (official, per 100 g × Wolt portion; every ingredient selected one by one in the shop, last on "+deDate(COMPLEAT.shopCheckedAt)+")"+compleatRefFooter("wolt")+compleatFixFooter("wolt")+" · menu & prices: Wolt · "+deDate(COMPLEAT.asOf),
+    note:m=>"Build your Bowl on Wolt (base price "+bowlEuro(m.basePrice)+"): no group is required — the optimizer also suggests bowls without a base or without a protein when that fits your target; one dip or none."+bowlPreselectNote(m,"Wolt")+compleatStaleNote(m,"Wolt")+compleatAmountNote(m,"Wolt")+compleatRefNote(m)+compleatFixNote(m)+compleatUnavailableNote(m,"Wolt")+compleatSoldOutNote(m) }),
   compleatEntry({ key:"compleatuber", menuKey:"ubereats", name:"Compleat (Uber Eats)", platform:"Uber Eats", label:"COMPLEAT · NORDEND · UBER EATS",
     gradient:["#b3121d","#141414"],
-    footer:"Data: Compleat online shop (official, per 100 g × Uber Eats portion; every ingredient selected one by one in the shop, last on 03.11.2026)"+compleatRefFooter("ubereats")+" · menu & prices: Uber Eats, captured 03.11.2026",
-    note:m=>"Selbst zusammenstellen on Uber Eats (base price "+bowlEuro(m.basePrice)+"): no group is required — the optimizer also suggests bowls without a base or without a main protein when that fits your target; one dip or none. Egg, edamame, peas, feta and goat cheese count as extras; extras at most once each."+bowlPreselectNote(m,"Uber Eats")+compleatStaleNote(m,"Uber Eats")+compleatAmountNote(m,"Uber Eats")+compleatRefNote(m)+compleatUnavailableNote(m,"Uber Eats")+compleatSoldOutNote(m) }),
+    footer:"Data: Compleat online shop (official, per 100 g × Uber Eats portion; every ingredient selected one by one in the shop, last on "+deDate(COMPLEAT.shopCheckedAt)+")"+compleatRefFooter("ubereats")+compleatFixFooter("ubereats")+" · menu & prices: Uber Eats, captured "+deDate(COMPLEAT.ubereats.capturedAt),
+    note:m=>"Selbst zusammenstellen on Uber Eats (base price "+bowlEuro(m.basePrice)+"): no group is required — the optimizer also suggests bowls without a base or without a main protein when that fits your target; one dip or none. Egg, edamame, peas, feta and goat cheese count as extras; extras at most once each."+bowlPreselectNote(m,"Uber Eats")+compleatStaleNote(m,"Uber Eats")+compleatAmountNote(m,"Uber Eats")+compleatRefNote(m)+compleatFixNote(m)+compleatUnavailableNote(m,"Uber Eats")+compleatSoldOutNote(m) }),
   // Dean & David Frankfurt (Wolt; Menü identisch in Welle, Mainzer Landstraße und Tower 185 — MyZeil ohne Marinierte Zwiebeln, Bockenheim nur Bowl).
   // Daten: py -3 deandavid-pdf.py (PDFs → data/) → node deandavid-crawl.js (→ data/deandavid-raw.json) → node deandavid-update.js
   deanDavidEntry({ key:"deandavidsalad", menuKey:"salad", name:"Dean & David Salad (Wolt)", platform:"Wolt", label:"DEAN&DAVID · MIX YOUR OWN SALAD · WOLT",
