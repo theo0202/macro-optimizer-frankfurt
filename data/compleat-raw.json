@@ -2,7 +2,7 @@
   "_meta": {
     "restaurant": "Compleat",
     "store": "Frankfurt Nordend (Glauburgstraße 5, 60318 Frankfurt am Main)",
-    "fetchedAt": "2026-11-11T07:36:28.661Z",
+    "fetchedAt": "2026-11-15T14:10:21.864Z",
     "sources": {
       "shop": {
         "url": "https://compleat.vmos.io",
@@ -26,7 +26,7 @@
       "ubereats": {
         "page": "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440",
         "file": "data/compleat-ubereats-menu.json",
-        "capturedAt": "2026-11-10T07:11:35.211Z",
+        "capturedAt": "2026-11-15T14:08:55.187Z",
         "item": "Selbst zusammenstellen",
         "itemPrice": 3,
         "cardPrice": 3,
@@ -69,10 +69,11 @@
     "portionAssumed": [
       "„Curvy Curry Dip“: Menge bei Wolt nicht angegeben → Shop-Portion 80 g",
       "„Honey Muscle Mustard Dip“: Menge bei Wolt nicht angegeben → Shop-Portion 80 g",
+      "„Joghurt-Salatdressing“: Menge bei Wolt nicht angegeben → Shop-Portion 80 g",
       "„Power Peanut Dip“: Menge bei Wolt nicht angegeben → Shop-Portion 80 g",
       "„Sexy Sesame Dip“: Menge bei Wolt nicht angegeben → Shop-Portion 80 g",
       "„Champion Chili-Dip“: Menge bei Wolt nicht angegeben → Shop-Portion 80 g",
-      "„Protein Tsatsiki Dip“: Menge bei Wolt nicht angegeben → Shop-Portion 100 g",
+      "„Guacamole“: Menge bei Wolt nicht angegeben → Shop-Portion 100 g",
       "„Olivenöl und halbe Zitrone“: Menge bei Wolt nicht angegeben → Shop-Portion 20 ml"
     ],
     "displayBugs": [
@@ -182,27 +183,19 @@
       "Sojasauce (20ml): Ballaststoffe nicht angegeben → 0"
     ],
     "notOnWolt": [
-      "Salatmix (80g)",
       "Gemüsemix (100g)",
       "Kürbiswürfel mariniert (50g)",
-      "Ajvar (100g)",
-      "Balsamico Dressing (80g)",
-      "Joghurt-Salatdressing (80g)",
-      "Guacamole (100g)"
+      "Protein Tzatziki (100g)"
     ],
     "woltMapUnused": [
-      "Salat-Mix, 80 g",
-      "Joghurt-Salatdressing",
-      "Guacamole",
-      "Balsamico Dressing , 80g",
-      "Ajvar, 100g"
+      "Protein Tsatsiki Dip"
     ],
     "dislikes": [
       "Guacamole (100g): Koriander in den Zutaten"
     ],
     "shellfish": [],
     "soldOut": [
-      "Guacamole (100g)"
+      "Protein Tzatziki (100g)"
     ],
     "removedIngredients": [
       {
@@ -544,15 +537,26 @@
       }
     ],
     "lastChanges": {
-      "since": "2026-11-10T07:20:56.338Z",
+      "since": "2026-11-11T07:36:28.661Z",
       "shopAdded": [],
       "shopRemoved": [],
       "woltAdded": [
-        "Deine Extras: Grünkohl, 20 g"
+        "Deine Basis: Salat-Mix, 80 g",
+        "Dein Dip: Joghurt-Salatdressing",
+        "Dein Dip: Guacamole",
+        "Dein Dip: Ajvar, 100g",
+        "Dein Dip: Balsamico Dressing , 80g"
       ],
-      "woltRemoved": [],
-      "ubereatsAdded": [],
-      "ubereatsRemoved": [],
+      "woltRemoved": [
+        "Dein Dip: Protein Tsatsiki Dip"
+      ],
+      "ubereatsAdded": [
+        "Dips: Guacamole (100g)",
+        "Vitamine: Baby-Grünkohl (20g)"
+      ],
+      "ubereatsRemoved": [
+        "Dips: Protein Tzatziki (100g)"
+      ],
       "prices": [],
       "values": [],
       "portions": []
@@ -612,7 +616,7 @@
     ],
     "woltProductInfo": {
       "url": "https://prodinfo.wolt.com/de/6537b03e8fb9ce1db9714e2d/21e057f4508797cc8ef70efe?lang=de",
-      "options": 42,
+      "options": 45,
       "values": [
         {
           "group": "Deine Basis",
@@ -862,41 +866,16 @@
     "notListed": {
       "wolt": [
         {
-          "group": "Deine Basis",
-          "name": "Salat-Mix, 80 g",
-          "since": "2026-11-10"
-        },
-        {
           "group": "Dein Dip",
-          "name": "Joghurt-Salatdressing",
-          "since": "2026-11-02"
-        },
-        {
-          "group": "Dein Dip",
-          "name": "Guacamole",
-          "since": "2026-11-02"
-        },
-        {
-          "group": "Dein Dip",
-          "name": "Ajvar, 100g",
-          "since": "2026-11-02"
-        },
-        {
-          "group": "Dein Dip",
-          "name": "Balsamico Dressing , 80g",
-          "since": "2026-11-02"
+          "name": "Protein Tsatsiki Dip",
+          "since": "2026-11-15"
         }
       ],
       "ubereats": [
         {
           "group": "Dips",
-          "name": "Guacamole (100g)",
-          "since": "2026-11-10"
-        },
-        {
-          "group": "Vitamine",
-          "name": "Baby-Grünkohl (20g)",
-          "since": "2026-11-10"
+          "name": "Protein Tzatziki (100g)",
+          "since": "2026-11-15"
         }
       ]
     },
@@ -949,8 +928,7 @@
         }
       ],
       "notOnUberEats": [
-        "Baby-Grünkohl (20g)",
-        "Guacamole (100g)"
+        "Protein Tzatziki (100g)"
       ],
       "halfNotDouble": [
         "Rinderhackbällchen - Halbe Portion (50g) — Rinderhackbällchen - Halbe Portion = 50 g für 1,50 €, ganze Portion 90 g für 3,00 € (2 halbe = 100 g / 3,00 €; seit Uber Eats am 10.11.2026 die neue ganze Portion nennt, die halbe blieb bei 50 g wie im Shop) → der Rechner nimmt höchstens eine halbe neben der ganzen; 2 halbe statt einer ganzen schlägt er nicht vor (10.11.2026)",
@@ -2590,7 +2568,8 @@
       "vmos": {
         "uuid": "b63e4852-090f-48f4-8825-194a36aac533",
         "displayAmount": 100
-      }
+      },
+      "soldOut": true
     },
     {
       "id": "ajvar",
@@ -2907,8 +2886,7 @@
       "vmos": {
         "uuid": "0852c6c2-64fd-4917-a550-d3cbd0ebd60a",
         "displayAmount": 100
-      },
-      "soldOut": true
+      }
     },
     {
       "id": "sriracha_light_inlead",
@@ -3786,7 +3764,8 @@
         "protein": 10.85,
         "salt": 1.13
       },
-      "displayAmount": 100
+      "displayAmount": 100,
+      "soldOut": true
     },
     {
       "name": "Ajvar (100g)",
@@ -3906,8 +3885,7 @@
         "protein": 1.7,
         "salt": 0.42
       },
-      "displayAmount": 100,
-      "soldOut": true
+      "displayAmount": 100
     },
     {
       "name": "Sriracha Light (Inlead) (80g)",
@@ -3949,6 +3927,15 @@
             "price": 2.5
           },
           {
+            "name": "Salat-Mix, 80 g",
+            "ingredient": "salatmix",
+            "role": "base",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 4,
+            "price": 2.5
+          },
+          {
             "name": "Bunter Quinoa, 250 g",
             "ingredient": "bunter_bio_quinoa",
             "role": "base",
@@ -3974,17 +3961,6 @@
             "unit": "g",
             "maxQty": 1,
             "price": 3.5
-          },
-          {
-            "name": "Salat-Mix, 80 g",
-            "ingredient": "salatmix",
-            "role": "base",
-            "amount": 80,
-            "unit": "g",
-            "maxQty": 4,
-            "price": 2.5,
-            "notListed": true,
-            "notListedSince": "2026-11-10"
           }
         ],
         "defaultOption": {
@@ -4368,6 +4344,15 @@
             "price": 2
           },
           {
+            "name": "Joghurt-Salatdressing",
+            "ingredient": "joghurt_salatdressing",
+            "role": "dip",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 1,
+            "price": 2
+          },
+          {
             "name": "Power Peanut Dip",
             "ingredient": "power_peanut",
             "role": "dip",
@@ -4395,8 +4380,8 @@
             "price": 2
           },
           {
-            "name": "Protein Tsatsiki Dip",
-            "ingredient": "protein_tzatziki",
+            "name": "Guacamole",
+            "ingredient": "guacamole",
             "role": "dip",
             "amount": 100,
             "unit": "g",
@@ -4411,6 +4396,15 @@
             "unit": "g",
             "maxQty": 1,
             "price": 1
+          },
+          {
+            "name": "Ajvar, 100g",
+            "ingredient": "ajvar",
+            "role": "dip",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 1,
+            "price": 3
           },
           {
             "name": "Sojasoße , 20ml",
@@ -4429,6 +4423,15 @@
             "unit": "ml",
             "maxQty": 1,
             "price": 2
+          },
+          {
+            "name": "Balsamico Dressing , 80g",
+            "ingredient": "balsamico_dressing",
+            "role": "dip",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 1,
+            "price": 1
           },
           {
             "name": "Trüffel Light (Inlead), 80 g",
@@ -4458,48 +4461,15 @@
             "price": 3
           },
           {
-            "name": "Joghurt-Salatdressing",
-            "ingredient": "joghurt_salatdressing",
-            "role": "dip",
-            "amount": 80,
-            "unit": "g",
-            "maxQty": 1,
-            "price": 2,
-            "notListed": true,
-            "notListedSince": "2026-11-02"
-          },
-          {
-            "name": "Guacamole",
-            "ingredient": "guacamole",
+            "name": "Protein Tsatsiki Dip",
+            "ingredient": "protein_tzatziki",
             "role": "dip",
             "amount": 100,
             "unit": "g",
             "maxQty": 1,
             "price": 3,
             "notListed": true,
-            "notListedSince": "2026-11-02"
-          },
-          {
-            "name": "Ajvar, 100g",
-            "ingredient": "ajvar",
-            "role": "dip",
-            "amount": 100,
-            "unit": "g",
-            "maxQty": 1,
-            "price": 3,
-            "notListed": true,
-            "notListedSince": "2026-11-02"
-          },
-          {
-            "name": "Balsamico Dressing , 80g",
-            "ingredient": "balsamico_dressing",
-            "role": "dip",
-            "amount": 80,
-            "unit": "g",
-            "maxQty": 1,
-            "price": 1,
-            "notListed": true,
-            "notListedSince": "2026-11-02"
+            "notListedSince": "2026-11-15"
           }
         ]
       }
@@ -4511,7 +4481,7 @@
     "itemPrice": 3,
     "cardPrice": 3,
     "preselected": [],
-    "capturedAt": "2026-11-10T07:11:35.211Z",
+    "capturedAt": "2026-11-15T14:08:55.187Z",
     "groups": [
       {
         "id": "dip",
@@ -4566,8 +4536,8 @@
             "price": 2
           },
           {
-            "name": "Protein Tzatziki (100g)",
-            "ingredient": "protein_tzatziki",
+            "name": "Guacamole (100g)",
+            "ingredient": "guacamole",
             "role": "dip",
             "amount": 100,
             "unit": "g",
@@ -4656,119 +4626,15 @@
             "price": 3
           },
           {
-            "name": "Guacamole (100g)",
-            "ingredient": "guacamole",
+            "name": "Protein Tzatziki (100g)",
+            "ingredient": "protein_tzatziki",
             "role": "dip",
             "amount": 100,
             "unit": "g",
             "maxQty": 5,
             "price": 3,
             "notListed": true,
-            "notListedSince": "2026-11-10"
-          }
-        ]
-      },
-      {
-        "id": "base",
-        "name": "Base",
-        "min": 0,
-        "max": 100,
-        "noneOption": null,
-        "options": [
-          {
-            "name": "Basmati Reis (250g)",
-            "ingredient": "basmati_reis",
-            "role": "base",
-            "amount": 250,
-            "unit": "g",
-            "maxQty": 10,
-            "price": 2.5
-          },
-          {
-            "name": "Kürbiswürfel mariniert (200g)",
-            "ingredient": "kuerbiswuerfel_mariniert",
-            "role": "base",
-            "amount": 200,
-            "unit": "g",
-            "maxQty": 10,
-            "price": 3.5
-          },
-          {
-            "name": "Salatmix (80g)",
-            "ingredient": "salatmix",
-            "role": "base",
-            "amount": 80,
-            "unit": "g",
-            "maxQty": 10,
-            "price": 2.5
-          },
-          {
-            "name": "Bunter Bio Quinoa (250g)",
-            "ingredient": "bunter_bio_quinoa",
-            "role": "base",
-            "amount": 250,
-            "unit": "g",
-            "maxQty": 10,
-            "price": 3.5
-          },
-          {
-            "name": "Protein-Pasta (200g)",
-            "ingredient": "protein_pasta",
-            "role": "base",
-            "amount": 200,
-            "unit": "g",
-            "maxQty": 10,
-            "price": 3.5
-          },
-          {
-            "name": "Bunter Bio Quinoa - Halbe Portion (125g)",
-            "ingredient": "bunter_bio_quinoa",
-            "role": "base",
-            "amount": 125,
-            "unit": "g",
-            "maxQty": 10,
-            "price": 1.75,
-            "half": true
-          },
-          {
-            "name": "Basmati Reis - Halbe Portion (125g)",
-            "ingredient": "basmati_reis",
-            "role": "base",
-            "amount": 125,
-            "unit": "g",
-            "maxQty": 10,
-            "price": 1.25,
-            "half": true
-          },
-          {
-            "name": "Protein-Pasta - Halbe Portion (100g)",
-            "ingredient": "protein_pasta",
-            "role": "base",
-            "amount": 100,
-            "unit": "g",
-            "maxQty": 10,
-            "price": 1.75,
-            "half": true
-          },
-          {
-            "name": "Salatmix - Halbe Portion (40g)",
-            "ingredient": "salatmix",
-            "role": "base",
-            "amount": 40,
-            "unit": "g",
-            "maxQty": 10,
-            "price": 1.25,
-            "half": true
-          },
-          {
-            "name": "Kürbiswürfel mariniert - halbe Portion (100g)",
-            "ingredient": "kuerbiswuerfel_mariniert",
-            "role": "base",
-            "amount": 100,
-            "unit": "g",
-            "maxQty": 10,
-            "price": 1.75,
-            "half": true
+            "notListedSince": "2026-11-15"
           }
         ]
       },
@@ -4942,6 +4808,110 @@
         ]
       },
       {
+        "id": "base",
+        "name": "Base",
+        "min": 0,
+        "max": 100,
+        "noneOption": null,
+        "options": [
+          {
+            "name": "Basmati Reis (250g)",
+            "ingredient": "basmati_reis",
+            "role": "base",
+            "amount": 250,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 2.5
+          },
+          {
+            "name": "Kürbiswürfel mariniert (200g)",
+            "ingredient": "kuerbiswuerfel_mariniert",
+            "role": "base",
+            "amount": 200,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 3.5
+          },
+          {
+            "name": "Salatmix (80g)",
+            "ingredient": "salatmix",
+            "role": "base",
+            "amount": 80,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 2.5
+          },
+          {
+            "name": "Bunter Bio Quinoa (250g)",
+            "ingredient": "bunter_bio_quinoa",
+            "role": "base",
+            "amount": 250,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 3.5
+          },
+          {
+            "name": "Protein-Pasta (200g)",
+            "ingredient": "protein_pasta",
+            "role": "base",
+            "amount": 200,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 3.5
+          },
+          {
+            "name": "Bunter Bio Quinoa - Halbe Portion (125g)",
+            "ingredient": "bunter_bio_quinoa",
+            "role": "base",
+            "amount": 125,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 1.75,
+            "half": true
+          },
+          {
+            "name": "Basmati Reis - Halbe Portion (125g)",
+            "ingredient": "basmati_reis",
+            "role": "base",
+            "amount": 125,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 1.25,
+            "half": true
+          },
+          {
+            "name": "Protein-Pasta - Halbe Portion (100g)",
+            "ingredient": "protein_pasta",
+            "role": "base",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 1.75,
+            "half": true
+          },
+          {
+            "name": "Salatmix - Halbe Portion (40g)",
+            "ingredient": "salatmix",
+            "role": "base",
+            "amount": 40,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 1.25,
+            "half": true
+          },
+          {
+            "name": "Kürbiswürfel mariniert - halbe Portion (100g)",
+            "ingredient": "kuerbiswuerfel_mariniert",
+            "role": "base",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 10,
+            "price": 1.75,
+            "half": true
+          }
+        ]
+      },
+      {
         "id": "vitamine",
         "name": "Vitamine",
         "min": 0,
@@ -4951,6 +4921,15 @@
           {
             "name": "Baby Spinat (20g)",
             "ingredient": "baby_spinat",
+            "role": "extra",
+            "amount": 20,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 1.5
+          },
+          {
+            "name": "Baby-Grünkohl (20g)",
+            "ingredient": "baby_gruenkohl",
             "role": "extra",
             "amount": 20,
             "unit": "g",
@@ -5064,17 +5043,6 @@
             "unit": "g",
             "maxQty": 5,
             "price": 2.5
-          },
-          {
-            "name": "Baby-Grünkohl (20g)",
-            "ingredient": "baby_gruenkohl",
-            "role": "extra",
-            "amount": 20,
-            "unit": "g",
-            "maxQty": 5,
-            "price": 1.5,
-            "notListed": true,
-            "notListedSince": "2026-11-10"
           }
         ]
       },
