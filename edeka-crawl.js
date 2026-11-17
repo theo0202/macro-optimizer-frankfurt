@@ -354,6 +354,17 @@ const MANUFACTURER_ONLY = [
     frozen: true },
 ];
 
+// Konserven, die der Markt im Laden führt, die der Onlineshop aber nicht listet (User 17.11.2026: Rapunzel Borlotti Bohnen, am 16.11.2026
+// im Markt gesehen; graf-ffm.edeka.shop hat keine Produktseite dafür, vom User verlinkt: der Rapunzel-Shop). Alles von der Produktseite
+// des Herstellers (parseRapunzel: Werte je 100 g, Inhalt, Abtropfgewicht, Zutaten, Allergene, Preis); wie bei allen Konserven zählt das
+// Abtropfgewicht. Der Preis ist der Einzelpreis des Rapunzel-Shops — eine gekennzeichnete Annahme (die übrigen Rapunzel-Dosen kosten dort
+// wie im Markt 1,99 €). `storeOnly` → im Tracker „not in the online shop — may not be available“ (User: „mit Hinweis, dass die ggf. nicht
+// verfügbar sind“). `page` = Produktname laut Herstellerseite (Kontrolle, dass der Link noch auf dasselbe Produkt zeigt)
+const STORE_ONLY = [
+  { cat: "beans", name: "Rapunzel Bio Borlotti Bohnen 400 g", brand: "Rapunzel", url: "https://shop.rapunzel.de/703495/Borlotti-Bohnen-in-der-Dose/",
+    page: "Borlotti Bohnen in der Dose", seen: "2026-11-16" },
+];
+
 // Vom User verlinkt, aber nicht im Tracker (mit Grund) — steht in `_meta.notInTracker`
 const NOT_IN_TRACKER = [
   { name: "FRoSTA ASC Paella 450 g", url: "https://www.frosta.de/produkte/schnelle-gerichte/paella/",
@@ -574,6 +585,58 @@ function parseEdekaDe(html, url, problems) {
   const ingredients = zi >= 0 ? text.slice(zi + 8).split(/\s+Allergene\s+/)[0].trim() : null;
   const allergens = (text.slice(zi >= 0 ? zi : 0).match(/\sAllergene\s+(.*?)\s+(?:Kann folgende Spuren enthalten|$)/) || [])[1] || null;
   return { name: [brand, prod.name, packG + " g"].filter(Boolean).join(" "), brand, gtin: prod.gtin13 || null, url, packG, per100, fibreDeclared, ingredients, allergens };
+}
+
+// shop.rapunzel.de (Shopware, User 17.11.2026): schema.org-Product (Name, Marke, GTIN, Angebote), „<Preis> € /St. … Inhalt: 400 g …
+// Abtropfgewicht: 0,25 Kilogramm“ direkt vor „Artikel-Nr.: <sku>“ (weiter unten stehen dieselben Angaben der anderen Sorten — die zählen
+// nicht), die Nährwerttabelle „Nährwerte Unzubereitet pro 100 g“, „Zutaten …“ und die Allergenliste: jedes der 14 Hauptallergene mit
+// „enthalten“ oder „nicht enthalten“ → nur die enthaltenen zählen (sonst schlüge „Krebstiere … nicht enthalten“ beim Schalentier-Test an)
+function parseRapunzel(html, url, problems) {
+  const prod = [...html.matchAll(/<script[^>]*ld\+json[^>]*>([\s\S]*?)<\/script>/g)]
+    .map(m => { try { return JSON.parse(m[1]); } catch (e) { return null; } }).flat().find(o => o && o["@type"] === "Product");
+  if (!prod) { problems.push(url + ": kein Product-Datensatz (schema.org)"); return null; }
+  const txt = decode(html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ").replace(/<[^>]+>/g, " ")
+    .replace(/&#x([0-9a-f]+);/gi, (_, x) => String.fromCharCode(parseInt(x, 16)))).replace(/\s+/g, " ");
+  const sku = String(prod.sku || "");
+  const ai = sku ? txt.indexOf("Artikel-Nr.: " + sku) : -1;
+  if (ai < 0) { problems.push(url + ": „Artikel-Nr.: " + sku + "“ nicht gefunden"); return null; }
+  const head = txt.slice(Math.max(0, ai - 400), ai);
+  const pm = [...head.matchAll(/([\d.,]+)\s*€\s*\/St\./g)].pop(), im = [...head.matchAll(/Inhalt:\s*([\d.,]+)\s*(g|kg)\b/g)].pop();
+  const dm = [...head.matchAll(/Abtropfgewicht:\s*([\d.,]+)\s*(Kilogramm|Gramm|kg|g)\b/g)].pop();
+  if (!pm || !im) { problems.push(url + ": Einzelpreis oder Inhalt nicht lesbar"); return null; }
+  const price = U.round(U.parseNum(pm[1], url + " Preis"), 2);
+  const offers = [].concat(prod.offers || []).flatMap(o => o.offers ? o.offers : [o]).map(o => Number(o.price)).filter(p => p > 0);
+  if (!offers.some(p => Math.abs(p - price) < 0.005)) problems.push(url + ": Einzelpreis " + price + " € steht nicht in den Angeboten der Seite (" + offers.join(", ") + ")");
+  const packG = U.parseNum(im[1], url + " Inhalt") * (im[2] === "kg" ? 1000 : 1);
+  const drainedG = dm ? U.round(U.parseNum(dm[1], url + " Abtropfgewicht") * (/^(Kilogramm|kg)$/.test(dm[2]) ? 1000 : 1), 1) : null;
+  // Nährwerttabelle: bevorzugt „Nährwerte Unzubereitet pro 100 g“, sonst die erste „pro 100 g“-Tabelle
+  const ni = txt.search(/Nährwerte Unzubereitet pro 100 g/) >= 0 ? txt.search(/Nährwerte Unzubereitet pro 100 g/) : txt.search(/Nährwerte pro 100 g/);
+  if (ni < 0) { problems.push(url + ": Nährwerttabelle nicht gefunden"); return null; }
+  const tab = txt.slice(ni, ni + 400);
+  const grab = (re, k) => { const m = tab.match(re); if (!m) { problems.push(url + ": Nährwert " + k + " fehlt"); return null; } return U.parseNum(m[1], url + " " + k); };
+  const per100 = {
+    kcal: grab(/Brennwert kcal\s+([\d.,]+)\s*kcal/, "kcal"), fat: grab(/\bFett\s+([\d.,]+)\s*g/, "Fett"),
+    sat: grab(/gesättigte Fettsäuren\s+([\d.,]+)\s*g/, "gesättigte Fettsäuren"), carbs: grab(/Kohlenhydrate\s+([\d.,]+)\s*g/, "Kohlenhydrate"),
+    sugars: grab(/davon Zucker\s+([\d.,]+)\s*g/, "Zucker"), fibre: (tab.match(/Ballaststoffe\s+([\d.,]+)\s*g/) || [])[1],
+    protein: grab(/Eiweiß\s+([\d.,]+)\s*g/, "Eiweiß"), salt: grab(/Salz\s+([\d.,]+)\s*g/, "Salz"),
+  };
+  const fibreDeclared = per100.fibre != null;
+  per100.fibre = fibreDeclared ? U.parseNum(per100.fibre, url + " Ballaststoffe") : 0;
+  const ingredients = (txt.match(/Zutaten\s+(.+?)\s+\*aus kontrolliert/) || txt.match(/Zutaten\s+(.+?)\s+Allgemein\b/) || [])[1] || null;
+  if (!ingredients) problems.push(url + ": keine Zutaten");
+  // Allergene: „<Allergen> oder <Allergen>erzeugnisse [nicht] enthalten“ bis „Nährwertangaben herunterladen“
+  const ae = txt.indexOf("Allergene Eier"), az = ae >= 0 ? txt.indexOf("Nährwertangaben herunterladen", ae) : -1;
+  const seg = ae >= 0 && az > ae ? txt.slice(ae + "Allergene ".length, az) : "";
+  const entries = [...seg.matchAll(/(.+?)\s+(nicht enthalten|enthalten)(?=\s|$)/g)].map(m => ({ name: m[1].trim(), contained: m[2] === "enthalten" }));
+  if (entries.length < 14 || !entries.some(e => /^Krebstiere/.test(e.name)) || !entries.some(e => /^Weichtiere/.test(e.name)))
+    problems.push(url + ": Allergenliste unvollständig (" + entries.length + " Einträge) — Krebs- und Weichtiere müssen dabei sein");
+  const contained = entries.filter(e => e.contained).map(e => e.name);
+  const storage = (String(prod.description || "").match(/Lagerhinweis\s*([^\n]*?)\s*(?:Lebensmittelrechtliche|$)/) || [])[1] || null;
+  const legal = (String(prod.description || "").match(/Lebensmittelrechtliche Verkehrsbezeichnung\s*(.+)$/) || [])[1] || null;
+  return { name: decode(prod.name || ""), brand: (prod.brand && prod.brand.name) || null, gtin: prod.gtin13 || null, sku, url, price, offers, packG, drainedG,
+    per100, fibreDeclared, ingredients, allergens: contained.length ? contained.join(", ") : null,
+    allergenInfo: entries.length ? (contained.length ? "enthalten: " + contained.join(", ") : "alle " + entries.length + " Hauptallergene laut Herstellerseite nicht enthalten") : null,
+    storage: storage && decode(storage), legal: legal && decode(legal).trim() };
 }
 
 function parsePage(html, url, problems) {
@@ -862,6 +925,27 @@ async function main() {
       portionG: e.packG, portionNote: "Packungsgröße laut User", fibreDeclared: true, allergens: null, ingredients: null, legal: null, storage: null,
       cat: e.cat, brand: null, valuesFrom: e.from, noOnlinePrice: true, offline: true });
   }
+  // Im Laden, aber nicht im Onlineshop (User 17.11.2026): alles von der Herstellerseite, Abtropfgewicht wie bei allen Konserven,
+  // Preis des Herstellers als gekennzeichnete Annahme, Hinweis „may not be available“ (storeOnly)
+  for (const e of STORE_ONLY) {
+    if (!CATS.some(c => c.id === e.cat)) { problems.push("Unbekannte Kategorie „" + e.cat + "“ (" + e.name + ")"); continue; }
+    let html;
+    try { html = await get(e.url); } catch (err) { problems.push(e.url + ": " + err.message); continue; }
+    const p = parseRapunzel(html, e.url, problems);
+    if (!p) continue;
+    if (p.name !== e.page) problems.push(e.name + ": die Herstellerseite heißt jetzt „" + p.name + "“ statt „" + e.page + "“ → Link prüfen");
+    if (p.brand !== e.brand) problems.push(e.name + ": Marke laut Herstellerseite „" + p.brand + "“");
+    const packG = packSize(e.name, problems);
+    if (packG != null && Math.abs(p.packG - packG) > 1) problems.push(e.name + ": Inhalt laut Name " + packG + " g ≠ Herstellerseite " + p.packG + " g");
+    if (p.drainedG == null) problems.push(e.name + ": Herstellerseite nennt kein Abtropfgewicht");
+    addExtra({ name: e.name, url: e.url, sku: p.gtin, price: p.price,
+      priceNote: "not in the EDEKA Graf online shop — price assumed: " + p.price.toFixed(2).replace(".", ",") + " € in " + e.brand + "'s own shop",
+      per100: p.per100, basis: "je 100 g (unzubereitet) laut Herstellerseite", noData: null, packG: p.packG, drainedG: p.drainedG,
+      portionG: p.drainedG, portionNote: "Abtropfgewicht laut Herstellerseite (ganze Dose)", fibreDeclared: p.fibreDeclared,
+      allergens: p.allergens, allergenInfo: p.allergenInfo, ingredients: p.ingredients, legal: p.legal, storage: p.storage, company: null,
+      cat: e.cat, brand: e.brand, valuesFrom: "offizielle Herstellerseite " + e.url, manufacturerUrl: e.url, articleNo: p.sku,
+      storeOnly: true, seenInStore: e.seen });
+  }
   console.log("");
 
   const out = {
@@ -870,7 +954,7 @@ async function main() {
       fetchedAt,
       basis: "Offizielle Werte **je 100 g** laut Produktseite × Menge. Die Menge ist **immer die ganze Packung** (User 19.09.2026) — bei Konserven das **Abtropfgewicht** (Bohnen in Soße nennen keins → ganzer Inhalt, die Soße isst man mit). Ballaststoffe sind freiwillig → fehlen sie, steht 0. Frisches Obst und Gemüse ohne Nährwertangabe bekommt Referenzwerte (FALLBACK/OFFLINE, Quelle je Produkt in _meta.referenceValues)",
       rules: [
-        "Produkte des Onlineshops, Namen exakt wie dort; dazu wenige, die der Markt führt, die online fehlen (Burritos von edeka.de, Kulturheidelbeeren) — ohne Preis",
+        "Produkte des Onlineshops, Namen exakt wie dort; dazu wenige, die der Markt führt, die online fehlen (Burritos von edeka.de, Kulturheidelbeeren) — ohne Preis; Rapunzel Borlotti Bohnen (STORE_ONLY, seit 17.11.2026) mit Werten und Preis der Herstellerseite, der Preis als Annahme, im Tracker mit dem Hinweis „may not be available“",
         "Der Tracker rechnet mit Gramm: jedes Produkt startet mit seiner Portion, das Gramm ist im Warenkorb änderbar",
         "Preise = Onlineshop-Preise des Marktes (im Laden können sie abweichen, Angebote wechseln)",
       ],
@@ -898,6 +982,7 @@ async function main() {
         "User 03.11.2026 (Rapunzel-Dosen): „Baue diese Lebensmittel bei Edeka Graf im Tracker ein. Check vorher nochmal die Nährwerte bei Edeka Graf“ → Rapunzel Bio Schwarze Bohnen 400 g, Rapunzel Bio Weiße Canellini Bohnen 400 g und Rapunzel Bio Grüne Linsen 400 g in „Beans, chickpeas & lentils (tins)“, je 1,99 €, Abtropfgewicht 240 von 400 g (Hülsenfrucht, Wasser, Salz); Nährwerte vorher auf den Produktseiten im Browser abgelesen",
         "User 04.11.2026 (HAK): „Mach HAK schwarze Bohnen rein“ → HAK Schwarze Bohnen 225 g in „Beans, chickpeas & lentils (tins)“ hinter den übrigen Bohnen in Wasser (schwarze Bohnen, Wasser, Meersalz; Abtropfgewicht 200 von 225 g laut Produktseite); Nährwerte vorher auf der Produktseite im Browser abgelesen. Die Eiweiß-Probe „Werte gelten fürs Abgetropfte“ der übrigen Bohnen-Dosen trennt hier nicht (wenig Aufguss: 8,1 g deklariert, bezogen auf den Inhalt samt Aufguss 9,1 g; gekochte schwarze Bohnen laut USDA 8,86 g) → es zählt wie bei allen Konserven das Abtropfgewicht, der ganze Inhalt wären höchstens 35 kcal mehr",
         "User 29.10.2026: „bitte bei Ben's Original Express-Reis-Mischungen alle 250-g-Versionen raus, im Edeka gibt es nur die 220-g-Versionen (nur auf Marke Ben's bezogen)“ → nicht mehr im Tracker: Ben's Original Express Langkornreis 250 g, Express nach Art Risi Bisi 250 g und Express Reis Mexikanisch 250 g; dieselben Sorten gibt es als 220-g-Beutel. Die 250-g-Beutel von reis-fit, GUT&GÜNSTIG und Tilda bleiben",
+        "User 17.11.2026 (Borlotti): „Es gibt neue Bohnen in Konserve bei Edeka … nicht so normale oder weiße, sondern glaube vllt Borlotti oder sowas, so Muster hatten die“ → im Graf-Onlineshop keine Borlotti-, Wachtel- oder Pintobohnen in der Dose (Regale Gemüsekonserven, Hülsenfrüchte, Fertiggerichte, Kühl-Feinkost und rund 40 Produkt-URLs geprüft; gefunden nur Rapunzel Bio Bohnen-Mix 400 g, gerade nicht verfügbar). Dann mit Link auf shop.rapunzel.de: „Baue die hier ein, aber mit Hinweis, dass die ggf. nicht verfügbar sind“ → Rapunzel Bio Borlotti Bohnen 400 g in „Beans, chickpeas & lentils (tins)“ mit allen Werten von der Herstellerseite (Borlotti Bohnen, Wasser, Meersalz; Abtropfgewicht 250 von 400 g, gezählt wie bei allen Konserven), Preis = Einzelpreis im Rapunzel-Shop (2,49 €) als Annahme — die übrigen Rapunzel-Dosen kosten dort wie im Markt 1,99 € —, im Tracker „not in the online shop — may not be available“ (storeOnly). Die Eiweiß-Probe der übrigen Bohnen-Dosen trennt hier nicht: bezogen auf den Inhalt samt Aufguss hätten die abgetropften Bohnen 9,1 g Eiweiß je 100 g, etwa so viel wie gekochte Borlotti (USDA: 9,34 g), die deklarierten 5,7 g wären für abgetropfte Bohnen eher wenig. Gälten die Werte für den ganzen Inhalt, hätte die Dose 336 statt 210 kcal und 22,8 statt 14,3 g Eiweiß (dem User genannt)",
         "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere",
       ],
       store: STORE,
@@ -907,6 +992,8 @@ async function main() {
       manufacturer: Object.fromEntries(items.filter(x => x.manufacturerUrl).map(x => [x.name, x.manufacturerUrl])),
       manufacturerDiffs: manufacturerDiffs.length ? manufacturerDiffs : "keine Abweichung zwischen Shop- und Herstellerangaben",
       notInStore: Object.fromEntries(items.filter(x => x.notInStore).map(x => [x.name, x.priceNote])),
+      // im Markt gesehen, im Onlineshop nicht gelistet (STORE_ONLY): Werte und Preis von der Herstellerseite, Hinweis „may not be available“
+      storeOnly: Object.fromEntries(items.filter(x => x.storeOnly).map(x => [x.name, "am " + x.seenInStore + " im Markt gesehen, im Onlineshop nicht gelistet — " + x.priceNote + "; Allergene: " + (x.allergenInfo || "?")])),
       notInTracker: NOT_IN_TRACKER,
       eatHappy: { source: "eathappy.de (Produktseiten)", note: "Nährwerte je 100 g für den ganzen Boxinhalt inkl. Saucen (Eat Happy); Standardgewicht schwankt täglich → im Tracker änderbar; Preis = Grundpreis je kg × Standardgewicht = Boxpreis, je Abholort ggf. anders",
         products: items.filter(x => x.eathappy).map(x => x.name + " — " + x.packG + " g, " + x.pricePerKg.toFixed(2) + " €/kg → " + x.price.toFixed(2) + " €") },
@@ -944,6 +1031,7 @@ async function main() {
   console.log("Ohne Nährwerte auf der Seite (" + noData.length + "): " + (noData.join(" · ") || "keine"));
   console.log("Ohne Ballaststoff-Angabe (" + noFibre.length + "): " + (noFibre.join(" · ") || "keine"));
   if (Array.isArray(out._meta.manufacturerDiffs)) console.log("Shop ≠ Hersteller (" + out._meta.manufacturerDiffs.length + "):\n  " + out._meta.manufacturerDiffs.map(d => d.name + ": " + d.diffs.join(", ")).join("\n  "));
+  if (Object.keys(out._meta.storeOnly).length) console.log("Nur im Laden (STORE_ONLY): " + Object.entries(out._meta.storeOnly).map(([k, v]) => k + " — " + v).join(" · "));
   if (Object.keys(out._meta.notInStore).length) console.log("Nicht im Markt gelistet: " + Object.keys(out._meta.notInStore).join(" · "));
   console.log("Nicht im Tracker: " + NOT_IN_TRACKER.map(x => x.name + " — " + x.reason).join(" · "));
   if (waiting.length) console.log("Wartet auf Werte (WAITING, " + waiting.length + "): " + waiting.join(" · "));
@@ -954,4 +1042,6 @@ async function main() {
   if (infos.length) console.log("Hinweise:\n  " + infos.join("\n  "));
 }
 
-main().catch(e => { console.error(e); process.exit(1); });
+module.exports = { parseRapunzel };
+
+if (require.main === module) main().catch(e => { console.error(e); process.exit(1); });

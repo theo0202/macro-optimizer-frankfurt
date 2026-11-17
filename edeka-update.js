@@ -29,6 +29,7 @@ function buildData(raw) {
     if (p.eathappy) o.eathappy = true;         // Schalter „No Eat Happy“ (User 24.09.2026)
     if (p.variable) o.variable = true;         // Gewicht schwankt täglich: g = Standardgewicht, im Tracker änderbar (wie Sushi Daily in London)
     if (p.offline) o.offline = true;           // weder im Onlineshop noch auf edeka.de (Kulturheidelbeeren): kein Link, kein Preis
+    if (p.storeOnly) o.storeOnly = true;       // im Markt gesehen, im Onlineshop nicht gelistet (Rapunzel Borlotti, User 17.11.2026): „may not be available“
     if (p.drainedG != null) o.drained = true;
     // Woher die Werte kommen — Kurzform für den Hinweis im Tracker („values: …“)
     if (p.manufacturerUrl) o.ref = (p.manufacturerUrl.match(/^https?:\/\/(?:www\.)?([^/]+)/) || [])[1] + " (manufacturer)";
