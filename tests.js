@@ -2955,7 +2955,7 @@ check("Bohnen-Konserven, Beispiele je ganzer Dose: EDEKA Bio Kidney Bohnen 265 g
 })(), true);
 check("Abgetropft ist die richtige Basis (User-Rückfrage 19.10.2026): bezogen auf den Doseninhalt samt Aufguss hätten die abgetropften Bohnen 10,2–12,9 g Eiweiß je 100 g — mehr als gekochte Bohnen (USDA: Kidney 8,67 g, Great Northern 8,33 g); die deklarierten 6,1–8,2 g passen zu abgetropften Dosenbohnen (USDA 7,98 g), nicht zum Inhalt samt Aufguss (5,22 g) — seit 26.10.2026 für 10 Dosen (dazu Schwarze Bohnen und Cannellini)", (() => {
   // ohne HAK (User 04.11.2026): wenig Aufguss (200 von 225 g), die Probe trennt dort nicht (eigener Test);
-  // ohne die Rapunzel Borlotti (User 17.11.2026, Werte von der Herstellerseite): die Probe trennt auch dort nicht (eigener Test)
+  // ohne die Rapunzel Borlotti (User 17.11.2026, Werte von der Herstellerseite): frisch verarbeitete Bohnen, die Probe gegen getrocknete, gekochte trennt dort nicht — das Etikett sagt „abgetropft“ (eigener Test)
   const tins = rawED.items.filter(x => x.cat === "beans" && /bohnen/i.test(x.name) && x.drainedG != null && x.brand !== "HAK" && !x.storeOnly);
   return tins.length === 13 && tins.every(x => x.drainedG < x.packG && x.per100.protein >= 6 && x.per100.protein <= 8.5 && x.per100.protein * x.packG / x.drainedG > 9.5);
 })(), true);
@@ -2996,7 +2996,7 @@ check("HAK Schwarze Bohnen 225 g (User 04.11.2026), hinter den übrigen Bohnen i
     sc.name === n + " (200 g drained)" && near(sc.kcal, 280) && near(sc.protein, 16.2) && near(sc.carbs, 45.4) && near(sc.fat, 1) && near(sc.fibre, 11.8) && near(sc.salt, 0.5) && sc.sugars === 0 &&
     !!d && /trennt hier nicht/.test(d) && /Abtropfgewicht 200 von 225 g/.test(d);
 })(), true);
-check("Rapunzel Bio Borlotti Bohnen 400 g (User 17.11.2026: im Markt gesehen, der Onlineshop listet sie nicht — „mit Hinweis, dass die ggf. nicht verfügbar sind“): alle Werte von der Herstellerseite shop.rapunzel.de (84 kcal / 5,7 g E / 9,8 g KH / 0,9 g F / 7 g Ballaststoffe / 1,03 g Salz je 100 g), Abtropfgewicht 250 von 400 g = 210 kcal / 14,3 g E / 24,5 g KH / 2,3 g F / 17,5 g Ballaststoffe / 2,6 g Salz je Dose; Preis 2,49 € des Rapunzel-Shops als Annahme, Link auf die Herstellerseite, letzte Dose der Kategorie, stimmig, nur Borlotti Bohnen, Wasser, Meersalz, kein Allergen", (() => {
+check("Rapunzel Bio Borlotti Bohnen 400 g (User 17.11.2026: im Markt gesehen, der Onlineshop listet sie nicht — „mit Hinweis, dass die ggf. nicht verfügbar sind“): alle Werte von der Herstellerseite shop.rapunzel.de (84 kcal / 5,7 g E / 9,8 g KH / 0,9 g F / 7 g Ballaststoffe / 1,03 g Salz je 100 g), Abtropfgewicht 250 von 400 g = 210 kcal / 14,3 g E / 24,5 g KH / 2,3 g F / 17,5 g Ballaststoffe / 2,6 g Salz je Dose; Preis 2,49 € des Rapunzel-Shops als Annahme, Link auf die Herstellerseite, letzte Dose der Kategorie, stimmig, nur Borlotti Bohnen, Wasser, Meersalz, kein Allergen; die Werte gelten laut Etikett für die abgetropften Bohnen (Entscheidung: Etikett „abgetropft“, die übrigen Rapunzel-Dosen, CREA)", (() => {
   const n = "Rapunzel Bio Borlotti Bohnen 400 g", x = edItem(U.slugId(n)), r = edRaw(n), beans = EDD.items.filter(y => y.cat === "beans").map(y => y.name), near = (a, b) => Math.abs(a - b) < 0.011;
   const per = { kcal: 84, fat: 0.9, sat: 0.19, carbs: 9.8, sugars: 0.49, fibre: 7, protein: 5.7, salt: 1.03 };
   if (!x || !r) return false;
@@ -3008,7 +3008,7 @@ check("Rapunzel Bio Borlotti Bohnen 400 g (User 17.11.2026: im Markt gesehen, de
     /^Borlotti Bohnen\*, Wasser, Meersalz$/.test(r.ingredients) && r.allergens === null && r.allergenInfo === "alle 14 Hauptallergene laut Herstellerseite nicht enthalten" && r.sku === "4006040012023" &&
     beans[beans.length - 1] === n && sc.name === n + " (250 g drained)" &&
     near(sc.kcal, 210) && near(sc.protein, 14.3) && near(sc.carbs, 24.5) && near(sc.fat, 2.3) && near(sc.fibre, 17.5) && near(sc.salt, 2.6) && near(sc.sugars, 1.2) &&
-    !!d && /trennt hier nicht/.test(d) && /336 statt 210 kcal/.test(d) && /Abtropfgewicht 250 von 400 g/.test(d) &&
+    !!d && /trennt hier nicht/.test(d) && /336 statt 210 kcal/.test(d) && /Abtropfgewicht 250 von 400 g/.test(d) && /\(abgetropft, sgocciolato/.test(d) && /CREA 004115/.test(d) && /134 kcal \/ 9,1 g/.test(d) &&
     Object.keys(rawED._meta.storeOnly).join() === n && /^am 2026-11-16 im Markt gesehen, im Onlineshop nicht gelistet/.test(rawED._meta.storeOnly[n]) &&
     rawED._meta.manufacturer[n] === x.url && !(n in rawED._meta.notInStore);
 })(), true);
