@@ -1080,12 +1080,12 @@ check("UE_AMOUNT bricht ab, wenn sich die kcal-Angabe von Uber Eats ändert (Tes
   const src = fs.readFileSync(__dirname + "/compleat-crawl.js", "utf8");
   return /const UE_AMOUNT = \{/.test(src) && src.includes('"Hart gekochtes Ei (40g)": { amount: 50, kcal: 78,') && src.includes("UE_AMOUNT neu prüfen") && src.includes("if (fix) opt.nameAmount = sp.amount;");
 })(), true);
-check("Shop-Anzeige einzeln angeklickt (zuletzt 10.11.2026, 63 Karten direkt; Baby-Grünkohl und Guacamole sind ausverkauft und mit ihrer Ablesung vom 03.11.2026 dabei): alle 65 Karten durchgegangen, 65 Karten / 520 Werte = Shop-API × Anzeige-Menge (heute abgelesen + die heute ausverkauften Karten mit ihrer letzten Ablesung); Quinoa mit den neuen Werten (305 kcal je 250 g); verify-compleat-shop.js grün", (() => {
+check("Shop-Anzeige einzeln angeklickt (zuletzt 19.11.2026, 64 Karten direkt; Sriracha Light ist ausverkauft und mit ihrer Ablesung vom 10.11.2026 dabei): alle 65 Karten durchgegangen, 65 Karten / 520 Werte = Shop-API × Anzeige-Menge (heute abgelesen + die heute ausverkauften Karten mit ihrer letzten Ablesung); Quinoa mit den neuen Werten (305 kcal je 250 g); verify-compleat-shop.js grün", (() => {
   const ctl = U.readJSON(__dirname + "/data/compleat-shop-anzeige.json"), r = require("./verify-compleat-shop.js").compare(rawC.shopItems, ctl);
   let ok = true; try { require("child_process").execFileSync(process.execPath, [__dirname + "/verify-compleat-shop.js"], { stdio: "pipe" }); } catch (e) { ok = false; }
   const read = ctl.items.filter(x => x.shown), last = ctl.items.filter(x => !x.shown && x.lastRead);
   const q = ctl.items.find(x => x.name === "Bunter Bio Quinoa (250g)"), qh = ctl.items.find(x => x.name === "Bunter Bio Quinoa - Halbe Portion (125g)");
-  return ok && r.problems.length === 0 && /^2026-11-10T/.test(ctl.readAt) && ctl.items.length === 65 && read.length === 63 && last.map(x => x.name).sort().join() === "Baby-Grünkohl (20g),Guacamole (100g)" && read.length + last.length === 65 && last.every(x => x.soldOut === true && /^2026-11-03T/.test(x.lastRead.readAt)) &&
+  return ok && r.problems.length === 0 && /^2026-11-19T/.test(ctl.readAt) && ctl.items.length === 65 && read.length === 64 && last.map(x => x.name).sort().join() === "Sriracha Light (Inlead) (80g)" && read.length + last.length === 65 && last.every(x => x.soldOut === true && /^2026-11-10T/.test(x.lastRead.readAt)) &&
     r.checked === read.length + last.length && r.values === 8 * r.checked && r.checked === 65 && r.earlier.length === last.length && r.soldOutNotChecked.length === 0 &&
     metaC.shopControl.checked === r.checked && metaC.shopControl.values === r.values && metaC.shopControl.earlier.length === last.length && rawC.shopItems.length >= 65 &&
     !!q.shown && q.shown.kcal === "305" && q.shown.protein === "11.8" && q.shown.carbs === "48.5" && q.shown.fat === "5.0" && !!qh.shown && qh.shown.kcal === "153" && qh.shown.protein === "5.9";
@@ -1848,6 +1848,13 @@ check("Hinweistext je Plattform: nennt, was die Plattform gerade nicht führt, u
   const texts = [], old = global.__h; global.__h = (type, props, ...kids) => { for (const k of kids.flat(Infinity)) if (typeof k === "string") texts.push(k); return null; };
   try { CR.renderConfig({ R: CR, st: T.defaultRestoState(CR), tg: {}, update: () => {} }); } finally { global.__h = old; }
   return noneNote === "" && /^ Not on Wolt on \d{2}\.\d{2}\.\d{4}: Guacamole — “Exclude unavailable ingredients”/.test(n) && !/\bX\b/.test(n) && real.every(x => noteW.includes(x)) && (real.length === 0 || texts.some(x => x.includes("Exclude unavailable ingredients")));
+})(), true);
+check("Hinweis „Not on …“ nennt den Stand des Plattform-Menüs: Uber Eats den Tag der Erfassung (capturedAt — am 19.11.2026 zeigte Uber Eats eine Sicherheitsprüfung, das Menü blieb vom 15.11.2026), Wolt den Abruf (asOf)", (() => {
+  const opt = { groups: [{ options: [{ ing: "guacamole", short: "Guacamole", notListed: "2026-11-02" }] }] };
+  const u = T.compleatUnavailableNote(Object.assign({ capturedAt: "2026-11-15" }, opt), "Uber Eats"), w = T.compleatUnavailableNote(opt, "Wolt");
+  const realU = T.compleatUnavailableNote(UE, "Uber Eats"), dd = iso => iso.slice(8, 10) + "." + iso.slice(5, 7) + "." + iso.slice(0, 4);
+  return /^ Not on Uber Eats on 15\.11\.2026: Guacamole — /.test(u) && w.startsWith(" Not on Wolt on " + dd(T.COMPLEAT.asOf) + ": Guacamole") &&
+    /^\d{4}-\d{2}-\d{2}$/.test(UE.capturedAt) && (realU === "" || realU.startsWith(" Not on Uber Eats on " + dd(UE.capturedAt) + ": "));
 })(), true);
 check("Im Shop Ausverkauftes taucht normal auf (User 03.11.2026): auch mit Schalter AN ist eine als ausverkauft geführte Zutat in den Vorschlägen möglich, ohne Warnung im Panel; der Hinweis nennt sie mit Datum, Wolts Chili Gewürz bleibt normal; nicht gelistete Optionen stehen nicht doppelt im Hinweis", (() => {
   const so = T.COMPLEAT.ingredients.filter(x => x.soldOut).map(x => x.id);

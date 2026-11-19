@@ -2,7 +2,7 @@
   "_meta": {
     "restaurant": "Compleat",
     "store": "Frankfurt Nordend (Glauburgstraße 5, 60318 Frankfurt am Main)",
-    "fetchedAt": "2026-11-15T14:10:21.864Z",
+    "fetchedAt": "2026-11-19T07:44:15.832Z",
     "sources": {
       "shop": {
         "url": "https://compleat.vmos.io",
@@ -33,7 +33,7 @@
         "how": "Uber Eats blockt Skript-Abrufe (Cloudflare) → Produktseite im Browser geöffnet, __REACT_QUERY_STATE__ gelesen (ubereats-capture.js)"
       },
       "word": "data/compleat-word.txt = Word-Copy-Paste des Users (Shop-Anzeige, 15.09.2026) → Abgleich: node verify-compleat.js",
-      "shopDisplay": "data/compleat-shop-anzeige.json = jede Zutat einzeln im Shop ausgewählt und die Anzeige abgelesen (compleat-shop-capture.js, 2026-11-10) → Abgleich: node verify-compleat-shop.js",
+      "shopDisplay": "data/compleat-shop-anzeige.json = jede Zutat einzeln im Shop ausgewählt und die Anzeige abgelesen (compleat-shop-capture.js, 2026-11-19) → Abgleich: node verify-compleat-shop.js",
       "stock": "Ausverkauft = mit ?forceStockStatus=1 im Bundle, ohne den Parameter nicht (27.09.2026 an den „Ausverkauft“-Karten des Shops bestätigt)"
     },
     "basis": "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Gerechnet wird immer mit der Menge der jeweiligen Plattform: Wolt nennt seit 02.11.2026 dieselben Mengen wie der Shop (außer dem Ei, 50 statt 40 g; der Salat-Mix hatte bis dahin 100 statt 80 g), Uber Eats nutzt die Namen des Shops, kann aber hinterherhinken (am 02./03.11.2026 noch 100 g bei Hühnchen, Vegane Hackbällchen, Rinderhackbällchen und Pulled Salmon, seit der Erfassung vom 10.11.2026 dieselben Mengen wie der Shop; _meta.ubereats.portionDiffs). Ausnahme Ei bei Uber Eats: Name „(40g)“, kcal-Angabe = 50 g → 50 g (UE_AMOUNT, _meta.ubereats.amountFixed). Ausnahme (User 27.10.2026): Sojasauce mit typischen Werten (USDA FoodData Central, _meta.referenceValues) statt der unplausiblen Shop-Werte. Ausnahme (User 11.11.2026): Pulled Salmon mit 0 statt 6 g Ballaststoffen je 100 g (Lachs, Salz, Rauch — sonst die Shop-Werte; _meta.corrections).",
@@ -73,6 +73,7 @@
       "„Power Peanut Dip“: Menge bei Wolt nicht angegeben → Shop-Portion 80 g",
       "„Sexy Sesame Dip“: Menge bei Wolt nicht angegeben → Shop-Portion 80 g",
       "„Champion Chili-Dip“: Menge bei Wolt nicht angegeben → Shop-Portion 80 g",
+      "„Protein Tsatsiki Dip“: Menge bei Wolt nicht angegeben → Shop-Portion 100 g",
       "„Guacamole“: Menge bei Wolt nicht angegeben → Shop-Portion 100 g",
       "„Olivenöl und halbe Zitrone“: Menge bei Wolt nicht angegeben → Shop-Portion 20 ml"
     ],
@@ -156,17 +157,17 @@
         ]
       },
       {
-        "id": "olivenoel_salz_halbe_zitrone",
-        "name": "Olivenöl (20ml), Salz & halbe Zitrone",
-        "issues": [
-          "Salz 0 g, obwohl „Salz“ im Namen steht; die Zitrone ist nicht eingerechnet → unverändert übernommen"
-        ]
-      },
-      {
         "id": "sojasauce",
         "name": "Sojasauce (20ml)",
         "issues": [
           "Offizielle Shop-Werte je 100 ml (21 kcal, 2,4 g Eiweiß, 2,3 g KH, 14,35 g Salz) unplausibel: das Salz passt zu Sojasauce, Eiweiß und kcal liegen bei einem Drittel einer gebrauten Sojasauce → ersetzt durch typische Werte (USDA FoodData Central #174277), User 27.10.2026"
+        ]
+      },
+      {
+        "id": "olivenoel_salz_halbe_zitrone",
+        "name": "Olivenöl (20ml), Salz & halbe Zitrone",
+        "issues": [
+          "Salz 0 g, obwohl „Salz“ im Namen steht; die Zitrone ist nicht eingerechnet → unverändert übernommen"
         ]
       },
       {
@@ -179,23 +180,23 @@
     ],
     "missingDeclared": [
       "Sexy Sesame (80g): Ballaststoffe nicht angegeben → 0",
-      "Power Peanut (80g): Ballaststoffe nicht angegeben → 0",
-      "Sojasauce (20ml): Ballaststoffe nicht angegeben → 0"
+      "Sojasauce (20ml): Ballaststoffe nicht angegeben → 0",
+      "Power Peanut (80g): Ballaststoffe nicht angegeben → 0"
     ],
     "notOnWolt": [
-      "Gemüsemix (100g)",
       "Kürbiswürfel mariniert (50g)",
-      "Protein Tzatziki (100g)"
+      "Gemüsemix (100g)",
+      "Sriracha Light (Inlead) (80g)"
     ],
     "woltMapUnused": [
-      "Protein Tsatsiki Dip"
+      "Siracha Mayo Light (Inlead), 80 g"
     ],
     "dislikes": [
       "Guacamole (100g): Koriander in den Zutaten"
     ],
     "shellfish": [],
     "soldOut": [
-      "Protein Tzatziki (100g)"
+      "Sriracha Light (Inlead) (80g)"
     ],
     "removedIngredients": [
       {
@@ -537,26 +538,17 @@
       }
     ],
     "lastChanges": {
-      "since": "2026-11-11T07:36:28.661Z",
+      "since": "2026-11-15T14:10:21.864Z",
       "shopAdded": [],
       "shopRemoved": [],
       "woltAdded": [
-        "Deine Basis: Salat-Mix, 80 g",
-        "Dein Dip: Joghurt-Salatdressing",
-        "Dein Dip: Guacamole",
-        "Dein Dip: Ajvar, 100g",
-        "Dein Dip: Balsamico Dressing , 80g"
-      ],
-      "woltRemoved": [
         "Dein Dip: Protein Tsatsiki Dip"
       ],
-      "ubereatsAdded": [
-        "Dips: Guacamole (100g)",
-        "Vitamine: Baby-Grünkohl (20g)"
+      "woltRemoved": [
+        "Dein Dip: Siracha Mayo Light (Inlead), 80 g"
       ],
-      "ubereatsRemoved": [
-        "Dips: Protein Tzatziki (100g)"
-      ],
+      "ubereatsAdded": [],
+      "ubereatsRemoved": [],
       "prices": [],
       "values": [],
       "portions": []
@@ -809,33 +801,6 @@
         },
         {
           "group": "Dein Dip",
-          "name": "Siracha Mayo Light (Inlead), 80 g",
-          "amount": 80,
-          "unit": "g",
-          "label": "pro 80 g",
-          "wolt": {
-            "kcal": 76,
-            "fat": 4.6,
-            "sat": 0.7,
-            "carbs": 7.6,
-            "sugars": 3.5,
-            "fibre": 0.2,
-            "protein": 0.7,
-            "salt": 1.5
-          },
-          "ours": {
-            "kcal": 76,
-            "fat": 4.64,
-            "sat": 0.72,
-            "carbs": 7.6,
-            "sugars": 3.52,
-            "fibre": 0.16,
-            "protein": 0.72,
-            "salt": 1.52
-          }
-        },
-        {
-          "group": "Dein Dip",
           "name": "Aioli Light (Inlead), 80 g",
           "amount": 80,
           "unit": "g",
@@ -867,8 +832,8 @@
       "wolt": [
         {
           "group": "Dein Dip",
-          "name": "Protein Tsatsiki Dip",
-          "since": "2026-11-15"
+          "name": "Siracha Mayo Light (Inlead), 80 g",
+          "since": "2026-11-19"
         }
       ],
       "ubereats": [
@@ -883,17 +848,13 @@
       "Kürbiswürfel mariniert - halbe Portion: Zucker 1,7 statt 1,5 g je 100 g (sonst identisch) → +0,2 g Zucker je halbe Portion; der Rechner nutzt die Werte der ganzen Portion (27.09.2026)"
     ],
     "shopControl": {
-      "readAt": "2026-11-10",
+      "readAt": "2026-11-19",
       "checked": 65,
       "values": 520,
       "earlier": [
         {
-          "name": "Baby-Grünkohl (20g)",
-          "readAt": "2026-11-03"
-        },
-        {
-          "name": "Guacamole (100g)",
-          "readAt": "2026-11-03"
+          "name": "Sriracha Light (Inlead) (80g)",
+          "readAt": "2026-11-10"
         }
       ],
       "soldOutNotChecked": [],
@@ -949,38 +910,36 @@
   },
   "ingredients": [
     {
-      "id": "protein_pasta",
-      "name": "Protein-Pasta",
-      "shopName": "Protein-Pasta (200g)",
+      "id": "kuerbiswuerfel_mariniert",
+      "name": "Kürbiswürfel mariniert",
+      "shopName": "Kürbiswürfel mariniert (200g)",
       "group": "base",
       "portion": 200,
       "unit": "g",
       "per100": {
-        "kcal": 190.5,
-        "fat": 2.75,
-        "sat": 0.2,
-        "carbs": 25,
-        "sugars": 0.75,
-        "fibre": 7,
-        "protein": 13,
-        "salt": 1
+        "kcal": 56.4,
+        "fat": 2.6,
+        "sat": 0.4,
+        "carbs": 5.7,
+        "sugars": 1.5,
+        "fibre": 1.6,
+        "protein": 0.8,
+        "salt": 0.6
       },
       "perPortion": {
-        "kcal": 381,
-        "fat": 5.5,
-        "sat": 0.4,
-        "carbs": 50,
-        "sugars": 1.5,
-        "fibre": 14,
-        "protein": 26,
-        "salt": 2
+        "kcal": 112.8,
+        "fat": 5.2,
+        "sat": 0.8,
+        "carbs": 11.4,
+        "sugars": 3,
+        "fibre": 3.2,
+        "protein": 1.6,
+        "salt": 1.2
       },
-      "allergens": [
-        "Glutenhaltig"
-      ],
-      "ingredients": "Protein-Pasta",
+      "allergens": [],
+      "ingredients": "Kürbis, Pilzpfannen-Gewürz",
       "vmos": {
-        "uuid": "2cc29890-4d6f-434a-b552-00a56ef536ed",
+        "uuid": "00aebe1f-d466-4d6c-ab34-45cf406184eb",
         "displayAmount": 200
       },
       "halfPortion": 100
@@ -1056,6 +1015,43 @@
       "halfPortion": 125
     },
     {
+      "id": "protein_pasta",
+      "name": "Protein-Pasta",
+      "shopName": "Protein-Pasta (200g)",
+      "group": "base",
+      "portion": 200,
+      "unit": "g",
+      "per100": {
+        "kcal": 190.5,
+        "fat": 2.75,
+        "sat": 0.2,
+        "carbs": 25,
+        "sugars": 0.75,
+        "fibre": 7,
+        "protein": 13,
+        "salt": 1
+      },
+      "perPortion": {
+        "kcal": 381,
+        "fat": 5.5,
+        "sat": 0.4,
+        "carbs": 50,
+        "sugars": 1.5,
+        "fibre": 14,
+        "protein": 26,
+        "salt": 2
+      },
+      "allergens": [
+        "Glutenhaltig"
+      ],
+      "ingredients": "Protein-Pasta",
+      "vmos": {
+        "uuid": "2cc29890-4d6f-434a-b552-00a56ef536ed",
+        "displayAmount": 200
+      },
+      "halfPortion": 100
+    },
+    {
       "id": "basmati_reis",
       "name": "Basmati Reis",
       "shopName": "Basmati Reis (250g)",
@@ -1091,73 +1087,72 @@
       "halfPortion": 125
     },
     {
-      "id": "kuerbiswuerfel_mariniert",
-      "name": "Kürbiswürfel mariniert",
-      "shopName": "Kürbiswürfel mariniert (200g)",
-      "group": "base",
-      "portion": 200,
+      "id": "ziegenkaese",
+      "name": "Ziegenkäse",
+      "shopName": "Ziegenkäse (60g)",
+      "group": "proteine",
+      "portion": 60,
       "unit": "g",
       "per100": {
-        "kcal": 56.4,
-        "fat": 2.6,
-        "sat": 0.4,
-        "carbs": 5.7,
-        "sugars": 1.5,
-        "fibre": 1.6,
-        "protein": 0.8,
-        "salt": 0.6
+        "kcal": 291,
+        "fat": 23,
+        "sat": 16.1,
+        "carbs": 1,
+        "sugars": 1,
+        "fibre": 0,
+        "protein": 20,
+        "salt": 1.5
       },
       "perPortion": {
-        "kcal": 112.8,
-        "fat": 5.2,
-        "sat": 0.8,
-        "carbs": 11.4,
-        "sugars": 3,
-        "fibre": 3.2,
-        "protein": 1.6,
-        "salt": 1.2
+        "kcal": 174.6,
+        "fat": 13.8,
+        "sat": 9.66,
+        "carbs": 0.6,
+        "sugars": 0.6,
+        "fibre": 0,
+        "protein": 12,
+        "salt": 0.9
       },
-      "allergens": [],
-      "ingredients": "Kürbis, Pilzpfannen-Gewürz",
+      "allergens": [
+        "Milch"
+      ],
+      "ingredients": "Ziegenkäse",
       "vmos": {
-        "uuid": "00aebe1f-d466-4d6c-ab34-45cf406184eb",
-        "displayAmount": 200
-      },
-      "halfPortion": 100
+        "uuid": "a0d63a26-4507-451a-a4d2-28e76c77c0d5",
+        "displayAmount": 60
+      }
     },
     {
-      "id": "edamame",
-      "name": "Edamame",
-      "shopName": "Edamame (50g)",
+      "id": "erbsen",
+      "name": "Erbsen",
+      "shopName": "Erbsen (50g)",
       "group": "proteine",
       "portion": 50,
       "unit": "g",
       "per100": {
-        "kcal": 110,
-        "fat": 0,
-        "sat": 0,
-        "carbs": 8.5,
-        "sugars": 2.4,
-        "fibre": 2.4,
-        "protein": 10,
-        "salt": 2
-      },
-      "perPortion": {
-        "kcal": 55,
-        "fat": 0,
-        "sat": 0,
-        "carbs": 4.25,
-        "sugars": 1.2,
-        "fibre": 1.2,
-        "protein": 5,
+        "kcal": 69,
+        "fat": 0.3,
+        "sat": 0.1,
+        "carbs": 9,
+        "sugars": 3.1,
+        "fibre": 5,
+        "protein": 5.2,
         "salt": 1
       },
-      "allergens": [
-        "Soja"
-      ],
-      "ingredients": "Edamame",
+      "perPortion": {
+        "kcal": 34.5,
+        "fat": 0.15,
+        "sat": 0.05,
+        "carbs": 4.5,
+        "sugars": 1.55,
+        "fibre": 2.5,
+        "protein": 2.6,
+        "salt": 0.5
+      },
+      "allergens": [],
+      "ingredients": "Erbsen",
       "vmos": {
-        "uuid": "eee79452-d172-4b70-94d0-c51991c0833c",
+        "uuid": "20445c61-b2ea-4a52-997c-8007d5021199",
         "displayAmount": 50
       }
     },
@@ -1199,6 +1194,43 @@
       "halfPortion": 50
     },
     {
+      "id": "veganes_huehnchen_planted_chicken",
+      "name": "Veganes Hühnchen planted.chicken",
+      "shopName": "Veganes Hühnchen planted.chicken (80g)",
+      "group": "proteine",
+      "portion": 80,
+      "unit": "g",
+      "per100": {
+        "kcal": 195,
+        "fat": 10,
+        "sat": 1,
+        "carbs": 2.2,
+        "sugars": 0.5,
+        "fibre": 4,
+        "protein": 21,
+        "salt": 1.9
+      },
+      "perPortion": {
+        "kcal": 156,
+        "fat": 8,
+        "sat": 0.8,
+        "carbs": 1.76,
+        "sugars": 0.4,
+        "fibre": 3.2,
+        "protein": 16.8,
+        "salt": 1.52
+      },
+      "allergens": [
+        "Senf"
+      ],
+      "ingredients": "Veganes Hühnchen planted.chicken",
+      "vmos": {
+        "uuid": "ba2285ac-4cb6-4023-85a2-c77265c2e1c3",
+        "displayAmount": 80
+      },
+      "halfPortion": 40
+    },
+    {
       "id": "huehnchen",
       "name": "Hühnchen",
       "shopName": "Hühnchen (80g)",
@@ -1236,147 +1268,130 @@
       "halfPortion": 40
     },
     {
-      "id": "hart_gekochtes_ei",
-      "name": "Hart gekochtes Ei",
-      "shopName": "Hart gekochtes Ei (40g)",
-      "group": "proteine",
-      "portion": 40,
-      "unit": "g",
-      "per100": {
-        "kcal": 155,
-        "fat": 11.2,
-        "sat": 3.3,
-        "carbs": 0.6,
-        "sugars": 0.3,
-        "fibre": 0.5,
-        "protein": 13.1,
-        "salt": 0.75
-      },
-      "perPortion": {
-        "kcal": 62,
-        "fat": 4.48,
-        "sat": 1.32,
-        "carbs": 0.24,
-        "sugars": 0.12,
-        "fibre": 0.2,
-        "protein": 5.24,
-        "salt": 0.3
-      },
-      "allergens": [
-        "Ei"
-      ],
-      "ingredients": "Hart gekochtes Ei",
-      "vmos": {
-        "uuid": "18ff1bd4-2b1d-48da-b254-fa3cae783452",
-        "displayAmount": 50
-      }
-    },
-    {
-      "id": "erbsen",
-      "name": "Erbsen",
-      "shopName": "Erbsen (50g)",
+      "id": "edamame",
+      "name": "Edamame",
+      "shopName": "Edamame (50g)",
       "group": "proteine",
       "portion": 50,
       "unit": "g",
       "per100": {
-        "kcal": 69,
-        "fat": 0.3,
-        "sat": 0.1,
-        "carbs": 9,
-        "sugars": 3.1,
-        "fibre": 5,
-        "protein": 5.2,
-        "salt": 1
+        "kcal": 110,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 8.5,
+        "sugars": 2.4,
+        "fibre": 2.4,
+        "protein": 10,
+        "salt": 2
       },
       "perPortion": {
-        "kcal": 34.5,
-        "fat": 0.15,
-        "sat": 0.05,
-        "carbs": 4.5,
-        "sugars": 1.55,
-        "fibre": 2.5,
-        "protein": 2.6,
-        "salt": 0.5
+        "kcal": 55,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 4.25,
+        "sugars": 1.2,
+        "fibre": 1.2,
+        "protein": 5,
+        "salt": 1
       },
-      "allergens": [],
-      "ingredients": "Erbsen",
+      "allergens": [
+        "Soja"
+      ],
+      "ingredients": "Edamame",
       "vmos": {
-        "uuid": "20445c61-b2ea-4a52-997c-8007d5021199",
+        "uuid": "eee79452-d172-4b70-94d0-c51991c0833c",
         "displayAmount": 50
       }
     },
     {
-      "id": "ziegenkaese",
-      "name": "Ziegenkäse",
-      "shopName": "Ziegenkäse (60g)",
-      "group": "proteine",
-      "portion": 60,
-      "unit": "g",
-      "per100": {
-        "kcal": 291,
-        "fat": 23,
-        "sat": 16.1,
-        "carbs": 1,
-        "sugars": 1,
-        "fibre": 0,
-        "protein": 20,
-        "salt": 1.5
-      },
-      "perPortion": {
-        "kcal": 174.6,
-        "fat": 13.8,
-        "sat": 9.66,
-        "carbs": 0.6,
-        "sugars": 0.6,
-        "fibre": 0,
-        "protein": 12,
-        "salt": 0.9
-      },
-      "allergens": [
-        "Milch"
-      ],
-      "ingredients": "Ziegenkäse",
-      "vmos": {
-        "uuid": "a0d63a26-4507-451a-a4d2-28e76c77c0d5",
-        "displayAmount": 60
-      }
-    },
-    {
-      "id": "veganes_huehnchen_planted_chicken",
-      "name": "Veganes Hühnchen planted.chicken",
-      "shopName": "Veganes Hühnchen planted.chicken (80g)",
+      "id": "vegane_hackbaellchen",
+      "name": "Vegane Hackbällchen",
+      "shopName": "Vegane Hackbällchen (80g)",
       "group": "proteine",
       "portion": 80,
       "unit": "g",
       "per100": {
-        "kcal": 195,
-        "fat": 10,
-        "sat": 1,
-        "carbs": 2.2,
-        "sugars": 0.5,
-        "fibre": 4,
-        "protein": 21,
-        "salt": 1.9
+        "kcal": 154,
+        "fat": 4.5,
+        "sat": 0.5,
+        "carbs": 7,
+        "sugars": 1,
+        "fibre": 7.5,
+        "protein": 17.7,
+        "salt": 1.4
       },
       "perPortion": {
-        "kcal": 156,
-        "fat": 8,
-        "sat": 0.8,
-        "carbs": 1.76,
-        "sugars": 0.4,
-        "fibre": 3.2,
-        "protein": 16.8,
-        "salt": 1.52
+        "kcal": 123.2,
+        "fat": 3.6,
+        "sat": 0.4,
+        "carbs": 5.6,
+        "sugars": 0.8,
+        "fibre": 6,
+        "protein": 14.16,
+        "salt": 1.12
       },
       "allergens": [
-        "Senf"
+        "Glutenhaltig"
       ],
-      "ingredients": "Veganes Hühnchen planted.chicken",
+      "ingredients": "Vegane Hackbällchen",
       "vmos": {
-        "uuid": "ba2285ac-4cb6-4023-85a2-c77265c2e1c3",
+        "uuid": "82e42a4e-51ee-4d2c-b9cc-f6ac88e72bdc",
         "displayAmount": 80
       },
       "halfPortion": 40
+    },
+    {
+      "id": "pulled_salmon",
+      "name": "Pulled Salmon",
+      "shopName": "Pulled Salmon (80g)",
+      "group": "proteine",
+      "portion": 80,
+      "unit": "g",
+      "per100": {
+        "kcal": 215,
+        "fat": 14.4,
+        "sat": 3.5,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 20.3,
+        "salt": 2.2
+      },
+      "perPortion": {
+        "kcal": 172,
+        "fat": 11.52,
+        "sat": 2.8,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 16.24,
+        "salt": 1.76
+      },
+      "allergens": [
+        "Fisch"
+      ],
+      "ingredients": "LACHS, Speisesalz, Rauch",
+      "vmos": {
+        "uuid": "1f8fe554-f525-4df5-ad65-1825ee40ca70",
+        "displayAmount": 80
+      },
+      "halfPortion": 40,
+      "shopPer100": {
+        "kcal": 215,
+        "fat": 14.4,
+        "sat": 3.5,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 6,
+        "protein": 20.3,
+        "salt": 2.2
+      },
+      "corrected": {
+        "keys": [
+          "fibre"
+        ],
+        "note": "salmon, salt and smoke contain no fibre"
+      }
     },
     {
       "id": "mushroots_pilzbaellchen",
@@ -1454,195 +1469,39 @@
       }
     },
     {
-      "id": "pulled_salmon",
-      "name": "Pulled Salmon",
-      "shopName": "Pulled Salmon (80g)",
+      "id": "hart_gekochtes_ei",
+      "name": "Hart gekochtes Ei",
+      "shopName": "Hart gekochtes Ei (40g)",
       "group": "proteine",
-      "portion": 80,
+      "portion": 40,
       "unit": "g",
       "per100": {
-        "kcal": 215,
-        "fat": 14.4,
-        "sat": 3.5,
-        "carbs": 0,
-        "sugars": 0,
-        "fibre": 0,
-        "protein": 20.3,
-        "salt": 2.2
-      },
-      "perPortion": {
-        "kcal": 172,
-        "fat": 11.52,
-        "sat": 2.8,
-        "carbs": 0,
-        "sugars": 0,
-        "fibre": 0,
-        "protein": 16.24,
-        "salt": 1.76
-      },
-      "allergens": [
-        "Fisch"
-      ],
-      "ingredients": "LACHS, Speisesalz, Rauch",
-      "vmos": {
-        "uuid": "1f8fe554-f525-4df5-ad65-1825ee40ca70",
-        "displayAmount": 80
-      },
-      "halfPortion": 40,
-      "shopPer100": {
-        "kcal": 215,
-        "fat": 14.4,
-        "sat": 3.5,
-        "carbs": 0,
-        "sugars": 0,
-        "fibre": 6,
-        "protein": 20.3,
-        "salt": 2.2
-      },
-      "corrected": {
-        "keys": [
-          "fibre"
-        ],
-        "note": "salmon, salt and smoke contain no fibre"
-      }
-    },
-    {
-      "id": "vegane_hackbaellchen",
-      "name": "Vegane Hackbällchen",
-      "shopName": "Vegane Hackbällchen (80g)",
-      "group": "proteine",
-      "portion": 80,
-      "unit": "g",
-      "per100": {
-        "kcal": 154,
-        "fat": 4.5,
-        "sat": 0.5,
-        "carbs": 7,
-        "sugars": 1,
-        "fibre": 7.5,
-        "protein": 17.7,
-        "salt": 1.4
-      },
-      "perPortion": {
-        "kcal": 123.2,
-        "fat": 3.6,
-        "sat": 0.4,
-        "carbs": 5.6,
-        "sugars": 0.8,
-        "fibre": 6,
-        "protein": 14.16,
-        "salt": 1.12
-      },
-      "allergens": [
-        "Glutenhaltig"
-      ],
-      "ingredients": "Vegane Hackbällchen",
-      "vmos": {
-        "uuid": "82e42a4e-51ee-4d2c-b9cc-f6ac88e72bdc",
-        "displayAmount": 80
-      },
-      "halfPortion": 40
-    },
-    {
-      "id": "mais",
-      "name": "Mais",
-      "shopName": "Mais (50g)",
-      "group": "vitamine",
-      "portion": 50,
-      "unit": "g",
-      "per100": {
-        "kcal": 69,
-        "fat": 1.2,
-        "sat": 0.3,
-        "carbs": 11,
-        "sugars": 7,
-        "fibre": 3.1,
-        "protein": 2.5,
-        "salt": 0.5
-      },
-      "perPortion": {
-        "kcal": 34.5,
-        "fat": 0.6,
-        "sat": 0.15,
-        "carbs": 5.5,
-        "sugars": 3.5,
-        "fibre": 1.55,
-        "protein": 1.25,
-        "salt": 0.25
-      },
-      "allergens": [],
-      "ingredients": "Mais",
-      "vmos": {
-        "uuid": "f9943e74-7bdb-4c9f-9ad5-b714f446d6c9",
-        "displayAmount": 50
-      }
-    },
-    {
-      "id": "karotten",
-      "name": "Karotten",
-      "shopName": "Karotten (50g)",
-      "group": "vitamine",
-      "portion": 50,
-      "unit": "g",
-      "per100": {
-        "kcal": 32,
-        "fat": 0.1,
-        "sat": 0,
-        "carbs": 5,
-        "sugars": 5,
-        "fibre": 4,
-        "protein": 1,
-        "salt": 0.15
-      },
-      "perPortion": {
-        "kcal": 16,
-        "fat": 0.05,
-        "sat": 0,
-        "carbs": 2.5,
-        "sugars": 2.5,
-        "fibre": 2,
-        "protein": 0.5,
-        "salt": 0.08
-      },
-      "allergens": [],
-      "ingredients": "Karotten",
-      "vmos": {
-        "uuid": "2a482c0f-9c07-4e23-9d39-16a0e4b8dc57",
-        "displayAmount": 50
-      }
-    },
-    {
-      "id": "baby_spinat",
-      "name": "Baby Spinat",
-      "shopName": "Baby Spinat (20g)",
-      "group": "vitamine",
-      "portion": 20,
-      "unit": "g",
-      "per100": {
-        "kcal": 18,
-        "fat": 0.6,
-        "sat": 0.1,
+        "kcal": 155,
+        "fat": 11.2,
+        "sat": 3.3,
         "carbs": 0.6,
-        "sugars": 0,
-        "fibre": 2,
-        "protein": 4.4,
-        "salt": 0
+        "sugars": 0.3,
+        "fibre": 0.5,
+        "protein": 13.1,
+        "salt": 0.75
       },
       "perPortion": {
-        "kcal": 3.6,
-        "fat": 0.12,
-        "sat": 0.02,
-        "carbs": 0.12,
-        "sugars": 0,
-        "fibre": 0.4,
-        "protein": 0.88,
-        "salt": 0
+        "kcal": 62,
+        "fat": 4.48,
+        "sat": 1.32,
+        "carbs": 0.24,
+        "sugars": 0.12,
+        "fibre": 0.2,
+        "protein": 5.24,
+        "salt": 0.3
       },
-      "allergens": [],
-      "ingredients": "Baby Spinat",
+      "allergens": [
+        "Ei"
+      ],
+      "ingredients": "Hart gekochtes Ei",
       "vmos": {
-        "uuid": "05e3c509-a947-451d-8e7c-da618a3c8a6f",
-        "displayAmount": 20
+        "uuid": "18ff1bd4-2b1d-48da-b254-fa3cae783452",
+        "displayAmount": 50
       }
     },
     {
@@ -1680,40 +1539,6 @@
       }
     },
     {
-      "id": "rotkohl_geraspelt",
-      "name": "Rotkohl geraspelt",
-      "shopName": "Rotkohl geraspelt (50g)",
-      "group": "vitamine",
-      "portion": 50,
-      "unit": "g",
-      "per100": {
-        "kcal": 27,
-        "fat": 0.1,
-        "sat": 0.1,
-        "carbs": 4,
-        "sugars": 3,
-        "fibre": 2.5,
-        "protein": 2,
-        "salt": 0.03
-      },
-      "perPortion": {
-        "kcal": 13.5,
-        "fat": 0.05,
-        "sat": 0.05,
-        "carbs": 2,
-        "sugars": 1.5,
-        "fibre": 1.25,
-        "protein": 1,
-        "salt": 0.02
-      },
-      "allergens": [],
-      "ingredients": "Rotkohl geraspelt",
-      "vmos": {
-        "uuid": "29418288-11a1-4c5d-bafb-d8ee805efe29",
-        "displayAmount": 50
-      }
-    },
-    {
       "id": "rote_bete_falafel",
       "name": "Rote Bete Falafel",
       "shopName": "Rote Bete Falafel (100g)",
@@ -1745,6 +1570,74 @@
       "vmos": {
         "uuid": "42f74b49-20c5-4b45-86a6-f184b710691e",
         "displayAmount": 100
+      }
+    },
+    {
+      "id": "mango",
+      "name": "Mango",
+      "shopName": "Mango (70g)",
+      "group": "vitamine",
+      "portion": 70,
+      "unit": "g",
+      "per100": {
+        "kcal": 66,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 14.1,
+        "sugars": 12.2,
+        "fibre": 1.4,
+        "protein": 1.6,
+        "salt": 0.01
+      },
+      "perPortion": {
+        "kcal": 46.2,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 9.87,
+        "sugars": 8.54,
+        "fibre": 0.98,
+        "protein": 1.12,
+        "salt": 0.01
+      },
+      "allergens": [],
+      "ingredients": "Mango",
+      "vmos": {
+        "uuid": "9903585e-86d8-4c76-b2f7-f48d24da72b7",
+        "displayAmount": 70
+      }
+    },
+    {
+      "id": "baby_spinat",
+      "name": "Baby Spinat",
+      "shopName": "Baby Spinat (20g)",
+      "group": "vitamine",
+      "portion": 20,
+      "unit": "g",
+      "per100": {
+        "kcal": 18,
+        "fat": 0.6,
+        "sat": 0.1,
+        "carbs": 0.6,
+        "sugars": 0,
+        "fibre": 2,
+        "protein": 4.4,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 3.6,
+        "fat": 0.12,
+        "sat": 0.02,
+        "carbs": 0.12,
+        "sugars": 0,
+        "fibre": 0.4,
+        "protein": 0.88,
+        "salt": 0
+      },
+      "allergens": [],
+      "ingredients": "Baby Spinat",
+      "vmos": {
+        "uuid": "05e3c509-a947-451d-8e7c-da618a3c8a6f",
+        "displayAmount": 20
       }
     },
     {
@@ -1816,37 +1709,72 @@
       }
     },
     {
-      "id": "rote_beete",
-      "name": "Rote Beete",
-      "shopName": "Rote Beete (70g)",
+      "id": "kuerbiswuerfel_mariniert_50g",
+      "name": "Kürbiswürfel mariniert (50 g)",
+      "shopName": "Kürbiswürfel mariniert (50g)",
       "group": "vitamine",
-      "portion": 70,
+      "portion": 50,
       "unit": "g",
       "per100": {
-        "kcal": 43,
-        "fat": 0.1,
-        "sat": 0,
-        "carbs": 8.4,
-        "sugars": 6.8,
-        "fibre": 2.5,
-        "protein": 1.5,
-        "salt": 0
+        "kcal": 56.4,
+        "fat": 2.6,
+        "sat": 0.4,
+        "carbs": 5.7,
+        "sugars": 1.5,
+        "fibre": 1.6,
+        "protein": 0.8,
+        "salt": 0.6
       },
       "perPortion": {
-        "kcal": 30.1,
-        "fat": 0.07,
-        "sat": 0,
-        "carbs": 5.88,
-        "sugars": 4.76,
-        "fibre": 1.75,
-        "protein": 1.05,
-        "salt": 0
+        "kcal": 28.2,
+        "fat": 1.3,
+        "sat": 0.2,
+        "carbs": 2.85,
+        "sugars": 0.75,
+        "fibre": 0.8,
+        "protein": 0.4,
+        "salt": 0.3
       },
       "allergens": [],
-      "ingredients": "Rote Beete",
+      "ingredients": "Kürbis, Pilzpfannen-Gewürz",
       "vmos": {
-        "uuid": "b6e42b2a-cdfb-45df-82a8-1c5dd44c1c53",
-        "displayAmount": 70
+        "uuid": "1ebc4c8c-65c0-4236-a130-f4bb9ac8a5c9",
+        "displayAmount": 50
+      },
+      "sameAs": "kuerbiswuerfel_mariniert"
+    },
+    {
+      "id": "karotten",
+      "name": "Karotten",
+      "shopName": "Karotten (50g)",
+      "group": "vitamine",
+      "portion": 50,
+      "unit": "g",
+      "per100": {
+        "kcal": 32,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 5,
+        "sugars": 5,
+        "fibre": 4,
+        "protein": 1,
+        "salt": 0.15
+      },
+      "perPortion": {
+        "kcal": 16,
+        "fat": 0.05,
+        "sat": 0,
+        "carbs": 2.5,
+        "sugars": 2.5,
+        "fibre": 2,
+        "protein": 0.5,
+        "salt": 0.08
+      },
+      "allergens": [],
+      "ingredients": "Karotten",
+      "vmos": {
+        "uuid": "2a482c0f-9c07-4e23-9d39-16a0e4b8dc57",
+        "displayAmount": 50
       }
     },
     {
@@ -1884,107 +1812,72 @@
       }
     },
     {
-      "id": "gemuesemix",
-      "name": "Gemüsemix",
-      "shopName": "Gemüsemix (100g)",
-      "group": "vitamine",
-      "portion": 100,
-      "unit": "g",
-      "per100": {
-        "kcal": 43,
-        "fat": 0.3,
-        "sat": 0.1,
-        "carbs": 6.3,
-        "sugars": 5.4,
-        "fibre": 0.5,
-        "protein": 2.1,
-        "salt": 0.02
-      },
-      "perPortion": {
-        "kcal": 43,
-        "fat": 0.3,
-        "sat": 0.1,
-        "carbs": 6.3,
-        "sugars": 5.4,
-        "fibre": 0.5,
-        "protein": 2.1,
-        "salt": 0.02
-      },
-      "allergens": [],
-      "ingredients": "Gemüsemix",
-      "vmos": {
-        "uuid": "00d25f9e-2271-4334-b42e-dca8df124616",
-        "displayAmount": 100
-      }
-    },
-    {
-      "id": "mango",
-      "name": "Mango",
-      "shopName": "Mango (70g)",
-      "group": "vitamine",
-      "portion": 70,
-      "unit": "g",
-      "per100": {
-        "kcal": 66,
-        "fat": 0,
-        "sat": 0,
-        "carbs": 14.1,
-        "sugars": 12.2,
-        "fibre": 1.4,
-        "protein": 1.6,
-        "salt": 0.01
-      },
-      "perPortion": {
-        "kcal": 46.2,
-        "fat": 0,
-        "sat": 0,
-        "carbs": 9.87,
-        "sugars": 8.54,
-        "fibre": 0.98,
-        "protein": 1.12,
-        "salt": 0.01
-      },
-      "allergens": [],
-      "ingredients": "Mango",
-      "vmos": {
-        "uuid": "9903585e-86d8-4c76-b2f7-f48d24da72b7",
-        "displayAmount": 70
-      }
-    },
-    {
-      "id": "kuerbiswuerfel_mariniert_50g",
-      "name": "Kürbiswürfel mariniert (50 g)",
-      "shopName": "Kürbiswürfel mariniert (50g)",
+      "id": "mais",
+      "name": "Mais",
+      "shopName": "Mais (50g)",
       "group": "vitamine",
       "portion": 50,
       "unit": "g",
       "per100": {
-        "kcal": 56.4,
-        "fat": 2.6,
-        "sat": 0.4,
-        "carbs": 5.7,
-        "sugars": 1.5,
-        "fibre": 1.6,
-        "protein": 0.8,
-        "salt": 0.6
+        "kcal": 69,
+        "fat": 1.2,
+        "sat": 0.3,
+        "carbs": 11,
+        "sugars": 7,
+        "fibre": 3.1,
+        "protein": 2.5,
+        "salt": 0.5
       },
       "perPortion": {
-        "kcal": 28.2,
-        "fat": 1.3,
-        "sat": 0.2,
-        "carbs": 2.85,
-        "sugars": 0.75,
-        "fibre": 0.8,
-        "protein": 0.4,
-        "salt": 0.3
+        "kcal": 34.5,
+        "fat": 0.6,
+        "sat": 0.15,
+        "carbs": 5.5,
+        "sugars": 3.5,
+        "fibre": 1.55,
+        "protein": 1.25,
+        "salt": 0.25
       },
       "allergens": [],
-      "ingredients": "Kürbis, Pilzpfannen-Gewürz",
+      "ingredients": "Mais",
       "vmos": {
-        "uuid": "1ebc4c8c-65c0-4236-a130-f4bb9ac8a5c9",
+        "uuid": "f9943e74-7bdb-4c9f-9ad5-b714f446d6c9",
         "displayAmount": 50
+      }
+    },
+    {
+      "id": "rotkohl_geraspelt",
+      "name": "Rotkohl geraspelt",
+      "shopName": "Rotkohl geraspelt (50g)",
+      "group": "vitamine",
+      "portion": 50,
+      "unit": "g",
+      "per100": {
+        "kcal": 27,
+        "fat": 0.1,
+        "sat": 0.1,
+        "carbs": 4,
+        "sugars": 3,
+        "fibre": 2.5,
+        "protein": 2,
+        "salt": 0.03
       },
-      "sameAs": "kuerbiswuerfel_mariniert"
+      "perPortion": {
+        "kcal": 13.5,
+        "fat": 0.05,
+        "sat": 0.05,
+        "carbs": 2,
+        "sugars": 1.5,
+        "fibre": 1.25,
+        "protein": 1,
+        "salt": 0.02
+      },
+      "allergens": [],
+      "ingredients": "Rotkohl geraspelt",
+      "vmos": {
+        "uuid": "29418288-11a1-4c5d-bafb-d8ee805efe29",
+        "displayAmount": 50
+      }
     },
     {
       "id": "baby_gruenkohl",
@@ -2021,39 +1914,180 @@
       }
     },
     {
-      "id": "walnusskerne",
-      "name": "Walnusskerne",
-      "shopName": "Walnusskerne (20g)",
+      "id": "gemuesemix",
+      "name": "Gemüsemix",
+      "shopName": "Gemüsemix (100g)",
+      "group": "vitamine",
+      "portion": 100,
+      "unit": "g",
+      "per100": {
+        "kcal": 43,
+        "fat": 0.3,
+        "sat": 0.1,
+        "carbs": 6.3,
+        "sugars": 5.4,
+        "fibre": 0.5,
+        "protein": 2.1,
+        "salt": 0.02
+      },
+      "perPortion": {
+        "kcal": 43,
+        "fat": 0.3,
+        "sat": 0.1,
+        "carbs": 6.3,
+        "sugars": 5.4,
+        "fibre": 0.5,
+        "protein": 2.1,
+        "salt": 0.02
+      },
+      "allergens": [],
+      "ingredients": "Gemüsemix",
+      "vmos": {
+        "uuid": "00d25f9e-2271-4334-b42e-dca8df124616",
+        "displayAmount": 100
+      }
+    },
+    {
+      "id": "rote_beete",
+      "name": "Rote Beete",
+      "shopName": "Rote Beete (70g)",
+      "group": "vitamine",
+      "portion": 70,
+      "unit": "g",
+      "per100": {
+        "kcal": 43,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 8.4,
+        "sugars": 6.8,
+        "fibre": 2.5,
+        "protein": 1.5,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 30.1,
+        "fat": 0.07,
+        "sat": 0,
+        "carbs": 5.88,
+        "sugars": 4.76,
+        "fibre": 1.75,
+        "protein": 1.05,
+        "salt": 0
+      },
+      "allergens": [],
+      "ingredients": "Rote Beete",
+      "vmos": {
+        "uuid": "b6e42b2a-cdfb-45df-82a8-1c5dd44c1c53",
+        "displayAmount": 70
+      }
+    },
+    {
+      "id": "grana_padano",
+      "name": "Grana Padano",
+      "shopName": "Grana Padano (20g)",
       "group": "toppings",
       "portion": 20,
       "unit": "g",
       "per100": {
-        "kcal": 704,
-        "fat": 67,
-        "sat": 6.3,
-        "carbs": 7,
-        "sugars": 2,
-        "fibre": 6.7,
-        "protein": 16,
-        "salt": 0
+        "kcal": 398,
+        "fat": 29,
+        "sat": 18,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 33,
+        "salt": 1.5
       },
       "perPortion": {
-        "kcal": 140.8,
-        "fat": 13.4,
-        "sat": 1.26,
-        "carbs": 1.4,
-        "sugars": 0.4,
-        "fibre": 1.34,
-        "protein": 3.2,
+        "kcal": 79.6,
+        "fat": 5.8,
+        "sat": 3.6,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 6.6,
+        "salt": 0.3
+      },
+      "allergens": [
+        "Milch"
+      ],
+      "ingredients": "Grana Padano",
+      "vmos": {
+        "uuid": "46976571-28cb-4ede-a871-90d66315666c",
+        "displayAmount": 20
+      }
+    },
+    {
+      "id": "roestzwiebeln",
+      "name": "Röstzwiebeln",
+      "shopName": "Röstzwiebeln (20g)",
+      "group": "toppings",
+      "portion": 20,
+      "unit": "g",
+      "per100": {
+        "kcal": 590,
+        "fat": 44,
+        "sat": 21,
+        "carbs": 40,
+        "sugars": 9,
+        "fibre": 4.5,
+        "protein": 6,
+        "salt": 1.2
+      },
+      "perPortion": {
+        "kcal": 118,
+        "fat": 8.8,
+        "sat": 4.2,
+        "carbs": 8,
+        "sugars": 1.8,
+        "fibre": 0.9,
+        "protein": 1.2,
+        "salt": 0.24
+      },
+      "allergens": [
+        "Glutenhaltig"
+      ],
+      "ingredients": "Röstzwiebeln",
+      "vmos": {
+        "uuid": "59373871-4fbc-4058-a985-7ea44ea78abb",
+        "displayAmount": 20
+      },
+      "crunch": true
+    },
+    {
+      "id": "schwarzer_sesam",
+      "name": "Schwarzer Sesam",
+      "shopName": "Schwarzer Sesam (3g)",
+      "group": "toppings",
+      "portion": 3,
+      "unit": "g",
+      "per100": {
+        "kcal": 593,
+        "fat": 50,
+        "sat": 8,
+        "carbs": 10,
+        "sugars": 0.2,
+        "fibre": 11,
+        "protein": 21,
+        "salt": 0.1
+      },
+      "perPortion": {
+        "kcal": 17.79,
+        "fat": 1.5,
+        "sat": 0.24,
+        "carbs": 0.3,
+        "sugars": 0.01,
+        "fibre": 0.33,
+        "protein": 0.63,
         "salt": 0
       },
       "allergens": [
-        "Nüsse"
+        "Sesam"
       ],
-      "ingredients": "Walnusskerne",
+      "ingredients": "Schwarzer Sesam",
       "vmos": {
-        "uuid": "4c7ebfca-7cd7-4134-a345-774e537535cc",
-        "displayAmount": 20
+        "uuid": "e30ac63f-5e45-4d71-9f64-21f79882fc38",
+        "displayAmount": 3
       },
       "crunch": true
     },
@@ -2100,38 +2134,38 @@
       "crunch": true
     },
     {
-      "id": "roestzwiebeln",
-      "name": "Röstzwiebeln",
-      "shopName": "Röstzwiebeln (20g)",
+      "id": "walnusskerne",
+      "name": "Walnusskerne",
+      "shopName": "Walnusskerne (20g)",
       "group": "toppings",
       "portion": 20,
       "unit": "g",
       "per100": {
-        "kcal": 590,
-        "fat": 44,
-        "sat": 21,
-        "carbs": 40,
-        "sugars": 9,
-        "fibre": 4.5,
-        "protein": 6,
-        "salt": 1.2
+        "kcal": 704,
+        "fat": 67,
+        "sat": 6.3,
+        "carbs": 7,
+        "sugars": 2,
+        "fibre": 6.7,
+        "protein": 16,
+        "salt": 0
       },
       "perPortion": {
-        "kcal": 118,
-        "fat": 8.8,
-        "sat": 4.2,
-        "carbs": 8,
-        "sugars": 1.8,
-        "fibre": 0.9,
-        "protein": 1.2,
-        "salt": 0.24
+        "kcal": 140.8,
+        "fat": 13.4,
+        "sat": 1.26,
+        "carbs": 1.4,
+        "sugars": 0.4,
+        "fibre": 1.34,
+        "protein": 3.2,
+        "salt": 0
       },
       "allergens": [
-        "Glutenhaltig"
+        "Nüsse"
       ],
-      "ingredients": "Röstzwiebeln",
+      "ingredients": "Walnusskerne",
       "vmos": {
-        "uuid": "59373871-4fbc-4058-a985-7ea44ea78abb",
+        "uuid": "4c7ebfca-7cd7-4134-a345-774e537535cc",
         "displayAmount": 20
       },
       "crunch": true
@@ -2242,113 +2276,110 @@
       "crunch": true
     },
     {
-      "id": "schwarzer_sesam",
-      "name": "Schwarzer Sesam",
-      "shopName": "Schwarzer Sesam (3g)",
-      "group": "toppings",
-      "portion": 3,
-      "unit": "g",
-      "per100": {
-        "kcal": 593,
-        "fat": 50,
-        "sat": 8,
-        "carbs": 10,
-        "sugars": 0.2,
-        "fibre": 11,
-        "protein": 21,
-        "salt": 0.1
-      },
-      "perPortion": {
-        "kcal": 17.79,
-        "fat": 1.5,
-        "sat": 0.24,
-        "carbs": 0.3,
-        "sugars": 0.01,
-        "fibre": 0.33,
-        "protein": 0.63,
-        "salt": 0
-      },
-      "allergens": [
-        "Sesam"
-      ],
-      "ingredients": "Schwarzer Sesam",
-      "vmos": {
-        "uuid": "e30ac63f-5e45-4d71-9f64-21f79882fc38",
-        "displayAmount": 3
-      },
-      "crunch": true
-    },
-    {
-      "id": "grana_padano",
-      "name": "Grana Padano",
-      "shopName": "Grana Padano (20g)",
-      "group": "toppings",
-      "portion": 20,
-      "unit": "g",
-      "per100": {
-        "kcal": 398,
-        "fat": 29,
-        "sat": 18,
-        "carbs": 0,
-        "sugars": 0,
-        "fibre": 0,
-        "protein": 33,
-        "salt": 1.5
-      },
-      "perPortion": {
-        "kcal": 79.6,
-        "fat": 5.8,
-        "sat": 3.6,
-        "carbs": 0,
-        "sugars": 0,
-        "fibre": 0,
-        "protein": 6.6,
-        "salt": 0.3
-      },
-      "allergens": [
-        "Milch"
-      ],
-      "ingredients": "Grana Padano",
-      "vmos": {
-        "uuid": "46976571-28cb-4ede-a871-90d66315666c",
-        "displayAmount": 20
-      }
-    },
-    {
-      "id": "aioli_light_inlead",
-      "name": "Aioli Light (Inlead)",
-      "shopName": "Aioli Light (Inlead) (80g)",
+      "id": "balsamico_dressing",
+      "name": "Balsamico Dressing",
+      "shopName": "Balsamico Dressing (80g)",
       "group": "dips",
       "portion": 80,
       "unit": "g",
       "per100": {
-        "kcal": 97,
-        "fat": 6,
-        "sat": 0.9,
-        "carbs": 9.7,
-        "sugars": 5.1,
-        "fibre": 0.2,
+        "kcal": 58,
+        "fat": 2.3,
+        "sat": 0.2,
+        "carbs": 8.8,
+        "sugars": 8.4,
+        "fibre": 0.21,
         "protein": 0.1,
-        "salt": 1.9
+        "salt": 2
       },
       "perPortion": {
-        "kcal": 77.6,
+        "kcal": 46.4,
+        "fat": 1.84,
+        "sat": 0.16,
+        "carbs": 7.04,
+        "sugars": 6.72,
+        "fibre": 0.17,
+        "protein": 0.08,
+        "salt": 1.6
+      },
+      "allergens": [
+        "Sulfite"
+      ],
+      "ingredients": "Balsamico Dressing",
+      "vmos": {
+        "uuid": "5a7afe09-179e-4b5b-87b5-0b3468cf6de4",
+        "displayAmount": 80
+      }
+    },
+    {
+      "id": "trueffel_light_inlead",
+      "name": "Trüffel Light (Inlead)",
+      "shopName": "Trüffel Light (Inlead) (80g)",
+      "group": "dips",
+      "portion": 80,
+      "unit": "g",
+      "per100": {
+        "kcal": 98,
+        "fat": 6,
+        "sat": 0.9,
+        "carbs": 10,
+        "sugars": 3.3,
+        "fibre": 0.2,
+        "protein": 0.7,
+        "salt": 1.89
+      },
+      "perPortion": {
+        "kcal": 78.4,
         "fat": 4.8,
         "sat": 0.72,
-        "carbs": 7.76,
-        "sugars": 4.08,
+        "carbs": 8,
+        "sugars": 2.64,
         "fibre": 0.16,
-        "protein": 0.08,
-        "salt": 1.52
+        "protein": 0.56,
+        "salt": 1.51
       },
       "allergens": [
         "Senf",
         "Ei"
       ],
-      "ingredients": "Zutaten: Wasser, modifizierte Kartoffelstärke, Rapsöl, Zucker, Knoblauchpulver, Branntweinessig, Senf (gemahlene Senfkörner , Branntweinessig, Salz, Aroma), Ei gelb, Salz, Aromen, Säuerungsmittel: Citronensäure, Antioxidationsmittel: Calcium-Dinatrium-EDTA ; Verdickungsmittel: Guarkernmehl, Xanthan; Konservierungsstoffe: Kaliumsorbat, Natriumbenzoat; Süßungsmittel: Saccharin, Sucralose.",
+      "ingredients": "Wasser, modifizierte Kartoffelstärke, Rapsöl, Senf (Senfkörner, Branntweinessig, Salz, natürliches Aroma), Branntweinessig, Zucker, Eigelb , Salz, Kräuter, Gewürze, Mohn, Aromen, Säuerungsmittel: Citronensäure, Antioxidationsmittel: Calcium-Dinatrium- EDTA; Verdickungsmittel: Guarkernmehl, Xanthan; Konservierungsstoffe: Kaliumsorbat, Natriumbenzoat; Süßstoffe: Saccharin, Sucralose.",
       "vmos": {
-        "uuid": "7796ba55-11cd-4b70-a337-901d2f79f183",
+        "uuid": "c37abacb-445d-4be6-8556-c6b0179b08ed",
         "displayAmount": 80
+      }
+    },
+    {
+      "id": "ajvar",
+      "name": "Ajvar",
+      "shopName": "Ajvar (100g)",
+      "group": "dips",
+      "portion": 100,
+      "unit": "g",
+      "per100": {
+        "kcal": 105,
+        "fat": 5.3,
+        "sat": 0.6,
+        "carbs": 11,
+        "sugars": 9.2,
+        "fibre": 3,
+        "protein": 1.4,
+        "salt": 1.4
+      },
+      "perPortion": {
+        "kcal": 105,
+        "fat": 5.3,
+        "sat": 0.6,
+        "carbs": 11,
+        "sugars": 9.2,
+        "fibre": 3,
+        "protein": 1.4,
+        "salt": 1.4
+      },
+      "allergens": [],
+      "ingredients": "84% Paprika, 7% Auberginen, Sonnenblumenöl, Zucker, Speisesalz, Branntweinessig, 1% scharfe Peperoni, Gewürze.",
+      "vmos": {
+        "uuid": "9219859e-76d5-4478-8290-6cde1581b20a",
+        "displayAmount": 100
       }
     },
     {
@@ -2388,331 +2419,6 @@
       "ingredients": "Trinkwasser, Rapsöl, SOJAsauce (Wasser, SOJAbohnen, WEIZEN, Salz), Maltodextrin, SESAMöl 7,0%, SESAM 5,0%, Branntweinessig, SENF(Wasser, SENFsaaten, Branntweinessig, Salz, Zucker, Gewürze), modifizierte Stärke, Speisesalz, Karamell, Verdickungsmittel: Xanthan, Süßungsmittel: Sucralose, Konservierungsstoff: Kaliumsorbat.",
       "vmos": {
         "uuid": "99f2851a-222a-4f19-b4bf-046967364772",
-        "displayAmount": 80
-      }
-    },
-    {
-      "id": "champion_chili",
-      "name": "Champion Chili",
-      "shopName": "Champion Chili (80g)",
-      "group": "dips",
-      "portion": 80,
-      "unit": "g",
-      "per100": {
-        "kcal": 273,
-        "fat": 25.6,
-        "sat": 1.9,
-        "carbs": 9.7,
-        "sugars": 2.4,
-        "fibre": 2.5,
-        "protein": 1.3,
-        "salt": 3
-      },
-      "perPortion": {
-        "kcal": 218.4,
-        "fat": 20.48,
-        "sat": 1.52,
-        "carbs": 7.76,
-        "sugars": 1.92,
-        "fibre": 2,
-        "protein": 1.04,
-        "salt": 2.4
-      },
-      "allergens": [
-        "Senf"
-      ],
-      "ingredients": "Trinkwasser, Rapsöl, Branntweinessig, Paprika, Maltodextrin, Tomatenmark, SENF (Wasser, SENFSAATEN, Branntweinessig, Salz, Zucker Gewürze), modifizierte Stärke, Würze, Speisesalz, Karamellsirup, Chili 0,5%, Gewürze, Gewürzextrakt, Rauch, Raucharoma, Verdickungsmittel: Xanthan, Konservierungsstoff: Kaliumsorbat, Süßungsmittel: Sucralose.",
-      "vmos": {
-        "uuid": "21a6bbfe-6a6b-42c9-9977-850469b89d3c",
-        "displayAmount": 80
-      }
-    },
-    {
-      "id": "curvy_curry",
-      "name": "Curvy Curry",
-      "shopName": "Curvy Curry (80g)",
-      "group": "dips",
-      "portion": 80,
-      "unit": "g",
-      "per100": {
-        "kcal": 377,
-        "fat": 37.5,
-        "sat": 2.7,
-        "carbs": 10.6,
-        "sugars": 2.1,
-        "fibre": 1,
-        "protein": 0.4,
-        "salt": 1.4
-      },
-      "perPortion": {
-        "kcal": 301.6,
-        "fat": 30,
-        "sat": 2.16,
-        "carbs": 8.48,
-        "sugars": 1.68,
-        "fibre": 0.8,
-        "protein": 0.32,
-        "salt": 1.12
-      },
-      "allergens": [
-        "Senf"
-      ],
-      "ingredients": "Trinkwasser, Rapsöl, Maltodextrin, Branntweinessig, SENF (Wasser, SENFsaaten, Branntweinessig, Salz, Zucker, Gewürze), modifizierte Stärke, Ananassaftkonzentrat, Speisesalz, Curry 1,1%, Gewürzextrakt, Verdickungsmittel: Xanthan, Konservierungsstoff: Kaliumsorbat, Süßungsmittel: Sucralose.",
-      "vmos": {
-        "uuid": "83ee9120-4693-4712-8923-805e03d549d4",
-        "displayAmount": 80
-      }
-    },
-    {
-      "id": "rotes_pesto",
-      "name": "Rotes Pesto",
-      "shopName": "Rotes Pesto (80g)",
-      "group": "dips",
-      "portion": 80,
-      "unit": "g",
-      "per100": {
-        "kcal": 330,
-        "fat": 28.7,
-        "sat": 3.9,
-        "carbs": 12.8,
-        "sugars": 8.2,
-        "fibre": 1.97,
-        "protein": 4.6,
-        "salt": 2.4
-      },
-      "perPortion": {
-        "kcal": 264,
-        "fat": 22.96,
-        "sat": 3.12,
-        "carbs": 10.24,
-        "sugars": 6.56,
-        "fibre": 1.58,
-        "protein": 3.68,
-        "salt": 1.92
-      },
-      "allergens": [
-        "Milch",
-        "Nüsse"
-      ],
-      "ingredients": "Rotes Pesto",
-      "vmos": {
-        "uuid": "8de52e64-c12b-46c8-a681-ab8725528199",
-        "displayAmount": 80
-      }
-    },
-    {
-      "id": "olivenoel_salz_halbe_zitrone",
-      "name": "Olivenöl, Salz & halbe Zitrone",
-      "shopName": "Olivenöl (20ml), Salz & halbe Zitrone",
-      "group": "dips",
-      "portion": 20,
-      "unit": "ml",
-      "per100": {
-        "kcal": 900,
-        "fat": 100,
-        "sat": 13,
-        "carbs": 0,
-        "sugars": 0,
-        "fibre": 0,
-        "protein": 0,
-        "salt": 0
-      },
-      "perPortion": {
-        "kcal": 180,
-        "fat": 20,
-        "sat": 2.6,
-        "carbs": 0,
-        "sugars": 0,
-        "fibre": 0,
-        "protein": 0,
-        "salt": 0
-      },
-      "allergens": [],
-      "ingredients": null,
-      "vmos": {
-        "uuid": "efc5c9c3-8043-4f37-8a38-215184c7c3db",
-        "displayAmount": 20
-      }
-    },
-    {
-      "id": "protein_tzatziki",
-      "name": "Protein Tzatziki",
-      "shopName": "Protein Tzatziki (100g)",
-      "group": "dips",
-      "portion": 100,
-      "unit": "g",
-      "per100": {
-        "kcal": 66.8,
-        "fat": 0.21,
-        "sat": 0.1,
-        "carbs": 4.95,
-        "sugars": 4.67,
-        "fibre": 0.1,
-        "protein": 10.85,
-        "salt": 1.13
-      },
-      "perPortion": {
-        "kcal": 66.8,
-        "fat": 0.21,
-        "sat": 0.1,
-        "carbs": 4.95,
-        "sugars": 4.67,
-        "fibre": 0.1,
-        "protein": 10.85,
-        "salt": 1.13
-      },
-      "allergens": [
-        "Milch"
-      ],
-      "ingredients": "MAGERMILCH, Milchsäurekulturen (enthält MILCH), mikrobielles Lab, Zwiebel, Knoblauch, Meersalz, Rohrohrzucker, Zitronenschale, weißer Pfeffer, Petersilie, Dill",
-      "vmos": {
-        "uuid": "b63e4852-090f-48f4-8825-194a36aac533",
-        "displayAmount": 100
-      },
-      "soldOut": true
-    },
-    {
-      "id": "ajvar",
-      "name": "Ajvar",
-      "shopName": "Ajvar (100g)",
-      "group": "dips",
-      "portion": 100,
-      "unit": "g",
-      "per100": {
-        "kcal": 105,
-        "fat": 5.3,
-        "sat": 0.6,
-        "carbs": 11,
-        "sugars": 9.2,
-        "fibre": 3,
-        "protein": 1.4,
-        "salt": 1.4
-      },
-      "perPortion": {
-        "kcal": 105,
-        "fat": 5.3,
-        "sat": 0.6,
-        "carbs": 11,
-        "sugars": 9.2,
-        "fibre": 3,
-        "protein": 1.4,
-        "salt": 1.4
-      },
-      "allergens": [],
-      "ingredients": "84% Paprika, 7% Auberginen, Sonnenblumenöl, Zucker, Speisesalz, Branntweinessig, 1% scharfe Peperoni, Gewürze.",
-      "vmos": {
-        "uuid": "9219859e-76d5-4478-8290-6cde1581b20a",
-        "displayAmount": 100
-      }
-    },
-    {
-      "id": "balsamico_dressing",
-      "name": "Balsamico Dressing",
-      "shopName": "Balsamico Dressing (80g)",
-      "group": "dips",
-      "portion": 80,
-      "unit": "g",
-      "per100": {
-        "kcal": 58,
-        "fat": 2.3,
-        "sat": 0.2,
-        "carbs": 8.8,
-        "sugars": 8.4,
-        "fibre": 0.21,
-        "protein": 0.1,
-        "salt": 2
-      },
-      "perPortion": {
-        "kcal": 46.4,
-        "fat": 1.84,
-        "sat": 0.16,
-        "carbs": 7.04,
-        "sugars": 6.72,
-        "fibre": 0.17,
-        "protein": 0.08,
-        "salt": 1.6
-      },
-      "allergens": [
-        "Sulfite"
-      ],
-      "ingredients": "Balsamico Dressing",
-      "vmos": {
-        "uuid": "5a7afe09-179e-4b5b-87b5-0b3468cf6de4",
-        "displayAmount": 80
-      }
-    },
-    {
-      "id": "power_peanut",
-      "name": "Power Peanut",
-      "shopName": "Power Peanut (80g)",
-      "group": "dips",
-      "portion": 80,
-      "unit": "g",
-      "per100": {
-        "kcal": 312,
-        "fat": 27,
-        "sat": 2.7,
-        "carbs": 13.8,
-        "sugars": 2.4,
-        "fibre": 0,
-        "protein": 3.7,
-        "salt": 2.7
-      },
-      "perPortion": {
-        "kcal": 249.6,
-        "fat": 21.6,
-        "sat": 2.16,
-        "carbs": 11.04,
-        "sugars": 1.92,
-        "fibre": 0,
-        "protein": 2.96,
-        "salt": 2.16
-      },
-      "allergens": [
-        "Weizen",
-        "Glutenhaltig",
-        "Soja",
-        "Erdnüsse"
-      ],
-      "ingredients": "Trinkwasser, Rapsöl, geröstete ERDNÜSSE 10,5%, Maltodextrin, SOJAsauce (Wasser, SOJAbohnen, WEIZEN, Salz), Tomatenmark, Branntweinessig, Speisesalz, ERDNUSSöl 1,5%, Knoblauch, Gewürze, Zitronensaft aus Zitronensaftkonzentrat, modifizierte Stärke, Karamell, Verdickungsmittel: Xanthan, Süßungsmittel: Sucralose, Konservierungsstoff: Kaliumsorbat.",
-      "vmos": {
-        "uuid": "674751fb-626b-47ea-90c5-1e9cc2ee442d",
-        "displayAmount": 80
-      }
-    },
-    {
-      "id": "joghurt_salatdressing",
-      "name": "Joghurt-Salatdressing",
-      "shopName": "Joghurt-Salatdressing (80g)",
-      "group": "dips",
-      "portion": 80,
-      "unit": "g",
-      "per100": {
-        "kcal": 143,
-        "fat": 13.6,
-        "sat": 1.6,
-        "carbs": 4.6,
-        "sugars": 2.5,
-        "fibre": 0,
-        "protein": 1.1,
-        "salt": 1.3
-      },
-      "perPortion": {
-        "kcal": 114.4,
-        "fat": 10.88,
-        "sat": 1.28,
-        "carbs": 3.68,
-        "sugars": 2,
-        "fibre": 0,
-        "protein": 0.88,
-        "salt": 1.04
-      },
-      "allergens": [
-        "Milch"
-      ],
-      "ingredients": "Trinkwasser, Joghurt 30%, Rapsöl, Branntweinessig, modifizierte Stärke, jodiertes Speissalz, Zucker, Zitronensaft aus Zitronenkonzentrat, Kräuter, Gewürze, Verdickungsmitteel Xanthan.",
-      "vmos": {
-        "uuid": "411e51ee-7477-4456-9bea-f0733a0004eb",
         "displayAmount": 80
       }
     },
@@ -2782,40 +2488,331 @@
       }
     },
     {
-      "id": "trueffel_light_inlead",
-      "name": "Trüffel Light (Inlead)",
-      "shopName": "Trüffel Light (Inlead) (80g)",
+      "id": "protein_tzatziki",
+      "name": "Protein Tzatziki",
+      "shopName": "Protein Tzatziki (100g)",
+      "group": "dips",
+      "portion": 100,
+      "unit": "g",
+      "per100": {
+        "kcal": 66.8,
+        "fat": 0.21,
+        "sat": 0.1,
+        "carbs": 4.95,
+        "sugars": 4.67,
+        "fibre": 0.1,
+        "protein": 10.85,
+        "salt": 1.13
+      },
+      "perPortion": {
+        "kcal": 66.8,
+        "fat": 0.21,
+        "sat": 0.1,
+        "carbs": 4.95,
+        "sugars": 4.67,
+        "fibre": 0.1,
+        "protein": 10.85,
+        "salt": 1.13
+      },
+      "allergens": [
+        "Milch"
+      ],
+      "ingredients": "MAGERMILCH, Milchsäurekulturen (enthält MILCH), mikrobielles Lab, Zwiebel, Knoblauch, Meersalz, Rohrohrzucker, Zitronenschale, weißer Pfeffer, Petersilie, Dill",
+      "vmos": {
+        "uuid": "b63e4852-090f-48f4-8825-194a36aac533",
+        "displayAmount": 100
+      }
+    },
+    {
+      "id": "power_peanut",
+      "name": "Power Peanut",
+      "shopName": "Power Peanut (80g)",
       "group": "dips",
       "portion": 80,
       "unit": "g",
       "per100": {
-        "kcal": 98,
-        "fat": 6,
-        "sat": 0.9,
-        "carbs": 10,
-        "sugars": 3.3,
-        "fibre": 0.2,
-        "protein": 0.7,
-        "salt": 1.89
+        "kcal": 312,
+        "fat": 27,
+        "sat": 2.7,
+        "carbs": 13.8,
+        "sugars": 2.4,
+        "fibre": 0,
+        "protein": 3.7,
+        "salt": 2.7
       },
       "perPortion": {
-        "kcal": 78.4,
+        "kcal": 249.6,
+        "fat": 21.6,
+        "sat": 2.16,
+        "carbs": 11.04,
+        "sugars": 1.92,
+        "fibre": 0,
+        "protein": 2.96,
+        "salt": 2.16
+      },
+      "allergens": [
+        "Weizen",
+        "Glutenhaltig",
+        "Soja",
+        "Erdnüsse"
+      ],
+      "ingredients": "Trinkwasser, Rapsöl, geröstete ERDNÜSSE 10,5%, Maltodextrin, SOJAsauce (Wasser, SOJAbohnen, WEIZEN, Salz), Tomatenmark, Branntweinessig, Speisesalz, ERDNUSSöl 1,5%, Knoblauch, Gewürze, Zitronensaft aus Zitronensaftkonzentrat, modifizierte Stärke, Karamell, Verdickungsmittel: Xanthan, Süßungsmittel: Sucralose, Konservierungsstoff: Kaliumsorbat.",
+      "vmos": {
+        "uuid": "674751fb-626b-47ea-90c5-1e9cc2ee442d",
+        "displayAmount": 80
+      }
+    },
+    {
+      "id": "champion_chili",
+      "name": "Champion Chili",
+      "shopName": "Champion Chili (80g)",
+      "group": "dips",
+      "portion": 80,
+      "unit": "g",
+      "per100": {
+        "kcal": 273,
+        "fat": 25.6,
+        "sat": 1.9,
+        "carbs": 9.7,
+        "sugars": 2.4,
+        "fibre": 2.5,
+        "protein": 1.3,
+        "salt": 3
+      },
+      "perPortion": {
+        "kcal": 218.4,
+        "fat": 20.48,
+        "sat": 1.52,
+        "carbs": 7.76,
+        "sugars": 1.92,
+        "fibre": 2,
+        "protein": 1.04,
+        "salt": 2.4
+      },
+      "allergens": [
+        "Senf"
+      ],
+      "ingredients": "Trinkwasser, Rapsöl, Branntweinessig, Paprika, Maltodextrin, Tomatenmark, SENF (Wasser, SENFSAATEN, Branntweinessig, Salz, Zucker Gewürze), modifizierte Stärke, Würze, Speisesalz, Karamellsirup, Chili 0,5%, Gewürze, Gewürzextrakt, Rauch, Raucharoma, Verdickungsmittel: Xanthan, Konservierungsstoff: Kaliumsorbat, Süßungsmittel: Sucralose.",
+      "vmos": {
+        "uuid": "21a6bbfe-6a6b-42c9-9977-850469b89d3c",
+        "displayAmount": 80
+      }
+    },
+    {
+      "id": "rotes_pesto",
+      "name": "Rotes Pesto",
+      "shopName": "Rotes Pesto (80g)",
+      "group": "dips",
+      "portion": 80,
+      "unit": "g",
+      "per100": {
+        "kcal": 330,
+        "fat": 28.7,
+        "sat": 3.9,
+        "carbs": 12.8,
+        "sugars": 8.2,
+        "fibre": 1.97,
+        "protein": 4.6,
+        "salt": 2.4
+      },
+      "perPortion": {
+        "kcal": 264,
+        "fat": 22.96,
+        "sat": 3.12,
+        "carbs": 10.24,
+        "sugars": 6.56,
+        "fibre": 1.58,
+        "protein": 3.68,
+        "salt": 1.92
+      },
+      "allergens": [
+        "Milch",
+        "Nüsse"
+      ],
+      "ingredients": "Rotes Pesto",
+      "vmos": {
+        "uuid": "8de52e64-c12b-46c8-a681-ab8725528199",
+        "displayAmount": 80
+      }
+    },
+    {
+      "id": "sriracha_light_inlead",
+      "name": "Sriracha Light (Inlead)",
+      "shopName": "Sriracha Light (Inlead) (80g)",
+      "group": "dips",
+      "portion": 80,
+      "unit": "g",
+      "per100": {
+        "kcal": 95,
+        "fat": 5.8,
+        "sat": 0.9,
+        "carbs": 9.5,
+        "sugars": 4.4,
+        "fibre": 0.2,
+        "protein": 0.9,
+        "salt": 1.9
+      },
+      "perPortion": {
+        "kcal": 76,
+        "fat": 4.64,
+        "sat": 0.72,
+        "carbs": 7.6,
+        "sugars": 3.52,
+        "fibre": 0.16,
+        "protein": 0.72,
+        "salt": 1.52
+      },
+      "allergens": [
+        "Ei"
+      ],
+      "ingredients": "Wasser, modifizierte Kartoffelstärke, Rapsöl, gemahlener roter Pfefferzucker, Branntweinessig, Ei gelb, Gemüsepulver, Salz, Aromen, Säuerungsmittel: Citronensäure, Antioxidationsmittel: Calcium-Dinatrium-EDTA; Verdickungsmittel: Guarkernmehl, Xanthan; Konservierungsstoffe: Kaliumsorbat, Natriumbenzoat; Süßungsmittel: Saccharin, Sucralose.",
+      "vmos": {
+        "uuid": "5c0d673b-7107-43d4-aac1-6945f5dcc4e9",
+        "displayAmount": 80
+      },
+      "soldOut": true
+    },
+    {
+      "id": "aioli_light_inlead",
+      "name": "Aioli Light (Inlead)",
+      "shopName": "Aioli Light (Inlead) (80g)",
+      "group": "dips",
+      "portion": 80,
+      "unit": "g",
+      "per100": {
+        "kcal": 97,
+        "fat": 6,
+        "sat": 0.9,
+        "carbs": 9.7,
+        "sugars": 5.1,
+        "fibre": 0.2,
+        "protein": 0.1,
+        "salt": 1.9
+      },
+      "perPortion": {
+        "kcal": 77.6,
         "fat": 4.8,
         "sat": 0.72,
-        "carbs": 8,
-        "sugars": 2.64,
+        "carbs": 7.76,
+        "sugars": 4.08,
         "fibre": 0.16,
-        "protein": 0.56,
-        "salt": 1.51
+        "protein": 0.08,
+        "salt": 1.52
       },
       "allergens": [
         "Senf",
         "Ei"
       ],
-      "ingredients": "Wasser, modifizierte Kartoffelstärke, Rapsöl, Senf (Senfkörner, Branntweinessig, Salz, natürliches Aroma), Branntweinessig, Zucker, Eigelb , Salz, Kräuter, Gewürze, Mohn, Aromen, Säuerungsmittel: Citronensäure, Antioxidationsmittel: Calcium-Dinatrium- EDTA; Verdickungsmittel: Guarkernmehl, Xanthan; Konservierungsstoffe: Kaliumsorbat, Natriumbenzoat; Süßstoffe: Saccharin, Sucralose.",
+      "ingredients": "Zutaten: Wasser, modifizierte Kartoffelstärke, Rapsöl, Zucker, Knoblauchpulver, Branntweinessig, Senf (gemahlene Senfkörner , Branntweinessig, Salz, Aroma), Ei gelb, Salz, Aromen, Säuerungsmittel: Citronensäure, Antioxidationsmittel: Calcium-Dinatrium-EDTA ; Verdickungsmittel: Guarkernmehl, Xanthan; Konservierungsstoffe: Kaliumsorbat, Natriumbenzoat; Süßungsmittel: Saccharin, Sucralose.",
       "vmos": {
-        "uuid": "c37abacb-445d-4be6-8556-c6b0179b08ed",
+        "uuid": "7796ba55-11cd-4b70-a337-901d2f79f183",
         "displayAmount": 80
+      }
+    },
+    {
+      "id": "curvy_curry",
+      "name": "Curvy Curry",
+      "shopName": "Curvy Curry (80g)",
+      "group": "dips",
+      "portion": 80,
+      "unit": "g",
+      "per100": {
+        "kcal": 377,
+        "fat": 37.5,
+        "sat": 2.7,
+        "carbs": 10.6,
+        "sugars": 2.1,
+        "fibre": 1,
+        "protein": 0.4,
+        "salt": 1.4
+      },
+      "perPortion": {
+        "kcal": 301.6,
+        "fat": 30,
+        "sat": 2.16,
+        "carbs": 8.48,
+        "sugars": 1.68,
+        "fibre": 0.8,
+        "protein": 0.32,
+        "salt": 1.12
+      },
+      "allergens": [
+        "Senf"
+      ],
+      "ingredients": "Trinkwasser, Rapsöl, Maltodextrin, Branntweinessig, SENF (Wasser, SENFsaaten, Branntweinessig, Salz, Zucker, Gewürze), modifizierte Stärke, Ananassaftkonzentrat, Speisesalz, Curry 1,1%, Gewürzextrakt, Verdickungsmittel: Xanthan, Konservierungsstoff: Kaliumsorbat, Süßungsmittel: Sucralose.",
+      "vmos": {
+        "uuid": "83ee9120-4693-4712-8923-805e03d549d4",
+        "displayAmount": 80
+      }
+    },
+    {
+      "id": "joghurt_salatdressing",
+      "name": "Joghurt-Salatdressing",
+      "shopName": "Joghurt-Salatdressing (80g)",
+      "group": "dips",
+      "portion": 80,
+      "unit": "g",
+      "per100": {
+        "kcal": 143,
+        "fat": 13.6,
+        "sat": 1.6,
+        "carbs": 4.6,
+        "sugars": 2.5,
+        "fibre": 0,
+        "protein": 1.1,
+        "salt": 1.3
+      },
+      "perPortion": {
+        "kcal": 114.4,
+        "fat": 10.88,
+        "sat": 1.28,
+        "carbs": 3.68,
+        "sugars": 2,
+        "fibre": 0,
+        "protein": 0.88,
+        "salt": 1.04
+      },
+      "allergens": [
+        "Milch"
+      ],
+      "ingredients": "Trinkwasser, Joghurt 30%, Rapsöl, Branntweinessig, modifizierte Stärke, jodiertes Speissalz, Zucker, Zitronensaft aus Zitronenkonzentrat, Kräuter, Gewürze, Verdickungsmitteel Xanthan.",
+      "vmos": {
+        "uuid": "411e51ee-7477-4456-9bea-f0733a0004eb",
+        "displayAmount": 80
+      }
+    },
+    {
+      "id": "olivenoel_salz_halbe_zitrone",
+      "name": "Olivenöl, Salz & halbe Zitrone",
+      "shopName": "Olivenöl (20ml), Salz & halbe Zitrone",
+      "group": "dips",
+      "portion": 20,
+      "unit": "ml",
+      "per100": {
+        "kcal": 900,
+        "fat": 100,
+        "sat": 13,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "perPortion": {
+        "kcal": 180,
+        "fat": 20,
+        "sat": 2.6,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "allergens": [],
+      "ingredients": null,
+      "vmos": {
+        "uuid": "efc5c9c3-8043-4f37-8a38-215184c7c3db",
+        "displayAmount": 20
       }
     },
     {
@@ -2887,74 +2884,23 @@
         "uuid": "0852c6c2-64fd-4917-a550-d3cbd0ebd60a",
         "displayAmount": 100
       }
-    },
-    {
-      "id": "sriracha_light_inlead",
-      "name": "Sriracha Light (Inlead)",
-      "shopName": "Sriracha Light (Inlead) (80g)",
-      "group": "dips",
-      "portion": 80,
-      "unit": "g",
-      "per100": {
-        "kcal": 95,
-        "fat": 5.8,
-        "sat": 0.9,
-        "carbs": 9.5,
-        "sugars": 4.4,
-        "fibre": 0.2,
-        "protein": 0.9,
-        "salt": 1.9
-      },
-      "perPortion": {
-        "kcal": 76,
-        "fat": 4.64,
-        "sat": 0.72,
-        "carbs": 7.6,
-        "sugars": 3.52,
-        "fibre": 0.16,
-        "protein": 0.72,
-        "salt": 1.52
-      },
-      "allergens": [
-        "Ei"
-      ],
-      "ingredients": "Wasser, modifizierte Kartoffelstärke, Rapsöl, gemahlener roter Pfefferzucker, Branntweinessig, Ei gelb, Gemüsepulver, Salz, Aromen, Säuerungsmittel: Citronensäure, Antioxidationsmittel: Calcium-Dinatrium-EDTA; Verdickungsmittel: Guarkernmehl, Xanthan; Konservierungsstoffe: Kaliumsorbat, Natriumbenzoat; Süßungsmittel: Saccharin, Sucralose.",
-      "vmos": {
-        "uuid": "5c0d673b-7107-43d4-aac1-6945f5dcc4e9",
-        "displayAmount": 80
-      }
     }
   ],
   "shopItems": [
     {
-      "name": "Protein-Pasta (200g)",
+      "name": "Kürbiswürfel mariniert (200g)",
       "group": "base",
       "per100": {
-        "kcal": 190.5,
-        "fat": 2.75,
-        "sat": 0.2,
-        "carbs": 25,
-        "sugars": 0.75,
-        "fibre": 7,
-        "protein": 13,
-        "salt": 1
+        "kcal": 56.4,
+        "fat": 2.6,
+        "sat": 0.4,
+        "carbs": 5.7,
+        "sugars": 1.5,
+        "fibre": 1.6,
+        "protein": 0.8,
+        "salt": 0.6
       },
       "displayAmount": 200
-    },
-    {
-      "name": "Basmati Reis - Halbe Portion (125g)",
-      "group": "base",
-      "per100": {
-        "kcal": 132,
-        "fat": 0.3,
-        "sat": 0,
-        "carbs": 28,
-        "sugars": 0.1,
-        "fibre": 0.6,
-        "protein": 3,
-        "salt": 1
-      },
-      "displayAmount": 125
     },
     {
       "name": "Salatmix (80g)",
@@ -2972,34 +2918,19 @@
       "displayAmount": 80
     },
     {
-      "name": "Protein-Pasta - Halbe Portion (100g)",
+      "name": "Kürbiswürfel mariniert - halbe Portion (100g)",
       "group": "base",
       "per100": {
-        "kcal": 190.5,
-        "fat": 2.75,
-        "sat": 0.2,
-        "carbs": 25,
-        "sugars": 0.75,
-        "fibre": 7,
-        "protein": 13,
-        "salt": 1
+        "kcal": 56.4,
+        "fat": 2.6,
+        "sat": 0.4,
+        "carbs": 5.7,
+        "sugars": 1.7,
+        "fibre": 1.6,
+        "protein": 0.8,
+        "salt": 0.6
       },
       "displayAmount": 100
-    },
-    {
-      "name": "Bunter Bio Quinoa - Halbe Portion (125g)",
-      "group": "base",
-      "per100": {
-        "kcal": 122,
-        "fat": 2,
-        "sat": 0.2,
-        "carbs": 19.4,
-        "sugars": 0.7,
-        "fibre": 2.3,
-        "protein": 4.7,
-        "salt": 0.7
-      },
-      "displayAmount": 125
     },
     {
       "name": "Bunter Bio Quinoa (250g)",
@@ -3017,6 +2948,51 @@
       "displayAmount": 250
     },
     {
+      "name": "Protein-Pasta - Halbe Portion (100g)",
+      "group": "base",
+      "per100": {
+        "kcal": 190.5,
+        "fat": 2.75,
+        "sat": 0.2,
+        "carbs": 25,
+        "sugars": 0.75,
+        "fibre": 7,
+        "protein": 13,
+        "salt": 1
+      },
+      "displayAmount": 100
+    },
+    {
+      "name": "Protein-Pasta (200g)",
+      "group": "base",
+      "per100": {
+        "kcal": 190.5,
+        "fat": 2.75,
+        "sat": 0.2,
+        "carbs": 25,
+        "sugars": 0.75,
+        "fibre": 7,
+        "protein": 13,
+        "salt": 1
+      },
+      "displayAmount": 200
+    },
+    {
+      "name": "Bunter Bio Quinoa - Halbe Portion (125g)",
+      "group": "base",
+      "per100": {
+        "kcal": 122,
+        "fat": 2,
+        "sat": 0.2,
+        "carbs": 19.4,
+        "sugars": 0.7,
+        "fibre": 2.3,
+        "protein": 4.7,
+        "salt": 0.7
+      },
+      "displayAmount": 125
+    },
+    {
       "name": "Salatmix - Halbe Portion (40g)",
       "group": "base",
       "per100": {
@@ -3032,19 +3008,19 @@
       "displayAmount": 40
     },
     {
-      "name": "Kürbiswürfel mariniert - halbe Portion (100g)",
+      "name": "Basmati Reis - Halbe Portion (125g)",
       "group": "base",
       "per100": {
-        "kcal": 56.4,
-        "fat": 2.6,
-        "sat": 0.4,
-        "carbs": 5.7,
-        "sugars": 1.7,
-        "fibre": 1.6,
-        "protein": 0.8,
-        "salt": 0.6
+        "kcal": 132,
+        "fat": 0.3,
+        "sat": 0,
+        "carbs": 28,
+        "sugars": 0.1,
+        "fibre": 0.6,
+        "protein": 3,
+        "salt": 1
       },
-      "displayAmount": 100
+      "displayAmount": 125
     },
     {
       "name": "Basmati Reis (250g)",
@@ -3062,109 +3038,19 @@
       "displayAmount": 250
     },
     {
-      "name": "Kürbiswürfel mariniert (200g)",
-      "group": "base",
-      "per100": {
-        "kcal": 56.4,
-        "fat": 2.6,
-        "sat": 0.4,
-        "carbs": 5.7,
-        "sugars": 1.5,
-        "fibre": 1.6,
-        "protein": 0.8,
-        "salt": 0.6
-      },
-      "displayAmount": 200
-    },
-    {
-      "name": "Edamame (50g)",
+      "name": "Ziegenkäse (60g)",
       "group": "proteine",
       "per100": {
-        "kcal": 110,
-        "fat": 0,
-        "sat": 0,
-        "carbs": 8.5,
-        "sugars": 2.4,
-        "fibre": 2.4,
-        "protein": 10,
-        "salt": 2
-      },
-      "displayAmount": 50
-    },
-    {
-      "name": "Rinderhackbällchen (90g)",
-      "group": "proteine",
-      "per100": {
-        "kcal": 222,
-        "fat": 14,
-        "sat": 5.2,
-        "carbs": 10,
+        "kcal": 291,
+        "fat": 23,
+        "sat": 16.1,
+        "carbs": 1,
         "sugars": 1,
-        "fibre": 2,
-        "protein": 14,
-        "salt": 1.8
-      },
-      "displayAmount": 90
-    },
-    {
-      "name": "Hühnchen (80g)",
-      "group": "proteine",
-      "per100": {
-        "kcal": 125,
-        "fat": 2.7,
-        "sat": 1.2,
-        "carbs": 1.6,
-        "sugars": 0.73,
         "fibre": 0,
-        "protein": 23.2,
-        "salt": 1.07
+        "protein": 20,
+        "salt": 1.5
       },
-      "displayAmount": 80
-    },
-    {
-      "name": "Veganes Hühnchen planted.chicken - Halbe Portion (40g)",
-      "group": "proteine",
-      "per100": {
-        "kcal": 195,
-        "fat": 10,
-        "sat": 1,
-        "carbs": 2.2,
-        "sugars": 0.5,
-        "fibre": 4,
-        "protein": 21,
-        "salt": 1.9
-      },
-      "displayAmount": 40
-    },
-    {
-      "name": "Rinderhackbällchen - Halbe Portion (50g)",
-      "group": "proteine",
-      "per100": {
-        "kcal": 222,
-        "fat": 14,
-        "sat": 5.2,
-        "carbs": 10,
-        "sugars": 1,
-        "fibre": 2,
-        "protein": 14,
-        "salt": 1.8
-      },
-      "displayAmount": 50
-    },
-    {
-      "name": "Hart gekochtes Ei (40g)",
-      "group": "proteine",
-      "per100": {
-        "kcal": 155,
-        "fat": 11.2,
-        "sat": 3.3,
-        "carbs": 0.6,
-        "sugars": 0.3,
-        "fibre": 0.5,
-        "protein": 13.1,
-        "salt": 0.75
-      },
-      "displayAmount": 50
+      "displayAmount": 60
     },
     {
       "name": "Mushroots Pilzbällchen - Halbe Portion (45g)",
@@ -3197,19 +3083,19 @@
       "displayAmount": 50
     },
     {
-      "name": "Ziegenkäse (60g)",
+      "name": "Veganes Hühnchen planted.chicken - Halbe Portion (40g)",
       "group": "proteine",
       "per100": {
-        "kcal": 291,
-        "fat": 23,
-        "sat": 16.1,
-        "carbs": 1,
-        "sugars": 1,
-        "fibre": 0,
-        "protein": 20,
-        "salt": 1.5
+        "kcal": 195,
+        "fat": 10,
+        "sat": 1,
+        "carbs": 2.2,
+        "sugars": 0.5,
+        "fibre": 4,
+        "protein": 21,
+        "salt": 1.9
       },
-      "displayAmount": 60
+      "displayAmount": 40
     },
     {
       "name": "Pulled Salmon - Halbe Portion (40g)",
@@ -3227,6 +3113,21 @@
       "displayAmount": 40
     },
     {
+      "name": "Rinderhackbällchen (90g)",
+      "group": "proteine",
+      "per100": {
+        "kcal": 222,
+        "fat": 14,
+        "sat": 5.2,
+        "carbs": 10,
+        "sugars": 1,
+        "fibre": 2,
+        "protein": 14,
+        "salt": 1.8
+      },
+      "displayAmount": 90
+    },
+    {
       "name": "Veganes Hühnchen planted.chicken (80g)",
       "group": "proteine",
       "per100": {
@@ -3242,7 +3143,7 @@
       "displayAmount": 80
     },
     {
-      "name": "Hühnchen - Halbe Portion (40g)",
+      "name": "Hühnchen (80g)",
       "group": "proteine",
       "per100": {
         "kcal": 125,
@@ -3254,52 +3155,22 @@
         "protein": 23.2,
         "salt": 1.07
       },
-      "displayAmount": 40
+      "displayAmount": 80
     },
     {
-      "name": "Mushroots Pilzbällchen (75g)",
+      "name": "Edamame (50g)",
       "group": "proteine",
       "per100": {
-        "kcal": 207,
-        "fat": 10,
-        "sat": 0.8,
-        "carbs": 5.6,
-        "sugars": 1.5,
-        "fibre": 3.3,
-        "protein": 22,
-        "salt": 1.5
-      },
-      "displayAmount": 75
-    },
-    {
-      "name": "Feta Käse (50g)",
-      "group": "proteine",
-      "per100": {
-        "kcal": 280,
-        "fat": 23.5,
-        "sat": 14,
-        "carbs": 0.3,
-        "sugars": 0.3,
-        "fibre": 0,
-        "protein": 16.8,
-        "salt": 2.4
+        "kcal": 110,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 8.5,
+        "sugars": 2.4,
+        "fibre": 2.4,
+        "protein": 10,
+        "salt": 2
       },
       "displayAmount": 50
-    },
-    {
-      "name": "Pulled Salmon (80g)",
-      "group": "proteine",
-      "per100": {
-        "kcal": 215,
-        "fat": 14.4,
-        "sat": 3.5,
-        "carbs": 0,
-        "sugars": 0,
-        "fibre": 6,
-        "protein": 20.3,
-        "salt": 2.2
-      },
-      "displayAmount": 80
     },
     {
       "name": "Vegane Hackbällchen - Halbe Portion (40g)",
@@ -3332,49 +3203,94 @@
       "displayAmount": 80
     },
     {
-      "name": "Mais (50g)",
-      "group": "vitamine",
+      "name": "Pulled Salmon (80g)",
+      "group": "proteine",
       "per100": {
-        "kcal": 69,
-        "fat": 1.2,
-        "sat": 0.3,
-        "carbs": 11,
-        "sugars": 7,
-        "fibre": 3.1,
-        "protein": 2.5,
-        "salt": 0.5
-      },
-      "displayAmount": 50
-    },
-    {
-      "name": "Karotten (50g)",
-      "group": "vitamine",
-      "per100": {
-        "kcal": 32,
-        "fat": 0.1,
-        "sat": 0,
-        "carbs": 5,
-        "sugars": 5,
-        "fibre": 4,
-        "protein": 1,
-        "salt": 0.15
-      },
-      "displayAmount": 50
-    },
-    {
-      "name": "Baby Spinat (20g)",
-      "group": "vitamine",
-      "per100": {
-        "kcal": 18,
-        "fat": 0.6,
-        "sat": 0.1,
-        "carbs": 0.6,
+        "kcal": 215,
+        "fat": 14.4,
+        "sat": 3.5,
+        "carbs": 0,
         "sugars": 0,
-        "fibre": 2,
-        "protein": 4.4,
-        "salt": 0
+        "fibre": 6,
+        "protein": 20.3,
+        "salt": 2.2
       },
-      "displayAmount": 20
+      "displayAmount": 80
+    },
+    {
+      "name": "Hühnchen - Halbe Portion (40g)",
+      "group": "proteine",
+      "per100": {
+        "kcal": 125,
+        "fat": 2.7,
+        "sat": 1.2,
+        "carbs": 1.6,
+        "sugars": 0.73,
+        "fibre": 0,
+        "protein": 23.2,
+        "salt": 1.07
+      },
+      "displayAmount": 40
+    },
+    {
+      "name": "Rinderhackbällchen - Halbe Portion (50g)",
+      "group": "proteine",
+      "per100": {
+        "kcal": 222,
+        "fat": 14,
+        "sat": 5.2,
+        "carbs": 10,
+        "sugars": 1,
+        "fibre": 2,
+        "protein": 14,
+        "salt": 1.8
+      },
+      "displayAmount": 50
+    },
+    {
+      "name": "Mushroots Pilzbällchen (75g)",
+      "group": "proteine",
+      "per100": {
+        "kcal": 207,
+        "fat": 10,
+        "sat": 0.8,
+        "carbs": 5.6,
+        "sugars": 1.5,
+        "fibre": 3.3,
+        "protein": 22,
+        "salt": 1.5
+      },
+      "displayAmount": 75
+    },
+    {
+      "name": "Feta Käse (50g)",
+      "group": "proteine",
+      "per100": {
+        "kcal": 280,
+        "fat": 23.5,
+        "sat": 14,
+        "carbs": 0.3,
+        "sugars": 0.3,
+        "fibre": 0,
+        "protein": 16.8,
+        "salt": 2.4
+      },
+      "displayAmount": 50
+    },
+    {
+      "name": "Hart gekochtes Ei (40g)",
+      "group": "proteine",
+      "per100": {
+        "kcal": 155,
+        "fat": 11.2,
+        "sat": 3.3,
+        "carbs": 0.6,
+        "sugars": 0.3,
+        "fibre": 0.5,
+        "protein": 13.1,
+        "salt": 0.75
+      },
+      "displayAmount": 50
     },
     {
       "name": "Avocado (35g)",
@@ -3392,21 +3308,6 @@
       "displayAmount": 35
     },
     {
-      "name": "Rotkohl geraspelt (50g)",
-      "group": "vitamine",
-      "per100": {
-        "kcal": 27,
-        "fat": 0.1,
-        "sat": 0.1,
-        "carbs": 4,
-        "sugars": 3,
-        "fibre": 2.5,
-        "protein": 2,
-        "salt": 0.03
-      },
-      "displayAmount": 50
-    },
-    {
       "name": "Rote Bete Falafel (100g)",
       "group": "vitamine",
       "per100": {
@@ -3420,6 +3321,36 @@
         "salt": 1.1
       },
       "displayAmount": 100
+    },
+    {
+      "name": "Mango (70g)",
+      "group": "vitamine",
+      "per100": {
+        "kcal": 66,
+        "fat": 0,
+        "sat": 0,
+        "carbs": 14.1,
+        "sugars": 12.2,
+        "fibre": 1.4,
+        "protein": 1.6,
+        "salt": 0.01
+      },
+      "displayAmount": 70
+    },
+    {
+      "name": "Baby Spinat (20g)",
+      "group": "vitamine",
+      "per100": {
+        "kcal": 18,
+        "fat": 0.6,
+        "sat": 0.1,
+        "carbs": 0.6,
+        "sugars": 0,
+        "fibre": 2,
+        "protein": 4.4,
+        "salt": 0
+      },
+      "displayAmount": 20
     },
     {
       "name": "Brokkoli (100g)",
@@ -3452,19 +3383,34 @@
       "displayAmount": 50
     },
     {
-      "name": "Rote Beete (70g)",
+      "name": "Kürbiswürfel mariniert (50g)",
       "group": "vitamine",
       "per100": {
-        "kcal": 43,
+        "kcal": 56.4,
+        "fat": 2.6,
+        "sat": 0.4,
+        "carbs": 5.7,
+        "sugars": 1.5,
+        "fibre": 1.6,
+        "protein": 0.8,
+        "salt": 0.6
+      },
+      "displayAmount": 50
+    },
+    {
+      "name": "Karotten (50g)",
+      "group": "vitamine",
+      "per100": {
+        "kcal": 32,
         "fat": 0.1,
         "sat": 0,
-        "carbs": 8.4,
-        "sugars": 6.8,
-        "fibre": 2.5,
-        "protein": 1.5,
-        "salt": 0
+        "carbs": 5,
+        "sugars": 5,
+        "fibre": 4,
+        "protein": 1,
+        "salt": 0.15
       },
-      "displayAmount": 70
+      "displayAmount": 50
     },
     {
       "name": "Gurke (50g)",
@@ -3482,47 +3428,32 @@
       "displayAmount": 50
     },
     {
-      "name": "Gemüsemix (100g)",
+      "name": "Mais (50g)",
       "group": "vitamine",
       "per100": {
-        "kcal": 43,
-        "fat": 0.3,
+        "kcal": 69,
+        "fat": 1.2,
+        "sat": 0.3,
+        "carbs": 11,
+        "sugars": 7,
+        "fibre": 3.1,
+        "protein": 2.5,
+        "salt": 0.5
+      },
+      "displayAmount": 50
+    },
+    {
+      "name": "Rotkohl geraspelt (50g)",
+      "group": "vitamine",
+      "per100": {
+        "kcal": 27,
+        "fat": 0.1,
         "sat": 0.1,
-        "carbs": 6.3,
-        "sugars": 5.4,
-        "fibre": 0.5,
-        "protein": 2.1,
-        "salt": 0.02
-      },
-      "displayAmount": 100
-    },
-    {
-      "name": "Mango (70g)",
-      "group": "vitamine",
-      "per100": {
-        "kcal": 66,
-        "fat": 0,
-        "sat": 0,
-        "carbs": 14.1,
-        "sugars": 12.2,
-        "fibre": 1.4,
-        "protein": 1.6,
-        "salt": 0.01
-      },
-      "displayAmount": 70
-    },
-    {
-      "name": "Kürbiswürfel mariniert (50g)",
-      "group": "vitamine",
-      "per100": {
-        "kcal": 56.4,
-        "fat": 2.6,
-        "sat": 0.4,
-        "carbs": 5.7,
-        "sugars": 1.5,
-        "fibre": 1.6,
-        "protein": 0.8,
-        "salt": 0.6
+        "carbs": 4,
+        "sugars": 3,
+        "fibre": 2.5,
+        "protein": 2,
+        "salt": 0.03
       },
       "displayAmount": 50
     },
@@ -3542,19 +3473,79 @@
       "displayAmount": 20
     },
     {
-      "name": "Walnusskerne (20g)",
-      "group": "toppings",
+      "name": "Gemüsemix (100g)",
+      "group": "vitamine",
       "per100": {
-        "kcal": 704,
-        "fat": 67,
-        "sat": 6.3,
-        "carbs": 7,
-        "sugars": 2,
-        "fibre": 6.7,
-        "protein": 16,
+        "kcal": 43,
+        "fat": 0.3,
+        "sat": 0.1,
+        "carbs": 6.3,
+        "sugars": 5.4,
+        "fibre": 0.5,
+        "protein": 2.1,
+        "salt": 0.02
+      },
+      "displayAmount": 100
+    },
+    {
+      "name": "Rote Beete (70g)",
+      "group": "vitamine",
+      "per100": {
+        "kcal": 43,
+        "fat": 0.1,
+        "sat": 0,
+        "carbs": 8.4,
+        "sugars": 6.8,
+        "fibre": 2.5,
+        "protein": 1.5,
         "salt": 0
       },
+      "displayAmount": 70
+    },
+    {
+      "name": "Grana Padano (20g)",
+      "group": "toppings",
+      "per100": {
+        "kcal": 398,
+        "fat": 29,
+        "sat": 18,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 33,
+        "salt": 1.5
+      },
       "displayAmount": 20
+    },
+    {
+      "name": "Röstzwiebeln (20g)",
+      "group": "toppings",
+      "per100": {
+        "kcal": 590,
+        "fat": 44,
+        "sat": 21,
+        "carbs": 40,
+        "sugars": 9,
+        "fibre": 4.5,
+        "protein": 6,
+        "salt": 1.2
+      },
+      "displayAmount": 20
+    },
+    {
+      "name": "Schwarzer Sesam (3g)",
+      "group": "toppings",
+      "per100": {
+        "kcal": 593,
+        "fat": 50,
+        "sat": 8,
+        "carbs": 10,
+        "sugars": 0.2,
+        "fibre": 11,
+        "protein": 21,
+        "salt": 0.1
+      },
+      "displayAmount": 3
     },
     {
       "name": "Functional Fall Crunch (20g)",
@@ -3572,17 +3563,17 @@
       "displayAmount": 20
     },
     {
-      "name": "Röstzwiebeln (20g)",
+      "name": "Walnusskerne (20g)",
       "group": "toppings",
       "per100": {
-        "kcal": 590,
-        "fat": 44,
-        "sat": 21,
-        "carbs": 40,
-        "sugars": 9,
-        "fibre": 4.5,
-        "protein": 6,
-        "salt": 1.2
+        "kcal": 704,
+        "fat": 67,
+        "sat": 6.3,
+        "carbs": 7,
+        "sugars": 2,
+        "fibre": 6.7,
+        "protein": 16,
+        "salt": 0
       },
       "displayAmount": 20
     },
@@ -3632,140 +3623,34 @@
       "displayAmount": 20
     },
     {
-      "name": "Schwarzer Sesam (3g)",
-      "group": "toppings",
-      "per100": {
-        "kcal": 593,
-        "fat": 50,
-        "sat": 8,
-        "carbs": 10,
-        "sugars": 0.2,
-        "fibre": 11,
-        "protein": 21,
-        "salt": 0.1
-      },
-      "displayAmount": 3
-    },
-    {
-      "name": "Grana Padano (20g)",
-      "group": "toppings",
-      "per100": {
-        "kcal": 398,
-        "fat": 29,
-        "sat": 18,
-        "carbs": 0,
-        "sugars": 0,
-        "fibre": 0,
-        "protein": 33,
-        "salt": 1.5
-      },
-      "displayAmount": 20
-    },
-    {
-      "name": "Aioli Light (Inlead) (80g)",
+      "name": "Balsamico Dressing (80g)",
       "group": "dips",
       "per100": {
-        "kcal": 97,
+        "kcal": 58,
+        "fat": 2.3,
+        "sat": 0.2,
+        "carbs": 8.8,
+        "sugars": 8.4,
+        "fibre": 0.21,
+        "protein": 0.1,
+        "salt": 2
+      },
+      "displayAmount": 80
+    },
+    {
+      "name": "Trüffel Light (Inlead) (80g)",
+      "group": "dips",
+      "per100": {
+        "kcal": 98,
         "fat": 6,
         "sat": 0.9,
-        "carbs": 9.7,
-        "sugars": 5.1,
+        "carbs": 10,
+        "sugars": 3.3,
         "fibre": 0.2,
-        "protein": 0.1,
-        "salt": 1.9
+        "protein": 0.7,
+        "salt": 1.89
       },
       "displayAmount": 80
-    },
-    {
-      "name": "Sexy Sesame (80g)",
-      "group": "dips",
-      "per100": {
-        "kcal": 367,
-        "fat": 34.5,
-        "sat": 3.2,
-        "carbs": 11.9,
-        "sugars": 0.7,
-        "fibre": 0,
-        "protein": 2.4,
-        "salt": 3
-      },
-      "displayAmount": 80
-    },
-    {
-      "name": "Champion Chili (80g)",
-      "group": "dips",
-      "per100": {
-        "kcal": 273,
-        "fat": 25.6,
-        "sat": 1.9,
-        "carbs": 9.7,
-        "sugars": 2.4,
-        "fibre": 2.5,
-        "protein": 1.3,
-        "salt": 3
-      },
-      "displayAmount": 80
-    },
-    {
-      "name": "Curvy Curry (80g)",
-      "group": "dips",
-      "per100": {
-        "kcal": 377,
-        "fat": 37.5,
-        "sat": 2.7,
-        "carbs": 10.6,
-        "sugars": 2.1,
-        "fibre": 1,
-        "protein": 0.4,
-        "salt": 1.4
-      },
-      "displayAmount": 80
-    },
-    {
-      "name": "Rotes Pesto (80g)",
-      "group": "dips",
-      "per100": {
-        "kcal": 330,
-        "fat": 28.7,
-        "sat": 3.9,
-        "carbs": 12.8,
-        "sugars": 8.2,
-        "fibre": 1.97,
-        "protein": 4.6,
-        "salt": 2.4
-      },
-      "displayAmount": 80
-    },
-    {
-      "name": "Olivenöl (20ml), Salz & halbe Zitrone",
-      "group": "dips",
-      "per100": {
-        "kcal": 900,
-        "fat": 100,
-        "sat": 13,
-        "carbs": 0,
-        "sugars": 0,
-        "fibre": 0,
-        "protein": 0,
-        "salt": 0
-      },
-      "displayAmount": 20
-    },
-    {
-      "name": "Protein Tzatziki (100g)",
-      "group": "dips",
-      "per100": {
-        "kcal": 66.8,
-        "fat": 0.21,
-        "sat": 0.1,
-        "carbs": 4.95,
-        "sugars": 4.67,
-        "fibre": 0.1,
-        "protein": 10.85,
-        "salt": 1.13
-      },
-      "displayAmount": 100,
-      "soldOut": true
     },
     {
       "name": "Ajvar (100g)",
@@ -3783,47 +3668,17 @@
       "displayAmount": 100
     },
     {
-      "name": "Balsamico Dressing (80g)",
+      "name": "Sexy Sesame (80g)",
       "group": "dips",
       "per100": {
-        "kcal": 58,
-        "fat": 2.3,
-        "sat": 0.2,
-        "carbs": 8.8,
-        "sugars": 8.4,
-        "fibre": 0.21,
-        "protein": 0.1,
-        "salt": 2
-      },
-      "displayAmount": 80
-    },
-    {
-      "name": "Power Peanut (80g)",
-      "group": "dips",
-      "per100": {
-        "kcal": 312,
-        "fat": 27,
-        "sat": 2.7,
-        "carbs": 13.8,
-        "sugars": 2.4,
+        "kcal": 367,
+        "fat": 34.5,
+        "sat": 3.2,
+        "carbs": 11.9,
+        "sugars": 0.7,
         "fibre": 0,
-        "protein": 3.7,
-        "salt": 2.7
-      },
-      "displayAmount": 80
-    },
-    {
-      "name": "Joghurt-Salatdressing (80g)",
-      "group": "dips",
-      "per100": {
-        "kcal": 143,
-        "fat": 13.6,
-        "sat": 1.6,
-        "carbs": 4.6,
-        "sugars": 2.5,
-        "fibre": 0,
-        "protein": 1.1,
-        "salt": 1.3
+        "protein": 2.4,
+        "salt": 3
       },
       "displayAmount": 80
     },
@@ -3843,19 +3698,140 @@
       "displayAmount": 40
     },
     {
-      "name": "Trüffel Light (Inlead) (80g)",
+      "name": "Protein Tzatziki (100g)",
       "group": "dips",
       "per100": {
-        "kcal": 98,
-        "fat": 6,
-        "sat": 0.9,
-        "carbs": 10,
-        "sugars": 3.3,
-        "fibre": 0.2,
-        "protein": 0.7,
-        "salt": 1.89
+        "kcal": 66.8,
+        "fat": 0.21,
+        "sat": 0.1,
+        "carbs": 4.95,
+        "sugars": 4.67,
+        "fibre": 0.1,
+        "protein": 10.85,
+        "salt": 1.13
+      },
+      "displayAmount": 100
+    },
+    {
+      "name": "Power Peanut (80g)",
+      "group": "dips",
+      "per100": {
+        "kcal": 312,
+        "fat": 27,
+        "sat": 2.7,
+        "carbs": 13.8,
+        "sugars": 2.4,
+        "fibre": 0,
+        "protein": 3.7,
+        "salt": 2.7
       },
       "displayAmount": 80
+    },
+    {
+      "name": "Champion Chili (80g)",
+      "group": "dips",
+      "per100": {
+        "kcal": 273,
+        "fat": 25.6,
+        "sat": 1.9,
+        "carbs": 9.7,
+        "sugars": 2.4,
+        "fibre": 2.5,
+        "protein": 1.3,
+        "salt": 3
+      },
+      "displayAmount": 80
+    },
+    {
+      "name": "Rotes Pesto (80g)",
+      "group": "dips",
+      "per100": {
+        "kcal": 330,
+        "fat": 28.7,
+        "sat": 3.9,
+        "carbs": 12.8,
+        "sugars": 8.2,
+        "fibre": 1.97,
+        "protein": 4.6,
+        "salt": 2.4
+      },
+      "displayAmount": 80
+    },
+    {
+      "name": "Sriracha Light (Inlead) (80g)",
+      "group": "dips",
+      "per100": {
+        "kcal": 95,
+        "fat": 5.8,
+        "sat": 0.9,
+        "carbs": 9.5,
+        "sugars": 4.4,
+        "fibre": 0.2,
+        "protein": 0.9,
+        "salt": 1.9
+      },
+      "displayAmount": 80,
+      "soldOut": true
+    },
+    {
+      "name": "Aioli Light (Inlead) (80g)",
+      "group": "dips",
+      "per100": {
+        "kcal": 97,
+        "fat": 6,
+        "sat": 0.9,
+        "carbs": 9.7,
+        "sugars": 5.1,
+        "fibre": 0.2,
+        "protein": 0.1,
+        "salt": 1.9
+      },
+      "displayAmount": 80
+    },
+    {
+      "name": "Curvy Curry (80g)",
+      "group": "dips",
+      "per100": {
+        "kcal": 377,
+        "fat": 37.5,
+        "sat": 2.7,
+        "carbs": 10.6,
+        "sugars": 2.1,
+        "fibre": 1,
+        "protein": 0.4,
+        "salt": 1.4
+      },
+      "displayAmount": 80
+    },
+    {
+      "name": "Joghurt-Salatdressing (80g)",
+      "group": "dips",
+      "per100": {
+        "kcal": 143,
+        "fat": 13.6,
+        "sat": 1.6,
+        "carbs": 4.6,
+        "sugars": 2.5,
+        "fibre": 0,
+        "protein": 1.1,
+        "salt": 1.3
+      },
+      "displayAmount": 80
+    },
+    {
+      "name": "Olivenöl (20ml), Salz & halbe Zitrone",
+      "group": "dips",
+      "per100": {
+        "kcal": 900,
+        "fat": 100,
+        "sat": 13,
+        "carbs": 0,
+        "sugars": 0,
+        "fibre": 0,
+        "protein": 0,
+        "salt": 0
+      },
+      "displayAmount": 20
     },
     {
       "name": "Honey Muscle Mustard (80g)",
@@ -3886,21 +3862,6 @@
         "salt": 0.42
       },
       "displayAmount": 100
-    },
-    {
-      "name": "Sriracha Light (Inlead) (80g)",
-      "group": "dips",
-      "per100": {
-        "kcal": 95,
-        "fat": 5.8,
-        "sat": 0.9,
-        "carbs": 9.5,
-        "sugars": 4.4,
-        "fibre": 0.2,
-        "protein": 0.9,
-        "salt": 1.9
-      },
-      "displayAmount": 80
     }
   ],
   "wolt": {
@@ -4380,6 +4341,15 @@
             "price": 2
           },
           {
+            "name": "Protein Tsatsiki Dip",
+            "ingredient": "protein_tzatziki",
+            "role": "dip",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 1,
+            "price": 3
+          },
+          {
             "name": "Guacamole",
             "ingredient": "guacamole",
             "role": "dip",
@@ -4443,15 +4413,6 @@
             "price": 3
           },
           {
-            "name": "Siracha Mayo Light (Inlead), 80 g",
-            "ingredient": "sriracha_light_inlead",
-            "role": "dip",
-            "amount": 80,
-            "unit": "g",
-            "maxQty": 1,
-            "price": 3
-          },
-          {
             "name": "Aioli Light (Inlead), 80 g",
             "ingredient": "aioli_light_inlead",
             "role": "dip",
@@ -4461,15 +4422,15 @@
             "price": 3
           },
           {
-            "name": "Protein Tsatsiki Dip",
-            "ingredient": "protein_tzatziki",
+            "name": "Siracha Mayo Light (Inlead), 80 g",
+            "ingredient": "sriracha_light_inlead",
             "role": "dip",
-            "amount": 100,
+            "amount": 80,
             "unit": "g",
             "maxQty": 1,
             "price": 3,
             "notListed": true,
-            "notListedSince": "2026-11-15"
+            "notListedSince": "2026-11-19"
           }
         ]
       }

@@ -1,6 +1,6 @@
 {
  "_source": "Compleat-Onlineshop, Bundle „Selbst zusammenstellen“ (Store Frankfurt Nordend): jede Zutat-Karte EINZELN ausgewählt (Menge 1) und die Anzeige „Nutrition facts per serving“ (Reiter „Nährwerte“) abgelesen, danach wieder abgewählt (compleat-shop-capture.js, im Browser; Prüfsumme sha256 des kompakten JSON im Browser und lokal verglichen). Werte als angezeigt (Text, „--“ = nicht angegeben). soldOut = Overlay „Ausverkauft“, Häkchen gesperrt → keine Werte; lastRead = die letzte Ablesung dieser Karte aus einem früheren Durchgang (mit Datum), als sie noch wählbar war. Kontrollquelle für node verify-compleat-shop.js; übernommen mit node verify-compleat-shop.js --save. Nicht von Hand ändern.",
- "readAt": "2026-11-10T07:17:01.034Z",
+ "readAt": "2026-11-19T07:38:55.200Z",
  "page": "https://compleat.vmos.io/store/bb51e8b9-3301-4bee-bb33-e063fac5ec64/menu/category/bae2cbce-c348-4807-9988-4c52556d68b2/bundle/afaa6fe6-4785-4bd7-b6e0-0ea9d4f12c22/bundleCustomization?menuUUID=9a7bd18b-9542-4768-b85a-c48740da87e9",
  "items": [
   {
@@ -483,22 +483,17 @@
    "name": "Baby-Grünkohl (20g)",
    "uuid": "368709c3-7701-4619-83f6-8608220a995f",
    "group": "Vitamine",
-   "soldOut": true,
-   "overlay": "Ausverkauft",
-   "lastRead": {
-    "readAt": "2026-11-03T07:07:09.199Z",
-    "qty": 1,
-    "shown": {
-     "kcal": "7",
-     "kj": "29",
-     "fat": "0.2",
-     "carbs": "0.5",
-     "sat": "--",
-     "sugars": "--",
-     "protein": "0.9",
-     "fibre": "0.8",
-     "salt": "--"
-    }
+   "qty": 1,
+   "shown": {
+    "kcal": "7",
+    "kj": "29",
+    "fat": "0.2",
+    "carbs": "0.5",
+    "sat": "--",
+    "sugars": "--",
+    "protein": "0.9",
+    "fibre": "0.8",
+    "salt": "--"
    }
   },
   {
@@ -947,22 +942,17 @@
    "name": "Guacamole (100g)",
    "uuid": "0852c6c2-64fd-4917-a550-d3cbd0ebd60a",
    "group": "Dips",
-   "soldOut": true,
-   "overlay": "Ausverkauft",
-   "lastRead": {
-    "readAt": "2026-11-03T07:07:09.199Z",
-    "qty": 1,
-    "shown": {
-     "kcal": "194",
-     "kj": "812",
-     "fat": "17.0",
-     "carbs": "8.4",
-     "sat": "2.7",
-     "sugars": "2.3",
-     "protein": "1.7",
-     "fibre": "6.0",
-     "salt": "0.42"
-    }
+   "qty": 1,
+   "shown": {
+    "kcal": "194",
+    "kj": "812",
+    "fat": "17.0",
+    "carbs": "8.4",
+    "sat": "2.7",
+    "sugars": "2.3",
+    "protein": "1.7",
+    "fibre": "6.0",
+    "salt": "0.42"
    }
   },
   {
@@ -1088,17 +1078,22 @@
    "name": "Sriracha Light (Inlead) (80g)",
    "uuid": "5c0d673b-7107-43d4-aac1-6945f5dcc4e9",
    "group": "Dips",
-   "qty": 1,
-   "shown": {
-    "kcal": "76",
-    "kj": "318",
-    "fat": "4.6",
-    "carbs": "7.6",
-    "sat": "0.7",
-    "sugars": "3.5",
-    "protein": "0.7",
-    "fibre": "0.2",
-    "salt": "1.52"
+   "soldOut": true,
+   "overlay": "Ausverkauft",
+   "lastRead": {
+    "readAt": "2026-11-10T07:17:01.034Z",
+    "qty": 1,
+    "shown": {
+     "kcal": "76",
+     "kj": "318",
+     "fat": "4.6",
+     "carbs": "7.6",
+     "sat": "0.7",
+     "sugars": "3.5",
+     "protein": "0.7",
+     "fibre": "0.2",
+     "salt": "1.52"
+    }
    }
   },
   {
