@@ -154,6 +154,7 @@ const PRODUCTS = [
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Rapunzel-Bio-Schwarze-Bohnen-400-g.html"],   // User 03.11.2026
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Rapunzel-Bio-Weisse-Canellini-Bohnen-400-g.html"],   // User 03.11.2026
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/HAK-Schwarze-Bohnen-225-g.html"],   // User 04.11.2026 (am 02.11. noch nicht gelistet; 200 von 225 g abgetropft)
+  ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/Rapunzel-Bio-Bohnen-Mix-400-g.html"],   // User 22.11.2026 (am 17.11. temporär nicht verfügbar; Kidney, Feuerbohnen, Kichererbsen, Navy-Bohnen; 240 von 400 g abgetropft)
   // … in Soße (ganzer Inhalt)
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Herzstuecke-Chili-Bohnen-400-g.html"],
   ["beans", "/Nahrungsmittel-EDEKA/Konserven-Feinkost/Gemuesekonserven/EDEKA-Bio-Baked-Beans-350g.html"],
@@ -308,7 +309,7 @@ const WAITING = new Set([]);
 
 // Marken (längster Treffer am Namensanfang gewinnt) — für „Marke · Produkt“ in der Einkaufsliste
 const BRANDS = ["Alnatura", "Andechser Natur", "Arla", "Barebells", "Bazar", "Ben's Original", "Bernard Matthews Oldenburg", "Bioasia", "Bonduelle", "Diamond", "FEINKOST DITTMANN",
-  "Bürger", "Driscoll's", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "ESN", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "G&G", "GUT&GÜNSTIG", "HAK", "Herta Finesse", "ITA-SAN", "LAC",
+  "BIOE", "Bürger", "Driscoll's", "EDEKA Bio", "EDEKA Herzstücke", "Eat Happy", "Ehrmann", "ESN", "FRoSTA", "Exquisa", "Krone Fisch", "Krone", "GERVAIS", "G&G", "GUT&GÜNSTIG", "HAK", "Herta Finesse", "ITA-SAN", "LAC",
   "Like MEAT", "LIKE", "Mestemacher", "MILRAM", "müller", "Müller", "planted", "Poensgen", "Premier Protein", "Rapunzel", "reis-fit", "Saupiquet",
   "Schwarzwaldmilch", "Taifun", "Tilda"];
 
@@ -359,10 +360,15 @@ const MANUFACTURER_ONLY = [
 // des Herstellers (parseRapunzel: Werte je 100 g, Inhalt, Abtropfgewicht, Zutaten, Allergene, Preis); wie bei allen Konserven zählt das
 // Abtropfgewicht. Der Preis ist der Einzelpreis des Rapunzel-Shops — eine gekennzeichnete Annahme (die übrigen Rapunzel-Dosen kosten dort
 // wie im Markt 1,99 €). `storeOnly` → im Tracker „not in the online shop — may not be available“ (User: „mit Hinweis, dass die ggf. nicht
-// verfügbar sind“). `page` = Produktname laut Herstellerseite (Kontrolle, dass der Link noch auf dasselbe Produkt zeigt)
+// verfügbar sind“). `page` = Produktname laut Herstellerseite (Kontrolle, dass der Link noch auf dasselbe Produkt zeigt). `seen` = Tag, an
+// dem der User das Produkt im Markt gesehen hat; `seenNote` ersetzt „am … im Markt gesehen“, wenn er nur das Produkt genannt hat.
+// User 22.11.2026: dazu die Rapunzel Bunte Riesenbohnen (vom User mit Link auf den Rapunzel-Shop für Edeka Graf genannt; der Onlineshop
+// listet sie nicht — Markenseite „Gemüsekonserven/_Marke/Rapunzel“ mit 16 Artikeln ohne sie, vier Namensvarianten der Produkt-URL 404)
 const STORE_ONLY = [
   { cat: "beans", name: "Rapunzel Bio Borlotti Bohnen 400 g", brand: "Rapunzel", url: "https://shop.rapunzel.de/703495/Borlotti-Bohnen-in-der-Dose/",
     page: "Borlotti Bohnen in der Dose", seen: "2026-11-16" },
+  { cat: "beans", name: "Rapunzel Bio Bunte Riesenbohnen 400 g", brand: "Rapunzel", url: "https://shop.rapunzel.de/703550/Bunte-Riesenbohnen-in-der-Dose/",
+    page: "Bunte Riesenbohnen in der Dose", seen: "2026-11-22", seenNote: "am 2026-11-22 vom User für Edeka Graf genannt" },
 ];
 
 // Vom User verlinkt, aber nicht im Tracker (mit Grund) — steht in `_meta.notInTracker`
@@ -389,7 +395,7 @@ const FALLBACK = {
     from: "USDA FoodData Central, SR Legacy #168409 „Cucumber, with peel, raw“ (rohe Gurke mit Schale)",
   },
   // User 24.09.2026 („einfach klassische Nährwerte nehmen“)
-  "EDEKA Bio Möhren Mini, Bio Klasse II 200g": {
+  "BIOE MOEHREN MINI DK II 200G": {   // bis 21.11.2026 „EDEKA Bio Möhren Mini, Bio Klasse II 200g“ (RENAMED)
     like: "EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g",
     from: "EDEKA Herzstücke Gemüse Pur Karottenstifte 250 g — dieselbe Ware (Möhren, roh), offizielle Werte des Shops",
   },
@@ -416,6 +422,7 @@ const RENAMED = {
   "EDEKA Herzstücke Snackster, Mini Pflaumen Tomaten Klasse I 250g": "EDEKA Herzstücke Mini Pflaumen Tomaten Klasse I 250g",  // 13.10.2026
   "LIKE Like Chicken 180 g": "Like MEAT Like Chicken 180 g",                                                                  // 13.10.2026 (Marke jetzt „LIKE“)
   "G&G EXPRESSREIS ASIA 250G": "GUT&GÜNSTIG Expressreis Asia 250 g",                                                       // 29.10.2026 (Marke jetzt „G&G“)
+  "BIOE MOEHREN MINI DK II 200G": "EDEKA Bio Möhren Mini, Bio Klasse II 200g",                                             // 22.11.2026 (Marke jetzt „BIOE“ = EDEKA Bio)
 };
 
 // Produkte, die der Markt führt, die aber weder im Onlineshop noch auf edeka.de stehen (User 24.09.2026): Werte aus einer
@@ -944,7 +951,7 @@ async function main() {
       portionG: p.drainedG, portionNote: "Abtropfgewicht laut Herstellerseite (ganze Dose)", fibreDeclared: p.fibreDeclared,
       allergens: p.allergens, allergenInfo: p.allergenInfo, ingredients: p.ingredients, legal: p.legal, storage: p.storage, company: null,
       cat: e.cat, brand: e.brand, valuesFrom: "offizielle Herstellerseite " + e.url, manufacturerUrl: e.url, articleNo: p.sku,
-      storeOnly: true, seenInStore: e.seen });
+      storeOnly: true, seenInStore: e.seen, seenNote: e.seenNote || null });
   }
   console.log("");
 
@@ -954,7 +961,7 @@ async function main() {
       fetchedAt,
       basis: "Offizielle Werte **je 100 g** laut Produktseite × Menge. Die Menge ist **immer die ganze Packung** (User 19.09.2026) — bei Konserven das **Abtropfgewicht** (Bohnen in Soße nennen keins → ganzer Inhalt, die Soße isst man mit). Ballaststoffe sind freiwillig → fehlen sie, steht 0. Frisches Obst und Gemüse ohne Nährwertangabe bekommt Referenzwerte (FALLBACK/OFFLINE, Quelle je Produkt in _meta.referenceValues)",
       rules: [
-        "Produkte des Onlineshops, Namen exakt wie dort; dazu wenige, die der Markt führt, die online fehlen (Burritos von edeka.de, Kulturheidelbeeren) — ohne Preis; Rapunzel Borlotti Bohnen (STORE_ONLY, seit 17.11.2026) mit Werten und Preis der Herstellerseite, der Preis als Annahme, im Tracker mit dem Hinweis „may not be available“",
+        "Produkte des Onlineshops, Namen exakt wie dort; dazu wenige, die der Markt führt, die online fehlen (Burritos von edeka.de, Kulturheidelbeeren) — ohne Preis; Rapunzel Borlotti Bohnen (seit 17.11.2026) und Rapunzel Bunte Riesenbohnen (seit 22.11.2026) (STORE_ONLY) mit Werten und Preis der Herstellerseite, der Preis als Annahme, im Tracker mit dem Hinweis „may not be available“",
         "Der Tracker rechnet mit Gramm: jedes Produkt startet mit seiner Portion, das Gramm ist im Warenkorb änderbar",
         "Preise = Onlineshop-Preise des Marktes (im Laden können sie abweichen, Angebote wechseln)",
       ],
@@ -983,6 +990,7 @@ async function main() {
         "User 04.11.2026 (HAK): „Mach HAK schwarze Bohnen rein“ → HAK Schwarze Bohnen 225 g in „Beans, chickpeas & lentils (tins)“ hinter den übrigen Bohnen in Wasser (schwarze Bohnen, Wasser, Meersalz; Abtropfgewicht 200 von 225 g laut Produktseite); Nährwerte vorher auf der Produktseite im Browser abgelesen. Die Eiweiß-Probe „Werte gelten fürs Abgetropfte“ der übrigen Bohnen-Dosen trennt hier nicht (wenig Aufguss: 8,1 g deklariert, bezogen auf den Inhalt samt Aufguss 9,1 g; gekochte schwarze Bohnen laut USDA 8,86 g) → es zählt wie bei allen Konserven das Abtropfgewicht, der ganze Inhalt wären höchstens 35 kcal mehr",
         "User 29.10.2026: „bitte bei Ben's Original Express-Reis-Mischungen alle 250-g-Versionen raus, im Edeka gibt es nur die 220-g-Versionen (nur auf Marke Ben's bezogen)“ → nicht mehr im Tracker: Ben's Original Express Langkornreis 250 g, Express nach Art Risi Bisi 250 g und Express Reis Mexikanisch 250 g; dieselben Sorten gibt es als 220-g-Beutel. Die 250-g-Beutel von reis-fit, GUT&GÜNSTIG und Tilda bleiben",
         "User 17.11.2026 (Borlotti): „Es gibt neue Bohnen in Konserve bei Edeka … nicht so normale oder weiße, sondern glaube vllt Borlotti oder sowas, so Muster hatten die“ → im Graf-Onlineshop keine Borlotti-, Wachtel- oder Pintobohnen in der Dose (Regale Gemüsekonserven, Hülsenfrüchte, Fertiggerichte, Kühl-Feinkost und rund 40 Produkt-URLs geprüft; gefunden nur Rapunzel Bio Bohnen-Mix 400 g, gerade nicht verfügbar). Dann mit Link auf shop.rapunzel.de: „Baue die hier ein, aber mit Hinweis, dass die ggf. nicht verfügbar sind“ → Rapunzel Bio Borlotti Bohnen 400 g in „Beans, chickpeas & lentils (tins)“ mit allen Werten von der Herstellerseite (Borlotti Bohnen, Wasser, Meersalz; Abtropfgewicht 250 von 400 g, gezählt wie bei allen Konserven), Preis = Einzelpreis im Rapunzel-Shop (2,49 €) als Annahme — die übrigen Rapunzel-Dosen kosten dort wie im Markt 1,99 € —, im Tracker „not in the online shop — may not be available“ (storeOnly). Bezug der Werte auf Rückfrage geklärt (User 17.11.2026: „Recherchiere nochmal genau“): sie gelten für die abgetropften Bohnen — (1) das Etikett überschreibt die Nährwerttabelle mit „Durchschnittliche Nährwerte für … (abgetropft, sgocciolato, égoutté, uitgedropen, po odkapání …)“ (Etikettenfotos bei Open Food Facts von 2020 und 2021, die Zahlen-Spalte ist darauf nicht zu sehen; der Rapunzel-Shop schreibt nur „Unzubereitet pro 100 g“), (2) die 7 übrigen Hülsenfrucht-Dosen des Rapunzel-Shops mit Abtropfgewicht stehen unter derselben Überschrift und beziehen sich nachweislich aufs Abtropfgewicht (bezogen auf den Inhalt samt Aufguss hätten ihre abgetropften Hülsenfrüchte 10,6–12,9 g Eiweiß je 100 g), (3) die Werte je 100 g passen zu frisch gegarten Borlotti (CREA 004115 „Fagioli, Borlotti, freschi, cotti, bolliti“: 78 kcal / 5,7 g Eiweiß; Rapunzel: „frisch vom Feld in die Dose“) und zu abgetropften Dosen-Borlotti (CREA 004130: 102 kcal / 6,7 g), nicht zu den 134 kcal / 9,1 g Eiweiß, die sich bezogen auf den ganzen Inhalt für die abgetropften Bohnen ergäben. Die Eiweiß-Probe gegen getrocknete, gekochte Borlotti (USDA: 9,34 g) trennt hier nicht, weil die Bohnen frisch verarbeitet werden. Für den ganzen Inhalt hätte die Dose 336 statt 210 kcal und 22,8 statt 14,3 g Eiweiß",
+        "User 22.11.2026 (Rapunzel Bunte Riesenbohnen + Bohnen-Mix): Links auf shop.rapunzel.de/703550 („Bunte Riesenbohnen in der Dose“) und auf die Graf-Produktseite „Rapunzel Bio Bohnen-Mix 400 g“, „Baue diese bei edeka graf ein“ → Rapunzel Bio Bohnen-Mix 400 g aus dem Onlineshop (am 17.11.2026 noch temporär nicht verfügbar, jetzt mit Preis und Werten; Kidney Bohnen rot, Feuerbohnen, Kichererbsen, Navy Bohnen weiß, Wasser, Salz; Abtropfgewicht 240 von 400 g; die Werte je 100 g sind identisch mit denen des Rapunzel-Shops für „Kichererbsen-Bohnen-Mix in der Dose“) hinter der HAK-Dose; Rapunzel Bio Bunte Riesenbohnen 400 g wie die Borlotti (STORE_ONLY): der Onlineshop listet sie nicht (Markenseite „Gemüsekonserven/_Marke/Rapunzel“ mit 16 verfügbaren Artikeln ohne sie, vier Namensvarianten der Produkt-URL 404) → alle Werte von der Herstellerseite (Bunte Riesenbohnen, Wasser, Salz; alle 14 Hauptallergene nicht enthalten; Abtropfgewicht 240 von 400 g), Preis 2,49 € des Rapunzel-Shops als Annahme, Hinweis „may not be available“. Beide Tabellen gelten fürs Abgetropfte: Etikettenfoto der Riesenbohnen bei Open Food Facts (2021) mit „… po odkapání, lé nélkül, drænet, în stare scursă“ über der Tabelle (wie bei den Borlotti); bezogen auf den Inhalt samt Aufguss hätten die abgetropften Hülsenfrüchte 10,6 (Riesenbohnen) bzw. 10,8 g (Mix) Eiweiß je 100 g, mehr als gekochte Bohnen",
         "User 20.09.2026 (Folge der Allergie-Regel vom 13.09.2026): die verlinkte FRoSTA Paella enthält GARNELEN → nicht im Tracker, stattdessen die FRoSTA Hähnchen Paella ohne Krebs-/Weichtiere",
       ],
       store: STORE,
@@ -993,7 +1001,7 @@ async function main() {
       manufacturerDiffs: manufacturerDiffs.length ? manufacturerDiffs : "keine Abweichung zwischen Shop- und Herstellerangaben",
       notInStore: Object.fromEntries(items.filter(x => x.notInStore).map(x => [x.name, x.priceNote])),
       // im Markt gesehen, im Onlineshop nicht gelistet (STORE_ONLY): Werte und Preis von der Herstellerseite, Hinweis „may not be available“
-      storeOnly: Object.fromEntries(items.filter(x => x.storeOnly).map(x => [x.name, "am " + x.seenInStore + " im Markt gesehen, im Onlineshop nicht gelistet — " + x.priceNote + "; Allergene: " + (x.allergenInfo || "?")])),
+      storeOnly: Object.fromEntries(items.filter(x => x.storeOnly).map(x => [x.name, (x.seenNote || "am " + x.seenInStore + " im Markt gesehen") + ", im Onlineshop nicht gelistet — " + x.priceNote + "; Allergene: " + (x.allergenInfo || "?")])),
       notInTracker: NOT_IN_TRACKER,
       eatHappy: { source: "eathappy.de (Produktseiten)", note: "Nährwerte je 100 g für den ganzen Boxinhalt inkl. Saucen (Eat Happy); Standardgewicht schwankt täglich → im Tracker änderbar; Preis = Grundpreis je kg × Standardgewicht = Boxpreis, je Abholort ggf. anders",
         products: items.filter(x => x.eathappy).map(x => x.name + " — " + x.packG + " g, " + x.pricePerKg.toFixed(2) + " €/kg → " + x.price.toFixed(2) + " €") },
