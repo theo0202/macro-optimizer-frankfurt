@@ -1,6 +1,6 @@
 {
-  "_source": "Uber Eats „Selbst zusammenstellen“ (Compleat Frankfurt Nordend), im Browser von der geöffneten Produktseite gelesen (__REACT_QUERY_STATE__ → customizationsList; Preise in Cent, maxPermitted = Stepper-Maximum je Option, subtitle = kcal-Angabe von Uber Eats, isSoldOut). Ausverkaufte Optionen blendet Uber Eats ganz aus (15.11.2026: Protein Tzatziki; 10.11.2026: Baby-Grünkohl und Guacamole). Seit der Erfassung vom 10.11.2026 nennt Uber Eats die neuen Mengen des Shops: Hühnchen, Vegane Hackbällchen und Pulled Salmon 80 g (halbe 40 g), Rinderhackbällchen 90 g (halbe weiter 50 g) — bis zum 03.11.2026 noch 100 g (halbe 50 g). Das Ei heißt jetzt wie im Shop „Hart gekochtes Ei (40g)“ (vorher „(50g)“), die kcal-Angabe „adds 78 Cal.“ passt aber zu 50 g. Gruppen-Reihenfolge im Bestellfenster am 15.11.2026: Dips → Proteine → Base → Vitamine → Toppings (10.11.2026: Dips → Base → Proteine …). Skript-Abrufe der Uber-Eats-API blockt Cloudflare → bei Menüänderungen mit ubereats-capture.js neu erfassen (Prüfsumme sha256 des kompakten JSON im Browser und lokal vergleichen). Nicht von Hand ändern.",
-  "capturedAt": "2026-11-15T14:08:55.187Z",
+  "_source": "Uber Eats „Selbst zusammenstellen“ (Compleat Frankfurt Nordend), im Browser von der geöffneten Produktseite gelesen (__REACT_QUERY_STATE__ → customizationsList; Preise in Cent, maxPermitted = Stepper-Maximum je Option, subtitle = kcal-Angabe von Uber Eats, isSoldOut). Ausverkaufte Optionen blendet Uber Eats ganz aus (25.11.2026: Chili Gewürz; 15.11.2026: Protein Tzatziki; 10.11.2026: Baby-Grünkohl und Guacamole). Seit der Erfassung vom 10.11.2026 nennt Uber Eats die neuen Mengen des Shops: Hühnchen, Vegane Hackbällchen und Pulled Salmon 80 g (halbe 40 g), Rinderhackbällchen 90 g (halbe weiter 50 g) — bis zum 03.11.2026 noch 100 g (halbe 50 g). Das Ei heißt jetzt wie im Shop „Hart gekochtes Ei (40g)“ (vorher „(50g)“), die kcal-Angabe „adds 78 Cal.“ passt aber zu 50 g. Gruppen-Reihenfolge im Bestellfenster am 15. und 25.11.2026: Dips → Proteine → Base → Vitamine → Toppings (10.11.2026: Dips → Base → Proteine …). Skript-Abrufe der Uber-Eats-API blockt Cloudflare → bei Menüänderungen mit ubereats-capture.js neu erfassen (Prüfsumme sha256 des kompakten JSON im Browser und lokal vergleichen). Nicht von Hand ändern.",
+  "capturedAt": "2026-11-25T10:22:28.473Z",
   "pageUrl": "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440",
   "item": {
     "title": "Selbst zusammenstellen",
@@ -61,6 +61,14 @@
           "defaultQuantity": 0,
           "isSoldOut": false,
           "subtitle": "adds 294 Cal."
+        },
+        {
+          "title": "Protein Tzatziki (100g)",
+          "price": 300,
+          "maxPermitted": 5,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": "adds 67 Cal."
         },
         {
           "title": "Guacamole (100g)",
@@ -547,14 +555,6 @@
           "subtitle": "adds 18 Cal."
         },
         {
-          "title": "Chili Gewürz (1g)",
-          "price": 0,
-          "maxPermitted": 5,
-          "defaultQuantity": 0,
-          "isSoldOut": false,
-          "subtitle": "adds 0 Cal."
-        },
-        {
           "title": "Functional Fall Crunch (20g)",
           "price": 100,
           "maxPermitted": 5,
@@ -569,6 +569,14 @@
       "minPermitted": 0,
       "maxPermitted": 0,
       "options": [
+        {
+          "title": "Apfeltasche - High Protein",
+          "price": 590,
+          "maxPermitted": 0,
+          "defaultQuantity": 0,
+          "isSoldOut": false,
+          "subtitle": null
+        },
         {
           "title": "Protein Milchreis - Apfel Zimt",
           "price": 590,

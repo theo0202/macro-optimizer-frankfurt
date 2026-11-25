@@ -2,7 +2,7 @@
   "_meta": {
     "restaurant": "Compleat",
     "store": "Frankfurt Nordend (Glauburgstraße 5, 60318 Frankfurt am Main)",
-    "fetchedAt": "2026-11-19T07:44:15.832Z",
+    "fetchedAt": "2026-11-25T10:23:34.677Z",
     "sources": {
       "shop": {
         "url": "https://compleat.vmos.io",
@@ -26,14 +26,14 @@
       "ubereats": {
         "page": "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440",
         "file": "data/compleat-ubereats-menu.json",
-        "capturedAt": "2026-11-15T14:08:55.187Z",
+        "capturedAt": "2026-11-25T10:22:28.473Z",
         "item": "Selbst zusammenstellen",
         "itemPrice": 3,
         "cardPrice": 3,
         "how": "Uber Eats blockt Skript-Abrufe (Cloudflare) → Produktseite im Browser geöffnet, __REACT_QUERY_STATE__ gelesen (ubereats-capture.js)"
       },
       "word": "data/compleat-word.txt = Word-Copy-Paste des Users (Shop-Anzeige, 15.09.2026) → Abgleich: node verify-compleat.js",
-      "shopDisplay": "data/compleat-shop-anzeige.json = jede Zutat einzeln im Shop ausgewählt und die Anzeige abgelesen (compleat-shop-capture.js, 2026-11-19) → Abgleich: node verify-compleat-shop.js",
+      "shopDisplay": "data/compleat-shop-anzeige.json = jede Zutat einzeln im Shop ausgewählt und die Anzeige abgelesen (compleat-shop-capture.js, 2026-11-25) → Abgleich: node verify-compleat-shop.js",
       "stock": "Ausverkauft = mit ?forceStockStatus=1 im Bundle, ohne den Parameter nicht (27.09.2026 an den „Ausverkauft“-Karten des Shops bestätigt)"
     },
     "basis": "Shop-Werte pro 100 g/ml (nutritionalMeta); Portionswerte = pro 100 × Portion / 100, Portion = Mengenangabe im Shop-Namen (= defaultQuantity). Gerechnet wird immer mit der Menge der jeweiligen Plattform: Wolt nennt seit 02.11.2026 dieselben Mengen wie der Shop (außer dem Ei, 50 statt 40 g; der Salat-Mix hatte bis dahin 100 statt 80 g), Uber Eats nutzt die Namen des Shops, kann aber hinterherhinken (am 02./03.11.2026 noch 100 g bei Hühnchen, Vegane Hackbällchen, Rinderhackbällchen und Pulled Salmon, seit der Erfassung vom 10.11.2026 dieselben Mengen wie der Shop; _meta.ubereats.portionDiffs). Ausnahme Ei bei Uber Eats: Name „(40g)“, kcal-Angabe = 50 g → 50 g (UE_AMOUNT, _meta.ubereats.amountFixed). Ausnahme (User 27.10.2026): Sojasauce mit typischen Werten (USDA FoodData Central, _meta.referenceValues) statt der unplausiblen Shop-Werte. Ausnahme (User 11.11.2026): Pulled Salmon mit 0 statt 6 g Ballaststoffen je 100 g (Lachs, Salz, Rauch — sonst die Shop-Werte; _meta.corrections).",
@@ -73,7 +73,6 @@
       "„Power Peanut Dip“: Menge bei Wolt nicht angegeben → Shop-Portion 80 g",
       "„Sexy Sesame Dip“: Menge bei Wolt nicht angegeben → Shop-Portion 80 g",
       "„Champion Chili-Dip“: Menge bei Wolt nicht angegeben → Shop-Portion 80 g",
-      "„Protein Tsatsiki Dip“: Menge bei Wolt nicht angegeben → Shop-Portion 100 g",
       "„Guacamole“: Menge bei Wolt nicht angegeben → Shop-Portion 100 g",
       "„Olivenöl und halbe Zitrone“: Menge bei Wolt nicht angegeben → Shop-Portion 20 ml"
     ],
@@ -186,9 +185,13 @@
     "notOnWolt": [
       "Kürbiswürfel mariniert (50g)",
       "Gemüsemix (100g)",
+      "Chili Gewürz (1g)",
+      "Protein Tzatziki (100g)",
       "Sriracha Light (Inlead) (80g)"
     ],
     "woltMapUnused": [
+      "Chili Gewürz, 1 g",
+      "Protein Tsatsiki Dip",
       "Siracha Mayo Light (Inlead), 80 g"
     ],
     "dislikes": [
@@ -196,7 +199,7 @@
     ],
     "shellfish": [],
     "soldOut": [
-      "Sriracha Light (Inlead) (80g)"
+      "Chili Gewürz (1g)"
     ],
     "removedIngredients": [
       {
@@ -538,17 +541,20 @@
       }
     ],
     "lastChanges": {
-      "since": "2026-11-15T14:10:21.864Z",
+      "since": "2026-11-19T07:44:15.832Z",
       "shopAdded": [],
       "shopRemoved": [],
-      "woltAdded": [
+      "woltAdded": [],
+      "woltRemoved": [
+        "Deine Extras: Chili Gewürz, 1 g",
         "Dein Dip: Protein Tsatsiki Dip"
       ],
-      "woltRemoved": [
-        "Dein Dip: Siracha Mayo Light (Inlead), 80 g"
+      "ubereatsAdded": [
+        "Dips: Protein Tzatziki (100g)"
       ],
-      "ubereatsAdded": [],
-      "ubereatsRemoved": [],
+      "ubereatsRemoved": [
+        "Toppings: Chili Gewürz (1g)"
+      ],
       "prices": [],
       "values": [],
       "portions": []
@@ -608,7 +614,7 @@
     ],
     "woltProductInfo": {
       "url": "https://prodinfo.wolt.com/de/6537b03e8fb9ce1db9714e2d/21e057f4508797cc8ef70efe?lang=de",
-      "options": 45,
+      "options": 44,
       "values": [
         {
           "group": "Deine Basis",
@@ -831,6 +837,16 @@
     "notListed": {
       "wolt": [
         {
+          "group": "Deine Extras",
+          "name": "Chili Gewürz, 1 g",
+          "since": "2026-11-25"
+        },
+        {
+          "group": "Dein Dip",
+          "name": "Protein Tsatsiki Dip",
+          "since": "2026-11-25"
+        },
+        {
           "group": "Dein Dip",
           "name": "Siracha Mayo Light (Inlead), 80 g",
           "since": "2026-11-19"
@@ -838,9 +854,9 @@
       ],
       "ubereats": [
         {
-          "group": "Dips",
-          "name": "Protein Tzatziki (100g)",
-          "since": "2026-11-15"
+          "group": "Toppings",
+          "name": "Chili Gewürz (1g)",
+          "since": "2026-11-25"
         }
       ]
     },
@@ -848,13 +864,13 @@
       "Kürbiswürfel mariniert - halbe Portion: Zucker 1,7 statt 1,5 g je 100 g (sonst identisch) → +0,2 g Zucker je halbe Portion; der Rechner nutzt die Werte der ganzen Portion (27.09.2026)"
     ],
     "shopControl": {
-      "readAt": "2026-11-19",
+      "readAt": "2026-11-25",
       "checked": 65,
       "values": 520,
       "earlier": [
         {
-          "name": "Sriracha Light (Inlead) (80g)",
-          "readAt": "2026-11-10"
+          "name": "Chili Gewürz (1g)",
+          "readAt": "2026-11-19"
         }
       ],
       "soldOutNotChecked": [],
@@ -889,7 +905,7 @@
         }
       ],
       "notOnUberEats": [
-        "Protein Tzatziki (100g)"
+        "Chili Gewürz (1g)"
       ],
       "halfNotDouble": [
         "Rinderhackbällchen - Halbe Portion (50g) — Rinderhackbällchen - Halbe Portion = 50 g für 1,50 €, ganze Portion 90 g für 3,00 € (2 halbe = 100 g / 3,00 €; seit Uber Eats am 10.11.2026 die neue ganze Portion nennt, die halbe blieb bei 50 g wie im Shop) → der Rechner nimmt höchstens eine halbe neben der ganzen; 2 halbe statt einer ganzen schlägt er nicht vor (10.11.2026)",
@@ -2236,7 +2252,8 @@
       "vmos": {
         "uuid": "640972df-0ad3-4ca2-8d1c-23f61cb997b6",
         "displayAmount": 1
-      }
+      },
+      "soldOut": true
     },
     {
       "id": "erdnuesse",
@@ -2669,8 +2686,7 @@
       "vmos": {
         "uuid": "5c0d673b-7107-43d4-aac1-6945f5dcc4e9",
         "displayAmount": 80
-      },
-      "soldOut": true
+      }
     },
     {
       "id": "aioli_light_inlead",
@@ -3605,7 +3621,8 @@
         "protein": 0,
         "salt": 0
       },
-      "displayAmount": 1
+      "displayAmount": 1,
+      "soldOut": true
     },
     {
       "name": "Erdnüsse (20g)",
@@ -3770,8 +3787,7 @@
         "protein": 0.9,
         "salt": 1.9
       },
-      "displayAmount": 80,
-      "soldOut": true
+      "displayAmount": 80
     },
     {
       "name": "Aioli Light (Inlead) (80g)",
@@ -4256,15 +4272,6 @@
             "price": 1
           },
           {
-            "name": "Chili Gewürz, 1 g",
-            "ingredient": "chili_gewuerz",
-            "role": "extra",
-            "amount": 1,
-            "unit": "g",
-            "maxQty": 1,
-            "price": 0
-          },
-          {
             "name": "Grana Padano, 20 g",
             "ingredient": "grana_padano",
             "role": "extra",
@@ -4272,6 +4279,17 @@
             "unit": "g",
             "maxQty": 1,
             "price": 1
+          },
+          {
+            "name": "Chili Gewürz, 1 g",
+            "ingredient": "chili_gewuerz",
+            "role": "extra",
+            "amount": 1,
+            "unit": "g",
+            "maxQty": 1,
+            "price": 0,
+            "notListed": true,
+            "notListedSince": "2026-11-25"
           }
         ],
         "defaultOption": {
@@ -4339,15 +4357,6 @@
             "unit": "g",
             "maxQty": 1,
             "price": 2
-          },
-          {
-            "name": "Protein Tsatsiki Dip",
-            "ingredient": "protein_tzatziki",
-            "role": "dip",
-            "amount": 100,
-            "unit": "g",
-            "maxQty": 1,
-            "price": 3
           },
           {
             "name": "Guacamole",
@@ -4422,6 +4431,17 @@
             "price": 3
           },
           {
+            "name": "Protein Tsatsiki Dip",
+            "ingredient": "protein_tzatziki",
+            "role": "dip",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 1,
+            "price": 3,
+            "notListed": true,
+            "notListedSince": "2026-11-25"
+          },
+          {
             "name": "Siracha Mayo Light (Inlead), 80 g",
             "ingredient": "sriracha_light_inlead",
             "role": "dip",
@@ -4442,7 +4462,7 @@
     "itemPrice": 3,
     "cardPrice": 3,
     "preselected": [],
-    "capturedAt": "2026-11-15T14:08:55.187Z",
+    "capturedAt": "2026-11-25T10:22:28.473Z",
     "groups": [
       {
         "id": "dip",
@@ -4495,6 +4515,15 @@
             "unit": "g",
             "maxQty": 5,
             "price": 2
+          },
+          {
+            "name": "Protein Tzatziki (100g)",
+            "ingredient": "protein_tzatziki",
+            "role": "dip",
+            "amount": 100,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 3
           },
           {
             "name": "Guacamole (100g)",
@@ -4585,17 +4614,6 @@
             "unit": "g",
             "maxQty": 5,
             "price": 3
-          },
-          {
-            "name": "Protein Tzatziki (100g)",
-            "ingredient": "protein_tzatziki",
-            "role": "dip",
-            "amount": 100,
-            "unit": "g",
-            "maxQty": 5,
-            "price": 3,
-            "notListed": true,
-            "notListedSince": "2026-11-15"
           }
         ]
       },
@@ -5069,15 +5087,6 @@
             "price": 1
           },
           {
-            "name": "Chili Gewürz (1g)",
-            "ingredient": "chili_gewuerz",
-            "role": "extra",
-            "amount": 1,
-            "unit": "g",
-            "maxQty": 5,
-            "price": 0
-          },
-          {
             "name": "Functional Fall Crunch (20g)",
             "ingredient": "functional_fall_crunch",
             "role": "extra",
@@ -5085,6 +5094,17 @@
             "unit": "g",
             "maxQty": 5,
             "price": 1
+          },
+          {
+            "name": "Chili Gewürz (1g)",
+            "ingredient": "chili_gewuerz",
+            "role": "extra",
+            "amount": 1,
+            "unit": "g",
+            "maxQty": 5,
+            "price": 0,
+            "notListed": true,
+            "notListedSince": "2026-11-25"
           }
         ]
       }

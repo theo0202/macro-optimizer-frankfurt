@@ -42,7 +42,7 @@ function lsSet(key, value) {
 
 // ═══ Restaurant-Daten (generierte Blöcke — NIE von Hand editieren, immer über <key>-update.js) ═══
 // __COMPLEAT_DATA_START__ (generiert via: node compleat-update.js aus data/compleat-raw.json — nicht von Hand editieren)
-// Quelle: Compleat-Onlineshop (compleat.vmos.io, Frankfurt Nordend), Stand 2026-11-19 · Shop-Werte pro 100 g × Menge · Menüs + Preise: Wolt „Build your Bowl“, Uber Eats „Selbst zusammenstellen“ (erfasst 2026-11-15)
+// Quelle: Compleat-Onlineshop (compleat.vmos.io, Frankfurt Nordend), Stand 2026-11-25 · Shop-Werte pro 100 g × Menge · Menüs + Preise: Wolt „Build your Bowl“, Uber Eats „Selbst zusammenstellen“ (erfasst 2026-11-25)
 // TYPISCHE WERTE statt der Shop-Werte: Sojasauce (20ml) — USDA FoodData Central, SR Legacy #174277 „Soy sauce made from soy and wheat (shoyu)“ (gebraute Sojasauce aus Soja und Weizen) (USDA-Portionsgewicht 1 tbsp (14,79 ml) = 16 g → 1,082 g je ml)
 // KORRIGIERT (Shop-Wert sicher falsch): Pulled Salmon (80g) — fibre 6 → 0 je 100 g (salmon, salt and smoke contain no fibre)
 const COMPLEAT = {
@@ -84,7 +84,7 @@ const COMPLEAT = {
     {id:"functional_fall_crunch",name:"Functional Fall Crunch",group:"toppings",portion:20,unit:"g",per100:{kcal:507,fat:24,sat:3.3,carbs:61,sugars:16,fibre:8,protein:16,salt:0.4},allergens:["Weizen","Glutenhaltig","Dinkel","Erdnüsse","Nüsse","Hafer"],crunch:true},
     {id:"walnusskerne",name:"Walnusskerne",group:"toppings",portion:20,unit:"g",per100:{kcal:704,fat:67,sat:6.3,carbs:7,sugars:2,fibre:6.7,protein:16,salt:0},allergens:["Nüsse"],crunch:true},
     {id:"granatapfelkerne",name:"Granatapfelkerne",group:"toppings",portion:15,unit:"g",per100:{kcal:74,fat:0.6,sat:0,carbs:17,sugars:16.7,fibre:2.2,protein:0.7,salt:0},allergens:[]},
-    {id:"chili_gewuerz",name:"Chili Gewürz",group:"toppings",portion:1,unit:"g",per100:{kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},allergens:[]},
+    {id:"chili_gewuerz",name:"Chili Gewürz",group:"toppings",portion:1,unit:"g",per100:{kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},allergens:[],soldOut:true},
     {id:"erdnuesse",name:"Erdnüsse",group:"toppings",portion:20,unit:"g",per100:{kcal:627,fat:53,sat:8.7,carbs:5.9,sugars:4.2,fibre:11,protein:28,salt:0.9},allergens:["Erdnüsse"],crunch:true},
     {id:"balsamico_dressing",name:"Balsamico Dressing",group:"dips",portion:80,unit:"g",per100:{kcal:58,fat:2.3,sat:0.2,carbs:8.8,sugars:8.4,fibre:0.21,protein:0.1,salt:2},allergens:["Sulfite"]},
     {id:"trueffel_light_inlead",name:"Trüffel Light (Inlead)",group:"dips",portion:80,unit:"g",per100:{kcal:98,fat:6,sat:0.9,carbs:10,sugars:3.3,fibre:0.2,protein:0.7,salt:1.89},allergens:["Senf","Ei"]},
@@ -95,7 +95,7 @@ const COMPLEAT = {
     {id:"power_peanut",name:"Power Peanut",group:"dips",portion:80,unit:"g",per100:{kcal:312,fat:27,sat:2.7,carbs:13.8,sugars:2.4,fibre:0,protein:3.7,salt:2.7},allergens:["Weizen","Glutenhaltig","Soja","Erdnüsse"]},
     {id:"champion_chili",name:"Champion Chili",group:"dips",portion:80,unit:"g",per100:{kcal:273,fat:25.6,sat:1.9,carbs:9.7,sugars:2.4,fibre:2.5,protein:1.3,salt:3},allergens:["Senf"]},
     {id:"rotes_pesto",name:"Rotes Pesto",group:"dips",portion:80,unit:"g",per100:{kcal:330,fat:28.7,sat:3.9,carbs:12.8,sugars:8.2,fibre:1.97,protein:4.6,salt:2.4},allergens:["Milch","Nüsse"]},
-    {id:"sriracha_light_inlead",name:"Sriracha Light (Inlead)",group:"dips",portion:80,unit:"g",per100:{kcal:95,fat:5.8,sat:0.9,carbs:9.5,sugars:4.4,fibre:0.2,protein:0.9,salt:1.9},allergens:["Ei"],soldOut:true},
+    {id:"sriracha_light_inlead",name:"Sriracha Light (Inlead)",group:"dips",portion:80,unit:"g",per100:{kcal:95,fat:5.8,sat:0.9,carbs:9.5,sugars:4.4,fibre:0.2,protein:0.9,salt:1.9},allergens:["Ei"]},
     {id:"aioli_light_inlead",name:"Aioli Light (Inlead)",group:"dips",portion:80,unit:"g",per100:{kcal:97,fat:6,sat:0.9,carbs:9.7,sugars:5.1,fibre:0.2,protein:0.1,salt:1.9},allergens:["Senf","Ei"]},
     {id:"curvy_curry",name:"Curvy Curry",group:"dips",portion:80,unit:"g",per100:{kcal:377,fat:37.5,sat:2.7,carbs:10.6,sugars:2.1,fibre:1,protein:0.4,salt:1.4},allergens:["Senf"]},
     {id:"joghurt_salatdressing",name:"Joghurt-Salatdressing",group:"dips",portion:80,unit:"g",per100:{kcal:143,fat:13.6,sat:1.6,carbs:4.6,sugars:2.5,fibre:0,protein:1.1,salt:1.3},allergens:["Milch"]},
@@ -104,8 +104,8 @@ const COMPLEAT = {
     {id:"guacamole",name:"Guacamole",group:"dips",portion:100,unit:"g",per100:{kcal:194,fat:17,sat:2.7,carbs:8.4,sugars:2.3,fibre:6,protein:1.7,salt:0.42},allergens:[]},
   ],
   // Stand des letzten Crawls (Shop-Werte, Menüs, Ausverkauft-Status)
-  asOf: "2026-11-19",
-  shopCheckedAt: "2026-11-19",
+  asOf: "2026-11-25",
+  shopCheckedAt: "2026-11-25",
   wolt: {
     item: "Build your Bowl", page: "https://wolt.com/de/deu/frankfurt/restaurant/compleat-nordend", basePrice: 3,
     require: {base:false,protein:false}, // Pflicht-Rollen laut Plattform (Gruppen-Minimum; keine → jede Gruppe optional)
@@ -154,8 +154,8 @@ const COMPLEAT = {
         {id:"extra_walnusskerne_20_g",name:"Walnusskerne, 20 g",short:"Walnusskerne",group:"extra",role:"extra",ing:"walnusskerne",amount:20,unit:"g",maxQty:1,price:1,kcal:140.8,fat:13.4,sat:1.26,carbs:1.4,sugars:0.4,fibre:1.34,protein:3.2,salt:0,crunch:true},
         {id:"extra_roestzwiebeln_20_g",name:"Röstzwiebeln, 20 g",short:"Röstzwiebeln",group:"extra",role:"extra",ing:"roestzwiebeln",amount:20,unit:"g",maxQty:1,price:1,kcal:118,fat:8.8,sat:4.2,carbs:8,sugars:1.8,fibre:0.9,protein:1.2,salt:0.24,crunch:true},
         {id:"extra_functional_fall_crunch_20_g",name:"Functional Fall Crunch, 20 g",short:"Functional Fall Crunch",group:"extra",role:"extra",ing:"functional_fall_crunch",amount:20,unit:"g",maxQty:1,price:1,kcal:101.4,fat:4.8,sat:0.66,carbs:12.2,sugars:3.2,fibre:1.6,protein:3.2,salt:0.08,crunch:true},
-        {id:"extra_chili_gewuerz_1_g",name:"Chili Gewürz, 1 g",short:"Chili Gewürz",group:"extra",role:"extra",ing:"chili_gewuerz",amount:1,unit:"g",maxQty:1,price:0,kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
         {id:"extra_grana_padano_20_g",name:"Grana Padano, 20 g",short:"Grana Padano",group:"extra",role:"extra",ing:"grana_padano",amount:20,unit:"g",maxQty:1,price:1,kcal:79.6,fat:5.8,sat:3.6,carbs:0,sugars:0,fibre:0,protein:6.6,salt:0.3},
+        {id:"extra_chili_gewuerz_1_g",name:"Chili Gewürz, 1 g",short:"Chili Gewürz",group:"extra",role:"extra",ing:"chili_gewuerz",amount:1,unit:"g",maxQty:1,price:0,kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0,notListed:"2026-11-25"},
       ] },
       { id:"dip",name:"Dein Dip",min:1,max:1,none:"Ohne Dip",options:[
         {id:"dip_curvy_curry_dip",name:"Curvy Curry Dip",short:"Curvy Curry Dip",group:"dip",role:"dip",ing:"curvy_curry",amount:80,unit:"g",maxQty:1,price:2,kcal:301.6,fat:30,sat:2.16,carbs:8.48,sugars:1.68,fibre:0.8,protein:0.32,salt:1.12},
@@ -164,7 +164,6 @@ const COMPLEAT = {
         {id:"dip_power_peanut_dip",name:"Power Peanut Dip",short:"Power Peanut Dip",group:"dip",role:"dip",ing:"power_peanut",amount:80,unit:"g",maxQty:1,price:2,kcal:249.6,fat:21.6,sat:2.16,carbs:11.04,sugars:1.92,fibre:0,protein:2.96,salt:2.16},
         {id:"dip_sexy_sesame_dip",name:"Sexy Sesame Dip",short:"Sexy Sesame Dip",group:"dip",role:"dip",ing:"sexy_sesame",amount:80,unit:"g",maxQty:1,price:2,kcal:293.6,fat:27.6,sat:2.56,carbs:9.52,sugars:0.56,fibre:0,protein:1.92,salt:2.4},
         {id:"dip_champion_chili_dip",name:"Champion Chili-Dip",short:"Champion Chili-Dip",group:"dip",role:"dip",ing:"champion_chili",amount:80,unit:"g",maxQty:1,price:2,kcal:218.4,fat:20.48,sat:1.52,carbs:7.76,sugars:1.92,fibre:2,protein:1.04,salt:2.4},
-        {id:"dip_protein_tsatsiki_dip",name:"Protein Tsatsiki Dip",short:"Protein Tsatsiki Dip",group:"dip",role:"dip",ing:"protein_tzatziki",amount:100,unit:"g",maxQty:1,price:3,kcal:66.8,fat:0.21,sat:0.1,carbs:4.95,sugars:4.67,fibre:0.1,protein:10.85,salt:1.13},
         {id:"dip_guacamole",name:"Guacamole",short:"Guacamole",group:"dip",role:"dip",ing:"guacamole",amount:100,unit:"g",maxQty:1,price:3,kcal:194,fat:17,sat:2.7,carbs:8.4,sugars:2.3,fibre:6,protein:1.7,salt:0.42},
         {id:"dip_rotes_pesto_80g",name:"Rotes Pesto, 80g",short:"Rotes Pesto",group:"dip",role:"dip",ing:"rotes_pesto",amount:80,unit:"g",maxQty:1,price:1,kcal:264,fat:22.96,sat:3.12,carbs:10.24,sugars:6.56,fibre:1.58,protein:3.68,salt:1.92},
         {id:"dip_ajvar_100g",name:"Ajvar, 100g",short:"Ajvar",group:"dip",role:"dip",ing:"ajvar",amount:100,unit:"g",maxQty:1,price:3,kcal:105,fat:5.3,sat:0.6,carbs:11,sugars:9.2,fibre:3,protein:1.4,salt:1.4},
@@ -173,12 +172,13 @@ const COMPLEAT = {
         {id:"dip_balsamico_dressing_80g",name:"Balsamico Dressing , 80g",short:"Balsamico Dressing",group:"dip",role:"dip",ing:"balsamico_dressing",amount:80,unit:"g",maxQty:1,price:1,kcal:46.4,fat:1.84,sat:0.16,carbs:7.04,sugars:6.72,fibre:0.17,protein:0.08,salt:1.6},
         {id:"dip_trueffel_light_inlead_80_g",name:"Trüffel Light (Inlead), 80 g",short:"Trüffel Light (Inlead)",group:"dip",role:"dip",ing:"trueffel_light_inlead",amount:80,unit:"g",maxQty:1,price:3,kcal:78.4,fat:4.8,sat:0.72,carbs:8,sugars:2.64,fibre:0.16,protein:0.56,salt:1.51},
         {id:"dip_aioli_light_inlead_80_g",name:"Aioli Light (Inlead), 80 g",short:"Aioli Light (Inlead)",group:"dip",role:"dip",ing:"aioli_light_inlead",amount:80,unit:"g",maxQty:1,price:3,kcal:77.6,fat:4.8,sat:0.72,carbs:7.76,sugars:4.08,fibre:0.16,protein:0.08,salt:1.52},
+        {id:"dip_protein_tsatsiki_dip",name:"Protein Tsatsiki Dip",short:"Protein Tsatsiki Dip",group:"dip",role:"dip",ing:"protein_tzatziki",amount:100,unit:"g",maxQty:1,price:3,kcal:66.8,fat:0.21,sat:0.1,carbs:4.95,sugars:4.67,fibre:0.1,protein:10.85,salt:1.13,notListed:"2026-11-25"},
         {id:"dip_siracha_mayo_light_inlead_80_g",name:"Siracha Mayo Light (Inlead), 80 g",short:"Siracha Mayo Light (Inlead)",group:"dip",role:"dip",ing:"sriracha_light_inlead",amount:80,unit:"g",maxQty:1,price:3,kcal:76,fat:4.64,sat:0.72,carbs:7.6,sugars:3.52,fibre:0.16,protein:0.72,salt:1.52,notListed:"2026-11-19"},
       ] },
     ],
   },
   ubereats: {
-    item: "Selbst zusammenstellen", page: "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440", basePrice: 3, capturedAt: "2026-11-15",
+    item: "Selbst zusammenstellen", page: "https://www.ubereats.com/de-en/store/compleat-frankfurt-nordend/eYMk_k0wVIWdpa9-gxeDhg/aabb7948-0359-5803-84b7-977f85d0c2a4/75af6782-2b0f-54a2-833f-27881b849267/04ac2ecb-2761-58c9-ae0f-7719ec443440", basePrice: 3, capturedAt: "2026-11-25",
     require: {base:false,protein:false}, // Pflicht-Rollen laut Plattform (Gruppen-Minimum; keine → jede Gruppe optional)
     groups: [
       { id:"base",name:"Base",min:0,max:100,none:null,options:[
@@ -235,8 +235,8 @@ const COMPLEAT = {
         {id:"toppings_grana_padano_20g",name:"Grana Padano (20g)",short:"Grana Padano",group:"toppings",role:"extra",ing:"grana_padano",amount:20,unit:"g",maxQty:5,price:1,kcal:79.6,fat:5.8,sat:3.6,carbs:0,sugars:0,fibre:0,protein:6.6,salt:0.3},
         {id:"toppings_granatapfelkerne_15g",name:"Granatapfelkerne (15g)",short:"Granatapfelkerne",group:"toppings",role:"extra",ing:"granatapfelkerne",amount:15,unit:"g",maxQty:5,price:1,kcal:11.1,fat:0.09,sat:0,carbs:2.55,sugars:2.51,fibre:0.33,protein:0.11,salt:0},
         {id:"toppings_schwarzer_sesam_3g",name:"Schwarzer Sesam (3g)",short:"Schwarzer Sesam",group:"toppings",role:"extra",ing:"schwarzer_sesam",amount:3,unit:"g",maxQty:5,price:1,kcal:17.79,fat:1.5,sat:0.24,carbs:0.3,sugars:0.01,fibre:0.33,protein:0.63,salt:0,crunch:true},
-        {id:"toppings_chili_gewuerz_1g",name:"Chili Gewürz (1g)",short:"Chili Gewürz",group:"toppings",role:"extra",ing:"chili_gewuerz",amount:1,unit:"g",maxQty:5,price:0,kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0},
         {id:"toppings_functional_fall_crunch_20g",name:"Functional Fall Crunch (20g)",short:"Functional Fall Crunch",group:"toppings",role:"extra",ing:"functional_fall_crunch",amount:20,unit:"g",maxQty:5,price:1,kcal:101.4,fat:4.8,sat:0.66,carbs:12.2,sugars:3.2,fibre:1.6,protein:3.2,salt:0.08,crunch:true},
+        {id:"toppings_chili_gewuerz_1g",name:"Chili Gewürz (1g)",short:"Chili Gewürz",group:"toppings",role:"extra",ing:"chili_gewuerz",amount:1,unit:"g",maxQty:5,price:0,kcal:0,fat:0,sat:0,carbs:0,sugars:0,fibre:0,protein:0,salt:0,notListed:"2026-11-25"},
       ] },
       { id:"dip",name:"Dips",min:1,max:100,none:"ohne Dip",options:[
         {id:"dip_power_peanut_80g",name:"Power Peanut (80g)",short:"Power Peanut",group:"dip",role:"dip",ing:"power_peanut",amount:80,unit:"g",maxQty:5,price:2,kcal:249.6,fat:21.6,sat:2.16,carbs:11.04,sugars:1.92,fibre:0,protein:2.96,salt:2.16},
@@ -244,6 +244,7 @@ const COMPLEAT = {
         {id:"dip_champion_chili_80g",name:"Champion Chili (80g)",short:"Champion Chili",group:"dip",role:"dip",ing:"champion_chili",amount:80,unit:"g",maxQty:5,price:2,kcal:218.4,fat:20.48,sat:1.52,carbs:7.76,sugars:1.92,fibre:2,protein:1.04,salt:2.4},
         {id:"dip_curvy_curry_80g",name:"Curvy Curry (80g)",short:"Curvy Curry",group:"dip",role:"dip",ing:"curvy_curry",amount:80,unit:"g",maxQty:5,price:2,kcal:301.6,fat:30,sat:2.16,carbs:8.48,sugars:1.68,fibre:0.8,protein:0.32,salt:1.12},
         {id:"dip_sexy_sesame_80g",name:"Sexy Sesame (80g)",short:"Sexy Sesame",group:"dip",role:"dip",ing:"sexy_sesame",amount:80,unit:"g",maxQty:5,price:2,kcal:293.6,fat:27.6,sat:2.56,carbs:9.52,sugars:0.56,fibre:0,protein:1.92,salt:2.4},
+        {id:"dip_protein_tzatziki_100g",name:"Protein Tzatziki (100g)",short:"Protein Tzatziki",group:"dip",role:"dip",ing:"protein_tzatziki",amount:100,unit:"g",maxQty:5,price:3,kcal:66.8,fat:0.21,sat:0.1,carbs:4.95,sugars:4.67,fibre:0.1,protein:10.85,salt:1.13},
         {id:"dip_guacamole_100g",name:"Guacamole (100g)",short:"Guacamole",group:"dip",role:"dip",ing:"guacamole",amount:100,unit:"g",maxQty:5,price:3,kcal:194,fat:17,sat:2.7,carbs:8.4,sugars:2.3,fibre:6,protein:1.7,salt:0.42},
         {id:"dip_ajvar_100g",name:"Ajvar (100g)",short:"Ajvar",group:"dip",role:"dip",ing:"ajvar",amount:100,unit:"g",maxQty:5,price:3,kcal:105,fat:5.3,sat:0.6,carbs:11,sugars:9.2,fibre:3,protein:1.4,salt:1.4},
         {id:"dip_joghurt_salatdressing_80g",name:"Joghurt-Salatdressing (80g)",short:"Joghurt-Salatdressing",group:"dip",role:"dip",ing:"joghurt_salatdressing",amount:80,unit:"g",maxQty:5,price:2,kcal:114.4,fat:10.88,sat:1.28,carbs:3.68,sugars:2,fibre:0,protein:0.88,salt:1.04},
@@ -254,7 +255,6 @@ const COMPLEAT = {
         {id:"dip_trueffel_light_inlead_80g",name:"Trüffel Light (Inlead) (80g)",short:"Trüffel Light (Inlead)",group:"dip",role:"dip",ing:"trueffel_light_inlead",amount:80,unit:"g",maxQty:5,price:3,kcal:78.4,fat:4.8,sat:0.72,carbs:8,sugars:2.64,fibre:0.16,protein:0.56,salt:1.51},
         {id:"dip_sriracha_light_inlead_80g",name:"Sriracha Light (Inlead) (80g)",short:"Sriracha Light (Inlead)",group:"dip",role:"dip",ing:"sriracha_light_inlead",amount:80,unit:"g",maxQty:5,price:3,kcal:76,fat:4.64,sat:0.72,carbs:7.6,sugars:3.52,fibre:0.16,protein:0.72,salt:1.52},
         {id:"dip_aioli_light_inlead_80g",name:"Aioli Light (Inlead) (80g)",short:"Aioli Light (Inlead)",group:"dip",role:"dip",ing:"aioli_light_inlead",amount:80,unit:"g",maxQty:5,price:3,kcal:77.6,fat:4.8,sat:0.72,carbs:7.76,sugars:4.08,fibre:0.16,protein:0.08,salt:1.52},
-        {id:"dip_protein_tzatziki_100g",name:"Protein Tzatziki (100g)",short:"Protein Tzatziki",group:"dip",role:"dip",ing:"protein_tzatziki",amount:100,unit:"g",maxQty:5,price:3,kcal:66.8,fat:0.21,sat:0.1,carbs:4.95,sugars:4.67,fibre:0.1,protein:10.85,salt:1.13,notListed:"2026-11-15"},
       ] },
     ],
   },
